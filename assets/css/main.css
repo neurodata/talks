@@ -411,21 +411,24 @@ hr.small {
    -ms-transform: translateY(-50%);
    transform: translateY(-50%);
    width: 100%;
-}
+   font-weight: bold;
+ }
 
 .header-text-headline,
 .header-text-byline {
-   color: #fff;
+   color: white;
    margin: 0;
    padding: 0;
    text-align: center;
+   font-weight: 1800;
 }
 
 .header-text-headline {
    font-size: 54px;
    line-height: 60px;
    margin-bottom: 36px;
-}
+   font-weight: bold;
+ }
 
 @-o-keyframes heart-beat {
    0%   { transform: scale(.8);  opacity: .95; }

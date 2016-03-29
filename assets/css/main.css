@@ -390,7 +390,8 @@ hr.small {
 }
 
 .header-pcb {
-    background-image: url(../img/pcbeautiful.png);
+    background-image: url(../img/gbw16.png);
+    width: 100%;
 }
 
 .header-bg {

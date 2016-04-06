@@ -586,7 +586,7 @@ hr.small {
 }
 
 .section-apply-heading {
-   font-family: 'Helvetica Neue';
+   /*font-family: 'Helvetica Neue';*/
    font-size: 40px;
    margin-bottom: 32px;
    margin-top: 104px;
@@ -639,7 +639,7 @@ hr.small {
 }
 
 .heading-faq {
-   font-family: 'Helvetica Neue';
+   /*font-family: 'Helvetica Neue';*/
    font-size: 36px;
    margin-bottom: 24px;
    text-align: center;
@@ -696,7 +696,7 @@ hr.small {
 
 /* Sponsors */
 .support-heading {
-   font-family: 'Helvetica Neue';
+   /*font-family: 'Helvetica Neue';*/
    font-size: 36px;
    margin: 48px 0;
 }
@@ -716,7 +716,7 @@ hr.small {
 }
 
 .sponsor-heading, .partners-heading, .collaborators-heading {
-   font-family: 'Helvetica Neue';
+   /*font-family: 'Helvetica Neue';*/
    font-size: 28px;
    margin: 40px 0 10px;
 }

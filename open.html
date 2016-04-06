@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- bower:css -->
+    <!-- <link rel="stylesheet" href="/content/themes/jhu_id/bower_components/normalize-css/normalize.css"> -->
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="fonts/titling-gothic/titling-gothic.css">
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/arnhem/arnhem.css">
+    <!-- endbower -->
+
+    <title>NeuroData Intro</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url(http://fonts.googleapis.com/css?family=Varela+Round:regular,italic,bold,bolditalic);
+      @import url(http://fonts.googleapis.com/css?family=Raleway:regular,italic,bold,bolditalic);
+
+      body {
+        font-family: 'gentona'; /* Varela Round */
+      }
+      /*      h1, h2, h3, h4, h5, h6 {
+        font-family: 'quadon';
+      }      */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'quadon';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .remark-slide-content h4 { font-size: 1.4em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      .navbar {
+        position: absolute;
+        float: center;
+        top: 0em;
+        font-family: 'titling-gothic';  /* Yanone Kaffeesatz */
+        font-weight: 200;
+        color: #A7A7A7;
+      }
+      .navbar a {
+        color: #A7A7A7;
+      }
+      .bbar {
+        position: absolute;
+        bottom: 13px;
+        left: 13px;
+        font-family: 'titling-gothic';  /* Yanone Kaffeesatz */
+        font-weight: 200;
+        color: #A7A7A7;
+      }
+      .bbar a {
+        color: #A7A7A7;
+      }
+      .btn {
+        background: #424242;
+        height: 2em;
+      }
+      .remark-slide-content {
+        font-size: 1.5em;
+        background: #272822;
+        color: white;
+      }
+      li p { line-height: 1.25em; }
+      .r { color: #fa0000; }
+      .y { color: #FFFF00; }
+      .pink { color: #FF87F3;}
+      .orange { color: #FFA500;}
+      .g { color: #00CC00; }
+      .blue { color: #75E9FF;}
+      .purple { color: #A149A9;}
+      .large { font-size: 2em; }
+      .black { color: black; background-color: white;}
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #424242;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+/*      .pull-left {
+        float: left;
+        width: 47%;
+      }*/
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .center {
+        margin: auto;
+        width: 100%;
+        padding: 10px;
+      }
+      .small {
+        font-size: 0.8em;
+      }
+/*      .pull-right {
+        float: right;
+        width: 47%;
+      }*/
+      .pull-bottom {
+        position: absolute;
+        bottom: 0;
+      }
+      .bottom {
+        position: absolute;
+        bottom: 35px;
+        left: 13px;
+        font-family: 'Yanone Kaffeesatz';
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: white;
+        color: white;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse p {
+        color: white;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      #frame { zoom: 0.75; -moz-transform: scale(0.75); -moz-transform-origin: 0 0; }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+      .left-column h2:last-of-type, .left-column h3:last-child {
+        color: #000;
+      }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+      br {
+        line-height: 50%;
+      }
+      .task {
+        float: right;
+        font-size: 0.9em;
+        padding-top: 0.6em;
+      }
+
+    /*ol { list-style-type: upper-alpha; }*/
+
+    </style>
+  </head>
+  <body onload="var slideshow = remark.create();">
+    <textarea id="source">
+
+
+
+class: center, middle
+
+## Global Brain Workshop 2016
+<!-- ## A Scientific Planning Workshop for Coordinating Brain Research across the Globe -->
+
+
+#### Sponsors: NSF & Kavli
+#### Hosts: Kavli Institute for Neuroscience Discovery & Center for Imaging Science @ JHU
+
+ Me: Joshua T. Vogelstein (aka, [jovo]((http://jovo.me))
+
+ these slides: <http://brainx.io/open.html> | questions: [brainx@cis.jhu.edu](mailto:brainx@cis.jhu.edu)!
+
+
+---
+
+# Meeting Goal
+
+Come up with ~7 .y[killer apps] with the following properties:
+- *Significant*: tangible societal/economic/medical benefits to world
+- *Feasible*: achievable within 10 years given funding opportunities
+- *Inclusive*: all nations can participate
+- *Collectively diverse*: apps span a wide range of brain sciences
+
+--
+
+### Ideal Outcome
+
+In 2026 the global citizens will say to us: 
+```remark
+Brain scientists: you said you would give us X, you did, thank you!
+```
+
+---
+
+## Questions to Answer for each Killer App:
+
+1. Problem Statement
+2. Background
+3. Gap
+4. Approach
+5. Significance
+6. Feasibility
+7. Inclusivity
+8. Milestones & Deliverables
+
+
+---
+
+### 1. Problem Statement
+
+1. What is the broadly important real-world **problem** (or class of problems) we are going to solve in the next 10 years?
+
+
+---
+
+### 2. Background
+
+1. What is the current state of knowledge with regard to this problem? 
+2. What are the key challenges? 
+3. Has anyone made a concerted effort to solve the problem? 
+4. If so, what progress did they make, and why have they not succeeded?
+
+
+---
+
+### 3. Gap
+
+1. What gaps in scientific understanding or capabilities must be bridged in order to solve this problem? 
+2. What organizational, financial and/or technological challenges must be addressed in order to bridge these gaps?
+
+
+---
+
+### 4. Approach
+
+1. What is an aggressive but achievable 10 year road map for filling these gaps and solving the larger problem?
+2. What level of planning and coordination is required to bridge these gaps and then solve the larger problem? 
+3. How is this approach different from the status quo?
+
+---
+
+### 5. Significance
+
+1. What tangible benefits (including societal, economic and/or medical) would the world derive from solving this problem?
+2. To which citizens of the world?
+
+
+---
+
+### 6. Feasibility
+
+1. Why will this approach work? 
+1. Why might it not work, and what can be done to mitigate those risks? 
+1. Why can it be more effective/efficient if done internationally? 
+1. How are these goals aligned with, and therefore achievable through, current international funding opportunities?
+1. How will you inspire sustained international support over 10 years?
+
+---
+
+### 7. Inclusivity
+
+1. How can all nations, including less economically developed ones, contribute? 
+
+
+---
+
+### 8. Milestones & Deliverables: 
+
+1. How and when will success be measured/quantified? 
+2. What does success look like at defined points along the road map?
+
+---
+
+
+## Meeting Deliverables
+
+A “perspective piece” that summarizes the outcomes of the meeting:
+
+- General introduction/motivation
+- Brief status update on the many ongoing brain projects 
+- 1-2 pages answer to questions for each  consensus killer apps
+- Discussion highlighting the common threads across topics
+- Proposed next steps to support 
+
+
+---
+
+## Invitation Strategy
+
+- Desire: all brain scientists in the world to contribute, including neuroscience, neurology, psychiatry, psychology, and cognitive science
+--
+
+- Pragmatics: space, money, & time
+--
+
+- Decision: invite .y[representatives] of the global brain science community spanning:
+  - all continents
+  - public, private, industry
+  - demographics
+  - brain science specialties
+--
+
+- Apologies: any person or group of people who are not on-site, please [email me](brainx@cis.jhu.edu), and I will endeavor to ensure your viewpoint is represented.
+
+
+---
+
+## How will we do it?
+
+Thursday
+
+- Lightning rounds to hear each unique idea (~66)
+- National Brain Observatory (NBO)
+- Existing brain projects for perspective
+- Converge onto ~7 topics
+- Break-out discussion sections to reach consensus answers for each topic/killer app
+- Group presentations
+
+--
+
+Friday
+
+- Switch topics and provide constructive feedback x2
+- Final presentations
+- Discuss common threads & next steps
+
+
+
+---
+
+### Lightning Rounds (Th, 10a-12p)
+
+- Starting after brief break
+- 1-minute elevator pitch per person, 30 seconds to transition
+- Rotate around the room clockwise
+- Remote contributions will be distributed throughout
+- Tyler Whitehouse time keeper
+- Original statements available (ask <brainx@cis.jhu.edu> for link)
+- Live broadcast
+
+At lunch, perhaps sit with like-minded people to begin consensus building
+
+
+---
+
+### NBO (Th, 1-1:30)
+
+- Jim Olds (NSF) Panel Moderator
+- Panelists
+  - Alan Evans (McGill)
+  - Bobby Kasthuri (Argonne)
+  - R. Jacob Vogelstein (aka, Brother; IARPA)
+  - Arthur Toga (USC)
+  - Jeff Layton (Amazon)
+
+---
+
+#### International Brain Programs (Th, 1:30-3p)
+
+- Representatives each get 5 minutes (no slides) to provide context
+- Provide up-to-date answers the following questions:
+  - .y[Who]: What program are they representing?
+  - .y[What]: What do they fund? What have they funded so far? What do they want to fund in the future?
+  - .y[How much]: have they funded so far? How much do they plan on funding in the future? 
+- Representatives (in alphabetical order):
+
+.pull-left[
+1. Corrado Cali (Middle East), 
+3. James Deshler (NSF), 
+4. Alan Evans (Canada), 
+5. Sean Hill (HBP), 
+6. Viren Jain (Google), 
+7. Sandhya Koushika (S Asia), 
+2. Chris Martin (Kavli), 
+  ]
+.pull-right[
+8. Miguel Nicolelis (S America)
+1. Gergo Orban (E Europe), 
+2. Alyssa Picchini-Schaffer (Simons), 
+3. Mu-ming Poo (China), 
+4. Jane Roskams (Allen), 
+5. Ned Talley (NIH), 
+6. R. Jacob Vogelstein (IARPA)
+]
+
+
+
+---
+
+## Roles
+
+- .y[Observers]: observe & speak when spoken too
+- Participants:
+  - .y[Regulars]: elevator pitch & open mind
+  - .y["Professional" Moderators]: 
+      - elevator pitch & open mind
+      - make sure everyone is heard
+      - guide towards consensus answers
+      - neither funders nor fundees
+  - .y[Rapporteurs]:
+      - elevator pitch & open mind
+      - take notes on board during sessions
+      - present results Th eve & Fr aft
+- .y[Staff]: support whatever is necessary
+  - Heather
+  - Erika
+  - Lisa
+  - Natasha
+
+---
+
+### Assemble into Sections (Th, 3-3:30p)
+
+- We pre-selected topics based on registration responses
+- These are starting points, not mandates
+- Rapporteurs: report to rooms and write *questions* on whiteboards
+- I'll read names, please stand
+
+.center[
+<img height="400" src="table.png">
+]
+
+
+---
+
+### Discussion Sections (Th, 3:30-6:30p)
+
+- 3 hrs to build consensus answers
+- Recommendation: 
+  - 80 min: ideate
+  - 20 minute break in middle (4:50p)
+  - 80 min: sketch answers
+- Coffee, tea, snacks available throughout (in both buildings)
+
+---
+
+#### Cocktails (Hodson 2nd Floor Patio, 6:30p)
+
+- Come back together to celebrate tremendous progress
+- Rapporteurs prepare dessert presentations
+
+--
+
+#### Dinner & Group Presentations (Hodson 3rd Floor, 7-9p)
+
+- Relaxed and enjoyable dinner with veg options
+- Dessert will include 5 min white board presentation from each killer app
+
+
+---
+
+## Friday Morning (All Hodson, 9a-12p)
+
+- 2 Round robin sessions (9-10:15a & 10:45a-12p)
+- Moderators & Rapporteurs: stay within topic
+- Regular participants: switch 2x
+- Goal: .y[constructive] feedback to refine each killer app
+
+
+- 10:15a - President Daniels will thank & welcome guests in Hodson 3rd Floor Lobby
+
+
+---
+
+### Friday Afternoon (All Hodson, 12-6p)
+
+- Lunch (12p): rapporteurs update answers on mobile whiteboards
+- Final presentations (1-2:30p): 10 min whiteboard presentation from each group by rapporteurs
+- Break (2:30-3p)
+- Final discussion (3-4p): identify cross-cutting threads, solidify next steps
+- Social cocktails (4-6p): Celebrate with each other and members of JHU Kavli
+
+--
+
+### Friday Night (Rapporteurs only)
+
+- Dinner @ Gertrude's (6p): Begin planning
+- Working night @ Clark 314 (7:30p-): Finalize outline of document
+
+
+---
+class: center, middle
+
+# Questions?
+
+<brainx@cis.jhu.edu>
+
+
+
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript">
+    </script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+
+      var slideshow = remark.create({
+        // Set the slideshow display ratio
+        // Default: '4:3'
+        // Alternatives: '16:9', ...
+        ratio: '4:3',
+
+        // Navigation options
+        navigation: {
+          // Enable or disable navigating using scroll
+          // Default: true
+          // Alternatives: false
+          scroll: true,
+
+          // Enable or disable navigation using touch
+          // Default: true
+          // Alternatives: false
+          touch: true,
+
+          // Enable or disable navigation using click
+          // Default: false
+          // Alternatives: true
+          click: false
+  },
+
+  // Customize slide number label, either using a format string..
+  // slideNumberFormat: 'Slide %current% of %total%',
+  // .. or by using a format function
+  slideNumberFormat: function (current, total) {
+    return  current + ' / ' + total;
+  },
+
+  // Enable or disable counting of incremental slides in the slide counting
+  countIncrementalSlides: false
+});
+    </script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

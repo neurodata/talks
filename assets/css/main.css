@@ -65,7 +65,7 @@ hr.small {
    transition: background-color .4s ease-out, box-shadow .4s ease-out;
    width: 100%;
    z-index: 1;
-  background: #A9A9A9 ;
+
 
    /* Hack to prevent "dancing" on webkit/blink */
    -webkit-transform: translateZ(0);

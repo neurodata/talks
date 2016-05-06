@@ -181,14 +181,23 @@
 				</section>
 
 
-
-
 				<section data-markdown>
 					<script type="text/template">
 						# Questions?
 
 					</script>
 				</section>
+
+
+
+				<section>
+						
+					\begin{equation}
+					E=mc^2
+					\end{equation}
+
+				</section>
+
 
 
 			</div>
@@ -210,6 +219,12 @@
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
+			    // other options ...
+			    math: {
+			        mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+			        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+			    },
+
 				// Optional reveal.js plugins
 				dependencies: [
 				{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -217,7 +232,8 @@
 				{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 				{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 				{ src: 'plugin/zoom-js/zoom.js', async: true },
-				{ src: 'plugin/notes/notes.js', async: true }
+				{ src: 'plugin/notes/notes.js', async: true },
+		        { src: 'plugin/math/math.js', async: true }
 				]
 			});
 

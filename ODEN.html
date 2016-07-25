@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet"> -->
+
+    <!-- bootstrap icons -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.min.css">
+    
+    <!-- google web fonts -->
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+
+    <!-- bower:css -->
+    <!-- <link rel="stylesheet" href="/content/themes/jhu_id/bower_components/normalize-css/normalize.css"> -->
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="fonts/titling-gothic/titling-gothic.css">
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/arnhem/arnhem.css">
+    <!-- endbower -->
+
+    <title>NeuroData Intro</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+
+      body {
+        font-family: 'gentona'; /* Varela Round */
+        font-size: 1.0em;
+      }
+      /*      h1, h2, h3, h4, h5, h6 {
+        font-family: 'quadon';
+      }      */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'quadon';
+        font-weight: 400;
+        margin-bottom: 0;
+        color: #d5ad6d;
+/*        color:  #D5AD6D; /*if no support for background-clip*/
+  
+        /*background: -webkit-linear-gradient(transparent, transparent),*/
+             /*-webkit-linear-gradient(top, rgba(213,173,109,1) 0%, rgba(213,173,109,1) 26%, rgba(226,186,120,1) 35%, rgba(163,126,67,1) 45%, rgba(145,112,59,1) 61%, rgba(213,173,109,1) 100%);*/
+        /*background: -o-linear-gradient(transparent, transparent);*/
+  /*-webkit-background-clip: text;*/
+  /*-webkit-text-fill-color: transparent;*/
+
+      }
+      .remark-slide-content {
+        font-size: 1.5em;
+        background: #272822;
+        background: radial-gradient(circle, #272822, #15120e, black); /* Standard syntax */
+        background: -webkit-radial-gradient(circle, #272822, #15120e, black); /* Safari */
+        background: -o-radial-gradient(circle, #272822, #15120e, black); /* Opera 11.6 to 12.0 */
+        background: -moz-radial-gradient(circle, #272822, #15120e, black); /* Firefox 3.6 to 15 */
+        background: radial-gradient(circle, #272822, #15120e, black); /* Standard syntax */
+
+        color: #ebd8b9; /*#f4e9d8;*/ /*#debe8b;*/ /*#6dd5ad;*/ /*rgba(213,173,109,1);*/ /*rgba(163,126,67,1);*/ /*rgba(226,186,120,1);*/ /*rgba(213,173,109,1);*/ /*#6dd5ad;*/
+        /*background: #3B263C;*/
+  /*        color:  #FFFF00; /*#DDA0DD;*/  /*#A565D6;*/ /* #DF9BFF;*/ /*#FFFF00;*/*/
+      }
+
+      h1, h2, h3, h4 {
+        text-align: center;
+        /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
+      }
+
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .remark-slide-content h4 { font-size: 1.4em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      .navbar {
+        position: absolute;
+        float: center;
+        top: 0em;
+        font-family: 'titling-gothic';  /* Yanone Kaffeesatz */
+        font-weight: 200;
+        color: #A7A7A7;
+      }
+      .navbar a {
+        color: #A7A7A7;
+      }
+      .bbar {
+        position: absolute;
+        bottom: 13px;
+        left: 13px;
+        font-family: 'titling-gothic';  /* Yanone Kaffeesatz */
+        font-weight: 200;
+        color: #A7A7A7;
+      }
+      .bbar a {
+        color: #A7A7A7;
+      }
+      .cbar {
+        position: absolute;
+        bottom: 13px;
+        left: 13px;
+        font-family: 'titling-gothic';  /* Yanone Kaffeesatz */
+        font-weight: 200;
+        /*color: #A7A7A7;*/
+        color: #bdbcbc;
+      }
+      .cbar a{
+       color: #bdbcbc; 
+      }
+
+      .btn {
+        background: #424242;
+        height: 2em;
+      }
+      li p { line-height: 1.25em; }
+      .r { color: #fa0000; }
+      .w {color: white;}
+      .ye { color: #FFFF00; }
+      .y { color: #fcfaf6; }
+      .pink { color: #FF87F3;}
+      .orange { color: #FFA500;}
+      .g { color: #00CC00; }
+      .blue { color: #75E9FF;}
+      .purple { color: #A149A9;}
+      .large { font-size: 2em; }
+      .black { color: black; background-color: white;}
+      a, a > code {
+        color:  rgb(249, 38, 114); 
+        color: white; 
+        color: #bdbcbc; 
+        /*color: #b1b1b1;*/
+        text-decoration: none; /*underline*/
+      }
+
+      a:hover {
+        color: white;
+      }
+
+
+      code {
+        background: #424242;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+/*      .pull-left {
+        float: left;
+        width: 47%;
+      }*/
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .center {
+        margin: auto;
+        width: 100%;
+        padding: 10px;
+      }
+      .small {
+        font-size: 0.8em;
+      }
+/*      .pull-right {
+        float: right;
+        width: 47%;
+      }*/
+      .pull-bottom {
+        position: absolute;
+        bottom: 0;
+      }
+      .bottom {
+        position: absolute;
+        bottom: 35px;
+        left: 13px;
+        font-family: 'Yanone Kaffeesatz';
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: white;
+        color: white;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse p {
+        color: white;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      #frame { zoom: 0.75; -moz-transform: scale(0.75); -moz-transform-origin: 0 0; }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+      .left-column h2:last-of-type, .left-column h3:last-child {
+        color: #000;
+      }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+      br {
+        line-height: 50%;
+      }
+      .task {
+        float: right;
+        font-size: 0.9em;
+        padding-top: 0.6em;
+      }
+
+  }
+    </style>
+  </head>
+  <body onload="var slideshow = remark.create();">
+    <textarea id="source">
+
+
+
+class: center, middle
+
+name:opening
+
+# [Global Brain Workshop 2016](http://brainx.io)
+
+<br>
+<br>
+
+.center[
+presented by, Joshua T. Vogelstein
+<br>
+{[bme](http://www.bme.jhu.edu/),[icm](http://icm.jhu.edu/),[cis](http://cis.jhu.edu/),[idies](http://idies.jhu.edu/),kavli,[cs](http://engineering.jhu.edu/computer-science/), [ams](http://engineering.jhu.edu/ams/), [neuro](http://neuroscience.jhu.edu/)} | [jhu](https://www.jhu.edu/)
+<br>
+please ask questions: [jovo@neurodata.io](mailto:jovo at neurodata dot io)!
+<br>
+these slides: <http://brainx.io/ODEN>
+
+]
+
+
+
+---
+
+# Details
+
+- April 6 & 7, 2016
+- Hosted at: Kavli Neuroscience Discovery Institute
+- Organized by: JT Vogelstein, R Huganir, and MI Miller
+
+<br>
+- 60+ scientists
+- 15 "observers" (NIH, NSF, DARPA, IARPA, Simons, Kavli)
+- 12 countries
+- Report available from [brainx.io](http://brainx.io)
+
+
+---
+
+# Goals
+
+Identify globally beneficial brain science projects:
+- *Significant*: they will yield tangible  benefits to the world
+- *Feasible*: we can achieve major milestones given existing funding 
+- *Inclusive*: all nations can meaningfully contribute  and benefit
+- *Collectively diverse*:  span a wide range of brain sciences
+
+
+---
+
+## 3 Challenges...
+
+- What makes our brains unique?
+- How does the brain solve the complex  problems of intelligence?
+- How can we augment meantal health decision­s with data? 
+
+<br>
+
+##  and 1 Universal Resource...
+
+<!-- <br>
+
+<center><Big>The International Brain Station (TIBS)</Big></center>
+ --> 
+
+---
+class: center
+
+## The International Brain Station (TIBS)
+
+<img src="images/circle6.png" alt="Drawing" style="width: 600px;"/>
+<!-- <img src="https://github.com/neurodata/ndpaper/raw/master/figure0.png" alt="Drawing" style="width: 700px;"/> -->
+
+<br />
+
+<center>Goal: Eliminate "pain point" for each stage of discovery</center>
+
+
+
+
+
+---
+
+# Collect
+
+<br>
+
+.pull-left[
+- Pain-point: Locally "baby-sitting" hardware
+- Solution:  *Data Collection Dashboards*
+
+- Interface directly with measurement machines
+- Live status updates and summaries
+- Enables remote intervention
+]
+
+.pull-right[
+<figure>
+<img src="images/deluge.jpg" alt="Drawing" style="width: 300px;"/>
+  <figcaption><small>source:economist.com</small></figcaption>
+</figure>
+]
+
+
+
+---
+
+# Store
+
+<br>
+
+.pull-left[
+- Pain-point: Data too large to store/analyze locally
+- Solution:  *Multimodal Cloud Storage*
+
+- Interface directly with collection machines
+- Organizes data for efficient queries
+]
+
+.pull-right[
+<figure>
+<img src="images/sejnowski.jpg" alt="Drawing" style="width: 300px;"/>
+  <figcaption><small>source:nature.com</small></figcaption>
+</figure>
+]
+
+
+
+---
+
+# Explore
+
+<br>
+
+.pull-left[
+- Pain-point: Want to see data from anywhere
+- Solution:  *Interactive Data Explorers*
+
+- Mobile compliant (1 billion+ additional users)
+- Augmented reality environments
+]
+
+.pull-right[
+<figure>
+<img src="images/explore.jpg" alt="Drawing" style="width: 300px;"/>
+  <figcaption><small>source:ultravr.org</small></figcaption>
+</figure>
+]
+
+
+---
+
+# Analyze
+
+
+<br>
+
+.pull-left[
+- Pain-point: Raw data are messy
+- Solution: *Reference Analysis Pipelines*
+
+- Continuously integrated with new data & methods
+- Notebooks for easy replication and extension
+]
+
+.pull-right[
+<figure>
+<img src="images/jupyter.png" alt="Drawing" style="width: 300px;"/>
+  <figcaption><small>source:treasuredata.com</small></figcaption>
+</figure>
+]
+
+---
+
+# Model
+
+
+<br>
+
+.pull-left[
+- Pain-point: Model and data are incommensurate
+- Solution: *Data Modeling Bots*
+
+- Automatically fit new models to old data, and new data to old models
+- Community driven benchmarks and leaderboards
+]
+
+.pull-right[
+<figure>
+<img src="images/hubel1.jpg" alt="Drawing" style="width: 300px;"/>
+<img src="images/hubel2.png" alt="Drawing" style="width: 300px;"/>  
+<figcaption><small>source:wordpress.com</small></figcaption>
+</figure>
+]
+
+
+---
+
+# Design
+
+<br>
+
+.pull-left[
+- Pain-point: Extensive simulations
+- Solution: Provide *Synthetic Data in Modeling Language*
+
+- Experimental design is the bedrock of discovery
+- Built on the shoulders of everyone
+]
+
+.pull-right[
+<figure>
+<img src="images/tea.jpg" alt="Drawing" style="width: 300px;"/>
+  <figcaption><small>source:wikipedia</small></figcaption>
+</figure>
+]
+
+
+---
+
+# Search
+
+<br>
+
+.pull-left[
+- Pain-point: Data are scattered and poorly labeled
+- Solution: *Metadata Query Service*
+
+- All data will have community driven metadata
+- Queries to support multiple languages
+]
+
+.pull-right[
+<figure>
+<img src="images/search.jpg" alt="Drawing" style="width: 300px;"/>
+  <figcaption><small>source:Minority Report</small></figcaption>
+</figure>
+]
+
+
+---
+
+# Educate 
+
+<br>
+
+.pull-left[
+- Pain-point: New tools are new
+- Solution: *Extensive educational focus*
+
+- MOOCs
+- Quarterly training workshops
+- Cross-cultural support from outset
+]
+
+.pull-right[
+<figure>
+<img src="images/educate.jpg" alt="Drawing" style="width: 300px;"/>
+  <figcaption><small>source:wikipedia.org</small></figcaption>
+</figure>
+]
+
+
+
+---
+
+# What Will it Take
+
+<br>
+
+
+- Extensive collaboration
+- Reference research artefacts
+- Continuous integration
+- Cultural sensitivities
+- Pilot programs
+
+
+
+---
+class:   middle, center
+
+
+# Questions?
+
+<!-- ### Funding &nbsp;&nbsp;&nbsp;&nbsp;   -->
+
+<!-- <br /> -->
+
+<br>
+<br>
+
+<!-- ____  -->
+
+
+e: [jovo@neurodata.op](mailto:jovo@neurodata.io)
+
+w: [brainx.io](http://brainx.io)
+
+<!-- ____ -->
+
+
+<!-- [more slides](http://docs.neurodata.io/ndintro/more.html) -->
+
+
+
+
+
+    </textarea>
+    <script src="remark-latest.min.js" type="text/javascript">
+    </script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+
+var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  ratio: '4:3',
+
+  // Navigation options
+  navigation: {
+    // Enable or disable navigating using scroll
+    // Default: true
+    // Alternatives: false
+    scroll: true,
+
+    // Enable or disable navigation using touch
+    // Default: true
+    // Alternatives: false
+    touch: true,
+
+    // Enable or disable navigation using click
+    // Default: false
+    // Alternatives: true
+    click: false
+  },
+
+  // Customize slide number label, either using a format string..
+  // slideNumberFormat: 'Slide %current% of %total%',
+  // .. or by using a format function
+  slideNumberFormat: function (current, total) {
+    return  current + ' of ' + total;
+  },
+
+  // Enable or disable counting of incremental slides in the slide counting
+  countIncrementalSlides: false
+}); 
+
+    </script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

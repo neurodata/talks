@@ -1,26 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet"> -->
 
-    <!-- bootstrap icons -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- font awesome icons -->
-    <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.min.css">
-    
-    <!-- google web fonts -->
-    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-
-    <!-- bower:css -->
-    <!-- <link rel="stylesheet" href="/content/themes/jhu_id/bower_components/normalize-css/normalize.css"> -->
-    <link rel="stylesheet" href="fonts/gentona/gentona.css">
-    <link rel="stylesheet" href="fonts/titling-gothic/titling-gothic.css">
-    <link rel="stylesheet" href="fonts/quadon/quadon.css">
-    <link rel="stylesheet" href="fonts/arnhem/arnhem.css">
+    <link rel="stylesheet" href="http://jovo.me/fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="http://jovo.me/fonts/titling-gothic/titling-gothic.css">
+    <link rel="stylesheet" href="http://jovo.me/fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="http://jovo.me/fonts/arnhem/arnhem.css">
     <!-- endbower -->
 
-    <title>NeuroData Intro</title>
+    <title>Discriminability</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style type="text/css">
 
@@ -28,41 +16,26 @@
         font-family: 'gentona'; /* Varela Round */
         font-size: 1.0em;
       }
-      /*      h1, h2, h3, h4, h5, h6 {
-        font-family: 'quadon';
-      }      */
       h1, h2, h3, h4, h5, h6 {
         font-family: 'quadon';
         font-weight: 400;
         margin-bottom: 0;
-        color: #d5ad6d;
-/*        color:  #D5AD6D; /*if no support for background-clip*/
-  
-        /*background: -webkit-linear-gradient(transparent, transparent),*/
-             /*-webkit-linear-gradient(top, rgba(213,173,109,1) 0%, rgba(213,173,109,1) 26%, rgba(226,186,120,1) 35%, rgba(163,126,67,1) 45%, rgba(145,112,59,1) 61%, rgba(213,173,109,1) 100%);*/
-        /*background: -o-linear-gradient(transparent, transparent);*/
-  /*-webkit-background-clip: text;*/
-  /*-webkit-text-fill-color: transparent;*/
-
-      }
-      .remark-slide-content {
-        font-size: 1.5em;
-        background: #272822;
-        background: radial-gradient(circle, #272822, #15120e, black); /* Standard syntax */
-        background: -webkit-radial-gradient(circle, #272822, #15120e, black); /* Safari */
-        background: -o-radial-gradient(circle, #272822, #15120e, black); /* Opera 11.6 to 12.0 */
-        background: -moz-radial-gradient(circle, #272822, #15120e, black); /* Firefox 3.6 to 15 */
-        background: radial-gradient(circle, #272822, #15120e, black); /* Standard syntax */
-
-        color: #ebd8b9; /*#f4e9d8;*/ /*#debe8b;*/ /*#6dd5ad;*/ /*rgba(213,173,109,1);*/ /*rgba(163,126,67,1);*/ /*rgba(226,186,120,1);*/ /*rgba(213,173,109,1);*/ /*#6dd5ad;*/
-        /*background: #3B263C;*/
-  /*        color:  #FFFF00; /*#DDA0DD;*/  /*#A565D6;*/ /* #DF9BFF;*/ /*#FFFF00;*/*/
-      }
-
-      h1, h2, h3, h4 {
+        color: #a6bcd7;
         text-align: center;
         /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
       }
+      .remark-slide-content {
+        font-size: 1.5em;
+        background: #28282e;
+\        background: radial-gradient(circle, #28282e, #15120e, black); /* Standard syntax */
+        background: -webkit-radial-gradient(circle, #28282e, #15120e, black); /* Safari */
+        background: -o-radial-gradient(circle, #28282e, #15120e, black); /* Opera 11.6 to 12.0 */
+        background: -moz-radial-gradient(circle, #272822, #15120e, black); /* Firefox 3.6 to 15 */
+        background: radial-gradient(circle, #28282e, #15120e, black); /* Standard syntax */
+
+        color: #dfd6c2;
+      }
+
 
       .remark-slide-content h1 { font-size: 3em; }
       .remark-slide-content h2 { font-size: 2em; }
@@ -104,7 +77,7 @@
         color: #bdbcbc;
       }
       .cbar a{
-       color: #bdbcbc; 
+       color: #bdbcbc;
       }
 
       .btn {
@@ -120,14 +93,12 @@
       .orange { color: #FFA500;}
       .g { color: #00CC00; }
       .blue { color: #75E9FF;}
+      .s {color :#318dde;}
       .purple { color: #A149A9;}
       .large { font-size: 2em; }
       .black { color: black; background-color: white;}
       a, a > code {
-        color:  rgb(249, 38, 114); 
-        color: white; 
-        color: #bdbcbc; 
-        /*color: #b1b1b1;*/
+        color:#318dde;
         text-decoration: none; /*underline*/
       }
 
@@ -200,6 +171,14 @@
       }
       #frame { zoom: 0.75; -moz-transform: scale(0.75); -moz-transform-origin: 0 0; }
 
+      #outer {
+        width: 100%;
+        text-align: center;
+      }
+      #inner {
+        display: inline-block;
+      }
+
       /* Slide-specific styling */
       #slide-inverse .footnote {
         bottom: 12px;
@@ -264,6 +243,7 @@
   </head>
   <body onload="var slideshow = remark.create();">
     <textarea id="source">
+
 
 
 
@@ -403,7 +383,7 @@ w: [brainx.io](http://brainx.io)
 
 
     </textarea>
-    <script src="remark-latest.min.js" type="text/javascript">
+    <script src="http://jovo.me/remark-latest.min.js" type="text/javascript">
     </script>
     <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
     <script type="text/javascript">
@@ -456,13 +436,12 @@ var slideshow = remark.create({
 
   // Enable or disable counting of incremental slides in the slide counting
   countIncrementalSlides: false
-}); 
+});
 
     </script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

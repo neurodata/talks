@@ -31,8 +31,9 @@
         background: -o-radial-gradient(circle, #28282e, #15120e, black); /* Opera 11.6 to 12.0 */
         background: -moz-radial-gradient(circle, #272822, #15120e, black); /* Firefox 3.6 to 15 */
         background: radial-gradient(circle, #28282e, #15120e, black); /* Standard syntax */
-
         color: #dfd6c2;
+        background-repeat: no-repeat;
+        background-size: cover;
       }
 
 
@@ -120,6 +121,7 @@
         float: left;
         width: 47%;
       }*/
+
       .pull-left {
         float: left;
         width: 47%;
@@ -240,7 +242,19 @@
         font-size: 0.9em;
         padding-top: 0.6em;
       }
-
+      table {
+          border-collapse: collapse;
+          width: 100%;
+      }
+      th, td {
+          text-align: left;
+          padding: 8px;
+      }
+      tr:nth-child(even){background-color: #4a484c}
+      th {
+          background-color: #6cace4;
+          color: white;
+      }
   }
     </style>
   </head>
@@ -317,13 +331,51 @@ background-image: url(images/to_the_cloud.jpg)
 
 Anybody in the world can:
 
-1. [visualize](http://viz.neurodata.io/)
-2. [download](http://docs.neurodata.io/ndstore/) arbitrary subvolumes 
+- [visualize](http://viz.neurodata.io/)
+- [download](http://docs.neurodata.io/ndstore/) arbitrary subvolumes 
+
 
 ---
 
+<!-- background-image: url(images/CLARITY2.png) -->
 
-<img src="images/CLARITY2.png" STYLE="position:absolute; TOP:50px; LEFT:0px; WIDTH:900px;"/>
+
+<a href="http://viz.neurodata.io/project/Fear199/4/250/250/0/">
+<img src="images/CLARITY2.png" STYLE="position:absolute; TOP:0px; LEFT:0px; HEIGHT:700px; "/>
+
+<p style="color:white; position:absolute; TOP:580px; LEFT:170px; text-shadow:1px 1px 8px #000;">
+http://viz.neurodata.io/project/Fear199/4/250/250/0/
+</p>
+</a>
+
+
+---
+
+background-image: url(http://cloud.neurodata.io/nd/ca/kasthuri11cc/xy/2/2056,2856/3196,3996/2/)
+
+<div>
+<a href="http://cloud.neurodata.io/nd/ca/kasthuri11cc/xy/2/2056,2856/3196,3996/2/"> 
+<p style="color:white; position:absolute; TOP:50px; LEFT:50px; text-shadow:0px 0px 8px black;">
+http://cloud.neurodata.io/nd/ca/kasthuri11cc/xy/2/2056,2856/3296,3896/2/
+</p>
+</a>
+</div>
+
+---
+
+## Data in the Cloud
+
+<br><br><br>
+
+Anybody in the world can:
+
+- [visualize](http://viz.neurodata.io/)
+- [download](http://docs.neurodata.io/ndstore/) arbitrary subvolumes 
+
+
+But not yet
+
+- analyze in the cloud
 
 
 ---
@@ -332,24 +384,27 @@ Anybody in the world can:
 
 
 <a href="http://scienceinthe.cloud/notebooks/sic_ndmg.ipynb">
-<img src="images/sic.png" STYLE="position:absolute; TOP:150px; LEFT:0px; WIDTH:900px;"/>
+<img src="images/sic.png" STYLE="position:absolute; TOP:150px; LEFT:0px; WIDTH:910px;"/>
 </a>
 
 
 ---
 
+
 ## Pipelines in the Cloud
 
 <br><br>
 
-Requires
 
-1. data in cloud
-1. organized in common format
-1. digital notebooks
-1. virtualized environment
-1. deployment strategy
-1. cloud computing
+| Requirement | Implementation |
+| :--- :--- |
+| Data in Cloud |  Amazon S3 bucket |
+| Data Spec |  BIDS  |
+| Notebook |  Jupyter |
+| Virtualization | Docker |
+| Deployment |  Always up |
+| Cloud Computing | Amazon EC2 |
+
 
 
 ---

@@ -305,7 +305,6 @@ class: center, middle
 ---
 ### Challenge #1: Spurious Clusters
 
-fix font color and khat.
 
 <img src="images/spikes.png" STYLE="position:absolute; TOP:150px; LEFT:150px; HEIGHT:500px;"/>
 
@@ -350,6 +349,19 @@ fix font color and khat.
 
 real data goes here
 
+---
+class:center, middle
+
+Standard tools find spurious clusters
+
+<br><br>
+
+Fancy tools require too much data to be practical
+
+<br><br>
+
+.w[**Gap**: Clustering tools with appropriate statistical guarantees]
+
 
 ---
 
@@ -392,12 +404,19 @@ real data goes here
 <img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
 <img src="images/levels5.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
 
+
 ---
+class: center, middle
 
-### Challenge #2: Overlapping Clusters
+Any tree with thresholds will put arbitrarily close individuals arbitrarily far away
 
-<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
-<img src="images/levels6.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+<br><br>
+
+Trees that put individuals near boundary in **multiple groups** can  mitigate this issue
+
+<br><br>
+
+.w[**Gap**: Tree building tools with appropriate statistical guarantees]
 
 
 ---
@@ -410,30 +429,44 @@ real data goes here
 
 <img src="images/batch_sex.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:400px"/>
 
+---
+class: center, middle
+
+Harmonzing processing does not remove batch effect
+
+<br>
+
+Can further processing mitigate batch effect?
+
+<br>
+
+If not, can harmonizing acquisition mitigate batch effect?
+
+<br>
+
+.w[**Gap**: Pipelines that harmonize across datasets,
+and data to evaluate harmonization strategies]
 
 ---
 
-### Next Steps
+### Future Outlook Steps
 
 <br><br>
 
-1. Develop methods with statistical guarantees
-1. Use "fancy" trees
-2. Can further harmonization strategies  mitigate batch effects?
-3. If not, harmonize acquisition parameters
+- Micro-arrays never mitigated batch effects sufficiently
+- fMRI has another degree of freedom: stimulus
+
+--
+
+### Much More To Do!
 
 
----
-
-#### Much More To Do!
-
-
-<img src="images/lion2.JPG" STYLE="position:absolute; TOP:200px; LEFT:0px; WIDTH:400px;"/>
-<img src="images/world.gif" STYLE="position:absolute; TOP:200px; LEFT:400px; WIDTH:500px;"/>
+<img src="images/lion2.JPG" STYLE="position:absolute; TOP:400px; LEFT:0px; WIDTH:400px;"/>
+<img src="images/world.gif" STYLE="position:absolute; TOP:400px; LEFT:400px; WIDTH:500px;"/>
 
 
 
-<DIV style="position: absolute; top:410px; left:120px; ">(i love this guy)</DIV>
+<DIV style="position: absolute; top:610px; left:120px; ">(i love this guy)</DIV>
 
 
 

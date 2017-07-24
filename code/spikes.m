@@ -6,7 +6,7 @@ print_fig=1;
 n=200;
 
 
-for jj=1:5
+for jj=1
     x=2*rand(n,1);
     x=sort(x);
     [foo,bar]=hist(x,20);

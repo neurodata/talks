@@ -232,3 +232,9 @@ for j=1:minbic
     maxy(j)=max(y{j});
 end
 
+%% # edges
+
+
+A = fscanf('code/humans/KKI2009_113_2_bg.edgelist','%d%c%d');
+fprintf(fileID,'%4.4f\n',x);
+fclose(fileID);

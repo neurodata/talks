@@ -1,4 +1,4 @@
-
+% dependency: export_fig from mathworks exchange
 
 %% spurious clusters
 clc, clear
@@ -99,7 +99,7 @@ end
 
 %% overlapping clusters
 
-mu(1)=0;
+mu(1)=-1;
 mu(2)=1;
 Sigma(1)=1;
 Sigma(2)=1;
@@ -124,20 +124,93 @@ set(gca,'color','none')
 xlim([-4,4])
 ylim([0,0.4])
 set(gca,'XTick',[],'YTick',[])
-if print_fig, export_fig(['overlap.png']); end
+if print_fig, export_fig(['images/overlap.png']); end
 
-%%
+%% levels
 
-ls=10;
-n=100;
+ls=7;
+n=2^ls;
 a=zeros(ls,n);
 
-a(1,:)=1;
-a(1,n/2)=0;
-imagesc(a)
-colormap('gray')
-% imwrite(a,'levels.png')
-set(gcf,'Color','None')
-set(gca,'color','none')
-set(gca,'XTick',[],'YTick',[])
-if print_fig, export_fig(['images/levels.png']); end
+% a(1,:)=1;
+% a(1,n/2)=0;
+% imagesc(a)
+% colormap('gray')
+% % imwrite(a,'levels.png')
+% set(gcf,'Color','None')
+% set(gca,'color','none')
+% set(gca,'XTick',[],'YTick',[])
+% if print_fig, export_fig(['images/levels.png']); end
+
+for i=1:ls
+    a(i,:)=1;
+    a(i,round(1/2^i*[1:2^i-1]*n))=0;
+    if i==ls, a(i,:)=0; end
+    imagesc(a)
+    set(gcf,'Color','None')
+    set(gca,'color','none')
+    set(gca,'XTick',[],'YTick',[])
+    if print_fig, export_fig(['images/levels', num2str(i-1), '.png']); end
+end
+
+%% effect size
+
+z=[0.011595501
+0.011595501
+0.023624073
+0.023624073
+0.054524625
+0.054524625
+0.082409656
+0.082409656
+0.102259812
+0.102259812
+0.119694566
+0.119694566
+0.135075342
+0.135075342
+0.148278205
+0.148278205
+0.170932787
+0.170932787
+0.178807866
+0.178807866
+0.188141869
+0.188141869
+0.229733195
+0.229733195
+0.283034872
+0.283034872
+0.289742183
+0.289742183
+0.353817834
+0.353817834
+0.465417825
+0.465417825
+0.597990049
+0.597990049
+0.759892601
+0.759892601
+0.764816385
+0.764816385
+0.866950281
+0.866950281
+0.885920316
+0.885920316];
+
+z=unique(z);
+
+z=[z, 0.0163];
+
+    figure(1), clf, hold all
+    gr=0.75*[1 1 1];
+    stem(x,1*ones(n,1),'w','marker','none','linewidth',0.1)
+    set(gcf,'Color','None')
+    set(gca,'color','none')
+    xlim([0.5,1.5])
+    ylim([0,1.2])
+    set(gca,'XTick',[],'YTick',[])
+    tit=['$n=', num2str(n/2), ', \hat{k}=$', num2str(minbic)];
+    title(tit,'interp','latex','color','k','fontsize',24)
+    if print_fig, export_fig spikes.png; end
+

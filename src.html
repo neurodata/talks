@@ -287,7 +287,7 @@ name:opening
 
 ---
 
-## Progress: Datasets Acquired!
+## Progress: Datasets Acquired
 
 <img src="images/m2gtab.png" STYLE="position:absolute; TOP:200px; LEFT:00px; WIDTH:900px;"/>
 
@@ -302,6 +302,12 @@ name:opening
 class: center, middle
 
 ## Clustering Methods: In Progress
+
+--
+
+1) Don't find spurious clusters
+<br>
+2) Do find legitimate clusters
 
 ---
 ### Challenge #1: Spurious Clusters
@@ -368,86 +374,21 @@ Fancy tools require too much data to be practical
 .w[**Gap**: Clustering tools with appropriate statistical guarantees]
 
 
----
-
-### Challenge #2: Overlapping Clusters
-
-<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:150px; HEIGHT:500px"/>
 
 ---
-
-### Challenge #2: Overlapping Clusters
-
-<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
-<img src="images/levels0.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
-
----
-
-### Challenge #2: Overlapping Clusters
-
-<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
-<img src="images/levels1.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
-
----
-
-### Challenge #2: Overlapping Clusters
-
-<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
-<img src="images/levels2.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
-
----
-
-### Challenge #2: Overlapping Clusters
-
-<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
-<img src="images/levels3.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
-
----
-
-### Challenge #2: Overlapping Clusters
-
-<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
-<img src="images/levels4.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
-
----
-
-### Challenge #2: Overlapping Clusters
-
-<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
-<img src="images/levels5.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
-
-
----
-class: center, middle
-
-### Opportunity #2: Overlapping Clusters
-<br>
-
-Any tree with thresholds will put arbitrarily close individuals arbitrarily far away
-
-<br>
-
-Trees that put individuals near boundary in multiple groups could mitigate this issue
-
-<br>
-
-.w[**Gap**: Tree learning tools with appropriate statistical guarantees]
-
-
----
-## Challenge #3: Batch Effects
+## Challenge #2: Legitimate Effects
 
 <img src="images/batch.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:400px"/>
 
 ---
-## Challenge #3: Batch Effects
+## Challenge #2: Legitimate Effects
 
 <img src="images/batch_sex.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:400px"/>
 
 ---
 class: center, middle
 
-## Opportunity #3: Batch Effects
+## Opportunity #2: Legitimate Effects
 
 <br>
 
@@ -472,7 +413,8 @@ and data to evaluate pipelines]
 ### Future Outlook Steps
 
 
-- Micro-arrays never mitigated batch effects sufficiently
+- Microarrays never mitigated batch effects sufficiently
+- Neither microarrays nor MRI "count"
 - fMRI has another degree of freedom: stimulus
 
 --
@@ -490,6 +432,71 @@ and data to evaluate pipelines]
 <DIV style="position: absolute; top:580px; left:340px; "><a href="mailto:jovo@jhu.edu">jovo@jhu.edu</a></DIV>
 
 
+
+---
+
+### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:150px; HEIGHT:500px"/>
+
+---
+
+### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels0.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels1.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels2.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels3.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels4.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels5.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+
+---
+class: center, middle
+
+### Opportunity #2: Overlapping Clusters
+<br>
+
+Any tree with thresholds will put arbitrarily close individuals arbitrarily far away
+
+<br>
+
+Trees that put individuals near boundary in multiple groups could mitigate this issue
+
+<br>
+
+.w[**Gap**: Tree learning tools with appropriate statistical guarantees]
 
 
 

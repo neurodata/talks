@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="http://jovo.me/fonts/arnhem/arnhem.css">
   <!-- endbower -->
 
-  <title>BRAIN 2016</title>
+  <title>CMI SRC 2017</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <style type="text/css">
 
     body {
       font-family: 'gentona'; /* Varela Round */
-      font-size: 1.0em;
+      font-size: 1.1em;
     }
     h1, h2, h3, h4, h5, h6 {
       font-family: 'quadon';
@@ -264,97 +264,230 @@
 
 
 
-class: center, middle
+<!-- class: center, middle -->
 
+class: center, middle
 name:opening
 
-## NeuroData
+## Learning a Data-Driven Nosology:
+## Progress, Challenges & Opportunities
 
-<br>
+<!-- <img src="images/psych.jpg" STYLE="position:absolute; TOP:200px; LEFT:110px; WIDTH:700px;"/> -->
 
-.center[
-Joshua T. Vogelstein
-<br>
-<!-- JHU Kavli Neuroscience Discovery Institute -->
-{[bme](http://www.bme.jhu.edu/),[icm](http://icm.jhu.edu/),[cis](http://cis.jhu.edu/),[idies](http://idies.jhu.edu/),[kavli](http://kavlijhu.org/),[cs](http://engineering.jhu.edu/computer-science/), [ams](http://engineering.jhu.edu/ams/), [neuro](http://neuroscience.jhu.edu/)} | [jhu](https://www.jhu.edu/)
-<br>
-questions: [jovo@jhu.edu](mailto:jovo at jhu dot edu)
-<br>
-slides: <http://brainx.io/allen>
-<br>
-
-Co-Founder: [NeuroData](http://neurodata.io) 
-
-
-]
 
 ---
 
-### An Unprecedented Opportunity
+## Steps
 
 <br><br>
 
-- 7B people, 7+B mobile phones
-- Data are digital
-- Cloud computing is everywhere
-- Everyone has a brain
-- Loop from experiments to theory and back is broken
+1. Acquire data
+2. Build and run pipelines
+3. Develop and apply clustering methods
 
+---
 
---
+### Progress: Datasets Acquired
 
-#### What questions should we ask?
+<img src="images/m2gtab.png" STYLE="position:absolute; TOP:200px; LEFT:00px; WIDTH:900px;"/>
+
+---
+
+### Progress: Pipeline Built!
+
+<img src="images/ndmg-pipeline.png" STYLE="position:absolute; TOP:200px; LEFT:0px; WIDTH:900px;"/>
+
 
 ---
 class: center, middle
 
-## Connectome Coding
+## Clustering Methods: In Progress
+
+--
+
+1) Don't find spurious clusters
+<br>
+2) Do find legitimate clusters
+
+---
+### Challenge #1: Spurious Clusters
+
+
+<img src="images/spikes.png" STYLE="position:absolute; TOP:150px; LEFT:150px; HEIGHT:500px;"/>
+
+
+---
+### Challenge #1: Spurious Clusters
+
+<img src="images/spikes_kde.png" STYLE="position:absolute; TOP:150px;  LEFT:150px; HEIGHT:500px;"/>
+
+---
+### Challenge #1: Spurious Clusters
+
+<img src="images/spikes_bic1.png" STYLE="position:absolute; TOP:150px;  LEFT:150px; HEIGHT:500px;"/>
+
+---
+### Challenge #1: Spurious Clusters
+
+<img src="images/spikes_bic2.png" STYLE="position:absolute; TOP:150px;  LEFT:150px; HEIGHT:500px;"/>
+
+---
+### Challenge #1: Spurious Clusters
+
+<img src="images/spikes_bic3.png" STYLE="position:absolute; TOP:150px;  LEFT:150px; HEIGHT:500px;"/>
+
+---
+### Challenge #1: Spurious Clusters
+
+<img src="images/spikes_bic4.png" STYLE="position:absolute; TOP:150px;  LEFT:150px; HEIGHT:500px;"/>
+
+---
+### Challenge #1: Spurious Clusters
+
+<img src="images/spikes_bic5.png" STYLE="position:absolute; TOP:150px;  LEFT:150px; HEIGHT:500px;"/>
+
+---
+### Challenge #1: Spurious Clusters
+
+<img src="images/spikes_bic1000.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px;"/>
+
+<!-- ---
+### Challenge #1: Spurious Clusters
+
+real data goes here -->
+
+---
+class:center, middle
+
+### Opportunity #1: Spurious Clusters
+
+<br>
+Standard tools find spurious clusters
+<br>
+Fancy tools require too much data to be practical
+<br>
+
+.w[**Gap**: Clustering tools with appropriate statistical guarantees]
+
+
+
+---
+### Challenge #2: Legitimate Clusters
+
+<img src="images/batch.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:400px"/>
+
+---
+### Challenge #2: Legitimate Clusters
+
+<img src="images/batch_sex.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:400px"/>
+
+---
+class: center, middle
+
+### Opportunity #2: Legitimate Clusters
+
+<br>
+
+
+Thus far, harmonzing processing does not remove batch effect
+<br>
+Can further harmonizing processing mitigate batch effect?
+<br>
+If not, can harmonizing acquisition mitigate batch effect?
+<br>
+.w[**Gap**: Pipelines that harmonize across datasets,
+and data to evaluate pipelines]
+
+---
+
+### Future Outlook
+
+
+- Microarrays never mitigated batch effects sufficiently
+- Neither microarrays nor MRI "count"
+- fMRI has another degree of freedom: stimulus
+
+--
+
+### Much More To Do!
+
+
+<img src="images/lion2.JPG" STYLE="position:absolute; TOP:350px; LEFT:0px; WIDTH:400px;"/>
+<img src="images/world.gif" STYLE="position:absolute; TOP:350px; LEFT:400px; WIDTH:500px;"/>
+
+
+
+<DIV style="position: absolute; top:550px; left:120px; ">(i love this guy)</DIV>
+
+<DIV style="position: absolute; top:620px; left:340px; "><a href="mailto:jovo@jhu.edu">jovo@jhu.edu</a></DIV>
+
 
 
 ---
 
-<div id="contentframe" style="position:relative; top: 0px; left: -100px;">
-<iframe width="900" height="600" src="https://www.youtube.com/embed/c-NMfp13Uug?start=118" frameborder="0" allowfullscreen></iframe>
-</div>
+#### Challenge #3: Overlapping Clusters
 
-
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:150px; HEIGHT:500px"/>
 
 ---
 
-<center> <a href="https://goo.gl/8UoKjE">
-<img src="images/clarity_neuroglancer.png" STYLE="position:absolute; TOP:-20px; LEFT:-100px; WIDTH:1200px;"/>
-</a>
-</center>
+#### Challenge #3: Overlapping Clusters
 
-
----
-
-<!-- # Every Cell Body -->
-
-<center><img src="images/rob2.png" style="position:absolute; LEFT:0px; width: 900px; TOP:0px;"/></center>
-
-
-
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels0.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
 
 ---
 
-## Science in the Cloud
+#### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels1.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+#### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels2.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+#### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels3.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+#### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels4.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
+
+---
+
+#### Challenge #3: Overlapping Clusters
+
+<img src="images/overlap.png" STYLE="position:absolute; TOP:150px; LEFT:50px; WIDTH:800px; HEIGHT:50px"/>
+<img src="images/levels5.png" STYLE="position:absolute; TOP:200px; LEFT:50px; WIDTH:800px;"/>
 
 
+---
+class: center, middle
 
-1. Globally democratizes science
-2. Accelerates discovery
-3. Leaves the world better for our children
+### Opportunity #3: Overlapping Clusters
+<br>
 
+Any tree with thresholds will put arbitrarily close individuals arbitrarily far away
 
-<img src="images/lion2.JPG" STYLE="position:absolute; TOP:300px; LEFT:0px; WIDTH:400px;"/>
-<img src="images/world.gif" STYLE="position:absolute; TOP:300px; LEFT:400px; WIDTH:500px;"/>
+<br>
 
+Trees that put individuals near boundary in multiple groups could mitigate this issue
 
+<br>
 
+.w[**Gap**: Tree learning tools with appropriate statistical guarantees]
 
-
-<!-- [more slides](http://docs.neurodata.io/ndintro/more.html) -->
 
 
 

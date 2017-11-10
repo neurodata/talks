@@ -69,7 +69,7 @@ for jj=1
     end
     tit=[tit, ', $\hat{k}=$', num2str(minbic)];
     title(tit,'interp','latex','color','w','fontsize',24)
-    if print_fig, export_fig(['images/spikes_bic', num2str(jj),'.png']); end
+    if print_fig, export_fig(['../images/spikes_bic', num2str(jj),'.png']); end
     
 end
 
@@ -101,7 +101,7 @@ set(gca,'color','none')
 xlim([-4,4])
 ylim([0,0.4])
 set(gca,'XTick',[],'YTick',[])
-if print_fig, export_fig(['images/overlap.png']); end
+if print_fig, export_fig(['../images/overlap.png']); end
 
 %% levels
 
@@ -127,7 +127,7 @@ for i=1:ls
     set(gcf,'Color','None')
     set(gca,'color','none')
     set(gca,'XTick',[],'YTick',[])
-    if print_fig, export_fig(['images/levels', num2str(i-1), '.png']); end
+    if print_fig, export_fig(['../images/levels', num2str(i-1), '.png']); end
 end
 
 %% effect size
@@ -191,10 +191,10 @@ set(gca,'color','none')
 % ylim([0,1.2])
 % tit=['$n=', num2str(n/2), ', \hat{k}=$', num2str(minbic)];
 % title(tit,'interp','latex','color','k','fontsize',24)
-if print_fig, export_fig('images/batch.png'); end
+if print_fig, export_fig('../images/batch.png'); end
 
 stem(z(end),1,'r','marker','none','linewidth',lw)
-if print_fig, export_fig('images/batch_sex.png'); end
+if print_fig, export_fig('../images/batch_sex.png'); end
 
 %% cci
 
@@ -238,3 +238,46 @@ end
 A = fscanf('code/humans/KKI2009_113_2_bg.edgelist','%d%c%d');
 fprintf(fileID,'%4.4f\n',x);
 fclose(fileID);
+
+
+%% changing lambda
+
+z=rand(10000,1)>0.999;
+z=[z; rand(10000,1)>0.98];
+z=[z; rand(10000,1)>0.999];
+z=[z; rand(10000,1)>0.98];
+
+
+l=length(z)/4;
+
+y=[ones(l,1); 2*ones(l,1); ones(l,1); 2*ones(l,1)]/4;
+y=y-0.75;
+
+lw=2;
+figure(4), clf, hold all
+gr=0.75*[1 1 1];
+% stem(z,1*ones(length(z),1),'w','marker','none','linewidth',lw)
+plot(z,'w'),
+plot(y,'w')
+axis('tight')
+set(gca,'XTick',[],'YTick',[])
+set(gcf,'Color','None')
+set(gca,'color','none')
+if print_fig, export_fig('../images/lambda2.png'); end
+
+%%
+
+ERii=triu(rand(50,50)>0.9);
+ERii=ERii+ERii';
+ERii(ERii>1)=0;
+
+ERij=rand(50,50)>0.99;
+
+A1=[ERii, ERij];
+A2=[ERij, ERii];
+A=[A1;A2];
+
+colormap('gray')
+imagesc(A)
+set(gca,'xtick','','ytick','')
+if print_fig, export_fig('../images/sbm.png'); end

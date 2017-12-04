@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel="stylesheet" href="http://jovo.me/fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="http://jovo.me/fonts/titling-gothic/titling-gothic.css">
+    <link rel="stylesheet" href="http://jovo.me/fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="http://jovo.me/fonts/arnhem/arnhem.css">
+    <!-- endbower -->
+
+    <title>JHU/China</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+
+      body {
+        font-family: 'gentona'; /* Varela Round */
+        font-size: 1.0em;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'quadon';
+        font-weight: 400;
+        margin-bottom: 0;
+        color: #a6bcd7;
+        text-align: center;
+        /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
+      }
+      .remark-slide-content {
+        font-size: 1.5em;
+        background: #28282e;
+        background: -webkit-radial-gradient(circle, #28282e, #15120e, black); /* Safari */
+        background: -o-radial-gradient(circle, #28282e, #15120e, black); /* Opera 11.6 to 12.0 */
+        background: -moz-radial-gradient(circle, #272822, #15120e, black); /* Firefox 3.6 to 15 */
+        background: radial-gradient(circle, #28282e, #15120e, black); /* Standard syntax */
+
+        color: #dfd6c2;
+      }
+
+
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .remark-slide-content h4 { font-size: 1.4em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      .navbar {
+        position: absolute;
+        float: center;
+        top: 0em;
+        font-family: 'titling-gothic';  /* Yanone Kaffeesatz */
+        font-weight: 200;
+        color: #A7A7A7;
+      }
+      .navbar a {
+        color: #A7A7A7;
+      }
+      .bbar {
+        position: absolute;
+        bottom: 13px;
+        left: 13px;
+        font-family: 'titling-gothic';  /* Yanone Kaffeesatz */
+        font-weight: 200;
+        color: #A7A7A7;
+      }
+      .bbar a {
+        color: #A7A7A7;
+      }
+      .cbar {
+        position: absolute;
+        bottom: 13px;
+        left: 13px;
+        font-family: 'titling-gothic';  /* Yanone Kaffeesatz */
+        font-weight: 200;
+        /*color: #A7A7A7;*/
+        color: #bdbcbc;
+      }
+      .cbar a{
+       color: #bdbcbc;
+      }
+
+      .btn {
+        background: #424242;
+        height: 2em;
+      }
+      li p { line-height: 1.25em; }
+      .r { color: #fa0000; }
+      .w {color: white;}
+      .ye { color: #FFFF00; }
+      .y { color: #fcfaf6; }
+      .pink { color: #FF87F3;}
+      .orange { color: #FFA500;}
+      .g { color: #00CC00; }
+      .blue { color: #75E9FF;}
+      .s {color :#318dde;}
+      .purple { color: #A149A9;}
+      .large { font-size: 2em; }
+      .black { color: black; background-color: white;}
+      a, a > code {
+        color:#318dde;
+        text-decoration: none; /*underline*/
+      }
+
+      a:hover {
+        color: white;
+      }
+
+      code {
+        background: #424242;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+/*      .pull-left {
+        float: left;
+        width: 47%;
+      }*/
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .center {
+        margin: auto;
+        width: 100%;
+        padding: 10px;
+      }
+      .small {
+        font-size: 0.8em;
+      }
+/*      .pull-right {
+        float: right;
+        width: 47%;
+      }*/
+      .pull-bottom {
+        position: absolute;
+        bottom: 0;
+      }
+      .bottom {
+        position: absolute;
+        bottom: 35px;
+        left: 13px;
+        font-family: 'Yanone Kaffeesatz';
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: white;
+        color: white;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse p {
+        color: white;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      #frame { zoom: 0.75; -moz-transform: scale(0.75); -moz-transform-origin: 0 0; }
+
+      #outer {
+        width: 100%;
+        text-align: center;
+      }
+      #inner {
+        display: inline-block;
+      }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+      .left-column h2:last-of-type, .left-column h3:last-child {
+        color: #000;
+      }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+      br {
+        line-height: 50%;
+      }
+      .task {
+        float: right;
+        font-size: 0.9em;
+        padding-top: 0.6em;
+      }
+
+  }
+    </style>
+  </head>
+  <body onload="var slideshow = remark.create();">
+    <textarea id="source">
+
+
+
+
+class: center, middle
+
+name:opening
+
+## The International Brain Station (TIBS)
+
+<br>
+
+.center[
+Joshua T. Vogelstein
+<br>
+Dept. Biomedical Engineering
+<br>
+Kavli Neuroscience Discovery Institute
+<br>
+Johns Hopkins University
+<!-- {[bme](http://www.bme.jhu.edu/),[icm](http://icm.jhu.edu/),[cis](http://cis.jhu.edu/),[idies](http://idies.jhu.edu/),kavli,[cs](http://engineering.jhu.edu/computer-science/), [ams](http://engineering.jhu.edu/ams/), [neuro](http://neuroscience.jhu.edu/)} | [jhu](https://www.jhu.edu/) -->
+<br>
+questions: [jovo@jhu.edu](mailto:jovo at jhu dot edu)
+<br>
+slides: <http://brainx.io/china>
+
+<br><br>
+
+]
+
+
+these slides modified from pre-UN talk
+
+
+
+---
+
+### Global Brain Workshop
+
+<br>
+
+- [April 5-6, 2016 @ JHU](http://brainx.io/)
+  - 60+ scientists
+  - 15+ observers from international funding community
+  - 12+ countries represented
+  - ideas evolved from discussions  before, at, and after workshop
+  - [Report in Neuron](http://dx.doi.org/10.1016/j.neuron.2016.10.033)
+  - [Science](http://science.sciencemag.org/content/352/6283/277), [NIH](http://www.braininitiative.org/2016/04/22/international-brain-projects-considered/), [MIT Tech Review](https://www.technologyreview.com/s/602274/three-grand-challenges-for-brain-science-that-can-be-solved-in-10-years/), [Nature](http://www.nature.com/news/worldwide-brain-mapping-project-sparks-excitement-and-concern-1.20658) cover it.
+
+---
+
+### Coordinating Global Brain Projects
+
+
+- September 19, 2016 @ Rockefeller
+  - 400+ scientists
+  - ideas shared and further discussed
+- [Report in Cell](http://dx.doi.org/10.1016/j.cell.2017.02.023)
+- [US State Dept Announcement](https://2009-2017.state.gov/r/pa/prs/ps/2016/09/262200.htm)
+
+
+---
+
+### NeuroStorm: Accelerating Brain Science Discovery in the Cloud
+
+- Workshop on [June 7-8, 2017 @ JHU](http://brainx2.io/)
+  - Concrete plans for next steps towards democratizing brain sciences
+
+<br>
+
+- Hackathon on [October 24-27, 2017 @ MBL](http://neuroscience.uchicago.edu/hackathon/)
+  - 24 hackers from around the world taking next steps
+
+
+
+
+<!-- - Open Data Ecosystem for Neuroscience, July 25-26, 2016 -->
+<!-- - Coding sprint for a new neuroimaging data processing platform, August 1-4, 2016 -->
+
+
+---
+
+### Inspirational Work
+
+<br>
+
+1. Human Genome Project in molecular genetics
+2. Sloan Digital Sky Survery in cosmology
+
+<br>
+
+Reference data and cloud ecosystems revolutionized these disciplines
+
+
+---
+class: center
+
+## What is TIBS?
+
+<br>
+
+A living *ecosystem* that enables anybody to utilize or contribute
+
+
+
+<center><img src="images/sic_framework.png" style="width: 750px;"/></center>
+
+
+(4  scientist roles)
+
+---
+
+### Design Goals
+
+<br><br>
+
+- Globally democratize scientific discovery
+- Lower the barrier to entry to data intensive brain science
+- Integrate data, algorithms and theory
+
+<!-- - .s[Democratize] science (anybody can contribute and utilize)
+- .s[Pain points] eliminate for each stage of discovery
+- .s[Reference] data and tools - lower the barrier to entry
+- .s[Efficient] computation to conserve resources
+ -->
+
+
+---
+
+## Some Preliminary Results
+
+<br>
+
+- Open Data Ecosystem for Neuroscience, July 2016
+- NSF NeuroNex RFP, October 2016
+- [International Brain Lab](https://www.internationalbrainlab.com/#home) launches, September 2017
+- Implemented CBRAIN on the Baidu Cloud
+
+
+---
+
+### A Pilot Project: [CoRR](http://fcon_1000.projects.nitrc.org/indi/CoRR/html/index.html)
+
+
+- Consortium for Reliability and Reproducability
+- Collaborators include JHU, Child Mind Institute, and
+  - BNU - Beijing Normal University
+  - HNU - Hangzhou Normal University
+  - IACAS - Institute of Automation, Chinese Academy of Sciences
+  - JHNU - Jinling Hospital, Nanjing University
+  - LMU - Ludwig-Maximilians-University
+  - XHCUMS - Xuanwu Hospital, Capital University of Medical Sciences
+
+---
+
+#### A Principled Approach to Connectome Estimation and Mega-Analysis Towards Replicable Science
+
+- 10 fMRI studies and 17 dMRI studies (mostly from China)
+- A computational and statistical pipeline (from us)
+
+
+<img src="images/ndmg-pipeline.png" style="width: 600px;"/>
+
+---
+
+#### A Statistical Definition of "Discriminability"
+
+
+- Difference between two measurements from same subject is less than two measurements from different subjects
+- Proof that discriminability bounds predictive accuracy for downstream inference
+- Use this metric to obtain highly discriminable pipelines for fMRI and dMRI
+
+---
+class: center
+
+
+### Coarse Grained Connectome Properties are Replicable
+
+<img src="images/megamean.png" style="width: 650px;"/>
+
+
+---
+class: center
+
+### Fine Grained Connectome Properties are Not
+
+<img src="images/subgraphs.png" style="width: 550px;"/>
+
+---
+
+### Next Steps for CoRR
+
+<br>
+
+- Manuscript to be submitted
+- Pipeline updates
+- Data acquisition updates
+
+
+
+---
+
+### Next Steps for Global Brain Sciences
+
+<br>
+
+- Build international coalition
+- Continue expanding pilot projects
+- Inspire cultural shift in neuroscience
+
+
+
+
+
+
+---
+class:   center
+
+
+# Questions?
+
+<!-- ### Funding &nbsp;&nbsp;&nbsp;&nbsp;   -->
+
+<img src="images/lion3.jpg" STYLE="position:absolute; TOP:200px; LEFT:0px; WIDTH:400px;"/>
+<img src="images/world.gif" STYLE="position:absolute; TOP:200px; LEFT:400px; WIDTH:500px;"/>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- ____  -->
+
+
+e: [jovo@jhu.edu](mailto:jovo@jhu.edu)
+<br>
+w: [brainx.io](http://neurodata.io)
+
+<!-- ____ -->
+
+
+<!-- [more slides](http://docs.neurodata.io/ndintro/more.html) -->
+
+
+
+
+
+    </textarea>
+    <script src="remark-latest.min.js" type="text/javascript">
+    </script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+
+var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  ratio: '4:3',
+
+  // Navigation options
+  navigation: {
+    // Enable or disable navigating using scroll
+    // Default: true
+    // Alternatives: false
+    scroll: true,
+
+    // Enable or disable navigation using touch
+    // Default: true
+    // Alternatives: false
+    touch: true,
+
+    // Enable or disable navigation using click
+    // Default: false
+    // Alternatives: true
+    click: false
+  },
+
+  // Customize slide number label, either using a format string..
+  // slideNumberFormat: 'Slide %current% of %total%',
+  // .. or by using a format function
+  slideNumberFormat: function (current, total) {
+    return  current + ' of ' + total;
+  },
+
+  // Enable or disable counting of incremental slides in the slide counting
+  countIncrementalSlides: false
+});
+
+    </script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+  </body>
+</html>

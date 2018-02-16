@@ -260,16 +260,68 @@
           opacity: 0; /* default: 0.5 */
         }
 
-        /* .remark-slide-content {
+        .remark-slide-content {
           background-size: contain;
           background-position: center;
-        } */
+        }
         /*code.has-jax {
           font: inherit;
           font-size: 100%;
           background: inherit;
           border: inherit;
         }*/
+
+        /* Container holding the image and the text */
+        .container {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        /* Bottom left text */
+        .bottom-left {
+            position: absolute;
+            bottom: 8px;
+            left: 16px;
+        }
+
+        /* Top left text */
+        .top-left {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+        }
+
+        /* Top right text */
+        .top-right {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+        }
+        /* Top right text */
+        .top-center {
+            position: absolute;
+            top: 20px;
+            font-size: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Bottom right text */
+        .bottom-right {
+            position: absolute;
+            bottom: 8px;
+            right: 16px;
+        }
+
+        /* Centered text */
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         </style>
   </head>
   <body>
@@ -288,7 +340,7 @@ name:opening
 
 
 
-<br>
+<br><br><br>
 
 .center[
 Joshua T. Vogelstein
@@ -304,9 +356,11 @@ questions: [jovo@jhu.edu](mailto:jovo at jhu dot edu)
 <br>
 slides: <http://brainx.io/dibs>
 
-<br><br>
 
 ]
+
+
+<img src="http://karchinlab.org/bme-compbio-jhu/assets/img/biomedical-engineering.small.horizontal.blue.png" STYLE="position:absolute; TOP:180px; LEFT:230px; HEIGHT:200px;"/>
 
 
 ---
@@ -381,16 +435,9 @@ class: center, middle
 
 ---
 
-### Where Are We Now?
+##### Where Are We Now: Mesoscale Whole Clear Brain
 
-
-<img src="images/OCPaper.png" style="width: 70%;"/>
-
----
-
-### Mesoscale Whole Clear Brain
-
-<iframe width="700" height="515" src="https://www.youtube.com/embed/c-NMfp13Uug?start=110" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="700" height="550" src="https://www.youtube.com/embed/c-NMfp13Uug?start=110" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <!-- 200 TB, 20+ publications (Cell, Nature, Science), 20+ labs, 9+ species
 
@@ -399,16 +446,16 @@ class: center, middle
 
 ---
 
-### Nanoscale Brain Connectivity
+##### Where Are We Now: Nanoscale Brain Connectivity
 
-<iframe width="700" height="515" src="https://www.youtube.com/embed/nvXuq9jRWKE?start=70" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="700" height="550" src="https://www.youtube.com/embed/nvXuq9jRWKE?start=70" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 ---
 
-### Whole Brain Activity
+##### Where Are We Now: Whole Brain Activity
 
-<iframe width="700" height="515" src="https://www.youtube.com/embed/U_NvQ2g6dGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="700" height="550" src="https://www.youtube.com/embed/U_NvQ2g6dGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <!-- background-image: url("images/OCPaper.png")
 background-size: contain;
@@ -438,15 +485,23 @@ background-size: contain;
 ---
 class:    center
 
-background-image: url("images/lion-one.jpg")
+<!-- background-image: url("images/lion-one.jpg") -->
+
+
+<div class="container">
+  <img src="images/lion-one.jpg" style="width: 100%;"/>
+  <div class="top-center">.black[Questions? ].black[[jovo@jhu.edu](mailto:jovo@jhu.edu), [neurodata.io](http://neurodata.io)]
+</div>
+</div>
 
 <br><br><br><br><br><br><br>
-# Questions?
+
+.center[# Questions?]
+
 
 <!-- ### Funding &nbsp;&nbsp;&nbsp;&nbsp;   -->
 
 <!-- <img src="images/lion3.jpg" STYLE="position:absolute; TOP:200px; LEFT:0px; WIDTH:400px;"/> -->
-<!-- <img src="images/lion-one.jpg" style="width: 100%;"/> -->
 
 <!-- <img src="images/world.gif" STYLE="position:absolute; TOP:200px; LEFT:400px; WIDTH:500px;"/> -->
 

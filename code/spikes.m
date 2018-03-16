@@ -5,7 +5,7 @@ clc, clear
 print_fig=1;
 n=200;
 
-
+%%
 for jj=1
     x=2*rand(n,1);
     x=sort(x);
@@ -281,3 +281,35 @@ colormap('gray')
 imagesc(A)
 set(gca,'xtick','','ytick','')
 if print_fig, export_fig('../images/sbm.png'); end
+
+%% latent position model
+
+n=50;
+eps=0.2;
+x0=randn(25,2)*eps+[1,0];
+x1=randn(25,2)*eps+[0,1];
+
+x=[x0;x1];
+
+P=x*x';
+
+P=P-min(P(:));
+P=P./max(P(:));
+
+imagesc(P), colormap(gray), colorbar
+axis('square')
+set(gca,'xtick','','ytick','')
+if print_fig, export_fig('../images/P_lpm.png'); end
+
+A=rand(n,n)>P;
+
+imagesc(A), 
+axis('square')
+set(gca,'xtick','','ytick','')
+if print_fig, export_fig('../images/A_lpm.png'); end
+
+
+plot(x(:,1),x(:,2),'.')
+axis('square')
+set(gca,'xtick','','ytick','')
+if print_fig, export_fig('../images/X_lpm.png'); end

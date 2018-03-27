@@ -18,11 +18,11 @@ spy(A)
 X0=[rand(n,2); rand(n,2)-[1 1]];
 X1=[rand(n,2)-[0, 1]; rand(n,2)-[1 0]];
 
-figure(1), 
+figure(1), clf
 subplot(121)
 cla, hold all
-plot(X0(:,1),X0(:,2),'ro')
-plot(X1(:,1),X1(:,2),'bx')
+plot(X0(:,1),X0(:,2),'bo')
+plot(X1(:,1),X1(:,2),'rx')
 axis('square')
 set(gca,'XTick',[],'YTick',[])
 title('Data Matrix','fontsize',tfs)
@@ -31,8 +31,8 @@ ylabel('dimension 2','fontsize',lfs)
 
 subplot(122)
 cla, hold all
-A=[1 0; 0 1];
-imagesc(A), colormap('default')
+A=[0 1; 1 0];
+imagesc(A), colormap('default'), colorbar
 axis('square')
 set(gca,'XTick',[],'YTick',[])
 title('Probability Matrix','fontsize',tfs)
@@ -40,7 +40,8 @@ xlabel('dimension 1','fontsize',lfs)
 ylabel('dimension 2','fontsize',lfs)
 
 
-export_fig(['../images/sample_XOR.png']);
+% export_fig(['../images/.png']);
+print('../images/sample_XOR.png','-dpng')
 
 
 %%

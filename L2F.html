@@ -52,9 +52,6 @@ class: center, middle
 
 # Motivation
 
----
-
-<img src="images/L2M_hava.png" style="width: 100%;"/>
 
 ---
 
@@ -101,12 +98,12 @@ class: center, middle
 | object | space | definition |
 |:--- |:--- |
 | $\xi \sim P_\xi$ | $\Xi$ | .blue[true] latent state |
-| $z  \leftarrow h(\xi)$ | $ \mathcal{Z}$ | noisily .blue[sampled] state
+| $z   \sim  P_{z \vert \xi} = h(\xi)$ | $ \mathcal{Z}$ | noisily .blue[sampled] state
 | $a$ |  $\mathcal{A}$ | possible .blue[actions]
 | $g: \mathcal{Z} \to \mathcal{A}$ |  $\mathcal{G}$ | decision rule
 | $\ell(g(z), a) \to \mathbb{R}_+$ | $\mathcal{L}$ | .blue[loss] function
 | $f_n: \mathcal{Z}^n \times \mathcal{L} \to \mathcal{G}$ | $\mathcal{F}$ | .blue[learner]
-| $\mathbb{R} [ \ell (\hat{g}(z; f_n), a)]$ | $\mathcal{R}$ | .blue[risk] functional
+| $\mathbb{R}_P [ \ell (\hat{g}(z; f_n), a)]$ | $\mathcal{R}$ | .blue[risk] functional
 
 
 - Let $\varepsilon_n = \mathbb{R}[f_n] - \mathbb{R}^{*}$ be the .blue[residual]
@@ -115,10 +112,12 @@ $\varepsilon_n \rightarrow 0$
 
 ---
 
-## Lifelong Learning
+## Lifelong Learning Theory
 
 
-- At $t=t'$, any of the following may change: $P, h, \mathcal{Z}, \mathcal{A}, \ell, \mathbb{R}$
+- At $t=t'$, any of the following may change: $P\_{\xi}, h, \mathcal{Z}, \mathcal{A}, \ell, \mathbb{R}$
+-  We know when $\mathcal{Z}, \mathcal{A}, \ell, \mathbb{R}$ changes
+- But not necessarily if $P=P\_{z,\xi}$ changes
 -  Goal: choose $f_n$ such that for  many $P \in \mathcal{P}$
 
 <!-- 1. $\varepsilon^{t<t^*}_n \rightarrow 0$ for many $P \in \mathcal{P}$
@@ -146,8 +145,8 @@ What class of $f_n$ might have these properties?
 
 --
 - Strong theoretical performance
-  - .blue[consistent]: $R(f_n) \rightarrow R^*$ for any $P \in \mathcal{P}$
-  - .blue[space efficient]: $\\#(f_n) \in \mathcal{O}(T n \log n)$
+  - .blue[consistent]: $\varepsilon_n(RF_n)  \rightarrow 0$ for any $P \in \mathcal{P}$
+  - .blue[space efficient]: $\\#(RF_n) \in \mathcal{O}(T n \log n)$
 
 
 
@@ -156,18 +155,20 @@ What class of $f_n$ might have these properties?
 
 ### Brief Introduction to Random Forests
 
-- Given $(x_i,y_i)$ for $i \in [n]$, $\quad x_i \in \mathbb{R}^p$, $y_i \in \{0,1\}$
+- Let $z_i=(x_i,y_i)$, where $ x_i \in \mathbb{R}^p$, $y_i \in \{0,1\}$
+- Given $z_i$ for $i \in [n]$,
 - For T trees:
   - Subsample $n' < n$ samples
   - At each node $j$, select  feature $d_j$ and threshold $\tau_j$ to split
   - For each child of $j$, repeat until criteria is met
   - Tree is encoded by $( d_j,\tau_j )_j$
 
-All the magic is in choosing the $( d_j,\tau_j )_j$
+All the magic is in choosing the $d_j$'s and $\tau_j$'s
 
 ---
 
-### A simple example
+### A Simple Example: XOR
+
 
 <img src="images/sample_XOR.png" style="height: 200px;"/>
 
@@ -186,7 +187,7 @@ class: center, middle
 ### Scenario 1: Semisupervised
 
 - Given $(x_i,y_i)$ for $i \in [n]$, $\quad x_i \in \mathbb{R}^p$, $y_i \in \{0,1\}$
-- after time $t'$, given another $x_i$ for $i = n+1, \ldots n+m$
+- After time $t'$, given  $x_i$ for $i = n+1, \ldots n+m$
 - Assume (for now), that $P_x(t < t') = P_x(t>t')$
 
 --
@@ -197,38 +198,43 @@ class: center, middle
 
 ### Strategy \# 1:  Update $\tau_j$'s
 
-- Use Hartigan's method to recursively update $\tau_j$'s
-- Update the threshold to maximize the change in  "gain"
-- "Thm (Telgarsky-Vattani)": The set of local optima of Hartigan’s method is a (possibly strict) subset of local optima of Lloyd’s method.
+- ".blue[Thm]" (Telgarsky-Vattani):
+  - The set of local optima of Hartigan’s method is a (possibly strict) subset of local optima of Lloyd’s method.
 
-#### "Conjecture 1 (L2F)"
 
-Updating $\tau\_j$'s this way yields $\varepsilon'\_{n+m} < \varepsilon\_{n}$
+- .blue[Algorithm]:
+  - Use Hartigan's method to recursively update $\tau_j$'s
+
+--
+
+
+- ".blue[Conjecture 1]":
+  - Updating $\tau\_j$'s this way yields $\varepsilon'\_{n+m} < \varepsilon\_{n}$
 
 ---
 
 ### Strategy \# 2:  Make trees deeper
 
 
-- Pass each new point down the tree,
-- When reaching a leaf node, decide whether to continue spliting
-- If so, split as per usual
-
-<br>
-- "Thm (DGL)": For RF to be consistent:
+- ".blue[Thm]" (DGL): For RF to be consistent:
   - Let $A(x)$ denote the "cell" containing $x$
   - diam$(A(x)) \rightarrow 0$ in probability
   - \# of points in $A(x) \rightarrow \infty$ in probability
 
-####  "Conjecture 2 (L2F)"
 
-  Making trees deeper this way yields $\varepsilon'\_{n+m} < \varepsilon\_{n}$
+- .blue[Algorithm]
+  - Pass each new point down the tree,
+  - At leaf node, decide whether to continue spliting
+  - If so, split as per usual
+
+
+- ".blue[Conjecture 2]"
+    - Making trees deeper this way yields $\varepsilon'\_{n+m} < \varepsilon\_{n}$
 
 ---
 
-### Strategy \# 3: Make trees stronger
+### Strategy \# 3: Update $d_j$'s
 
-- "Thm (Breiman)": RF error is bounded by a function of tree "strength" and "correlation"
 - Some  algorithm parameters can be estimated
 - Let's think of the process at each node as a .blue[random projection]
 - At each node, sample $A \sim F_A$
@@ -238,35 +244,40 @@ Updating $\tau\_j$'s this way yields $\varepsilon'\_{n+m} < \varepsilon\_{n}$
 
 ---
 
-#### Strategy \# 3: Make trees stronger & less correlated
+#### Strategy \# 3: Update $d_j$'s
 
 
-- $F_A$ has a low-dimensional parameterization
-- $d$ is the \# of non-zeros in the matrix
-- Algorithm 1: estimate .blue[which $d$'s] are doing well
-- Algorithm 2: estimate .blue[which dimensions's] are doing well
-- In either case:
+- ".blue[Thm]" (Bayes): posterior = likelihood  $\times$ prior
+  - $F_A$ has a low-dimensional parameterization
+  - $d$ is the \# of non-zeros in the matrix
+  - Option A: estimate .blue[which $d$'s] are doing well
+  - Option B: estimate .blue[which dimensions's] are doing well
+
+
+- .blue[Algorithm]:
   - build T trees using a prior distribution over $d$
   - sample different $d$'s for each node
   - estimate posterior over $d$/dimensions
   - build T' more trees using posterior
 
-####  "Conjecture 3 (L2F)"
-
-Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
+- ".blue[Conjecture 3]":
+  - Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
 
 ---
 
-#### Strategy \# 3: Make trees .w[even] stronger & less correlated
+#### Strategy \# 3: Make trees stronger & less correlated
 
-- Add more parameters to  $F_A$
-- e.g., relax constraint of 1 non-zero per row
+- ".blue[Thm]" (Breiman): RF error is bounded by a function of tree "strength" and "correlation"
 
-<img src="images/RerF1.png" style="width: 100%;"/>
 
-####  "Conjecture 4 (L2F)"
+- .blue[Algorithm]
+  - Add more parameters to  $F_A$
+  - e.g., relax constraint of 1 non-zero per row
 
-Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
+<img src="images/RerF1.png" style="width: 60%;"/>
+
+- ".blue[Conjecture 4]"
+  - Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
 
 
 ---
@@ -281,7 +292,8 @@ Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
 
 ---
 
-#### Strategy \# 3: Make trees learn dictionaries
+#### Strategy \# 4: Make trees learn dictionaries
+
 
 - Putting an identity matrix in there changes nothing
 
@@ -299,14 +311,15 @@ Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
 
 #### Strategy \# 3: Make trees learn dictionaries
 
-- Choosing dictionary based on prior knowledge
+- .blue[Algorithm]
+  - Choose low-dimensional dictionary based on prior knowledge
+  - Update posterior over dictionary after training
 
 <img src="images/RF_Dict3.png" style="width: 100%;"/>
 
 
-####  "Conjecture 5 (L2F)"
-
-Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
+-   ".blue[Conjecture 5]":
+  - Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
 
 
 ---
@@ -339,21 +352,22 @@ The magic is in how to choose $\alpha$, which depends on
 -  difference between $P_x(t < t')$ and $P_x(t>t')$
 
 
-####  "Conjecture 6 (L2F)"
-
-$\forall \,  P\_x(t < t'), P\_x(t>t') \, \exists \, \alpha$ such that $\varepsilon\_{n}^{\mathcal{S}, \mathcal{S'}} < \varepsilon\_{n}^{\mathcal{S'}}$
 
 
 ---
 
-###  Quantify $P_x(t < t') - P_x(t>t')$
+### Strategy 4: Weight trees
 
 
-- Hypothesis test: $H_0: P_x(t < t') = P_x(t>t')$
-- Effect size estimate: $|| P_x(t < t') - P_x(t>t')||$
-- Our multiscale graph correlation (MGC) test has
-$$\text{"Thm": } \varepsilon_n(MGC) \leq \varepsilon_n(global)$$
+- ".blue[Thm]" (Shen): Our multiscale graph correlation (MGC) test has
+$$\varepsilon_n(MGC) \leq \varepsilon_n(global)$$
 
+- .blue[Algorithm]
+  - Hypothesis test: $H_0: P_x(t < t') = P_x(t>t')$
+  - Effect size estimate: $|| P_x(t < t') - P_x(t>t')||$
+
+- ".blue[Conjecture 6]"
+  - $\forall \,  P\_x(t < t'), P\_x(t>t') \, \exists \, \alpha$ such that $\varepsilon\_{n}^{\mathcal{S}, \mathcal{S'}} < \varepsilon\_{n}^{\mathcal{S'}}$
 
 ---
 
@@ -383,7 +397,7 @@ class:center, middle
 ---
 ### \#1: Characterizing Psychopathy with Changing Sensors
 
-- 10 years of scanning psychopaths
+- 10 years of scanning psychopaths (multi-modality)
 - Frequent scanner updates meticulously documented (.blue[$h$])
 - Estimate recidivism using the first $n$ samples of $(x_i, y_i)$
 - Improve accuracy including $m$ additional $x_i$'s?
@@ -393,16 +407,16 @@ class:center, middle
 ### \#2: Characterizing Personality in Non-Stationary Life Span Data
 
 - Bringing it back to &#x1F981;
-- Lifespan data: 8-80
-- Certain phenotypics are fixed
-- Brain measurements are dynamic with age
+- Lifespan data: 8-80 (.blue[$P$])
+- Certain phenotypics are fixed (e.g., ethnicity,  gender, IQ)
+- Multimodal brain measurements  are dynamic with age
 - Learn function using $(x_i,y_i)$ of kids
 - Continue improving using only $x_i$ of adults
 
 ---
 ### Batch Effects are a Mess in these data
 
-<img src="images/figure_batch.svg" style="width: 80%;"/>
+<img src="images/figure_batch.svg" style="width: 100%;"/>
 
 
 ---
@@ -445,22 +459,6 @@ We are hiring!
 
 
 
-
-
-
-<!-- ### Funding &nbsp;&nbsp;&nbsp;&nbsp;   -->
-
-<!-- <img src="images/lion3.jpg" STYLE="position:absolute; TOP:200px; LEFT:0px; WIDTH:400px;"/> -->
-
-
-<!--
-<br>
-<br>
-<br>
- -->
-
-
-
 <img src="images/funding/nsf_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:10px; HEIGHT:100px;"/>
 
 <img src="http://brainx.io/images/funding/nih_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:120px; HEIGHT:100px;"/>
@@ -474,6 +472,10 @@ We are hiring!
 <img src="http://brainx.io/images/funding/kndi_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:650px; HEIGHT:100px;"/>
 
 
+
+---
+
+<img src="images/L2M_hava.png" style="width: 100%;"/>
 
 
 

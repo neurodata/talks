@@ -26,7 +26,7 @@ name:opening
 .center[
 
 
-Joshua T. Vogelstein, Cencheng Shen, Randal Burns, Carey E. Priebe
+Joshua T. Vogelstein
 <br>
 [jovo@jhu.edu](mailto:jovo at jhu dot edu)
 | <http://brainx.io/L2F>
@@ -39,13 +39,18 @@ Joshua T. Vogelstein, Cencheng Shen, Randal Burns, Carey E. Priebe
 
 ## Goals of this Talk
 
-- Provide some learning theory background
-- Motivate our strategy
-- Explain intuition behind our strategy
+- Motivation
+- Background
+- Intuition
+- Applications
 - Everyone in room understands
 
 Please ask questions!
 
+---
+class: center, middle
+
+# Motivation
 
 ---
 
@@ -83,6 +88,11 @@ But then....
 
 Goal: Can the judge (.blue[learner]) updates her ruling?
 
+---
+class: center, middle
+
+# Background
+
 
 ---
 
@@ -94,9 +104,9 @@ Goal: Can the judge (.blue[learner]) updates her ruling?
 | $z  \leftarrow h(\xi)$ | $ \mathcal{Z}$ | noisily .blue[sampled] state
 | $a$ |  $\mathcal{A}$ | possible .blue[actions]
 | $g: \mathcal{Z} \to \mathcal{A}$ |  $\mathcal{G}$ | decision rule
-| $\ell(g(x), a) \to \mathbb{R}_+$ | $\mathcal{L}$ | .blue[loss] function
+| $\ell(g(z), a) \to \mathbb{R}_+$ | $\mathcal{L}$ | .blue[loss] function
 | $f_n: \mathcal{Z}^n \times \mathcal{L} \to \mathcal{G}$ | $\mathcal{F}$ | .blue[learner]
-| $\mathbb{R} [ \ell (\hat{g}(x; f_n), a)]$ | $\mathcal{R}$ | .blue[risk] functional
+| $\mathbb{R} [ \ell (\hat{g}(z; f_n), a)]$ | $\mathcal{R}$ | .blue[risk] functional
 
 
 - Let $\varepsilon_n = \mathbb{R}[f_n] - \mathbb{R}^{*}$ be the .blue[residual]
@@ -108,7 +118,7 @@ $\varepsilon_n \rightarrow 0$
 ## Lifelong Learning
 
 
-- At $t=T$, any of the following may change: $P, h, \mathcal{X}, \mathcal{A}, \ell, \mathbb{R}$
+- At $t=t'$, any of the following may change: $P, h, \mathcal{Z}, \mathcal{A}, \ell, \mathbb{R}$
 -  Goal: choose $f_n$ such that for  many $P \in \mathcal{P}$
 
 <!-- 1. $\varepsilon^{t<t^*}_n \rightarrow 0$ for many $P \in \mathcal{P}$
@@ -117,8 +127,8 @@ $\varepsilon_n \rightarrow 0$
  | constraint | definition |
 |:--- |:--- |
  | $\varepsilon_n(t) \rightarrow 0$ |  consistency |
- | $\varepsilon_n(t>T) = \varepsilon_n(t)$ | no catestrophic forgetting
-| $\varepsilon_{n+m}(t>T) \rightarrow 0$| continual learning
+ | $\varepsilon_n(t>t') = \varepsilon_n(t)$ | no catestrophic forgetting
+| $\varepsilon_{n+m}(t>t') \rightarrow 0$| continual learning
  | $\\#(f_{n+m}) - \\#(f_n)  \in \mathcal{O}(\log m)$ | space efficient
 
 
@@ -136,9 +146,8 @@ What class of $f_n$ might have these properties?
 
 --
 - Strong theoretical performance
-  - $R(f_n) \rightarrow R^*$ for any $P \in \mathcal{P}$
-  - $\\#(f_n) \in \mathcal{O}(T \log n)$
-  - RF induces a "kernel"
+  - .blue[consistent]: $R(f_n) \rightarrow R^*$ for any $P \in \mathcal{P}$
+  - .blue[space efficient]: $\\#(f_n) \in \mathcal{O}(T n \log n)$
 
 
 
@@ -162,15 +171,23 @@ All the magic is in choosing the $( d_j,\tau_j )_j$
 
 <img src="images/sample_XOR.png" style="height: 200px;"/>
 
+--
+
 <img src="images/Fig1_posteriors.svg" style="height: 200px;"/>
+
+
+---
+class: center, middle
+
+# Intuition
 
 ---
 
 ### Scenario 1: Semisupervised
 
 - Given $(x_i,y_i)$ for $i \in [n]$, $\quad x_i \in \mathbb{R}^p$, $y_i \in \{0,1\}$
-- after time $T$, given another $x_i$ for $i = n+1, \ldots n+m$
-- Assume (for now), that $P_x(t < T) = P_x(t>T)$
+- after time $t'$, given another $x_i$ for $i = n+1, \ldots n+m$
+- Assume (for now), that $P_x(t < t') = P_x(t>t')$
 
 --
 
@@ -181,12 +198,12 @@ All the magic is in choosing the $( d_j,\tau_j )_j$
 ### Strategy \# 1:  Update $\tau_j$'s
 
 - Use Hartigan's method to recursively update $\tau_j$'s
-- Update the threshold to maximize the change in the "gain" function
+- Update the threshold to maximize the change in  "gain"
 - "Thm (Telgarsky-Vattani)": The set of local optima of Hartigan’s method is a (possibly strict) subset of local optima of Lloyd’s method.
 
 #### "Conjecture 1 (L2F)"
 
-Updating $\tau\_j$'s this way yields $\varepsilon\_{n+m} \rightarrow 0$
+Updating $\tau\_j$'s this way yields $\varepsilon'\_{n+m} < \varepsilon\_{n}$
 
 ---
 
@@ -205,7 +222,7 @@ Updating $\tau\_j$'s this way yields $\varepsilon\_{n+m} \rightarrow 0$
 
 ####  "Conjecture 2 (L2F)"
 
-  Making trees deeper this way yields $\varepsilon\_{n+m} \rightarrow 0$
+  Making trees deeper this way yields $\varepsilon'\_{n+m} < \varepsilon\_{n}$
 
 ---
 
@@ -306,34 +323,34 @@ Making trees stronger this way yields $\varepsilon'\_{n} < \varepsilon\_{n}$
 ### Scenario 2: "Covariate Shift" Learning
 
 - Given $(x_i,y_i)$ for $i \in [n]$, $\quad x_i \in \mathbb{R}^p$, $y_i \in \{0,1\}$
-- after time $T$, given another $x_i$ for $i = n+1, \ldots n+m$
-- Assume that we do not know whether $$P_x(t < T) \neq P_x(t>T)$$
+- after time $t'$, given another $x_i$ for $i = n+1, \ldots n+m$
+- Assume that we do not know whether $$P_x(t < t') \neq P_x(t>t')$$
 
 ---
 
 ### Strategy 4: Weight trees
 
-- Learn $S$ trees under $P_x(t< T)$
-- Learn $S'$ trees under $P_x(t>T)$
+- Learn $S$ trees under $P_x(t< t')$
+- Learn $S'$ trees under $P_x(t>t')$
 - For a new sample $x$, let $\hat{y}= \alpha RF\_{\mathcal{S}}(x) + (1-\alpha) RF\_{\mathcal{S}'}(x)$
 
 The magic is in how to choose $\alpha$, which depends on
 - difference between  $n$ and $m$
--  difference between $P_x(t < T)$ and $P_x(t>T)$
+-  difference between $P_x(t < t')$ and $P_x(t>t')$
 
 
 ####  "Conjecture 6 (L2F)"
 
-$\forall \,  P\_x(t < T), P\_x(t>T) \, \exists \, \alpha$ such that $\varepsilon\_{n}^{\mathcal{S}, \mathcal{S'}} < \varepsilon\_{n}^{\mathcal{S'}}$
+$\forall \,  P\_x(t < t'), P\_x(t>t') \, \exists \, \alpha$ such that $\varepsilon\_{n}^{\mathcal{S}, \mathcal{S'}} < \varepsilon\_{n}^{\mathcal{S'}}$
 
 
 ---
 
-###  Quantify $P_x(t < T) - P_x(t>T)$
+###  Quantify $P_x(t < t') - P_x(t>t')$
 
 
-- Hypothesis test: $H_0: P_x(t < T) = P_x(t>T)$
-- Effect size estimate: $|| P_x(t < T) - P_x(t>T)||$
+- Hypothesis test: $H_0: P_x(t < t') = P_x(t>t')$
+- Effect size estimate: $|| P_x(t < t') - P_x(t>t')||$
 - Our multiscale graph correlation (MGC) test has
 $$\text{"Thm": } \varepsilon_n(MGC) \leq \varepsilon_n(global)$$
 
@@ -353,7 +370,39 @@ $$\text{"Thm": } \varepsilon_n(MGC) \leq \varepsilon_n(global)$$
 <img src="images/FigHDPower.svg" style="width: 100%;"/>
 
 
+---
+class: center, middle
 
+# Applications
+
+---
+class:center, middle
+
+<img src="images/kent1.JPG" style="height: 100%;"/>
+
+---
+### \#1: Characterizing Psychopathy with Changing Sensors
+
+- 10 years of scanning psychopaths
+- Frequent scanner updates meticulously documented (.blue[$h$])
+- Estimate recidivism using the first $n$ samples of $(x_i, y_i)$
+- Improve accuracy including $m$ additional $x_i$'s?
+<img src="images/KentF1.png" style="width: 80%;"/>
+
+---
+### \#2: Characterizing Personality in Non-Stationary Life Span Data
+
+- Bringing it back to &#x1F981;
+- Lifespan data: 8-80
+- Certain phenotypics are fixed
+- Brain measurements are dynamic with age
+- Learn function using $(x_i,y_i)$ of kids
+- Continue improving using only $x_i$ of adults
+
+---
+### Batch Effects are a Mess in these data
+
+<img src="images/figure_batch.svg" style="width: 80%;"/>
 
 
 ---
@@ -363,37 +412,35 @@ class:  top,  left
 
 
 .pull-left[
-Internal Collaborations:
-- BME (Miller)
-- AMS (Priebe)
-- CS (Burns)
-- ChemBE (Schulman)
-- Physics (Szalay)
-- BioStats (Caffo)
-- Neuroscience (Huganir)
-- Applied Physics Lab
+Theory Collaborations:
+- Carey E. Priebe
+- Cencheng Shen
+- Minh Tang
+- Tyler Tomita
+- James Browne
+- Randal Burns
+- Karl Kumbier?
 
-Industry:
-- Google
-- Amazon
-- [gigantum](http://gigantum.io/)
-- [d8alab](https://d8alab.com/)
+Data Collaborators:
+- Kent Kiel (MRN)
+- Bruce Rosen (MGH)
 ]
 
 
 .pull-left[
-External Collaborations:
-- Allen Institute (Smith)
-- Janelia Research Campus
-- Stanford (Deisseroth)
-- Harvard (Engert)
-- Duke (Sapiro)
-- Baylor (Tolias)
-- Argonne National Labs (Kasthuri)
+
+Love Collaborators:
+- &#x1F981;
+- &#x1f60b;
+- &#x1f46a;
+- &#x1F30D;
+- &#x1f320;
 
 Questions?
 - [jovo@jhu.edu](mailto:jovo@jhu.edu)
 - [neurodata.io](http://neurodata.io)
+
+We are hiring!
 ]
 
 

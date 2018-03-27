@@ -146,7 +146,7 @@ What class of $f_n$ might have these properties?
 --
 - Strong theoretical performance
   - .blue[consistent]: $\varepsilon_n(RF_n)  \rightarrow 0$ for any $P \in \mathcal{P}$
-  - .blue[space efficient]: $\\#(RF_n) \in \mathcal{O}(T n \log n)$
+  - .blue[space efficient]: $\\#(RF_n) \in \mathcal{O}(T n )$
 
 
 
@@ -399,12 +399,44 @@ $$\varepsilon_n(MGC) \leq \varepsilon_n(global)$$
 
 ---
 
-### L2Forests Satisfy the Criteria
+### Scenario 3: The Whole Megilla
 
-- Continual learning
-- Avoids catastrophic forgetting
-- Goal driven perception
-- Select plasticity
+- Given $(x_i,y_i)$ for $i \in [n]$, $\quad x_i \in \mathbb{R}^p$, $y_i \in \{0,1\}$
+- after time $t'$, given another $x_i$ for $i = n+1, \ldots n+m$
+- .blue[everything] might be changing dynamically; define the setting as any time as
+
+$$\mathcal{S}\_t=P\_{\xi}, h, \mathcal{Z}, \mathcal{A}, \ell, \mathbb{R}$$
+- what to do?
+
+---
+
+### Strategy 4: Forest Daemon
+
+- ".blue[Thm]": we got nothing here :)
+
+
+- .blue[Algorithm]
+  -  A .y[Forest Demon] stores "meta-data" for each (tree, sample, setting) triple
+  - The demon performs "random forestry", that is, chooses weights for each tree and sample based on the setting
+   $$\hat{y} = \sum_k^K \alpha_k T_k(x)$$
+
+- ".blue[Conjecture 7]"
+  -  The forest demon solves L2M!
+
+---
+
+### Phase 1: Demonstrate L2Forests Can Satisfy the Criteria
+
+1. Continual learning (updating old trees)
+2. Avoids catastrophic forgetting (building new trees)
+3. Goal driven perception (demon is given a new setting)
+4. Select plasticity (demon determines the the relationship between current and past contexts)
+5. Monitoring and safety (demon keeps track of everything required)
+
+### Phase 2: Extend to Multimodal Data
+
+- Requires learning multimodal trees
+- Requires building a demon to integrate cross-modal information
 
 
 ---
@@ -415,7 +447,7 @@ class: center, middle
 ---
 class:center, middle
 
-<img src="images/kent1.JPG" style="height: 100%;"/>
+<img src="images/kent1.jpg" style="height: 100%;"/>
 
 ---
 ### \#1: Characterizing Psychopathy with Changing Sensors
@@ -497,9 +529,6 @@ We are hiring!
 
 
 
----
-
-<img src="images/L2M_hava.png" style="width: 100%;"/>
 
 
 

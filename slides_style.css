@@ -2,13 +2,16 @@ body {
   font-family: 'gentona'; /* Varela Round */
   font-size: 1.0em;
   /*color: #dfd6c2;*/
-  color: #a6bcd7;*/
+  /* color: #a6bcd7;*/
+  color: #FFFFFF;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: 'quadon';
   font-weight: 400;
   margin-bottom: 0;
-  color: #a6bcd7;*/
+  /* color: #a6bcd7; */
+  /* color: #318dde; */
+  color: #87C6CC;
   text-align: center;
   /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
 }
@@ -19,6 +22,8 @@ h1, h2, h3, h4, h5, h6 {
   background: -o-radial-gradient(circle, #28282e, #15120e, black); /* Opera 11.6 to 12.0 */
   background: -moz-radial-gradient(circle, #272822, #15120e, black); /* Firefox 3.6 to 15 */
   background: radial-gradient(circle, #28282e, #15120e, black); /* Standard syntax */
+  /* color: #dfd6c2; */
+  /* color: #FFFFFF; */
   color: #dfd6c2;
   background-repeat: no-repeat;
   background-size: cover;
@@ -163,6 +168,7 @@ code {
 }
 .inverse h1, .inverse h2 {
   color: #f3f3f3;
+  /* color: #FFFFFF; */
   line-height: 0.8em;
 }
 #frame { zoom: 0.75; -moz-transform: scale(0.75); -moz-transform-origin: 0 0; }

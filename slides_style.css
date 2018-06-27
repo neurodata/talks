@@ -9,10 +9,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'quadon';
   font-weight: 400;
   margin-bottom: 0;
+  /* margin-left: 10px; */
   /* color: #a6bcd7; */
   /* color: #318dde; */
   color: #87C6CC;
-  text-align: center;
+  text-align: left;
   /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
 }
 .remark-slide-content {

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="fonts/quadon/quadon.css">
     <link rel="stylesheet" href="fonts/gentona/gentona.css">
     <link rel="stylesheet" href="slides_style.css">
-    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
   </head>
   <body>
     <textarea id="source">
@@ -25,13 +25,15 @@ name:opening
 
 Joshua T. Vogelstein  & Vikram Chandrashekhar
 
+
 <br><br><br><br><br><br><br><br>
 
 <img src="images/biomedical-engineering.small.horizontal.white.png" STYLE="HEIGHT:95px;"/>
 <img src="images/funding/kndi_fpo.png" STYLE="HEIGHT:95px;"/>
 
-.foot[questions: [jovo@jhu.edu](mailto:jovo at jhu dot edu)
-slides: <http://brainx.io/neuronex-stanford>]
+.foot[[jovo@jhu.edu](mailto:jovo at jhu dot edu)
+  |  <http://brainx.io/neuronex-stanford>]
+
 
 
 ---
@@ -139,7 +141,15 @@ Given pairs of high-dimensional X and corresponding class labels Y, find the bes
 ### RerF Empirically Dominates
 
 
-<img src="images/error_histogram_benchmarks.png"  style="width: 35%;"/>
+.pull-left[
+- random forests  (RF) were best
+- recent extensions improve
+- we are even better
+]
+
+.pull-right[
+<img src="images/error_histogram_benchmarks.png"  style="width: 70%;"/>
+]
 
 ---
 
@@ -211,23 +221,26 @@ class: top, left
 
 
 
-<img src="images/faces/cep.png" style="height: 95px;"/>
-<img src="images/faces/randal.jpg" style="height: 95px;"/>
-<img src="images/faces/mim.jpg" style="height: 95px;"/>
-<img src="images/faces/bcaffo.jpg" style="height: 95px;"/>
-<img src="images/faces/milham.jpg" style="height: 95px;"/>
-<img src="images/faces/dtward.jpg" style="height: 95px;"/>
-<img src="images/faces/cshen.jpg" style="height: 95px;"/>
-<img src="images/faces/gkiar.jpg" style="height: 95px;"/>
-<img src="images/faces/ebridge.jpg" style="height: 95px;"/>
-<img src="images/faces/vikram.jpg" style="height: 95px;"/>
-<img src="images/faces/tyler.jpg" style="height: 95px;"/>
-<img src="images/faces/james.jpg" style="height: 95px;"/>
-<img src="images/faces/minh.jpg" style="height: 95px;"/>
+<img src="faces/cep.png" style="height: 95px;"/>
+<img src="faces/randal.jpg" style="height: 95px;"/>
+<img src="faces/mim.jpg" style="height: 95px;"/>
+<img src="faces/bcaffo.jpg" style="height: 95px;"/>
+<img src="faces/milham.jpg" style="height: 95px;"/>
+<img src="faces/dtward.jpg" style="height: 95px;"/>
+<img src="faces/minh.jpg" style="height: 95px;"/>
+<img src="faces/cshen.jpg" style="height: 95px;"/>
+<img src="faces/gkiar.jpg" style="height: 95px;"/>
+<img src="faces/ebridge.jpg" style="height: 95px;"/>
+<img src="faces/vikram.jpg" style="height: 95px;"/>
+<img src="faces/tyler.jpg" style="height: 95px;"/>
+<img src="faces/james.jpg" style="height: 95px;"/>
+<img src="faces/falk_ben.jpg" style="height: 95px;"/>
+<img src="faces/kwame.jpg" style="height: 95px;"/>
+<img src="faces/perlman.jpg" style="height: 95px;"/>
 
 
 
-<br><br><br><br><br>
+<br><br>
 
 <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
 <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
@@ -277,9 +290,9 @@ background-size: contain;
     </textarea>
     <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
     <script src="remark-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <script src="assets/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="assets/KaTeX/0.5.1/auto-render.min.js"></script>
+    <link rel="stylesheet" href="assets/KaTeX/0.5.1/katex.min.css">
     <script type="text/javascript">
       var options = {};
       var renderMath = function() {

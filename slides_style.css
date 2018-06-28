@@ -275,9 +275,24 @@ th {
 
 /* Container holding the image and the text */
 .container {
-    position: relative;
-    text-align: center;
-    color: white;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+}
+
+.container .centered {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-size: .8rem;
+}
+
+.container img {
+  width: 95px;
+  height: 95px;
+  object-fit: cover;
 }
 
 /* Bottom left text */

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NeuroNex+Stanford</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: left,
+
+name:opening
+
+
+## NeuroData
+
+
+
+Joshua T. Vogelstein  & Vikram Chandrashekhar
+
+<br><br><br><br><br><br><br><br>
+
+<img src="images/biomedical-engineering.small.horizontal.white.png" STYLE="HEIGHT:90px;"/>
+<img src="images/funding/kndi_fpo.png" STYLE="HEIGHT:90px;"/>
+
+.foot[questions: [jovo@jhu.edu](mailto:jovo at jhu dot edu)
+slides: <http://brainx.io/neuronex-stanford>]
+
+
+---
+class: center
+
+### <center>What is NeuroData?</center>
+
+<img src="images/neurodata_venn.png" STYLE="width:50%;"/>
+
+### <center>Goal: Build tools that work on .r[your] data</center>
+
+
+---
+
+## Why is it hard?
+
+- classical statistic theory .r[requires]:
+  - p dimensions is smaller than n samples
+- your data has .r[p >> n]
+- recent statistical theory for p >> n,
+  - but with .r[inaccurate assumptions] for your data
+  - those methods work poorly on your data
+-  we develop methods that:
+  - statistically valid
+  - computationally efficient
+  - for your data
+
+
+---
+
+# Some Examples
+
+1. Hypothesis Testing
+2. Dimensionality Reduction
+3. Classification
+4. CLARITY & COLM
+
+For 1-3, we have strong theory that I can discuss ad nauseam
+
+
+---
+## Hypothesis Testing
+
+##### Case A: Test whether X is independent of Y
+
+X is CLARITY brain, and  Y is condition (eg, control vs. addicted)
+
+--
+
+##### Case B: Test whether population A is the same as population B
+
+Pop A is control CLARITY brain, Pop B is addicted CLARITY brain.
+<br>
+(this is akin to, and a generalization of, a  t-test)
+
+--
+
+#### Main Idea
+
+.r[MGC]: Correlate *distances* between all .r[local] pairs of points
+
+
+
+---
+
+###  MGC Empirically Dominates
+
+<img src="images/FigHDPower.png"  style="width: 100%;"/>
+
+---
+
+## Dimensionality Reduction
+
+Given pairs of high-dimensional X and corresponding class labels Y, find the best low-dimensional representation of X
+
+--
+
+#### Main Idea
+
+.r[LOL]: Use the means and PCA of .r[each class separately]
+
+
+---
+
+###  LOL Empirically Dominates
+
+<img src="images/LOL_real_data.png"  style="width: 80%;"/>
+
+
+---
+
+## Classification
+
+Given pairs of high-dimensional X and corresponding class labels Y, find the best discriminant boundary
+
+--
+
+#### Main Idea
+
+.r[RerF]: Find many good .r[sparse] projections of data
+
+
+---
+
+### RerF Empirically Dominates
+
+
+<img src="images/error_histogram_benchmarks.png"  style="width: 35%;"/>
+
+---
+
+## CLARITY / COLM
+
+Build comprehensive ecosystem CLARITY/COLM data, including
+- storage  & management
+- visualization
+- registration to atlas and one another
+- cell detection &  counting
+- tractography
+
+
+---
+class: top, left
+
+## Acknowledgements
+
+
+
+<img src="images/faces/mim.jpg" style="height: 100px;"/>
+<img src="images/faces/randal.jpg" style="height: 100px;"/>
+<img src="images/faces/cep.png" style="height: 100px;"/>
+<img src="images/faces/bcaffo.jpg" style="height: 100px;"/>
+<img src="images/faces/milham.jpg" style="height: 100px;"/>
+<img src="images/faces/gkiar.jpg" style="height: 100px;"/>
+<img src="images/faces/ebridge.jpg" style="height: 100px;"/>
+<img src="images/faces/cshen.jpg" style="height: 100px;"/>
+<img src="images/faces/vikram.jpg" style="height: 100px;"/>
+<img src="images/faces/tyler.jpg" style="height: 100px;"/>
+<img src="images/faces/james.jpg" style="height: 100px;"/>
+<img src="images/faces/minh.jpg" style="height: 100px;"/>
+
+
+
+<br><br><br><br><br>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:100px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:100px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:100px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:100px;"/>
+<img src="images/funding/kavli_fpo.png" STYLE="HEIGHT:100px;"/>
+
+
+
+---
+
+### Questions?
+
+- hypothesis testing: [MGC](https://github.com/neurodata/mgc)
+- dimensionality  reduction: [LOL](https://github.com/neurodata/LOL)
+- classification: [RerF](https://github.com/neurodata/R-RerF/)
+- CLARITY: [COBALT](https://github.com/neurodata/knorr)
+- email: [jovo@jhu.edu](mailto:jovo@jhu.edu)
+- lab:  [neurodata](http://neurodata.io/)
+- startup: [gigantum](http://gigantum.com/)
+
+<br>
+
+<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+
+<img src="images/liono.JPG" STYLE="position:absolute; TOP:110px; LEFT:480px; HEIGHT:500px;"/>
+
+
+---
+
+### 20 Different Functions
+
+
+<img src="images/FigSimVisual.png"  alt="local"  style="width: 100%;"/>
+
+
+<!-- background-image: url("images/OCPaper.png")
+background-size: contain;
+ -->
+<!-- <img src="images/OCPaper.png" style="width: 100%;"/> -->
+
+
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <script type="text/javascript">
+      var options = {};
+      var renderMath = function() {
+        renderMathInElement(document.body);
+        // or if you want to use $...$ for math,
+        renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
+        ]});
+      }
+      var slideshow = remark.create(options, renderMath);
+
+    </script>
+  </body>
+</html>

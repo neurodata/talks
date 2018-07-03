@@ -24,7 +24,8 @@ h1, h2, h3, h4, h5, h6 {
   background: -o-radial-gradient(circle, #28282e, #15120e, #020202); /* Opera 11.6 to 12.0 */
   background: -moz-radial-gradient(circle, #28282e, #15120e, #020202); /* Firefox 3.6 to 15 */
   background: radial-gradient(circle, #28282e, #15120e, #020202); /* Standard syntax */
-  background: #FFFFFF;
+  background: radial-gradient(circle, #dfd6c2, #FFFFFF, #FFFFFF); /* Standard syntax */
+  /* background: #FFFFFF; */
   /* color: #dfd6c2; */
   /* color: #FFFFFF; */
   color: #020202; /* main font color */

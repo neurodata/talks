@@ -1,0 +1,6 @@
+version: 0.2
+            
+phases:
+  post_build:
+    commands:
+      - aws s3 sync --delete --cache-control "max-age=10800" . "s3://nd-talks/talks"

@@ -4,3 +4,5 @@ phases:
   post_build:
     commands:
       - aws s3 sync --delete --cache-control "max-age=10800" . "s3://nd-talks/talks"
+      - aws configure set preview.cloudfront true 
+      - aws cloudfront create-invalidation --distribution-id E1XLAJR2ZIAY9Y --paths '/talks/*'

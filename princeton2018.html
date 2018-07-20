@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Princeton 2018</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: left,
+
+name:opening
+
+
+### A Community-Developed Open-Source Computational Ecosystem for Big Neuro Data
+
+
+Joshua T. Vogelstein
+
+
+<br><br><br><br><br><br><br>
+
+<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+
+.foot[[jovo@jhu.edu](mailto:jovo at jhu dot edu)
+  |  <http://neurodata.io/talks/princeton-2018.html>]
+
+
+
+---
+class: center
+
+### <center>What is NeuroData?</center>
+
+<img src="images/neurodata_venn.png" STYLE="width:50%;"/>
+
+### <center>Goal: Build tools that work on .r[your] data</center>
+
+
+---
+
+### Why is it hard?
+
+- raw data are large collections of noisy 2D images
+- too big to load into ImageJ,  MATLAB, or even Python
+- maintaining local cluster is a pain
+- sample sizes are small (e.g., 1)
+- real data are nonlinear
+
+---
+
+### What is our solution?
+
+- stop trying to build all the software ourselves
+  - glue modular things  together
+- get industry to build some of the hardest parts
+   - data management (APL),  visualization (Google)
+- get data out of institutional resources
+  -  AWS
+- focus on answering specific neurobiology questions with data where n>0
+
+
+---
+
+###  What is our software stack?
+
+<img src="images/nd_pipeline.png" STYLE="width:100%;"/>
+
+
+---
+
+### What is an example use  case?
+
+- 20 CLARITY brains, from two different conditions
+- we desire to know are the two classes  different?
+- and if so, how?
+
+
+.center[<img src="images/CLARITY3.png" STYLE="width:50%;"/>]
+
+
+---
+
+### What is the workflow?
+
+1. [TeraStitcher](https://abria.github.io/TeraStitcher/)
+2. NDPush
+3. bossDB
+4. NeuroGlancer
+5. NDPull
+6. NDReg
+7. MGC
+8. RerF
+
+
+---
+
+### TeraStitcher
+
+<img src="images/terastitcher.png" STYLE="width:100%;"/>
+
+
+---
+
+### NDPush &  NDPull
+
+- push and pull  data  to/from the cloud
+- images: uint8 and  uint16
+- annotations: uint32
+- file formats: png, tiff, jpg, numpy, etc.
+- z-slice: flexible naming conventions
+- multi-channel
+
+
+
+---
+
+### Some Examples
+
+1. Hypothesis Testing
+2. Dimensionality Reduction
+3. Classification
+3. Connectome Coding
+4. CLARITY & COLM
+
+For 1-3, we have strong theory that I can discuss ad nauseam
+
+
+---
+### Hypothesis Testing
+
+##### Case A: Test whether X is independent of Y
+
+X is CLARITY brain, and  Y is condition (eg, control vs. addicted)
+
+--
+
+##### Case B: Test whether population A is the same as population B
+
+Pop A are control CLARITY brains, Pop B are addicted CLARITY brains.
+<br>
+(this is akin to, and a generalization of, a  t-test)
+
+--
+
+#### Main Idea
+
+.r[MGC]: Compare "correlations" between all .r[local] pairs of points
+--
+<br>
+ps - like Marr-Albus Sparse Expansion Theory
+--
+<br>
+pps - can be used for "CCA", eg, behavior vs neural activity
+
+
+---
+
+###  MGC Empirically Dominates
+
+<img src="images/FigHDPower.png"  style="width: 100%;"/>
+
+---
+
+### Dimensionality Reduction
+
+Given pairs of high-dimensional X and corresponding class labels Y, find the best low-dimensional representation of X
+
+--
+
+#### Main Idea
+
+.r[LOL]: Use the means and PCA of .r[each class separately]
+
+
+---
+
+###  LOL Empirically Dominates
+
+<img src="images/LOL_real_data.png"  style="width: 80%;"/>
+
+
+---
+
+### Classification
+
+Given pairs of high-dimensional X and corresponding class labels Y, find the best discriminant boundary
+
+--
+
+#### Main Idea
+
+.r[RerF]: Find many good .r[sparse] projections of data
+
+
+---
+
+### RerF Empirically Dominates
+
+
+.pull-left[
+- random forests  (RF) were best
+- recent extensions improve
+- we are even better
+]
+
+.pull-right[
+<img src="images/error_histogram_benchmarks.png"  style="width: 70%;"/>
+]
+
+
+---
+### Connectome Coding
+
+<img src="images/connectome-coding.png"  style="width: 100%;"/>
+
+Characterizing the relationship between
+the *past environment* and the *present neural connectivity*
+--
+<br>
+(could be relevant for Callaway and Justus stuff?)
+
+---
+
+### CLARITY / COLM
+
+Build comprehensive ecosystem CLARITY/COLM data, including
+- storage  & management
+- visualization
+- registration to atlas and one another
+- cell detection &  counting
+- tractography
+
+---
+
+### Storage &  Management
+
+<img src="images/nd_pipeline.png"  style="width: 100%;"/>
+
+infinitely  scalable  in  cloud
+
+---
+
+### Visualization
+
+
+.pull-left[
+- Google's NeuroGlancer'
+- 3D pan, zoom, &  rotate
+- Multi-channel  overlays
+- Select individual ROIs
+- 30 minutes to load once
+]
+
+.pull-right[
+<img src="images/ndviz2.jpg"  style="width: 120%;"/>
+]
+
+
+---
+
+###  Registration
+
+<br>
+<img src="images/ndreg.png"  style="width: 100%;"/>
+
+- only ~1 hr per brain
+- fully automatic (no landmarks)
+- works on iDisco and  other species too
+
+---
+
+### Cell Detection
+
+<br>
+
+<img src="images/bloby.png"  style="width: 100%;"/>
+
+---
+
+### Cell Detection Analysis
+
+<img src="images/regioncounts2.png"/>
+
+---
+
+### Tractography
+
+<br>
+<img src="images/ndtract.png"  style="width: 100%;"/>
+
+---
+class: middle
+
+# <center>[demo](https://tinyurl.com/yco8h787)</center>
+
+
+---
+class: top, left
+
+### Acknowledgements
+
+
+<div class="container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+<div class="container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+
+<div class="container">
+  <img src="faces/milham.jpg"/>
+  <div class="centered">Michael Milham</div>
+</div>
+
+<div class="container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div>
+
+<div class="container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div>
+
+<div class="container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div>
+
+<div class="container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div>
+
+<div class="container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div>
+
+<div class="container">
+  <img src="faces/yichen.jpg"/>
+  <div class="centered">Yichen Qin</div>
+</div>
+
+<div class="container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div>
+
+<div class="container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div>
+
+<div class="container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div>
+
+<div class="container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div>
+
+<div class="container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+<div class="container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div>
+
+<div class="container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div>
+
+<div class="container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div>
+
+<div class="container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div>
+
+<div class="container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<div class="container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div>
+
+<div class="container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div>
+
+<div class="container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div>
+
+
+
+
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+
+---
+
+
+### Questions? Now hiring!
+
+.pull-left[
+| task |  link |
+| --- | --- |
+| testing | [MGC](https://github.com/neurodata/mgc) |
+| dim red | [LOL](https://github.com/neurodata/LOL) |
+| classify | [RerF](https://github.com/neurodata/R-RerF/)  |
+| conn code |  [GraphStats](https://github.com/neurodata/graphstats/)
+|  CLARITY | [COBALT](https://github.com/neurodata/COBALT) |
+| email | [jovo@jhu.edu](mailto:jovo@jhu.edu) |
+| web |  [neurodata.io](http://neurodata.io/) |
+| startup | [gigantum.com](http://gigantum.com/) |
+
+<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+]
+
+<br>
+
+
+
+<img src="images/liono.JPG" STYLE="position:absolute; TOP:110px; LEFT:480px; HEIGHT:500px;"/>
+
+
+
+
+
+<!-- background-image: url("images/OCPaper.png")
+background-size: contain;
+ -->
+<!-- <img src="images/OCPaper.png" style="width: 100%;"/> -->
+
+
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script src="assets/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="assets/KaTeX/0.5.1/auto-render.min.js"></script>
+    <link rel="stylesheet" href="assets/KaTeX/0.5.1/katex.min.css">
+    <script type="text/javascript">
+      var options = {};
+      var renderMath = function() {
+        renderMathInElement(document.body);
+        // or if you want to use $...$ for math,
+        renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
+        ]});
+      }
+      var slideshow = remark.create(options, renderMath);
+
+    </script>
+  </body>
+</html>

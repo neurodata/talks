@@ -45,7 +45,8 @@ top: 50px;
 .remark-slide-content h4 { font-size: 1.4em; }
 .footnote {
   position: absolute;
-  bottom: 3em;
+  bottom: 1em;
+  left: 2em;
 }
 .navbar {
   position: absolute;

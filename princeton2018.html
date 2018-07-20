@@ -74,6 +74,7 @@ class: center
 
 <img src="images/nd_pipeline.png" STYLE="width:100%;"/>
 
+.footnote[https://neurodata.io/help/]
 
 ---
 
@@ -91,165 +92,66 @@ class: center
 
 ### What is the workflow?
 
-1. [TeraStitcher](https://abria.github.io/TeraStitcher/)
+<!-- 1. [TeraStitcher](https://abria.github.io/TeraStitcher/) -->
+1.  TeraStitcher
 2. NDPush
 3. bossDB
 4. NeuroGlancer
 5. NDPull
 6. NDReg
 7. MGC
+8. LOL
 8. RerF
+8. graphstats
 
 
 ---
 
 ### TeraStitcher
 
+- align & stitch collects of 2D images into 3D volumes
+- uses  linear registration
+
 <img src="images/terastitcher.png" STYLE="width:100%;"/>
+
+.footnote[https://abria.github.io/TeraStitcher/]
 
 
 ---
 
-### NDPush &  NDPull
+### NDPush &  NDPull data to/from  cloud
 
-- push and pull  data  to/from the cloud
 - images: uint8 and  uint16
 - annotations: uint32
 - file formats: png, tiff, jpg, numpy, etc.
 - z-slice: flexible naming conventions
 - multi-channel
+- pip installable*
 
+.footnote[https://github.com/neurodata/ndpush and https://github.com/neurodata/ndpull]
+
+---
+
+### bossDB to store/manage data in cloud
+
+
+- based on Open Connectome Project code from 2011
+- ported  to AWS for scalability
+- stores small cuboids
+- organized into space filling curve
+- random access to arbitrary cutouts
+- downsamples
+- experimental metadata storage
+- authentication
+
+<img src="images/bossDB.png" STYLE="width:100%;"/>
+
+.footnote[https://github.com/jhuapl-boss/boss]
 
 
 ---
 
-### Some Examples
-
-1. Hypothesis Testing
-2. Dimensionality Reduction
-3. Classification
-3. Connectome Coding
-4. CLARITY & COLM
-
-For 1-3, we have strong theory that I can discuss ad nauseam
-
-
----
-### Hypothesis Testing
-
-##### Case A: Test whether X is independent of Y
-
-X is CLARITY brain, and  Y is condition (eg, control vs. addicted)
-
---
-
-##### Case B: Test whether population A is the same as population B
-
-Pop A are control CLARITY brains, Pop B are addicted CLARITY brains.
-<br>
-(this is akin to, and a generalization of, a  t-test)
-
---
-
-#### Main Idea
-
-.r[MGC]: Compare "correlations" between all .r[local] pairs of points
---
-<br>
-ps - like Marr-Albus Sparse Expansion Theory
---
-<br>
-pps - can be used for "CCA", eg, behavior vs neural activity
-
-
----
-
-###  MGC Empirically Dominates
-
-<img src="images/FigHDPower.png"  style="width: 100%;"/>
-
----
-
-### Dimensionality Reduction
-
-Given pairs of high-dimensional X and corresponding class labels Y, find the best low-dimensional representation of X
-
---
-
-#### Main Idea
-
-.r[LOL]: Use the means and PCA of .r[each class separately]
-
-
----
-
-###  LOL Empirically Dominates
-
-<img src="images/LOL_real_data.png"  style="width: 80%;"/>
-
-
----
-
-### Classification
-
-Given pairs of high-dimensional X and corresponding class labels Y, find the best discriminant boundary
-
---
-
-#### Main Idea
-
-.r[RerF]: Find many good .r[sparse] projections of data
-
-
----
-
-### RerF Empirically Dominates
-
-
-.pull-left[
-- random forests  (RF) were best
-- recent extensions improve
-- we are even better
-]
-
-.pull-right[
-<img src="images/error_histogram_benchmarks.png"  style="width: 70%;"/>
-]
-
-
----
-### Connectome Coding
-
-<img src="images/connectome-coding.png"  style="width: 100%;"/>
-
-Characterizing the relationship between
-the *past environment* and the *present neural connectivity*
---
-<br>
-(could be relevant for Callaway and Justus stuff?)
-
----
-
-### CLARITY / COLM
-
-Build comprehensive ecosystem CLARITY/COLM data, including
-- storage  & management
-- visualization
-- registration to atlas and one another
-- cell detection &  counting
-- tractography
-
----
-
-### Storage &  Management
-
-<img src="images/nd_pipeline.png"  style="width: 100%;"/>
-
-infinitely  scalable  in  cloud
-
----
-
-### Visualization
+### NeuroGlancer to  Visualize
 
 
 .pull-left[
@@ -265,42 +167,129 @@ infinitely  scalable  in  cloud
 ]
 
 
+.footnote[https://github.com/google/neuroglancer]
+
+
 ---
 
-###  Registration
-
-<br>
-<img src="images/ndreg.png"  style="width: 100%;"/>
+###  NDReg to Register CLARITY to ARA
 
 - only ~1 hr per brain
 - fully automatic (no landmarks)
 - works on iDisco and  other species too
 
----
+<img src="images/ndreg.png"  style="width: 100%;"/>
 
-### Cell Detection
+.footnote[https://github.com/neurodata/ndreg]
 
-<br>
-
-<img src="images/bloby.png"  style="width: 100%;"/>
-
----
-
-### Cell Detection Analysis
-
-<img src="images/regioncounts2.png"/>
-
----
-
-### Tractography
-
-<br>
-<img src="images/ndtract.png"  style="width: 100%;"/>
 
 ---
 class: middle
 
 # <center>[demo](https://tinyurl.com/yco8h787)</center>
+
+---
+class: middle
+
+### <center>pre-processing over, on to statistics</center>
+
+---
+### Multiscale Graph Correlation
+
+- are CLARITY control brains different from conditioned brains?
+- if so, how are they different?
+- MGC implements universally consistent hypothesis testing
+- and can reveal the geometry of the relationship
+- key:  compare "correlations" between all .r[local] pairs of points
+- must define a metric on CLARITY brains (eg,  distortion)
+
+.footnote[https://github.com/neurodata/mgc]
+
+
+---
+
+###  MGC Empirically Dominates
+
+<img src="images/FigHDPower.png"  style="width: 100%;"/>
+
+---
+
+###  MGC Reveals Relationship Geometry
+
+<img src="images/FigHDHeat.png"  style="width: 100%;"/>
+
+
+---
+
+### LOL for Dimensionality Reduction
+
+Given pairs of high-dimensional X and corresponding class labels Y, find the best low-dimensional representation of X
+
+--
+
+#### Main Idea
+
+.r[LOL]: Use the means and PCA of .r[each class separately]
+
+
+.footnote[https://github.com/neurodata/lol]
+
+
+---
+
+###  LOL Empirically Dominates
+
+<img src="images/LOL_real_data.png"  style="width: 80%;"/>
+
+
+---
+
+### Random Projection Forests
+
+Given pairs of high-dimensional X and corresponding class labels Y, find the best discriminant boundary
+
+--
+
+#### Main Idea
+
+.r[RerF]: Find many good .r[sparse] random projections of data
+
+
+.footnote[https://github.com/neurodata/RerF]
+
+---
+
+### Random Projection Forests Empirically Dominates
+
+
+.pull-left[
+- random forests  (RF) were best
+- recent extensions improve
+- we are even better
+]
+
+.pull-right[
+<img src="images/error_histogram_benchmarks.png"  style="width: 70%;"/>
+]
+
+
+---
+### Connectome Coding via Graph Stats
+
+<img src="images/connectome-coding.png"  style="width: 100%;"/>
+
+Characterizing the relationship between
+the *past environment* and the *present neural connectivity*
+
+
+.footnote[https://github.com/neurodata/graphstats]
+
+
+---
+class: middle
+
+# <center>Discussion</center>
+
 
 
 ---
@@ -457,8 +446,8 @@ class: top, left
 | testing | [MGC](https://github.com/neurodata/mgc) |
 | dim red | [LOL](https://github.com/neurodata/LOL) |
 | classify | [RerF](https://github.com/neurodata/R-RerF/)  |
-| conn code |  [GraphStats](https://github.com/neurodata/graphstats/)
-|  CLARITY | [COBALT](https://github.com/neurodata/COBALT) |
+| graph stats |  [graphstats](https://github.com/neurodata/graphstats/)
+|  registration | [ndreg](https://github.com/neurodata/ndreg) |
 | email | [jovo@jhu.edu](mailto:jovo@jhu.edu) |
 | web |  [neurodata.io](http://neurodata.io/) |
 | startup | [gigantum.com](http://gigantum.com/) |

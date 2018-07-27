@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NSF NeuroNex Workshop (3DEM)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+name:opening
+
+<img src="images/neurodata_blue.png" style="height:150px;float:right;"/>
+### NeuroData: Embracing Open Source for Big Data Neuroscience
+
+Eric Perlman<br>
+
+
+<br><br><br><br><br><br><br>
+
+<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+
+.foot[perlman&#0064;jhu.edu | <http://neurodata.io/talks/> ]
+
+
+---
+class: center
+
+### <center>What is NeuroData?</center>
+
+<img src="images/neurodata_venn.png" STYLE="width:50%;"/>
+
+---
+
+### focus change: from tools to ecosystems
+
+Shift from "build your own" to "see what's available; supplement where necessary."
+
+---
+
+###  What is our software stack?
+
+<img src="images/nd_pipeline.png" STYLE="width:100%;"/>
+
+.footnote[https://neurodata.io/help/]
+
+---
+### Storage: BossDB
+
+---
+### brief history: from ocp to neurodata spatial stores
+
+- (2011-2013) Open-Connectome Project (OCP)
+  - First version of a spatial data store for volumetric cutouts and annotation
+- (2013-2016) NeurodataStore
+  - Clustered, scale-out reimplementation of OCP on hosted NoSQL clusters
+- (2014-present) IARPA MICrONS program drives Boss development
+  - JHU/APL builds and deploys for MICrONS performers
+- (2016-present) neurodata.io adopts Boss for open-science
+   - Parallel deployment of cloud services, independently managed
+   - Contribute features back through pull requests 
+---
+
+### Features &amp; Benefits
+
+- ported to AWS for scalability
+- random access to arbitrary cutouts
+- downsamples
+- experimental metadata storage (e.g. JSON)
+- authentication
+- spatial queries on annotations
+
+<img src="images/bossDB.png" STYLE="width:100%;"/>
+
+.footnote[https://github.com/jhuapl-boss/boss]
+
+---
+
+### Is a central (active) data store the right choice?
+
+...not always. Direct file access from cloud data stores work well.
+
+- n5 &amp; Zarr provide chunked N-dimensional data stores
+- neuroglander's precomputed chunk &amp; compressed segmentation format
+
+
+.footnote[https://github.com/saalfeldlab/n5/]
+.footnote[https://github.com/zarr-developers/zarr/]
+
+---
+
+
+
+### NDPush &amp; NDPull data to/from  cloud
+
+- images: uint8 and uint16
+- annotations: uint32
+- file formats: png, tiff, jpg, numpy, etc.
+- z-slice: flexible naming conventions
+- multi-channel
+- pip installable*
+
+.footnote[https://github.com/neurodata/ndpush and https://github.com/neurodata/ndpull]
+
+---
+
+### NeuroGlancer to Visualize
+
+
+.pull-left[
+- Google's NeuroGlancer'
+- 3D pan, zoom, &amp; rotate
+- Multi-channel  overlays
+- Select individual ROIs
+- 30 minutes to load once
+]
+
+.pull-right[
+<img src="images/ndviz2.jpg"  style="width: 120%;"/>
+]
+
+.footnote[https://github.com/google/neuroglancer]
+
+---
+
+### Minor extensions to NeuroGlancer
+- Boss support
+  - Authentication to datasets
+- Color selection
+  - Color picker &amp; min/max values to generate shaders
+  - Used heavily on LM datasets (e.g. clarity)
+- Other ways to interact with state (export, load remote)
+  - _Static sharing of views w/o python backend._
+
+---
+
+### Visualization at all stages
+
+- Acquistion:
+- 
+
+
+---
+### Acknowledgements
+
+- The entire NeuroData team
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+
+---
+
+### Questions? ... ask Josh! :-)
+
+---
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script type="text/javascript">
+      var options = {};
+      var slideshow = remark.create(options)
+    </script>
+  </body>
+</html>

@@ -53,17 +53,19 @@ Shift from "build your own" to "see what's available; supplement where necessary
 ### Storage: BossDB
 
 ---
-### brief history: from ocp to neurodata spatial stores
+### A brief history of neurodata spatial stores...
 
 - (2011-2013) Open-Connectome Project (OCP)
   - First version of a spatial data store for volumetric cutouts and annotation
-- (2013-2016) NeurodataStore
+- (2013-2016) NeurodataStore (ndstore)
   - Clustered, scale-out reimplementation of OCP on hosted NoSQL clusters
+  - Migration to the cloud in 2016
 - (2014-present) IARPA MICrONS program drives Boss development
   - JHU/APL builds and deploys for MICrONS performers
 - (2016-present) neurodata.io adopts Boss for open-science
    - Parallel deployment of cloud services, independently managed
-   - Contribute features back through pull requests 
+   - Contribute features back through pull requests
+
 ---
 
 ### BossDB Features &amp; Benefits
@@ -88,7 +90,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
 - file formats: png, tiff, jpg, numpy, etc.
 - z-slice: flexible naming conventions
 - multi-channel
-- pip installable*
+- pip installable
 
 .footnote[https://github.com/neurodata/ndpush and https://github.com/neurodata/ndpull]
 
@@ -97,8 +99,6 @@ Shift from "build your own" to "see what's available; supplement where necessary
 ### Is a central (active) data store the right choice?
 
 ...not always. Direct file access from cloud data stores work well.
-
-
 
 ### Other storage options
 
@@ -137,9 +137,10 @@ Shift from "build your own" to "see what's available; supplement where necessary
   - Authentication to datasets
 - Color selection
   - Color picker &amp; min/max values to generate shaders
-  - Used heavily on LM datasets (e.g. clarity)
+  - Used heavily on LM datasets
 - Other ways to interact with state (export, load remote)
   - Static sharing of views w/o python backend.
+- Extra visualizations (e.g. render pair matches)
 
 ---
 
@@ -171,7 +172,26 @@ Shift from "build your own" to "see what's available; supplement where necessary
 <img src="images/synaptomes_em_light.png" style="width:100%;"/>
 
 ---
+### Light sheet registration (ndreg)
+
+<br>
+<img src="images/ndreg.png"  style="width: 100%;"/>
+
+- LDDMM (from the MRI world)
+- Fully automatic (no landmarks)
+- Works on iDisco, Clarity, and multiple species...
+
+---
+### Other tools ...
+
+- Tractography
+- Graph analysis
+- 
+
+.footnote[https://neurodata.io/help/]
+---
 ### Going forward
+
 
 ---
 ### Acknowledgements
@@ -187,10 +207,9 @@ Shift from "build your own" to "see what's available; supplement where necessary
 <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
 
 ---
+class:center
 
-### Questions? ... ask Josh! :-)
-
----
+<img src="images/neurodata_blue.png" style="width:50%;"/>
 
 
     </textarea>

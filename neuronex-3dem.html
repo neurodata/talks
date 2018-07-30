@@ -32,14 +32,32 @@ Eric Perlman<br>
 class: center
 
 ### <center>What is NeuroData?</center>
-
 <img src="images/neurodata_venn.png" STYLE="width:50%;"/>
 
 ---
+### Orgin: Hosting public data (2011-)
+<img src="images/website_datapage.png" style="width: 100%;"/>
 
-### focus change: from tools to ecosystems
+.foot[<http://neurodata.io/data/>]
+
+---
+### ... but, it's hard.
+
+- Don’t work alone!
+  - In 2011, Open Connectome Project set out to revolutionize data management for EM neuroscience with storage and analytics services on our cluster
+  - And we have had mixed results... although our efforts seeded a second generation
+- Build tools that span imaging modalities, species, and organizations
+- Open-source processes lead to rapid development
+
+---
+### The New Role of neurodata.io...
 
 Shift from "build your own" to "see what's available; supplement where necessary."
+- To facilitate a collaborative, open-source, cloud computing ecosystem for end-to-end neuroscience
+- Collaborative: multiple organizations and communities developing and using the same tools
+- End-to-end: data management from microscope to publication
+- Visualize data at all stages
+- Reproducible, extensible analysis
 
 ---
 
@@ -47,10 +65,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 <img src="images/nd_pipeline.png" STYLE="width:100%;"/>
 
-.footnote[https://neurodata.io/help/]
-
----
-### Storage: BossDB
+.foot[https://neurodata.io/help/]
 
 ---
 ### A brief history of neurodata spatial stores...
@@ -62,7 +77,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
   - Migration to the cloud in 2016
 - (2014-present) IARPA MICrONS program drives Boss development
   - JHU/APL builds and deploys for MICrONS performers
-- (2016-present) neurodata.io adopts Boss for open-science
+- (2016-present) neurodata.io adopts BossDB for open-science
    - Parallel deployment of cloud services, independently managed
    - Contribute features back through pull requests
 
@@ -79,7 +94,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 <img src="images/bossDB.png" STYLE="width:100%;"/>
 
-.footnote[https://github.com/jhuapl-boss/boss]
+.foot[https://github.com/jhuapl-boss/boss]
 
 ---
 
@@ -92,7 +107,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
 - multi-channel
 - pip installable
 
-.footnote[https://github.com/neurodata/ndpush and https://github.com/neurodata/ndpull]
+.foot[https://github.com/neurodata/ndpush and https://github.com/neurodata/ndpull]
 
 ---
 
@@ -109,8 +124,8 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 - We are also exploring "Boss direct io", bypassing the service layer
 
-.footnote[https://github.com/saalfeldlab/n5/]
-.footnote[https://github.com/zarr-developers/zarr/]
+.foot[https://github.com/saalfeldlab/n5/]
+.foot[https://github.com/zarr-developers/zarr/]
 
 ---
 
@@ -128,7 +143,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
 <img src="images/ndviz2.jpg"  style="width: 120%;"/>
 ]
 
-.footnote[https://github.com/google/neuroglancer]
+.foot[https://github.com/google/neuroglancer]
 
 ---
 
@@ -144,6 +159,17 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 ---
 
+### Render Tools &amp; services
+
+- Web-based version of TrakEM2's XML datastore
+- Stores references to raw data &amp; transformations
+- RESTful interfaces to load &amp; update data
+- Dynamic rendering of data
+- Key piece of the current Synaptomes workflow
+
+.foot[https://github.com/saalfeldlab/render/]
+
+---
 ### Visualization at all stages
 
 - Acquistion:
@@ -153,20 +179,10 @@ Shift from "build your own" to "see what's available; supplement where necessary
 - Analysis
 
 ---
-### Render Tools &amp; services
 
-- Web-based version of TrakEM2's XML datastore
-- Stores references to raw data &amp; transformations
-- RESTful interfaces to load &amp; update data
-- Dynamic rendering of data
-- Key piece of the current Synaptomes workflow
-
-.footnote[https://github.com/saalfeldlab/render/]
-
----
 ### Alignment verification...
-
 <img src="images/synaptomes_pointmatch.png" style="width:100%;"/>
+
 ---
 ### Correlated EM-Light
 <img src="images/synaptomes_em_light.png" style="width:100%;"/>
@@ -184,21 +200,19 @@ Shift from "build your own" to "see what's available; supplement where necessary
 ---
 ### Other tools ...
 
-- Tractography
-- Graph analysis
-- 
+- Image analysis
+- Statistical machine learning (LOL, RerF, FlashX, knor, ...)
 
-.footnote[https://neurodata.io/help/]
----
-### Going forward
-
+.foot[https://neurodata.io/help/]
 
 ---
 ### Acknowledgements
 
-- The entire NeuroData team
-
-...and more.
+- neurodata: Randal Burns, Joshua Vogelstein &amp; Ben Falk
+- viz: Alex Baden &amp; Jeremy Maitin-Shepard (Google)
+- ndreg: Vikram Chandrashekhar &amp; Daniel Tward
+- synaptomes: Jesse Patsolic, Forrest Collman (AIBS), Sharmi Seshamani (AIBS), Stephen Smith (AIBS)
+- render: Stephan Saalfeld (Janelia) &amp; Eric Trautman (Janelia)
 
 <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
 <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>

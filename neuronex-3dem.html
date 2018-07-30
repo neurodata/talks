@@ -45,7 +45,7 @@ class: center
 
 - Don’t work alone!
   - In 2011, Open Connectome Project set out to revolutionize data management for EM neuroscience with storage and analytics services on our cluster
-  - And we have had mixed results... although our efforts seeded a second generation
+  - And we have had mixed results...  but excited to have seeded a second generation
 - Build tools that span imaging modalities, species, and organizations
 - Open-source processes lead to rapid development
 
@@ -124,19 +124,17 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 - We are also exploring "Boss direct io", bypassing the service layer
 
-.foot[https://github.com/saalfeldlab/n5/]
+.foot[https://github.com/saalfeldlab/n5/]<br/>
 .foot[https://github.com/zarr-developers/zarr/]
 
 ---
-
-### NeuroGlancer to Visualize
-
+### NeuroGlancer for Visualization
 
 .pull-left[
-- Google's NeuroGlancer
-- 3D pan, zoom, &amp; rotate
-- Multi-channel overlays
-- Select individual ROIs
+Visualization with NeuroGlancer at all stages!
+- Acquistion
+- Alignment
+- Analysis
 ]
 
 .pull-right[
@@ -145,11 +143,13 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 .foot[https://github.com/google/neuroglancer]
 
+
+
 ---
 
-### Minor extensions to NeuroGlancer
+### Modifications to NeuroGlancer
 - Boss support
-  - Authentication to datasets
+  - Including authentication
 - Color selection
   - Color picker &amp; min/max values to generate shaders
   - Used heavily on LM datasets
@@ -171,16 +171,6 @@ Shift from "build your own" to "see what's available; supplement where necessary
 .foot[https://github.com/saalfeldlab/render/]
 
 ---
-### Visualization at all stages
-
-- Acquistion:
-  - Look at data during acquistion. Assess quality, etc.
-- Rough alignment
-- "Final" alignment (iterative)
-- Analysis
-
----
-
 ### Alignment verification...
 <img src="images/synaptomes_pointmatch.png" style="width:100%;"/>
 

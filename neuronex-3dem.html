@@ -66,7 +66,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
    - Contribute features back through pull requests 
 ---
 
-### Features &amp; Benefits
+### BossDB Features &amp; Benefits
 
 - ported to AWS for scalability
 - random access to arbitrary cutouts
@@ -81,22 +81,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 ---
 
-### Is a central (active) data store the right choice?
-
-...not always. Direct file access from cloud data stores work well.
-
-- n5 &amp; Zarr provide chunked N-dimensional data stores
-- neuroglander's precomputed chunk &amp; compressed segmentation format
-
-
-.footnote[https://github.com/saalfeldlab/n5/]
-.footnote[https://github.com/zarr-developers/zarr/]
-
----
-
-
-
-### NDPush &amp; NDPull data to/from  cloud
+### NDPush &amp; NDPull data to/from cloud
 
 - images: uint8 and uint16
 - annotations: uint32
@@ -109,15 +94,34 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 ---
 
+### Is a central (active) data store the right choice?
+
+...not always. Direct file access from cloud data stores work well.
+
+
+
+### Other storage options
+
+- hdf5
+- n5 &amp; Zarr provide chunked N-dimensional data stores
+  - same api for local or remote and parallel writes
+- neuroglander's precomputed chunk &amp; compressed segmentation format
+
+- We are also exploring "Boss direct io", bypassing the service layer
+
+.footnote[https://github.com/saalfeldlab/n5/]
+.footnote[https://github.com/zarr-developers/zarr/]
+
+---
+
 ### NeuroGlancer to Visualize
 
 
 .pull-left[
 - Google's NeuroGlancer'
 - 3D pan, zoom, &amp; rotate
-- Multi-channel  overlays
+- Multi-channel overlays
 - Select individual ROIs
-- 30 minutes to load once
 ]
 
 .pull-right[
@@ -135,20 +139,46 @@ Shift from "build your own" to "see what's available; supplement where necessary
   - Color picker &amp; min/max values to generate shaders
   - Used heavily on LM datasets (e.g. clarity)
 - Other ways to interact with state (export, load remote)
-  - _Static sharing of views w/o python backend._
+  - Static sharing of views w/o python backend.
 
 ---
 
 ### Visualization at all stages
 
 - Acquistion:
-- 
+  - Look at data during acquistion. Assess quality, etc.
+- Rough alignment
+- "Final" alignment (iterative)
+- Analysis
 
+---
+### Render Tools &amp; services
+
+- Web-based version of TrakEM2's XML datastore
+- Stores references to raw data &amp; transformations
+- RESTful interfaces to load &amp; update data
+- Dynamic rendering of data
+- Key piece of the current Synaptomes workflow
+
+.footnote[https://github.com/saalfeldlab/render/]
+
+---
+### Alignment verification...
+
+<img src="image/synaptomes_pointmatch.png" style="width:100%;"/>
+---
+### Correlated EM-Light
+<img src="image/synaptomes_em_light.png" style="width:100%;"/>
+
+---
+### Going forward
 
 ---
 ### Acknowledgements
 
 - The entire NeuroData team
+
+...and more.
 
 <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
 <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>

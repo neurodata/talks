@@ -47,8 +47,6 @@ class: center
   - In 2011, Open Connectome Project set out to revolutionize data management for EM neuroscience with storage and analytics services on our cluster
   - And we have had mixed results...  but excited to have seeded a second generation
 - Build tools that span imaging modalities, species, and organizations
-- Open-source processes lead to rapid development
-
 ---
 ### The New Role of neurodata.io...
 
@@ -101,7 +99,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
 ### NDPush &amp; NDPull data to/from cloud
 
 - images: uint8 and uint16
-- annotations: uint32
+- annotations: uint64
 - file formats: png, tiff, jpg, numpy, etc.
 - z-slice: flexible naming conventions
 - multi-channel
@@ -113,7 +111,7 @@ Shift from "build your own" to "see what's available; supplement where necessary
 
 ### Is a central (active) data store the right choice?
 
-...not always. Direct file access from cloud data stores work well.
+...not always.
 
 ### Other storage options
 

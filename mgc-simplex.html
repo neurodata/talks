@@ -45,34 +45,77 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Cencheng Shen
 Build a knowledge represetation system with the following properties:
 
 1. can answer various kinds of queries
-2. has a rigorous mathematical and statistical framwork
+2. has a rigorous mathematical and statistical framework
 3. enables subject matter experts to encode domain-specific information including context
 
 
 --
 
+Requires definitions for query types to support and mathematical desiderata to satisfy
+
+
+---
+
+### Queries of Interest
+
+Given $N$ entities, each measured with up to $M$ modalities, <br>
+as well as directly measuring $R$ relationships (eg, FB friends), <br>
+discover and decipher relationships between subsets of:
+
+1. entities,
+2. modalities.
+
+---
+
+#### Mathematical and Statistical Desiderata
+
+
+1. .r[Sufficiency]: Operate in arbitrary measurable metric spaces
+2. .r[Uncertainty]: Represent and quantify uncertainty
+3. .r[Complexity]: Can discover arbitrarily complex relationships
+4. .r[Consistency]: Sample estimator converges to truth
+4. .r[Robustness]: Robust to model misspecifications
+4. .r[Efficiency]: Computationally tractable/efficient
+
+
+
+
+
+
+---
+
+
+
+### Limitations of Existing Approaches
+
+Every existing approach has severe limitations in at least one of these desiderata
+
+
+1. .r[Sufficiency]: Renyi
+2. .r[Uncertainty]: Isomap, Diffusion Wavelets
+3. .r[Complexity]: Kendall, Spearman
+4. .r[Consistency]: Maximal Correlation, MIC
+4. .r[Robustness]: Pearson
+4. .r[Efficiency]: TDA
+
+
+
+
+
+---
+
 ### Our Key Principles
 
 
 
-1. all of the knowledge available is encoded in sets of relationships
+1. all of the knowledge available from the data is encoded in sets of relationships
 2. the optimal set size is a function of the (data,query) pair
-
----
-
-### Limitations of Existing Approaches
-
-1. lack rigorous statistical theory/justification
-1. must choose set size a priori
-2. computational complexity
-
-
 
 ---
 
 ### Our Basic Strategy
 
-Given n points each measured with m modalities, build the following data structures:
+Given n points each measured with up to m modalities, build the following data structures:
 
 1. For each modality
   1. choose a metric
@@ -86,30 +129,10 @@ Given n points each measured with m modalities, build the following data structu
 
 
 
----
-class: center
-
-#### Formal Definition of Independence Testing
-
-<br><br>
-
-<!-- <img src="images/setup.png" alt="Drawing" style="width: 60%;"/> -->
-
-
-
-
-$$(X\_i,Y\_i) \sim F\_{XY} = F\_{X|Y} F\_Y, \quad i \in \{1,\ldots,n\}$$
-
-$$H\_0: F\_{XY} = F\_X F\_Y $$
-$$H\_A: F\_{XY} \neq F\_X F\_Y $$
-
-
-
-
 
 ---
 
-### local distance correlation
+### Multiscale Graph  Correlation
 
 <img src="images/linear.png" alt="Drawing" style="position:absolute; TOP: 150px;  LEFT: 100px; height: 180px;"/>
 
@@ -148,77 +171,41 @@ dcorr(X,Y)=0.01, p-val 0.3 <br> MGC(X,Y)= .r[0.13], p-val < .r[0.001]
 </div>
 
 
----
-
-### multiscale distance correlation
-
-- compute local dcorr **at all scales**
-- find scale with **max** smoothed test statistic
-- permutation test to determine p-value
-
 
 
 ---
-class: top, center
 
-### Multiscale Generalized Correlation (MGC)
+### Theoretical Results and Limitations
 
 
-<!-- <img src="https://github.com/neurodata/MGC/raw/master/Figures/FigA.png" alt="Drawing" style="width: 900px;"/> -->
-<img src="images/Fig1.png"  style="width: 780px;"/>
---
+MGC theoretically satisfies all of the desiderata, with the following caveats, MGC requires
 
-<img src="images/Fig8.png"  style="width: 780px;"/>
---
+1. .r[Sufficiency]: metric to be of "strong negative type"
+2. .r[Uncertainty]: samples are iid and $E[X_m^2] < \infty$
+3. .r[Complexity]: $R=2$ (for now)
+4. .r[Consistency]: $\mathcal{O}(1/n^2)$
+4. .r[Robustness]: ish
+4. .r[Efficiency]: $\mathcal{O}(n \log n)$
 
-<img src="images/flowchart.png"  style="width: 780px;"/>
 
+---
+class: middle
+
+# .center[simulations]
 
 ---
 class: top, left
 
+### Setup
 
-#### Intuitive Desiderata of Testing Procedure
-
-<br>
-
-1. Performant under *any* joint distribution
-  - low- and high-dimensional
-  - Euclidean and structured data (eg, sequences, images, networks, shapes)
-  - linear and nonlinear relationships
-6. Reveals the "geometry"  of dependence
-5. Is computational efficiency
-
-
-Provides a tractable algorithm that addresses the two motivating questions:
-
-- Question 1: are the two related at all?
-- Question 2: how are they related?
-
-
----
-class: middle, center
-
-# simulations
-
----
-class: top, left
-
-### Definitions
-
-- **power** is the probability of rejecting the null when the alternative is true
+- sample $(x_i, y_i) \sim F$ iid for $i=1,\ldots, n$ for 20 different functions
+- in each case, there is *some* true but unknown relationship
+- *power* is the probability detecting a relationship
 <!-- -  $\beta_n(t)$ := power of test statistic $t$ given $n$ samples -->
-- $N_\beta(t)$ := the # of samples required to achieve power $\beta$ using test statistic $t$
+- $N_\beta$ is the # of samples required to achieve power $\beta$
 
 
 
-### Empirical Desiderata
-
-1. statistical efficiency: $$N\_\beta(t') / N\_\beta( \text{MGC}) \geq 1  \text{ for all }
-  n, \, d, \, F\_{XY}, \text{ and } t' $$
-  <!-- $$\beta\_n(\text{MGC}) > \beta\_n(t')  \text{ for all } -->
-  <!-- n, \, t' \in \mathcal{T}, \text{ and } F\_{XY} $$ -->
-2. quantification of relationship
 
 
 
@@ -238,10 +225,9 @@ class: top, left
 ###  MGC Outperforms Benchmarks
 
 
-<br>
 
 
-<img src="images/Fig2_jk.png"  alt="local"  style="width: 100%;"/>
+<img src="images/FigHDPower.png"  alt="local"  style="width: 100%;"/>
 <!-- -- -->
 <!-- <img src="images/FigHDPowerSummarySize.png"  alt="local"  style="position:absolute;  LEFT: 460px; height: 280px;"/> -->
 
@@ -251,50 +237,30 @@ class: top, left
 ] -->
 
 ---
-class: top, left
 
 ###  MGC Outperforms Benchmarks
 
 
-<br>
+Relative sample size to achieve 85% power
 
+<img src="images/MGC_power_table.png"  alt="local"  style="width: 100%;"/>
 
-<img src="images/table_benchmarks.png"  alt="local"  style="width: 100%;"/>
-
-
-
----
-class: top, left
-
-#### MGC Reveals Geometry of Dependence
-
-<img src="images/Fig1DHeat.png"  alt="local"  style="width: 100%;"/>
-
-<!-- .center[
-<img src="https://github.com/neurodata/MGC/raw/master/Figures/FigHDHeat.png"  style="width: 900px;"/>
-] -->
+Other approaches with the sample theoretical properties and limitations (HHG, dCorr, HSIC)
+tend to require **double** or **triple** the samples to achieve the same power
 
 
 ---
-class: top, left
 
+### MGC Applications
 
-### Empirical Desiderata
+- detecting dependence
+- graph topology vs node attributes
+- signal subgraph detection
+- manifold learning / embedding
+- effect size estimation
+- feature selection/screening
+- machine learning / classification
 
-<br>
-
-
-1. $N\_\beta(t') / N\_\beta( \text{MGC}) \geq 1  \text{ for all }
-  n, \, d, \, F\_{XY}, \text{ and } t' $
-  <!-- $$\beta\_n(\text{MGC}) > \beta\_n(t')  \text{ for all } -->
-  <!-- n, \, t' \in \mathcal{T}, \text{ and } F\_{XY} $$ -->
-2. quantification of relationship
-
-
----
-class: middle, center
-
-# theory
 
 
 ---

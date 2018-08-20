@@ -183,7 +183,7 @@ MGC theoretically satisfies all of the desiderata, with the following caveats, M
 1. .r[Sufficiency]: metric to be of "strong negative type"
 2. .r[Uncertainty]: samples are iid and $E[X_m^2] < \infty$
 3. .r[Complexity]: $R=2$ (for now)
-4. .r[Consistency]: $\mathcal{O}(1/n^2)$
+4. .r[Consistency]: $\mathcal{O}(1/n)$
 4. .r[Robustness]: ish
 4. .r[Efficiency]: $\mathcal{O}(n \log n)$
 
@@ -263,157 +263,21 @@ tend to require **double** or **triple** the samples to achieve the same power
 
 
 
----
-class: top, left
-
-
-### Theoretical Desiderata
-
-<!-- <br> -->
-
-|  name | principle |
-|  ---   | --- |
-|  boundedness | $0 \leq t,T \leq 1 $|
-| symmetric   | $T(X,Y) = T(Y,X)$ |
-|  1-linear. | $  T= 1 \Leftrightarrow y = A x + b$ |
-|  0-indep. | $T=0 \Leftrightarrow H(X \lvert Y) = H(X)$ |
-|  ortho. invar. | $T(X,Y) = T(a_1 + b_1  C_1  X, a_2 + b_2  C_2  Y)$ |
-
---
-|  univ. consist. | $\beta\_n(T) \to 1, \quad \forall \, F\_{XY}$ |
-|  dominance | $\beta\_n(T) \geq \beta\_n(T'), \, \forall n,\, T' \in \mathcal{T}, \forall F\_{XY}$ |
-|  convergence | $\beta_n(t) \to \beta_n(T)$ as $n \to \infty$ |
-<!-- |  efficiency | $\mathbb{E}\beta_n(t) \geq \mathbb{E}\beta_n(t'), \, \forall n, t' \in \mathcal{T}$ | -->
-
-<!-- | | comp. efficiency | $\mathcal{O}(d n^2 \log n)$ space and time | -->
-<!-- 9. "reveal the "geometry/topology" of the relationship" -->
 
 ---
-class: top, left
+class: middle
 
-#### MGC is a Reasonable Dependence Statistic
 
-<br>
-
-Thm: Oracle MGC has the following properties:
-
-- 0 &geq;  MGC &geq; 1
-- MGC = 0 only under independence
-- MGC is symmetric
-- MGC = 1 only under linear relationship
-- MGC is invariant to rotation, translation, and scale of X and/or Y
-
+# .center[DARPA SIGMA Data]
 
 ---
-class: left
 
-### MGC has power 1 for all F<sub>XY</sub>
-<!-- Thm 1: $$\beta_n(c_t^*) \rightarrow 1 \text{ as } n \to \infty$$ -->
-<!-- Oracle MGC is consistent whenever Global Counterpart is
-<br>
- -->
+Some radioactive substance is moving around, and we have
 
- <br><br>
+- 3 days of data
+- 25 sensors
+- 15 features per sensor
 
- Lemma: \\( \beta_n (T^*) \to 1  \\) as \\( n \to \infty \\) whenever \\( E [X] < \infty. \\)
-
-<!-- <img src="images/thm1.png"  style="position:absolute; LEFT: 200px; TOP: 300px; height: 40px;"/> -->
-
----
-class: left
-
-### Linear: Local < Global
-
-<!-- Thm 2: If x is linearly dependent on y, then for any n it always holds that $\beta_n(c_t^*) = \beta_n(c_t)$ -->
-
-<br><br>
-
-Lemma: If x is linearly dependent on y, then it always holds that
-$$ \beta_n(T^*) = \beta_n(T) $$
-
-for any n.
-
-
-<!-- <img src="images/thm2.png"  style="position:absolute; LEFT: 60px; TOP: 300px; height: 80px;"/> -->
-
-
----
-class: left
-
-### (Certain) Nonlinear: Local > Global
-
-
-<br><br>
-
-Lemma: There exists f and n such that
-
-$$\beta_n( T^{k,l} ) > \beta_n(T). $$
-
-
-
-<!-- <img src="images/thm3.png"  style="width: 800px;"/> -->
-
-
----
-class: left
-
-
-### MGC > Dcorr
-
-<br><br>
-
-Thm: Oracle MGC statistically dominates dcorr, that is,
-
-$$\beta_n( T^* ) \geq \beta_n(T). $$
-
-
-<!-- <img src="images/thm4.png"  style="width: 800px;"/> -->
-
-
----
-class: left
-
-### Sample MGC Converges
-
-
-<br>
-
-Thm: For any  F<sub>XY</sub> with finite 1st moment,
-
-$\beta_n(t^*) \to \beta_n(T^\ast)$ as $n \to \infty$
-
-if and only if  $\sigma_X$ and $\sigma_Y$  are of strong negative type.
-
-
-
----
-class: top, left
-
-
-### Theoretical Desiderata
-
-<br>
-
-|  name | principle |
-|  ---   | --- |
-|  boundedness | &#x2705;|
-|  symmetric | &#x2705;|
-|  linear. | &#x2705; |
-|  0-indep. | &#x2705; |
-|  ortho. invar. | L$_p$ |
-|  univ. consist. | &#x2705;  |
-|  dominance | &#x2705; |
-|  convergence | &#x2705; |
-
-
-
----
-class: middle, center
-
-# real data
-
----
-class: top, left
 
 
 ### Real Data Desiderata
@@ -460,7 +324,7 @@ class: top, left
 
 ---
 
-### Some Extensions
+### References
 
 <br>
 
@@ -468,23 +332,13 @@ class: top, left
 - MGC for independence between graph topology & attributes [[2]](https://arxiv.org/abs/1703.10136)
 - MGC for signal subgraph detection [[3]](https://arxiv.org/abs/1801.07683)
 - MGC for clustering (ish) [[4]](https://arxiv.org/abs/1710.09859)
-
-<br>
-
-- MGC for K-sample testing
-- MGC for feature selection
-- MGC for batch effect detection
-- MGC for effect size characterization
+- R package:  [CRAN link](https://cran.r-project.org/web/packages/mgc/index.html); ~80  monthly downloads
 
 
 ---
 
 ### Next Steps
 
-<br><br>
-
-- Make R package from open source code ([github link](https://github.com/neurodata/mgc))
-- Scale up for larger n
 
 
 

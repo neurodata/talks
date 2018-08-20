@@ -35,6 +35,21 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Cencheng Shen
   |  <http://neurodata.io/talks/mgc-simplex.html>]
 
 
+---
+
+# Outline
+
+- Theoretical Results
+- Numerical Analysis
+- Real Data Experiments
+
+
+
+---
+class: middle
+
+# .center[theoretical results]
+
 
 ---
 
@@ -88,7 +103,7 @@ discover and decipher relationships between subsets of:
 
 ### Limitations of Existing Approaches
 
-Every existing approach has severe limitations in at least one of these desiderata
+Every existing approach has severe limitations in $\geq$ 1 of these
 
 
 1. .r[Sufficiency]: Renyi
@@ -104,25 +119,24 @@ Every existing approach has severe limitations in at least one of these desidera
 
 ---
 
-### Our Key Principles
+#### Our Key Principles
 
 
-
-1. all of the knowledge available from the data is encoded in sets of relationships
+1. all  knowledge  from the data is encoded in sets of relationships
 2. the optimal set size is a function of the (data,query) pair
 
----
+--
 
-### Our Basic Strategy
+#### Our Basic Strategy
 
-Given n points each measured with up to m modalities, build the following data structures:
+Given $N$ points each measured with up to $M$ modalities, build the following data structures:
 
 1. For each modality
   1. choose a metric
-  1. build the k-nearest neighbor graph, for all k=1,...,n
+  1. build the k-nearest neighbor graph, for all k=1,...,$N$
   2. build a (centered) pairwise distance matrix
-3. Estimate the jointly optimal set of neighborhood sizes simultaneously across all modalities,  $K=$ ($k^*_1$,...,$k^m$)
-3. For each modality, sparsify/truncate/censor its pairwise distance matrix to only include the $K$ neighbors
+3. Estimate the jointly optimal set of neighborhood sizes simultaneously across all modalities
+3. For each modality, sparsify/truncate/censor its pairwise distance matrix to only include the those neighbors
 4. Compute the Hadamard tensor product
 
 
@@ -191,7 +205,7 @@ MGC theoretically satisfies all of the desiderata, with the following caveats, M
 ---
 class: middle
 
-# .center[simulations]
+# .center[numerical analysis]
 
 ---
 class: top, left
@@ -249,9 +263,16 @@ Other approaches with the sample theoretical properties and limitations (HHG, dC
 tend to require **double** or **triple** the samples to achieve the same power
 
 
+
+---
+class: middle
+
+# .center[real data experiments]
+
+
 ---
 
-### MGC Applications
+### MGC Biomedical Applications
 
 - detecting dependence
 - graph topology vs node attributes
@@ -264,75 +285,32 @@ tend to require **double** or **triple** the samples to achieve the same power
 
 
 
----
-class: middle
-
-
-# .center[DARPA SIGMA Data]
 
 ---
+
+
+### DARPA SIGMA Data
+
 
 Some radioactive substance is moving around, and we have
 
 - 3 days of data
 - 25 sensors
 - 15 features per sensor
+- 2 features of interest of particular: gamma and neutron
 
-
-
-### Real Data Desiderata
-
-<br>
-
-1. when we believe dependence, MGC obtains a small p-value
-2. MGC provides insight into the geometry of real dependence
-3. when there is no dependence, MGC correcly controls FPR
-
-
----
-class: top, left
-
-### MGC Discovers Relationships between Brain & Mental Properties
-
-<br><br>
-
-<img src="images/table.png" alt="Drawing" style="width: 100%;"/>
-
-
----
-class: top, left
-
-### MGC Reveals Geometry of Real Data
-
-
-<img src="images/Fig4_jk_v5.png" style="width: 100%;"/>
 
 
 ---
 
-### Overall Summary
-
-
-- Oracle MGC theoretically dominates, even in finite samples
-- MGC empirically nearly dominates on extensive simulations
-- Visual quantitative characterization of arbitrary relationships
-- MGC reveals geometry of dependence in real data
-
-<br>
-- MGC mitigate "post selection inference" problems
 
 
 ---
 
-### References
+###  Summary
 
-<br>
 
-- Foundational theory for MGC [[1]](https://arxiv.org/abs/1710.09768)
-- MGC for independence between graph topology & attributes [[2]](https://arxiv.org/abs/1703.10136)
-- MGC for signal subgraph detection [[3]](https://arxiv.org/abs/1801.07683)
-- MGC for clustering (ish) [[4]](https://arxiv.org/abs/1710.09859)
-- R package:  [CRAN link](https://cran.r-project.org/web/packages/mgc/index.html); ~80  monthly downloads
+
 
 
 ---
@@ -341,30 +319,20 @@ class: top, left
 
 
 
-
 ---
 
-### Computational Desiderata
-
-1. fast
-2. open source
-
-<br>
-
-| Method | Complexity |
-| :---: | :---: |
-| Dcorr |  n<sup>2</sup> |
- | HHG |  n<sup>2</sup> log n |
-| MGC |  n<sup>2</sup> log n / T  |
-
-- MATLAB and R code at [http://neurodata.io/tools#MGC](http://neurodata.io/tools#MGC)
+### References
 
 
+- MGC foundational theory [[1]](https://arxiv.org/abs/1710.09768)
+- MGC biomedical applications  [[2]](https://arxiv.org/abs/1609.05148)
+- MGC for independence between graph topology & attributes [[3]](https://arxiv.org/abs/1703.10136)
+- MGC for signal subgraph detection [[4]](https://arxiv.org/abs/1801.07683)
+- MGC for clustering (ish) [[5]](https://arxiv.org/abs/1710.09859)
+- Equivalence of dCorr and HSIC [[6]](https://arxiv.org/abs/1806.05514)
+- R package:  [CRAN link](https://cran.r-project.org/web/packages/mgc/index.html); ~80  monthly downloads
 
----
-class: middle
 
-# <center>Discussion</center>
 
 
 
@@ -379,60 +347,7 @@ class: top, left
   <div class="centered">Carey Priebe</div>
 </div>
 
-<div class="container">
-  <img src="faces/randal.jpg"/>
-  <div class="centered">Randal Burns</div>
-</div>
 
-<div class="container">
-  <img src="faces/mim.jpg"/>
-  <div class="centered">Michael Miller</div>
-</div>
-
-<div class="container">
-  <img src="faces/bcaffo.jpg"/>
-  <div class="centered">Brian Caffo</div>
-</div>
-
-<div class="container">
-  <img src="faces/milham.jpg"/>
-  <div class="centered">Michael Milham</div>
-</div>
-
-<div class="container">
-  <img src="faces/dtward.jpg"/>
-  <div class="centered">Daniel Tward</div>
-</div>
-
-<div class="container">
-  <img src="faces/minh.jpg"/>
-  <div class="centered">Minh Tang</div>
-</div>
-
-<div class="container">
-  <img src="faces/avanti.jpg"/>
-  <div class="centered">Avanti Athreya</div>
-</div>
-
-<div class="container">
-  <img src="faces/vince.jpg"/>
-  <div class="centered">Vince Lyzinski</div>
-</div>
-
-<div class="container">
-  <img src="faces/dpmcsuss.jpg"/>
-  <div class="centered">Daniel Sussman</div>
-</div>
-
-<div class="container">
-  <img src="faces/yichen.jpg"/>
-  <div class="centered">Yichen Qin</div>
-</div>
-
-<div class="container">
-  <img src="faces/youngser.jpg"/>
-  <div class="centered">Youngser Park</div>
-</div>
 
 <div class="container">
   <img src="faces/cshen.jpg"/>
@@ -445,8 +360,8 @@ class: top, left
 </div>
 
 <div class="container">
-  <img src="faces/gkiar.jpg"/>
-  <div class="centered">Greg Kiar</div>
+  <img src="faces/youjin-lee.jpg"/>
+  <div class="centered">Youjin Lee</div>
 </div>
 
 <div class="container">
@@ -454,52 +369,8 @@ class: top, left
   <div class="centered">Eric Bridgeford</div>
 </div>
 
-<div class="container">
-  <img src="faces/vikram.jpg"/>
-  <div class="centered">Vikram Chandrashekhar</div>
-</div>
 
-<div class="container">
-  <img src="faces/tyler.jpg"/>
-  <div class="centered">Tyler Tomita</div>
-</div>
-
-<div class="container">
-  <img src="faces/james.jpg"/>
-  <div class="centered">James Brown</div>
-</div>
-
-<div class="container">
-  <img src="faces/disa.jpg"/>
-  <div class="centered">Disa Mhembere</div>
-</div>
-
-<div class="container">
-  <img src="faces/drishti.jpg"/>
-  <div class="centered">Drishti Mannan</div>
-</div>
-
-<div class="container">
-  <img src="faces/jesse.jpg"/>
-  <div class="centered">Jesse Patsolic</div>
-</div>
-
-<div class="container">
-  <img src="faces/falk_ben.jpg"/>
-  <div class="centered">Benjamin Falk</div>
-</div>
-
-<div class="container">
-  <img src="faces/kwame.jpg"/>
-  <div class="centered">Kwame Kutten</div>
-</div>
-
-<div class="container">
-  <img src="faces/perlman.jpg"/>
-  <div class="centered">Eric Perlman</div>
-</div>
-
-
+<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
 
 
 
@@ -514,29 +385,12 @@ class: top, left
 ---
 
 
-### Questions? Now hiring!
-
-.pull-left[
-| task |  link |
-| --- | --- |
-| testing | [MGC](https://github.com/neurodata/mgc) |
-| dim red | [LOL](https://github.com/neurodata/LOL) |
-| classify | [RerF](https://github.com/neurodata/R-RerF/)  |
-| graph stats |  [graphstats](https://github.com/neurodata/graphstats/)
-|  registration | [ndreg](https://github.com/neurodata/ndreg) |
-| email | [jovo@jhu.edu](mailto:jovo@jhu.edu) |
-| web |  [neurodata.io](http://neurodata.io/) |
-| startup | [gigantum.com](http://gigantum.com/) |
-
-<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
-
-]
-
-<br>
+### Questions?
 
 
 
-<img src="images/liono.JPG" STYLE="position:absolute; TOP:110px; LEFT:480px; HEIGHT:500px;"/>
+
+<img src="images/liono.JPG" STYLE="position:absolute; TOP:110px;  HEIGHT:500px;"/>
 
 
 

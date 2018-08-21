@@ -66,7 +66,10 @@ Build a knowledge represetation system with the following properties:
 
 --
 
-Requires definitions for (1) query types to support and (2) mathematical desiderata to satisfy.
+Requires definitions for
+
+1. query types to support, and
+2. mathematical desiderata to satisfy.
 
 
 ---
@@ -85,9 +88,9 @@ discover and decipher relationships between subsets of:
 #### Mathematical and Statistical Desiderata
 
 
-1. .r[Sufficiency]: Operate in arbitrary measurable metric spaces
+1. .r[Sufficiency]: Operate in any measurable metric spaces
 2. .r[Uncertainty]: Represent and quantify uncertainty
-3. .r[Complexity]: Can discover arbitrarily complex relationships
+3. .r[Complexity]: Can discover any complex relationship
 4. .r[Consistency]: Sample estimator converges to truth
 4. .r[Robustness]: Robust to model misspecifications
 4. .r[Efficiency]: Computationally tractable/efficient
@@ -106,10 +109,10 @@ discover and decipher relationships between subsets of:
 Every existing approach has severe limitations in $\geq$ 1 of these
 
 
-1. .r[Sufficiency]: Renyi
+1. .r[Sufficiency]: Maximal Correlation
 2. .r[Uncertainty]: Isomap, Diffusion Wavelets
 3. .r[Complexity]: Kendall, Spearman
-4. .r[Consistency]: Maximal Correlation, MIC
+4. .r[Consistency]: MIC
 4. .r[Robustness]: Pearson
 4. .r[Efficiency]: TDA
 
@@ -125,16 +128,21 @@ Every existing approach has severe limitations in $\geq$ 1 of these
 1. all  knowledge  from the data is encoded in sets of relationships
 2. the optimal set size is a function of the (data,query) pair
 
---
+---
 
 #### Our Basic Strategy
 
-Given $N$ points each measured with up to $M$ modalities, build the following data structures:
+Given $N$ entities, each measured with up to $M$ modalities, <br>
+as well as directly measuring $R$ relationships, <br>
+build the following data structures:
 
 1. For each modality
   1. choose a metric
   1. build the k-nearest neighbor graph, for all k=1,...,$N$
   2. build a (centered) pairwise distance matrix
+1. For each relationship
+  1. build the k-nearest neighbor graph, for all k=1,...,$N$
+  2. convert the relationship into a centered distance matrix
 3. Estimate the jointly optimal set of neighborhood sizes simultaneously across all modalities
 3. For each modality, sparsify/truncate/censor its pairwise distance matrix to only include the those neighbors
 4. Compute the Hadamard tensor product
@@ -194,8 +202,8 @@ dcorr(X,Y)=0.01, p-val 0.3 <br> MGC(X,Y)= .r[0.13], p-val < .r[0.001]
 
 MGC theoretically satisfies all of the desiderata, with the following caveats, MGC requires
 
-1. .r[Sufficiency]: metric to be of "strong negative type"
-2. .r[Uncertainty]: samples are iid and $E[X_m^2] < \infty \, \forall m$
+1. .r[Sufficiency]: metric must be of "strong negative type"
+2. .r[Uncertainty]: samples are "exchangable" with finite variance
 3. .r[Complexity]: $R=2$
 4. .r[Consistency]: $\mathcal{O}(1/n)$
 4. .r[Robustness]: ish
@@ -304,20 +312,47 @@ where $r$ is the number of permutations required in the permutaiton test
       - randomly subsample $\sqrt{n}$ points
       - apply MGC to obtain $t_i$
   - compute $\langle t_i \rangle$
+- Variance of sub-sample provides confidence intervals
 - Reduces computational time in practice from hours to minutes
+- But minor loss of power
+
 
 
 ---
 
-###  Summary
+### Extended Results
 
 
+1. Proved equivalence of existing kernel and distance approaches
+2. Proved random forest (RF) induces a universal kernel
+3. Demonstrated empirically that RF yields improved results
 
 
 
 ---
 
 ### Next Steps
+
+By coupling RF with MGC, we strengthen the theoretical results
+
+
+1. Sufficiency: metric must be of "strong negative type"
+  - .r[RF can learn metric]
+2. Uncertainty: samples are "exchangable" with finite variance
+  - .r[just requires exchangability]
+3. Complexity: $R=2$
+  - .r[RF can handle $R>2$]
+4. Consistency: $\mathcal{O}(1/n)$
+  - .r[$\mathcal{O}(1/n^2)$?]
+4. Robustness: ish
+  - .r[yes]
+4. Efficiency: $\mathcal{O}(n^2 \log n)$
+  - .r[$\mathcal{O}(n \log n)$]
+
+
+
+
+
 
 
 
@@ -335,6 +370,18 @@ where $r$ is the number of permutations required in the permutaiton test
 - R package:  [CRAN link](https://cran.r-project.org/web/packages/mgc/index.html); ~80  monthly downloads
 
 
+
+---
+
+###  Summary
+
+
+- MGC is a KRS that can discover latent geometric structure
+- We have used it to answer various query types
+- Has a rigorous mathematical and statistical foundation
+- SME can encode domain specific knowledge
+- Coupling to RF generalizes, improves theoretical and empirical performances
+- Specifically useful for DARPA SIGMA (as we will show later)
 
 
 
@@ -429,7 +476,8 @@ Some radioactive substance is moving around, and we have
 
 1. Open hdf5 files
 2. Convert to 2D arrays
-
+3. Run MGC on each
+4. Visualize results 
 
 <!-- background-image: url("images/OCPaper.png")
 background-size: contain;

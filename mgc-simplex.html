@@ -48,7 +48,7 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Cencheng Shen
 ---
 class: middle
 
-# .center[theoretical results]
+# .center[Theoretical Results]
 
 
 ---
@@ -66,7 +66,7 @@ Build a knowledge represetation system with the following properties:
 
 --
 
-Requires definitions for query types to support and mathematical desiderata to satisfy
+Requires definitions for (1) query types to support and (2) mathematical desiderata to satisfy.
 
 
 ---
@@ -195,17 +195,17 @@ dcorr(X,Y)=0.01, p-val 0.3 <br> MGC(X,Y)= .r[0.13], p-val < .r[0.001]
 MGC theoretically satisfies all of the desiderata, with the following caveats, MGC requires
 
 1. .r[Sufficiency]: metric to be of "strong negative type"
-2. .r[Uncertainty]: samples are iid and $E[X_m^2] < \infty$
-3. .r[Complexity]: $R=2$ (for now)
+2. .r[Uncertainty]: samples are iid and $E[X_m^2] < \infty \, \forall m$
+3. .r[Complexity]: $R=2$
 4. .r[Consistency]: $\mathcal{O}(1/n)$
 4. .r[Robustness]: ish
-4. .r[Efficiency]: $\mathcal{O}(n \log n)$
+4. .r[Efficiency]: $\mathcal{O}(n^2 \log n)$
 
 
 ---
 class: middle
 
-# .center[numerical analysis]
+# .center[Numerical Analysis]
 
 ---
 class: top, left
@@ -267,42 +267,44 @@ tend to require **double** or **triple** the samples to achieve the same power
 ---
 class: middle
 
-# .center[real data experiments]
+# .center[Real Data Experiments]
 
 
 ---
 
 ### MGC Biomedical Applications
 
-- detecting dependence
-- graph topology vs node attributes
-- signal subgraph detection
-- manifold learning / embedding
-- effect size estimation
-- feature selection/screening
-- machine learning / classification
-
-
-
+- detecting dependence (human brain imaging)
+- graph topology vs node attributes (worm network)
+- signal subgraph detection (human brain network and personality)
+- effect size estimation ("batches" of imaging)
+- feature selection/screening (cancer genetics)
+- machine learning / classification (proteomics)
+- DARPA's SIGMA data
 
 
 ---
 
+### DARPA's Sigma Data
 
-### DARPA SIGMA Data
-
-
-Some radioactive substance is moving around, and we have
-
-- 3 days of data
-- 25 sensors
-- 15 features per sensor
-- 2 features of interest of particular: gamma and neutron
-
-
+- Details of the analysis will be provided after lunch
+- Existing MGC theory and methods were inadequate to perform the tasks
+- Computationally, MGC required $\mathcal{O}(r \times n^2 \log n)$ run time,
+where $r$ is the number of permutations required in the permutaiton test
+- SIGMA data had $n=25,000$, which was too large for existing MGC to handle
 
 ---
 
+### Accelerated MGC
+
+- Goal: accelerate MGC without weakening theory
+- Reduce to linear time without permutation: $\mathcal{O}(r \times n^2 \log n) \rightarrow \mathcal{O}(n \log n)$
+- Algorithm:
+  - For $i = 1, \ldots, \sqrt{N}$
+      - randomly subsample $\sqrt{n}$ points
+      - apply MGC to obtain $t_i$
+  - compute $\langle t_i \rangle$
+- Reduces computational time in practice from hours to minutes
 
 
 ---
@@ -394,6 +396,39 @@ class: top, left
 
 
 
+
+
+
+
+---
+
+
+### DARPA SIGMA Data
+
+
+Some radioactive substance is moving around, and we have
+
+- 3 days of data
+- 25 sensors
+- 15 features per sensor
+- each feature sampled at different frequency
+- some features on some days include $\approx$ 25,000 samples
+- 2 features of interest of particular: gamma and neutron
+
+--
+
+### Queries
+
+1. Do any sensors have information about radiation? If so, which?
+2. Do any features have information about radiation? If so, which?
+3. Are any features redundant?
+
+---
+
+### Data Processing Pipeline
+
+1. Open hdf5 files
+2. Convert to 2D arrays
 
 
 <!-- background-image: url("images/OCPaper.png")

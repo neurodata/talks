@@ -41,8 +41,8 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Cencheng Shen
 
 - Theoretical Results
 - Numerical Analysis
-- Real Data Experiments
-
+- Bleeding Edge
+- Discussion
 
 
 ---
@@ -196,38 +196,40 @@ dcorr(X,Y)=0.01, p-val 0.3 <br> MGC(X,Y)= .r[0.13], p-val < .r[0.001]
 
 ---
 
-### Theoretical Results
+### Theoretical Background
 
 .r[Non-Parametric Dependence] is the primary quantity of interest:
 - bounds predictive accuracy
 - bounds causal inference
-- (nearly) all hypotheses can be stated in terms of dependence
 - used for feature selection / screening
 - mutual information is a special case
 
----
-
-### Theoretical Results (cont'd)
-
-
-MGC .r[connects] previously disparate data science approaches
-- kernel learning
-- distance-based
-- nearest-neighbors
-- multiscale analysis
-
 
 
 ---
 
-### Theoretical Results and Limitations
+### Theoretical Results
+
+
+- (nearly) all hypotheses can be stated in terms of dependence
+- MGC .r[connects] previously disparate data science approaches
+  - kernel learning
+  - distance-based
+  - nearest-neighbors
+  - multiscale analysis
+
+
+
+---
+
+### Theoretical  Limitations
 
 
 MGC theoretically satisfies all of the desiderata, with the following caveats, MGC requires
 
 1. .r[Sufficiency]: metric must be of "strong negative type"
 2. .r[Uncertainty]: samples are "exchangable" with finite variance
-3. .r[Complexity]: $R=2$
+3. .r[Complexity]: $R=2$ or $M=2$
 4. .r[Consistency]: $\mathcal{O}(1/n)$
 4. .r[Robustness]: non-parametric
 4. .r[Efficiency]: $\mathcal{O}(n^2 \log n)$
@@ -295,11 +297,6 @@ tend to require **double** or **triple** the samples to achieve the same power
 
 
 
----
-class: middle
-
-# .center[Real Data Experiments]
-
 
 ---
 
@@ -312,6 +309,13 @@ class: middle
 - feature selection/screening (cancer genetics)
 - machine learning / classification (proteomics)
 - DARPA's SIGMA data
+
+
+---
+class: middle
+
+# .center[Bleeding Edge]
+
 
 
 ---
@@ -363,7 +367,7 @@ By coupling RF with MGC, we strengthen the theoretical results
   - .r[RF can learn metric]
 2. Uncertainty: samples are "exchangable" with finite variance
   - .r[just requires exchangability]
-3. Complexity: $R=2$
+3. Complexity: $R=2$ or $M=2$
   - .r[RF can handle $R>2$]
 4. Consistency: $\mathcal{O}(1/n)$
   - .r[$\mathcal{O}(1/n^2)$?]
@@ -376,6 +380,11 @@ By coupling RF with MGC, we strengthen the theoretical results
 And RF adds additional  queries, including entropy, conditional entropy, mutual information, classification, and regression
 
 
+
+---
+class: middle
+
+# .center[Discussion]
 
 
 

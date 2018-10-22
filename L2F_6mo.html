@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>L2F | L2M</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: left,
+
+name:opening
+
+
+## Lifelong Learning Forests
+
+
+PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Randal Burns 
+
+
+<br><br><br>
+
+<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+
+.foot[[jovo@jhu.edu](mailto:jovo at jhu dot edu)
+  |  <http://neurodata.io/talks/L2F_6mo.html>]
+
+
+---
+
+# Outline
+
+- Background
+- 6 month Theoretical Results
+- 6 month Numerical Analysis
+- Bleeding Edge
+- Discussion
+
+
+---
+
+# Background
+
+
+---
+
+
+
+### Decision Forests Empirically Rock!
+
+- Caruana et al. 2006 (ICML): "With excellent performance on all eight metrics, calibrated .r[boosted trees] were the best learning algorithm overall. .r[Random forests] are close second."
+- Caruana et al. 2008 (ICML): "the method that performs consistently well across all dimensions is .r[random forests]."
+- Delgado et al. 2014 (JMLR): "The classifiers most likely to be the bests are the .r[random forest]."
+- Chen et al. 2016 (KDD): "Among the 29 challenge winning solutions 3 published at Kaggle’s blog during 2015, 17 solutions used .r[XGBoost]. Among these solutions, eight solely used .r[XGBoost] to train the model"
+
+
+---
+
+### Decision Forests Theoretically Rock!
+
+1. **Uncertainty** provide consistent estimate of posteriors
+2. **Consistency** under certain assumptions
+3. **Efficiency** error scales with order 1/n
+4. **Flexibility** can learn simple or complex functions
+4. **Stability** are robust 
+5. **Scalability** linear in n, p, and T
+6. **Explainability** feature importance available
+7. **Automaticity** very few parameters to tweak 
+  
+
+---
+
+### Lumberjack
+
+
+<img src="images/rerf_perf.png"  style="width: 800px;"/>
+
+- previously known as Randomer Forest
+- replace feature selection with random projection
+- significant empirical improvement over RF/XGBboost
+- maintains all 8 theoretical properties above
+- but are not lifelong learners
+
+
+---
+
+### Lifelong Learning Forests (L2F)
+
+Extend lumberjack decision forests to maintain all the above properties 
+even after a change in the task.
+
+
+<!-- - Task 1: Unsupervised Learning 
+- Task 2: (Semi-) Supervised Learning 
+- Task 3: Applications to real data -->
+
+---
+
+### Result 1:  Towards a Supervised L2F
+#### A Learned Universal Kernel Machine
+
+
+
+---
+
+### *Universal* Consistency
+
+<img src="images/error_rate_consistency.png"  style="width: 800px;"/>
+
+Conjecture 1: Lumberjack is at least as consistent as RF.
+
+
+---
+
+### Induced *Universal* Kernel
+
+- Universal kernels are foundational in machine learning (e.g., Boltzman Machines)
+- Existing kernels are pre-defined / inflexible
+- Conjecture 2: the RF induced kernel is universal
+
+--
+
+Thm 1: The kernel induced by RF can trivially be modified to be universal.  
+
+
+---
+
+#### Empirical Implications Kernel Learning 
+
+
+<img src="images/rf_kernel.png"  style="width: 800px;"/>
+
+
+---
+
+#### Implications of Universal *Learned* Kernel
+
+
+- To obtain a universal lifelong learning machine requires first a universal learning machine.  
+- We now have the first universal learned kernel machine.
+
+---
+
+
+#### Result 2: Incorporating Unsupervised Data
+
+#### Our Learned Universal Kernel Machine is Robust to High-Dimensional Noise
+
+---
+
+### Hardy Weinberg Curve 
+
+- $t_i \sim Beta(\alpha,\beta$)
+- $x_i = [t^2_i, (1- t_i) t_i, (1-t_i)^2]$
+- 3D embedding of CMDS recovers latent manifold
+<img src="images/EUC_DIS_CMDS_d=0.png"  style="height: 400px;"/>
+
+
+---
+
+### Nearest Neighbors for HW
+
+
+(placeholder)
+
+---
+
+### Hardy Weinberg Curve with Noise 
+
+- $x_i \leftarrow [x_i,$ 17 dimensions of noise]
+- 3D embedding of CMDS recovers all .r[noise]
+<img src="images/EUC_DIS_CMDS_d=17.png"  style="height: 400px;"/>
+
+
+---
+
+### Hardy Weinberg Curve with Noise 
+
+- $x_i \leftarrow [x_i,$ 17 dimensions of noise]
+- 3D embedding of RF learned kernel recovers all ".r[manifold]"
+<img src="images/projected-normalnoise-hw-data-500trees-2000pts-17noisedims-depth4.jpeg"  style="height: 400px;"/>
+
+
+
+
+---
+
+# Applications 
+
+(replace next slides)
+
+---
+class:center, middle
+
+<img src="images/kent1.jpg" style="height: 100%;"/>
+
+---
+### \#1: Characterizing Psychopathy with Changing Sensors
+
+- 10 years of scanning psychopaths (multi-modality)
+- Frequent scanner updates meticulously documented (.blue[$h$])
+- Estimate recidivism using the first $n$ samples of $(x_i, y_i)$
+- Improve accuracy including $m$ additional $x_i$'s?
+<img src="images/KentF1.png" style="width: 80%;"/>
+
+---
+### \#2: Characterizing Personality in Non-Stationary Life Span Data
+
+- Bringing it back to &#x1F981;
+- Lifespan data: 8-80 (.blue[$P$])
+- Certain phenotypics are fixed (e.g., ethnicity,  gender, IQ)
+- Multimodal brain measurements  are dynamic with age
+- Learn function using $(x_i,y_i)$ of kids
+- Continue improving using only $x_i$ of adults
+
+
+
+
+---
+
+### Next Steps
+
+
+(fill in)
+
+
+
+---
+
+### References
+
+
+- Lumberjack [[1]]()
+- R package:  [CRAN link](); ~80  monthly downloads
+
+
+
+---
+
+###  Summary
+
+
+(fill in)
+
+---
+class: top, left
+
+### Acknowledgements
+
+
+<div class="container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+
+
+<div class="container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div>
+
+<div class="container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div>
+
+<div class="container">
+  <img src="faces/percy.jpg"/>
+  <div class="centered">Percy Li</div>
+</div>
+
+<div class="container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div>
+
+
+<div class="container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Browne</div>
+</div>
+
+<div class="container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Ben Falk</div>
+</div>
+
+<div class="container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<div class="container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div>
+
+
+
+<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+
+
+<!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
+
+
+---
+
+
+### Questions?
+
+
+<img src="images/lion_l2m.JPG" STYLE="position:absolute; TOP:110px;  HEIGHT:500px;"/>
+
+
+
+
+
+
+
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script src="assets/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="assets/KaTeX/0.5.1/auto-render.min.js"></script>
+    <link rel="stylesheet" href="assets/KaTeX/0.5.1/katex.min.css">
+    <script type="text/javascript">
+      var options = {};
+      var renderMath = function() {
+        renderMathInElement(document.body);
+        // or if you want to use $...$ for math,
+        renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
+        ]});
+      }
+      var slideshow = remark.create(options, renderMath);
+
+    </script>
+  </body>
+</html>

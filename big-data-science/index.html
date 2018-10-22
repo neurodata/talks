@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Big Brain Data</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- bower:css -->
+	<!-- <link rel="stylesheet" href="/content/themes/jhu_id/bower_components/normalize-css/normalize.css"> -->
+	<link rel="stylesheet" href="fonts/gentona/gentona.css">
+	<link rel="stylesheet" href="fonts/titling-gothic/titling-gothic.css">
+	<link rel="stylesheet" href="fonts/quadon/quadon.css">
+	<link rel="stylesheet" href="fonts/arnhem/arnhem.css">
+	<!-- endbower -->
+
+	<style type="text/css">
+		#left {
+			/*line-height:30px;*/
+			/*background-color:#eeeeee;*/
+			height:300px;
+			width:300px;
+			float:left;
+			padding:5px;
+			font-size: 80%;
+		}
+	</style>
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<!-- <h1>Reveal.js</h1> -->
+					<h3>Using Big Data Science to Understand What Goes on in Our Heads</h3>
+					<p>
+						<small>Created by <a href="http://jovo.me">Joshua T. (jovo) Vogelstein</a>
+							<br> Neurostatistician@Large
+							<br>{BME,CIS,ICM,Kavli}@JHU
+						</small>
+
+						<br><br>
+						Interrupt!
+						<br><br>
+
+						<ul>
+							<li>Clark 317C</li>
+							<li>jovo@jhu.edu</li>
+							<li>http://neurodata.io</li>
+							<li>http//jovo.me</li>
+						</ul>
+
+					</p>
+
+
+				</section>
+
+
+
+				<section>
+					<h2>Humans: Raise Your Hands</h2>
+
+					<iframe src="http://giphy.com/embed/jzpLjAx4pAsP6?html5=true" width="480" height="313" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+				</section>
+
+
+				<section>
+					<h2>Humans with >1/2 a Brain</h2>
+					<h2>Lower Your Hands</h2>
+
+					<img src="http://imgc.allpostersimages.com/images/P-473-488-90/64/6461/1KLH100Z/posters/ralph-hutchings-a-mid-sagittal-section-showing-the-left-half-of-the-human-brain-brainstem-midbrain.jpg" alt="Mountain View" style="width:540px">
+
+				</section>
+
+
+				<section>
+					<h2>Any Non-Human Animals in the hizzouse?</h2>
+
+					<img src="http://cdn.list25.com/wp-content/uploads/2013/04/21-2_tn.jpg" alt="Mountain View" style="width:540px">
+
+
+
+				</section>
+
+
+				<section>
+					<h2>What's Special about Brains?</h2>
+				</section>
+
+				<section>
+					<h2>How Many Brains on Earth?</h2>
+
+
+					<table>
+						<thead>
+							<tr>
+								<th>Species</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Humans</td>
+								<td>7,415,331,700+</td>
+							</tr>
+							<tr>
+								<td>Cows</td>
+								<td>1,500,000,00</td>
+							</tr>
+							<tr>
+								<td>Honeybees</td>
+								<td>10,000,000,000,000</td>
+							</tr>
+							<tr>
+								<td>Honey Badgers</td>
+								<td>?</td>
+							</tr>
+						</tbody>
+					</table>
+					<iframe class="fragment" width="560" height="315" src="https://www.youtube.com/embed/4r7wHMg5Yjg?rel=0" frameborder="0" allowfullscreen></iframe>
+
+
+				</section>
+
+
+				<section>
+					<h2>Goals of the Hour</h2>
+
+					<p>
+						<ul>
+							<li>have fun</li>
+							<li>learn some stuff about big brain data</li>
+							<li>not sound like john cleese <br> (ask questions if i do)</li>
+						</ul>
+					</p>
+
+				</section>
+
+
+
+				<section>
+					<h2>What is Neuroscience?</h2>
+
+					<iframe width="900" height="465" src="https://www.youtube.com/embed/FQjgsQ5G8ug?start=36" frameborder="0" allowfullscreen></iframe>
+				</section>
+
+
+
+
+				<section>
+					<h2>What is a Brain?</h2>
+
+					<iframe width="900" height="620" src="https://www.youtube.com/embed/1aVNRZtxeIU?rel=0" frameborder="0" allowfullscreen></iframe>
+
+				</section>
+
+
+
+				<section>
+					<h2>What is a Multi-Spectral Brain?</h2>
+					<iframe width="800" height="620" src="https://www.youtube.com/embed/jziqfFp9Rq0?rel=0" frameborder="0" allowfullscreen></iframe>
+				</section>
+
+
+
+				<section>
+					<h2>What is a Living Brain?</h2>
+					<iframe width="900" height="620" src="https://www.youtube.com/embed/gJdKSxKRtVI?rel=0" frameborder="0" allowfullscreen></iframe>
+				</section>
+
+
+				<section>
+					<h2>What is a See-Through Brain?</h2>
+					<iframe width="900" height="620" src="https://www.youtube.com/embed/c-NMfp13Uug?start=109" frameborder="0" allowfullscreen></iframe>
+				</section>
+
+				<section>
+					<h2>What is a Human Brain Network?</h2>
+					<iframe width="900" height="620" src="https://www.youtube.com/embed/TxlV50P6NEI?start=12" frameborder="0" allow="autoplay;"  allowfullscreen></iframe>
+				</section>
+
+
+				<section>
+					<h4>How do we learn about the mind-brain relationship from big data?</h4>
+
+					<img src="https://www.lucidchart.com/publicSegments/view/0422f6a4-8001-438b-baa1-9e8526588c58/image.png">
+				</section>
+
+
+
+
+				<section>
+					<h2>Wonder!</h2>
+
+					<img src="http://www.mos.org/sites/dev-elvis.mos.org/files/images/main/uploads/slides/public-events_stories-under-the-stars.jpg">
+				</section>
+
+
+				<section>
+					<h2>Consider</h2>
+
+					<ul>
+						<li>who will this impact?</li>
+						<li>how much will it impact them?</li>
+						<li>what do we already know about this?</li>
+						<li>how might we make progress?</li>
+						<li>what might impede progress?</li>
+						<li>who else can contribute?</li>
+						<li>what can i most <b>passionately</b> contribute?</li>
+					</ul>
+
+
+				</section>
+
+
+				<section>
+					<h2>Don't consider</h2>
+
+					is it possible?
+
+				</section>
+
+
+
+
+
+				<section>
+					<h2>Store</h2>
+
+
+					<div id="left">
+						<ul>
+							<li>hierarchical memory</li>
+							<li>small # of disk accesses</li>
+							<li>multiscale representation</li>
+						</ul>
+					</div>
+					<img height="240" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Moore3d-step3.png">
+					<img height="240" src="http://docs.neurodata.io/ndintro/images/reshier.png">
+				</section>
+
+
+				<section>
+					<h2>Explore</h2>
+
+					<ul>
+						<li><a href="http://viz.neurodata.io/project/kharris15apical_subcell/xy/1/2064/2088/112/">Volumetric annotation overlays</a></li>
+						<li><a href="http://viz.neurodata.io/project/Ex10R55_glutamatergic_prepost/2/378/421/0/#">Multispectral blending</a></li>
+						<li><a href="http://viz.neurodata.io/project/freeman14/xy/1/509/339/10/">3D time-series</a></li>
+					</ul>
+
+				</section>
+
+				<section>
+					<h2>Parse</h2>
+
+					<div id="left">
+						<ul>
+							<li>geometric stitch</li>
+							<li>chromatic correction</li>
+							<li>segment</li>
+							<li>semantic label</li>
+						</ul>
+					</div>
+					<img src="http://docs.neurodata.io/nddocs/ndparse/images/ndod/Y_manual1.png?raw=true">
+				</section>
+
+
+				<section>
+					<h2>Analyze!</h2>
+
+
+					<div id="left">
+						<ul>
+							<li>matrices</li>
+							<li>shapes</li>
+							<li>graphs</li>
+							<li>time-series</li>
+						</ul>
+					</div>
+				</section>
+
+
+
+				<section>
+					<h2>Are brain networks independent of creativity?</h2>
+
+					<img height="280" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/White_Matter_Connections_Obtained_with_MRI_Tractography.png">
+					<img height="280" src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Plato-raphael.jpg">
+				</section>
+
+				<section>
+					<h4>Are male brain networks different from female brain networks?</h4>
+
+					<img height="620" src="sex.png">
+				</section>
+
+
+				<section>
+					<h4>Are synapses distributed uniformly in cortex?</h4>
+
+					<img height="620" src="http://docs.neurodata.io/ndintro/images/rob2.png">
+				</section>
+
+
+				<section>
+					<h4>Are there different types of synapses?</h4>
+
+					<img height="620" src="syn.png">
+				</section>
+
+
+				<section>
+					<h4>And so much more....</h4>
+
+					<img height="620" src="http://vignette1.wikia.nocookie.net/batman/images/c/ce/Riddler_02.jpg/revision/latest?cb=20090721070115">
+				</section>
+
+
+
+				<section>
+					<h4>Join Us!</h4>
+
+					<ul>
+						<li>Clark 317C</li>
+						<li>jovo@jhu.edu</li>
+						<li>http://neurodata.io</li>
+						<li>http//jovo.me</li>
+					</ul>
+
+					<br><br><br>
+
+					Ask Questions!
+				</section>
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+				{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				{ src: 'plugin/zoom-js/zoom.js', async: true },
+				{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+	</html>

@@ -39,9 +39,8 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Randal Burns
 # Outline
 
 - Background
-- 6 month Theoretical Results
-- 6 month Numerical Analysis
-- Bleeding Edge
+- 6 month Methods Update
+- 6 month Applications Update
 - Discussion
 
 
@@ -66,9 +65,9 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Randal Burns
 
 ### Decision Forests Theoretically Rock!
 
-1. **Uncertainty** provide consistent estimate of posteriors
 2. **Consistency** under certain assumptions
 3. **Efficiency** error scales with order 1/n
+1. **Uncertainty** provide consistent estimate of posteriors
 4. **Flexibility** can learn simple or complex functions
 4. **Stability** are robust 
 5. **Scalability** linear in n, p, and T
@@ -98,78 +97,65 @@ Extend lumberjack decision forests to maintain all the above properties
 even after a change in the task.
 
 
-<!-- - Task 1: Unsupervised Learning 
-- Task 2: (Semi-) Supervised Learning 
-- Task 3: Applications to real data -->
+#### Route 
 
----
-
-### Result 1:  Towards a Supervised L2F
-#### A Learned Universal Kernel Machine
+1. Prove Universal Consistency of LJ (with empirical support)
+2. Prove Universal Kernel induced by LJ (with empirical support)
+3. Prove LJ Kernel is Robust to noise dimensions (and therefore, changes in them, with empirical support)
+4. Prove LJ Kernel is updated when signal changes too (rest of Phase I)
 
 
 
 ---
 
-### *Universal* Consistency
+### Result 1: *Universal* Consistency of LJ
 
 <img src="images/error_rate_consistency.png"  style="width: 800px;"/>
 
 Conjecture 1: Lumberjack is at least as consistent as RF.
 
+--
+
+"Thm" 1: LJ is *more* consistent than RF
 
 ---
 
-### Induced *Universal* Kernel
+### Result 2: Induced *Universal* Kernel
+
 
 - Universal kernels are foundational in machine learning (e.g., Boltzman Machines)
 - Existing kernels are pre-defined / inflexible
-- Conjecture 2: the RF induced kernel is universal
+- Conjecture 2: the LJ induced kernel is universal
 
 --
 
-Thm 1: The kernel induced by RF can trivially be modified to be universal.  
+"Thm" 2: The kernel induced by RF/LJ can trivially be modified to be universal.  
 
 
 ---
 
-#### Empirical Implications Kernel Learning 
+#### Learned Kernel Outperforms "Pre-Specified" Kernels 
 
 
-<img src="images/rf_kernel.png"  style="width: 800px;"/>
+<img src="images/rf_kernel.png"  style="width: 700px;"/>
 
 
 ---
 
-#### Implications of Universal *Learned* Kernel
 
 
-- To obtain a universal lifelong learning machine requires first a universal learning machine.  
-- We now have the first universal learned kernel machine.
-
----
-
-
-#### Result 2: Incorporating Unsupervised Data
-
-#### Our Learned Universal Kernel Machine is Robust to High-Dimensional Noise
+#### Result 3: LJ Kernel is Robust to High-Dimensional Noise
 
 ---
 
 ### Hardy Weinberg Curve 
 
 - $t_i \sim Beta(\alpha,\beta$)
-- $x_i = [t^2_i, (1- t_i) t_i, (1-t_i)^2]$
+- $x_i = [(t_i)^2, (1- t_i) t_i, (1-t_i)^2]$
 - 3D embedding of CMDS recovers latent manifold
 <img src="images/EUC_DIS_CMDS_d=0.png"  style="height: 400px;"/>
 
 
----
-
-### Nearest Neighbors for HW
-
-
-(placeholder)
 
 ---
 
@@ -189,37 +175,66 @@ Thm 1: The kernel induced by RF can trivially be modified to be universal.
 <img src="images/projected-normalnoise-hw-data-500trees-2000pts-17noisedims-depth4.jpeg"  style="height: 400px;"/>
 
 
+---
+
+### Noise Dimensions Theorem 
+
+"Thm" 3: Nearest neighbors are robust to added noise dimensions
+
+
+---
+
+### Summary of Methods Update 
+
+- L2M with theoretical guarantees requires:
+    - Universal Consistency
+    - A Kernel that learns
+    - Learned Kernel must be universal (or nearly)
+
+- We showed 
+  - Lumberjack has all 3 of those
+  - Empirical ramifications even for static learning
+
 
 
 ---
 
 # Applications 
 
-(replace next slides)
 
----
-class:center, middle
-
-<img src="images/kent1.jpg" style="height: 100%;"/>
 
 ---
 ### \#1: Characterizing Psychopathy with Changing Sensors
 
 - 10 years of scanning psychopaths (multi-modality)
-- Frequent scanner updates meticulously documented (.blue[$h$])
-- Estimate recidivism using the first $n$ samples of $(x_i, y_i)$
-- Improve accuracy including $m$ additional $x_i$'s?
-<img src="images/KentF1.png" style="width: 80%;"/>
+- Frequent scanner updates meticulously documented (changing sensors)
+- Task: Estimate recidivism using the first n samples, then improve accuracy including m additional unlabeled samples
+- Status: 
+      - 4,000+ individuals so far 
+      - All participants have detailed clinical assessments (i.e., mental health, IQ, neuropsych)
+      - All participants complete structural (T1/T2-FLAIR), Diffusion, Resting state and fMRI 
+      - Detailed outcomes data being collected to examine risk for crime (property, nonviolent, violent, sexually violent).  
+      - Data organized and ready to be processed
+      - Data wrangling code is ready to run
+      
+---
+
+<img src="images/MRN_bus.png"  style="position:absolute; left:-2px; width:920px;"/>
+
 
 ---
 ### \#2: Characterizing Personality in Non-Stationary Life Span Data
 
-- Bringing it back to &#x1F981;
-- Lifespan data: 8-80 (.blue[$P$])
+- Lifespan data: 9-90
 - Certain phenotypics are fixed (e.g., ethnicity,  gender, IQ)
 - Multimodal brain measurements  are dynamic with age
-- Learn function using $(x_i,y_i)$ of kids
-- Continue improving using only $x_i$ of adults
+- Task: Predict phenotypic properties using pediatric data, then improve accuracy using geriatric data
+- Status:
+    - 180 individuals scanned 
+    - 171 processed 
+    - basic demographics available for each 
+        - age, sex, handedness, race, etc.
+    - predictions are ready to be made
 
 
 
@@ -228,9 +243,18 @@ class:center, middle
 
 ### Next Steps
 
+- Complete wrangling of all image and phenotypic data
+- Train LJ on "early" data 
+- Continue learning using additional data 
+- Benchmark performance vs. using full data 
 
-(fill in)
 
+---
+
+<div class="background">
+  <img src="images/lion_l2m.JPG" STYLE="position:absolute; TOP:0px;  LEFT: 0px; HEIGHT:680px; WIDTH=600px;">
+  <div class="bottom-center"> <h1>#3: Lion</p></h1> </div>
+</div>
 
 
 ---
@@ -238,17 +262,13 @@ class:center, middle
 ### References
 
 
-- Lumberjack [[1]]()
-- R package:  [CRAN link](); ~80  monthly downloads
+- Lumberjack [[1]](https://arxiv.org/abs/1506.03410)
+- The Exact Equivalence of Distance and Kernel Methods for Hypothesis Testing [[2]](https://arxiv.org/abs/1806.05514)
+- Forest Packing: Fast, Parallel Decision Forests [[3]](https://arxiv.org/abs/1806.07300)
+- Kernel k-Groups via Hartigan's Method [[4]](https://arxiv.org/abs/1710.09859)
+- From Distance Correlation to Multiscale Graph Correlation [[5]](https://arxiv.org/abs/1710.09768) (in press at JASA)
+- Lumberjack R package:  [CRAN](https://cran.r-project.org/web/packages/rerf/index.html) 
 
-
-
----
-
-###  Summary
-
-
-(fill in)
 
 ---
 class: top, left
@@ -309,6 +329,10 @@ class: top, left
   <div class="centered">Alex Loftus</div>
 </div>
 
+<div class="container">
+  <img src="faces/veronika.jpg"/>
+  <div class="centered">Veronika Strnadova</div>
+</div>
 
 
 <span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
@@ -323,13 +347,10 @@ class: top, left
 <!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
 
 
----
-
 
 ### Questions?
 
 
-<img src="images/lion_l2m.JPG" STYLE="position:absolute; TOP:110px;  HEIGHT:500px;"/>
 
 
 

@@ -308,6 +308,13 @@ th {
     left: 16px;
 }
 
+.background {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
 /* Top left text */
 .top-left {
     position: absolute;
@@ -324,7 +331,16 @@ th {
 /* Top right text */
 .top-center {
     position: absolute;
-    top: 20px;
+    top: 40px;
+    font-size: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Top right text */
+.bottom-center {
+    position: absolute;
+    bottom: -60px;
     font-size: 100%;
     left: 50%;
     transform: translate(-50%, -50%);

@@ -39,8 +39,8 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Randal Burns
 # Outline
 
 - Background
-- 6 month Methods Update
-- 6 month Applications Update
+- Methods Update
+- Applications Update
 - Discussion
 
 
@@ -58,7 +58,7 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Randal Burns
 - Caruana et al. 2006 (ICML): "With excellent performance on all eight metrics, calibrated .r[boosted trees] were the best learning algorithm overall. .r[Random forests] are close second."
 - Caruana et al. 2008 (ICML): "the method that performs consistently well across all dimensions is .r[random forests]."
 - Delgado et al. 2014 (JMLR): "The classifiers most likely to be the bests are the .r[random forest]."
-- Chen et al. 2016 (KDD): "Among the 29 challenge winning solutions 3 published at Kaggle’s blog during 2015, 17 solutions used .r[XGBoost]. Among these solutions, eight solely used .r[XGBoost] to train the model"
+- Chen et al. 2016 (KDD): "Among the 29 challenge winning solutions published at Kaggle’s blog during 2015, 17 solutions used .r[XGBoost]. Among these solutions, eight solely used .r[XGBoost] to train the model"
 
 
 ---
@@ -70,20 +70,20 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Randal Burns
 1. **Uncertainty** provide consistent estimate of posteriors
 4. **Flexibility** can learn simple or complex functions
 4. **Stability** are robust 
-5. **Scalability** linear in n, p, and T
+5. **Scalability** linear in n, p, and 1/T
 6. **Explainability** feature importance available
 7. **Automaticity** very few parameters to tweak 
   
 
 ---
 
-### Lumberjack
+### LumberJack (LJ)
 
 
 <img src="images/rerf_perf.png"  style="width: 800px;"/>
 
-- previously known as Randomer Forest
-- replace feature selection with random projection
+- previously known as [Randomer Forest](https://arxiv.org/abs/1506.03410)
+- replace feature selection with very sparse random projection
 - significant empirical improvement over RF/XGBboost
 - maintains all 8 theoretical properties above
 - but are not lifelong learners
@@ -93,8 +93,8 @@ PI: Joshua T. Vogelstein, Co-PIs: Carey E. Priebe, Randal Burns
 
 ### Lifelong Learning Forests (L2F)
 
-Extend lumberjack decision forests to maintain all the above properties 
-even after a change in the task.
+Extend LumberJack  to maintain all the above  properties, 
+and continue improving empirically even after things change (with or without labels).
 
 
 #### Route 
@@ -104,7 +104,17 @@ even after a change in the task.
 3. Prove LJ Kernel is Robust to noise dimensions (and therefore, changes in them, with empirical support)
 4. Prove LJ Kernel is updated when signal changes too (rest of Phase I)
 
+---
 
+### Quick Primer on Decision Forests 
+
+- given n samples from data in p dimensions
+- for each tree 
+  - subsample m samples 
+  - for each leaf node
+      - randomly sample/generate  p features 
+      - choose the feature/split the best "fits" the data 
+      - step when further splitting does not help
 
 ---
 
@@ -116,25 +126,32 @@ Conjecture 1: Lumberjack is at least as consistent as RF.
 
 --
 
-"Thm" 1: LJ is *more* consistent than RF
+"Thm" 1: LJ is *more* consistent than RF.
 
 ---
 
 ### Result 2: Induced *Universal* Kernel
 
 
-- Universal kernels are foundational in machine learning (e.g., Boltzman Machines)
+- Universal kernels are foundational in machine learning (e.g., Boltzman Machines, Deep Boltzman Machines)
 - Existing kernels are pre-defined / inflexible
-- Conjecture 2: the LJ induced kernel is universal
+
+
 
 --
+
+- LJ induced kernel: the proximity between a pair of points is the fraction of trees for which that pair lies in the same terminal node.
+- Conjecture 2: the LJ induced kernel is universal.
+
+--
+
 
 "Thm" 2: The kernel induced by RF/LJ can trivially be modified to be universal.  
 
 
 ---
 
-#### Learned Kernel Outperforms "Pre-Specified" Kernels 
+#### Learned Kernel > "Pre-Specified" Kernels 
 
 
 <img src="images/rf_kernel.png"  style="width: 700px;"/>

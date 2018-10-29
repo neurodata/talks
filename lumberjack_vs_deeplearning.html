@@ -108,6 +108,7 @@ Alternately, what great ideas in stats/signal processing/machine learning are no
 1. Rescaling 
 2. Kernel Smoothing
 2. Matching Pursuit 
+3. Representation Learning
 3. Importance Sampling / Empirical Bayes 
 
 <!-- 1. At each level, the representation of data is updated 
@@ -175,7 +176,17 @@ S-LJ is just a first step, *patches* can be replaced by an arbitrary kernel/dict
 
 ---
 
-### Features are Learned from the Data 
+### Representation Learning
+
+In DL, features are learned from the data 
+
+1. When S-LJ starts with features, it can linearly combine them 
+2. One can "keep" the used/learned features, to add them to the dictionary
+
+
+---
+
+### Empirical Bayes / Importance Sampling
 
 1. S-LJ starts with a set of "features/atoms"
 2. Various recent proposals to weight feature sampling probabilities
@@ -193,8 +204,8 @@ S-LJ is just a first step, *patches* can be replaced by an arbitrary kernel/dict
 
 
 1. Incorporate node specific rescaling 
-2. Replace standard basis with suitable dictionaries
-3. Incorporate iterated feature weights using feature importance (requires coding new feature importance metric)
+2. Replace standard basis with suitable (adaptive) dictionaries
+3. Incorporate iterated feature weights using feature importance 
 5. Run some experiments
 
 ---
@@ -270,12 +281,12 @@ Algorithm
 4. Dictionaries 
 5. Updated feature importance 
 6. Feature sampling probabilities
+
+
+Computational Efficiency 
+
 4. Recursive partitioning 
 2. Subsample/Quantize 
-
-
-Implementation 
-
 1. C++/Python bindings 
 5. Distributed implementation
 
@@ -285,7 +296,7 @@ Implementation
 
 1. LJ with dictionaries 
 2. LJ Posterior sampling 
-3. LJ w/transformations (0-1, subsample, quantize)
+3. LJ w/transformations (0-1, rank, subsample, quantize)
 1. LJ manifold learning 
 1. LJ info theory 
 1. LJ hypothesis testing 

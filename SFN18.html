@@ -269,35 +269,126 @@ Intertwined spiral loops.
 
 ---
 
-## Erdos-Renyi (ER)
+## Independent Edge Models
 
+Erdos-Renyi (ER): akin to assuming a neuron's spike rate is Poisson with a fixed rate.
+
+- edges are binary
+- all edges independent
+- all edges sampled from identical distribution 
+- $\Rightarrow$ only 1 parameter: prob of an edge
+
+Notes
 - directed vs. undirected
-
----
-
-
-
-## Weighted ER
-
----
-
-
-
-## Zero-Inflated ER
-
----
-
-
-## Stochastic Block Model (SBM)
-
----
-
-## Weighted SBM
+- loopy vs. no loops
+- Simplest random graph model 
+- lacks sufficient complexity/descriptive power for most questions 
 
 
 ---
 
-## Zero-Inflated SBM 
+## Independent Edge Models
+
+
+.r[Weighted] Erdos-Renyi: akin to Poisson model using a bigger bin width.          
+
+- edges can take  .r[any value]
+- edges are independent 
+- edges are sampled from identical distribution 
+- $\Rightarrow$ can still only be 1 parameter: expected weight  of an edge
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+- simplest .r[weighted] random graph model 
+- lacks sufficient complexity/descriptive power for most questions 
+
+---
+
+## Independent Edge Models
+
+
+.r[Zero-Inflated] Weighted Erdos-Renyi: akin to assuming a bursty neuron, modeling both probability of burst and expected number of spikes in each burst
+
+- edges can take any value
+- edges are independent 
+- edges are sampled from identical distribution 
+- .r[2 parameters]: prob of edge, and expected weight of edge. 
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+- simplest sparse weighted random graph model 
+- can provide useful/interesting description of a connectome
+ 
+---
+## IE Models of Connectomes
+
+<br>
+
+<img src="images/independent_edge_connectome_estimates.png"  style="width: 800px;"/>
+
+
+
+---
+
+## Conditionally IE Models
+
+
+Stochastic Block Model (SBM): akin to assuming a neuron's are in different states, which determine Poisson rate.
+
+- edges are binary
+- edges are .r[conditionally] independent 
+- each vertex has a class assignment
+- P[ A(i,j) ] = B(class i, class j)
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+- simplest >2 parameter model
+
+---
+
+## Connectome SBMs
+
+
+<img src="images/fig_sbm.png"  style="width: 800px;"/>
+
+
+---
+
+## Conditionally IE Models
+
+
+Weighted Stochastic Block Model (SBM)
+
+- edges are .r[weighted]
+- edges are conditionally independent 
+- each vertex has a class assignment
+- P[ A(i,j) ] = B(class i, class j) is expected weight of connection
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+
+
+
+---
+
+## Conditionally IE Models
+
+
+Zero-Inflated Weighted Stochastic Block Model (SBM)
+
+- edges are weighted
+- edges are conditionally independent 
+- each vertex has a class assignment
+- P[ A(i,j) ] = is defined by a matrix of probabilities of connection, and a matrix of expected weights
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+
 
 
 

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SFN18</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: left,
+
+name:opening
+
+
+# Connectome Coding
+
+
+Joshua T. Vogelstein
+
+
+<br><br><br>
+
+<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+
+.foot[[jovo@jhu.edu](mailto:jovo at jhu dot edu)
+  |  <http://neurodata.io/talks/SFN18.html>]
+
+
+---
+
+## Outline
+
+- Background
+- Example Connectomes
+- What is a Connectome Code 
+- Statistical Models of Connectomes
+- Discussion
+
+
+---
+
+## .k[Background]
+
+
+---
+
+## History
+
+
+- Sporns et al. (2005) PloS CB
+- Hagmann (2005)
+- PubMed search 11/2/18: .r[3267] hits.
+
+
+"To understand the functioning of a network, one must know its elements and their interconnections....We propose to call this dataset the human 'connectome'."
+
+
+---
+
+## What is a Code?
+
+
+A code is a system of (potentially stochastic) rules that translate from one representation of information into another.
+
+.pull-left[
+Examples: 
+- Morse: one-to-one
+- genetic: deterministic
+- neural: stochastic
+]
+
+.pull-right[
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/International_Morse_Code.svg"  style="height: 400px;"/>
+]
+
+---
+
+## What is a Connectome?
+
+
+
+
+- A .r[network] of a brain, at a spatiotemporal precision & extent.
+- .r[Nodes] are distinct biophysical entities with 3D morphological boundaries.
+- .r[Edges] are either: 
+  1.  .r[Structural]: physical morphological objects, or 
+  2. .r[Functional]: characterizations the statistical and/or causal relationship between the activity of a pair of nodes.
+
+--
+
+
+
+- A brain could have many .r[different] connectomes, at different times and/or resolutions
+- We measure properties of the brain  to .r[estimate] connectomes
+- Estimates are always .r[noisy] 
+
+
+---
+
+## What are Nodes?
+
+
+- Can be defined by anatomy, activity, or connectivity 
+- Has a label (e.g., V1), often one can map from a label in one connectome to that of another
+- Examples: neuron, gyral region, random contiguous set of voxels
+---
+
+## What are Edges?
+
+- Can be defined by  activity or connectivity 
+- Structural examples: synapse, fiber bundle between ROIs 
+- Functional example, Pearson's correlation
+
+
+---
+
+## Comprehensiveness 
+
+- not possible
+- genomes
+
+
+---
+
+## Neural Circuitry
+
+- structure
+
+
+---
+
+## .k[Example Connectomes]
+
+
+---
+
+## C Elegans 
+
+
+---
+
+## Larval Drosophila Mushroom Body 
+
+
+---
+
+## Mouse Ex Vivo Diffusion MRI 
+
+
+---
+
+## Human Functional & Diffusion MRI 
+
+
+
+
+
+
+---
+
+## .k[What is a Connectome Code? ]
+
+
+---
+
+## Conceptual Model 
+
+
+- world
+- body 
+- brain 
+      - structure
+      - activity
+
+
+---
+
+## Interwined Causal Loops 
+
+- small and Fast
+- medium
+- slow and large
+
+
+---
+
+## Implications 
+
+
+The connectome is the mechanism by which the genome can encode its preferred behaviors, that, when combined with the body (and physics) yields the desired behaviors with sufficiently high probability to help the organism win the evolutionary game its niche imposes on it.
+
+
+---
+
+## Encoding and Decoding
+
+1. Encoding
+2. Decoding
+
+
+---
+
+## A Statistical Formalization of Connectome Coding
+
+- r.v.
+- distribution 
+- conditional 
+
+---
+
+## Constituents 
+
+- A 
+- B 
+- C 
+- D 
+- E 
+
+---
+
+## Abstract Connectome Codes 
+
+
+---
+
+## Causal Connectome Codes 
+
+
+---
+
+## .k[Statistical Models of Connectomes]
+
+
+---
+
+## Erdos-Renyi (ER)
+
+- directed vs. undirected
+
+---
+
+
+
+## Weighted ER
+
+---
+
+
+
+## Zero-Inflated ER
+
+---
+
+
+## Stochastic Block Model (SBM)
+
+---
+
+## Weighted SBM
+
+
+---
+
+## Zero-Inflated SBM 
+
+
+
+---
+
+## Random Dot Product Graph (RDPG)
+
+
+---
+
+## Weighted RDPG
+
+
+---
+
+## Zero-Inflated RDPG 
+
+---
+
+## Latent Structure Models 
+
+- hierarchical 
+- repeated motif 
+- curved 
+
+---
+
+## Population Graph Models 
+
+- Mixture of RDPG 
+- Joint Heterogeneous RDPG 
+
+
+
+
+<!-- <img src="images/rerf_perf.png"  style="width: 800px;"/> -->
+<!-- <img src="images/Fig4_benchmark_ranks.png"  style="height: 600px;"/> -->
+
+
+
+---
+
+## .k[Discussion]
+
+---
+
+## Next Steps 
+
+
+
+
+
+---
+
+### References
+
+
+- Lumberjack [[1]](https://arxiv.org/abs/1506.03410)
+- Forest Packing: Fast, Parallel Decision Forests [[3]](https://arxiv.org/abs/1806.07300)
+- Lumberjack R package:  [CRAN](https://cran.r-project.org/web/packages/rerf/index.html) 
+
+
+---
+class: top, left
+
+### Acknowledgements
+
+
+<div class="container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+<div class="container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div>
+
+<div class="container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div>
+
+<div class="container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div>
+
+<div class="container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div>
+
+<div class="container">
+  <img src="faces/percy.jpg"/>
+  <div class="centered">Percy Li</div>
+</div>
+
+<div class="container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div>
+
+<div class="container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div>
+
+<div class="container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+
+<div class="container">
+  <img src="faces/milham.jpg"/>
+  <div class="centered">Michael Milham</div>
+</div>
+
+
+<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+
+
+### Questions?
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script src="assets/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="assets/KaTeX/0.5.1/auto-render.min.js"></script>
+    <link rel="stylesheet" href="assets/KaTeX/0.5.1/katex.min.css">
+    <script type="text/javascript">
+      var options = {};
+      var renderMath = function() {
+        renderMathInElement(document.body);
+        // or if you want to use $...$ for math,
+        renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
+        ]});
+      }
+      var slideshow = remark.create(options, renderMath);
+
+    </script>
+  </body>
+</html>

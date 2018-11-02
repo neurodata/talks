@@ -122,17 +122,16 @@ Examples:
 
 ---
 
-## Comprehensiveness 
+## Some caveats
 
-- not possible
-- genomes
+- connectomes are not comprehensive, unlike genomes
+- nodes can be abstractions, eg, all neurons type A 
+- attributes can be arbitrary, eg, distribution of synaptic vesicles 
+- connectomics is the study of neural circuitry 
+- canonical examples include:
+      - somatic ganglion circuit of a crab
+      - sound localization circuit of barn owl
 
-
----
-
-## Neural Circuitry
-
-- structure
 
 
 ---
@@ -145,21 +144,38 @@ Examples:
 ## C Elegans 
 
 
+<img src="images/elegans_connectome.png"  style="height: 450px;"/>
+
+
+weighted, directed, multi
+
 ---
 
-## Larval Drosophila Mushroom Body 
+##  Drosophila Mushroom Body 
 
+<img src="images/drosophilaMB_connectome.png"  style="height: 450px;"/>
+
+- binary, directed
 
 ---
 
 ## Mouse Ex Vivo Diffusion MRI 
 
 
+<img src="images/mousedMRI_connectome.png"  style="height: 450px;"/>
+
+
+- weighted, undirected 
+
+
 ---
 
-## Human Functional & Diffusion MRI 
+## Human  MRI 
 
 
+<img src="images/human_connectome.png"  style="height: 450px;"/>
+
+- weighted, undirected, multi (dense)
 
 
 
@@ -173,26 +189,28 @@ Examples:
 
 ## Conceptual Model 
 
+- Constituents
+  - World
+  - Body 
+  - Brain: structure 
+      - Structure
+      - Activity
+- Spiral Loops 
+      - Brain (fast/small): structure  $\Leftrightarrow$ activity (plasticity)
+      - Body (medium): motor $\Leftrightarrow$ sensory (ego- & allo-centric)
+      - World (slow/big): behavior $\Leftrightarrow$ genome $\Leftrightarrow$ body/brain
 
-- world
-- body 
-- brain 
-      - structure
-      - activity
+
+---
+class: center 
+
+<img src="images/brain-body-world.png"  style="height: 600px;"/>
+
 
 
 ---
 
-## Interwined Causal Loops 
-
-- small and Fast
-- medium
-- slow and large
-
-
----
-
-## Implications 
+## Connectomes as Mechanisms 
 
 
 The connectome is the mechanism by which the genome can encode its preferred behaviors, that, when combined with the body (and physics) yields the desired behaviors with sufficiently high probability to help the organism win the evolutionary game its niche imposes on it.
@@ -202,37 +220,47 @@ The connectome is the mechanism by which the genome can encode its preferred beh
 
 ## Encoding and Decoding
 
-1. Encoding
-2. Decoding
+1. Encoding:  genomes $\Rightarrow$ dynamic connectomes
+2. Decoding:  connectomes $\Rightarrow$ behaviors
 
 
 ---
 
 ## A Statistical Formalization of Connectome Coding
 
-- r.v.
-- distribution 
-- conditional 
+- Random variables: X, Y
+- Distributions: X ~ P, Y ~ P 
+- Conditionals:  P[X | Y], P[Y | X] 
+
+Formally, codes are conditional distributions.
 
 ---
 
 ## Constituents 
 
-- A 
-- B 
-- C 
-- D 
-- E 
+- A: brain activity 
+- B: body movement  
+- C: connectome 
+- D: development (genome) 
+- E: environment (world) 
 
 ---
 
 ## Abstract Connectome Codes 
 
+- P[C | D]: prob of connectome, given a genome 
+- P[B | C]: prob of body movement, given a connectome
+- P[A,B | C]: prob of  activity and body, given a connectome 
+- P[A B | C, D]: etc....
 
 ---
 
 ## Causal Connectome Codes 
 
+- Let $\_i$ denote a generation 
+- $D\_i \Rightarrow C\_i \Leftrightarrow A\_i \Leftrightarrow B\_i \Leftrightarrow E\_i \Rightarrow D\_{i+1}$
+
+Intertwined spiral loops.
 
 ---
 

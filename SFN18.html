@@ -55,7 +55,7 @@ Joshua T. Vogelstein
 ## History
 
 
-- Sporns et al. (2005) PloS CB
+- Sporns et al.  PloS CB (2005)
 - Hagmann (2005)
 - PubMed search 11/2/18: .r[3267] hits.
 
@@ -332,14 +332,14 @@ Notes
 
 ---
 
-## Conditionally IE Models
+## Categorical Conditionally Independent Edge Models
 
 
 Stochastic Block Model (SBM): akin to assuming a neuron's are in different states, which determine Poisson rate.
 
 - edges are binary
 - edges are .r[conditionally] independent 
-- each vertex has a class assignment
+- each node has a class assignment
 - P[ A(i,j) ] = B(class i, class j)
 
 Notes
@@ -357,14 +357,14 @@ Notes
 
 ---
 
-## Conditionally IE Models
+## Generalized SBMs
 
 
 Weighted Stochastic Block Model (SBM)
 
 - edges are .r[weighted]
 - edges are conditionally independent 
-- each vertex has a class assignment
+- each node has a class assignment
 - P[ A(i,j) ] = B(class i, class j) is expected weight of connection
 
 Notes
@@ -375,14 +375,14 @@ Notes
 
 ---
 
-## Conditionally IE Models
+## Generalized SBMs
 
 
 Zero-Inflated Weighted Stochastic Block Model (SBM)
 
 - edges are weighted
 - edges are conditionally independent 
-- each vertex has a class assignment
+- each node has a class assignment
 - P[ A(i,j) ] = is defined by a matrix of probabilities of connection, and a matrix of expected weights
 
 Notes
@@ -394,25 +394,59 @@ Notes
 
 ---
 
-## Random Dot Product Graph (RDPG)
+## Continuous Conditionally Independent Edge Models 
+
+Random Dot Product Graphs (RDPG): akin to latent state models in population coding
+
+- edges are binary
+- edges are conditionally independent 
+- each node has a .r[latent position in d-dimensions]
+- P[ A(i,j) ] = f(latent position i, latent position j)
+- for example, P[ A(i,j) ] is the product of latent positions
+
+Notes
+- directed vs. undirected
+- no loops is ickier
+- generalizes previous models
 
 
 ---
 
-## Weighted RDPG
+## Connectome RDPGs
+
+<img src="images/fig_ase.png"  style="width: 750px;"/>
+
+
 
 
 ---
 
-## Zero-Inflated RDPG 
+## Generalized RDPG
+
+- Weighted RDPG: edges have weights 
+- Zero-Inflated Weighted RDPG: edges have probabilities and expected weights
+
+
 
 ---
 
 ## Latent Structure Models 
 
-- hierarchical 
-- repeated motif 
-- curved 
+
+- Special case of RDPG, where latent positions are organized into .r[structures]
+- Examples
+  - each node class has a distribution of latent positions, eg, Gaussian 
+  - latent positions are hierarchical, eg, multiscale atlas 
+  - repeated motif, eg, cortical columns 
+  - latent positions are curved 
+
+
+---
+
+## Drosophila Mushroom Bodies
+
+<img src="images/Fig15-new.png"  style="width: 750px;"/>
+
 
 ---
 
@@ -435,10 +469,14 @@ Notes
 
 ---
 
-## Next Steps 
+## Summary and Next Steps 
 
+- Connectomes are the missing mechanistic link: 
 
+.center[.r[genomes $\Leftrightarrow$ neural activity and behaviors]]
 
+- Extend ideas from coding theory to support these analyses
+- Connectomes, genetic and behavior data are available
 
 
 ---
@@ -446,9 +484,17 @@ Notes
 ### References
 
 
-- Lumberjack [[1]](https://arxiv.org/abs/1506.03410)
-- Forest Packing: Fast, Parallel Decision Forests [[3]](https://arxiv.org/abs/1806.07300)
-- Lumberjack R package:  [CRAN](https://cran.r-project.org/web/packages/rerf/index.html) 
+Papers
+- Craddock et al. *Nature Methods* (2013) [1](http://dx.doi.org/10.1038/nmeth.2482)
+- Athreya et al. *Journal of Machine Learning Research* (2018) [2](http://www.jmlr.org/papers/v18/17-448.html)
+- Athreya et al. *arXiv* (2018) [3](https://arxiv.org/abs/1806.01401)
+
+Code
+- R graphstats: https://github.com/neurodata/graphstats
+- Python graspy: https://github.com/neurodata/graspy
+
+Data 
+- NeuroData: [https://neurodata.io](https://neurodata.io/)
 
 
 ---

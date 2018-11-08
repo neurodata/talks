@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NeuroNex:SFN</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+name:opening
+
+### NeuroData:<br>A community-developed open-source computational ecosystem for big neuro data
+
+Joshua T. Vogelstein
+
+<img src="images/neurodata_blue.png" style="height:150px;float:right;"/>
+
+
+<br><br><br><br><br>
+
+<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+
+.foot[perlman&#0064;jhu.edu | <http://neurodata.io/talks/> | [@neuro_data](https://twitter.com/neuro_data)]
+
+
+
+---
+### Origin: Hosting public data (2011-)
+<img src="images/website_datapage.png" style="width: 100%;"/>
+
+.footnote[<http://neurodata.io/data/>]
+
+---
+### ... but, it's hard.
+
+Don’t work alone!
+- In 2011, Open Connectome Project set out to revolutionize data management for EM neuroscience with storage and analytics
+- And we have had mixed results...
+- ...but excited to have seeded a second generation
+---
+### New Role: A community-developed... 
+
+Shift from "build your own" to "see what's available; supplement where necessary."
+
+- Collaborative: multiple organizations and communities developing and using the same tools
+- Open source
+- Cloud computing ecosystem
+- End-to-end: data management from microscope to publication
+- Spanning paradigms and modalities
+- Visualize data at all stages
+- Reproducible, extensible analysis
+
+---
+
+###  What is our software stack?
+
+<img src="images/nd_stack.png" STYLE="height:450px;"/>
+
+.footnote[https://neurodata.io/help/]
+
+
+---
+
+### Spatial Database: BossDB
+
+- Ported to AWS for scalability
+- Random access to arbitrary cutouts
+- Downsamples
+- Experimental metadata storage (e.g. JSON)
+- Authentication
+- Spatial queries on annotations
+
+<img src="images/bossDB.png" STYLE="width:100%;"/>
+
+.footnote[https://github.com/neurodata/boss]
+
+---
+
+### NDeX: data to/from cloud
+
+- images: uint8 and uint16
+- annotations: uint64
+- file formats: png, tiff, jpg, numpy, etc.
+- z-slice: flexible naming conventions
+- multi-channel
+- pip installable
+
+.footnote[https://github.com/neurodata/ndex]
+
+
+
+---
+### NeuroGlancer for Visualization
+
+.pull-left[
+NeuroData Modifications include:
+- Boss support
+- Multi-color support
+- json backend
+- Ontology info
+]
+
+.pull-right[
+<img src="images/AT_rorb.png"  style="width: 120%;"/>
+]
+
+.footnote[https://github.com/neurodata/neuroglancer]
+
+
+
+
+---
+### NDReg for Light sheet registration
+
+<br>
+<img src="images/ndreg.png"  style="width: 100%;"/>
+
+- LDDMM
+- Fully automatic (no landmarks)
+- Works on iDisco, Clarity, MRI, etc., 
+- Applied to human, rat, mouse, zebrafish...
+
+
+
+
+---
+
+<img src="images/clarity_cells.png"  style="position:absolute; left:0px; top:20px; width: 100%;"/>
+
+<!-- <img src="images/synaptomes_pointmatch.png" style="width:100%;"/> -->
+<!-- <img src="images/synaptomes_em_light.png" style="width:100%;"/> -->
+
+---
+
+### Work In Progress 
+
+- [FlyWheel](https://flywheel.io/) for data management
+- [CloudVolume](https://github.com/seung-lab/cloud-volume) (from Seung Lab) 
+- Convolutional Dictionary Learning  (with J Sulam)
+
+
+---
+### Statistical Machine Learning
+
+- for High-Dimensional and Low-Sample Size Data
+- LOL, LumberJack, MGC, knor...
+
+.center[<img src="images/neurodata_tools.png" style="height: 400px"/>]
+
+.footnote[https://neurodata.io/tools/]
+
+
+---
+### Acknowledgements
+
+
+<div class="container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+<div class="container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div>
+
+
+<div class="container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div>
+
+<div class="container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div>
+
+<div class="container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<div class="container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div>
+
+<div class="container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div>
+
+<div class="container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div>
+
+<div class="container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div>
+
+<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+
+---
+class:center
+
+<img src="images/lion_l2m.JPG" style="position:absolute; top:0px; left:0px; height:100%;"/>
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script type="text/javascript">
+      var options = {};
+      var slideshow = remark.create(options)
+    </script>
+  </body>
+</html>

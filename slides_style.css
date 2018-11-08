@@ -106,12 +106,12 @@ li p { line-height: 1.25em; }
 .black { color: black; background-color: white;}
 a, a > code {
   /* color:#318dde; */
-  color: #87C6CC;
+  color: #5F8793; /*#87C6CC;*/
   text-decoration: none; /*underline*/
 }
 
 a:hover {
-  color: #dfd6c2;
+  color: #87C6CC; /*#dfd6c2;*/
 }
 
 code {

@@ -115,8 +115,10 @@ a:hover {
 }
 
 code {
-  background: #424242;
+  background: white; /* #424242; */
   border-radius: 5px;
+  color: #F41711;
+  font-family: monospace;
 }
 .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
 .remark-code-line-highlighted     { background-color: #373832; }

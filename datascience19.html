@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>data science</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+name:opening
+
+### Biomedical Big Data and Data Science
+
+Joshua T. Vogelstein
+
+<img src="images/neurodata_blue.png" style="height:150px;float:right;"/>
+
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+
+.foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks/> | [@neuro_data](https://twitter.com/neuro_data)]
+
+
+
+---
+### History of Data Science
+
+
+- 1900s: correlation (Pearson)
+- 1910s: standard deviation (Galton)
+- 1920s: design of experiments (Fisher)
+- 1930s: confidence intervals, NP testing (Neyman-Pearson)
+- 1940s: Bayesian stats (Jeffreys)
+- 1950s: information theory (Shannon)
+- 1960s: robust statistics (Wilcox, Huber)
+- 1970s: exploratory data analysis (Tukey)
+- 1980s: decision trees (Stone, Breiman, Quinlan)
+- 1990s: random forests (Geman, Breiman)
+- 2000s: support vector machines (Vapnik)
+- 2010s: deep learning (Hinton)
+
+---
+### Definitions (according to wikipedia)
+
+1. **Statistics** is a branch of mathematics dealing with data collection, organization, analysis, interpretation and presentation.
+2. **Data science** is an interdisciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from data in various forms, both structured and unstructured.
+3. **Pattern recognition** is the automated recognition of patterns and regularities in data.
+4. **Data mining** is the process of discovering patterns in large data sets involving methods at the intersection of machine learning, statistics, and database systems.
+5. **Machine learning** is the scientific study of algorithms and statistical models that computer systems use to effectively perform a specific task without using explicit instructions, relying on patterns and inference instead.
+<!-- 6.  Computer science defines **artificial intelligence** research as the study of "intelligent agents": any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals. -->
+
+---
+### What is Biomedical Data Science? 
+
+1. the study of biomedical data and information, of how such data and information may be structured, and of how analysis and processing of biomedical data and information will lead to new discoveries and to advances in health and healthcare. -- stanford
+
+--
+
+3. the interdisciplinary field that encompasses the study and pursuit of the effective uses of biomedical data, information, and knowledge for scientific inquiry, problem-solving, and decision-making, driven by efforts to improve human health. -- madison
+
+--
+
+1. an interdisciplinary field that uses algorithms, statistical models, and (database) systems  to manage, visualize, wrangle, summarize, generalize, and control biomedical data driven by efforts to improve  health and healthcare. -- jovo
+
+
+---
+### Why is it hard?
+
+1. volume: data are large, sometimes millions or billions of "records"
+2. variety: data are multi-modal, including structured and unstructured data, text, images, etc.
+3. velocity: in some contexts, data are streaming (e.g., in ER)
+4. veracity: data are noisy (sensors are broken, crappy, etc.)
+5. domain knowledge
+
+The first four are the  `4 V's of Big Data`
+
+---
+### General Principles
+
+
+1. Keep it Simple Stupid (KISS)
+2. [Look at it](https://www.youtube.com/watch?v=EF8GhC-T_Mo)
+
+
+---
+### What "system tools" are required?
+
+1. Manage: create, read, edit, delete (crud)
+2. Visualize: charts, tables, infographics, sculptures 
+3. Wrangle: outliers, imputation, deconvolution
+3. Summarize: point estimation,  quantization, object  localization
+4. Generalize: hypothesis test, model, simulate, 
+5. Predict: classify, regress, forecast
+5. Control: reinforcement learning, experimental design
+
+
+---
+### Manage 
+
+Data management systems enable users to create, read, edit, and delete "records".
+
+- little data: store on local hard drive in file system 
+- big data:  too large to store on local hard drive (eg, Dropbox), and/or  too complex to keep track of everything (eg, Google Photos)
+
+
+Tools include various kinds of databases: 
+- relational database 
+- NoSQL database - stores JSON files lacking schema
+- Spatial database - stores 2D+ images for fast access
+
+
+---
+#### Example: NeuroData Cloud
+
+
+<img src="images/bossDB.png" STYLE="width:100%;"/>
+
+
+- 200+ teravoxels
+- 100+ public & private datasets
+- 30+ collaborators 
+- All 3D+ data (no ephys, etc.)
+
+
+.footnote[https://cloud.neurodata.io]
+
+
+---
+### Visualize 
+
+Data visualization systems generate charts and tables to highlight/illustrate insightful perspectives on the data.
+
+- little data: preview, ImageJ 
+- big data: graphics libraries with applies
+
+Tools include:
+- WebGL
+- D3.js
+
+---
+#### Example: NeuroGlancer 
+
+<img src="images/AT_rorb.png"  style="position:absolute; left:0px; top:0px; width: 100%;"/>
+
+.footnote[https://github.com/neurodata/neuroglancer]
+
+
+---
+### Wrangle 
+
+Data wrangling (as defined by me) consists of any operation one applies to the data that maintains its representation, such as outier detection, missing value imputation, and deconvolution
+
+
+- little data: matlab/python/R scripts 
+- big data: distributed pipelines 
+
+Scientific workflow management tools include:
+
+- Galaxy
+- NiPype
+- Luigi
+
+
+---
+#### Example: NDReg 
+
+
+<img src="images/ndreg.png"  style="width: 100%;"/>
+
+- LDDMM
+- Fully automatic (no landmarks)
+- Modalities: iDisco, CLARITY, MRI, histology, etc.,
+- Species: human, rat, mouse, zebrafish...
+
+.footnote[https://github.com/neurodata/ndreg]
+
+
+
+
+
+---
+### Summarize 
+
+Data summaries include point estimates, confidence intervals, clusters, principle components analysis, etc. There are two qualitatively different kinds of summaries:
+   1. "maintain representation", eg, mean
+   2. map into new representation, eg, image --> graph or  name 
+
+Examples: 
+  1. the average height of the sample was 8'
+  2. the tree is in the upper left quadrant 
+
+
+---
+#### Example: COBALT   
+
+
+<img src="images/clarity_cells.png"  style="position:absolute; left:0px; top:0px; height: 100%;"/>
+
+.footnote[https://github.com/neurodata/cobalt]
+
+
+---
+### Generalize 
+
+The goal of data collection is often not merely to characterize the sample, but rather, infer properties of a "population". Requires assumptions about 
+
+- sample data 
+- measurement bias and variance
+- estimators
+
+Generalization tools include:
+- hypothesis testing
+- modeling 
+- simulation
+
+Example: the average African-American female is 8' tall (under Gaussian model of heights)
+
+
+
+---
+<!-- #### Example: MGC -->
+
+
+<img src="images/FigHDPower.png"  style="width: 100%;"/>
+
+
+.footnote[https://mgc.neurodata.io]
+
+
+---
+### Predict
+
+Prediction can be thought of as a special case of generalization, and is often associated with "machine learning".  Three general kinds of prediction:
+
+- classify: X is of type A
+- regress: given X, Y is expected to be 6
+- forecase: X is expected to be 6 tomorrow
+
+Example tools:
+- sklearn
+- tensorflow 
+
+
+
+---
+### Example: RerF
+
+<img src="images/rerf_perf.png"  style="width: 100%;"/>
+
+- generalization of random forests 
+- significantly improve over best machine learning algs on >100 benchmark problems
+
+
+.footnote[https://rerf.neurodata.io]
+
+
+
+
+---
+### Control 
+
+Data control is about choosing which measurements to make, and includes:
+
+- classical control theory: dynamic modeling, kalman, etc.
+- reinforcement learning: training actors with trials 
+- design of experiments: case-control study, randomized control trial, active learning, etc.
+
+
+Example tools:
+
+- Google's Dopamine 
+- OpenAI Gym 
+
+---
+### We got nuthin'
+
+
+
+
+
+
+---
+
+### Next Vistas:  Modeling meets Representation Learning 
+
+
+<img src="images/not-so-clevr.png"  style="width: 100%;"/>
+
+
+
+---
+
+
+### References
+
+1. Vogelstein et al. *Nature Methods* (2018) [[manage]](https://rdcu.be/banSS)
+2. Kutten et al. *MICCAI* (2018) [[wrangle]](https://link.springer.com/chapter/10.1007%2F978-3-319-66182-7_32)
+3. Vogelstein et al. *eLife* (2019) [[generalize]](https://elifesciences.org/articles/41690)
+4. Tomita et al. *arXiv* (2015) [[predict]](https://arxiv.org/abs/1506.03410)
+
+
+---
+### Acknowledgements
+
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jaewon.jpg"/>
+  <div class="centered">Jaewon Chung</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div><span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+---
+class:center
+
+<img src="images/lion_cartoon2.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script type="text/javascript">
+      var options = {};
+      var slideshow = remark.create(options)
+    </script>
+  </body>
+</html>

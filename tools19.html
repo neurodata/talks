@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>tools</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+name:opening
+
+### NeuroData Tools
+
+Joshua T. Vogelstein<br>
+[Institute for Computational Medicine](https://icm.jhu.edu/) | 
+  [Center for Imaging Science](http://cis.jhu.edu/)
+
+
+
+<img src="images/neurodata_purple.png" style="height:150px;float:right;"/>
+
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+<!-- <font color="grey"></font> -->
+.foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks/> | [@neuro_data](https://twitter.com/neuro_data)]
+
+
+
+---
+### Tools
+
+1. [Cloud](https://cloud.neurodata.io/)
+2. [ndmg](https://ndmg.neurodata.io/) 
+3. [ndreg](https://github.com/neurodata/ndreg)
+4. [RerF](https://neurodata.io/rerf/)
+5. [MGC](https://neurodata.io/mgc/)
+6. [Graspy](https://graspy.neurodata.io/) 
+7. [knor](https://github.com/flashxio/knor) 
+
+
+<!-- 1. Manage: create, read, edit, delete (crud) -->
+<!-- 2. Visualize: charts, tables, infographics, sculptures  -->
+<!-- 3. Wrangle: outliers, imputation, deconvolution -->
+<!-- 4. Summarize: point estimation,  quantization, object  localization -->
+<!-- 5. Generalize: hypothesis test, model, simulate,  -->
+<!-- 6. Predict: classify, regress, forecast -->
+<!-- 7. Control: reinforcement learning, experimental design -->
+
+
+---
+### [Cloud](https://cloud.neurodata.io/) 
+
+"A community-developed open-source computational ecosystem for big neuro data"
+
+
+<img src="images/nd_stack.png" STYLE="width:50%;"/>
+
+
+.footnote[[Vogelstein et al. (Nature Methods) 2018](https://www.nature.com/articles/s41592-018-0181-1)]
+
+
+
+---
+### [ndmg](https://ndmg.neurodata.io/) 
+
+A Low-Resource Reliable Pipeline to Democratize Multi-Modal Connectome Estimation and Analysis
+
+<img src="images/ndmg-pipeline.png" STYLE="width:100%;"/>
+
+
+
+.footnote[[Kiar et al. (bioRxiv) 2018](https://www.biorxiv.org/content/10.1101/188706v6)]
+
+---
+#### [ndreg](https://github.com/neurodata/ndreg) 
+
+
+<img src="images/ndreg.png"  style="width: 100%;"/>
+
+- Large deformation diffeomorphic metric mapping (LDDMM)
+- Fully automatic (no landmarks)
+- Modalities: iDisco, CLARITY, MRI, histology, etc.,
+- Species: human, rat, mouse, zebrafish...
+
+.footnote[[Kutten et al. (MICCAI) 2016](https://doi.org/10.1007/978-3-319-66182-7_32)]
+
+
+
+---
+### [RerF](https://neurodata.io/rerf)
+
+<img src="images/rerf_perf.png"  style="width: 100%;"/>
+
+- generalization of random forests 
+- significantly improve over best machine learning algs on >100 benchmark problems
+
+
+.footnote[[Tomita et al. (arXiv) 2015](https://arxiv.org/abs/1506.03410)]
+
+
+
+---
+### [MGC (pronounced "magic")](https://neurodata.io/mgc)
+
+
+
+<img src="images/FigHDPower.png"  style="width: 90%;"/>
+
+
+.footnote[[Vogelstein et al. (eLife) 2019](https://elifesciences.org/articles/41690)]
+
+
+---
+### [Graspy](https://graspy.neurodata.io/)
+
+<img src="images/FigHDPower.png"  style="width: 90%;"/>
+
+
+.footnote[]
+
+
+
+---
+
+
+### References
+
+1. Vogelstein et al. *Nature Methods* (2018) [[manage]](https://rdcu.be/banSS)
+2. Kutten et al. *MICCAI* (2018) [[wrangle]](https://link.springer.com/chapter/10.1007%2F978-3-319-66182-7_32)
+3. Vogelstein et al. *eLife* (2019) [[generalize]](https://elifesciences.org/articles/41690)
+4. Tomita et al. *arXiv* (2015) [[predict]](https://arxiv.org/abs/1506.03410)
+
+
+---
+### Acknowledgements
+
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jaewon.jpg"/>
+  <div class="centered">Jaewon Chung</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div><span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+---
+class:center
+
+<img src="images/lion_cartoon2.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script type="text/javascript">
+      var options = {};
+      var slideshow = remark.create(options)
+    </script>
+  </body>
+</html>

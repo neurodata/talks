@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connectal Coding</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+name:opening
+
+
+**Connectal Coding: Discovering the Mechanism Linking Cognitive Phenotypes to Individual Histories**<br>
+Joshua T. Vogelstein | 
+{[BME](https://www.bme.jhu.edu/),[ICM](https://icm.jhu.edu/),[CIS](http://cis.jhu.edu/),[KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) 
+
+
+<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:430px;"/></a>
+
+
+<!-- <img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <font color="grey"></font> -->
+.foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)]
+
+
+
+---
+
+## Outline
+
+- Background
+- Example Connectomes
+- Connectal Coding 
+- Applications
+- Discussion
+
+
+---
+
+## .k[Background]
+
+
+---
+
+### Two definitions
+
+.r[Neural (activity) coding]: inferring the relationships between neural activity and stimuli or responses
+
+
+--
+
+.r[Connectal coding]: inferring the relationships between *neural circuit structure* and *individual histories* 
+
+
+--
+
+
+- .r[Individual histories]: genetic, developmental, experiential 
+- .r[Neural circuit structure (aka, a connectome)]:  a network of a brain
+
+
+
+---
+
+### Genotype, Phenotype, Connectotype
+
+
+- .r[Phenotype]: a description of an individual's  properties with regard to a phenomenon of interest 
+- .r[Genotype]: a set of genes and associated variants associated with that phenotype
+- .r[Connectotype]: a set of nodes, edges, and their properties that are associated with that phenotype
+
+--
+
+<br><br>
+
+.center[Genotype --> Connectotype --> Phenotype]
+
+
+**Connectotypes are the implementation-level mechanisms linking genotypes to phenotypes** 
+
+---
+
+### Connectome in Literature
+
+
+- Sporns et al.  *PLoS CB* (2005)
+- Hagmann (2005)
+- PubMed (circa 2018): .r[3000+] hits.
+
+
+
+---
+
+### Connectome according to jovo
+
+
+
+- .r[Network] of a brain, at a spatiotemporal precision & extent
+- .r[Nodes] are distinct biophysical entities 
+- .r[Edges] are  *structural*  objects connecting a pair of nodes
+- .r[Attributes] of the network, nodes, or edges are possible
+
+
+--
+
+<br>
+
+- Example nodes: neurons, neural compartment, neural ensembles
+- Example edges: synapses, gap junction, fiber bundles
+
+---
+
+### Implications 
+
+- A brain could have many .r[different] connectomes, at different times and/or resolutions
+- We measure properties of the brain  to .r[estimate] connectomes
+- Those measurements can be .r[structural] or .r[functional]
+- Estimates are always .r[noisy] 
+
+--
+
+### Some caveats
+
+- connectomes are not comprehensive, unlike genomes
+- nodes can be abstractions, eg, all neurons type A 
+- attributes can be arbitrary, eg, distribution of synaptic vesicles 
+- connectomics is the study of neural circuitry 
+
+
+---
+
+### Connectomes for Connectal Coding
+
+<br>
+
+Hhypothesis generation not hypothesis testing
+
+---
+
+## .k[Example Connectomes]
+
+
+---
+
+### C Elegans 
+
+
+<img src="images/elegans_connectome.png"  style="height: 450px;"/>
+
+
+- directed, multi
+
+---
+
+###  Drosophila Mushroom Body 
+
+<img src="images/drosophila_left_mb.png"  style="height: 450px;"/>
+
+- directed
+
+---
+
+### Mouse Ex Vivo Diffusion MRI 
+
+
+<img src="images/mousedMRI_connectome.png"  style="height: 450px;"/>
+
+
+- undirected 
+
+
+---
+
+### Human  MRI 
+
+
+<img src="images/human_connectome.png"  style="height: 450px;"/>
+
+- undirected, multi (semi-dense)
+
+
+---
+
+## .k[Connectal Coding]
+
+
+---
+
+### Connectome Analysis Styles 
+
+
+- bag of edges 
+- bag of features
+- bag of parameters
+
+
+---
+
+### Bag of Edges 
+
+- treat each edge as independent
+- does this completely ignores graph structure of data (hint: yes)?
+- requires multiple hypothesis correction for valid tests
+- does anybody know a good way to correct (hint: no)?
+      - BH: way under-conservative  (false positives)
+      - Bonferroni: way over-conservative (false negatives)
+      - Network based statistics: no theoretical guarantees
+
+
+---
+
+### Bag of Features
+
+
+- choose m features and compute them per node or graph 
+- how do i choose m? how do i choose which features (hint: arbitrary)? 
+- how many features are possible given a graph with n nodes (hint: many)?
+- does these features characterize the brain (hint: no)?
+- can we make causal claims using these features (hint: no)?
+- least well known of the approaches
+
+---
+
+
+### Bag of Parameters 
+
+- build a statistical parametric model of brain network
+- does it treat edges independently (hint: no)?
+- do we have ways of choosing model and model complexity (hint: kind of)?
+- do these models characterize the brain (hint: yup!)?
+- can we make causal claims (hint: kind of)?
+
+
+---
+
+## What is a Code?
+
+
+A code is a system of (potentially stochastic) rules that translate from one representation of information into another.
+
+.pull-left[
+Examples: 
+- Morse: one-to-one
+- genetic: deterministic
+- neural: stochastic
+]
+
+.pull-right[
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/International_Morse_Code.svg"  style="height: 400px;"/>
+]
+
+
+---
+
+## Statistical Coding
+
+- Random variables: X, Y
+- Distributions: X ~ P, Y ~ P 
+- Conditionals:  P[X | Y], P[Y | X] 
+
+Formally, codes are conditional distributions.
+
+
+
+
+
+---
+
+## Connectal Coding Model 
+
+Random variables of interest include: 
+
+- P: phenotypes 
+- C: connectomes 
+- G: genome  
+- E: environment 
+
+
+
+---
+
+## Abstract Connectome Codes 
+
+- Pr[C | G]: prob of connectome, given a genome 
+- Pr[P | C]: prob of phenotype, given a connectome
+- Pr[P | C, G, E]: probability of phenotype given connectome, genome, and environment
+
+
+
+
+---
+
+## .k[Statistical Models of Connectomes]
+
+
+---
+
+### Independent & Identical Edges
+
+Erdos-Renyi (ER): akin to assuming a neuron's spike rate is Poisson with a fixed rate.
+
+- edges are binary
+- all edges independent
+- all edges sampled from identical distribution 
+- $\Rightarrow$ only 1 parameter: prob of an edge
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+- Simplest random graph model 
+- lacks sufficient complexity/descriptive power for most questions 
+
+
+---
+
+### Independent & Identical Edges
+
+
+.r[Weighted] Erdos-Renyi: akin to Poisson model using a bigger bin width.          
+
+- edges can take  .r[any value]
+- edges are independent 
+- edges are sampled from identical distribution 
+- $\Rightarrow$ can still only be 1 parameter: expected weight  of an edge
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+- simplest .r[weighted] random graph model 
+- lacks sufficient complexity/descriptive power for most questions 
+
+---
+
+### Independent & Identical Edge
+
+
+.r[Zero-Inflated] Weighted Erdos-Renyi: akin to assuming a bursty neuron, modeling both probability of burst and expected number of spikes in each burst
+
+- edges can take any value
+- edges are independent 
+- edges are sampled from identical distribution 
+- .r[2 parameters]: prob of edge, and expected weight of edge. 
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+- simplest sparse weighted random graph model 
+- can provide useful/interesting description of a connectome
+ 
+---
+### IIE Models of Connectomes
+
+<br>
+
+<img src="images/independent_edge_connectome_estimates.png"  style="width: 800px;"/>
+
+
+---
+
+### Independent Edge Model
+
+- edges are binary 
+- edges are independent 
+- edges are sampled from .r[differnt] distribuions
+- .r[n*n parameters]: prob of edge between each pair. 
+- P[ A(i,j) ] = p(i,j)
+
+
+Notes 
+- same generalizations as above apply here as well 
+- n*n paramers is much larger than 1,
+- still ignores structure
+- can't fit without lots of samples or further assumptions/restrictions
+
+---
+
+## Categorical Conditionally Independent Edge Models
+
+
+Stochastic Block Model (SBM): akin to assuming a neuron's are in different states, which determine Poisson rate.
+
+- edges are binary
+- edges are .r[conditionally] independent 
+- each node has a class assignment
+- P[ A(i,j) ] = B(class i, class j)
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+- simplest >2 parameter model
+
+---
+
+## Connectome SBMs
+
+
+<img src="images/fig_sbm.png"  style="width: 800px;"/>
+
+
+---
+
+## Generalized SBMs
+
+
+Weighted Stochastic Block Model (SBM)
+
+- edges are .r[weighted]
+- edges are conditionally independent 
+- each node has a class assignment
+- P[ A(i,j) ] = B(class i, class j) is expected weight of connection
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+
+
+
+---
+
+## Generalized SBMs
+
+
+Zero-Inflated Weighted Stochastic Block Model (SBM)
+
+- edges are weighted
+- edges are conditionally independent 
+- each node has a class assignment
+- P[ A(i,j) ] = is defined by a matrix of probabilities of connection, and a matrix of expected weights
+
+Notes
+- directed vs. undirected
+- loopy vs. no loops
+
+
+
+
+---
+
+## Continuous Conditionally Independent Edge Models 
+
+Random Dot Product Graphs (RDPG): akin to latent state models in population coding
+
+- edges are binary
+- edges are conditionally independent 
+- each node has a .r[latent position in d-dimensions]
+- P[ A(i,j) ] = f(latent position i, latent position j)
+- for example, P[ A(i,j) ] is the product of latent positions
+
+Notes
+- directed vs. undirected
+- no loops is ickier
+- generalizes previous models
+
+
+---
+
+## Connectome RDPGs
+
+<img src="images/fig_ase.png"  style="width: 750px;"/>
+
+
+
+
+---
+
+## Generalized RDPG
+
+- Weighted RDPG: edges have weights 
+- Zero-Inflated Weighted RDPG: edges have probabilities and expected weights
+
+
+
+---
+
+## Latent Structure Models 
+
+
+- Special case of RDPG, where latent positions are organized into .r[structures]
+- Examples
+  - each node class has a distribution of latent positions, eg, Gaussian 
+  - latent positions are hierarchical, eg, multiscale atlas 
+  - repeated motif, eg, cortical columns 
+  - latent positions are curved 
+
+
+---
+
+## Drosophila Mushroom Bodies
+
+<img src="images/Fig15-new.png"  style="width: 750px;"/>
+
+
+---
+
+## Population Graph Models 
+
+- Mixture of RDPG 
+- Joint Heterogeneous RDPG 
+
+
+
+
+<!-- <img src="images/rerf_perf.png"  style="width: 800px;"/> -->
+<!-- <img src="images/Fig4_benchmark_ranks.png"  style="height: 600px;"/> -->
+
+
+
+---
+
+## .k[Discussion]
+
+---
+
+## Summary and Next Steps 
+
+- Connectomes are the  mechanistic link: 
+
+.center[.r[genotype $\Leftrightarrow$ phenotype]]
+
+- Extend ideas from coding theory to support these analyses
+- Connectomes, genetic and phenotypic data are available
+
+
+---
+### Acknowledgements
+
+
+
+<div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jaewon.jpg"/>
+  <div class="centered">Jaewon Chung</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div>
+
+
+
+<div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div><span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+---
+class:center
+
+<img src="images/lion_cartoon2.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
+
+
+    </textarea>
+    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+    <script src="remark-latest.min.js"></script>
+    <script type="text/javascript">
+      var options = {};
+      var slideshow = remark.create(options)
+    </script>
+  </body>
+</html>

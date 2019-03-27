@@ -158,46 +158,19 @@ Given
 ### What is Lifelong Learning?
 
 
-| Object |  Definition |
+| Regret |  Definition |
 |:--- |:--- |
-| Task Regret  | $\hat{R}\_{T\_j}^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T\_j}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $
-|  Lifelong Regret | $\hat{R}\_T^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $
-| Relative TR | $\hat{S}^j\_T(f) = \hat{R}\_T^j(f) / \hat{R}\_{T\_j}^j(f)$
-| Relative LR |     $\hat{S}\_T(f) = \frac{1}{J} \sum\_{j=1}^J \hat{S}^j\_T(f)$
+| Task   | $\hat{R}\_{T\_j}^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T\_j}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $
+|  Lifelong  | $\hat{R}\_T^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $
+| Relative  | $\hat{S}^j\_T(f) = \hat{R}\_T^j(f) / \hat{R}\_{T\_j}^j(f)$
+| Cumulative Relative |     $\hat{S}\_T(f) = \frac{1}{J} \sum\_{j=1}^J \hat{S}^j\_T(f)$
 
 <br>
-A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{S}\_T(f)] \to c < 1$ as $J,T \to \infty$
+A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{S}\_T(f)] \to c < 1$ as $J,T \to \infty$.
 
+--
 
----
-
-### What is Lifelong Learning?
-
-**task regret** for the $j^{th}$ task:  seeing  data .r[only] from the $j^{th}$ task:
-
-$$\hat{R}\_{T\_j}^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T\_j}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $$
-
-<br>
-**lifelong regret** for $j^{th}$ task:  seeing .r[all] the data:
-
-$$\hat{R}\_T^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $$
-
-<br>
-**Relative regret** for the $j^{th}$ task:
-
-$$\hat{S}^j\_T(f) = \frac{\hat{R}\_T^j(f)}{\hat{R}\_{T\_j}^j(f)}$$
-
----
-
-### What is Lifelong Learning?
-
-
-**Relative Lifelong Regret**
-
-$$\hat{S}\_T(f) = \frac{1}{J} \sum\_{j=1}^J \hat{S}^j\_T(f)$$
-
-<br>
-A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{S}\_T(f)] \to c < 1$ as $J,T \to \infty$
+On average, data from other tasks much improve performance relative to not having seen those data.
 
 
 ---
@@ -209,6 +182,9 @@ A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{
 - Transfer learning: don't care about reverse transfer, J is fixed 
 - Multi-Task Learning: J is fixed (no such thing as forgetting) 
 
+<br><br>
+The key differentiator between **lifelong** and **dead** learning is forgetting.
+
 
 ---
 
@@ -218,6 +194,7 @@ A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{
 - Supervised: the L2M .r[always] knows $j_t$
 - **Un**supervised: the L2M  .r[never] knows $j_t$ 
 - **Semi**supervised: the L2M .r[sometimes] knows $j_t$
+- **Mix**supervised: the L2M .r[may sometimes] know $j_t$
 
 
 ---

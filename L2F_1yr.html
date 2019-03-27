@@ -514,18 +514,20 @@ Implication: any theorem about kernel machines and kernel learning (eg, consiste
 
 - Consider these 4 scenarios 
 <img src="images/geodesic_data.png" style="width:700px;"/>
-- We desire the L2M learns which points are close to one another **on the manifolds**, even as noise is added. 
+- We desire the KB learns which points are close to one another **on the latent manifolds**, even as noise is added. 
 - Manifold learning algorithms do this (in theory). 
+
 
 ---
 
-### U-RerF Learns Geodesic 
+### URerF Learns Geodesic 
 
-- Geodesic Recall@k: the fraction of points that the learner says as the k closest that are actually the k closest
+- Geodesic Recall@k: the fraction of points that the learner says as the k closest that are actually the k closest **on the latent manifolds**
+- URerF: unsupervised RerF
 
 <img src="images/geodesic_estimates.png" style="width:700px;"/>
 
-- As noise dimensions are added, existing manifold learning algorithms quickly approach chance levels
+- As noise dimensions are added, existing manifold learning algorithms quickly approach chance levels.
 
 
 ---
@@ -533,7 +535,7 @@ Implication: any theorem about kernel machines and kernel learning (eg, consiste
 ### Putting it All Together
 
 - Task 1 and Task 2 differ by sign flip
-- Both are 10d two-class classification problems 
+- Both are 10 dimensional two-class classification problems 
 - Each class is a spherically symmetric Gaussian
 - Sample 100 points from each
 
@@ -552,12 +554,12 @@ Implication: any theorem about kernel machines and kernel learning (eg, consiste
 
 - Lifelong learners must
   - Construct a KB 
-  - Estimate task specific functions
+  - Estimate task specific distributions
 - Decision forests do both
 - We proposed novel and improved ways to:
   - Construct a KB via trees
-  - Estimate task specific functions on trees
-- We demonstrated on a toy example that putting these pieces together yielded an improved relative regret
+  - Estimate task specific distributions on trees
+- We demonstrated on a toy example that putting these pieces together yielded an improved relative cumulative regret
 
 ---
 class: center, middle, inverse

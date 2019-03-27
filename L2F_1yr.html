@@ -51,7 +51,7 @@ class: center, middle
 
 ---
 
-## Approach
+## Outline
 
 - What is lifelong learning?
 - Can Randomer Forests do it (even conceptually)?
@@ -74,10 +74,8 @@ From *Lifelong Machine Learning*  (2016):
 - The tasks can be of different types and from different domains. 
 - When faced with the (J + 1)th task  with its data, 
 the learner can leverage the past knowledge in the knowledge base (KB) to help learn. 
-- The objective of an L2M is  to optimize the performance on the new task, 
-but it can optimize on any task by treating the rest of the tasks as the previous tasks. 
-- KB maintains the knowledge learned and accumulated from learning the previous tasks, 
-and  is updated with the knowledge gained from the (J+1)th task. 
+- The objective of an L2M is  to optimize the performance on all the tasks. 
+- KB maintains the existing knowledge and updates with new knowledge from the (J+1)th task. 
 
 --
 
@@ -99,7 +97,7 @@ A task is a sextuple $\mathcal{T} = \lbrace \mathcal{Z}, \mathcal{A}, P, \Phi, \
 | $a$ |  $\mathcal{A}$ | actions
 | $P: \Omega \to \mathcal{Z}$ | $ \mathcal{P}$ | density
 | $\phi: \mathcal{Z} \to \mathcal{A}$ |  $\Phi$ | decision rule
-| $\ell: \Phi \times \mathcal{Z} \to \mathbb{R}_+$ | $\mathcal{L}$ | loss
+| $\ell: \Phi \times \mathcal{A} \to \mathbb{R}_+$ | $\mathcal{L}$ | loss
 | $\mathbb{R}: \mathcal{L} \times \mathcal{P} \times \Phi \to \mathbb{R}_+$ | $\mathcal{R}$ | risk
 
 

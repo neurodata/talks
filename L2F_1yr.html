@@ -412,8 +412,9 @@ Given data from 2 tasks:
 --
 
 
-Given new data from task j:
-1. pass each $x$ down all trees to obtain task j estimates of $Y$ from each tree 
+Given new data $x_t$ from task $j_t$:
+1. pass each $x_t$ down all trees  
+1. obtain task $j_t$ estimates of $y$ from each tree 
 1. average results across all trees
 
 
@@ -422,9 +423,9 @@ Given new data from task j:
 
 ### Estimating $P[Y|X]$
 
-- Sample 500 points from a mixture of 2 spherically symmetric Gaussians centered at zero
+- Mixture of 2 spherically symmetric Gaussians centered at zero
+- Sample 500 points from joint 
 - Compute $P[Y|X]$ for $ | x | < 4$
-- Plot $P[Y=1 | x]$
 
 <img src="images/posterior_combined.png" style="width:700px;"/>
 
@@ -596,6 +597,9 @@ We  are training Drosophila differently to modify this network
 - Compare Conv-RF with 
   - Simple CNN 
   - SOA CNN on this particular dataset
+- MNIST data was too easy, everything got nearly perfect  quickly 
+- CIFAR-10 was much harder: 
+  - we subsampled the data up to 35% of the samples
 
 ---
 

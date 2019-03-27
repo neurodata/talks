@@ -34,7 +34,7 @@ Cencheng Shen | Kent Kiehl | Bruce Rosen
 ---
 class: center, middle
 
-<video position="fixed" bottom="0" width="320" height="650" controls>
+<video width="320" height="650" controls>
   <source src="images/lion_walking.mp4" type="video/mp4">
 </video>
 
@@ -53,8 +53,15 @@ class: center, middle
 
 ## Approach
 
-- What is lifelong?
-- Can Randomer Forests Do it.
+- What is lifelong learning?
+- Can Randomer Forests do it (even conceptually)?
+- Does it work on real data?
+
+---
+class: middle
+
+
+## .center[.k[What is Lifelong Learning?]]
 
 
 ---
@@ -63,14 +70,14 @@ class: center, middle
 
 From *Lifelong Machine Learning*  (2016):
 
-- The learner has performed a sequence of N learning tasks. 
+- The learner has performed a sequence of J learning tasks. 
 - The tasks can be of different types and from different domains. 
-- When faced with the (N + 1)th task  with its data, 
+- When faced with the (J + 1)th task  with its data, 
 the learner can leverage the past knowledge in the knowledge base (KB) to help learn. 
 - The objective of an L2M is  to optimize the performance on the new task, 
 but it can optimize on any task by treating the rest of the tasks as the previous tasks. 
 - KB maintains the knowledge learned and accumulated from learning the previous tasks, 
-and  is updated with the knowledge gained from the (N+1)th task. 
+and  is updated with the knowledge gained from the (J+1)th task. 
 
 --
 
@@ -129,7 +136,7 @@ A task is a sextuple $\mathcal{T} = \lbrace \mathcal{Z}, \mathcal{A}, P, \Phi, \
 | regret |     $\hat{R}\_T(f) = \sum\_{t=1}^T   \ell(\hat{\phi}\_{T}(z\_t),a\_t) - \ell(\phi\_*(z\_t),a\_t)  $
 
 
-An algorithm is said to learn whenever $\mathbb{E} [\hat{R}\_T(f)] \to 0$  as $T \to \infty$
+A learner is said to .r[learn] whenever $\mathbb{E} [\hat{R}\_T(f)] \to 0$  as $T \to \infty$
 
 <!-- Goal: choose $f = f_1, f_2, \ldots $ such that for any $\epsilon, \delta > 0$ and some $P \in \mathcal{P}$: -->
 <!-- $$ \mathbb{P} [ \hat{R}\_T(f) \leq \epsilon] > 1 - \delta $$ -->
@@ -137,23 +144,525 @@ An algorithm is said to learn whenever $\mathbb{E} [\hat{R}\_T(f)] \to 0$  as $T
 <!-- | $f_n: \mathcal{Z}^n \times \mathcal{L} \to \mathcal{G}$ | $\mathcal{F}$ | .r[learner] -->
 
 
+---
+
+### What is Lifelong Learning?
+
+Given
+-  $J$ tasks: $\mathcal{T}_j, j = 1,\ldots, J$, 
+- and data from each task $\mathcal{D}_j = (z_t,j_t) \, \forall j_t = j$
+-  **regret** for the $j^{th}$ task:  seeing  data .r[only] from the $j^{th}$ task:
+
+$$\hat{R}\_{T\_j}^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T\_j}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $$
+
+<br>
+- **lifelong regret** for $j^{th}$ task:  seeing .r[all] the data:
+
+$$\hat{R}\_T^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $$
+
+
+---
+
+### What is Lifelong Learning?
+
+
+- **Relative regret** for the $j^{th}$ task:
+
+$$\hat{S}^j\_T(f) = \frac{\hat{R}\_T^j(f)}{\hat{R}\_{T\_j}^j(f)}$$
+
+- **Relative Lifelong Regret**
+
+$$\hat{S}\_T(f) = \frac{1}{J} \sum\_{j=1}^J \hat{S}^j\_T(f)$$
+
+<br>
+A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{S}\_T(f)] \to 0$ as $J,T \to \infty$
+
+
+---
+
+### What is .r[Not] Lifelong Learning?
+
+
+- Online learning: only 1 task, don't care about forgetting 
+- Transfer learning: don't care about reverse transfer, J is fixed 
+- Multi-Task Learning: J is fixed (no such thing as forgetting) 
+
+
+---
+
+### Variants of Lifelong Learning
+
+
+- Supervised: the L2M .r[always] knows $j_t$
+- **Un**supervised: the L2M  .r[never] knows $j_t$ 
+- **Semi**supervised: the L2M .r[sometimes] knows $j_t$
+
+
+---
+
+### How is this definition different? 
+
+Existing literature defines a **particular** L2M, and either:
+1. empirically shows performance improves as T/J increases
+2. theoretically proves that performance improves as T/J increases
+
+We formally defined what it means for **any** L2M to be able to claim that it lifelong learns
+
+<!-- --
+
+The key for lifelong learning is to ascertain for each task how different it is from the other tasks, and selective leverage knowledge from those tasks to improve performance over what would be possible without having access to data from those tasks -->
+
+---
+
+### Summary of Part 1
+
+We propose the first, to our knowledge, general definition of what are the necessary and sufficient conditions for a learning machine to be a lifelong learner:
+
+  It must improve average performance across tasks as both number of tasks and samples increase, faster than a learner that operates on each task individually.
+
+
+---
+class: center, middle
+
+
+(pause)
+
+---
+class: middle
+
+
+## .center[.k[Can Randomer Forest do it?]]
+
+
+---
+
+### Approach 
+
+
+1. What are the necessary and sufficient components of any L2M?
+2. What are Randomer Forests?
+3. Do they have the "right stuff"?
+
+---
+
+### What are L2M Components?
+
+Learning Machines:
+
+
+<br>
+<img src="images/learning.svg" style="width:600px;"/>
+
+
+---
+
+### What are L2M Components?
+
+Lifelong Learning Machines:
+
+<br>
+<img src="images/lifelong_learning.svg" style="width:600px;"/>
+
+- **KB** stores knowledge shared across tasks
+- **Task Manager** navigates differences across tasks
+- **KB-Based Learner** generates task specific decision rules
+
+
+---
+
+### Hava's 5
+
+1. Continual learning: performance increases as $T \to \infty$
+2. Adaptation to New Tasks: performance increases as $J \to \infty$
+3. Goal Driven Perception: KB-based learning 
+4. Selective Plasticity: task manager 
+5. Safety and Monitoring: task manager
+
+
+---
+
+### What are Random.r[er] Forests?
+
+Given $T$ samples, a **random** forest is constructed as follows: 
+
+
+1. Randomly sample $T' < T$ to build a tree 
+2. Initialize the root node with all $T'$ samples, label it an internal node
+3. For each internal node, 
+  1. subsample $d$ features
+  2. find the best of those $d$ features to split on
+  3. split on it 
+4. For each daughter node, determine whether it is a terminal node
+5. If not, return to step 3
+6. Repeat for $N$ trees
+
+
+---
+
+### What are Random.r[er] Forests?
+
+Given $T$ samples, a **random.r[er]** forest is constructed as follows: 
+
+
+1. Randomly sample $T' < T$ to build a tree 
+2. Initialize the root node with all $T'$ samples, label it an internal node 
+3. For each internal node, 
+  1. .r[generate $d$ sparse linear combinations of the original features]
+  2. find the best of those $d$ features to split on
+  3. split on it 
+4. For each daughter node, determine whether it is a terminal node
+5. If not, return to step 3
+6. Repeat for $N$ trees
+
+---
+
+### Do They Work Empirically?
+
+
+<img src="images/rerf_perf1.png" style="width:600px;"/>
+
+
+---
+
+### Do They Work Theoretically?
+
+
+<br>
+Thm: Randomer forests are universally consistent, that is, $\hat{R}_t(f) \to 0$ as $t \to \infty$
+
+
+
+---
+
+### Do they work Lifelong? 
+
+yes (in theory).
+
+--
+
+#### Key Insight 
+
+
+Decision forests secretly have two parts:
+
+1. tree structure
+2. estimates leveraging tree structure
+
+
+One can estimate stuff seperately from learning the tree, and<br>
+tree structure encodes knowledge base.
+
+---
+
+### Things I Need to Show You 
+
+
+1. Decision forests can consistently estimate $P[Y|X]$
+2. Decision forests can learn KB in tree structure
+
+So far, I only told you how to build trees, not 
+
+1. how to estimate stuff using trees 
+2. those estimates are theoretically consistent
+2. how to learn structure
+3. those estimates are theoretically consistent
+
+
+---
+
+### How to estimate stuff using trees:
+
+For each tree:
+- Take the $T - T'$ "out of tree" samples
+- Pass all those samples down the tree 
+- Estimate (say) $P[Y | X]$ for each terminal node in the tree
+
+This is called **honest sampling**.
+
+
+--
+
+Regardless of how one obtained a tree, one can still estimate $P[Y|X]$ from that tree on a new dataset/task. 
+
+--
+
+This yields selective plasticity, not just per tree, but per node.
+
+---
+
+### A simple example 
+
+Given data from 2 tasks:
+
+1. Build a forest for task 1 
+2. Build a forest for task 2 
+1. Using each tree in forest$_1$, estimate $P[Y|X]$ for task 1
+3. Using each tree in forest$_2$, estimate $P[Y|X]$ for task 2 
+1. Using each tree in forest$_1$, estimate $P[Y|X]$ for task 2 
+1. Using each tree in forest$_2$, estimate $P[Y|X]$ for task 1 
+
 --
 
 
+Given new data from task j:
+1. pass each $x$ down all trees to obtain task j estimates of $Y$ from each tree 
+1. average results across all trees
+
+
+
 ---
 
-## .k[Discussion]
+### Estimating $P[Y|X]$
+
+- Sample 500 points from a mixture of 2 spherically symmetric Gaussians centered at zero
+- Compute $P[Y|X]$ for $ | x | < 4$
+- Plot $P[Y=1 | x]$
+
+<img src="images/posterior_combined.png" style="width:700px;"/>
+
+
+- CART is not consistent 
+- Honesty is theoretically consistent, but not good
+- Conditional Entropy Forests (CEF) is both
 
 ---
 
-## Summary and Next Steps 
+### CEF empirically outperforms
 
-- Connectomes are the  mechanistic link: 
+<img src="images/posterior_var_x_500.png" style="width:700px;"/>
 
-.center[.r[genotype --> phenotype]]
 
-- Extend ideas from coding theory to support these analyses
-- Connectomes, genetic and phenotypic data are available
+---
+
+### CEF empirically outperforms
+
+<img src="images/alg_comparison_final_noerror_20.png" style="width:700px;"/>
+
+
+---
+
+### CEF is theoretically consistent 
+
+Thm: Randomer forest estimate of $P[Y | X]$ is universally consistent, meaning 
+$\hat{P}_t[Y|X] \to P[Y|X]$ as $t \to \infty$.
+
+
+---
+
+### Building a knowledge base 
+
+- KB stores "latent low dimensional structure" of data 
+- Latent low dimensional structure is encoded in the latent geodesic distance 
+- KB should be able to learn which points are "**close**"" to one another along the geodesic in the face of noise
+- Kernel matrices quantify how close are all pairs of points
+
+---
+
+### Decision Forest Kernels  (DFK)
+
+How to estimate a kernel from decision forests:
+
+1. construct $N$ trees (somehow) 
+2. pass each data point down each tree 
+3. count the fraction of trees for which any pair of points lands in the same leaf node 
+
+This yields a $T \times T$ kernel matrix.
+
+
+---
+
+### Decision Forests Induce Characteristic Kernels 
+
+
+Thm: With a trivial modification, the above procedure yields a characteristic kernel 
+
+Implication: any theorem about kernel machines and kernel learning (eg, consistency of SVM, MMD-GAN, etc.) can now immediately be applied to DFK's
+
+---
+
+### DFK  Improves Kernel Testing 
+
+- 16 different high-dimensional independence testing scenarios 
+- Each sample 100 points 
+- Y-axis is normalized power, higher is better 
+- X-axis is number of dimensions (additional dimensions are noise)
+<img src="images/FigHDPowerAll_S-RF.png" style="width:600px;"/>
+
+
+---
+
+### KB Learning
+
+- Consider these 4 scenarios 
+<img src="images/geodesic_data.png" style="width:700px;"/>
+- We desire the L2M learns which points are close to one another, even as noise is added 
+- Manifold learning algorithms do this (in theory) 
+
+---
+
+### U-RerF Learns Geodesic 
+
+<img src="images/geodesic_estimates.png" style="width:700px;"/>
+
+- Geodesic recall@k: the fraction of points that the learner says as the k closest that are actually the k closest
+- As noise dimensions are added, existing manifold learning algorithms quickly approach chance levels
+
+
+---
+
+### Putting it All Together
+
+- Task 1 and Task 2 differ by sign flip
+- Both are 10d two-class classification problems 
+- Each class is a spherically symmetric Gaussian
+- Sample 100 points from each
+
+<img src="images/trunks.png" style="width:700px;"/>
+
+
+---
+### Putting it All Together
+
+<img src="images/trunks_wrf.png" style="width:400px;"/>
+
+
+---
+
+### Summary of Part 2 
+
+- Lifelong learners must construct a KB 
+- Decision forests have a built in mechanism for constructing a KB 
+- Doing so effectively requires
+  - Good estimates for $P[Y|X]$
+  - Good estimates of proximity 
+- We proposed novel and improved ways to:
+  - Estimate $P[Y|X]$
+  - Estimate proximity 
+- We demonstrated on a toy example that putting these pieces together yielded an improved relative regret
+
+
+---
+class: middle
+
+
+## .center[.k[Does it work on real data?]]
+
+
+---
+
+### Preliminary progress 
+
+1. Geodesic learning on Drosophila brains
+2. Classification of Images 
+  3. Classification of 2D CIFAR-10 Images
+  3. Classification of 3D brain images 
+
+
+---
+
+### Drosophila Brain Networks
+
+<img src="images/Fig15-new.png" style="width:800px;"/>
+
+We  are training Drosophila differently to modify this network 
+
+---
+
+### Geodesic Learning Drosophila Brain 
+
+<img src="images/drosphila_precision_recall.png" style="width:800px;"/>
+
+
+---
+
+### Classification of Images 
+
+- Fundamentally, L2M involves low-shot learning
+- Deep learing is data hungry
+- Convolutional RF is not 
+- Compare Conv-RF with 
+  - Simple CNN 
+  - SOA CNN on this particular dataset
+
+---
+
+### Classification of 2D CIFAR-10 Images 
+
+
+<img src="images/rf_deepconvrf_cnn_comparisons.png" style="width:600px;"/>
+
+
+---
+
+### Classification of 2D CIFAR-10 Images 
+
+
+<img src="images/rf_deepconvrf_cnn_comparisons2.png" style="width:600px;"/>
+
+
+---
+
+### Classification of 3D Brain Images
+
+- Existing brain imaging datasets typically were all collected in a single batch 
+- We have 2 different kinds 
+
+---
+
+
+#### Human Connectome Lifespan Data
+
+- Hundreds of children ages 5-21
+- Certain properties of them are static over time: race, sex, heritage, genotype, IQ
+- Brains change over time 
+- We want to learn a decision rule, say, on sex using younger kids, and then continue learning on older kids to improve performance on both
+- Data are done being collected, are now being processed
+
+
+---
+
+
+### Psychopathy Data 
+
+- Collected data over 10 years on mobile MRI scanner
+- In that 10 year period, **lots** of stuff changed: 
+   - hardware, software, operator, location
+- We desire to learn a rule using the first 5 years, and then show that it can keep learning on the subsequent 5 years 
+- These data are awesome: 
+  - nearly 900  subjects
+  - multi-modal imaged over 10 years (structural and diffusion)
+  - murderer, non-murderer violent criminal, non-violent criminal
+  - got IRB approval to even transfer data 3 weeks ago!
+  
+---
+
+### Preliminary Exploratory Analysis
+
+<img src="images/homicide_scatter.png" style="width:550px;"/>
+
+
+---
+
+### Summary of Part 3
+
+- RerF learns geodesic on 1 task better than alternatives 
+- On "standard" 2D images, Conv-RF beats CNNs 
+- Real data now exist and are at least partially processed
+
+---
+class: middle 
+
+.center[(pause)]
+
+
+---
+
+## Next Steps 
+
+- Finalize formalization of what consistitues L2M 
+- Theoretically and empirically put all the pieces together 
+- Analyze real data 
+
 
 
 ---

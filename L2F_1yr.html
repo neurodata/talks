@@ -132,11 +132,11 @@ A task is a sextuple $\mathcal{T} = \lbrace \mathcal{Z}, \mathcal{A}, P, \Phi, \
 |  loss | $    \ell(\hat{\phi}\_{T}(z\_t),a\_t)$
 | oracle loss | $    \inf\_{\phi \in \Phi} \ell({\phi}(z\_t),a\_t) =  \ell({\phi}\_*(z\_t),a\_t)$
 | excess loss |     $\hat{\epsilon}\_T(f) = \ell(\hat{\phi}\_{T}(z\_t),a\_t) - \ell(\phi\_*(z\_t),a\_t)   $
-<!-- | regret |     $\hat{R}\_T(f) = \frac{1}{T}\sum\_{t=1}^T   \ell(\hat{\phi}\_{T}(z\_t),a\_t) - \ell(\phi\_*(z\_t),a\_t)  $ -->
+| regret |     $\hat{R}\_T(f) = \frac{1}{T}\sum\_{t=1}^T   \hat{\epsilon}\_T(f)$
 
 
-A learner is said to .r[learn] whenever $\mathbb{E} [\hat{\epsilon}\_T(f)] \to 0$  as $T \to \infty$
-
+ A learner is said to .r[learn] whenever $\mathbb{E} [\hat{\epsilon}\_T(f)] \to 0$  as $T \to \infty$.
+ Alternatively,  whenever $\mathbb{E} [\hat{R}\_T(f)] \to 0$  as $T \to \infty$.
 <!-- Goal: choose $f = f_1, f_2, \ldots $ such that for any $\epsilon, \delta > 0$ and some $P \in \mathcal{P}$: -->
 <!-- $$ \mathbb{P} [ \hat{R}\_T(f) \leq \epsilon] > 1 - \delta $$ -->
 <!-- $\varepsilon_n \rightarrow 0$ -->
@@ -149,27 +149,50 @@ A learner is said to .r[learn] whenever $\mathbb{E} [\hat{\epsilon}\_T(f)] \to 0
 
 Given
 -  $J$ tasks: $\mathcal{T}_j, j = 1,\ldots, J$, 
-- and data from each task $\mathcal{D}_j = (z_t,j_t) \, \forall j_t = j$
--  **regret** for the $j^{th}$ task:  seeing  data .r[only] from the $j^{th}$ task:
-
-$$\hat{R}\_{T\_j}^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T\_j}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $$
-
-<br>
-- **lifelong regret** for $j^{th}$ task:  seeing .r[all] the data:
-
-$$\hat{R}\_T^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $$
-
+- and $T_j$ measurements from each task $\mathcal{D}_j = (z_t,j_t) \, \forall j_t = j$
+- where each task can differ by any of $\lbrace \mathcal{Z}\_j, \mathcal{A}\_j, P\_j, \Phi\_j, \ell\_j, \mathbb{R}\_j \rbrace$
+- and $T = \sum_j T\_j$.
 
 ---
 
 ### What is Lifelong Learning?
 
 
-- **Relative regret** for the $j^{th}$ task:
+| Object |  Definition |
+|:--- |:--- |
+| Task Regret  | $\hat{R}\_{T\_j}^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T\_j}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $
+|  Lifelong Regret | $\hat{R}\_T^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $
+| Relative TR | $\hat{S}^j\_T(f) = \hat{R}\_T^j(f) / \hat{R}\_{T\_j}^j(f)$
+| Relative LR |     $\hat{S}\_T(f) = \frac{1}{J} \sum\_{j=1}^J \hat{S}^j\_T(f)$
+
+<br>
+A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{S}\_T(f)] \to c < 1$ as $J,T \to \infty$
+
+
+---
+
+### What is Lifelong Learning?
+
+**task regret** for the $j^{th}$ task:  seeing  data .r[only] from the $j^{th}$ task:
+
+$$\hat{R}\_{T\_j}^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T\_j}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $$
+
+<br>
+**lifelong regret** for $j^{th}$ task:  seeing .r[all] the data:
+
+$$\hat{R}\_T^j(f) = \sum\_{t: j\_t = j}   \ell\_j(\hat{\phi}\_{T}(z\_t),a\_t) - \ell\_j(\phi\_*(z\_t),a\_t)  $$
+
+<br>
+**Relative regret** for the $j^{th}$ task:
 
 $$\hat{S}^j\_T(f) = \frac{\hat{R}\_T^j(f)}{\hat{R}\_{T\_j}^j(f)}$$
 
-- **Relative Lifelong Regret**
+---
+
+### What is Lifelong Learning?
+
+
+**Relative Lifelong Regret**
 
 $$\hat{S}\_T(f) = \frac{1}{J} \sum\_{j=1}^J \hat{S}^j\_T(f)$$
 

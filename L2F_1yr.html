@@ -129,12 +129,13 @@ A task is a sextuple $\mathcal{T} = \lbrace \mathcal{Z}, \mathcal{A}, P, \Phi, \
 | Object |  Definition |
 |:--- |:--- |
 | learners | $f_t : \mathcal{Z}^t \to \Phi$
-| cumulative loss | $    \sum\_{t=1}^T \ell(\hat{\phi}\_{T}(z\_t),a\_t)$
-| oracle loss | $    \inf\_{\phi \in \Phi} \sum\_{t=1}^T \ell({\phi}(z\_t),a\_t) = \sum\_{t=1}^T \ell({\phi}\_*(z\_t),a\_t)$
-| regret |     $\hat{R}\_T(f) = \sum\_{t=1}^T   \ell(\hat{\phi}\_{T}(z\_t),a\_t) - \ell(\phi\_*(z\_t),a\_t)  $
+|  loss | $    \ell(\hat{\phi}\_{T}(z\_t),a\_t)$
+| oracle loss | $    \inf\_{\phi \in \Phi} \ell({\phi}(z\_t),a\_t) =  \ell({\phi}\_*(z\_t),a\_t)$
+| excess loss |     $\hat{\epsilon}\_T(f) = \ell(\hat{\phi}\_{T}(z\_t),a\_t) - \ell(\phi\_*(z\_t),a\_t)   $
+<!-- | regret |     $\hat{R}\_T(f) = \frac{1}{T}\sum\_{t=1}^T   \ell(\hat{\phi}\_{T}(z\_t),a\_t) - \ell(\phi\_*(z\_t),a\_t)  $ -->
 
 
-A learner is said to .r[learn] whenever $\mathbb{E} [\hat{R}\_T(f)] \to 0$  as $T \to \infty$
+A learner is said to .r[learn] whenever $\mathbb{E} [\hat{\epsilon}\_T(f)] \to 0$  as $T \to \infty$
 
 <!-- Goal: choose $f = f_1, f_2, \ldots $ such that for any $\epsilon, \delta > 0$ and some $P \in \mathcal{P}$: -->
 <!-- $$ \mathbb{P} [ \hat{R}\_T(f) \leq \epsilon] > 1 - \delta $$ -->
@@ -173,7 +174,7 @@ $$\hat{S}^j\_T(f) = \frac{\hat{R}\_T^j(f)}{\hat{R}\_{T\_j}^j(f)}$$
 $$\hat{S}\_T(f) = \frac{1}{J} \sum\_{j=1}^J \hat{S}^j\_T(f)$$
 
 <br>
-A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{S}\_T(f)] \to 0$ as $J,T \to \infty$
+A .r[lifelong learner] is said to lifelong learn whenever <br> $\mathbb{E}[\hat{S}\_T(f)] \to c < 1$ as $J,T \to \infty$
 
 
 ---

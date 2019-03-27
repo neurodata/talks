@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>L2F</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+name:opening
+
+
+**Lifelong Learning Forests (JHU)**<br>
+[Joshua T. Vogelstein](https://neurodata.io) | Carey E. Priebe | Raman Arora  <br>
+Cencheng Shen | Kent Kiehl | Bruce Rosen
+
+<!-- {[BME](https://www.bme.jhu.edu/),[ICM](https://icm.jhu.edu/),[CIS](http://cis.jhu.edu/),[KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/)  -->
+
+
+<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:430px;"/></a>
+
+
+<!-- <img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <font color="grey"></font> -->
+.foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)]
+
+
+---
+class: center, middle
+
+<video position="fixed" bottom="0" width="320" height="650" controls>
+  <source src="images/lion_walking.MOV" type="video/mp4">
+</video>
+
+
+---
+
+### Last Time 
+
+<br><br><br><br>
+``` "Demonstrate that Randomer Forests can do Lifelong Learning" ```
+
+-- Hava, DARPA PM
+
+
+---
+
+## Approach
+
+- What is lifelong?
+- Can Randomer Forests Do it.
+
+
+---
+
+### Lifelong Learning Machines 
+
+From *Lifelong Machine Learning*  (2016):
+
+- The learner has performed a sequence of N learning tasks. 
+- The tasks can be of different types and from different domains. 
+- When faced with the (N + 1)th task  with its data, 
+the learner can leverage the past knowledge in the knowledge base (KB) to help learn. 
+- The objective of an L2M is  to optimize the performance on the new task, 
+but it can optimize on any task by treating the rest of the tasks as the previous tasks. 
+- KB maintains the knowledge learned and accumulated from learning the previous tasks, 
+and  is updated with the knowledge gained from the (N+1)th task. 
+
+--
+
+
+What is a .r[task], .r[learner], .r[knowledge base]? 
+
+
+
+
+---
+
+### What is a Task?
+
+A task is a sextuple $\mathcal{T} = \lbrace \mathcal{Z}, \mathcal{A}, P, \Phi, \ell, \mathbb{R} \rbrace$
+
+| Object | Space | Definition |
+|:--- |:--- |
+| $z$ | $ \mathcal{Z}$ | measurements
+| $a$ |  $\mathcal{A}$ | actions
+| $P: \Omega \to \mathcal{Z}$ | $ \mathcal{P}$ | density
+| $\phi: \mathcal{Z} \to \mathcal{A}$ |  $\Phi$ | decision rule
+| $\ell: \Phi \times \mathcal{Z} \to \mathbb{R}_+$ | $\mathcal{L}$ | loss
+| $\mathbb{R}: \mathcal{L} \times \mathcal{P} \times \Phi \to \mathbb{R}_+$ | $\mathcal{R}$ | risk
+
+
+<!-- - Bayes Optimal (Oracle) decision rule for $\mathcal{T}$:  -->
+<!-- $$\phi\_* = \arg \min \, \mathbb{R}\_{\ell}(P,\phi) \quad s.t. \,  \phi \in \Phi$$ -->
+<!-- - Goal: choose $\phi_*$  -->
+<!-- \arg \min_{\phi \in \Phi} \mathbb{R}_\ell(P,\phi).$$ -->
+
+
+---
+
+### Example tasks
+
+
+- Parameter estimation (estimate mean)
+- Hypothesis testing (mean $\neq$ 0)
+- Dimensionality reduction (isomap)
+- Classification / regression (linear regression)
+- Forecasting (kalman filter)
+- Control (reinforcement learning)
+- Density estimation (kernel density estimate)
+- Clustering (k-means)
+
+---
+
+### What is Learning?
+
+
+| Object |  Definition |
+|:--- |:--- |
+| learners | $f_t : \mathcal{Z}^t \to \Phi$
+| cumulative loss | $    \sum\_{t=1}^T \ell(\hat{\phi}\_{T}(z\_t),a\_t)$
+| oracle loss | $    \inf\_{\phi \in \Phi} \sum\_{t=1}^T \ell({\phi}(z\_t),a\_t) = \sum\_{t=1}^T \ell({\phi}\_*(z\_t),a\_t)$
+| regret |     $\hat{R}\_T(f) = \sum\_{t=1}^T   \ell(\hat{\phi}\_{T}(z\_t),a\_t) - \ell(\phi\_*(z\_t),a\_t)  $
+
+
+An algorithm is said to learn whenever $\mathbb{E} [\hat{R}\_T(f)] \to 0$  as $T \to \infty$
+
+<!-- Goal: choose $f = f_1, f_2, \ldots $ such that for any $\epsilon, \delta > 0$ and some $P \in \mathcal{P}$: -->
+<!-- $$ \mathbb{P} [ \hat{R}\_T(f) \leq \epsilon] > 1 - \delta $$ -->
+<!-- $\varepsilon_n \rightarrow 0$ -->
+<!-- | $f_n: \mathcal{Z}^n \times \mathcal{L} \to \mathcal{G}$ | $\mathcal{F}$ | .r[learner] -->
+
+
+--
+
+
+---
+
+## .k[Discussion]
+
+---
+
+## Summary and Next Steps 
+
+- Connectomes are the  mechanistic link: 
+
+.center[.r[genotype --> phenotype]]
+
+- Extend ideas from coding theory to support these analyses
+- Connectomes, genetic and phenotypic data are available
+
+
+---
+### Acknowledgements
+
+
+
+<!-- <div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jaewon.jpg"/>
+  <div class="centered">Jaewon Chung</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/bruce_rosen.jpg"/>
+  <div class="centered">Bruce Rosen</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/kent.jpg"/>
+  <div class="centered">Kent Kiehl</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div> -->
+
+<div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div> -->
+
+<div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div> -->
+
+<div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div> -->
+
+<div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/meghana.png"/>
+  <div class="centered">Meghana Madhya</div>
+</div>
+  
+
+<div class="small-container">
+  <img src="faces/percy.png"/>
+  <div class="centered">Percy Li</div>
+</div>
+    
+
+<div class="small-container">
+  <img src="faces/hayden.png"/>
+  <div class="centered">Hayden Helm</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/satish.png"/>
+  <div class="centered">Satish Palaniappan</div>
+</div>
+
+
+
+<div class="small-container">
+  <img src="faces/nate.png"/>
+  <div class="centered">Nate Anderson</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/fan.png"/>
+  <div class="centered">Qiuyun Fan</div>
+</div>
+
+ 
+
+ 
+
+</div><span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+<!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
+
+---
+class:center
+
+<img src="images/lion_cartoon2.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="remark-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+  var slideshow = remark.create(options, renderMath);
+
+</script>
+</body>
+</html>

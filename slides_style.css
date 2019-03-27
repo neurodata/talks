@@ -168,8 +168,8 @@ code {
   padding: 15px;
 }
 .inverse {
-  background: white;
-  color: white;
+  background: black;
+  /* color: black; */
   text-shadow: 0 0 20px #333;
 }
 .inverse p {

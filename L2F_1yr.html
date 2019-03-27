@@ -264,19 +264,8 @@ Lifelong Learning Machines:
 <img src="images/lifelong_learning.svg" style="width:600px;"/>
 
 - **KB** stores knowledge shared across tasks
-- **Task Manager** navigates differences across tasks
-- **KB-Based Learner** generates task specific decision rules
+- **Task Specific Learner** generates task specific decision rules
 
-
----
-
-### Hava's 5
-
-1. Continual learning: performance increases as $T \to \infty$
-2. Adaptation to New Tasks: performance increases as $J \to \infty$
-3. Goal Driven Perception: KB-based learning 
-4. Selective Plasticity: task manager 
-5. Safety and Monitoring: task manager
 
 
 ---
@@ -530,14 +519,13 @@ Implication: any theorem about kernel machines and kernel learning (eg, consiste
 
 ### Summary of Part 2 
 
-- Lifelong learners must construct a KB 
-- Decision forests have a built in mechanism for constructing a KB 
-- Doing so effectively requires
-  - Good estimates for $P[Y|X]$
-  - Good estimates of proximity 
+- Lifelong learners must
+  - Construct a KB 
+  - Estimate task specific functions
+- Decision forests do both
 - We proposed novel and improved ways to:
-  - Estimate $P[Y|X]$
-  - Estimate proximity 
+  - Construct a KB via trees
+  - Estimate task specific functions on trees
 - We demonstrated on a toy example that putting these pieces together yielded an improved relative regret
 
 
@@ -663,6 +651,14 @@ class: middle
 - Theoretically and empirically put all the pieces together 
 - Analyze real data 
 
+
+---
+
+### References 
+
+1. 
+2. 
+3. 
 
 
 ---

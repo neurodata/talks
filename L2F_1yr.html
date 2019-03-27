@@ -452,16 +452,24 @@ Given new data $x_t$ from task $j_t$:
 
 ### CEF is theoretically consistent 
 
-Thm: Randomer forest estimate of $P[Y | X]$ is universally consistent, meaning 
+Thm: Conditional entropy forest's estimate of $P[Y | X]$ is universally consistent, meaning 
 $\hat{P}_t[Y|X] \to P[Y|X]$ as $t \to \infty$.
 
+
+--
+
+### Summary so far 
+
+CEF both empirically and theoretically estimates the requisite quantifies with few-shot data
+
+What about the KB?
 
 ---
 
 ### Building a knowledge base 
 
-- KB stores "latent low dimensional structure" of data 
-- Latent low dimensional structure is encoded in the latent geodesic distance 
+- KB stores "latent low dimensional structure" of all data 
+- Latent structure is encoded in the  **geodesic** distance 
 - KB should be able to learn which points are "**close**"" to one another along the geodesic in the face of noise
 - Kernel matrices quantify how close are all pairs of points
 
@@ -469,7 +477,9 @@ $\hat{P}_t[Y|X] \to P[Y|X]$ as $t \to \infty$.
 
 ### Decision Forest Kernels  (DFK)
 
-How to estimate a kernel from decision forests:
+How to estimate a kernel from decision forests 
+
+Given $T$ measurements:
 
 1. construct $N$ trees (somehow) 
 2. pass each data point down each tree 
@@ -483,9 +493,9 @@ This yields a $T \times T$ kernel matrix.
 ### Decision Forests Induce Characteristic Kernels 
 
 
-Thm: With a trivial modification, the above procedure yields a characteristic kernel 
+Thm:  The above procedure (with a trivial modification) yields a characteristic kernel 
 
-Implication: any theorem about kernel machines and kernel learning (eg, consistency of SVM, MMD-GAN, etc.) can now immediately be applied to DFK's
+Implication: any theorem about kernel machines and kernel learning (eg, consistency of SVM, MMD-GAN, etc.) can now immediately be applied to DFK's.
 
 ---
 
@@ -504,14 +514,14 @@ Implication: any theorem about kernel machines and kernel learning (eg, consiste
 
 - Consider these 4 scenarios 
 <img src="images/geodesic_data.png" style="width:700px;"/>
-- We desire the L2M learns which points are close to one another, even as noise is added 
-- Manifold learning algorithms do this (in theory) 
+- We desire the L2M learns which points are close to one another **on the manifolds**, even as noise is added. 
+- Manifold learning algorithms do this (in theory). 
 
 ---
 
 ### U-RerF Learns Geodesic 
 
-- Geodesic recall@k: the fraction of points that the learner says as the k closest that are actually the k closest
+- Geodesic Recall@k: the fraction of points that the learner says as the k closest that are actually the k closest
 
 <img src="images/geodesic_estimates.png" style="width:700px;"/>
 

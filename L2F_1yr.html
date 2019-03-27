@@ -229,7 +229,7 @@ class: center, middle, inverse
 class: middle
 
 
-## .center[.k[Can Randomer Forest do it?]]
+## .center[.k[Can Randomer Forests do it?]]
 
 
 ---
@@ -262,13 +262,13 @@ Lifelong Learning Machines:
 <img src="images/lifelong_learning.svg" style="width:600px;"/>
 
 - **KB** stores knowledge shared across tasks
-- **Task Specific Learner** generates task specific decision rules
+- **Task-Specific Learner** generates task specific decision rules using KB
 
 
 
 ---
 
-### What are Random.r[er] Forests?
+### What are Random Forests (RF)?
 
 Given $T$ samples, a **random** forest is constructed as follows: 
 
@@ -286,7 +286,7 @@ Given $T$ samples, a **random** forest is constructed as follows:
 
 ---
 
-### What are Random.r[er] Forests?
+### What are Random.r[er] Forests (RerF)?
 
 Given $T$ samples, a **random.r[er]** forest is constructed as follows: 
 
@@ -300,6 +300,19 @@ Given $T$ samples, a **random.r[er]** forest is constructed as follows:
 4. For each daughter node, determine whether it is a terminal node
 5. If not, return to step 3
 6. Repeat for $N$ trees
+
+---
+
+### Why Might RerF > RF?
+
+
+- RF can do *axis-aligned* splits, RerF can do *oblique* splits 
+- Trees can be stronger, tree strength bounds forest accuract
+- Unlike other oblique methods
+  - RerF not fooled by lots of noisy features 
+  - Computational complexity of RerF = RF 
+  - Ensemble over parameters rather than a fixed parameter
+  
 
 ---
 
@@ -323,36 +336,43 @@ Thm: Randomer forests are universally consistent, that is, $\hat{R}_t(f) \to 0$ 
 
 ### Do they work Lifelong? 
 
+--
+
 yes (in theory).
 
 --
+
+(maybe also in practice)
+
+---
 
 #### Key Insight 
 
 
 Decision forests secretly have two parts:
 
-1. tree structure
+1. learn tree structure
 2. estimates leveraging tree structure
 
 
-One can estimate stuff seperately from learning the tree, and<br>
-tree structure encodes knowledge base.
-
----
-
-### Things I Need to Show You 
+- Each can be separately estimated 
+- tree structure encodes KB 
+- estimates leveraging trees encode task-specific learning 
 
 
-1. Decision forests can consistently estimate $P[Y|X]$
-2. Decision forests can learn KB in tree structure
 
-So far, I only told you how to build trees, not 
+#### Things I Need to Show You 
+
+
+1. RerF can consistently estimate $P[Y|X]$
+2. RerF can learn KB in tree structure
+
+<!-- So far, I only told you how to build trees, not 
 
 1. how to estimate stuff using trees 
 2. those estimates are theoretically consistent
 2. how to learn structure
-3. those estimates are theoretically consistent
+3. those estimates are theoretically consistent -->
 
 
 ---
@@ -362,14 +382,15 @@ So far, I only told you how to build trees, not
 For each tree:
 - Take the $T - T'$ "out of tree" samples
 - Pass all those samples down the tree 
-- Estimate (say) $P[Y | X]$ for each terminal node in the tree
+- Estimate $P[Y | X]$ for each terminal node in the tree: 
+  - fraction of points in node with each value of $y$
 
 This is called **honest sampling**.
 
 
 --
 
-Regardless of how one obtained a tree, one can still estimate $P[Y|X]$ from that tree on a new dataset/task. 
+Our insight: regardless of how one constructed a tree, one can still estimate $P[Y|X]$ from that tree on a new dataset/task. 
 
 --
 
@@ -489,9 +510,10 @@ Implication: any theorem about kernel machines and kernel learning (eg, consiste
 
 ### U-RerF Learns Geodesic 
 
+- Geodesic recall@k: the fraction of points that the learner says as the k closest that are actually the k closest
+
 <img src="images/geodesic_estimates.png" style="width:700px;"/>
 
-- Geodesic recall@k: the fraction of points that the learner says as the k closest that are actually the k closest
 - As noise dimensions are added, existing manifold learning algorithms quickly approach chance levels
 
 
@@ -525,6 +547,11 @@ Implication: any theorem about kernel machines and kernel learning (eg, consiste
   - Construct a KB via trees
   - Estimate task specific functions on trees
 - We demonstrated on a toy example that putting these pieces together yielded an improved relative regret
+
+---
+class: center, middle, inverse
+
+(pause)
 
 
 ---
@@ -636,9 +663,10 @@ We  are training Drosophila differently to modify this network
 - Real data now exist and are at least partially processed
 
 ---
-class: middle 
+class: center, middle, inverse
 
-.center[(pause)]
+(pause)
+
 
 
 ---

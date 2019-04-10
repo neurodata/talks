@@ -1,8 +1,6 @@
 body {
   font-family: 'gentona'; /* Varela Round */
   font-size: 1.0em;
-  /*color: #dfd6c2;*/
-  /* color: #a6bcd7;*/
   color: #FFFFFF;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -10,24 +8,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   margin-bottom: 0;
   /* margin-left: 10px; */
-  /* color: #a6bcd7; */
-  /* color: #318dde; */
-  /* color: #5F8793; */
   color: #318dde;
   text-align: left;
   /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
 }
 .remark-slide-content {
   font-size: 1.5em;
-  /* background: #28282e; */
-  /* background: -webkit-radial-gradient(circle, #28282e, #15120e, #020202); /* Safari */
-  /* background: -o-radial-gradient(circle, #28282e, #15120e, #020202); /* Opera 11.6 to 12.0 */ */
-  /* background: -moz-radial-gradient(circle, #28282e, #15120e, #020202); /* Firefox 3.6 to 15 */ */
-  /* background: radial-gradient(circle, #28282e, #15120e, #020202); /* Standard syntax */ */ */
-  /* background: radial-gradient(circle, #dfd6c2, #FFFFFF, #FFFFFF); /* Standard syntax */ */
   background: #FFFFFF;
-  /* color: #dfd6c2; */
-  /* color: #FFFFFF; */
   color: #020202; /* main font color */
   background-repeat: no-repeat;
   background-size: cover;
@@ -105,7 +92,6 @@ li p { line-height: 1.25em; }
 .large { font-size: 2em; }
 .black { color: black; background-color: white;}
 a, a > code {
-  /* color:#318dde; */
   color: #5F8793; /*#87C6CC;*/
   text-decoration: none; /*underline*/
 }
@@ -122,10 +108,6 @@ code {
 }
 .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
 .remark-code-line-highlighted     { background-color: #373832; }
-/*      .pull-left {
-  float: left;
-  width: 47%;
-}*/
 
 .pull-left {
   float: left;
@@ -143,10 +125,7 @@ code {
 .small {
   font-size: 0.8em;
 }
-/*      .pull-right {
-  float: right;
-  width: 47%;
-}*/
+
 .pull-bottom {
   position: absolute;
   bottom: 0;

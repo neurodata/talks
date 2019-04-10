@@ -169,7 +169,7 @@ code {
 }
 .inverse {
   background: black;
-  /* color: black; */
+  color: white;
   text-shadow: 0 0 20px #333;
 }
 .inverse p {

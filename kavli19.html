@@ -14,7 +14,7 @@
 
 name:opening
 
-### NeuroData (Science)
+# NeuroData (Science)
 
 Joshua T. Vogelstein
 
@@ -34,11 +34,11 @@ Joshua T. Vogelstein
 
 
 a field that develops and applies  algorithms, statistical models, and (database) systems  to 
-- manage, 
-- visualize, 
-- wrangle, 
-- summarize, 
-- generalize, and 
+- manage
+- visualize 
+- wrangle
+- summarize 
+- generalize 
 - control 
 
 neural data.
@@ -52,6 +52,11 @@ neural data.
 4. veracity: noisy
 
 
+Subject matter expertise is required to mitigate these challenges, including
+- computer science
+- statistical machine learning 
+- brain science
+
 ---
 ### NeuroData Approach
 
@@ -63,8 +68,8 @@ neural data.
 ---
 ### Manage 
 
-<!-- Data management systems enable users to create, read, edit, and delete "records": -->
-NeuroData management has the following requisites
+Data management systems enable users to create, read, edit, and delete "records"
+<!-- NeuroData management has the following requirements:  -->
 
 - stores multiple modalities (e.g., images & annotations) 
 - scales to terabytes
@@ -85,7 +90,7 @@ NeuroData management has the following requisites
 - 100+ public & private datasets
 - 30+ collaborators 
 - All 3D+ data & annotations (no ephys, etc.)
-- Largest public open neuroscience data repository in the world
+- Largest public open neuroscience data repository in the world!
 
 
 .footnote[https://neurodata.io/ndcloud/]
@@ -96,12 +101,12 @@ NeuroData management has the following requisites
 
 Data visualization systems generate maps, charts, and tables to highlight/illustrate insightful perspectives on the data.
 
-- little data: preview, ImageJ 
-- big data: graphics libraries with applies
+- pan
+- zoom
+- overlay multiple channels
+- overlay annotations
+- manually annotate
 
-Tools include:
-- WebGL
-- D3.js
 
 ---
 #### Example: NeuroGlancer 
@@ -114,21 +119,17 @@ Tools include:
 ---
 ### Wrangle 
 
-Data wrangling (as defined by me) consists of any operation one applies to the data that maintains its representation, such as outlier detection, missing value imputation, and deconvolution
+Data wrangling consists of any operation one applies to the data that maintains its representation, such as outlier detection, missing value imputation, and deconvolution
 
 
-- little data: matlab/python/R scripts 
-- big data: distributed pipelines 
+- bias field correction
+- motion correction
+- nonlinear multi-modal registration
 
-Scientific workflow management tools include:
-
-- Galaxy
-- NiPype
-- Luigi
 
 
 ---
-#### Example: NDReg 
+#### Example: COBALT 
 
 
 <img src="images/ndreg.png"  style="width: 100%;"/>
@@ -147,13 +148,12 @@ Scientific workflow management tools include:
 ---
 ### Summarize 
 
-Data summaries include point estimates, confidence intervals, clusters, principle components analysis, etc. There are two qualitatively different kinds of summaries:
-   1. "maintain representation", eg, mean
-   2. map into new representation, eg, image --> graph or  name 
+Data summaries include point estimates, confidence intervals, clusters, principle components analysis, etc. 
 
-Examples: 
-  1. the average height of the sample was 8'
-  2. the tree is in the upper left quadrant 
+- network estimation from MRI
+- spike detection from calcium imaging 
+- synapse detection
+- cell body detection from CLARITY images
 
 
 ---
@@ -162,25 +162,25 @@ Examples:
 
 <img src="images/clarity_cells.png"  style="position:absolute; left:0px; top:0px; height: 100%;"/>
 
-.footnote[https://github.com/neurodata/cobalt]
+.footnote[https://neurodata.io/ndreg]
 
 
 ---
 ### Generalize 
 
-The goal of data collection is often not merely to characterize the sample, but rather, infer properties of a "population". Requires assumptions about 
+Infer properties of a "population" (typically very high-dimensional)
 
-- sample data 
-- measurement bias and variance
-- estimators
-
-Generalization tools include:
 - hypothesis testing
 - modeling 
 - simulation
 
-Example: the average African-American female is 8' tall (under Gaussian model of heights)
 
+
+---
+
+### Example: 20 nonlinear simulations
+
+<img src="images/FigSimVisual.svg"  style="width: 100%;"/>
 
 
 ---
@@ -196,22 +196,19 @@ Example: the average African-American female is 8' tall (under Gaussian model of
 ---
 ### Predict
 
-Prediction can be thought of as a special case of generalization, and is often associated with "machine learning".  Three general kinds of prediction:
+Prediction the something about a future sample given a data corpus
 
 - classify: X is of type A
 - regress: given X, Y is expected to be 6
-- forecase: X is expected to be 6 tomorrow
+- forecast: X is expected to be 6 tomorrow
 
-Example tools:
-- sklearn
-- tensorflow 
 
 
 
 ---
 ### Example: RerF
 
-<img src="images/rerf_perf.png"  style="width: 100%;"/>
+<img src="images/error_histogram_benchmarks.png"  style="width: 100%;"/>
 
 - generalization of random forests 
 - significantly improve over best machine learning algs on >100 benchmark problems
@@ -221,49 +218,78 @@ Example tools:
 
 
 
-
 ---
-### Control 
-
-Data control is about choosing which measurements to make, and includes:
-
-- classical control theory: dynamic modeling, kalman, etc.
-- reinforcement learning: training actors with trials 
-- design of experiments: case-control study, randomized control trial, active learning, etc.
+class: middle 
 
 
-Example tools:
-
-- Google's Dopamine 
-- OpenAI Gym 
-
----
-### We got nuthin'
-
-
-
-
+## .center[Applications in Connectomics]
 
 
 ---
 
-### Next Vistas:  Modeling meets Representation Learning 
+### Human Connectome Heritability 
 
 
-<img src="images/not-so-clevr.png"  style="width: 100%;"/>
+<img src="images/human_connectome_heritability.png"  style="width: 100%;"/>
 
+
+.footnote[https://neurodata.io/graspy]
+---
+
+
+
+### Modeling Drosophila Mushroom Body 
+
+
+<img src="images/drosophila_model.png"  style="width: 100%;"/>
+
+.footnote[https://neurodata.io/graspy]
+
+
+---
+class: inverse
+
+### Batch Effects in  Connectomics
+
+<img src="images/batch.png"  style="width: 100%;"/>
+
+- 20 datasets, >3000 scans
+
+.footnote[https://neurodata.io/ndmg]
+
+---
+class: inverse
+
+### Batch Effects in  Connectomics
+
+<img src="images/batch_sex.png"  style="width: 100%;"/>
+
+- 20 datasets, >3000 scans
+- sex effect is smaller than site effect
+
+.footnote[https://neurodata.io/ndmg]
 
 
 ---
 
 
-### References
+### Papers
 
-1. Vogelstein et al. *Nature Methods* (2018) [[manage]](https://rdcu.be/banSS)
+1. Vogelstein et al. *Nature Methods* (2018) [[manage & viz]](https://rdcu.be/banSS)
 2. Kutten et al. *MICCAI* (2018) [[wrangle]](https://link.springer.com/chapter/10.1007%2F978-3-319-66182-7_32)
 3. Vogelstein et al. *eLife* (2019) [[generalize]](https://elifesciences.org/articles/41690)
 4. Tomita et al. *arXiv* (2015) [[predict]](https://arxiv.org/abs/1506.03410)
+5. Athreya et al. *JMLR* (2018) [[graphs]](http://jmlr.org/papers/v18/17-448.html)
+6. Kiar et al. *bioRxiv* (2018) [[MRI]](https://www.biorxiv.org/content/10.1101/188706v6)
 
+### Tools 
+
+- [ndcloud](https://neurodata.io/ndcloud)
+- [COBALT](https://neurodata.io/ndreg)
+- [MGC](https://neurodata.io/mgc)
+- [RerF](https://neurodata.io/rerf)
+- [GrasPy](https://neurodata.io/graspy)
+- [ndmg](https://neurodata.io/ndmg)
 
 ---
 ### Acknowledgements

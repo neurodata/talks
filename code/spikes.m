@@ -338,6 +338,3 @@ if print_fig,
     export_fig(['../images/bitstring', num2str(int),'.png']); 
 end
 
-
-
-[

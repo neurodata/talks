@@ -65,7 +65,7 @@ class: middle, inverse
   - mechano ...
   - pain ...
   - proprio ... 
-- 1 billion receptors at 1 kHz each is .r[1 terabit]
+- 1 billion receptors at 1 kHz each is .r[1 terabit per second]
 - Optimized to minimize false *negatives* 
       - is that a tiger?
 
@@ -102,6 +102,8 @@ class:inverse
 <img src="images/circle_in_square.png" STYLE="width:50%"/>
 
 - ratio of volume of ball to cube with diameter 1
+--
+
 - volume of cube &rarr; 1
 - volume of ball $\frac{\pi^{n/2}}{(n/2 +1)!}$ &rarr; 0
 - ball contains no volume in high-dimensions
@@ -147,22 +149,33 @@ class: middle, inverse
 
 ## .center[Potential Solutions?]
 
+<!-- 1. better brains 
+2. artificial brains 
+3. human + artificial brains -->
+
 
 ---
 
-### #1: Impose selective pressures
+### #1: Impose selective pressures 
 
-wait 1,000 generations
-
+1. wait 1,000 generations
+2. have better brains
 
 ---
 
 ### #2: Use Domain Expertise on its own 
 
 
-<img src="images/LSVRC-winners-over-time.png" STYLE="width:100%"/>
+<!-- <img src="images/LSVRC-winners-over-time.png" STYLE="width:100%"/> -->
+
+.center[
+<img src="images/lion_parrots.jpg" STYLE="width:20%"/>
+<img src="images/lion_parrots_upsidedown.jpg" STYLE="width:20%"/>
+]
 
 
+
+.footnote[AI Winter #2]
 
 ---
 
@@ -171,6 +184,8 @@ wait 1,000 generations
 
 <img src="images/compute_diagram-linear@2x-5.png" STYLE="width:100%"/>
   
+
+.footnote[AI Winter #3]
 
 ---
 
@@ -185,12 +200,12 @@ wait 1,000 generations
 ---
 
 
-### Proposed Solution
+### Proposed Solution: AI Spring #4
 
 
 1. Work together: AI + domain experts 
-2. Flexibly incorporate domain expertise 
-3. Learn low-dimensional latent structure
+2. Flexibly incorporate domain expertise into equations
+3. Learn low-dimensional latent structure using expertise
 
 
 ---
@@ -212,10 +227,11 @@ wait 1,000 generations
 
 
 1. Work together: AI + domain experts 
-2. Flexibly incorporate domain expertise 
-3. Learn low-dimensional latent structure
+2. Flexibly incorporate domain expertise into equations
+3. Learn low-dimensional latent structure using expertise
   - We need $\geq n$ points to describe a line in $n$ dimensions
-  - When $p > n$, we need to **learn**  a "line" works best 
+  - Our $p > n$
+  - We need to **learn**  a "line" works best 
   - There are $\infty$, so need experts to help guide search 
 
 
@@ -224,8 +240,8 @@ wait 1,000 generations
 ### Good News, Bad News 
 
 
-- Good: you are already doing this :)
-- Bad: we are not :(
+- Good: we are already doing this :)
+- Bad: its too slow :(
 
 
 ---
@@ -242,8 +258,8 @@ wait 1,000 generations
 ### Conclusions 
 
 - big biomedical data science is hard 
-- success requires: 
-  - (swallowing pride)
+- our intuitions are bad
+- success requires (swallowing pride): 
   - converting your knowledge (flexibly) into equations
   - leveraging your knowledge (flexibly) into learning systems 
  

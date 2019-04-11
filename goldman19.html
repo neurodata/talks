@@ -30,16 +30,6 @@ Joshua T. Vogelstein
 
 
 
----
-
-
-- random bit string vs human bit string 
-- how many sphere's in a cube
-- run pca twice and get different answers
-- data rate of human perceptual systems
-- grazing goat 
-- web data vs bio data 
-
 
 ---
 ### What is Big Biomedical Data Science? 
@@ -48,267 +38,202 @@ Joshua T. Vogelstein
 A field that develops and applies  algorithms, statistical models, and (database) systems  to 
 manage,  visualize,  wrangle,  summarize,   generalize, and control big data to improve health and healthcare.
 
----
-### Why is it hard?
-
-1. volume: data are large, sometimes millions or billions of "records"
-2. variety: data are multi-modal, including structured and unstructured data, text, images, etc.
-3. velocity: in some contexts, data are streaming (e.g., in ER)
-4. veracity: data are noisy (sensors are broken, crappy, etc.)
-
 
 ---
-### How do we solve the challenges?
+class: middle, inverse
 
-- theoretically principled statistical tools 
-- computationally efficient implementations
-- biomedical expertise
+## .center[Why is it hard?]
 
+---
+
+### Reason #1: Evolution 
+
+- Human perceptual capacities and 1 billion years 
+  - visual (100 million)
+  - gustatory (1 million)
+  - auditory (40 million) 
+  - olfactory (20 million)
+  - thermo ...
+  - mechano ...
+  - pain ...
+  - proprio ... 
+- 1 billion receptors at 1 kHz each is .r[1 terabit]
+- Optimized to minimize false *negatives* 
+      - is that a tiger?
+
+
+---
+<!-- class:inverse -->
+
+### Which is computer generated?
+
+
+<img src="images/bitstring8.png" STYLE="width:50%"/>
+<img src="images/bitstring4.png" STYLE="width:50%;"/>
+
+
+---
+
+### Reason #2: Grazing Goat Starves
+
+<img src="images/grazing-goat2.png" STYLE="width:100%"/>
+
+
+---
+
+#### Reason #3: How many circles per square?
+
+
+<img src="images/circle_in_square.png" STYLE="width:50%"/>
+
+- ratio of volume of ball to cube with radius 1
+- volume of ball $\frac{\pi^{n/2}}{(n/2 +1)!}$ &rarr; 0
+- volume of cube &rarr; 1
+- ball contains no volume in high-dimensions
+
+
+---
+
+#### Reason #3: How many circles per square?
+
+<img src="images/porcupine.jpg" STYLE="width:50%"/>
+
+
+- every additional dimension squares number of corners
+- cubes are pointy in high-dimesions
+
+
+---
+
+### Reason #4: Estimate mean 
+
+
+- sample $x \sim \mathcal{N}_1(\mu,1)$, estimate $\mu$?
 --
 
-<br><br>
+- sample $[x_1, x_2] \sim \mathcal{N}_2([\mu_1, \mu_2], I)$, estimate $\mu = [\mu_1, \mu_2]$?
+--
 
-##### .center[stats + cs + bio = success]
+- sample $[x_1, x_2, x_3] \sim \mathcal{N}_3(\mu, I)$, estimate $\mu$?
+
+The usual estimator of the mean of a multivariate Gaussian is inadmissable
+
+.footnote[Stein, 1956]
 
 ---
 
+### Summary 
 
-<img src="images/MGC-FigReal.png" STYLE="width:100%;"/>
-
-
----
-### NeuroData Approach
-
-1. build computational tools for manage & visualize
-2. build statistical tools wrangle, summarize, and control
-3. apply them
+Don't trust your intuition, it evolved poorly to solve this problem.
 
 
 ---
-### Manage 
+class: middle, inverse 
 
-Data management systems enable users to create, read, edit, and delete "records"
-<!-- NeuroData management has the following requirements:  -->
-
-- stores multiple modalities (e.g., images & annotations) 
-- scales to terabytes
-- atlases
-- annotations
-- networks 
-
+## .center[Potential Solutions?]
 
 
 ---
-#### Example: NeuroData Cloud
 
+### #1: Impose selective pressures
 
-<img src="images/bossDB.png" STYLE="width:100%;"/>
-
-
-- 200+ teravoxels
-- 100+ public & private datasets
-- 30+ collaborators 
-- All 3D+ data & annotations (no ephys, etc.)
-- Largest public open neuroscience data repository in the world!
-
-
-.footnote[https://neurodata.io/ndcloud/]
+wait 1,000 generations
 
 
 ---
-### Visualize 
 
-Data visualization systems generate maps, charts, and tables to highlight/illustrate insightful perspectives on the data.
-
-- pan
-- zoom
-- overlay multiple channels
-- overlay annotations
-- manually annotate
+### #2: Use Domain Expertise on its own 
 
 
----
-#### Example: NeuroGlancer 
-
-<img src="images/AT_rorb.png"  style="position:absolute; left:0px; top:0px; width: 100%;"/>
-
-.footnote[https://github.com/neurodata/neuroglancer]
-
-
----
-### Wrangle 
-
-Data wrangling consists of any operation one applies to the data that maintains its representation, such as outlier detection, missing value imputation, and deconvolution
-
-
-- bias field correction
-- motion correction
-- nonlinear multi-modal registration
-
-
-
----
-#### Example: COBALT 
-
-
-<img src="images/ndreg.png"  style="width: 100%;"/>
-
-- Large deformation diffeomorphic metric mapping (LDDMM)
-- Fully automatic (no landmarks)
-- Modalities: iDisco, CLARITY, MRI, histology, etc.,
-- Species: human, rat, mouse, zebrafish...
-
-.footnote[https://neurodata.io/ndreg/]
-
-
-
-
-
----
-### Summarize 
-
-Data summaries include point estimates, confidence intervals, clusters, principle components analysis, etc. 
-
-- network estimation from MRI
-- spike detection from calcium imaging 
-- synapse detection
-- cell body detection from CLARITY images
-
-
----
-#### Example: COBALT   
-
-
-<img src="images/clarity_cells.png"  style="position:absolute; left:0px; top:0px; height: 100%;"/>
-
-.footnote[https://neurodata.io/ndreg]
-
-
----
-### Generalize 
-
-Infer properties of a "population" (typically very high-dimensional)
-
-- hypothesis testing
-- modeling 
-- simulation
+<img src="images/LSVRC-winners-over-time.png" STYLE="width:100%"/>
 
 
 
 ---
 
-### Example: 20 nonlinear simulations
-
-<img src="images/FigSimVisual.svg"  style="width: 100%;"/>
+### #3: Use Deep Learning on its own
 
 
----
-<!-- #### Example: MGC -->
-
-
-<img src="images/FigHDPower.png"  style="width: 100%;"/>
-
-
-.footnote[https://neurodata.io/mgc]
-
-
----
-### Predict
-
-Prediction the something about a future sample given a data corpus
-
-- classify: X is of type A
-- regress: given X, Y is expected to be 6
-- forecast: X is expected to be 6 tomorrow
-
-
-
-
----
-### Example: RerF
-
-<img src="images/error_histogram_benchmarks.png"  style="width: 100%;"/>
-
-- generalization of random forests 
-- significantly improve over best machine learning algs on >100 benchmark problems
-
-
-.footnote[https://neurodata.io/rerf/]
-
-
-
----
-class: middle 
-
-
-## .center[Applications in Connectomics]
-
+<img src="images/compute_diagram-linear@2x-5.png" STYLE="width:100%"/>
+  
 
 ---
 
-### Human Connectome Heritability 
+### Approaches that will fail 
 
+1. evolution 
+2. just parametric modeling
+3. just deep learning
 
-<img src="images/human_connectome_heritability.png"  style="width: 100%;"/>
-
-
-.footnote[https://neurodata.io/graspy]
----
-
-
-
-### Modeling Drosophila Mushroom Body 
-
-
-<img src="images/drosophila_model.png"  style="width: 100%;"/>
-
-.footnote[https://neurodata.io/graspy]
-
-
----
-class: inverse
-
-### Batch Effects in  Connectomics
-
-<img src="images/batch.png"  style="width: 100%;"/>
-
-- 20 datasets, >3000 scans
-
-.footnote[https://neurodata.io/ndmg]
-
----
-class: inverse
-
-### Batch Effects in  Connectomics
-
-<img src="images/batch_sex.png"  style="width: 100%;"/>
-
-- 20 datasets, >3000 scans
-- sex effect is smaller than site effect
-
-.footnote[https://neurodata.io/ndmg]
 
 
 ---
 
 
-### Papers
+### Proposed Solution
 
-1. Vogelstein et al. *Nature Methods* (2018) [[manage & viz]](https://rdcu.be/banSS)
-2. Kutten et al. *MICCAI* (2018) [[wrangle]](https://link.springer.com/chapter/10.1007%2F978-3-319-66182-7_32)
-3. Vogelstein et al. *eLife* (2019) [[generalize]](https://elifesciences.org/articles/41690)
-4. Tomita et al. *arXiv* (2015) [[predict]](https://arxiv.org/abs/1506.03410)
-5. Athreya et al. *JMLR* (2018) [[graphs]](http://jmlr.org/papers/v18/17-448.html)
-6. Kiar et al. *bioRxiv* (2018) [[MRI]](https://www.biorxiv.org/content/10.1101/188706v6)
 
-### Tools 
+1. Work with an expert 
+2. Flexibly incorporate domain expertise 
+3. Learn low-dimensional latent structure
 
-- [ndcloud](https://neurodata.io/ndcloud)
-- [COBALT](https://neurodata.io/ndreg)
-- [MGC](https://neurodata.io/mgc)
-- [RerF](https://neurodata.io/rerf)
-- [GrasPy](https://neurodata.io/graspy)
-- [ndmg](https://neurodata.io/ndmg)
+
+---
+
+#### How Many Points to Describe a Line?
+
+.center[<img src="images/line.png" STYLE="width:80%"/>]
+
+---
+
+
+#### How Many Points to Describe a Plane?
+
+.center[<img src="images/lineplane2.gif" STYLE="width:90%"/>]
+
+---
+
+### Proposed Solution
+
+
+1. Work with an expert 
+2. Flexibly incorporate domain expertise 
+3. Learn low-dimensional latent structure
+
+
+- We need a minimum of n points to describe a line in n dimensions
+- When p >> n, we need to **learn**  "line" works best 
+- There are infinitely many, so need experts to help guide search 
+
+
+---
+
+### Good News, Bad News 
+
+
+- Good: you are already doing this :)
+- Bad: we are not :(
+
+
+---
+
+### A Glimmer of Hope 
+
+
+<img src="images/rf_deepconvrf_cnn_comparisons3.png" STYLE="width:100%"/>
+
+
+---
+
+### Conclusions 
+
+- big biomedical data science is hard 
+- success requires: 
+  - converting your knowledge (flexibly) into learning systems 
+  - leveraging your knowledge (flexibly) into learning systems 
+- swallowing pride
+
+
 
 ---
 ### Acknowledgements
@@ -463,15 +388,30 @@ class: inverse
 ---
 class:center
 
-<img src="images/lion_cartoon2.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
+<img src="images/lion_l2m.JPG" style="position:absolute; top:0px; left:0px; height:100%;"/>
 
 
-    </textarea>
-    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
-    <script src="remark-latest.min.js"></script>
-    <script type="text/javascript">
-      var options = {};
-      var slideshow = remark.create(options)
-    </script>
-  </body>
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="remark-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+  var slideshow = remark.create(options, renderMath);
+
+</script>
+</body>
 </html>

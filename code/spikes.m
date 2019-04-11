@@ -2,8 +2,8 @@
 
 %% spurious clusters
 clc, clear
-print_fig=1;
-n=200;
+print_fig=0;
+n=100;
 
 %%
 for jj=1
@@ -313,3 +313,27 @@ plot(x(:,1),x(:,2),'.')
 axis('square')
 set(gca,'xtick','','ytick','')
 if print_fig, export_fig('../images/X_lpm.png'); end
+
+
+%%
+clear, clc, clf
+
+print_fig=1;
+n=100;
+x=rand(n,1);
+
+%
+X=x(x>0.5);
+X=X(X<1.5);
+
+stem(x,1*ones(n,1),'w','marker','none','linewidth',0.1)
+set(gcf,'Color','None')
+set(gca,'color','none')
+xlim([0.5,1.0])
+ylim([0,1.2])
+set(gca,'XTick',[],'YTick',[])
+
+int=round(rand*9+1)
+if print_fig, 
+    export_fig(['../images/bitstring', num2str(int),'.png']); 
+end

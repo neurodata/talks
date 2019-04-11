@@ -337,3 +337,7 @@ int=round(rand*9+1)
 if print_fig, 
     export_fig(['../images/bitstring', num2str(int),'.png']); 
 end
+
+
+
+[

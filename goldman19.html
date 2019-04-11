@@ -35,8 +35,16 @@ Joshua T. Vogelstein
 ### What is Big Biomedical Data Science? 
 
 
-A field that develops and applies  algorithms, statistical models, and (database) systems  to 
+A field that develops and applies  algorithms, statistical models, and (database / machine learning) systems  to 
 manage,  visualize,  wrangle,  summarize,   generalize, and control big data to improve health and healthcare.
+
+--
+
+<br>
+
+<img src="images/big_biomedical_data_science.svg" STYLE="width:100%"/>
+
+
 
 
 ---
@@ -48,7 +56,7 @@ class: middle, inverse
 
 ### Reason #1: Evolution 
 
-- Human perceptual capacities and 1 billion years 
+- Human perceptual capacities and a few billion years 
   - visual (100 million)
   - gustatory (1 million)
   - auditory (40 million) 
@@ -62,39 +70,46 @@ class: middle, inverse
       - is that a tiger?
 
 
----
-<!-- class:inverse -->
-
-### Which is computer generated?
-
-
-<img src="images/bitstring8.png" STYLE="width:50%"/>
-<img src="images/bitstring4.png" STYLE="width:50%;"/>
-
 
 ---
+class:inverse
 
-### Reason #2: Grazing Goat Starves
+### Reason #2: We Don't Know What Random Looks Like
+
+<img src="images/bitstring8.png" STYLE="width:100%"/>
+
+---
+class:inverse
+
+### Reason #2: We Don't Know What Random Looks Like
+
+
+<img src="images/bitstring4.png" STYLE="width:100%;"/>
+
+
+---
+
+### Reason #3: Grazing Goat Starves
 
 <img src="images/grazing-goat2.png" STYLE="width:100%"/>
 
 
 ---
 
-#### Reason #3: How many circles per square?
+#### Reason #4: How many circles per square?
 
 
 <img src="images/circle_in_square.png" STYLE="width:50%"/>
 
-- ratio of volume of ball to cube with radius 1
-- volume of ball $\frac{\pi^{n/2}}{(n/2 +1)!}$ &rarr; 0
+- ratio of volume of ball to cube with diameter 1
 - volume of cube &rarr; 1
+- volume of ball $\frac{\pi^{n/2}}{(n/2 +1)!}$ &rarr; 0
 - ball contains no volume in high-dimensions
 
 
 ---
 
-#### Reason #3: How many circles per square?
+#### Reason #4: How many circles per square?
 
 <img src="images/porcupine.jpg" STYLE="width:50%"/>
 
@@ -105,7 +120,7 @@ class: middle, inverse
 
 ---
 
-### Reason #4: Estimate mean 
+### Reason #5: Estimate mean 
 
 
 - sample $x \sim \mathcal{N}_1(\mu,1)$, estimate $\mu$?
@@ -173,7 +188,7 @@ wait 1,000 generations
 ### Proposed Solution
 
 
-1. Work with an expert 
+1. Work together: AI + domain experts 
 2. Flexibly incorporate domain expertise 
 3. Learn low-dimensional latent structure
 
@@ -196,14 +211,12 @@ wait 1,000 generations
 ### Proposed Solution
 
 
-1. Work with an expert 
+1. Work together: AI + domain experts 
 2. Flexibly incorporate domain expertise 
 3. Learn low-dimensional latent structure
-
-
-- We need a minimum of n points to describe a line in n dimensions
-- When p >> n, we need to **learn**  "line" works best 
-- There are infinitely many, so need experts to help guide search 
+  - We need $\geq n$ points to describe a line in $n$ dimensions
+  - When $p > n$, we need to **learn**  a "line" works best 
+  - There are $\infty$, so need experts to help guide search 
 
 
 ---
@@ -217,10 +230,11 @@ wait 1,000 generations
 
 ---
 
-### A Glimmer of Hope 
+### A Glimmer of Hope: <img src="images/automobile1.png" STYLE="width:10%"/> v <img src="images/truck10.png" STYLE="width:10%"/>
 
 
-<img src="images/rf_deepconvrf_cnn_comparisons3.png" STYLE="width:100%"/>
+
+<img src="images/rf_deepconvrf_cnn_comparisons3.png" STYLE="width:90%"/>
 
 
 ---
@@ -229,10 +243,10 @@ wait 1,000 generations
 
 - big biomedical data science is hard 
 - success requires: 
-  - converting your knowledge (flexibly) into learning systems 
+  - (swallowing pride)
+  - converting your knowledge (flexibly) into equations
   - leveraging your knowledge (flexibly) into learning systems 
-- swallowing pride
-
+ 
 
 
 ---

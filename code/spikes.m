@@ -326,14 +326,14 @@ x=rand(n,1);
 X=x(x>0.5);
 X=X(X<1.5);
 
-stem(x,1*ones(n,1),'w','marker','none','linewidth',0.1)
-set(gcf,'Color','None')
-set(gca,'color','none')
+stem(x,1*ones(n,1),'k','marker','none','linewidth',0.1)
+% set(gcf,'Color','None')
+% set(gca,'color','none')
 xlim([0.5,1.0])
 ylim([0,1.2])
 set(gca,'XTick',[],'YTick',[])
 
-int=round(rand*9+1)
+int=round(rand*9+1)+10
 if print_fig, 
     export_fig(['../images/bitstring', num2str(int),'.png']); 
 end

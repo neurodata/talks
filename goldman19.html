@@ -44,7 +44,9 @@ manage,  visualize,  wrangle,  summarize,   generalize, and control big data to 
 
 <img src="images/big_biomedical_data_science.svg" STYLE="width:100%"/>
 
+--
 
+data = genomics, imaging, electric health records, etc.
 
 
 ---
@@ -56,19 +58,12 @@ class: middle, inverse
 
 ### Reason #1: Evolution 
 
-- Human perceptual capacities and a few billion years 
-  - visual (100 million)
-  - gustatory (1 million)
-  - auditory (40 million) 
-  - olfactory (20 million)
-  - thermo ...
-  - mechano ...
-  - pain ...
-  - proprio ... 
-- 1 billion receptors at 1 kHz each is .r[1 terabit per second]
-- Optimized to minimize false *negatives* 
-      - is that a tiger?
 
+- 1 billion years of evolution for human perceptual capacities
+- 1 billion receptors at 1 kHz each is .r[1 terabit per second]
+- Minimize false *negatives*: is that a tiger?
+
+<img src="images/tiger.jpg" STYLE="width:90%"/>
 
 
 ---
@@ -105,7 +100,7 @@ class:inverse
 --
 
 - volume of cube &rarr; 1
-- volume of ball $\frac{\pi^{n/2}}{(n/2 +1)!}$ &rarr; 0
+- volume of ball $\approx \frac{\pi^{n}}{n!}$ &rarr; 0
 - ball contains no volume in high-dimensions
 
 
@@ -141,7 +136,7 @@ The usual estimator of the mean of a multivariate Gaussian is inadmissable
 
 ### Summary 
 
-Don't trust your intuition, it evolved poorly to solve this problem.
+Don't trust intuition, it sucks at this.
 
 
 ---
@@ -149,21 +144,35 @@ class: middle, inverse
 
 ## .center[Potential Solutions?]
 
-<!-- 1. better brains 
-2. artificial brains 
-3. human + artificial brains -->
+--
+
+.center[(time check?)]
 
 
 ---
 
-### #1: Impose selective pressures 
+### #1: Build Better Human Brains
 
+1. Impose selective pressures 
 1. wait 1,000 generations
-2. have better brains
+2. have better human brains
 
 ---
 
-### #2: Use Domain Expertise on its own 
+### #2: Build Knowledge Systems
+
+
+<!-- <img src="images/LSVRC-winners-over-time.png" STYLE="width:100%"/> -->
+
+.center[
+<img src="images/lion_parrots.jpg" STYLE="width:20%"/>
+<!-- <img src="images/lion_parrots_upsidedown.jpg" STYLE="width:20%"/> -->
+]
+
+
+---
+
+### #2: Build Knowledge Systems
 
 
 <!-- <img src="images/LSVRC-winners-over-time.png" STYLE="width:100%"/> -->
@@ -175,11 +184,12 @@ class: middle, inverse
 
 
 
+
 .footnote[AI Winter #2]
 
 ---
 
-### #3: Use Deep Learning on its own
+### #3: Build Learning Systems
 
 
 <img src="images/compute_diagram-linear@2x-5.png" STYLE="width:100%"/>
@@ -191,9 +201,9 @@ class: middle, inverse
 
 ### Approaches that will fail 
 
-1. evolution 
-2. just parametric modeling
-3. just deep learning
+1. better human brains (evolution) 
+2. just parametric modeling (knowledge systems)
+3. just deep learning (machine learning systems)
 
 
 

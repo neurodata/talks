@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NeuroDataSets</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+name:opening
+
+## NeuroDataSets
+
+Joshua T. Vogelstein
+
+<img src="images/neurodata_purple.png" style="height:250px; float:right;"/>
+
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+
+.foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks/> | [@neuro_data](https://twitter.com/neuro_data)]
+
+
+---
+
+## list of projects 
+
+- description, goal, next 
+- people/teams that claim one means that they will work on it and be first author on paper that we write about it this year 
+- will involve some data munging, some analysis, possibly some novel methods development
+- will be the top research priority for people who claim it
+- will visit the data generators in next month or so to get more details / make more plans
+- goal is to submit nature paper nlt end of calendar year
+
+
+---
+
+### Satterthwaite Irritation (pitt)
+
+- human dMRI graphs provided
+- ~100 subjects 
+- age, sex, irritation provided 
+
+<br>
+- goal: find signal subgraph with > chance accuracy
+- next: run different signal subgraph codes on data 
+
+.footnote[guodong?]
+
+
+---
+
+### Satterthwaite Multiview biclustering (pitt)
+
+- several hundred humans 
+- multiple views of each, including structural brain imaging, dMRI, psychiatric evaluation 
+
+<br>
+
+- goal: learn an interpretable joint embedding
+- next: get data, start writing what to do on whiteboard, consider both RF-based on linear-based methods
+
+
+---
+
+### kiehl (new mexico)
+
+- human strucual MRI & derived features 
+- ~500 subjects 
+- age, sex, {murderer, violent non-murderer, non-violent}
+
+<br>
+
+
+- goal: classification > 0.55 accuracy 
+- next: run RerF on data
+
+
+.footnote[alex?]
+
+
+---
+
+### tolias (baylor/houston)
+
+- mouse single cell ophys 
+- $>$6,300 cells
+- 40k time steps 
+- time-varying stimulus
+
+<br>
+
+
+- goal: estimate time-varying intrinsic dimension and/or amount of information brain data has about stimulus
+- next: run URerF on data, 
+- next: extend RerF to support multivariate regression 
+
+.footnote[meghana?]
+
+
+---
+
+### hillman (columbia)
+
+- mouse wide field ophys
+- 512 x 512 times for several thousand time steps 
+- i don't think we have stimulus 
+
+<br>
+
+
+- goal: estimate time-varying intrinsic dimension and/or amount of information brain data has about stimulus
+- next: parallel/distributed implementation of RerF/URerF 
+
+.footnote[meghana?]
+
+---
+
+### honey  (jhu)
+
+- 2 human fMRI datasets, each with ~200 ROIs and ~200 time-steps
+- we could get stimulus 
+
+<br>
+
+
+- goal: estimate time-varying intrinsic dimensions and/or amount of information brain data has about stimulus
+- next: run URerF on data
+
+.footnote[meghana?]
+
+
+---
+
+### c elegans (einstein in nyc)
+
+- 2 sexes, 2 connectomes each 
+- brain across sexes are partially matched 
+- cell lineage for each neuron 
+
+<br>
+
+
+- goal: hclust graph in such a way to "matches" lineage 
+- next: run hclust on data
+
+
+.footnote[pedigo?]
+
+---
+
+### drosophila model selection (janelia/cambridge)
+
+- 2 mushroom bodies (left and right) 
+- left and right not perfectly matched 
+
+<br>
+
+
+- goal: model selection 
+- next: get updated data from michael winding 
+
+
+.footnote[pedigo?]
+
+
+---
+
+### drosophila bilateral homology (janelia/cambridge)
+
+- left and right mushroom bodies 
+
+<br>
+
+
+- goal: test whether left is equivalent to right 
+- next: get up to date on me + cep + brandon results 
+
+
+.footnote[pedigo?]
+
+---
+
+### HCP data (milham, nyc)
+
+- ~1000 subjects human dMRI graphs 
+- mono, di, sib
+
+<br>
+
+
+- goal: quantify heritability 
+- next: update draft? formalize our notion of heritability? is it  discriminability?
+
+.footnote[jaewon]
+
+
+---
+
+### sea lion and coyote  (berns, atlana / milham, nyc)
+
+- 4 sea lions and 4 coyotes 
+- dMRI graph and atlas from each 
+
+<br>
+
+
+- goal: compare and contrast 
+- next: do it 
+
+.footnote[nobody?]
+
+
+---
+
+### brazilian child study (milham, nyc)
+
+- several thousand kids 
+- PRS for each 
+- some brain imaging data for each 
+
+<br>
+
+
+- goal: determine which "features" of brain data are associated with which PRS
+- next: get data into "shape"
+
+.footnote[nobody?]
+
+
+---
+
+### human cci (milham, nyc)
+
+- HBN + HCP data including dMRI covariates
+- run signal subgraph on one dataset to find signal subgraph for some covariate 
+- once found for one dataset, run the same exact code on the other dataset, to find approximately same signal subgraph 
+
+<br>
+
+
+goal: find signal subgraph robust to site specific batch effects
+next: get data organized 
+
+.footnote[nobody?]
+
+
+---
+
+### some sebastian data  (sebastian, princeton)
+
+- connectome of something, unclear the details 
+
+
+<br>
+
+- goal: help them cluster (not first author)
+- next: schedule time to visit 
+
+
+
+---
+
+### some jeff data  (jeff, harvard)
+
+- connectome of something, unclear the details 
+
+
+<br>
+
+- goal: help them cluster (not first author)
+- next: schedule time to visit 
+
+
+
+---
+
+### developmental c. elegans (samuel, harvard)
+
+- connectome of c. elegans at multiple developmental stages 
+
+
+<br>
+
+- goal: anything (unclear if 1st author)
+- next: schedule time to visit 
+
+
+
+---
+class:center
+  
+  <img src="images/lion_l2m.JPG" style="position:absolute; top:0px; left:0px; height:100%;"/>
+  
+  
+  
+
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="remark-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+  var slideshow = remark.create(options, renderMath);
+
+</script>
+</body>
+</html>

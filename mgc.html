@@ -485,26 +485,71 @@
 
       For example, are the left and right hemispheres of the larval Drosophila Mushroom Body sampled from the same distribution?
 
-      $G=(V_1,E_1) \sim F_U, \quad H = (V_2, E_2) \sim F_V$
+      $G=(V_1,E_1) \sim F_X, \quad H = (V_2, E_2) \sim F_Y$
 
-      $H\_0: F\_{U} =  F\_V , \quad H\_A: F\_{U} \neq F\_V $
+      $H\_0: F\_{X} =  F\_X , \quad H\_A: F\_{X} \neq F\_Y $
 
       <img src="images/drosophila-right.png"  alt="local"  style="height: 350px;"/>
 
+      ---
+
+      ### Graph Equality Testing 
+
+      For example, are the left and right hemispheres of the larval Drosophila Mushroom Body sampled from the same distribution?
+
+      $G=(V_1,E_1) \sim F_X, \quad H = (V_2, E_2) \sim F_Y$
+
+      $H\_0: F\_{X} =  F\_Y , \quad H\_A: F\_{X} \neq F\_Y $
+
+      <img src="images/mgc-left-v-right-drosophila.png"  alt="local"  style="height: 350px;"/>
+
+      
+      ---
+
+      ### Graph Independence Testing 
+
+      For example, in the Hermaphrodite *C. elegans*, is the chemical synapse connectome independent of the gap junction connectome? 
+
+      $G=(V,E_1, Z_v) \sim F_U, \quad H = (V, E_2, Z_v) \sim F_V$
+
+      $H\_0: F\_{XY|Z} =  F\_{X|Z} F\_{Y|Z} , \quad H\_A: F\_{XY|Z} \neq F\_{X|Z} F\_{Y|Z} $
+
+
+      <img src="images/elegans_connectome.png"  alt="local"  style="height: 350px;"/>
 
       ---
 
       ### Graph Independence Testing 
 
+      For example, in the Hermaphrodite *C. elegans*, is the chemical synapse connectome independent of the gap junction connectome? 
 
+      $G=(V,E_1, Z_v) \sim F_U, \quad H = (V, E_2, Z_v) \sim F_V$
+
+      $H\_0: F\_{XY|Z} =  F\_{X|Z} F\_{Y|Z} , \quad H\_A: F\_{XY|Z} \neq F\_{X|Z} F\_{Y|Z} $
+
+
+
+      <img src="images/celegans_unweighted_ts.png"  alt="local"  style="height: 350px;"/>
+
+      
 
       ---
 
       ### Time Series Testing 
 
+      For example, is a given ROI independent of another ROI?
 
+      Consider a strictly stationary time series $\{(X\_t,Y\_t)\}_{t=0}^{n}$. 
+      Choose some $M$, the "maximum lag" hyperparameter. We wish to test the following hypothesis.
 
-  
+      $$ H\_0: F\_{X\_t,Y\_{t-j}} = F\_{X\_t} F\_{Y\_{t-j}} \text{ for each } j \in \{0, 1, ..., M\}, \ \forall t$$
+      $$ H\_A: F\_{X\_t,Y\_{t-j}} \neq F\_{X\_t} F\_{Y\_{t-j}} \text{ for some } j \in \{0, 1, ..., M\}, \ \forall t$$
+
+      <img src="images/nonlinear-time-series.png"    style="height: 50px;"/>
+      <img src="images/power_curve_nonlinearly_dependent_at_lag_1.png"   style="height: 250px;"/>
+
+      
+      
 
       ---
       class: middle, center
@@ -661,8 +706,6 @@
       - MGC empirically nearly dominates on extensive simulations
       - Visual quantitative characterization of arbitrary relationships
       - MGC reveals geometry of dependence in real data
-
-      <br>
       - MGC mitigate "post selection inference" problems
 
 
@@ -681,13 +724,13 @@
       - MGC + RF [[7]](https://arxiv.org/abs/1812.00029)
       <br>
 
-      ### Forthcoming
+      ### Forthcoming (drafts available upon request)
 
       - mgpy [[8]](https://github.com/neurodata/mgcpy)
       - fast mgc [9]
       - graph independence testing [10]
       - graph two sample testing [11]
-      - time series mgc[12]
+      - time series mgc [12]
 
       ---
 
@@ -695,36 +738,207 @@
 
       <br><br>
 
-      - Make R package from open source code ([github link](https://github.com/neurodata/mgc))
-      - Scale up for larger n
+      - Get you going with it ([download here](https://neurodata.io/mgc))
+      - Apply it to your data
 
 
       ---
-      class:   middle, center
 
 
-      ## Questions?
+      ---
+      ### Acknowledgements
+      
+      [jovo@jhu.edu](mailto:jovo@jhu.edu) | [neurodata.io](https://neurodata.io) | [@neuro_data](https://twitter.com/neuro_data)
+      
+      <div class="small-container">
+        <img src="faces/cep.png"/>
+        <div class="centered">Carey Priebe</div>
+      </div>
+      
+      <!-- <div class="small-container">
+        <img src="faces/randal.jpg"/>
+        <div class="centered">Randal Burns</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/mim.jpg"/>
+        <div class="centered">Michael Miller</div>
+      </div> -->
+      
+      <!-- <div class="small-container">
+        <img src="faces/dtward.jpg"/>
+        <div class="centered">Daniel Tward</div>
+      </div> -->
+            
+      <div class="small-container">
+        <img src="faces/ebridge.jpg"/>
+        <div class="centered">Eric Bridgeford</div>
+      </div>
+      
+      <!-- <div class="small-container">
+        <img src="faces/vikram.jpg"/>
+        <div class="centered">Vikram Chandrashekhar</div>
+      </div>
+       -->
+      
+      <div class="small-container">
+        <img src="faces/drishti.jpg"/>
+        <div class="centered">Drishti Mannan</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/jesse.jpg"/>
+        <div class="centered">Jesse Patsolic</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/falk_ben.jpg"/>
+        <div class="centered">Benjamin Falk</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/kwame.jpg"/>
+        <div class="centered">Kwame Kutten</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/perlman.jpg"/>
+        <div class="centered">Eric Perlman</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/loftus.jpg"/>
+        <div class="centered">Alex Loftus</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/bcaffo.jpg"/>
+        <div class="centered">Brian Caffo</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/minh.jpg"/>
+        <div class="centered">Minh Tang</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/avanti.jpg"/>
+        <div class="centered">Avanti Athreya</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/vince.jpg"/>
+        <div class="centered">Vince Lyzinski</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/dpmcsuss.jpg"/>
+        <div class="centered">Daniel Sussman</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/youngser.jpg"/>
+        <div class="centered">Youngser Park</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/cshen.jpg"/>
+        <div class="centered">Cencheng Shen</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/shangsi.jpg"/>
+        <div class="centered">Shangsi Wang</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/tyler.jpg"/>
+        <div class="centered">Tyler Tomita</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/james.jpg"/>
+        <div class="centered">James Brown</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/disa.jpg"/>
+        <div class="centered">Disa Mhembere</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/pedigo.jpg"/>
+        <div class="centered">Ben Pedigo</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/jaewon.jpg"/>
+        <div class="centered">Jaewon Chung</div>
+      </div>
+      
+      
+      <div class="small-container">
+        <img src="faces/gkiar.jpg"/>
+        <div class="centered">Greg Kiar</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/satish.jpg"/>
+        <div class="centered">Satish</div>
+      </div>
+      
+      <div class="small-container">
+        <img src="faces/jesus.jpg"/>
+        <div class="centered">Jesus</div>
+      </div>
 
+      <div class="small-container">
+        <img src="faces/ronak.jpg"/>
+        <div class="centered">Ronak</div>
+      </div>
 
+      <div class="small-container">
+        <img src="faces/bear.jpg"/>
+        <div class="centered">bear</div>
+      </div>
+
+      
+      <div class="small-container">
+        <img src="faces/brandon.jpg"/>
+        <div class="centered">Brandon</div>
+      </div>
+
+      <div class="small-container">
+        <img src="faces/rguo.jpg"/>
+        <div class="centered">Richard Guo</div>
+      </div>
+
+      
+
+      
+      <div class="small-container">
+        <img src="faces/jeremias.png"/>
+        <div class="centered">Jeremias Sulam</div>
+
+      </div> <span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+      
+      <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+      <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+      <img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+      <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+      <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+      <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+      
       <br>
 
 
-      e: [jovo@jhu.edu](mailto:jovo@jhu.edu)
-      <br>
-      w: [neurodata.io/tools#MGC/](http://neurodata.io/tools#MGC)
+      ---
 
 
-      <img src="http://brainx.io/images/funding/nsf_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:10px; HEIGHT:100px;"/>
 
-      <img src="http://brainx.io/images/funding/nih_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:120px; HEIGHT:100px;"/>
+      <img src="images/lion_l2m.JPG" style="position:absolute; top:0px; left:0px; height:100%;"/>
 
-      <img src="http://brainx.io/images/funding/darpa_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:230px; HEIGHT:100px;"/>
 
-      <img src="http://brainx.io/images/funding/iarpa_fpo.jpg" STYLE="position:absolute; TOP:550px; LEFT:430px; HEIGHT:100px;"/>
-
-      <img src="http://brainx.io/images/funding/kavli_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:550px; HEIGHT:100px;"/>
-
-      <img src="http://brainx.io/images/funding/kndi_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:650px; HEIGHT:100px;"/>
 
 
 
@@ -743,31 +957,8 @@
       | HHG |  n<sup>2</sup> log n |
       | MGC |  n<sup>2</sup> log n / T  |
 
-      - MATLAB and R code at [http://neurodata.io/tools#MGC](http://neurodata.io/tools#MGC)
+      - Python, MATLAB and R code at [http://neurodata.io/mgc](http://neurodata.io/mgc)
 
-
-
-      <!-- --- -->
-
-      <!-- ### 1D Power All -->
-
-
-      <!-- <img src="https://github.com/neurodata/MGC/raw/master/Figures/Fig1DPowerAll.png" alt="Drawing" style="width: 800px;"/> -->
-
-
-      <!-- --- -->
-
-      <!-- ### HD Power All -->
-
-
-      <!-- <img src="https://github.com/neurodata/MGC/raw/master/Figures/FigHDPowerAll.png" alt="Drawing" style="width: 800px;"/> -->
-
-
-      <!-- --- -->
-
-      <!-- ### 1D Heat -->
-
-      <!-- <img src="https://github.com/neurodata/MGC/raw/master/Figures/Fig1DHeat.png" alt="Drawing" style="width: 800px;"/> -->
 
 
     </textarea>

@@ -106,14 +106,15 @@
       ---
       class: top, left
 
-      ## Outline of Talk
+      ## Outline
 
       <br>
 
       - intuition
       - simulations
-      - theory
       - real data
+      - extensions
+      - theory
       - discussion
 
 
@@ -281,34 +282,6 @@
       - Question 2: how are they related?
 
 
-      ---
-
-      ### K-Sample Tests are Independence Tests
-
-      Recall this definition of independence testing
-
-      $$(X\_i,Y\_i) \sim F\_{XY} = F\_{X|Y} F\_Y, \quad i \in \{1,\ldots,n\}$$
-
-      $$H\_0: F\_{XY} = F\_X F\_Y $$
-      $$H\_A: F\_{XY} \neq F\_X F\_Y $$
-
-      --
-
-      Here is the formal definition of 2-sample testing 
-
-      $$U\_i \sim F_U, \, i \in \{1,\ldots,n\} \quad V\_i \sim F\_V, \, i \in \{1,\ldots,m\}$$
-
-      $$H\_0: F\_{U} =  F\_V $$
-      $$H\_A: F\_{U} \neq F\_V $$
-
-      --
-
-      Let $X = [U\_1, \ldots U\_n | V\_1,\ldots, V\_m]$ and $Y=[0 \ldots 0 | 1 \cdots 1 ]$.
-
-      Now, testing whether $X$ and $Y$ are independent is equivalent to testing whether $F_U$ and $F_V$ are the same. 
-
-
-
 
       ---
       class: middle, center
@@ -379,40 +352,6 @@
 
 
 
-      ---
-      class: top, left
-
-      ### 20 Different 2-Sample Functions (2D version)
-
-
-      <img src="images/mgc-rotation-sims.png"  alt="local"  style="width: 85%;"/>
-
-
-      ---
-      class: top, left
-
-      ###  Relative Power vs Sample Size for 2D Rotations 
-
-      <img src="images/mgc-rotation-samplesize.png"  alt="local"  style="width: 82%;"/>
-
-
-
-      ---
-      class: top, left
-
-      ###  Relative Power vs Angle for 2D Rotations 
-
-      <img src="images/mgc-rotation-angles.png"  alt="local"  style="width: 82%;"/>
-
-
-      ---
-      class: top, left
-
-      ###  Relative Power vs Dimension for Rotations 
-
-      <img src="images/mgc-rotation-dimension.png"  alt="local"  style="width: 82%;"/>
-
-
 
 
       ---
@@ -453,24 +392,124 @@
 
       ### MGC Discovers Relationships between Brain & Mental Properties
 
-      <br><br>
-
-      <img src="images/table.png" alt="Drawing" style="width: 100%;"/>
+      <img src="images/mgc-real-brain.png" alt="Drawing" style="width: 100%;"/>
+      <img src="images/mgc-brain-table.png" alt="Drawing" style="width: 100%;"/>
 
 
       ---
       class: top, left
 
-      ### MGC Reveals Geometry of Real Data
+      ### MGC Discovers Pancreatic Cancer Biomarkers
+
+      <img src="images/mgc-real-cancer.png" alt="Drawing" style="width: 100%;"/>
+
+      ---
+      class: middle 
+
+      # .center[extensions]
+
+      ---
+
+      ### Fast MGC 
+
+      <img src="images/mgc-time.png" style="height: 550px;"/>
+      
+
+      ---
+
+      ### K-Sample Tests are Independence Tests
+
+      Recall this definition of independence testing
+
+      $$(X\_i,Y\_i) \sim F\_{XY} = F\_{X|Y} F\_Y, \quad i \in \{1,\ldots,n\}$$
+
+      $$H\_0: F\_{XY} = F\_X F\_Y $$
+      $$H\_A: F\_{XY} \neq F\_X F\_Y $$
+
+      --
+
+      Here is the formal definition of 2-sample testing 
+
+      $$U\_i \sim F_U, \, i \in \{1,\ldots,n\} \quad V\_i \sim F\_V, \, i \in \{1,\ldots,m\}$$
+
+      $$H\_0: F\_{U} =  F\_V $$
+      $$H\_A: F\_{U} \neq F\_V $$
+
+      --
+
+      Let $X = [U\_1, \ldots U\_n | V\_1,\ldots, V\_m]$ and $Y=[0 \ldots 0 | 1 \cdots 1 ]$.
+
+      Now, testing whether $X$ and $Y$ are independent is equivalent to testing whether $F_U$ and $F_V$ are the same. 
+  
+  
+
+      ---
+      class: top, left
+
+      ### 20 Different 2-Sample Functions (2D version)
 
 
-      <img src="images/Fig4_jk_v5.png" style="width: 100%;"/>
+      <img src="images/mgc-rotation-sims.png"  alt="local"  style="height: 550px;"/>
 
+
+      ---
+      class: top, left
+
+      ###  Relative Power vs Sample Size for 2D Rotations 
+
+      <img src="images/mgc-rotation-samplesize.png"  alt="local"  style="height: 550px;"/>
+
+
+
+      ---
+      class: top, left
+
+      ###  Relative Power vs Angle for 2D Rotations 
+
+      <img src="images/mgc-rotation-angles.png"  alt="local"  style="height: 550px;"/>
+
+
+      ---
+      class: top, left
+
+      ###  Relative Power vs Dimension for Rotations 
+
+      <img src="images/mgc-rotation-dimension.png"  alt="local"  style="height: 550px;"/>
+
+
+
+
+      ---
+
+      ### Graph Equality Testing 
+
+      For example, are the left and right hemispheres of the larval Drosophila Mushroom Body sampled from the same distribution?
+
+      $G=(V_1,E_1) \sim F_U, \quad H = (V_2, E_2) \sim F_V$
+
+      $H\_0: F\_{U} =  F\_V , \quad H\_A: F\_{U} \neq F\_V $
+
+      <img src="images/drosophila-right.png"  alt="local"  style="height: 350px;"/>
+
+
+      ---
+
+      ### Graph Independence Testing 
+
+
+
+      ---
+
+      ### Time Series Testing 
+
+
+
+  
 
       ---
       class: middle, center
 
-      # theory
+      # .center[theory]
 
 
       ---
@@ -629,22 +668,26 @@
 
       ---
 
-      ### Some Extensions
+      ### References
 
       <br>
 
-      - Foundational theory for MGC [[1]](https://arxiv.org/abs/1710.09768)
-      - MGC for independence between graph topology & attributes [[2]](https://arxiv.org/abs/1703.10136)
-      - MGC for signal subgraph detection [[3]](https://arxiv.org/abs/1801.07683)
-      - MGC for clustering (ish) [[4]](https://arxiv.org/abs/1710.09859)
-
+      - MGC for scientists [[1]](https://elifesciences.org/articles/41690)
+      - Foundational theory for MGC [[2]](https://www.tandfonline.com/doi/full/10.1080/01621459.2018.1543125)
+      - MGC for independence between graph topology & attributes [[3]](https://arxiv.org/abs/1703.10136)
+      - MGC for signal subgraph detection [[4]](https://arxiv.org/abs/1801.07683)
+      - MGC for clustering (ish) [[5]](https://arxiv.org/abs/1710.09859)
+      - Energy and kernel tests are equivalent [[6]](https://arxiv.org/abs/1806.05514)
+      - MGC + RF [[7]](https://arxiv.org/abs/1812.00029)
       <br>
 
-      - MGC for K-sample testing
-      - MGC for feature selection
-      - MGC for batch effect detection
-      - MGC for effect size characterization
+      ### Forthcoming
 
+      - mgpy [[8]](https://github.com/neurodata/mgcpy)
+      - fast mgc [9]
+      - graph independence testing [10]
+      - graph two sample testing [11]
+      - time series mgc[12]
 
       ---
 

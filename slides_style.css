@@ -12,6 +12,9 @@ h1, h2, h3, h4, h5, h6 {
   text-align: left;
   /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
 }
+
+
+
 .remark-slide-content {
   font-size: 1.5em;
   background: #FFFFFF;
@@ -19,7 +22,6 @@ h1, h2, h3, h4, h5, h6 {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 
 hi {
 position: absolute;
@@ -35,6 +37,7 @@ top: 50px;
   bottom: 1em;
   left: 2em;
 }
+
 .navbar {
   position: absolute;
   float: center;
@@ -249,10 +252,10 @@ th {
   opacity: 0; /* default: 0.5 */
 }
 
-.remark-slide-content {
+/* .remark-slide-content {
   background-size: contain;
   background-position: center;
-}
+} */
 /*code.has-jax {
   font: inherit;
   font-size: 100%;

@@ -410,6 +410,47 @@
 
       ---
 
+      #### Categorical Features 
+
+      - All testing depends on measuring similarity/distance between observations 
+      - Let $Y=$ {normal, condition 1, condition 2}
+      - $d(y_i,y_j) = 0$ if $y_i = y_j$ 
+      - $d(y_i,y_j) = 1$ if $y_i \neq y_j$
+      - Then everything just works :)
+
+      #### Mixed Data 
+
+      - Define similarity/distance appropriately for each feature, then combine.
+      - In theory, the normalization procedure will work appropriately, though not yet tested.
+
+      #### Missing Data & Outliers
+
+      - *Missing* Does not yet work, though see RerF talk later today for ideas
+      - *Outliers* Natively handled, probably best to include them, otherwise, the statistics get (more) complicated. But haven't tested carefully.
+
+
+      ---
+      
+      ### Computational Considerations 
+
+      <br>
+
+      - n is # of samples 
+      - T is # of threads
+
+      | Method | Complexity |
+      | :---: | :---: |
+      | Dcorr |  n<sup>2</sup> |
+      | HHG |  n<sup>2</sup> log n |
+      | MGC |  n<sup>2</sup> log n / T  |
+
+      - Python, MATLAB and R code at [http://neurodata.io/mgc](http://neurodata.io/mgc)
+
+
+
+      ---
+
+
       ### Fast MGC 
 
       <img src="images/mgc-time.png" style="height: 550px;"/>
@@ -489,7 +530,8 @@
 
       $H\_0: F\_{X} =  F\_X , \quad H\_A: F\_{X} \neq F\_Y $
 
-      <img src="images/drosophila-right.png"  alt="local"  style="height: 350px;"/>
+      <img src="images/drosophila-left.png"  alt="local"  style="height: 300px;"/>
+      <img src="images/drosophila-right.png"  alt="local"  style="height: 300px;"/>
 
       ---
 
@@ -938,25 +980,6 @@
       <img src="images/lion_l2m.JPG" style="position:absolute; top:0px; left:0px; height:100%;"/>
 
 
-
-
-
-      ---
-
-      ### Computational Desiderata
-
-      1. fast
-      2. open source
-
-      <br>
-
-      | Method | Complexity |
-      | :---: | :---: |
-      | Dcorr |  n<sup>2</sup> |
-      | HHG |  n<sup>2</sup> log n |
-      | MGC |  n<sup>2</sup> log n / T  |
-
-      - Python, MATLAB and R code at [http://neurodata.io/mgc](http://neurodata.io/mgc)
 
 
 

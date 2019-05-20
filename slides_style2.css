@@ -134,6 +134,22 @@ th {
   object-fit: cover;
 }
 
+
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-left30 {
+  float: left;
+  width: 28%;
+}.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right70 {
+  float: right;
+  width: 70%;
+}
 /**********/
 /* Slides */
 /**********/

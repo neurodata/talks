@@ -421,6 +421,23 @@
 
 
 
+
+      ---
+      class: middle, center
+
+      # .center[real data] 
+
+
+      ---
+
+      ### Benchmark Suite 
+
+      - 100+ benchmark problems from previous literature 
+      - sample sizes range from 10's to 1000's 
+      - dimensions range from 10's to 1000's 
+      - previous result: RF better than all existing classifiers
+
+
       ---
 
       ###  Empirical Performance (Numeric)
@@ -438,76 +455,12 @@
 
 
       ---
-      class: top, left
 
-      ###  HD Relative Power (MGC nearly dominates)
+      ### Summary so far 
 
+      - random forest was the best classifier 
+      - now, randomer forest is
 
-      <img src="images/mgc-HDPower.png"  alt="local"  style="width: 100%;"/>
-
-      ---
-      class: top, left
-
-      ###  MGC Outperforms Benchmarks
-
-
-      <br>
-
-
-      <img src="images/mgc-table.png"  alt="local"  style="width: 100%;"/>
-
-
-
-
-
-      ---
-      class: top, left
-
-      #### MGC Reveals Geometry of Dependence
-
-      <img src="images/mgc-maps.png"  alt="local"  style="width: 100%;"/>
-
-      <!-- .center[
-      <img src="https://github.com/neurodata/MGC/raw/master/Figures/FigHDHeat.png"  style="width: 900px;"/>
-      ] -->
-
-
-
-
-      ---
-      class: middle, center
-
-      # .center[real data] 
-
-
-      ---
-      class: top, left
-
-
-      ### Real Data Desiderata
-
-      <br>
-
-      1. when we believe dependence, MGC obtains a small p-value
-      2. MGC provides insight into the geometry of real dependence
-      3. when there is no dependence, MGC correcly controls FPR
-
-
-      ---
-      class: top, left
-
-      ### MGC Discovers Relationships between Brain & Mental Properties
-
-      <img src="images/mgc-real-brain.png" alt="Drawing" style="width: 100%;"/>
-      <img src="images/mgc-brain-table.png" alt="Drawing" style="width: 100%;"/>
-
-
-      ---
-      class: top, left
-
-      ### MGC Discovers Pancreatic Cancer Biomarkers
-
-      <img src="images/mgc-real-cancer.png" alt="Drawing" style="width: 100%;"/>
 
       ---
       class: middle 
@@ -516,201 +469,184 @@
 
       ---
 
-      #### Categorical Features 
+      ## Random Projections 
 
-      - All testing depends on measuring similarity/distance between observations 
-      - Let $Y=$ {normal, condition 1, condition 2}
-      - $d(y_i,y_j) = 0$ if $y_i = y_j$ 
-      - $d(y_i,y_j) = 1$ if $y_i \neq y_j$
-      - Then everything just works :)
+      - RF does feature selection
+      - Feature selection is actually a sparse matrix multiplication 
+      - We can do other kinds of sparse matrix multiplies
 
-      #### Mixed Data 
+      ---
 
-      - Define similarity/distance appropriately for each feature, then combine.
-      - In theory, the normalization procedure will work appropriately, though not yet tested.
 
-      #### Missing Data & Outliers
 
-      - *Missing* Does not yet work, though see RerF talk later today for ideas
-      - *Outliers* Natively handled, probably best to include them, otherwise, the statistics get (more) complicated. But haven't tested carefully.
+      ### Classifying 2D Images via Structured RerF
+
+      <img src="images/rerf_image_stripes.png"   style="width: 70%;"/>
+
+      ---
+
+
+      ### Classifying on a Torus 
+
+      .pull-left[
+      <img src="images/rerf_circles.png"   style="width: 100%;"/>  ]
+
+      .pull-right[
+      <img src="images/rerf_compare_algorithms_table5.png"   style="width: 100%;"/>]
+
+      ---
+
+      ## Computational Considerations
+
+      - Train time
+      - Scalability
+      - Test time
+
+      ---
+      
+      ### Training Time 
+
+      <img src="images/rerf_train_time.png"   style="width: 100%;"/>
+
+      ---
+
+      ### Scalability
+
+      <img src="images/rerf_speed_scaling.png"   style="width: 60%;"/>
 
 
       ---
       
-      ### Computational Considerations 
+      ### Testing Time 
 
-      <br>
-
-      - n is # of samples 
-      - T is # of threads
-
-      | Method | Complexity |
-      | :---: | :---: |
-      | Dcorr |  n<sup>2</sup> |
-      | HHG |  n<sup>2</sup> log n |
-      | MGC |  n<sup>2</sup> log n / T  |
-
-      - Python, MATLAB and R code at [http://neurodata.io/mgc](http://neurodata.io/mgc)
-
+      <img src="images/rerf_forest_packing.png"   style="width: 60%;"/>
 
 
       ---
 
 
-      ### Fast MGC 
+      ## Special Considerations 
 
-      <img src="images/mgc-time.png" style="height: 550px;"/>
+
+      - *Mixed data* some problems, "unbiased recursive partitioning" can mitigate them
+      - *Missing data* in theory, no problem 
+      - *Outliers* in practice, no problem 
+      - *Regression* in certain implementations, no problem 
+      - *Very large sample size* in our implementation, no problem
+
+      ---
+
+      ### Universal Consistency 
+
+      <img src="images/rerf_error_rate_consistency.png"   style="width: 100%;"/>
+
+
+      ---
+
+      ## Geodesic Learning 
+
+      - Assume data live near a low-dimensional manifold 
+      - But we observe data in high-dimensional space 
+      - Find the nearest neighbors (nn) on the manifold
+
+      #### Metrics 
+
+      - *Geodesic Recall @ k* fraction of estimated k-nn that are k-nn on the  manifold 
+      - Compute average GR@k over all points
+
+      #### Algorithms 
+
+      - *Euclidean* (just compute Euclidean distances in observed dimensions)
+      - *Isomap* 
+      - *UMAP* 
+      - *Random Forest* 
+      - *URerF*
+
+      ---
+
+      ### Simulated Datasets 
+
+
+      <img src="images/urerf_synthetic_datasets.png"   style="width: 100%;"/>
+      
+      - Each has low-dimensional points
+      - We add noise dimensions
+
+      ---
+
+      ### Simulated Results for Low Dimensions
+
+      <img src="images/urerf_varying_dim_adele_with_euc.png"   style="width: 100%;"/>
+     
+
+      ---
+
+      ### Simulated Results for High Dimensions
+
+      <img src="images/urerf_varying_dim_adele_10k_d_with_euc.png"   style="width: 100%;"/>
+     
+      ---
+
+      ### Real Data 
+
+
+      .pull-left[<img src="images/Fig15-new-right.png"   style="width: 100%;"/>]
+      .pull-right[<img src="images/urerf_dros_fig.png"   style="width: 100%;"/>]
       
 
       ---
 
-      ### K-Sample Tests are Independence Tests
-
-      Recall this definition of independence testing
-
-      $$(X\_i,Y\_i) \sim F\_{XY} = F\_{X|Y} F\_Y, \quad i \in \{1,\ldots,n\}$$
-
-      $$H\_0: F\_{XY} = F\_X F\_Y $$
-      $$H\_A: F\_{XY} \neq F\_X F\_Y $$
-
-      --
-
-      Here is the formal definition of 2-sample testing 
-
-      $$U\_i \sim F_U, \, i \in \{1,\ldots,n\} \quad V\_i \sim F\_V, \, i \in \{1,\ldots,m\}$$
-
-      $$H\_0: F\_{U} =  F\_V $$
-      $$H\_A: F\_{U} \neq F\_V $$
-
-      --
-
-      Let $X = [U\_1, \ldots U\_n | V\_1,\ldots, V\_m]$ and $Y=[0 \ldots 0 | 1 \cdots 1 ]$.
-
-      Now, testing whether $X$ and $Y$ are independent is equivalent to testing whether $F_U$ and $F_V$ are the same. 
-  
-  
-
-      ---
-      class: top, left
-
-      ### 20 Different 2-Sample Functions (2D version)
+      ## Mutual Information
 
 
-      <img src="images/mgc-rotation-sims.png"  alt="local"  style="height: 550px;"/>
-
-
-      ---
-      class: top, left
-
-      ###  Relative Power vs Sample Size for 2D Rotations 
-
-      <img src="images/mgc-rotation-samplesize.png"  alt="local"  style="height: 550px;"/>
-
-
-
-      ---
-      class: top, left
-
-      ###  Relative Power vs Angle for 2D Rotations 
-
-      <img src="images/mgc-rotation-angles.png"  alt="local"  style="height: 550px;"/>
-
-
-      ---
-      class: top, left
-
-      ###  Relative Power vs Dimension for Rotations 
-
-      <img src="images/mgc-rotation-dimension.png"  alt="local"  style="height: 550px;"/>
-
-
+      - RF learns two things: 
+        - a partition of the data 
+        - a posterior in each partition 
+      - Can do them separately
+      - Can correct for finite sample bias
 
 
       ---
 
-      ### Graph Equality Testing 
+      ### Estimating Posteriors/Quantiles 
 
-      For example, are the left and right hemispheres of the larval Drosophila Mushroom Body sampled from the same distribution?
-
-      $G=(V_1,E_1) \sim F_X, \quad H = (V_2, E_2) \sim F_Y$
-
-      $H\_0: F\_{X} =  F\_X , \quad H\_A: F\_{X} \neq F\_Y $
-
-      <img src="images/drosophila-left.png"  alt="local"  style="height: 300px;"/>
-      <img src="images/drosophila-right.png"  alt="local"  style="height: 300px;"/>
+      <img src="images/cf_posterior_combined_and_var.png"   style="width: 100%;"/>
 
       ---
 
-      ### Graph Equality Testing 
-
-      For example, are the left and right hemispheres of the larval Drosophila Mushroom Body sampled from the same distribution?
-
-      $G=(V_1,E_1) \sim F_X, \quad H = (V_2, E_2) \sim F_Y$
-
-      $H\_0: F\_{X} =  F\_Y , \quad H\_A: F\_{X} \neq F\_Y $
-
-      <img src="images/mgc-left-v-right-drosophila.png"  alt="local"  style="height: 350px;"/>
-
-      
-      ---
-
-      ### Graph Independence Testing 
-
-      For example, in the Hermaphrodite *C. elegans*, is the chemical synapse connectome independent of the gap junction connectome? 
-
-      $G=(V,E_1, Z_v) \sim F_U, \quad H = (V, E_2, Z_v) \sim F_V$
-
-      $H\_0: F\_{XY|Z} =  F\_{X|Z} F\_{Y|Z} , \quad H\_A: F\_{XY|Z} \neq F\_{X|Z} F\_{Y|Z} $
+      ### Estimating Mutual Information 
 
 
-      <img src="images/elegans_connectome.png"  alt="local"  style="height: 350px;"/>
+      <img src="images/cf_mi_normalized_all.png"   style="height: 550px;"/>
+            
 
       ---
 
-      ### Graph Independence Testing 
-
-      For example, in the Hermaphrodite *C. elegans*, is the chemical synapse connectome independent of the gap junction connectome? 
-
-      $G=(V,E_1, Z_v) \sim F_U, \quad H = (V, E_2, Z_v) \sim F_V$
-
-      $H\_0: F\_{XY|Z} =  F\_{X|Z} F\_{Y|Z} , \quad H\_A: F\_{XY|Z} \neq F\_{X|Z} F\_{Y|Z} $
+      ### Real Data Mutual Information 
 
 
-      <img src="images/celegans_unweighted_ts.png"  alt="local"  style="height: 350px;"/>
+      .pull-left[<img src="images/Fig15-new-right.png"   style="width: 100%;"/>]
+
+      .pull-right[
+      - CF: 0.65
+      - KSG: 0.24
+      - Mixed KSG: 0.05]
 
       ---
 
-      ### Graph Topology vs Vertex Attribute Testing 
-      
-      For example, in the *C elegans*, each node/neuron has an attribute (e.g., location), and we desire to understand whether connectivity and cell type are independent.
+      ### RerF Independence Testing
 
-      $G=(V,E, Z_v) \sim F_{UZ}$
-
-      $H\_0: F\_{EZ} =  F\_{E} F\_{Z} , \quad H\_A: F\_{EZ} \neq F\_{E} F\_{Z} $
-
-      <img src="images/celegans_connectome-v-location.png"  style="height: 300px;"/>
-      <img src="images/mgc-celegans_v_location.png"  style="height: 300px;"/>
-      
-
+      - can use RF "kernel" in MGC 
+      - can directly estimate MI 
 
 
       ---
 
-      ### Time Series Testing 
 
-      For example, is a given ROI independent of another ROI?
 
-      Consider a strictly stationary time series $\{(X\_t,Y\_t)\}_{t=0}^{n}$. 
-      Choose some $M$, the "maximum lag" hyperparameter. We wish to test the following hypothesis.
+      <img src="images/rerf-mgc-hd-power.png"   style="height: 550px;"/>
 
-      $$ H\_0: F\_{X\_t,Y\_{t-j}} = F\_{X\_t} F\_{Y\_{t-j}} \text{ for each } j \in \{0, 1, ..., M\}, \ \forall t$$
-      $$ H\_A: F\_{X\_t,Y\_{t-j}} \neq F\_{X\_t} F\_{Y\_{t-j}} \text{ for some } j \in \{0, 1, ..., M\}, \ \forall t$$
 
-      <img src="images/nonlinear-time-series.png"    style="height: 50px;"/>
-      <img src="images/power_curve_nonlinearly_dependent_at_lag_1.png"   style="height: 250px;"/>
-
-      
-      
 
       ---
       class: middle, center
@@ -722,139 +658,26 @@
       class: top, left
 
 
-      ### Theoretical Desiderata
+      ### Universal Consistency
 
-      <!-- <br> -->
+      Lemma: RerF is universally consistent regression function
 
-      |  name | principle |
-      |  ---   | --- |
-      |  boundedness | $0 \leq t,T \leq 1 $|
-      | symmetric   | $T(X,Y) = T(Y,X)$ |
-      |  1-linear. | $  T= 1 \Leftrightarrow y = A x + b$ |
-      |  0-indep. | $T=0 \Leftrightarrow H(X \lvert Y) = H(X)$ |
-      |  ortho. invar. | $T(X,Y) = T(a_1 + b_1  C_1  X, a_2 + b_2  C_2  Y)$ |
 
       --
-      |  univ. consist. | $\beta\_n(T) \to 1, \quad \forall \, F\_{XY}$ |
-      |  dominance | $\beta\_n(T) \geq \beta\_n(T'), \, \forall n,\, T' \in \mathcal{T}, \forall F\_{XY}$ |
-      |  convergence | $\beta_n(t) \to \beta_n(T)$ as $n \to \infty$ |
-      <!-- |  efficiency | $\mathbb{E}\beta_n(t) \geq \mathbb{E}\beta_n(t'), \, \forall n, t' \in \mathcal{T}$ | -->
 
-      <!-- | | comp. efficiency | $\mathcal{O}(d n^2 \log n)$ space and time | -->
-      <!-- 9. "reveal the "geometry/topology" of the relationship" -->
-
-      ---
-      class: top, left
-
-      #### MGC is a Reasonable Dependence Statistic
-
-      <br>
-
-      Thm: Oracle MGC has the following properties:
-
-      - 0 &geq;  MGC &geq; 1
-      - MGC = 0 only under independence
-      - MGC is symmetric
-      - MGC = 1 only under linear relationship
-      - MGC is invariant to rotation, translation, and scale of X and/or Y
+      ### Mutual Information
 
 
-      ---
-      class: left
-
-      ### MGC has power 1 for all F<sub>XY</sub>
-
-      <br><br>
-
-      Lemma: \\( \beta_n (T^*) \to 1  \\) as \\( n \to \infty \\) whenever \\( E [X] < \infty. \\)
-
-      <!-- <img src="images/thm1.png"  style="position:absolute; LEFT: 200px; TOP: 300px; height: 40px;"/> -->
-
-      ---
-      class: left
-
-      ### Linear: Local < Global
-
-      <!-- Thm 2: If x is linearly dependent on y, then for any n it always holds that $\beta_n(c_t^*) = \beta_n(c_t)$ -->
-
-      <br><br>
-
-      Lemma: If x is linearly dependent on y, then it always holds that
-      $$ \beta_n(T^*) = \beta_n(T) $$
-
-      for any n.
+      Lemma: RerF with honest sampling is a consistent estimator of MI
 
 
-      <!-- <img src="images/thm2.png"  style="position:absolute; LEFT: 60px; TOP: 300px; height: 80px;"/> -->
+      --
 
 
-      ---
-      class: left
-
-      ### (Certain) Nonlinear: Local > Global
+      ### URerF is Robust to Noise Dimensions
 
 
-      <br><br>
-
-      Lemma: There exists f and n such that
-
-      $$\beta_n( T^{k,l} ) > \beta_n(T). $$
-
-
-
-      <!-- <img src="images/thm3.png"  style="width: 800px;"/> -->
-
-
-      ---
-      class: left
-
-
-      ### MGC > Dcorr
-
-      <br><br>
-
-      Thm: Oracle MGC statistically dominates dcorr, that is,
-
-      $$\beta_n( T^* ) \geq \beta_n(T). $$
-
-
-      <!-- <img src="images/thm4.png"  style="width: 800px;"/> -->
-
-
-      ---
-      class: left
-
-      ### Sample MGC Converges
-
-
-      <br>
-
-      Thm: For any  F<sub>XY</sub> with finite 1st moment,
-
-      $\beta_n(t^*) \to \beta_n(T^\ast)$ as $n \to \infty$
-
-      if and only if  $\sigma_X$ and $\sigma_Y$  are of strong negative type.
-
-
-
-      ---
-      class: top, left
-
-
-      ### Theoretical Desiderata
-
-      <br>
-
-      |  name | principle |
-      |  ---   | --- |
-      |  boundedness | &#x2705;|
-      |  symmetric | &#x2705;|
-      |  linear. | &#x2705; |
-      |  0-indep. | &#x2705; |
-      |  ortho. invar. | L$_p$ |
-      |  univ. consist. | &#x2705;  |
-      |  dominance | &#x2705; |
-      |  convergence | &#x2705; |
+      Lemma: E[urerf(geodesic)] = E[true geodesic] + constant 
 
 
 
@@ -863,11 +686,13 @@
       ### Overall Summary
 
 
-      - Oracle MGC theoretically dominates, even in finite samples
-      - MGC empirically nearly dominates on extensive simulations
-      - Visual quantitative characterization of arbitrary relationships
-      - MGC reveals geometry of dependence in real data
-      - MGC mitigate "post selection inference" problems
+      - RerF empirically outperforms other classifiers on benchmarks
+      - RerF scales better than other implementations
+      - RerF provides feature importance
+      - RerF can work on non-Euclidean data
+      - RerF can estimate nearest (geodesic) neighbors 
+      - RerF can estimate mutual information 
+      - RerF can implement hypothesis testing
 
 
       ---
@@ -876,22 +701,16 @@
 
       <br>
 
-      - MGC for scientists [[1]](https://elifesciences.org/articles/41690)
-      - Foundational theory for MGC [[2]](https://www.tandfonline.com/doi/full/10.1080/01621459.2018.1543125)
-      - MGC for independence between graph topology & attributes [[3]](https://arxiv.org/abs/1703.10136)
-      - MGC for signal subgraph detection [[4]](https://arxiv.org/abs/1801.07683)
-      - MGC for clustering (ish) [[5]](https://arxiv.org/abs/1710.09859)
-      - Energy and kernel tests are equivalent [[6]](https://arxiv.org/abs/1806.05514)
-      - MGC + RF [[7]](https://arxiv.org/abs/1812.00029)
-      <br>
+      - ROFLMAO [[1]](https://doi.org/10.1137/1.9781611974973.56)
+      - RerF [[2]](http://arxiv.org/abs/1506.03410)
+      - RF Packing [[3]](https://arxiv.org/abs/1806.07300)
+      - RF Kernel [[4]](https://arxiv.org/abs/1812.00029)
 
       ### Forthcoming (drafts available upon request)
 
-      - mgpy [[8]](https://github.com/neurodata/mgcpy)
-      - fast mgc [9]
-      - graph independence testing [10]
-      - graph two sample testing [11]
-      - time series mgc [12]
+      - RF for MI [5]
+      - URerF [6]
+
 
       ---
 
@@ -899,7 +718,7 @@
 
       <br><br>
 
-      - Get you going with it ([download here](https://neurodata.io/mgc))
+      - Get you going with it ([download here](https://neurodata.io/rerf))
       - Apply it to your data
 
 
@@ -916,7 +735,7 @@
         <div class="centered">Carey Priebe</div>
       </div>
       
-      <!-- <div class="small-container">
+      <div class="small-container">
         <img src="faces/randal.jpg"/>
         <div class="centered">Randal Burns</div>
       </div>
@@ -924,7 +743,7 @@
       <div class="small-container">
         <img src="faces/mim.jpg"/>
         <div class="centered">Michael Miller</div>
-      </div> -->
+      </div>
       
       <!-- <div class="small-container">
         <img src="faces/dtward.jpg"/>
@@ -956,15 +775,15 @@
         <div class="centered">Benjamin Falk</div>
       </div>
       
-      <div class="small-container">
+      <!-- <div class="small-container">
         <img src="faces/kwame.jpg"/>
         <div class="centered">Kwame Kutten</div>
-      </div>
+      </div> -->
       
-      <div class="small-container">
+      <!-- <div class="small-container">
         <img src="faces/perlman.jpg"/>
         <div class="centered">Eric Perlman</div>
-      </div>
+      </div> -->
       
       <div class="small-container">
         <img src="faces/loftus.jpg"/>
@@ -1073,8 +892,7 @@
         <div class="centered">Richard Guo</div>
       </div>
 
-      
-
+  
       
       <div class="small-container">
         <img src="faces/jeremias.png"/>

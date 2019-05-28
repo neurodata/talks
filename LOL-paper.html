@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+  <title>LOL</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+  <script src="remark-latest.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="http://jovo.me/fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="http://jovo.me/fonts/quadon/quadon.css">
+  <link rel="stylesheet" type="text/css" href="remarkstyle.css">
+
+  <!-- <script type="text/javascript" src="https://github.com/downloads/gnab/remark/remark-0.4.2.min.js"></script> -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+  <script type="text/javascript">
+    var slideshow = remark.create();
+
+    // Setup MathJax
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+            return(elem.SourceElement());
+        }).parent().addClass('has-jax');
+    });
+
+    MathJax.Hub.Configured();
+
+
+
+  </script>
+
+</head>
+  <body onload="var slideshow = remark.create();">
+    <textarea id="source">
+
+
+
+
+class: center, middle
+
+name:opening
+
+### Supervised Manifold Learning Outperforms PCA for Subsequent Inference
+
+ Joshua T. Vogelstein*, Minh Tang, Da Zheng, Randal Burns, Mauro Maggioni
+
+
+<br>
+
+.center[
+<br>
+<!-- JHU Kavli Neuroscience Discovery Institute -->
+{[bme](http://www.bme.jhu.edu/), [icm](http://icm.jhu.edu/), [cis](http://cis.jhu.edu/), [idies](http://idies.jhu.edu/), [kavli](http://kavlijhu.org/), [cs](http://engineering.jhu.edu/computer-science/), [ams](http://engineering.jhu.edu/ams/), [neuro](http://neuroscience.jhu.edu/)} | [jhu](https://www.jhu.edu/)
+<br>
+questions: [jovo@jhu.edu](mailto:jovo at jhu dot edu)
+<br>
+slides: <http://neurodata.io/tools/LOL/>
+<br>
+
+Co-Founder: [NeuroData](http://neurodata.io) & [gigantum](http://gigantum.io)
+
+
+]
+
+---
+class: center, middle
+
+# Interrupt!
+
+---
+
+### What is supervised learning?
+
+Given (X<sub>i</sub>,Y<sub>i</sub>) pairs with neither  F<sub>Y</sub> nor F<sub>Y</sub> degenerate,
+*supervised learning* is the estimation of any given functional of F<sub>X|Y</sub>
+
+--
+
+#### Examples
+
+- Classification
+- Regression
+- 2-sample testing
+- K-sample testing
+
+---
+
+### Classification and Fisher's LDA
+
+- Given F<sub>X|Y</sub> = N(&mu;<sub>y</sub>,&Sigma;) and F<sub>Y</sub> = B(&#960),
+- where X &#1013 R<sup>p</sup>
+- Bayes optimal classifier is x' &Sigma;<sup>-1</sup> &delta; > t, where &delta;=&mu;<sub>0</sub>-&mu;<sub>1</sub>
+
+--
+
+#### Properties
+
+- simple
+- multiclass generalizations
+- plug-in estimate converges to Bayes optimal
+- algorithmic efficiency
+
+---
+
+### But...
+
+- When n < p, our estimate of &Sigma; is singular
+- Cannot use Fisher's LDA
+- What to do?
+
+<br>
+--
+
+- Manifold learning
+- Spare modeling (is secretly also manifold learning)
+
+<br>
+
+
+---
+
+### Manifold Learning for  Subsequent Inference
+
+<img src="../Figs/mnist2.png" STYLE="margin:auto; width:100%"/>
+
+---
+
+### Limitations of existing approaches
+
+- Manifold learing
+  - is typically unsupervised
+  - out of sample embedding is icky
+  - do not scale to terabytes (often require n<sup>3</sup> operations)
+  - who says directions of variance are near directions of discrimination?
+
+<br>
+--
+
+- Sparse modeling (is supervised, but...)
+  - NP-hard (feature screening), or
+  - approximations do not scale to terabytes (Lasso), or
+  - non-convex (Dictionary learning),
+  - with icky hyperparameters (elastic net & dictionary learning)
+
+
+
+---
+
+## Linear Projections
+
+- PCA: eig({x<sub>i</sub> - &mu;})
+- PCA': eig({x<sub>i</sub> - &mu;<sub>j</sub>})
+- LOL: [&delta;, eig({x<sub>i</sub> - &mu;<sub>j</sub>})]
+
+"Linear Optimal Low-Rank"
+
+<br>
+--
+
+### Notes
+
+- Fisher's LDA uses &delta; and {x<sub>i</sub> - &mu;<sub>j</sub>}
+- PCA' removes &delta;
+- PCA kind of accidentally includes &delta;, &Sigma; + &pi;(1-&pi;) &delta; &delta;', but weights it suboptimally
+- LOL uses both terms explicitly, weighting &delta; more
+- For each we compose with LDA on low-d estimates
+
+---
+
+## LOL Gaussian Intuition
+
+<img src="../Figs/cigars_est.png" STYLE="margin:auto; width:90%"/>
+
+---
+
+## LOL > PCA Theory
+
+<img src="LOL_theory.png" STYLE="margin:auto; width:100%"/>
+
+---
+
+## Unpacking the theory: Chernoff Information
+
+- C(F,G) = sup<sub> t </sub> [ -log &int; f<sup>t</sup>(x) g<sup>1-t</sup>(x) dx], for 0 < t < 1
+- the *exponential rate* at which the Bayes error decreases
+- it is the tightest possible bound on performance
+- if F=N(&mu;<sub>0</sub>,&Sigma;<sub>0</sub>) and G=N(&mu;<sub>1</sub>,&Sigma;<sub>1</sub>)
+- C(F,G)=  0.5  sup<sub>t</sub>  t(1-t) &delta;' &Sigma;<sup>-1</sup> &delta; + log |&Sigma;<sub>t</sub>| / (|&Sigma;<sub>0</sub>|<sup>t</sup> |&Sigma;<sub>1</sub>|<sup>1-t</sup>)
+
+
+--
+
+### Chernoff on Projected Data
+
+<!-- - let F =N(&mu;<sub>0</sub>,&Sigma;) and G=N(&mu;<sub>1</sub>,&Sigma;) -->
+- let F & G be Gaussian with same covariance (LDA model)
+- let A be any linear transformation
+- C(F<sup>A</sup>, G<sup>A</sup>) = 1/8 * || P<sub>Z</sub> &Sigma;<sup>-1/2</sup> &delta; ||<sub>F</sub><sup>2</sup>
+- P<sub>Z</sub> = Z (Z' Z)<sup>-1</sup> Z', and Z = &Sigma;<sup>1/2</sup>A'
+- let C<sup>A</sup> := C(F<sup>A</sup>, G<sup>A</sup>)
+
+---
+
+## "Thm A: LOL > PCA'"
+
+<!-- - let A = LOL projection -->
+<!-- - let B = PCA' projection -->
+- let F & G be Gaussian with same covariance
+- C<sup>LOL</sup> &ge; C<sup>PCA'</sup>
+- inequality is strict whenever &delta;' (I - U<sub>d</sub>U<sub>d</sub>' ) &delta; &ge; 0.
+
+---
+
+## "Thm B: LOL > PCA"
+
+<!-- - let C = PCA projection -->
+<!-- - let F & G be Gaussian with same covariance -->
+- C<sup>PCA</sup> = 4K / (4 - K), where
+- K = &delta;' &Sigma;<sup>t</sup><sub>d</sub> &delta;
+- so when &delta; is in the space spanned by the smaller eigenvectors, PCA discards nearly all the info
+
+<br>
+--
+
+### Simple Example
+
+- if &Sigma; is diagonal with decreasing &lambda;'s,
+- &delta;=(0,...,0,s),
+- &lambda;<sub>p</sub> + s<sup>2</sup>/4 < &lambda;<sub>d</sub>
+- C<sup>PCA</sup> = 0
+- C<sup>LOL</sup> = s<sup>2</sup> /  &lambda;<sub>p</sub>
+
+---
+
+## "Thm C: [&delta;, U<sub>d</sub>] > U<sub>d</sub>"
+
+- let U<sub>d</sub> be any matrix in R<sup>p x d</sup> with U<sub>d</sub> U<sub>d</sub>' = I
+- arthimetic is messier
+- nearly the same result as PCA
+- basically, when &delta; and U<sub>d</sub> are nearly orthogonal, adding delta helps
+
+---
+
+### "Thm D: LOL > PCA as p increases"
+
+- let &gamma; = &lambda;<sub>d</sub> - &lambda;<sub>d+1</sub>
+- let &delta; be sparse with probabilty &epsilon; an element is 0,
+- o.w. it is Gaussian
+<!-- with mean &tau; and standard deviation &sigma; -->
+- let p(1-&epsilon;) &rarr; &theta;
+- then with probability at least &epsilon;<sup>d</sup>,  C<sup>PCA</sup> = 0 < C<sup>LOL</sup>
+- and this probability can be made arbitrarily close to 1
+
+
+---
+
+## "Thm E: LOL > PCA as n & p increases"
+
+- when n/p &rarr; 0, all results trivially hold
+
+<br>
+
+- Suppose &Sigma; is low rank + &sigma;<sup>2</sup>I
+- Suppose that: M log p &le; log n &le; M' log &lambda;,
+- provided M & M' are large enough
+- estimates of C converge, so
+- E [ C<sup>LOL</sup> ] > E[ C<sup>PCA</sup>]
+
+---
+
+## LOL > PCA Simulations
+
+
+<img src="../Figs/plot_sims.png" STYLE="margin:auto; width:380px"/>
+
+
+---
+
+## LOL is fast
+
+<img src="../Figs/scalability.png" STYLE="margin:auto; width:100%"/>
+
+- utilize FlashX semi-external memory (SEM) computing
+- optimal (linear) scale up and out
+- SEM speed &approx; internal memory speed
+- swap random projections (RP) with SVD for 10x speed improvement
+- RP error rate &approx; SVD error rate
+- ~3 minutes for a 2 terabyte dataset
+
+---
+
+## LOL > PCA Data
+
+<img src="../Figs/plot_real.png" STYLE="margin:auto; WIDTH:100%;"/>
+
+---
+
+### LOL Hypothesis Testing & Regression
+
+<img src="../Figs/regression_power.png" STYLE="margin:auto; WIDTH:100%;"/>
+
+---
+
+## Discussion
+
+- simple supervised inference for wide data
+- big data tools (eg, Spark, H20, VW) typically focus on large n
+- algorithmic and theoretical generalizations straightforward
+- open source implementations
+
+<br>
+
+<center>
+<a href="http://neurodata.io/tools/LOL/">http://neurodataio/tools/LOL/</a>
+</center>
+
+---
+class:    center
+
+<br>
+
+# Questions?
+
+
+
+## Hiring Postdocs & Software Engineers Now!
+
+
+e: [jovo@jhu.edu](mailto:jovo@jhu.edu) |
+w: [neurodata.io](http://neurodata.io), [gigantum.io](http://gigantum.io)
+
+<img src="http://brainx.io/images/funding/nsf_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:10px; HEIGHT:100px;"/>
+
+<img src="http://brainx.io/images/funding/nih_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:120px; HEIGHT:100px;"/>
+
+<img src="http://brainx.io/images/funding/darpa_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:230px; HEIGHT:100px;"/>
+
+<img src="http://brainx.io/images/funding/iarpa_fpo.jpg" STYLE="position:absolute; TOP:550px; LEFT:430px; HEIGHT:100px;"/>
+
+<img src="http://brainx.io/images/funding/kavli_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:550px; HEIGHT:100px;"/>
+
+<img src="http://brainx.io/images/funding/kndi_fpo.png" STYLE="position:absolute; TOP:550px; LEFT:650px; HEIGHT:100px;"/>
+
+
+
+
+
+
+
+
+    </textarea>
+  </body>
+</html>

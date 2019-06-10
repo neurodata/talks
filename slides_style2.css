@@ -150,6 +150,21 @@ th {
   float: right;
   width: 70%;
 }
+
+.inverse {
+  background-color: black;
+  /* color: white; */
+  /* text-shadow: 0 0 20px #333; */
+}
+/* .inverse p {
+  color: white;
+}
+.inverse h1, .inverse h2 {
+  color: #f3f3f3;
+  /* color: #FFFFFF; */
+  line-height: 0.8em;
+} */
+
 /**********/
 /* Slides */
 /**********/

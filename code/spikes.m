@@ -182,19 +182,18 @@ z=[z; 0.0163];
 lw=2;
 figure(3), clf, hold all
 gr=0.75*[1 1 1];
-stem(z,1*ones(length(z),1),'w','marker','none','linewidth',lw)
+stem(z,1*ones(length(z),1),'k','marker','none','linewidth',lw)
 axis('tight')
 set(gca,'XTick',[],'YTick',[])
-set(gcf,'Color','None')
-set(gca,'color','none')
-% xlim([0.5,1.5])
-% ylim([0,1.2])
+% xlabel('difference between groups')
+% set(gcf,'Color','None')
+% set(gca,'color','none')
 % tit=['$n=', num2str(n/2), ', \hat{k}=$', num2str(minbic)];
 % title(tit,'interp','latex','color','k','fontsize',24)
-if print_fig, export_fig('../images/batch.png'); end
+if print_fig, export_fig('../images/inverse_batch.png','-r300'); end
 
 stem(z(end),1,'r','marker','none','linewidth',lw)
-if print_fig, export_fig('../images/batch_sex.png'); end
+if print_fig, export_fig('../images/inverse_batch_sex.png','-r300'); end
 
 %% cci
 

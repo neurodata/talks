@@ -342,7 +342,7 @@
       ---
       class: top, left
 
-      ###  MGC Outperforms Benchmarks
+      ###  MGC Requires 1/2 Samples to Achieve Power
 
 
       <br>
@@ -449,12 +449,12 @@
 
       | Method | Complexity |
       | :---: | :---: |
-      | Dcorr |  n<sup>2</sup> |
-      | HHG |  n<sup>2</sup> log n |
+      | Dcorr |  n<sup>2</sup> /T |
+      | HHG |  n<sup>2</sup> log n / T |
       | MGC |  n<sup>2</sup> log n / T  |
 
       - Python, MATLAB and R code at [http://neurodata.io/mgc](http://neurodata.io/mgc)
-
+      - Note: none of the implementations are parallelized
 
 
       ---
@@ -805,8 +805,6 @@
       - Get you going with it ([download here](https://neurodata.io/mgc))
       - Apply it to your data
 
-
-      ---
 
 
       ---

@@ -400,7 +400,7 @@
       ### 2 Different Functions
 
 
-      <img src="images/rerf-error_rate_synthetic_data.png"   style="width: 100%;"/>
+      <img src="images/sporf-error_rate_synthetic_data.png"   style="width: 100%;"/>
 
       - *sparse parity* 3 signal dimensions, 17 noise dimensions
       - *orthant* 6 signal dimensions, no noise dimensions
@@ -409,14 +409,14 @@
 
       ### Robustness to Hyperparameter
 
-      <img src="images/rerf_sparsity_sensitivity_synthetic_data.png"   style="width: 100%;"/>
+      <img src="images/sporf_sparsity_sensitivity_synthetic_data.png"   style="width: 100%;"/>
       
 
       ---
 
       ### Feature Importance 
 
-      <img src="images/rerf_feature_importance_synthetic_data.png"   style="width: 65%;"/>
+      <img src="images/sporf_feature_importance_synthetic_data.png"   style="width: 65%;"/>
       
 
 
@@ -443,15 +443,15 @@
       ###  Empirical Performance (Numeric)
 
 
-      <img src="images/rerf_error_histogram_benchmarks_numeric.png"   style="width: 80%;"/>
-      <img src="images/rerf_error_histogram_benchmarks_legend.png"   style="width: 100%;"/>
+      <img src="images/sporf_error_histogram_benchmarks_numeric.png"   style="width: 80%;"/>
+      <img src="images/sporf_error_histogram_benchmarks_legend.png"   style="width: 100%;"/>
 
       ---
 
       ###  Empirical Performance (Mixed)
 
 
-      <img src="images/rerf_error_histogram_benchmarks.png"   style="width: 100%;"/>
+      <img src="images/sporf_error_histogram_benchmarks.png" style="width: 40%;"/>
 
 
       ---
@@ -459,7 +459,7 @@
       ### Summary so far 
 
       - random forest was the best classifier 
-      - now, randomer forest is
+      - now, sporf is
 
 
       ---
@@ -478,23 +478,12 @@
       ---
 
 
+      ### Classifying via Manifold Forests (MF)
 
-      ### Classifying 2D Images via Structured RerF
-
-      <img src="images/rerf_image_stripes.png"   style="width: 70%;"/>
-
-      ---
-
-
-      ### Classifying on a Torus 
-
-      .pull-left[
-      <img src="images/rerf_circles.png"   style="width: 100%;"/>  ]
-
-      .pull-right[
-      <img src="images/rerf_compare_algorithms_table5.png"   style="width: 100%;"/>]
+      <img src="images/mf_classification.png"   style="width: 100%;"/>
 
       ---
+	
 
       ## Computational Considerations
 
@@ -506,20 +495,20 @@
       
       ### Training Time 
 
-      <img src="images/rerf_train_time.png"   style="width: 100%;"/>
+      <img src="images/sporf_train_time.png"   style="width: 100%;"/>
 
       ---
 
       ### Scalability
 
-      <img src="images/rerf_speed_scaling.png"   style="width: 60%;"/>
+      <img src="images/sporf_speed_scaling.png"   style="width: 70%;"/>
 
 
       ---
       
       ### Testing Time 
 
-      <img src="images/rerf_forest_packing.png"   style="width: 60%;"/>
+      <img src="images/sporf_forest_packing.png"   style="width: 100%;"/>
 
 
       ---
@@ -538,7 +527,7 @@
 
       ### Universal Consistency 
 
-      <img src="images/rerf_error_rate_consistency.png"   style="width: 100%;"/>
+      <img src="images/sporf_error_rate_consistency.png"   style="width: 100%;"/>
 
 
       ---
@@ -634,7 +623,7 @@
 
       ---
 
-      ### RerF Independence Testing
+      ### SPORF Independence Testing
 
       - can use RF "kernel" in MGC 
       - can directly estimate MI 
@@ -660,7 +649,7 @@
 
       ### Universal Consistency
 
-      Lemma: RerF is universally consistent regression function
+      Lemma: SPORF is universally consistent regression function
 
 
       --
@@ -668,7 +657,7 @@
       ### Mutual Information
 
 
-      Lemma: RerF with honest sampling is a consistent estimator of MI
+      Lemma: SPORF with honest sampling is a consistent estimator of MI
 
 
       --
@@ -686,13 +675,13 @@
       ### Overall Summary
 
 
-      - RerF empirically outperforms other classifiers on benchmarks
-      - RerF scales better than other implementations
-      - RerF provides feature importance
-      - RerF can work on non-Euclidean data
-      - RerF can estimate nearest (geodesic) neighbors 
-      - RerF can estimate mutual information 
-      - RerF can implement hypothesis testing
+      - SPORF empirically outperforms other classifiers on benchmarks
+      - SPORF scales better than other implementations
+      - SPORF provides feature importance
+      - SPORF can work on non-Euclidean data
+      - SPORF can estimate nearest (geodesic) neighbors 
+      - SPORF can estimate mutual information 
+      - SPORF can implement hypothesis testing
 
 
       ---
@@ -701,7 +690,7 @@
 
 
       - ROFLMAO [[1]](https://doi.org/10.1137/1.9781611974973.56)
-      - RerF [[2]](http://arxiv.org/abs/1506.03410)
+      - SPORF [[2]](http://arxiv.org/abs/1506.03410)
       - RF Packing [[3]](https://arxiv.org/abs/1806.07300)
       - RF Kernel [[4]](https://arxiv.org/abs/1812.00029)
 

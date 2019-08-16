@@ -24,15 +24,15 @@
       Joshua T. Vogelstein |       <https://neurodata.io/mgc>
 
       <img src="images/neurodata_purple.png" style="height:350px; float:right;"/>
-      
-      
+
+
       <br><br><br><br><br><br><br><br><br>
-      
+
       <!-- <img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
       <img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
-      
+
       .footnote[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks/> | [@neuro_data](https://twitter.com/neuro_data)]
-      
+
       <br>
 
 
@@ -81,6 +81,72 @@
 
       --
       | anything | anything else |
+
+      ---
+
+      #### Statistics Background
+
+      <br>
+
+      - $X$ is a random variable (some measurement).
+
+      --
+      <br>
+
+      - $F_X$ is the distribution of $X$.
+
+      --
+      <br>
+
+      - This means $F_X(a) = P(X \leq a)$.
+
+      - This is denoted:
+
+      <font size="10">$$X \sim F_X$$</font>
+
+      ---
+
+      #### Statistics Background
+
+      <br>
+
+      - For two random variables $X$ and $Y$, $F_{XY}$ is called the joint distribution.
+
+      --
+      <br>
+
+      - This means that $F_{XY} (a, b) = P(X \leq a\ \mathrm{and}\ Y \leq b)$,
+
+        or,
+
+      <font size="10">$$(X, Y) \sim F_{XY}$$</font>
+
+      ---
+
+      #### Independence
+
+      <br>
+
+      $X$ and $Y$ are independent if neither contains information about the other.
+
+      In other words,
+
+      $$F_{XY} = P(X \leq a\ \mathrm{and}\ Y \leq b) = P(X \leq a) \times P(Y \leq b) = F_X F_Y$$
+      <font size="10">$$ F_{XY} = F_X F_Y$$</font>
+
+      Note: These ideas and notation generalize for multivariate $X$ and $Y$.
+
+      ---
+
+      #### Informal Definition of Hypothesis Testing
+
+      <br>
+
+      - **Null Hypothesis**: The conventional belief about a phenomenon of interest, written  $H_0$.
+
+      - **Alternative Hypothesis**: An alternate belief about the same phenomenon, written $H_A$.
+
+      - **p-value**: The probability (under the null) of measurements more extreme than what was observed.
 
       ---
 
@@ -371,7 +437,7 @@
       ---
       class: middle, center
 
-      # .center[real data] 
+      # .center[real data]
 
 
       ---
@@ -403,7 +469,7 @@
 
       <img src="images/mgc-real-cancer.png" alt="Drawing" style="width: 100%;"/>
 
-      
+
       ---
 
       ### MGC Does Not Make Too Many False Discoveries
@@ -413,21 +479,21 @@
 
 
       ---
-      class: middle 
+      class: middle
 
       # .center[extensions]
 
       ---
 
-      #### Categorical Features 
+      #### Categorical Features
 
-      - All testing depends on measuring similarity/distance between observations 
+      - All testing depends on measuring similarity/distance between observations
       - Let $Y=$ {normal, condition 1, condition 2}
-      - $d(y_i,y_j) = 0$ if $y_i = y_j$ 
+      - $d(y_i,y_j) = 0$ if $y_i = y_j$
       - $d(y_i,y_j) = 1$ if $y_i \neq y_j$
       - Then everything just works :)
 
-      #### Mixed Data 
+      #### Mixed Data
 
       - Define similarity/distance appropriately for each feature, then combine.
       - In theory, the normalization procedure will work appropriately, though not yet tested.
@@ -439,12 +505,12 @@
 
 
       ---
-      
-      ### Computational Considerations 
+
+      ### Computational Considerations
 
       <br>
 
-      - n is # of samples 
+      - n is # of samples
       - T is # of threads
 
       | Method | Complexity |
@@ -460,10 +526,10 @@
       ---
 
 
-      ### Fast MGC 
+      ### Fast MGC
 
-      <img src="images/mgc-time.png" style="height: 550px;"/>
-      
+      <img src="images/mgc-time.png" style="height: 450px;"/>
+
 
       ---
 
@@ -478,7 +544,7 @@
 
       --
 
-      Here is the formal definition of 2-sample testing 
+      Here is the formal definition of 2-sample testing
 
       $$U\_i \sim F_U, \, i \in \{1,\ldots,n\} \quad V\_i \sim F\_V, \, i \in \{1,\ldots,m\}$$
 
@@ -489,9 +555,9 @@
 
       Let $X = [U\_1, \ldots U\_n | V\_1,\ldots, V\_m]$ and $Y=[0 \ldots 0 | 1 \cdots 1 ]$.
 
-      Now, testing whether $X$ and $Y$ are independent is equivalent to testing whether $F_U$ and $F_V$ are the same. 
-  
-  
+      Now, testing whether $X$ and $Y$ are independent is equivalent to testing whether $F_U$ and $F_V$ are the same.
+
+
 
       ---
       class: top, left
@@ -505,7 +571,7 @@
       ---
       class: top, left
 
-      ###  Relative Power vs Sample Size for 2D Rotations 
+      ###  Relative Power vs Sample Size for 2D Rotations
 
       <img src="images/mgc-rotation-samplesize.png"  alt="local"  style="height: 550px;"/>
 
@@ -514,7 +580,7 @@
       ---
       class: top, left
 
-      ###  Relative Power vs Angle for 2D Rotations 
+      ###  Relative Power vs Angle for 2D Rotations
 
       <img src="images/mgc-rotation-angles.png"  alt="local"  style="height: 550px;"/>
 
@@ -522,7 +588,7 @@
       ---
       class: top, left
 
-      ###  Relative Power vs Dimension for Rotations 
+      ###  Relative Power vs Dimension for Rotations
 
       <img src="images/mgc-rotation-dimension.png"  alt="local"  style="height: 550px;"/>
 
@@ -531,7 +597,7 @@
 
       ---
 
-      ### Graph Equality Testing 
+      ### Graph Equality Testing
 
       For example, are the left and right hemispheres of the larval Drosophila Mushroom Body sampled from the same distribution?
 
@@ -544,7 +610,7 @@
 
       ---
 
-      ### Graph Equality Testing 
+      ### Graph Equality Testing
 
       For example, are the left and right hemispheres of the larval Drosophila Mushroom Body sampled from the same distribution?
 
@@ -554,12 +620,12 @@
 
       <img src="images/mgc-left-v-right-drosophila.png"  alt="local"  style="height: 350px;"/>
 
-      
+
       ---
 
-      ### Graph Independence Testing 
+      ### Graph Independence Testing
 
-      For example, in the Hermaphrodite *C. elegans*, is the chemical synapse connectome independent of the gap junction connectome? 
+      For example, in the Hermaphrodite *C. elegans*, is the chemical synapse connectome independent of the gap junction connectome?
 
       $G=(V,E_1, Z_v) \sim F_U, \quad H = (V, E_2, Z_v) \sim F_V$
 
@@ -570,9 +636,9 @@
 
       ---
 
-      ### Graph Independence Testing 
+      ### Graph Independence Testing
 
-      For example, in the Hermaphrodite *C. elegans*, is the chemical synapse connectome independent of the gap junction connectome? 
+      For example, in the Hermaphrodite *C. elegans*, is the chemical synapse connectome independent of the gap junction connectome?
 
       $G=(V,E_1, Z_v) \sim F_U, \quad H = (V, E_2, Z_v) \sim F_V$
 
@@ -583,8 +649,8 @@
 
       ---
 
-      ### Graph Topology vs Vertex Attribute Testing 
-      
+      ### Graph Topology vs Vertex Attribute Testing
+
       For example, in the *C elegans*, each node/neuron has an attribute (e.g., location), and we desire to understand whether connectivity and cell type are independent.
 
       $G=(V,E, Z\_v) \sim F\_{UZ}$
@@ -593,27 +659,35 @@
 
       <img src="images/celegans_connectome-v-location.png"  style="height: 300px;"/>
       <img src="images/mgc-celegans_v_location.png"  style="height: 300px;"/>
-      
+
 
 
 
       ---
 
-      ### Time Series Testing 
+      ### Time Series Testing
 
       For example, is a given ROI independent of another ROI?
 
-      Consider a strictly stationary time series $\{(X\_t,Y\_t)\}_{t=0}^{n}$. 
+      Consider a strictly stationary time series $\{(X\_t,Y\_t)\}_{t=0}^{n}$.
       Choose some $M$, the "maximum lag" hyperparameter. We wish to test the following hypothesis.
 
       $$ H\_0: F\_{X\_t,Y\_{t-j}} = F\_{X\_t} F\_{Y\_{t-j}} \text{ for each } j \in \{0, 1, ..., M\}, \ \forall t$$
       $$ H\_A: F\_{X\_t,Y\_{t-j}} \neq F\_{X\_t} F\_{Y\_{t-j}} \text{ for some } j \in \{0, 1, ..., M\}, \ \forall t$$
 
-      <img src="images/nonlinear-time-series.png"    style="height: 50px;"/>
-      <img src="images/power_curve_nonlinearly_dependent_at_lag_1.png"   style="height: 250px;"/>
+      <br>
+      <img src="images/time-series-process.png"    style="height: 100px;"/>
+      <img src="images/power_curve_nonlinearly_dependent_at_lag_1.png"   style="height: 250px;" align="right"/>
 
-      
-      
+
+      ---
+      ### Application: Functional Connectomics
+
+
+      <br><br>
+      <img src="images/neg_log_p_val.png"    style="height: 350px;"/>
+      <img src="images/optimal_lag.png"   style="height: 350px;" align="right"/>
+
 
       ---
       class: middle, center
@@ -624,6 +698,19 @@
       ---
       class: top, left
 
+      ### Definitions
+
+      - $t$ is sample MGC
+
+      - $T$ is population MGC
+
+      - $t^\prime$ is sample Dcorr
+
+      - $t^*$ is sample oracle MGC
+
+      -  $\beta_n(t)$ = power of test statistic $t$ given $n$ samples
+
+      ---
 
       ### Theoretical Desiderata
 
@@ -638,9 +725,9 @@
       |  ortho. invar. | $T(X,Y) = T(a_1 + b_1  C_1  X, a_2 + b_2  C_2  Y)$ |
 
       --
-      |  univ. consist. | $\beta\_n(T) \to 1, \quad \forall \, F\_{XY}$ |
-      |  dominance | $\beta\_n(T) \geq \beta\_n(T'), \, \forall n,\, T' \in \mathcal{T}, \forall F\_{XY}$ |
-      |  convergence | $\beta_n(t) \to \beta_n(T)$ as $n \to \infty$ |
+      |  univ. consist. | $\beta\_n(t) \to 1, \quad \forall \, F\_{XY}$ |
+      |  dominance | $\beta\_n(t^\prime) \geq \beta\_n(t), \, \forall n,\, t^\prime \in \mathcal{T}, \forall F\_{XY}$ |
+      |  convergence | $t \to T$ as $n \to \infty$ |
       <!-- |  efficiency | $\mathbb{E}\beta_n(t) \geq \mathbb{E}\beta_n(t'), \, \forall n, t' \in \mathcal{T}$ | -->
 
       <!-- | | comp. efficiency | $\mathcal{O}(d n^2 \log n)$ space and time | -->
@@ -655,7 +742,7 @@
 
       Thm: Oracle MGC has the following properties:
 
-      - 0 &geq;  MGC &geq; 1
+      - 0 &leq;  MGC &leq; 1
       - MGC = 0 only under independence
       - MGC is symmetric
       - MGC = 1 only under linear relationship
@@ -669,23 +756,23 @@
 
       <br><br>
 
-      Lemma: \\( \beta_n (T^*) \to 1  \\) as \\( n \to \infty \\) whenever \\( E [X] < \infty. \\)
+      Lemma: \\( \beta_n (t) \to 1  \\) as \\( n \to \infty \\) whenever \\( E [X], E [Y] < \infty. \\)
 
       <!-- <img src="images/thm1.png"  style="position:absolute; LEFT: 200px; TOP: 300px; height: 40px;"/> -->
 
       ---
       class: left
 
-      ### Linear: Local < Global
+      ### Linear: Local = Global
 
       <!-- Thm 2: If x is linearly dependent on y, then for any n it always holds that $\beta_n(c_t^*) = \beta_n(c_t)$ -->
 
       <br><br>
 
-      Lemma: If x is linearly dependent on y, then it always holds that
-      $$ \beta_n(T^*) = \beta_n(T) $$
+      Lemma: If $X$ is linearly dependent on $Y$, then it always holds that
+      $$ \beta_n(t^*) = \beta_n(t^\prime) $$
 
-      for any n.
+      for any $n$.
 
 
       <!-- <img src="images/thm2.png"  style="position:absolute; LEFT: 60px; TOP: 300px; height: 80px;"/> -->
@@ -699,9 +786,9 @@
 
       <br><br>
 
-      Lemma: There exists f and n such that
+      Lemma: There exists certain nonlinear relationships between $X$ and $Y$, and $k$ and $l$ such that,
 
-      $$\beta_n( T^{k,l} ) > \beta_n(T). $$
+      $$\beta_n( t^{k,l} ) > \beta_n(t^\prime). $$
 
 
 
@@ -712,13 +799,13 @@
       class: left
 
 
-      ### MGC > Dcorr
+      ### Oracle MGC > Dcorr
 
       <br><br>
 
       Thm: Oracle MGC statistically dominates dcorr, that is,
 
-      $$\beta_n( T^* ) \geq \beta_n(T). $$
+      $$\beta_n( t^* ) \geq \beta_n(t^\prime). $$
 
 
       <!-- <img src="images/thm4.png"  style="width: 800px;"/> -->
@@ -732,11 +819,11 @@
 
       <br>
 
-      Thm: For any  F<sub>XY</sub> with finite 1st moment,
+      Thm: For any  $F_{XY}$ with finite 1st moment,
 
-      $\beta_n(t^*) \to \beta_n(T^\ast)$ as $n \to \infty$
+      $\beta_n(t) \to 1$ as $n \to \infty$
 
-      if and only if  $\sigma_X$ and $\sigma_Y$  are of strong negative type.
+      if and only if  distance functions $\sigma_X$ and $\sigma_Y$  are of strong negative type.
 
 
 
@@ -786,15 +873,16 @@
       - MGC for clustering (ish) [[5]](https://arxiv.org/abs/1710.09859)
       - Energy and kernel tests are equivalent [[6]](https://arxiv.org/abs/1806.05514)
       - MGC + RF [[7]](https://arxiv.org/abs/1812.00029)
+      - mgcpy [[8]](https://arxiv.org/abs/1907.02088)
+      - graph independence testing [[9]](https://arxiv.org/abs/1906.03661)
+      - MGCX [10]
       <br>
 
       ### Forthcoming (drafts available upon request)
 
-      - mgpy [[8]](https://github.com/neurodata/mgcpy)
-      - fast mgc [9]
-      - graph independence testing [10]
-      - graph two sample testing [11]
-      - time series mgc [12]
+      - fast mgc [11]
+      - graph two sample testing [12]
+      - multivariate nonpar k-sample tests [13]
 
       ---
 
@@ -809,145 +897,145 @@
 
       ---
       ### Acknowledgements
-      
+
       [jovo@jhu.edu](mailto:jovo@jhu.edu) | [neurodata.io](https://neurodata.io) | [@neuro_data](https://twitter.com/neuro_data)
-      
+
       <div class="small-container">
         <img src="faces/cep.png"/>
         <div class="centered">Carey Priebe</div>
       </div>
-      
+
       <!-- <div class="small-container">
         <img src="faces/randal.jpg"/>
         <div class="centered">Randal Burns</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/mim.jpg"/>
         <div class="centered">Michael Miller</div>
       </div> -->
-      
+
       <!-- <div class="small-container">
         <img src="faces/dtward.jpg"/>
         <div class="centered">Daniel Tward</div>
       </div> -->
-            
+
       <div class="small-container">
         <img src="faces/ebridge.jpg"/>
         <div class="centered">Eric Bridgeford</div>
       </div>
-      
+
       <!-- <div class="small-container">
         <img src="faces/vikram.jpg"/>
         <div class="centered">Vikram Chandrashekhar</div>
       </div> -->
-      
+
       <div class="small-container">
         <img src="faces/drishti.jpg"/>
         <div class="centered">Drishti Mannan</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/jesse.jpg"/>
         <div class="centered">Jesse Patsolic</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/falk_ben.jpg"/>
         <div class="centered">Benjamin Falk</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/kwame.jpg"/>
         <div class="centered">Kwame Kutten</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/perlman.jpg"/>
         <div class="centered">Eric Perlman</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/loftus.jpg"/>
         <div class="centered">Alex Loftus</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/bcaffo.jpg"/>
         <div class="centered">Brian Caffo</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/minh.jpg"/>
         <div class="centered">Minh Tang</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/avanti.jpg"/>
         <div class="centered">Avanti Athreya</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/vince.jpg"/>
         <div class="centered">Vince Lyzinski</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/dpmcsuss.jpg"/>
         <div class="centered">Daniel Sussman</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/youngser.jpg"/>
         <div class="centered">Youngser Park</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/cshen.jpg"/>
         <div class="centered">Cencheng Shen</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/shangsi.jpg"/>
         <div class="centered">Shangsi Wang</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/tyler.jpg"/>
         <div class="centered">Tyler Tomita</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/james.jpg"/>
         <div class="centered">James Brown</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/disa.jpg"/>
         <div class="centered">Disa Mhembere</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/pedigo.jpg"/>
         <div class="centered">Ben Pedigo</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/jaewon.jpg"/>
         <div class="centered">Jaewon Chung</div>
       </div>
-      
-      
+
+
       <div class="small-container">
         <img src="faces/gkiar.jpg"/>
         <div class="centered">Greg Kiar</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/satish.jpg"/>
         <div class="centered">Satish</div>
       </div>
-      
+
       <div class="small-container">
         <img src="faces/jesus.jpg"/>
         <div class="centered">Jesus</div>
@@ -963,7 +1051,7 @@
         <div class="centered">bear</div>
       </div>
 
-      
+
       <div class="small-container">
         <img src="faces/brandon.jpg"/>
         <div class="centered">Brandon</div>
@@ -974,22 +1062,27 @@
         <div class="centered">Richard Guo</div>
       </div>
 
-      
+      <div class="small-container">
+        <img src="faces/sambit.jpg"/>
+        <div class="centered">Sambit Panda</div>
+      </div>
 
-      
+
+
+
       <div class="small-container">
         <img src="faces/jeremias.png"/>
         <div class="centered">Jeremias Sulam</div>
 
-      </div> <span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
-      
+      </div> <span style="font-size:150%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
       <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
       <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
       <img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
       <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
       <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
       <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
-      
+
       <br>
 
 

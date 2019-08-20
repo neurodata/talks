@@ -19,7 +19,7 @@ name:opening
 
 **Connectal Coding: Discovering the Mechanism Linking Cognitive Phenotypes to Individual Histories**<br>
 Joshua Vogelstein | 
-{[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/)}@[JHU](https://www.jhu.edu/) 
+{[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) 
 
 
 <a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:430px;"/></a>
@@ -56,58 +56,29 @@ class: center, middle
 
 ### Two definitions
 
-.r[Neural (activity) coding]: inferring the relationships between neural activity and stimuli or responses
+.r[Neural (activity) coding]: inferring the relationships between neural *activity* and past, present, or future events
 
 --
 
-.r[Connectal coding]: inferring the relationships between *neural circuit structure* and *individual histories* 
+.r[Connectal coding]: inferring the relationships between neural *connectivity* and past, present, or future events
 
 --
 
-- .r[Individual histories]: genetic, developmental, experiential 
-- .r[Neural circuit structure (aka, a connectome)]:  a network of a brain
+.r[events]: genetic, developmental, experiential (stimuli/behavior), traits 
 
----
-
-### Genotype, Phenotype, Connectotype
-
-
-- .r[Phenotype]: a description of an individual's  properties with regard to a phenomenon of interest 
-- .r[Genotype]: a set of genes and associated variants associated with that phenotype
-- .r[Connectotype]: a set of nodes, edges, and their properties that are associated with that phenotype
-
---
-
-<br><br>
-
-.center[Genotype --> Connectotype --> Phenotype]
-
-
-**Connectotypes are the implementation-level mechanisms linking genotypes to phenotypes** 
-
-<!---
-
-### Connectome in Literature
-
-
-- Sporns et al.  *PLoS CB* (2005)
-- Hagmann (2005)
-- PubMed (circa 2018): .r[3000+] hits.
-
---->
 ---
 ### Connectome according to jovo
 
 - .r[Network] of a brain, at a spatiotemporal precision & extent
 - .r[Nodes] are distinct biophysical entities 
-- .r[Edges] are  *structural*  objects connecting a pair of nodes
+- .r[Edges] indicate the presence of a connection/communication between nodes
 - .r[Attributes] of the network, nodes, or edges are possible
 
 --
 
 <br>
 
-- Example nodes: neurons, neural compartment, neural ensembles
+- Example nodes: cells, cellular compartment, cellular ensembles
 - Example edges: synapses, gap junction, fiber bundles
 
 ---
@@ -118,65 +89,80 @@ class: center, middle
 - We measure properties of the brain  to .r[estimate] connectomes
 - Those measurements can be .r[structural] or .r[functional]
 - Estimates are always .r[noisy] 
-
---
-
-### Some caveats
-
-- connectomes are not comprehensive, unlike genomes
-- nodes can be abstractions, eg, all neurons type A 
-- attributes can be arbitrary, eg, distribution of synaptic vesicles 
-- connectomics is the study of neural circuitry 
-
-<!---
-
-### Connectomes for Connectal Coding
-
-<br>
-
-Hypothesis generation not hypothesis testing
-
---->
----
-
-## .k[Example Connectomes]
+- connectomes are .r[not comprehensive], unlike genomes
+- nodes can be .r[abstractions], eg, all neurons type A 
+- attributes can be .r[arbitrary], eg, distribution of synaptic vesicles 
 
 ---
 
-###  Drosophila Mushroom Body 
 
-<img src="images/connectal_drosophila.jpg"  style="height: 450px;"/>
+### Why Use Statistical Models?
 
-- directed
+- Data are noisy
+- Inferences about population depend on model 
+- Quantify uncertainty 
+- Understand limitations of analyses
 
----
-
-### Mouse Ex Vivo Diffusion MRI 
-
-
-<img src="images/connectal_mouse.jpg"  style="height: 450px;"/>
-
-
-- undirected 
-
-
----
-
-### Human dMRI & fMRI 
-
-
-<img src="images/connectal_human_mri.jpg"  style="height: 450px;"/>
-
-- undirected, multi
 
 ---
 
 ### Connectome Analysis Styles 
 
 
-- bag of features
-- bag of edges
-- bag of parameters
+- Bag of edges
+- Bag of features
+- Bag of parameters
+
+
+
+
+---
+
+### Bag of Edges
+
+- treat each edge as independent
+- this completely ignores graph structure of data 
+- Implicit model: independent edge model 
+
+
+---
+
+### Examples
+
+<!-- ER image & IER image (random p_ij's) -->
+
+
+<!-- Model of 1 graph
+  - for each of the 3 approaches (IE, ERGM, LSM)
+    - define different approaches
+    - give examples
+  - demonstrate pro's and con's of different approaches
+    - prob with ER: too simple
+    - prob with IE: sometimes signal is in the nodes
+    - prob with ERGM: j1c's thingy
+    - prob with latent positions: less intuitive
+    - value of latent positions:
+      - characterize the data
+
+  - model of \geq 2 graphs
+    - correlated ER
+    - COSIE
+    - MRDPG
+  - applications of multigraph models
+      - test for equality, mouse example
+      - test for indepedence, bear example
+      - test for heritability
+      - graph matching
+  - mic drop
+
+ -->
+
+
+<!-- 
+- requires multiple hypothesis correction for valid tests
+- does anybody know a good way to correct (hint: no)?
+  - BH: way under-conservative (false positives)
+  - Bonferroni: way over-conservative (false negatives) -->
 
 
 ---
@@ -205,16 +191,6 @@ Hypothesis generation not hypothesis testing
 
 .foot[[Chen et al.](https://link.springer.com/chapter/10.1007/978-3-030-04414-5_33)]
 
----
-
-### Bag of Edges
-
-- treat each edge as independent
-- does this completely ignores graph structure of data (hint: yes)?
-- requires multiple hypothesis correction for valid tests
-- does anybody know a good way to correct (hint: no)?
-  - BH: way under-conservative (false positives)
-  - Bonferroni: way over-conservative (false negatives)
 
 ---
 
@@ -247,6 +223,20 @@ Notes
 - loopy vs. no loops
 - Simplest random graph model 
 - lacks sufficient complexity/descriptive power for most questions 
+
+
+
+---
+
+#### Effect Sizes are Not Ordered Correctly :( 
+
+<img src="images/sim1_power_parameters.png"  style="width: 750px;"/>
+
+--
+
+<img src="images/sim1_power.png"  style="height: 250px;"/>
+
+
 
 <!---
 
@@ -423,33 +413,6 @@ Notes
 
 <img src="images/dros_rdpg_model.png"  style="width: 750px;"/>
 
-<!---
-
-## Generalized RDPG
-
-- Weighted RDPG: edges have weights 
-- Zero-Inflated Weighted RDPG: edges have probabilities and expected weights
-
---->
-
-<!---
-## Latent Structure Models 
-
-
-- Special case of RDPG, where latent positions are organized into .r[structures]
-- Examples
-  - each node class has a distribution of latent positions, eg, Gaussian 
-  - latent positions are hierarchical, eg, multiscale atlas 
-  - repeated motif, eg, cortical columns 
-  - latent positions are curved 
-
---->
-
-<!---
-## Drosophila Mushroom Bodies
-
-<img src="images/Fig15-new.png"  style="width: 750px;"/>
---->
 
 ---
 ### What can we do with parameters?
@@ -718,6 +681,28 @@ Intuition
 - Method for estimating parameters for COSIE model
 
 <img src="images/mase_method.png" style="width: 750px;" />
+
+
+
+---
+
+### Genotype, Phenotype, Connectotype
+
+
+- .r[Phenotype]: a description of an individual's  properties with regard to a phenomenon of interest 
+- .r[Genotype]: a set of genes and associated variants associated with that phenotype
+- .r[Connectotype]: a set of nodes, edges, and their properties that are associated with that phenotype
+
+--
+
+<br><br>
+
+.center[Genotype --> Connectotype --> Phenotype]
+
+
+**Connectotypes are the implementation-level mechanisms linking genotypes to phenotypes** 
+
+
 
 
     </textarea>

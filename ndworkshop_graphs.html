@@ -41,39 +41,19 @@ class: center, middle
 ## Outline
 
 - Background
-- Motivation for Statistical Models
-- Connectome Analysis Styles
 - Statistical Models of Connectomes 
 - Statistical Models of Populations of Connectomes
-<!-- - Connectal Coding  -->
-<!-- - Applications -->
-<!-- - Discussion -->
+- Applications
+- Discussion
 
 
 ---
+class: middle 
 
-## .k[Background]
-
-
----
-
-### Two definitions
-
-<!-- @Hayden : why do we care about these things -->
-<!-- Replace with why investigate connectomes? -->
-
-.r[Neural (activity) coding]: inferring the relationships between neural *activity* and past, present, or future events
-
---
-
-.r[Connectal coding]: inferring the relationships between neural *connectivity* and past, present, or future events
-
---
-
-.r[events]: genetic, developmental, experiential (stimuli/behavior), traits 
+## .center[.k[Background]]
 
 ---
-### Connectome according to jovo
+### What is a Connectome?
 
 - .r[Network] of a brain, at a spatiotemporal precision & extent
 - .r[Nodes] are distinct biophysical entities 
@@ -87,27 +67,53 @@ class: center, middle
 - Example nodes: cells, cellular compartment, cellular ensembles
 - Example edges: synapses, gap junction, fiber bundles
 
+
 ---
+
+### Definitions
+
+<!-- @Hayden : why do we care about these things -->
+<!-- Replace with why investigate connectomes? -->
+
+.r[Neural (activity) coding]: inferring the relationships between neural *activity* and past, present, or future events, states, or traits
+
+--
+
+.r[Connectal coding]: inferring the relationships between neural *connectivity* and past, present, or future events, states, or traits
+
+--
+
+.s[events]: genetic, developmental, experiential (stimuli/behavior)
+
+.s[traits]: IQ, sex, personality, learning disabled 
+
+.s[states]: happy, resting, manic
+
+
+<!-- ---
 
 ### Implications 
 
 - A brain could have many different connectomes, at different times and/or resolutions, and measured in different ways (e.g. structural or functional)
 - The definition of node can mean different things at different scales
 - We measure properties of the brain  to .r[estimate] connectomes
-- Estimates are always .r[noisy] 
+- Estimates are always .r[noisy]  -->
 
 ---
 
 
 ### Why Use Statistical Models?
  
-- Stuff is complicated 
-- Data are noisy
-- We wish to summarize natural phenomena and quantify uncertainty in a "simple" way
+- Connectome estimates are noisy
+- Connectomes, and their relationships to events, states, or traits, can be complicated 
+- We wish to 
+  - quantify uncertainty
+  - incorporate domain knowledge to the extent possible
+  - summarize natural phenomena in a "simple" way
+  - understand limitations of analyses
 
 ### Implications
 - All inferences about population .r[depend on model] 
-- Understand limitations of analyses
 
 <!-- have an idea of the generating processes that go on...  -->
 <!-- summarize our beliefs about a setting  -->
@@ -128,10 +134,40 @@ class: center, middle
 
 ### Bag of Edges
 
-- treat each edge as independent
-- this completely ignores graph structure of data 
+- Treat each edge as independent
 - Implicit model: independent edge model 
 
+
+---
+### Bag of Features
+
+
+- Choose $m$ features and compute them per graph
+- Characterize connectome with this set of "parameters"
+- Implicit model: exponential random graph model 
+
+
+---
+
+### Bag of Parameters 
+
+- Build a **statistical parametric model** of brain network
+- Can encode some domain knowledge explicitly 
+- Can model edges, nodes, communities
+- Implicit model: latent structure model
+
+
+
+---
+
+### Limitations of approaches
+
+---
+
+### Limitations of Bag of Edges 
+
+- Completely ignores graph structure of data 
+- Too simple for many questions
 
 ---
 
@@ -153,6 +189,43 @@ class: center, middle
 #### Node-wise test finds the signal
 
 <img src="images/nodewise_p_vals.png"  style="width: 750px;"/>
+
+
+---
+
+### Limitations of Bag of Features
+
+
+- how do I choose which features (hint: arbitrary)? 
+- how many features are possible given a graph with $n$ nodes (hint: many)?
+- do these features characterize the brain (hint: no)?
+- can we make causal claims using these features (hint: no)?
+- are these features independent (hint: no)?
+- least well understood of the approaches, but very common
+
+
+---
+
+### Same Stats, Different Graphs
+<div>
+<img src="images/same_stats_diff_graphs.png" style="height: 400px;" align="right"/>
+</div>
+- num vertices = 12
+- num edges = 21 
+- number of triangles = 10
+- global clustering coefficient = 0.5
+
+<br><br><br><br><br><br><br><br><br>
+
+.foot[[Chen et al.](https://link.springer.com/chapter/10.1007/978-3-030-04414-5_33)]
+
+---
+
+### Distribution of Features, n=10
+
+
+<img src="images/j1c-all-graphs-hexbin.png"  style="height: 500px;"/>
+
 
 
 <!-- ER image & IER image (random p_ij's) -->
@@ -191,57 +264,19 @@ class: center, middle
   - Bonferroni: way over-conservative (false negatives) -->
 
 
----
-### Bag of Features
-
-
-- choose $m$ features and compute them per graph 
-- how do I choose which features (hint: arbitrary)? 
-- how many features are possible given a graph with $n$ nodes (hint: many)?
-<!-- - do these features characterize the brain (hint: no)? -->
-- can we make causal claims using these features (hint: no)?
-- are these features independent (hint: no)?
-- least well understood of the approaches, but most common
-- Implicit model: exponential random graph model
-
 
 ---
 
-### Same Stats, Different Graphs
-<div>
-<img src="images/same_stats_diff_graphs.png" style="height: 400px;" align="right"/>
-</div>
-- num vertices = 12
-- num edges = 21 
-- number of triangles = 10
-- global clustering coefficient = 0.5
+### Limitations of Bag of Parameters
 
-<br><br><br><br><br><br><br><br><br>
-
-.foot[[Chen et al.](https://link.springer.com/chapter/10.1007/978-3-030-04414-5_33)]
-
----
-
-### Distribution of Features, n=10
-
-
-<img src="images/j1c-all-graphs-hexbin.png"  style="height: 500px;"/>
+- Conceptually less intuitive
 
 
 ---
+class: middle
 
-### Bag of Parameters 
+## .center[.k[Statistical Models of Connectomes]]
 
-- build a **statistical parametric model** of brain network(s)
-- does it treat edges independently (hint: no)?
-- do we have ways of choosing model and model complexity (hint: kind of)?
-- do we understand the statistical properties of the our estimates (hint: kind of!)?
-- Implicit model: latent structure model
-
-
----
-
-## .k[Statistical Models of Connectomes]
 
 ---
 
@@ -370,8 +405,9 @@ Notes
 - Bootstrap? -->
 
 ---
+class: middle
 
-## .k[Statistical Models of] .r[Populations of] .k[ Connectomes]
+## .center[.k[Statistical Models of] .r[Populations of] .k[ Connectomes]]
 
 
 <!-- 
@@ -385,7 +421,6 @@ Notes
 
 ### Joint Random Dot Product Graphs
 
-Intuition
 - All nodes have a latent position in d-dimensional space
 - Each graph has a latent position matrix
 
@@ -393,13 +428,13 @@ Intuition
 
 ### Common Subspace Independent Edge Graph (COSIE)
 
-Intuition
 - Common latent position matrix shared across all graphs
 - Individual graphs are transformation of the common matrix
 
 ---
+class: middle
 
-## .k[Application of Statistical Models]
+## .center[.k[Application of Population Models]]
 
 ---
 
@@ -438,8 +473,9 @@ Intuition
 <img src="images/HNU1-classerror.png" style="width: 750px;" />
 
 ---
+class: middle
 
-## .k[Discussion]
+## .center[.k[Discussion]]
 
 ---
 
@@ -456,13 +492,15 @@ Intuition
 
 ### References
 
-- Connectal Coding [[1]](https://linkinghub.elsevier.com/retrieve/pii/S0959-4388(18)30143-0)
+- Connectal Coding [[1]](https://doi.org/10.1016/j.conb.2019.04.005)
 - Description of GraSPy [[2]](https://arxiv.org/abs/1904.05329)
 - Statistics on RDPG [[3]](https://dl.acm.org/citation.cfm?id=3242083)
 - Two-sample hypothesis testing for RDPG [[4]](https://arxiv.org/abs/1403.7249)
 - Two-sample hypothesis testing for two random graphs [[5]](https://projecteuclid.org/euclid.bj/1489737619)
 - COSIE model and estimation [[6]](https://arxiv.org/abs/1906.10026)
 - Omnibus Embedding for JRDPG estimation [[7]](https://ieeexplore.ieee.org/document/8215766)
+- Mouse Connectome Heritability [[8]](https://www.biorxiv.org/content/10.1101/701755v1)
+- Connectome smoothing [[9]](https://ieeexplore.ieee.org/document/8570772)
 
 ---
 ### Acknowledgements
@@ -625,8 +663,9 @@ Intuition
 
 
 ---
+class: middle 
 
-.center[Additional Information]
+## .center[.k[Additional Information]]
 
 ---
 

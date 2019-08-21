@@ -17,7 +17,7 @@
 name:opening
 
 
-**Connectal Coding: Discovering the Mechanism Linking Cognitive Phenotypes to Individual Histories**<br>
+**An Introduction to Graph Statistics**<br>
 Joshua Vogelstein | 
 {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) 
 
@@ -41,10 +41,10 @@ class: center, middle
 ## Outline
 
 - Background
-- Example Connectomes
-- Connectal Coding 
-- Applications
-- Discussion
+- Motivation for Statistical Models
+<!-- - Connectal Coding  -->
+<!-- - Applications -->
+<!-- - Discussion -->
 
 
 ---
@@ -55,6 +55,9 @@ class: center, middle
 ---
 
 ### Two definitions
+
+<!-- @Hayden : why do we care about these things -->
+<!-- Replace with why investigate connectomes? -->
 
 .r[Neural (activity) coding]: inferring the relationships between neural *activity* and past, present, or future events
 
@@ -85,24 +88,28 @@ class: center, middle
 
 ### Implications 
 
-- A brain could have many .r[different] connectomes, at different times and/or resolutions
+<!-- combine 3 and 1 -->
+- A brain could have many .r[different] connectomes, at different times and/or resolutions, and measured in different ways (e.g. structural or functional)
+- The definition of node can mean different things at different scales
 - We measure properties of the brain  to .r[estimate] connectomes
-- Those measurements can be .r[structural] or .r[functional]
 - Estimates are always .r[noisy] 
-- connectomes are .r[not comprehensive], unlike genomes
-- nodes can be .r[abstractions], eg, all neurons type A 
-- attributes can be .r[arbitrary], eg, distribution of synaptic vesicles 
+<!-- - nodes can be .r[abstractions], eg, all neurons type A  -->
 
 ---
 
 
 ### Why Use Statistical Models?
-
+ 
+- Stuff is complicated 
 - Data are noisy
-- Inferences about population depend on model 
-- Quantify uncertainty 
+- We wish to summarize natural phenomena and quantify uncertainty in a "simple" way
+
+### Implications
+- Inferences about population .r[depend] on model 
 - Understand limitations of analyses
 
+<!-- have an idea of the generating processes that go on...  -->
+<!-- summarize our beliefs about a setting  -->
 
 ---
 
@@ -127,7 +134,25 @@ class: center, middle
 
 ---
 
-### Examples
+#### Sometimes the signal is in the node
+
+<img src="images/pop1_p_mat.png"  style="width: 350px;"/>
+<img src="images/pop2_p_mat.png"  style="width: 350px;"/>
+
+
+---
+
+#### Edge-wise stats show no significance
+
+<img src="images/edgewise_p_vals.png"  style="width: 600px;"/>
+
+
+---
+
+#### Node-wise test finds the signal
+
+<img src="images/nodewise_p_vals.png"  style="width: 750px;"/>
+
 
 <!-- ER image & IER image (random p_ij's) -->
 
@@ -169,11 +194,12 @@ class: center, middle
 ### Bag of Features
 
 
-- choose m features and compute them per node or graph 
-- how do i choose m? how do i choose which features (hint: arbitrary)? 
-- how many features are possible given a graph with n nodes (hint: many)?
-- does these features characterize the brain (hint: no)?
+- choose $m$ features and compute them per graph 
+- how do I choose which features (hint: arbitrary)? 
+- how many features are possible given a graph with $n$ nodes (hint: many)?
+<!-- - do these features characterize the brain (hint: no)? -->
 - can we make causal claims using these features (hint: no)?
+- are these features independent (hint: no)?
 - least well understood of the approaches, but most common
 
 ---
@@ -191,16 +217,23 @@ class: center, middle
 
 .foot[[Chen et al.](https://link.springer.com/chapter/10.1007/978-3-030-04414-5_33)]
 
+---
+
+### Distribution of Features, n=10
+
+
+<img src="images/j1c-all-graphs-hexbin.png"  style="height: 500px;"/>
+
 
 ---
 
 ### Bag of Parameters 
 
-- build a **statistical parametric model** of brain network
+- build a **statistical parametric model** of brain network(s)
 - does it treat edges independently (hint: no)?
 - do we have ways of choosing model and model complexity (hint: kind of)?
-- do these models characterize the brain (hint: yup!)?
-- can we make causal claims (hint: kind of)?
+- do we understand the statistical properties of the our estimates (hint: kind of!)?
+
 
 ---
 
@@ -208,33 +241,19 @@ class: center, middle
 
 ---
 
-### Independent & Identical Edges
+### Erdos-Renyi (ER)
 
-Erdos-Renyi (ER): akin to assuming a neuron's spike rate is Poisson with a fixed rate.
-
+- akin to assuming a neuron's spike rate is Poisson with a fixed rate.
 - edges are binary
 - all edges independent
-- all edges sampled from identical distribution 
+- all edges sampled from identical distribution
 - only 1 parameter: prob of an edge
 - $\mathbb{P}[A_{i,j}] = p$
 
 Notes
-- directed vs. undirected
-- loopy vs. no loops
-- Simplest random graph model 
-- lacks sufficient complexity/descriptive power for most questions 
+- <b> Simplest random graph model; lacks descriptive power </b>
 
 
-
----
-
-#### Effect Sizes are Not Ordered Correctly :( 
-
-<img src="images/sim1_power_parameters.png"  style="width: 750px;"/>
-
---
-
-<img src="images/sim1_power.png"  style="height: 250px;"/>
 
 
 
@@ -278,7 +297,7 @@ Notes
 
 ---
 
-### IIE Model of Drosophila Connectome
+### Drosophila Connectome ER 
 
 <br>
 
@@ -287,9 +306,7 @@ Notes
 
 ---
 
-### Independent Edge Model
-
-Degree Corrected Erdos-Renyi (ER)
+### Degree Corrected Erdos-Renyi (DCER)
 
 - edges are binary 
 - edges are independent 
@@ -304,7 +321,7 @@ Notes
 
 ---
 
-### IIE Model of Drosophila Connectome
+### Drosophila Connectome DCER
 
 <br>
 
@@ -312,31 +329,26 @@ Notes
 
 ---
 
-### Categorical Conditionally Independent Edge Models
+### Stochastic Block Model (SBM)
 
-Stochastic Block Model (SBM): akin to assuming a neuron's are in different states, which determine Poisson rate.
-
+- akin to assuming a neuron's are in different states, which determine Poisson rate.
 - edges are binary
 - edges are .r[conditionally] independent 
 - each node has a class assignment
 - $\mathbb{P}[A_{i,j}]$ = $B$(class i, class j)
 
 Notes
-- directed vs. undirected
-- loopy vs. no loops
 - simplest >2 parameter model
 
 ---
 
-## Connectome SBMs
+### Drosophila Connectome SBM
 
 
 <img src="images/dros_sbm_model.png"  style="width: 800px;"/>
 
 ---
-### Categorical Conditionally Independent Edge Models 
-
-Degree Corrected SBM
+### Degree-corrected Stochastic Block Model (DCSBM)
 
 - edges are binary
 - edges are .r[conditionally] independent
@@ -344,14 +356,12 @@ Degree Corrected SBM
 - $\mathbb{P}[A_{i,j}]$ = $\theta_i\theta_jB$(class i, class j)
 
 Notes
-- directed vs. undirected
-- loopy vs. no loops
 - simplest >2 parameter model
 
 
 ---
 
-## Connectome SBMs
+## Drosophila Connectome DCSBM
 
 
 <img src="images/dros_dcsbm_model.png" style="width: 800px;" />
@@ -392,10 +402,9 @@ Notes
 --->
 ---
 
-### Continuous Conditionally Independent Edge Models 
+### Random Dot Product Graphs (RDPG)
 
-Random Dot Product Graphs (RDPG): akin to latent state models in population coding
-
+- akin to latent state models in population coding
 - edges are binary
 - edges are conditionally independent 
 - each node has a .r[latent position in d-dimensions]
@@ -403,29 +412,46 @@ Random Dot Product Graphs (RDPG): akin to latent state models in population codi
 - for example, $\mathbb{P}[A_{i,j}]$ is the dot product of latent positions
 
 Notes
-- directed vs. undirected
-- no loops is ickier
 - generalizes previous models
 
 ---
 
-### Connectome RDPGs
+### Explain the fuck out of latent positions
+
+
+---
+
+### Drosophila Connectome RDPGs
 
 <img src="images/dros_rdpg_model.png"  style="width: 750px;"/>
 
-
 ---
+
+### Model considerations/extensions
+
+- Directed extensions exist
+- Loopy extensions exist
+- Weighted extensions exist (mostly)
+
+
+<!-- ---
+
 ### What can we do with parameters?
 
 - Node clustering or classification
-- Bootstrap?
+- Bootstrap? -->
 
 ---
+
+## .k[Statistical Models of] .r[Populations of] .k[ Connectomes]
+
+
+<!-- 
 
 ## Population Graph Models 
 
 - Joint RDPG
-- Common Subspace Independent Edge Graph (COSIE)
+- Common Subspace Independent Edge Graph (COSIE) -->
 
 ---
 
@@ -442,6 +468,12 @@ Intuition
 Intuition
 - Common latent position matrix shared across all graphs
 - Individual graphs are transformation of the common matrix
+
+---
+
+### Test for 
+
+
 
 ---
 

@@ -18,8 +18,6 @@ Johns Hopkins University}
 \usetheme{default}
 %\renewcommand{\insertnavigation}[1]{}
 \setbeamertemplate{headline}{}
-\setbeamertemplate{footline}[text line]{%
-  \parbox{\linewidth}{Devin Crowley (\texttt{devin.g.crowley@gmail.com}) \hfill Johns Hopkins University \hfill Brain mapping tools for neuroscience}}
   
 \beamertemplatenavigationsymbolsempty
 \renewcommand{\footnotesize}{\tiny}
@@ -48,12 +46,12 @@ Johns Hopkins University}
 %\end{frame}
 
 
-\begin{frame}{Workshop Outline}
+\begin{frame}{Today's Outline}
 
 \begin{enumerate}
 \item Focused look at registration algorithms
-\item Running code on real data
 \item Discussion of issues affecting the community
+\item Running code on real data
 \end{enumerate}
 
 \end{frame}
@@ -71,10 +69,10 @@ Johns Hopkins University}
 
 \node (target) [rect ] at (-3.5,0) {Experimental data \includegraphics[width=\textwidth]{ex1_target_slice.png}};
 \node (atlas) [rect]  at (3.5,0) {Standard coordinates \includegraphics[width=\textwidth]{ex1_allen_slice.png}};
-\node (map) [rectangle, text width=3cm, text centered, ] at (0,-0) {3. Transformation \includegraphics[width=2.75cm,clip,trim=0.5in 0in 0.5in 0in]{ex1_warp.png}};
+\node (map) [rectangle, text width=3cm, text centered, ] at (0,-0) { \includegraphics[width=2.75cm,clip,trim=0.5in 0in 0.5in 0in]{ex1_warp.png}};
 
-\draw [arrow] (target) to [out=45,in=135] node [anchor=south] {1. Registration} (atlas);
-\draw [arrow] (atlas) to [out=-135,in=-45] node [anchor=north] {2. Interpretation} (target);
+\draw [arrow] (target) to [out=45,in=135] node [anchor=south] {} (atlas);
+\draw [arrow] (atlas) to [out=-135,in=-45] node [anchor=north] {} (target);
 
 \end{tikzpicture}
 \end{frame}
@@ -139,35 +137,7 @@ Build databases of information indexed to spatial coordinates
 \end{frame}
 
 
-
-\begin{frame}{2. Interpretation}
-
-
-Leverage information stored in atlas coordinates.\footnote{MBA: Mouse brain architecture \url{brainarchitecture.org}, ARA: Allen reference atlas \url{connectivity.brain-map.org/}}
-
-\begin{minipage}{0.3\textwidth}
-MBA
-\includegraphics[width=\textwidth]{mba2.png}\\
-\includegraphics[width=\textwidth]{mba1.png}
-\end{minipage}~
-\begin{minipage}{0.7\textwidth}
-ARA\\
-\includegraphics[width=\textwidth,clip,trim=1in 6in 1in 1.5in]{allen-connectivity}
-\end{minipage}
-
-\begin{itemize}
-
-\item
-Label images with standard ontologies
-
-\item
-Index to gene expression, cell types, tractography, etc.
-
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{3. Transformation}
+\begin{frame}{3. Examining the Transformation Itself}
 
 Studying transformations quantifies growth or atrophy %(morphometry).
 \vspace{-0.5em}
@@ -178,7 +148,7 @@ Studying transformations quantifies growth or atrophy %(morphometry).
 \end{center}
 \vspace{-1em}
 \begin{itemize}
-\item Here thickness change in transentorhinal region measured from longitudinal MRI\footnote{Tward, Daniel J., et al. ``Entorhinal and transentorhinal atrophy in mild cognitive impairment using longitudinal diffeomorphometry.'' Alzheimer's \& Dementia: Diagnosis, Assessment \& Disease Monitoring 9 (2017): 41-50.}
+\item Here thickness change in transentorhinal region measured from longitudinal MRI
 \item Previously only observed at autopsy
 \end{itemize}
 
@@ -236,7 +206,7 @@ Similarity: How good is an alignment?
 % extra frame for workshop
 \begin{frame}{Transformation models: Matrix groups}
 
-Euclidean (6 degrees of freedom): Encodes position and pose
+Rigid (6 degrees of freedom): Encodes position and pose
 
 \includegraphics[width=0.15\textwidth]{tform_models_id}~
 \includegraphics[width=0.15\textwidth]{tform_models_rigid_1}~
@@ -248,7 +218,7 @@ Euclidean (6 degrees of freedom): Encodes position and pose
 
 
 
-Similarity (7 DOF): Include scale, more flexible, no shape change
+Rigid + uniform scale (7 DOF): Include scale, more flexible, no shape change
 
 
 \includegraphics[width=0.15\textwidth]{tform_models_similarity_1}~
@@ -300,7 +270,7 @@ or in smoothness
 
 \alert{Pros}: Can model a wide range of biological variability.
 
-\alert{Cons}:  Large transforms fail to be invertible no matter how smooth
+\alert{Cons}:  Large transforms can fail to be invertible no matter how smooth
 
 \includegraphics[width=0.15\textwidth]{tform_models_disp_1}~
 \includegraphics[width=0.15\textwidth]{tform_models_disp_2}~
@@ -347,7 +317,7 @@ These \alert{diffeomorphisms} form the basis of \alert{Computational Anatomy}, a
 % extra for workshop
 \begin{frame}{Regularization}
 
-High dimensional transformations are not unique, regularization allows us to choose \alert{most favorable}.
+High dimensional transformations can overfit, therefore we regularize. Otherwise we could find some perverse fit, or completely transform one image into another.
 
 \vspace{1em}
 
@@ -400,59 +370,6 @@ Allows statistical concepts such as averages or regression.
 \end{frame}
 
 
-\begin{frame}{Regularization}
-
-Energy minimizing flows admit sparse solutions, key for overcoming bias variance tradeoff in high dimensions%, and multiple comparisons in statistics
-
-\vspace{0.25em}
-Regularization based on low dimensional priors for MAP estimates\footnote{Tward, Daniel, et al. "Parametric surface diffeomorphometry for low dimensional embeddings of dense segmentations and imagery." IEEE transactions on pattern analysis and machine intelligence (2016).}
-\vspace{-1.5em}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{Array.png}%
-\end{center}
-\end{frame}
-
-
-
-
-
-% extra for workshop
-\begin{frame}{Similarity: Feature point based}
-
-Matching corresponding pairs of fiducial landmark points, {\color{cyan}$X$} to {\color{red}$Y$}, via sum of square error admits closed form solutions:
-\begin{align*}
-&\left.
-\begin{array}{l}
-\varphi(x) = Ax\\
- A = \text{Cov}(X,X)^{-1}\text{Cov}(X,Y)
-\end{array}
-\right\} \qquad  \text{(affine)}\\
-&\left. 
-\begin{array}{l}
-\varphi(x) = x + \sum_i K(x,X_i) P_i\\
-P = K(X,X)^{-1}(Y-X)
-\end{array}
-\right \} \qquad  \text{(spline displacement)}
-\end{align*}
-%Picture? Check course talks
-\begin{center}
-\includegraphics[width=0.28\textwidth]{landmarks0}
-\includegraphics[width=0.28\textwidth]{landmarks2}
-\includegraphics[width=0.28\textwidth]{landmarks3}
-\end{center}
-\vspace{-1.5em}
-\vspace{1em}
-
-Unlabeled points curves and surfaces via currents or varifolds.
-
-\vspace{1em}
-Points require manual selection, only ensures accuracy nearby.
-
-
-
-\end{frame}
-
-
 
 \begin{frame}{Similarity: Image based}
 Common cost functions for comparing atlas $I(\varphi^{-1})$ to target $J$:
@@ -485,127 +402,6 @@ Other robust similarities can be used such as L1 or Huber.
 
 
 
-
-
-
-\begin{frame}{Challenges and solutions}
-
-Most brain mapping techniques were developed for medical imaging, but  neuroscience data faces unique challenges:
-
-
-\begin{itemize}
-
-
-\item 
-Incomplete or sliced data
-
-\item 
-Artifacts or damaged tissue
-
-\item 
-Multiple different modalities or appearance
-
-\end{itemize}
-
-\includegraphics[width=\textwidth,clip,trim=0in 1.3in 0in 0in]{720exampleslices-edit}
-
-\vspace{1em}
-
-We use machine learning to predict one image from another, while \alert{jointly} performing registration and artifact detection\footnote{ Tward, Daniel Jacob, et al. ``Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease.'' BioRxiv (2019): 494005.}
-
-\vspace{1em}
-\includegraphics[width=\textwidth,clip,trim=0in 0in 0in 1.3in]{720exampleslices-edit}
-
-
-\end{frame}
-
-% extra for workshop
-\begin{frame}{Intensity mapping: \only<1>{Grayscale to grayscale}\only<2>{Grayscale to RGB}\only<3>{RGB to RGB}}
-%\blfootnote{Tward, Daniel Jacob, et al. ``Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease.'' BioRxiv (2019): 494005.}
-
-Expand optimization problem to include an intensity transform $F_\theta$
-\begin{align*}
-\int \frac12 |\alert{F_\theta} [I(\varphi^{-1}(x))] - J(x)|^2 dx
-\end{align*}
-and optimize jointly over $\varphi$  and $\theta$.
-\only<1>{
-\vspace{-0.5em}
-\begin{center}
-\includegraphics[height=0.64\textheight]{intensity_example_1.png}
-\end{center}
-\vspace{-0.5em}
-Calibration curve: reduce contrast at low intensity, increase at high.
-}%
-\only<2>{
-\vspace{-0.5em}
-\begin{center}
-\includegraphics[height=0.64\textheight]{intensity_example_2.png}
-\end{center}
-\vspace{-0.5em}
-Nonmonotonic: swaps order of ``grey'', ``white'', ``background''.
-}%
-\only<3>{
-\vspace{-0.5em}
-\begin{center}
-\includegraphics[height=0.64\textheight]{intensity_example_3.png}
-\end{center}
-\vspace{-0.5em}
-Mix powers of RGB, fairly high dimensional, flexible transforms.  
-}%
-
-\end{frame}
-
-
-
-
-
-
-
-
-% extra for workshop
-\begin{frame}{Artifacts}
-%\blfootnote{Tward, Daniel Jacob, et al. ``Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease.'' BioRxiv (2019): 494005.}
-
-Allows multimodality registration with simple Gaussian likelihood.
-
-
-Handle artifacts with Expectation Maximization algorithm
-\begin{align*}
-\int \frac12 |\alert{F_\theta} [I(\varphi^{-1}(x))] - J(x)|^2\alert{W(x)} dx
-\end{align*}
-
-\alert{E step}: Compute $W$ as posterior probability for fixed $\theta,\varphi$.
-
-\alert{M step}: Compute optimal $\theta,\varphi$ for fixed $W$.
-
-
-%In this simulated example we find tissue labels, estimate nonmonotonic intensity transformation, and diffeomorphism (left).
-
-%Existing approaches (right) fail on this simple example.
-
-\centering
-\fbox{
-\includegraphics[width=0.68\textwidth,clip,trim=0.5in 0in 0in 0in]{phantom_1.png}
-}~
-\fbox{
-\includegraphics[width=0.24\textwidth,clip,trim=0.5in 0in 10.9in 0in]{phantom_2.png}
-}
-\end{frame}
-
-
-\begin{frame}{Multimodality and damaged tissue in digital pathology}
-\phantom{.}\hfill
-\includegraphics[height=0.9\textheight]{missing_data_different_intensity_digital_pathology.png}
-\hfill\phantom{.}
-\end{frame}
-
-\begin{frame}{Multimodal 2D histology slices to 3D atlas}
-
-\phantom{.}\hfill
-\includegraphics[width=0.9\textwidth]{all_slices.png}
-\hfill\phantom{.}
-
-\end{frame}
 
 \begin{frame}{CLARITY cleared mouse brain registered to Allen Atlas}
 
@@ -691,12 +487,143 @@ Optimization with gradient descent.
 
 
 
+\begin{frame}{Discussion \& Next Steps}
+\end{frame}
+
+
+
+\begin{frame}{Challenges and solutions}
+
+Most brain mapping techniques were developed for medical imaging, but  neuroscience data faces unique challenges:
+
+
+\begin{itemize}
+
+
+\item 
+Incomplete or sliced data
+
+\item 
+Artifacts or damaged tissue
+
+\item 
+Multiple different modalities or appearance
+
+\end{itemize}
+
+\includegraphics[width=\textwidth,clip,trim=0in 1.3in 0in 0in]{720exampleslices-edit}
+
+\vspace{1em}
+
+We use machine learning to predict one image from another, while \alert{jointly} performing registration and artifact detection\footnote{ Tward, Daniel Jacob, et al. ``Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease.'' BioRxiv (2019): 494005.}
+
+\vspace{1em}
+\includegraphics[width=\textwidth,clip,trim=0in 0in 0in 1.3in]{720exampleslices-edit}
+
+
+\end{frame}
+
+
+
+
+
+
+% extra for workshop
+\begin{frame}{Intensity mapping: \only<1>{Grayscale to grayscale}}
+%\blfootnote{Tward, Daniel Jacob, et al. ``Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease.'' BioRxiv (2019): 494005.}
+
+Expand optimization problem to include an intensity transform $F_\theta$
+\begin{align*}
+\int \frac12 |\alert{F_\theta} [I(\varphi^{-1}(x))] - J(x)|^2 dx
+\end{align*}
+and optimize jointly over $\varphi$  and $\theta$.
+\only<1>{
+\vspace{-0.5em}
+\begin{center}
+\includegraphics[height=0.64\textheight]{intensity_example_1.png}
+\end{center}
+\vspace{-0.5em}
+Calibration curve: reduce contrast at low intensity, increase at high.
+}%
+
+\end{frame}
+
+
+
+
+% extra for workshop
+\begin{frame}{Intensity mapping: \only<1>{Grayscale to RGB}\only<2>{RGB to RGB}}
+%\blfootnote{Tward, Daniel Jacob, et al. ``Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease.'' BioRxiv (2019): 494005.}
+
+Expand optimization problem to include an intensity transform $F_\theta$
+\begin{align*}
+\int \frac12 |\alert{F_\theta} [I(\varphi^{-1}(x))] - J(x)|^2 dx
+\end{align*}
+and optimize jointly over $\varphi$  and $\theta$.
+\only<1>{
+\vspace{-0.5em}
+\begin{center}
+\includegraphics[height=0.64\textheight]{intensity_example_2.png}
+\end{center}
+\vspace{-0.5em}
+Nonmonotonic: swaps order of ``grey'', ``white'', ``background''.
+}%
+\only<2>{
+\vspace{-0.5em}
+\begin{center}
+\includegraphics[height=0.64\textheight]{intensity_example_3.png}
+\end{center}
+\vspace{-0.5em}
+Mix powers of RGB, fairly high dimensional, flexible transforms.  
+}%
+
+\end{frame}
+
+
+
+
+
+% extra for workshop
+\begin{frame}{Artifacts}
+%\blfootnote{Tward, Daniel Jacob, et al. ``Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease.'' BioRxiv (2019): 494005.}
+
+Allows multimodality registration with simple Gaussian likelihood.
+
+
+Handle artifacts with Expectation Maximization algorithm
+\begin{align*}
+\int \frac12 |\alert{F_\theta} [I(\varphi^{-1}(x))] - J(x)|^2\alert{W(x)} dx
+\end{align*}
+
+\alert{E step}: Compute $W$ as posterior probability for fixed $\theta,\varphi$.
+
+\alert{M step}: Compute optimal $\theta,\varphi$ for fixed $W$.
+
+
+%In this simulated example we find tissue labels, estimate nonmonotonic intensity transformation, and diffeomorphism (left).
+
+%Existing approaches (right) fail on this simple example.
+
+\centering
+\fbox{
+\includegraphics[width=0.68\textwidth,clip,trim=0.5in 0in 0in 0in]{phantom_1.png}
+}~
+\fbox{
+\includegraphics[width=0.24\textwidth,clip,trim=0.5in 0in 10.9in 0in]{phantom_2.png}
+}
+\end{frame}
+
+
+
+
+
 \begin{frame}{Acknowledgements}
 
 \begin{columns}
 \begin{column}{0.5\textwidth}
 People
 \begin{itemize}
+\item Daniel Tward (JHU)
 \item Michael Miller (JHU)
 \item Joshua Vogelstein (JHU)
 \item Susumu Mori (JHU)

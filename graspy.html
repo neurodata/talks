@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Connectal Coding</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <textarea id="source">
+
+
+name:opening
+
+
+**An Introduction to Graph Statistics**<br>
+Joshua Vogelstein | 
+{[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) 
+
+
+<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:430px;"/></a>
+
+
+<!-- <img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <font color="grey"></font> -->
+.foot[[jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)]
+
+
+---
+class: center, middle
+
+## .center[https://neurodata.io/graspy/]
+
+---
+
+## Outline
+
+- Background
+- Statistical Models of Connectomes 
+- Statistical Models of Populations of Connectomes
+- Applications
+- Discussion
+
+
+---
+class: middle 
+
+## .center[.k[Background]]
+
+---
+### What is a Connectome?
+
+- .r[Network] of a brain, at a spatiotemporal precision & extent
+- .r[Nodes] are distinct biophysical entities 
+- .r[Edges] indicate the presence of a connection/communication between nodes
+- .r[Attributes] of the network, nodes, or edges are possible
+
+--
+
+<br>
+
+- Example nodes: cells, cellular compartment, cellular ensembles
+- Example edges: synapses, gap junction, fiber bundles
+
+
+---
+
+## Many adjacency matrices, one graph 
+
+Drosophila larva connectome, Eichler et al. 2017
+<img src="images/multi-adj-dros.png"  style="width: 700px;"/>
+
+
+---
+
+### Definitions
+
+.r[Neural (activity) coding]: inferring the relationships between neural *activity* and past, present, or future events, states, or traits
+
+--
+
+.r[Connectal coding]: inferring the relationships between neural *connectivity* and past, present, or future events, states, or traits
+
+--
+
+.s[events]: genetic, developmental, experiential (stimuli/behavior)
+
+.s[traits]: IQ, sex, personality, learning disabled 
+
+.s[states]: happy, resting, manic
+
+
+
+<!-- ---
+
+### Implications 
+
+- A brain could have many different connectomes, at different times and/or resolutions, and measured in different ways (e.g. structural or functional)
+- The definition of node can mean different things at different scales
+- We measure properties of the brain  to .r[estimate] connectomes
+- Estimates are always .r[noisy]  -->
+
+---
+
+
+### Why Use Statistical Models?
+ 
+- Connectome estimates are noisy
+- Connectomes, and their relationships to events, states, or traits, can be complicated 
+- We wish to 
+  - quantify uncertainty
+  - incorporate domain knowledge to the extent possible
+  - summarize natural phenomena in a "simple" way
+  - understand limitations of analyses
+
+### Implications
+- All inferences about population .r[depend on model] 
+
+---
+
+### Connectome Analysis Styles 
+
+
+- Bag of edges
+- Bag of features
+- Bag of parameters
+
+
+
+
+---
+
+### Bag of Edges
+
+- Treat each edge as independent
+- Implicit model: independent edge model 
+
+
+---
+### Bag of Features
+
+
+- Choose $m$ features and compute them per graph
+- Characterize connectome with this set of "parameters"
+- Implicit model: exponential random graph model 
+
+
+---
+
+### Bag of Parameters 
+
+- Build a **statistical parametric model** of brain network
+- Can encode some domain knowledge explicitly 
+- Can model edges, nodes, communities
+- Implicit model: latent structure model
+
+
+
+---
+
+### Limitations of approaches
+
+---
+
+### Limitations of Bag of Edges 
+
+- Completely ignores graph structure of data 
+- Too simple for many questions
+
+---
+
+#### Sometimes the signal is in the node
+
+<img src="images/pop1_p_mat.png"  style="width: 350px;"/>
+<img src="images/pop2_p_mat.png"  style="width: 350px;"/>
+
+
+---
+
+#### Edge-wise stats show no significance
+
+<img src="images/edgewise_p_vals.png"  style="width: 600px;"/>
+
+
+---
+
+#### Node-wise test finds the signal
+
+<img src="images/nodewise_p_vals.png"  style="width: 750px;"/>
+
+
+---
+
+### Limitations of Bag of Features
+
+
+- how do I choose which features (hint: arbitrary)? 
+- how many features are possible given a graph with $n$ nodes (hint: many)?
+- do these features characterize the brain (hint: no)?
+- can we make causal claims using these features (hint: no)?
+- are these features independent (hint: no)?
+- least well understood of the approaches, but very common
+
+
+---
+
+### Same Stats, Different Graphs
+<div>
+<img src="images/same_stats_diff_graphs.png" style="height: 400px;" align="right"/>
+</div>
+- num vertices = 12
+- num edges = 21 
+- number of triangles = 10
+- global clustering coefficient = 0.5
+
+<br><br><br><br><br><br><br><br><br>
+
+.foot[[Chen et al.](https://link.springer.com/chapter/10.1007/978-3-030-04414-5_33)]
+
+---
+
+### Distribution of Features, n=10
+
+
+<img src="images/j1c-all-graphs-hexbin.png"  style="height: 500px;"/>
+
+---
+
+### Condition on "close" to base graph
+
+<img src="images/j1c_hexbin_31_base.png" style="height: 500px;" />
+
+
+.footnote[(edges=31, threshold=3, n=200k)]
+
+<!-- ER image & IER image (random p_ij's) -->
+
+
+<!-- Model of 1 graph
+  - for each of the 3 approaches (IE, ERGM, LSM)
+    - define different approaches
+    - give examples
+  - demonstrate pro's and con's of different approaches
+    - prob with ER: too simple
+    - prob with IE: sometimes signal is in the nodes
+    - prob with ERGM: j1c's thingy
+    - prob with latent positions: less intuitive
+    - value of latent positions:
+      - characterize the data
+
+  - model of \geq 2 graphs
+    - correlated ER
+    - COSIE
+    - MRDPG
+  - applications of multigraph models
+      - test for equality, mouse example
+      - test for indepedence, bear example
+      - test for heritability
+      - graph matching
+  - mic drop
+
+ -->
+
+
+<!-- 
+- requires multiple hypothesis correction for valid tests
+- does anybody know a good way to correct (hint: no)?
+  - BH: way under-conservative (false positives)
+  - Bonferroni: way over-conservative (false negatives) -->
+
+---
+
+### Limitations of Bag of Parameters
+
+- Conceptually less intuitive
+
+
+---
+class: middle
+
+## .center[.k[Statistical Models of Connectomes]]
+
+
+---
+
+### Erdos-Renyi (ER)
+
+- akin to assuming a neuron's spike rate is Poisson with a fixed rate.
+- all edges independent
+- all edges sampled from identical distribution
+- only 1 parameter: prob of an edge
+- $\mathbb{P}[A_{i,j}] = p$
+
+Notes
+- <b> Simplest random graph model; lacks descriptive power </b>
+
+---
+
+### Drosophila Connectome ER 
+
+<br>
+
+<img src="images/dros_er_model.png" style="width: 800px;" />
+- p = 0.166
+
+---
+
+### Degree Corrected Erdos-Renyi (DCER)
+
+- edges are independent 
+- edges are sampled from .r[different] distributions
+- .r[n+1 parameters]: degree correction for each node
+- $\mathbb{P}[A_{i,j}] = \theta_i\theta_jp$ 
+
+
+Notes 
+- n+1 paramers is much larger than 1
+- still ignores structure
+
+---
+
+### Drosophila Connectome DCER
+
+<br>
+
+<img src="images/dros_dcer_model.png" style="width: 800px;" />
+
+---
+
+### Stochastic Block Model (SBM)
+
+- akin to assuming a neuron's are in different states, which determine Poisson rate.
+- edges are .r[conditionally] independent 
+- each node has a class assignment
+- $\mathbb{P}[A_{i,j}]$ = $B$(class i, class j)
+
+Notes
+- simplest >2 parameter model
+
+---
+
+### Drosophila Connectome SBM
+
+
+<img src="images/dros_sbm_model.png"  style="width: 800px;"/>
+
+---
+### Degree-corrected Stochastic Block Model (DCSBM)
+
+- edges are .r[conditionally] independent
+- each node has a class assignment
+- $\mathbb{P}[A_{i,j}]$ = $\theta_i\theta_jB$(class i, class j)
+
+Notes
+- simplest >2 parameter model
+
+
+---
+
+## Drosophila Connectome DCSBM
+
+
+<img src="images/dros_dcsbm_model.png" style="width: 800px;" />
+
+---
+
+### Random Dot Product Graphs (RDPG)
+
+- akin to latent state models in population coding
+- edges are conditionally independent 
+- each node has a .r[latent position in d-dimensions]
+- $\mathbb{P}[A_{i,j}]$ = f(latent position i, latent position j)
+- for example, $\mathbb{P}[A_{i,j}]$ is the dot product of latent positions
+
+Notes
+- generalizes previous models
+
+---
+
+### Latent positions allow for more general relationships
+
+<img class="left" src="images/RDPGrank6latent.png" style="width: 400px;" /> 
+<img class="right" src="images/legendn copy.png" style="width: 150px;"/>
+
+
+
+
+---
+
+### Drosophila Connectome RDPGs
+
+<img src="images/dros_rdpg_model.png"  style="width: 750px;"/>
+
+---
+
+### Model considerations/extensions
+
+- Directed extensions exist
+- Loopy extensions exist
+- Weighted extensions exist (mostly)
+
+
+<!-- ---
+
+### What can we do with parameters?
+
+- Node clustering or classification
+- Bootstrap? -->
+
+---
+class: middle
+
+## .center[.k[Statistical Models of] .r[Populations of] .k[ Connectomes]]
+
+
+<!-- 
+
+## Population Graph Models 
+
+- Joint RDPG
+- Common Subspace Independent Edge Graph (COSIE) -->
+
+---
+
+### Joint Random Dot Product Graphs
+
+- All nodes have a latent position in d-dimensional space
+- Each graph has a latent position matrix
+
+<img src="images/omni_method.png" style="width: 650px;" />
+
+---
+
+### Common Subspace Independent Edge Graph (COSIE)
+
+- Common latent position matrix shared across all graphs
+- Individual graphs are transformation of the common matrix
+
+<img src="images/mase_method.png" style="width: 650px;" />
+
+---
+class: middle
+
+## .center[.k[Application of Population Models]]
+
+---
+
+### Mouse Connectomes From Same Genotype are Similar
+
+<img src="images/mouse_connectomes.png" style="width: 750px;" />
+
+---
+
+### Structural Connectomes are Heritable
+
+<img src="images/heritability.png" style="width: 750px;" />
+
+- MRDPG model
+
+---
+
+### COSIE Model Can Recover Bilateral Separation
+
+<img src="images/HNU1-latentpositions-plot.png" style="width: 700px;" />
+
+- HNU1 Dataset
+
+---
+
+### COSIE Model Can Recover Clusters of Same Test-Retest Scans
+
+<img src="images/HNU1-mds123-cbpalette.png" style="width: 750px;" />
+
+- HNU1 Dataset
+
+---
+
+### COSIE Model Can Perfectly Classify of Subjects
+
+<img src="images/HNU1-classerror.png" style="width: 750px;" />
+
+---
+class: middle
+
+## .center[.k[Discussion]]
+
+---
+
+## Summary and Next Steps 
+
+- Connectomes are the  mechanistic link: 
+
+.center[.r[genotype --> phenotype]]
+
+- Extend ideas from coding theory to support these analyses
+- Connectomes, genetic and phenotypic data are available
+
+---
+
+### References
+
+- Connectal Coding [[1]](https://doi.org/10.1016/j.conb.2019.04.005)
+- Description of GraSPy [[2]](https://arxiv.org/abs/1904.05329)
+- Statistics on RDPG [[3]](https://dl.acm.org/citation.cfm?id=3242083)
+- Two-sample hypothesis testing for RDPG [[4]](https://arxiv.org/abs/1403.7249)
+- Two-sample hypothesis testing for two random graphs [[5]](https://projecteuclid.org/euclid.bj/1489737619)
+- COSIE model and estimation [[6]](https://arxiv.org/abs/1906.10026)
+- Omnibus Embedding for JRDPG estimation [[7]](https://ieeexplore.ieee.org/document/8215766)
+- Mouse Connectome Heritability [[8]](https://www.biorxiv.org/content/10.1101/701755v1)
+- Connectome smoothing [[9]](https://ieeexplore.ieee.org/document/8570772)
+
+---
+### Acknowledgements
+
+<div class="small-container">
+  <img src="faces/jovo.png" />
+  <div class="centered">Joshua Vogelstein</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jaewon.jpg" />
+  <div class="centered">Jaewon Chung</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/hayden.png"/>
+  <div class="centered">Hayden Helm</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jesus.jpg"/>
+  <div class="centered">Jesus Arroyo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/ronak.jpg"/>
+  <div class="centered">Ronak Mehta</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/ronan.jpg"/>
+  <div class="centered">Ronan Perry</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/vivek.jpg"/>
+  <div class="centered">Vivek Gopalakrishnan</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/tommy_athey.jpg"/>
+  <div class="centered">Tommy Athey</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/patsolic_heather.jpg"/>
+  <div class="centered">Heather Patsolic</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/bijan.jpg"/>
+  <div class="centered">Bijan Varjavand</div>
+</div>
+
+<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+
+---
+class: middle 
+
+## .center[.k[Additional Information]]
+
+---
+
+## Adjacency Spectral Embedding
+
+- Method for estimating parameter for RDPG model (for single graph)
+- $\hat{X} = UD^{1/2}$ where $U, D, V = SVD(A)$.
+
+---
+
+## Omnibus Embedding
+
+- Method for estimating parameters for Joint RDPG model
+
+<img src="images/omni_method.png" style="width: 750px;" />
+
+---
+
+## Multiple Adjacency Spectral Embedding (MASE)
+
+- Method for estimating parameters for COSIE model
+
+<img src="images/mase_method.png" style="width: 750px;" />
+
+---
+
+### Genotype, Phenotype, Connectotype
+
+
+- .r[Phenotype]: a description of an individual's  properties with regard to a phenomenon of interest 
+- .r[Genotype]: a set of genes and associated variants associated with that phenotype
+- .r[Connectotype]: a set of nodes, edges, and their properties that are associated with that phenotype
+
+--
+
+<br><br>
+
+.center[Genotype --> Connectotype --> Phenotype]
+
+
+**Connectotypes are the implementation-level mechanisms linking genotypes to phenotypes** 
+
+---
+
+
+
+
+    </textarea>
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+    var slideshow = remark.create(options, renderMath);
+  </script>
+</body>
+
+
+</html>

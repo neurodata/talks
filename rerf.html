@@ -21,7 +21,7 @@
       #### Sparse Projection Oblique Randomer Forest
 
 
-      Joshua T. Vogelstein |       <https://neurodata.io/rerf>
+      Joshua T. Vogelstein |       <https://neurodata.io/sporf>
 
       <img src="images/neurodata_purple.png" style="height:350px; float:right;"/>
       
@@ -95,7 +95,7 @@
 
       --
 
-      - Example 7 (independence testing): we wonder is $X$ independent of $Y$, $H\_0: F\_{XY} = F\_X F\_Y$, $H\_A: F\_{XY} \neq F\_X F\_Y$
+      - Example 7 ($k$-Sample testing): we wonder is $U$ different from $V$, $H\_0: F\_U = F\_V$, $H\_A: F\_U \neq F\_V$
 
       --
 
@@ -443,15 +443,14 @@
       ###  Empirical Performance (Numeric)
 
 
-      <img src="images/sporf_error_histogram_benchmarks_numeric.png"   style="width: 80%;"/>
-      <img src="images/sporf_error_histogram_benchmarks_legend.png"   style="width: 100%;"/>
+      <img src="images/error_benchmarks_numeric_v4.png"   style="width: 100%;"/>
 
       ---
 
       ###  Empirical Performance (Mixed)
 
 
-      <img src="images/sporf_error_histogram_benchmarks.png" style="width: 40%;"/>
+      <img src="images/error_benchmarks_all_v4.png"   style="width: 45%;"/>
 
 
       ---
@@ -623,10 +622,11 @@
 
       ---
 
-      ### SPORF Independence Testing
+      ### SPORF $k$-Sample Testing
 
+      - have previously shown $k$-sample testing problem can be reduced independence testing problem
       - can use RF "kernel" in MGC 
-      - can directly estimate MI 
+      - can directly estimate MI
 
 
       ---
@@ -709,8 +709,6 @@
       - Get you going with it ([download here](https://neurodata.io/rerf))
       - Apply it to your data
 
-
-      ---
 
 
       ---
@@ -880,13 +878,18 @@
         <div class="centered">Richard Guo</div>
       </div>
 
+      <div class="small-container">
+        <img src="faces/sambit.jpg"/>
+        <div class="centered">Sambit Panda</div>
+      </div>
+
   
       
       <div class="small-container">
         <img src="faces/jeremias.png"/>
         <div class="centered">Jeremias Sulam</div>
 
-      </div> <span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+      </div> <span style="font-size:150%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
       
       <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
       <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>

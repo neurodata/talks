@@ -15,9 +15,9 @@
 name:opening
 
 
-**Lifelong Learning Forests (JHU)**<br>
+**A Theory and Practice of the Lifelong Learnable**<br>
 Hayden Helm | Ronak Mehta <br>
-Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io)  <br>
+Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JHU)  <br>
 
 
 <!-- {[BME](https://www.bme.jhu.edu/),[ICM](https://icm.jhu.edu/),[CIS](http://cis.jhu.edu/),[KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/)  -->
@@ -33,57 +33,52 @@ Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io)  <b
 
 
 
+---
+
+## What is Learning?
+
+
+<img src="images/Vapnik71.png" style="width:500px;"/>
+--
+<img src="images/Valiant84.png" style="width:500px;"/>
 
 ---
 
-### Two Times Ago 
+## What is Learning?
 
-``` "Demonstrate that Randomer Forests can do Lifelong Learning" ```
+<img src="images/Mitchell97.png" style="width:600px;"/>
 
--- Hava, DARPA PM
-
-### Last Time  
-
-``` "Do it better" ```
-
--- Hava, DARPA PM
-
-
-
----
-
-## Outline
-
-- What is lifelong learning?
-- Can Randomer Forests do it (even conceptually)?
-- Does it work on real data?
 
 ---
 
 
 ## What is  Learning? 
 
-Tom Mitchell 1997 (not quite a quote):
+Tom Mitchell 1997 (not exact quote):
 
-"An algorithm $f$  is said to learn from data $D_n$ with respect to some  task $T$ and performance measure $\mathcal{E}$ if its expected performance at  $T$, as measured by $\mathcal{E}$, improves with more data $D$."
+"An algorithm $f$ learns from data $D_n$ with respect to some  task $T$ and performance measure,  if its expected performance $\mathcal{E}$ at  $T$, improves with sample size $n$."
 
 
 
 ---
 ## What is  Learning?
 
-Vapnik 1971 and Valient 1984 (not a direct quote):
+Vapnik 1971 and Valient 1984 define expected performance:
 
 
-$f$ learns on task $T$ given data $D_n$ if and only if $f$'s generalization error $\mathcal{E}$ improves with sample size $n$:
+<!-- $f$ learns on task $T$ given data $D_n$ if and only if $f$'s generalization error $\mathcal{E}$ improves with sample size $n$: -->
 
-Generalization error: $\mathcal{E}\_T(f) = E\_{D_n} [R(f(D\_n)) ]$.
+- Algorithm: $f := f_1, f_2, \ldots$, where $f_n (D_n) = h_n$
 
-$f$ learns on $T$ iff
-$ \mathcal{E}_T(f\_1) \geq \mathcal{E}_T(f\_2) \geq  \cdots \geq \mathcal{E}_T(f\_n)  \geq \cdots$
+- Performance: $R(h) := \mathbb{E}_{X,Y}\left[\ell(h(X), Y)\right]$
 
+- Expected Performance: $\mathcal{E}\_T(f\_n) := E\_{D_n} [R(f\_n(D\_n)) ]$
 
-with a strict inequality for some $n$.
+--
+<br><br>
+
+Formally, $f$ learns on $T$ iff
+$\mathcal{E}\_T(f\_n) \geq \mathcal{E}\_T(f\_{n+1})$ for all $n$, with a strict inequality for some $n$.
 
 ---
 
@@ -100,28 +95,30 @@ The goal of machine learning is to design new $f$'s that are increasingly more e
 
 ---
 
-### What is Multi-Task Learning 
+### What is Multi-Task Learning?
 
-$f$ learns on a set of tasks (a multi-task) $T$ given data $D_n$ if and only if $f$'s generalization error $\mathcal{E}$ improves on some tasks given non-task data, and does not do much worse on the other tasks.
+An algorithm $f$  is said to learn from data $D_n$ with respect to some set of tasks $\vec{T}=\{T_1, \ldots, T_J\}$ and performance measure,  if, on average across tasks, its expected performance $\mathcal{E}$ at  $\vec{T}$ improves with sample size more than it would with only one task.
 
 --
 
-A set of tasks $ \vec{T}= \{T^{(1)}, \ldots, T^{(J)}\}$, where 
+<!-- A set of tasks $ \vec{T}= \{T^{(1)}, \ldots, T^{(J)}\}$, where 
 $ T^{(j)} \in \mathcal{T} $ is transfer learnable for task $ j $ if for all $ \epsilon > 0 $ and all learning rules $ \vec{f}$, where each $ f\_{n\_j} \in \mathcal{F} $, there exists a
 $ \delta  > 0 $, and $ n\_j \rightarrow \infty $, 
-<!-- and a transfer learning rule $ (f_{\vn}) $, $ f_{\vn} \in \mc{F}_{TL} $  -->
-such that
-$\forall P \in \vec{\mathcal{P}}: \quad 
-\frac{\mathcal{E}\_{\vec{T}}^{(j)} (f\_{n})}{\mathcal{E}\_{\vec{T}}^{(j)}(f\_{n\_j})} \le 1 + \epsilon $
-and
+and a transfer learning rule $ (f_{\vn}) $, $ f_{\vn} \in \mc{F}_{TL} $ 
+such that -->
 
-\; \exists \,  P \in \mv{\mc{P}}: \quad 
-\frac{\mc{E}_{\Vec{T}}^{(j)}(f_{\vn})}{\mc{E}_{\Vec{T}}^{(j)}(g_{n_j})} \le 1 - \delta.
-\end{align*}
+--
+
+Formally, $f$ multi-task learns iff $\frac{1}{J} \sum\_{j = 1}^J \frac{\mathcal{E}\_{\vec{T}}^{(j)} (f\_{n})}{\mathcal{E}\_{\vec{T}}^{(j)}(f\_{n\_j})} \le 1 - \epsilon $ 
 
 
 
+---
 
+### What is Sequential Learning?
+
+
+An algorithm $f$ sequentially learns from data $D_n$ with side information $S_n$ with respect to some  task $T$ and performance measure,  if its expected performance $\mathcal{E}$ at  $T$, improves with sample size $n$
 
 ---
 

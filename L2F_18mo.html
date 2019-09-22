@@ -116,7 +116,15 @@ An algorithm $f$  transfer learns from  source data $D^{(1)}$ to target data $D^
 
 
 
-$$\forall P: \frac{\mathcal{E}^{(2)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(2)}\_T(f\_{n_2})} \leq 1 - \delta. $$
+
+$$\exists P: \frac{\mathcal{E}^{(2)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(2)}\_T(f\_{n_2})} < 1 - \delta \text{ (sometimes better)} $$
+
+<br>
+
+
+$$\forall P: \frac{\mathcal{E}^{(2)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(2)}\_T(f\_{n_2})} \leq 1 + \epsilon \text{ (never much worse)} $$
+
+
 
 
 
@@ -131,12 +139,12 @@ An algorithm $f$ multi-task learns from datasets $D^{(1)}, \ldots, D^{(J)}$
 with respect to   tasks $T^{(1)},\ldots, T^{(J)}$ and performance measures $\mathcal{E}^{(1)},\ldots, \mathcal{E}^{(J)}$ if its performance at each task improves **on average** by virtue of considering the datasets.
 
 
-$$\forall P: \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(j)}\_T(f\_{n_j})} < 1 - \delta \text{ (better on average)}$$
+$$\exists P:  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(j)}\_T(f\_{n_j})} < 1 - \delta \text{ (sometimes better)}$$ 
 
-<!-- <br>
+<br>
 
-$$\exists P:  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(j)}\_T(f\_{n_j})} < 1 - \delta \text{ (sometimes better)}$$ -->
 
+$$\forall P: \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(j)}\_T(f\_{n_j})} \leq 1 + \epsilon \text{ (never much worse)}$$
 
 
 ---
@@ -144,16 +152,15 @@ $$\exists P:  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}
 ### What is Lifelong Learning?
 
 
-An algorithm $f$ lifelong learns sequentially datasets $D^{(1)}, D^{(2)}, \ldots$ 
-with respect to  tasks $T^{(1)}, T^{(2)},\ldots$ and performance measures $\mathcal{E}^{(1)}, \mathcal{E}^{(2)}, \ldots$ if its performance at each task improves **on average** by virtue of considering both future and past datasets, and **never** gets much worse.
+An algorithm $f$ lifelong learns a universe of tasks $\mathcal{T}$ if its performance at each task $\{T^{(j)}\}$ improves on average by virtue of considering both **future and past** datasets, and **never** gets much worse.
 
 
 
-$$\forall P:  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(j)}\_T(f\_{n_j})} < 1 - \delta \text{ (better on average)}$$
+$$\forall P \in \mathcal{P}, \forall T^{(j)} \in \mathcal{T}:  \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(j)}\_T(f\_{n_j})} < 1 - \delta \text{ (better on average)}$$
 
 <br>
 
-$$\forall P: \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(j)}\_T(f\_{n_j})} \leq 1 + \epsilon \text{ (never much worse)}$$
+$$\forall P \in \mathcal{P}, \forall T^{(j)} \in \mathcal{T}: \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(j)}\_T(f\_{n_j})} \leq 1 + \epsilon \text{ (never much worse)}$$
 
 ---
 class: center, middle, inverse

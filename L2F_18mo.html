@@ -35,10 +35,10 @@ Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JH
 ---
 ## Outline
 
-- What is Lifelong Learning 
-- Lifelong Learning Forests (L2F)
-- L2F Lifelong Learns
-
+- Definitions: What is Lifelong Learning? 
+- Algorithm: Lifelong Learning Forests (L2F)
+- Numerical Results: L2F Lifelong Learns
+- Discussion
 
 ---
 class: middle, inverse
@@ -73,26 +73,47 @@ Tom Mitchell 1997 (not exact quote):
 
 
 
+---
+
+### What is an Algorithm?
+
+$f$ is a sequence of learning procedures, $f_1, f_2, \ldots$, where each $f_n \in \mathcal{F}$ maps from an element of data space to an action, $f : \mathcal{Z} \to \mathcal{A}$.
+
+
+### What is the Performance Measure?
+
+Generalization error $\mathcal{E}$ is the expected risk with respect to all possibly training datasets:
+
+$$ \mathcal{E}\_T(f) = \mathbb{E}_{D_n}[R(f(D_n))].$$
+
+
+---
+
+### What is a Task?
+
+A task is a sextuple $T = \lbrace \mathcal{Z}, \mathcal{A}, P, \mathcal{H}, \ell, {R} \rbrace$
+
+| Object | Space | Definition | Example
+|:--- |:--- |:--- | 
+| $D_n := \lbrace z_1,\ldots, z_n \rbrace$ | $ \mathcal{Z}$ | data | $z_i = (x_i,y_i)$ |
+| $\{P_\theta : \theta \in \Theta \}$ | $ \mathcal{P}$ | state of nature | $\theta = (\mu,\sigma^2)$
+| $a$ |  $\mathcal{A}$ | action | turn left
+| $h: \mathcal{Z} \to \mathcal{A}$ |  $\mathcal{H}$ | decision rule | $a = \mathbb{I}(z>0)$
+| $\ell: \Phi \times \mathcal{A} \to \mathbb{R}_+$ | $\mathcal{L}$ | loss | $ (a - y)^2$
+| $R: \mathcal{L} \times \mathcal{P} \times \mathcal{H} \to \mathbb{R}_+$ | $\mathcal{R}$ | risk | $\mathbb{E}_P[\ell( h(z), a)]$
+
+
 
 ---
 ## What is  Learning?
 
-Vapnik 1971 and Valient 1984 define expected performance:
+Vapnik 1971 and Valient 1984 definitions: 
+<!-- expected performance: -->
 
 
-<!-- $f$ learns on task $T$ given data $D_n$ if and only if $f$'s generalization error $\mathcal{E}$ improves with sample size $n$: -->
+$f$ learns on $T$ iff generalization error monotonically decreases: 
+$$\forall P \in \mathcal{P}: \; \forall n \; \mathcal{E}\_T(f\_n) \geq \mathcal{E}\_T(f\_{n+1}) \; \\& \; \exists \; n \text{ s.t. } \mathcal{E}\_T(f\_n) > \mathcal{E}\_T(f\_{n+1}) .$$ 
 
-- Algorithm: $f := f_1, f_2, \ldots$, where $f_n (D_n) = h_n$
-
-- Performance: $R(h) := \mathbb{E}_{X,Y}\left[\ell(h(X), Y)\right]$
-
-- Expected Performance: $\mathcal{E}\_T(f\_n) := E\_{D_n} [R(f\_n(D\_n)) ]$
-
---
-<br><br>
-
-Formally, $f$ learns on $T$ iff
-$\mathcal{E}\_T(f\_n) \geq \mathcal{E}\_T(f\_{n+1})$ for all $n$, with a strict inequality for some $n$.
 
 ---
 
@@ -117,13 +138,12 @@ An algorithm $f$  transfer learns from  source data $D^{(1)}$ to target data $D^
 
 
 
-$$\exists P: \frac{\mathcal{E}^{(2)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(2)}\_T(f\_{n_2})} < 1 - \delta \text{ (sometimes better)} $$
+$$\exists P \in \mathcal{P}: \frac{\mathcal{E}^{(2)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(2)}\_T(f\_{n_2})} < 1 - \delta \text{ (sometimes better)} $$
 
 <br>
 
 
-$$\forall P: \frac{\mathcal{E}^{(2)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(2)}\_T(f\_{n_2})} \leq 1 + \epsilon \text{ (never much worse)} $$
-
+$$\forall P \in \mathcal{P}: \frac{\mathcal{E}^{(2)}\_T(f\_{\vec{n}})}{\mathcal{E}^{(2)}\_T(f\_{n_2})} \leq 1 + \epsilon \text{ (never much worse)} $$
 
 
 
@@ -152,7 +172,7 @@ $$\forall P: \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}^{(j)}\_T(f\_{\vec{n}})}{
 ### What is Lifelong Learning?
 
 
-An algorithm $f$ lifelong learns a universe of tasks $\mathcal{T}$ if its performance at each task $\{T^{(j)}\}$ improves on average by virtue of considering both **future and past** datasets, and **never** gets much worse.
+An algorithm $f$ lifelong learns a universe of tasks $\mathcal{T}$ if its performance at each task $\{T^{(j)}\}$ improves on average by virtue of considering both **future and past** data/tasks, and **never** gets much worse.
 
 
 

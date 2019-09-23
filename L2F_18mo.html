@@ -37,7 +37,8 @@ Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JH
 
 - Definitions: What is Lifelong Learning? 
 - Algorithm: Lifelong Learning Forests (L2F)
-- Numerical Results: L2F Lifelong Learns
+- Numerical Results: L2F Lifelong Learns Empirically
+- Theoretical Results: L2F Lifelong Learns Consistently
 - Discussion
 
 ---
@@ -275,7 +276,7 @@ Notes:
 
 class: center, middle, inverse
 
-## .center[L2F Lifelong Learns]
+## .center[L2F Lifelong Learns Empirically]
 
 
 ---
@@ -308,11 +309,13 @@ class: center, middle
 
 ---
 
-## CIFAR 10-by-10
+## "Real" Data: CIFAR 10-by-10
 
-CIFAR 100 is a popular image classification dataset with 100 classes of images
+CIFAR 100 is a popular image classification dataset with 100 classes of images.
 
 CIFAR 10x10 (and its variants) break the 100 class task problem into 10 problems, each a 10 class problem, allowing for the study of transfer, multi, and lifelong learning.
+
+
 
 ---
 
@@ -333,25 +336,58 @@ Figure 1: evolution of the test accuracy at the first task, as more tasks are le
 
 <img src="images/initial-cifar-100-debugged-1-subsample-recall.png" style="width:750px;"/>
 
+
+
+---
+class: middle, inverse
+
+
+## .center[L2F Lifelong Learns Consistently]
+
+---
+
+### What is Consistency?
+
+
+$$R(h_n) = \mathbb{E}[\ell(h_n(z),a)] \rightarrow \arg \min_h R (h)$$
+
+---
+
+### L2F Theorems
+
+Thm 1: Uncertainty Forests produce consistent estimates of posterior probabilities for k-class classification problems
+
+Thm 2: Posteriors estimated on sufficiently deep and random trees are also consistent for k-class classification problems
+
+Proof: Stone's Theorem, 1977 + Biau et al. 2008
+
+
+
+---
+class: middle, inverse
+
+
+## .center[Discussion]
+
+
 ---
 
 ## Next Steps 
 
-- Prove the necessary and sufficient conditions under which L2F satisfy lifelong learning
 - Extend empirical and theoretical results to deep learning 
+- Extend theory to regression and other settings 
 
 ---
 
 ### References 
 
+3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
+1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
 1. C. Shen and J. T. Vogelstein. Decision Forests Induce Characteristic Kernels. arXiv, 2018
-3. T. M. Tomita et al. Random Projection Forests. arXiv, 2018.
-7. J. Browne et al. Forest Packing: Fast, Parallel Decision Forests. SIAM ICDM, 2018.
-6. C. Shen et al. Discovering and Deciphering Relationships Across Disparate Data Modalities. eLife, 2019.
-5. C. Shen, C. E. Priebe and J. T. Vogelstein. From Distance Correlation to Multiscale Graph Correlation. JASA, 2018.
-8. Y. Lee, C. Shen and J. T. Vogelstein. Network Dependence Testing via Diffusion Maps and Distance-Based Correlations. Biometrika, 2018.
-2. C. Shen and J. T. Vogelstein. The Exact Equivalence of Distance and Kernel Methods for Hypothesis Testing. arXiv, 2018.
-1. M. Madhya, et al. Geodesic Learning via Unsupervised Decision Forests. arXiv, 2019.
+7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.
+1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
+1. R. Perry, et al. Manifold Forests: Closing the Gap on Neural Networks. preprint, 2019.
+1. H. Helm, et al. A Theory and Practice for Lifelong Learning. preprint, 2019.
 
 Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 

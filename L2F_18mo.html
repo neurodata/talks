@@ -182,10 +182,16 @@ $$\frac{1}{J}\sum\_{j=1}^J  \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathc
 $$\frac{1}{J}\sum\_{j=1}^J  \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} \leq 1 + \epsilon \text{ (never much worse)}$$
 
 ---
-class: center, middle, inverse
 
-(pause)
+### Three Kinds of Lifelong Learning 
 
+1. Supervised: setting is provided for each data sample 
+2. Unsupervised: setting is not provided for any data sample 
+3. Semi-supervised: setting is sometimes provided for some data samples 
+
+--
+
+We largely focus on supervised setting hereafter
 
 ---
 class: middle, inverse
@@ -195,7 +201,25 @@ class: middle, inverse
 
 ---
 
-(slides go here)
+### What are Decision Forests?
+
+2 things:
+
+1. a partitioning of the space into mutually exclusive polygonal sets 
+2. an assignment of probabilities  within each polygon
+
+(this is true for decision trees, random forests, gradient boosting trees, etc)
+
+---
+
+### What are Honest Trees?
+
+1. Subset the data into 2 subsets
+2. Learn the partitions using 1 set
+3. Learn the probabilities 
+
+
+Doing so yields consistent estimates of the probabilities, that is,
 
 
 

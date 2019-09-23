@@ -203,10 +203,11 @@ Our goal is to construct an interpretable and adaptable (to more tasks) classifi
   
 - Build forest for each task (each tree in forest induces a partition of $ \mathbb{R}^{d} $
 - For task $j$, populate partitions of each forest (from every task) with held out task $j$ data. 
-- Use these empiral data distributions to estimate posteriors $P(Y = y \mid X = x)
+- Use these empiral data distributions to estimate posteriors P(Y = y | X = x)
 - Resulting classifer: argmax (average posterior), where average is over all tasks                                                                                                          
 
 ---     
+  
   
 class: center, middle, inverse
 
@@ -214,6 +215,7 @@ class: center, middle, inverse
 
 
 ---
+  
   
 class: middle, inverse
 

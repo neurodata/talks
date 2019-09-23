@@ -71,7 +71,13 @@ Tom Mitchell 1997 (not exact quote):
 
 "An .r[algorithm] $f$  learns  in  .r[setting] $S$ with  data $D_n$ from distribution $P$ when  $f$'s .r[performance]  $\mathcal{E}$  improves with increasing sample size $n$."
 
+<br>
 
+--
+
+A machine learning .r[task] is: 
+
+Design an $f$ to optimize performance $\mathcal{E}$ in setting $S$ using data $D_n$ from distribution $P$.
 
 ---
 
@@ -163,6 +169,14 @@ An algorithm $f$ multi-task learns  in settings $S\_1, \ldots, S\_J$
 $$ \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} < 1 - \delta \qquad \qquad (2) $$ 
 
 
+<br>
+
+--
+
+We say that $f$ .r[universally] multi-task learnings in settings $S\_1,\ldots,S\_J$ if an only if $(2)$ is true for all distributions $P\_j \in \mathcal{P}\_j$ for each $j \in [J]$.
+
+
+
 ---
 
 ### What is Lifelong Learning?
@@ -170,8 +184,8 @@ $$ \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathc
 
 
 
-An algorithm $f$ lifelong learns  in a universe of settings $\mathcal{S}$
- with  data from distributions in $\mathcal{P}$ when  $f$s performance $\mathcal{E}\_j$ for each sequentially observed $(S\_j,P\_j)$ pair improves with increasing sample size $n\_j$, on average faster when also  including both **future and past** data, and performance **never**  gets much worse.
+An algorithm $f$ lifelong learns sequentially in  settings $S_1,\ldots, S_J$
+ with  data from distributions  $P_1,\ldots, P_J$ when  $f$'s performance $\mathcal{E}\_j$ for each sequentially observed $(S\_j,P\_j)$ pair improves with increasing sample size $n\_j$, on average faster when also  including both **future and past** data, and performance **never**  gets much worse.
 
 
 
@@ -200,6 +214,7 @@ class: middle, inverse
 ## .center[Lifelong Learning Forests (L2F)]
 
 ---
+
 
 ### What are Decision Forests?
 
@@ -249,16 +264,21 @@ $$\hat{P}(f\_n) \rightarrow P$$
 - $P_1 \neq P_2$
 - Assume for simplicity that data are batched into tasks. 
 
+
+
 ---
 ### Algorithm (High-Level)
 
-An algorithm has access to a collection of data from each distribution $ P\_1, ..., P\_J $. 
-  
-Suppose that each setting is a supervised $K$-class classification setting in $ \mathbb{R}^{d} $.
+Given: $n$ points associated with $J$ different tasks
+
+---
+### Algorithm (High-Level)
+
+An algorithm has access to a collection of data from each distribution $ P\_1, ..., P\_J $. Suppose that each setting is a supervised $K$-class classification setting in $ \mathbb{R}^{d} $.
   
 Our goal is to construct an interpretable and adaptable (to more tasks) classification procedure.
   
-- Build forest for each task (each tree in forest induces a partition of $ \mathbb{R}^{d} $
+- Build forest for each task (each tree in forest induces a partition of $ \mathbb{R}^{d} $).
 - For task $j$, populate partitions of each forest (from every task) with task $j$ data. 
 - Use these empirical data distributions to estimate posteriors P(Y = y | X = x)
 - Resulting classifier: argmax (average posterior), where average is over all tasks                                                                                                          
@@ -274,22 +294,23 @@ class: center, middle, inverse
 
 ---
 
+class: center, middle
 
-<img src="images/vip_results_parity_not_parity_n200.png" style="height:600px;"/>
-                                                                                                                                                                                                             
----
-
-
-<img src="images/vip_results_parity_rotated_parity_n200.png" style="width:750px;"/>
-      
+<img src="images/vip_results_parity_not_parity_n200-1.png" style="width:700px;"/>
 
 ---
 
+class: center, middle
+
+<img src="images/vip_results_parity_rotated_parity_n200 (2)-1.png" style="width:700px;"/>
+
+---
 
 ## CIFAR 10-by-10
 
-- cite other papers using it
-- explain what it is 
+CIFAR 100 is a popular image classification dataset with 100 classes of images
+
+CIFAR 10x10 (and its variants) break the 100 class task problem into 10 10 class problems, allowing for the study of transfer, multi, and lifelong learning.
 
 ---
 

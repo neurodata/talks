@@ -171,7 +171,7 @@ $$ \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathc
 
 
 An algorithm $f$ lifelong learns  in a universe of settings $\mathcal{S}$
- with  data from distributions in $\mathcal{P}$ when  $f$'s performance $\mathcal{E}\_j$ for each sequentially observed $(S\_j,P\_j)$ pair improves with increasing sample size $n\_j$, on average faster when also  including both **future and past** data, and performance **never**  gets much worse.
+ with  data from distributions in $\mathcal{P}$ when  $f$s performance $\mathcal{E}\_j$ for each sequentially observed $(S\_j,P\_j)$ pair improves with increasing sample size $n\_j$, on average faster when also  including both **future and past** data, and performance **never**  gets much worse.
 
 
 
@@ -224,18 +224,40 @@ Doing so yields consistent estimates of the probabilities, that is,
 
 
 ---
-class: center, middle, inverse
-
-(pause)
+### Algorithm (High-Level)
+An algorithm has access to a collection of data from each distribution $ P\_1, ..., P\_J $. 
+  
+Suppose that each setting is a supervised $K$-class classification setting in $ \mathbb{R}^{d} $.
+  
+Our goal is to construct an interpretable and adaptable (to more tasks) classification procedure.
+  
+- Build forest for each task (each tree in forest induces a partition of $ \mathbb{R}^{d} $
+- For task $j$, populate partitions of each forest (from every task) with task $j$ data. 
+- Use these empirical data distributions to estimate posteriors P(Y = y | X = x)
+- Resulting classifier: argmax (average posterior), where average is over all tasks                                                                                                          
 
 
 ---
-class: middle, inverse
 
+
+class: center, middle, inverse
 
 ## .center[L2F Lifelong Learns]
 
+
 ---
+
+
+<img src="images/vip_results_parity_not_parity_n200.png" style="height:600px;"/>
+                                                                                                                                                                                                             
+---
+
+
+<img src="images/vip_results_parity_rotated_parity_n200.png" style="width:750px;"/>
+      
+
+---
+
 
 ## CIFAR 10-by-10
 
@@ -249,7 +271,6 @@ class: middle, inverse
 ---
 
 <img src="images/initial-cifar-100-debugged-1-subsample-recall.png" style="width:750px;"/>
-
 
 ---
 

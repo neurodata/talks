@@ -32,14 +32,18 @@ Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JH
 .foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)]
 
 
----
-## Outline
 
-- Definitions: What is Lifelong Learning? 
-- Algorithm: Lifelong Learning Forests (L2F)
-- Numerical Results: L2F Lifelong Learns Empirically
-- Theoretical Results: L2F Lifelong Learns Consistently
-- Discussion
+---
+
+### Program goals
+
+1. Formalize Theory of Lifelong Learning 
+2. Develop new  lifelong learning algorithms
+3. Demonstrate those algorithm lifelong learn empirically
+3. Prove those algorithms lifelong learn theoretically 
+4. Future plans
+
+
 
 ---
 class: middle, inverse
@@ -409,12 +413,56 @@ Proof: Stone's Theorem, 1977 + Biau et al. 2008.
 class: middle, inverse
 
 
-## .center[Discussion]
+## .center[Future Plans]
+
 
 
 ---
 
-## Next Steps 
+## Test and Evaluation Process 
+
+1. Test dataset 1: psychopathy  data
+  - ~1000 subjects
+  - Cognitive, brain imaging, and other measurements acquired over 10 year span 
+  - Location, personnel, hardware, software, etc. changed over time.  
+  - Goal: predict recidivism (important social and moral considerations)
+2. Test dataset 2: lifespan human connectome project data 
+  - ~1000 subjects
+  - Cognitive, brain imaging, and other measurements acquired from people ranging from 5 to 81 years old 
+  - Goal: predict cognitive decline (important public health considerations)
+- Metrics: LLE as a function of sample size
+- Status: We have data, it is being processed.
+
+---
+
+
+## Concrete Examples and Limitations 
+
+- Any supervised lifelong learning classification problem code will run on today.
+- Any supervised lifelong learning regression problem code will run  soon.
+- If all measurement spaces are  "typical" manifolds (images, time-series), code will run soon.
+- We will soon have an implementation that does not require the data or model to fit in main memory.
+- We do not plan to have reinforcement learning soon.
+
+---
+
+## 5 Core Capabilities 
+
+1. Continual Learning: &#x2713 (can stream updating probabilities)
+2. Adaptation to New Tasks: &#x2713 (no catastrophic forgetting)
+3. Goal Driven Perception: &#x2713 (all conditional on $S$)
+4. Selective Plasticity: &#x2713 (uses consistent posterior estimates)
+5. Monitoring & Safety &#x2717;
+
+--
+
+Will incorporate streaming output of probabilities and changes in held-out error rate as new tasks are included. 
+
+
+
+---
+
+## Other Next Steps 
 
 - Extend empirical and theoretical results to deep learning 
 - Extend theory to regression and other settings 

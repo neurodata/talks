@@ -124,9 +124,9 @@ $$ \mathcal{E}\_S(f\_n,P) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 
 $f$ learns iff $\mathcal{E}\_S(f\_n,P)$ is monotonically decreasing and not constant:
 
-$$ \forall n \; \mathcal{E}\_S(f\_n,P) \geq \mathcal{E}\_S(f\_{n+1},P) \text{ (never goes up)}$$ 
+$$ \forall n: \; \mathcal{E}\_S(f\_n,P) \geq \mathcal{E}\_S(f\_{n+1},P) \text{ (never goes up)}$$ 
 
-$$\exists \; n \text{ s.t. } \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (sometimes goes down)}$$ 
+$$\exists \; n:  \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (sometimes goes down)}$$ 
 
 
 ---
@@ -134,7 +134,7 @@ $$\exists \; n \text{ s.t. } \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)
 ### What is Learning Efficiency?
 
 The relative efficiency of $f\_n$ relative to $f'\_n$ is 
-$$RE\_{n}^{S,P}(f,f') := \frac{\mathcal{E}\_S(f\_n,P)}{\mathcal{E}\_S(f'\_n,P)}.$$
+$$RE\_{n}^{P}(f,f') := \frac{\mathcal{E}\_S(f\_n,P)}{\mathcal{E}\_S(f'\_n,P)}.$$
 
 --
 
@@ -147,48 +147,57 @@ The goal of machine learning is to design new $f$'s that are increasingly more e
 ### What is Transfer Learning? 
 
 
-
-
 Given $n> n\_0$ samples from $P$ in  setting $S$ .r[and $n'> n\_0$ samples from $Q$], 
-an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}$  improves with increasing sample size $n$ faster when also including the $n'$ samples from $Q$."
+an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}$  improves with increasing sample size $n$ .r[faster when also including the $n'$ samples from $Q$].
 
 
 
-$$TE\_{n,n'}^{P,Q}(f)=\frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},P)} < 1 - \delta$$
+$$TLE\_{n,n'}^{P,Q}(f)=\frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},P)} < 1 - \delta$$
 
 
 ---
 
 ### What is Universal Transfer Learning?
 
-We say that $f$ .r[universally] transfers in setting $S$ if an only if 
+We say that $f$ **universally** transfers in setting $S$ if an only if $\forall n,n' > n\_0$:
 
-$$\forall P,Q \in \mathcal{P}: TE\_{n,n'}^{P,Q}(f) \leq  1 - \delta \text{ (never worse)}$$
+$$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta \text{ (sometimes better)}$$
 
-$$\exists P,Q \in \mathcal{P}: TE\_{n,n'}^{P,Q}(f) <  1 - \delta \text{ (sometimes better)}$$
+$$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \epsilon \text{ (never much worse)}$$
+
 
 
 
 
 ---
 
-### What is Multi-Task Learning?
+### What is Multi-Task (MT) Learning?
 
 
 
-An algorithm $f$ multi-task learns  in settings $S\_1, \ldots, S\_J$
- with  data from distributions $P\_1, \ldots, P\_J$ when  $f$'s performance for each $(S\_j,P\_j)$ pair,  $\mathcal{E}\_j$, improves with increasing sample size $n\_j$ faster (on average) when also  including the other samples
+Given .r[$n\_j> n\_0$ samples from $P\_j$ in  setting $S\_j$ for $j=1, \ldots, J$], 
+an algorithm $f$  **multi-task learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ faster when also including  .r[all the other samples].
 
 
 
-$$ \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} < 1 - \delta \qquad \qquad (2) $$ 
+$$MTE^{\vec{P}}\_{\vec{n}}(f) =  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} < 1 - \delta $$ 
 
 
 <br>
 
---
 
-We say that $f$ .r[universally] multi-task learnings in settings $S\_1,\ldots,S\_J$ if an only if $(2)$ is true for all distributions $P\_j \in \mathcal{P}\_j$ for each $j \in [J]$.
+
+---
+
+### What is Universal MT Learning?
+
+We say that $f$ **universally** multi-task learns in settings $\vec{S}$ if an only if $\forall n\_j > n\_0$:
+
+$$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta \text{ (sometimes better)}$$
+
+$$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \epsilon \text{ (never much worse)}$$
+
+
 
 
 
@@ -198,17 +207,29 @@ We say that $f$ .r[universally] multi-task learnings in settings $S\_1,\ldots,S\
 
 
 
-
-An algorithm $f$ lifelong learns **sequentially** in  settings $S_1,\ldots, S_J$
- with  data from distributions  $P_1,\ldots, P_J$ when  $f$'s performance $\mathcal{E}\_j$ for each sequentially observed $(S\_j,P\_j)$ pair improves with increasing sample size $n\_j$, on average faster when also  including both **future and past** data, and performance **never**  gets much worse.
-
+Given .r[sequential] samples $n\_j> n\_0$  from $P\_j$ in  setting $S\_j$ for $j \in [J] := \lbrace 1, \ldots, J \rbrace$, 
+an algorithm $f$  **lifelong learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ faster when also including  .r[both future and past data, and performance never  gets much worse].
 
 
-$$\forall P\_j: \frac{1}{J}\sum\_{j=1}^J  \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} < 1 - \delta \text{ (better on average)}$$
+
+$$LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) =   \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} $$
 
 <br>
 
-$$ \nexists P\_j:  \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} \geq 1 + \epsilon \text{ (never much worse)}$$
+$$\frac{1}{J}\sum\_{j=1}^J LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) <  1 - \delta \text{ (average better)}$$
+
+$$\nexists j \in [J]: LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) \geq  1 + \epsilon \text{ (never much worse)}$$
+
+
+---
+
+### What is Universal Lifelong Learning?
+
+
+We say that $f$ **universally** lifelong learns in settings $\vec{S}$ if an only if $\forall n\_j > n\_0$ and $\forall \vec{P} \in \vec{\mathcal{P}}$, lifelong learning holds.
+
+
+
 
 ---
 
@@ -363,17 +384,24 @@ class: middle, inverse
 ### What is Consistency?
 
 
-$$R(h_n) = \mathbb{E}[\ell(h_n(z),a)] \rightarrow \arg \min_h R (h)$$
+$$\mathcal{E}\_{S}(f\_n)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f)$$
+
+### What is Universal Consistency?
+
+$$\forall P \in \mathcal{P}: \mathcal{E}\_{S}(f\_n)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f)$$
+
 
 ---
 
 ### L2F Theorems
 
-Thm 1: Uncertainty Forests produce consistent estimates of posterior probabilities for k-class classification problems
+Lemma 1: Uncertainty Forests produce universally consistent estimates of posterior probabilities for k-class classification problems.
 
-Thm 2: Posteriors estimated on sufficiently deep and random trees are also consistent for k-class classification problems
+Lemma 2: Posteriors estimated on sufficiently deep and random trees are also universally consistent for k-class classification problems.
 
-Proof: Stone's Theorem, 1977 + Biau et al. 2008
+Conj 3: For a fixed $S$, L2F is a universal lifelong learner.
+
+Proof: Stone's Theorem, 1977 + Biau et al. 2008.
 
 
 

@@ -194,14 +194,15 @@ class: middle, inverse
 ## .center[Lifelong Learning Forests (L2F)]
 
 ---
-Recall the supervised sequential batch setting: an algorithm has access to a collection of data from each distribution $ P\_{1}, \hdots, P\_{J} $. 
+An algorithm has access to a collection of data from each distribution $$ P\_{1}, \hdots, P\_{J} $$. 
   
-Suppose that each setting is a supervised classification setting in $ \mathbb{R}^{d} $.
+Suppose that each setting is a supervised $K$-class classification setting in $ \mathbb{R}^{d} $.
   
 Our goal is to construct an interpretable and adaptable (to more tasks) classification procedure.
   
 - Build forest for each task (each tree in forest induces a partition of $ \mathbb{R}^{d} $
-- For each task, populate each of the forests' induced partitions to estimate posteriors
+- For task $j$, populate partitions of each forest (from every task) with held out task $j$ data. 
+- Use these empiral data distributions to estimate posteriors $P(Y = y \mid X = x)
 - Resulting classifer: argmax (average posterior), where average is over all tasks                                                                                                          
 
 ---                                                                                                         

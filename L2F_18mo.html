@@ -38,10 +38,10 @@ Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JH
 ### Program goals
 
 1. Formalize Theory of Lifelong Learning 
-2. Develop new  lifelong learning algorithms
-3. Demonstrate those algorithm lifelong learn empirically
-3. Prove those algorithms lifelong learn theoretically 
-4. Future plans
+2. Develop  Lifelong Learning Forests (L2F) algorithm
+3. Demonstrate L2F achieves SOA lifelong learning 
+3. Prove L2F theoretically "solves" lifelong learning
+4. Discuss Future plans
 
 
 
@@ -82,7 +82,7 @@ Tom Mitchell 1997 (not exact quote):
 
 A machine learning **task** is: 
 
-Given  $n$ samples from distribution $P$ in setting $S$, design an $f$ to optimize performance $\mathcal{E}$ .
+Given  $n$ samples from  $P$ in  $S$, design  $f$ to optimize  $\mathcal{E}$ .
 
 ---
 
@@ -96,8 +96,8 @@ A setting is a sextuple $S = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{P}, \mat
 |  Model | $\mathcal{P} := \lbrace P_\theta : \theta \in \Theta \rbrace$ | Gaussian
 | Action space |  $\mathcal{A}$ |  turn left
 | Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a = \mathbb{I}(z>0)$
-| Loss Function | $\ell: \Phi \times \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
-| Risk Functional | $R: \mathcal{L} \times \mathcal{P} \times \mathcal{H} \to \mathbb{R}_+$  | $\mathbb{E}_P[\ell( h(z), a)]$
+| Loss Function | $\ell: \mathcal{H} \times \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
+| Risk Functional | $R: \mathcal{P} \times \mathcal{L} \times  \mathcal{H} \to \mathbb{R}_+$  | $\mathbb{E}_P[\ell( h(z), a)]$
 
 
 
@@ -140,6 +140,9 @@ $$\exists \; n:  \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (so
 The relative efficiency of $f\_n$ relative to $f'\_n$ is 
 $$RE\_{n}^{P}(f,f') := \frac{\mathcal{E}\_S(f\_n,P)}{\mathcal{E}\_S(f'\_n,P)}.$$
 
+<br>
+
+In general, we want $RE \leq 1 - \delta$, for some $\delta>0$ and $n,n' > n_0$. 
 --
 
 <br>
@@ -152,7 +155,7 @@ The goal of machine learning is to design new $f$'s that are increasingly more e
 
 
 Given $n> n\_0$ samples from $P$ in  setting $S$ .r[and $n'> n\_0$ samples from $Q$], 
-an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}$  improves with increasing sample size $n$ .r[faster when also including the $n'$ samples from $Q$].
+an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}$  improves with increasing sample size $n$ .r[more when also including the $n'$ samples from $Q$].
 
 
 
@@ -163,14 +166,11 @@ $$TLE\_{n,n'}^{P,Q}(f)=\frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},
 
 ### What is Universal Transfer Learning?
 
-We say that $f$ **universally** transfers in setting $S$ if an only if $\forall n,n' > n\_0$:
+We say that $f$ **universally** transfers in setting $S$ if an only if $\forall n,n' > n\_0$, $\exists \; \delta, \epsilon > 0$ such that:
 
-$$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta \text{ (sometimes better)}$$
+$$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta \text{ (sometimes better),}$$
 
-$$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \epsilon \text{ (never much worse)}$$
-
-
-
+$$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \epsilon \text{ (never much worse)}.$$
 
 
 ---
@@ -179,12 +179,16 @@ $$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \epsilon \text{ (n
 
 
 
-Given .r[$n\_j> n\_0$ samples from $P\_j$ in  setting $S\_j$ for $j=1, \ldots, J$], 
-an algorithm $f$  **multi-task learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ faster when also including  .r[all the other samples].
+Given $n$ samples from .r[$J$ different distributions $P\_j$ in settings $S\_j$], 
+an algorithm $f$  **multi-task learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ more .r[on average] when also including  .r[all the other $n-n\_j$ samples].
 
 
 
-$$MTE^{\vec{P}}\_{\vec{n}}(f) =  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} < 1 - \delta $$ 
+$$MTE^{\vec{P}}\_{\vec{n}}(f) =  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)}.$$
+
+<br> 
+$f$ MT learns if $ n\_j >n\_0 \; \forall j \in [J]$ & $\exists \; \delta > 0$ such that 
+$$MTE^{\vec{P}}\_{\vec{n}}(f) < 1 - \delta. $$
 
 
 <br>
@@ -195,11 +199,11 @@ $$MTE^{\vec{P}}\_{\vec{n}}(f) =  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f
 
 ### What is Universal MT Learning?
 
-We say that $f$ **universally** multi-task learns in settings $\vec{S}$ if an only if $\forall n\_j > n\_0$:
+We say that $f$ **universally** multi-task learns in settings $\vec{S}$ if an only if:
 
-$$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta \text{ (sometimes better)}$$
+$$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta \text{ (sometimes better)},$$
 
-$$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \epsilon \text{ (never much worse)}$$
+$$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \epsilon \text{ (never much worse)}.$$
 
 
 

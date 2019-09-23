@@ -142,7 +142,7 @@ $$RE\_{n}^{P}(f,f') := \frac{\mathcal{E}\_S(f\_n,P)}{\mathcal{E}\_S(f'\_n,P)}.$$
 
 <br>
 
-In general, we want $RE \leq 1 - \epsilon$, for some $\epsilon>0$ and $n,n' > n_0$. 
+In general, we want $RE \leq 1 - \delta$, for some $\delta>0$ and $n,n' > n_0$. 
 --
 
 <br>
@@ -161,24 +161,24 @@ an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}$ 
 
 Let $TLE\_{n,n'}^{P,Q}(f):=\frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},P)}.$
 
-Formally, $f$ transfer learns iff $\exists \; \epsilon, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+Formally, $f$ transfer learns iff $\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
 
-$TLE\_{n,n'}^{P,Q}(f) < 1 - \epsilon.$
+$TLE\_{n,n'}^{P,Q}(f) < 1 - \delta.$
 
 ---
 
 ### What is Universal Transfer Learning?
 
 We say that $f$ **universally** transfers in setting $S$ iff 
-$\exists \; \epsilon, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
 
-<!-- $\forall n,n' > n\_0$, $\exists \; \epsilon > 0$ such that: -->
+<!-- $\forall n,n' > n\_0$, $\exists \; \delta > 0$ such that: -->
 
 
 
-$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \epsilon$ (sometimes better), and
+$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta$ (sometimes better), and
 
-$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \epsilon$  (never much worse).
+$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \delta$  (never much worse).
 
 
 ---
@@ -197,10 +197,10 @@ Let $MTE^{\vec{P}}\_{\vec{n}}(f) :=  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\
 
 <br> 
 Formally, $f$ MT learns 
-iff $\exists \; \epsilon, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+iff $\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
  <!-- \; \& \; \forall j \in [J]$: -->
-<!-- $ \forall j \in [J]$ $\exists \;  n\_j >n\_0 \;  \&  \; \epsilon > 0$ such that  -->
-$$MTE^{\vec{P}}\_{\vec{n}}(f) < 1 - \epsilon. $$
+<!-- $ \forall j \in [J]$ $\exists \;  n\_j >n\_0 \;  \&  \; \delta > 0$ such that  -->
+$$MTE^{\vec{P}}\_{\vec{n}}(f) < 1 - \delta. $$
 
 
 <br>
@@ -212,12 +212,12 @@ $$MTE^{\vec{P}}\_{\vec{n}}(f) < 1 - \epsilon. $$
 ### What is Universal MT Learning?
 
 We say that $f$ **universally** multi-task learns in settings $\vec{S}$ iff
-$\exists \; \epsilon, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
 
 
-$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \epsilon$  (sometimes better), and
+$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta$  (sometimes better), and
 
-$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \epsilon$ (never much worse).
+$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \delta$ (never much worse).
 
 
 
@@ -238,11 +238,11 @@ Let $ LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) :=   \frac{\mathcal{E}\_j(f\_{\sum\_
 
 
 Formally, $f$ lifelong learns iff 
-$\exists \; \epsilon, n\_0 > 0$ such that $\forall n\_j > n\_0$: 
+$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$: 
 
-$\frac{1}{J}\sum\_{j=1}^J LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) <  1 - \epsilon$ (average better), and
+$\frac{1}{J}\sum\_{j=1}^J LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) <  1 - \delta$ (average better), and
 
-$\nexists j \in [J]: LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) \geq  1 + \epsilon$  (never much worse).
+$\nexists j \in [J]: LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) \geq  1 + \delta$  (never much worse).
 
 
 ---

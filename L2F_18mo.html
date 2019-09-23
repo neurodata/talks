@@ -15,7 +15,7 @@
 name:opening
 
 
-**A Theory and Practice of the Lifelong Learnable**<br>
+**A Theory and Practice of the Lifelong Learnable Forest**<br>
 Hayden Helm | Ronak Mehta <br>
 Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JHU)  <br>
 
@@ -76,9 +76,9 @@ Tom Mitchell 1997 (not exact quote):
 
 --
 
-A machine learning .r[task] is: 
+A machine learning **task** is: 
 
-Design an $f$ to optimize performance $\mathcal{E}$ in setting $S$ using data $D_n$ from distribution $P$.
+Design an $f$ to optimize performance $\mathcal{E}$ in setting $S$ using  $n$ samples from distribution $P$.
 
 ---
 
@@ -106,7 +106,7 @@ $f$ is a sequence of learning procedures, $f_1, f_2, \ldots$, where each $f_n \i
 
 ### What is  Performance?
 
-Generalization error $\mathcal{E}$ is the expected risk with respect to all possibly training datasets weighted by their probability:
+Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
 
 $$ \mathcal{E}\_S(f\_n,P) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 
@@ -118,11 +118,13 @@ $$ \mathcal{E}\_S(f\_n,P) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 
 "An .r[algorithm] $f$  learns  in  .r[setting] $S$ with  data $D_n$ from distribution $P$ when  $f$'s .r[performance]  $\mathcal{E}$  improves with increasing sample size $n$."
 
+<br>
 
+$f$ learns iff $\mathcal{E}\_S(f\_n,P)$ is monotonically decreasing and not constant:
 
-$$ \forall n \; \mathcal{E}\_S(f\_n,P) \geq \mathcal{E}\_S(f\_{n+1},P)$$ 
-<!-- \; \\& \;  -->
-$$\exists \; n \text{ s.t. } \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P) .$$ 
+$$ \forall n \; \mathcal{E}\_S(f\_n,P) \geq \mathcal{E}\_S(f\_{n+1},P) \text{ (never goes up)}$$ 
+
+$$\exists \; n \text{ s.t. } \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (sometimes goes down)}$$ 
 
 
 ---
@@ -142,18 +144,25 @@ The goal of machine learning is to design new $f$'s that are increasingly more e
 
 ### What is Transfer Learning? 
 
+Given $n> n\_0$ samples from $P$ and $n'> n\_0$ samples from $Q$:
 
-
-An algorithm $f$ transfer learns  in setting $S$ with  data $D\_n$ from distribution $P$ when  $f$'s performance  $\mathcal{E}$  improves with increasing sample size $n$ faster when also including ${n'}$ samples from distribution $Q$
+An algorithm $f$ transfer learns  in setting $S$ with  data $D\_n$ from distribution $P$ when  $f$'s performance  $\mathcal{E}$  improves with increasing sample size $n$ .r[faster when also including ${n'}$ samples from distribution $Q$]
 
 
 $$\frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},P)} < 1 - \delta \qquad \qquad (1) $$
 
-<br>
 
---
+---
 
-We say that $f$ .r[universally] transfers in setting $S$ if an only if $(1)$ is true for all distributions $P,Q \in \mathcal{P}$.
+### What is Universal Transfer Learning?
+
+We say that $f$ .r[universally] transfers in setting $S$ if an only if 
+
+$$\forall P,Q \in \mathcal{P}: \frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},P)} \leq  1 - \delta \text{ (never worse)}$$
+
+$$\exists P,Q \in \mathcal{P}: \frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},P)} <  1 - \delta \text{ (sometimes better)}$$
+
+
 
 
 ---

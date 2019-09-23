@@ -184,16 +184,16 @@ We say that $f$ .r[universally] multi-task learnings in settings $S\_1,\ldots,S\
 
 
 
-An algorithm $f$ lifelong learns sequentially in  settings $S_1,\ldots, S_J$
+An algorithm $f$ lifelong learns **sequentially** in  settings $S_1,\ldots, S_J$
  with  data from distributions  $P_1,\ldots, P_J$ when  $f$'s performance $\mathcal{E}\_j$ for each sequentially observed $(S\_j,P\_j)$ pair improves with increasing sample size $n\_j$, on average faster when also  including both **future and past** data, and performance **never**  gets much worse.
 
 
 
-$$\frac{1}{J}\sum\_{j=1}^J  \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} < 1 - \delta \text{ (better on average)}$$
+$$\forall P\_j: \frac{1}{J}\sum\_{j=1}^J  \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} < 1 - \delta \text{ (better on average)}$$
 
 <br>
 
-$$\frac{1}{J}\sum\_{j=1}^J  \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} \leq 1 + \epsilon \text{ (never much worse)}$$
+$$ \nexists P\_j:  \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)} \geq 1 + \epsilon \text{ (never much worse)}$$
 
 ---
 
@@ -249,39 +249,25 @@ $$\hat{P}(f\_n) \rightarrow P$$
 - If the distributions are similar, they will help 
 
 
----
-
-### Setting 
-
-- Supervised lifelong learning: 
-- Setting is the same for each task:  2-class classification
-  - $\mathcal{Z}= \mathbb{R}^p \times \lbrace 0,1 \rbrace$ 
-  - $\mathcal{P}=$ all distributions on $\mathcal{Z}$ 
-  - $\mathcal{A}=$ all 2-class classifiers 
-  - $\mathcal{H}=$ all 2-class classifiers 
-  - $\ell=$0-1 loss 
-  - $R=$ expected loss
-- $P_1 \neq P_2$
-- Assume for simplicity that data are batched into tasks. 
-
-
 
 ---
 ### Algorithm (High-Level)
 
-Given: $n$ points associated with $J$ different tasks
+- Input: $n$ points associated with $J$ different supervised classification/regression tasks
+- Output: A classifier/regressor function for each task 
+- Algorithm: 
+      - for $j \in [J]$ 
+        - Learn partition of space using only data from task $j$
+        - Learn probabilities using partitions $1, \ldots, j$ 
+        - Output average over all $j$ probability estimates 
 
----
-### Algorithm (High-Level)
+--
 
-An algorithm has access to a collection of data from each distribution $ P\_1, ..., P\_J $. Suppose that each setting is a supervised $K$-class classification setting in $ \mathbb{R}^{d} $.
-  
-Our goal is to construct an interpretable and adaptable (to more tasks) classification procedure.
-  
-- Build forest for each task (each tree in forest induces a partition of $ \mathbb{R}^{d} $).
-- For task $j$, populate partitions of each forest (from every task) with task $j$ data. 
-- Use these empirical data distributions to estimate posteriors P(Y = y | X = x)
-- Resulting classifier: argmax (average posterior), where average is over all tasks                                                                                                          
+Notes:
+- this procedure could be applied to any pair of algorithms for learning partitions and probabilities 
+- eg, deep nets partition the data into polygons as well 
+- we focus on random forests for simplicity
+- we assumed related measurement spaces, specifically, $\mathcal{Z}\_j= \lbrace \mathcal{X} \times \mathcal{Y}\_j \rbrace$
 
 
 ---
@@ -294,6 +280,22 @@ class: center, middle, inverse
 
 ---
 
+### Simulations
+
+
+- Supervised lifelong learning
+- Setting is the same for each task:  2-class classification
+  - $\mathcal{Z}= \mathbb{R}^p \times \lbrace 0,1 \rbrace$ 
+  - $\mathcal{P}=$ all distributions on $\mathcal{Z}$ 
+  - $\mathcal{A}=$ all 2-class classifiers 
+  - $\mathcal{H}=$ all 2-class classifiers 
+  - $\ell=0-1$ loss 
+  - $R=$ expected loss
+- $P_1 \neq P_2$
+- Assume for simplicity that data are batched into tasks. 
+
+
+---
 class: center, middle
 
 <img src="images/vip_results_parity_not_parity_n200-1.png" style="width:700px;"/>
@@ -310,7 +312,18 @@ class: center, middle
 
 CIFAR 100 is a popular image classification dataset with 100 classes of images
 
-CIFAR 10x10 (and its variants) break the 100 class task problem into 10 10 class problems, allowing for the study of transfer, multi, and lifelong learning.
+CIFAR 10x10 (and its variants) break the 100 class task problem into 10 problems, each a 10 class problem, allowing for the study of transfer, multi, and lifelong learning.
+
+---
+
+### Previous State of the Art 
+
+- David Lopez-Paz, Marc'Aurelio Ranzato. "[Gradient Episodic Memory for Continual Learning](https://papers.nips.cc/paper/7225-gradient-episodic-memory-for-continual-learning.pdf)." NIPS 2017.
+- 127 Citations 
+
+<img src="images/evoplot_cifar100.png" style="width:750px;"/>
+
+Figure 1: evolution of the test accuracy at the first task, as more tasks are learned.
 
 ---
 

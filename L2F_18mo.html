@@ -346,24 +346,60 @@ class: center, middle, inverse
 - Setting is the same for each task:  2-class classification
   - $\mathcal{Z}= \mathbb{R}^p \times \lbrace 0,1 \rbrace$ 
   - $\mathcal{P}=$ all distributions on $\mathcal{Z}$ 
-  - $\mathcal{A}=$ all 2-class classifiers 
+  - $\mathcal{A} = \lbrace 0,1 \rbrace$
   - $\mathcal{H}=$ all 2-class classifiers 
   - $\ell=0-1$ loss 
   - $R=$ expected loss
 - $P_1 \neq P_2$
 - Assume for simplicity that data are batched into tasks. 
 
+---
+### Algorithms 
+On the next slide, each learning algorithm has access to $ n + m $ total data. 
+
+**Decision Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using the {$ n $ source / $ m $ target} data then constructs a classifier using only that partition 
+
+**Lifelong Forest {Source / Target}** - Estimates two partitions of $ \mathbb{R}^{2} $, one from the $ n $ source data and the other from the $ m $ target data. The resulting classifier uses both of these partitions to make a prediction.
+
+**Optimal Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using $ n + m $ {source / target} data
 
 ---
-class: center, middle
+### Example 1: Parity and Not Parity
 
-<img src="images/vip_results_parity_not_parity_n200-1.png" style="width:700px;"/>
+The 2-d parity problem is as follows:
+Samples in the (+, +) and (-, -) quadrants are class 0 and samples in the (-, +) and (+, -) quadrants are class 1. The goal is to construct a classification procedure that minimizes the probability of misclassifying an unlabeled observation.
+
+The 2-d not-parity problem switches which quadrants are class 0 and class 1. 
+
+The optimal decision boundaries for both problems are the coordinate axes. In the sense that the two problems share the same optimal decision boundaries, these two tasks can be said to be "similar".
+
+---
+class: center
+
+<img src="images/vip_results_parity_not_parity_n200-1.png" style="height:500px;"/>
+
+Here, using both partitions (Lifelong Forests) is better because the two tasks share optimal decision boundary. 
+
+---
+### Example 2: Parity and Rotated Parity
+
+Rotated parity rotates data from the parity problem so that the optimal decision boundaries are not the coordinate axes but are still orthogonal.
+
+We can paramaterize the rotated parity problem by $ \theta \in [0, 180) $.
+
+Then 
+- parity = rotated parity with $ \theta = 0 $
+- not-parity = rotated parity with $ \theta = \pi / 2 $.
+
+Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one task to the other has information about the other task so long as $ \theta' \neq \theta + k \pi/4 $ for $ k \in \mathbb{N} $
 
 ---
 
-class: center, middle
+class: center
 
-<img src="images/vip_results_parity_rotated_parity_n200 (2)-1.png" style="width:700px;"/>
+<img src="images/vip_results_parity_rotated_parity_n200 (2)-1.png" style="height:500px;"/>
+
+Here, using both partitions (Lifelong Forests) does not help because the two tasks have mutually unhelpful decision boundaries.
 
 ---
 
@@ -388,7 +424,11 @@ Figure 1: evolution of the test accuracy at the first task, as more tasks are le
 
 ---
 
-<img src="images/initial-cifar-100-debugged-1-subsample-precision.png" style="width:750px;"/>
+<img src="images/initial-cifar-100-debugged-1-subsample-precision.png" style="width:500px;"/>
+
+Lifelong Forests exhibit the ability to "reverse" or "backward" transfer -- its performance on previously seen tasks increases as more tasks are seen.
+
+Taking the intuition built from the rotated parity examples, we posit that the optimal decision boundaries for each of the tasks are "similar", allowing for transfer
 
 ---
 

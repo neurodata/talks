@@ -366,19 +366,20 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 ---
 ### Example 1: Parity and Not Parity
 
-The 2-d parity problem is as follows:
+The 2D parity problem is as follows:
 Samples in the (+, +) and (-, -) quadrants are class 0 and samples in the (-, +) and (+, -) quadrants are class 1. The goal is to construct a classification procedure that minimizes the probability of misclassifying an unlabeled observation.
 
-The 2-d not-parity problem switches which quadrants are class 0 and class 1. 
+The 2D not-parity problem switches which quadrants are class 0 and class 1. 
 
 The optimal decision boundaries for both problems are the coordinate axes. In the sense that the two problems share the same optimal decision boundaries, these two tasks can be said to be "similar".
 
 ---
-class: center
+class: left
 
 <img src="images/vip_results_parity_not_parity_n200-1.png" style="height:500px;"/>
 
-Here, using both partitions (Lifelong Forests) is better because the two tasks share optimal decision boundary. 
+- Using both partitions (Lifelong Forests) is better than just one because the two tasks share the same optimal decision boundary. 
+- Lifelong Forests exhibit both forward and backward transfer.
 
 ---
 ### Example 2: Parity and Rotated Parity
@@ -391,23 +392,24 @@ Then
 - parity = rotated parity with $ \theta = 0 $
 - not-parity = rotated parity with $ \theta = \pi / 2 $.
 
-Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one task to the other has information about the other task so long as $ \theta' \neq \theta + k \pi/4 $ for $ k \in \mathbb{N} $
+Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one task  has information about the other task so long as $ \theta' \neq \theta + k \pi/4 $ for $ k \in \mathbb{N} $
 
 ---
 
-class: center
+class: left
 
-<img src="images/vip_results_parity_rotated_parity_n200 (2)-1.png" style="height:500px;"/>
+<img src="images/vip_results_parity_rotated_parity_n200 (2)-1.png" style="height:400px;"/>
 
-Here, using both partitions (Lifelong Forests) does not help because the two tasks have mutually unhelpful decision boundaries.
+- Using both partitions (Lifelong Forests) does not help because the two tasks have mutually unhelpful decision boundaries.
+- But Lifelong Forests is robust to adversarial tasks, making it fundamentally safe.
 
 ---
 
 ## "Real" Data: CIFAR 10-by-10
 
-CIFAR 100 is a popular image classification dataset with 100 classes of images.
-
-CIFAR 10x10 (and its variants) break the 100 class task problem into 10 problems, each a 10 class problem, allowing for the study of transfer, multi, and lifelong learning.
+- CIFAR 100 is a popular image classification dataset with 100 classes of images, containing 600 images, each 32x32 colour images.
+- There are 500 training images and 100 testing images per class.
+- CIFAR 10x10 break the 100 class task problem into 10 problems, each a 10 class problem.
 
 
 
@@ -426,9 +428,9 @@ Figure 1: evolution of the test accuracy at the first task, as more tasks are le
 
 <img src="images/initial-cifar-100-debugged-1-subsample-precision.png" style="width:500px;"/>
 
-Lifelong Forests exhibit the ability to "reverse" or "backward" transfer -- its performance on previously seen tasks increases as more tasks are seen.
+- Lifelong Forests exhibit the ability to "reverse" or "backward" transfer: its performance on previously observed tasks increases as more tasks are observed.
 
-Taking the intuition built from the rotated parity examples, we posit that the optimal decision boundaries for each of the tasks are "similar", allowing for transfer
+- Taking the intuition built from the rotated parity examples, we posit that the optimal decision boundaries for each of the tasks are "similar", allowing for transfer.
 
 ---
 
@@ -447,11 +449,11 @@ class: middle, inverse
 ### What is Consistency?
 
 
-$\mathcal{E}\_{S}(f\_n,P)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f,P).$
+$\mathcal{E}\_{S}(f\_n,P)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f,P)$ as $n \to \infty$.
 
 ### What is Universal Consistency?
 
-$\forall P \in \mathcal{P}: \mathcal{E}\_{S}(f\_n,P)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f,P).$
+$\forall P \in \mathcal{P}: \mathcal{E}\_{S}(f\_n,P)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f,P)$ as $n \to \infty$.
 
 
 ---
@@ -524,8 +526,48 @@ Will incorporate streaming output of probabilities and changes in held-out error
 
 ## Other Next Steps 
 
-- Extend empirical and theoretical results to deep learning 
 - Extend empirical and theoretical results to more general settings
+- Extend empirical and theoretical results to deep learning
+
+---
+
+### Polytope space partitioning algorithms
+
+
+<img src="images/deep-polytopes.png" style="width:750px;"/>
+
+
+- NNs with ReLu nodes also partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)).
+
+
+
+---
+
+### Convolutional RF is competitive with NN on images & time-series
+
+<img src="images/s-rerf_6panel.png" style="width:750px;"/>
+
+
+
+
+---
+
+### RF is more computationally efficient 
+
+
+<img src="images/s-rerf_6plot_times.png" style="width:750px;"/>
+
+
+---
+
+### Summary Comparison 
+
+- Any space partitioning algorithm can likely yield lifelong learning with guarantees
+- Decision forests (DF) with convolution match/exceed neural networks on basic image classification tasks
+- DF is already much faster to train and test
+- DF is fundamentally massively parallel, unlike neural networks 
+
+
 
 ---
 
@@ -533,25 +575,22 @@ Will incorporate streaming output of probabilities and changes in held-out error
 
 3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
 1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
+1. R. Perry, et al. Manifold Forests: Closing the Gap on Neural Networks. preprint, 2019.
 1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2018
 7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.
 1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
-1. R. Perry, et al. Manifold Forests: Closing the Gap on Neural Networks. preprint, 2019.
 1. H. Helm, et al. A Theory and Practice for Lifelong Learning. preprint, 2019.
 
 Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 
 ---
 
-### Other L2M Work Not Mentioned (or arXiv)
+### Other L2M Work Not Mentioned 
 
-1. J. Agterberg et al. Vertex Nomination, Consistent Estimation, and Adversarial Modification.
-
-2. J. Yoder et al. Vertex nomination: The canonical sampling and the extended spectral nomination schemes.
-
-3. V. Lyzinski et al. On consistent vertex nomination schemes.
-
-4. H. Patsolic et al. Vertex Nomination Via Seeded Graph Matching.
+1. J. Agterberg et al. Vertex Nomination, Consistent Estimation, and Adversarial Modification. arXiv, 2019.
+2. J. Yoder et al. Vertex nomination: The canonical sampling and the extended spectral nomination schemes. arXiv, 2018.
+3. V. Lyzinski et al. On consistent vertex nomination schemes. arXiv, 2017.
+4. H. Patsolic et al. Vertex Nomination Via Seeded Graph Matching. arXiv, 2017.
 
 
 

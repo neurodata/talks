@@ -278,12 +278,13 @@ class: middle, inverse
 
 ### What are Decision Forests?
 
-Two things:
+- Two things:
+  1. a partitioning of the space into mutually exclusive cells 
+  2. an assignment of probabilities  within each cell
 
-1. a partitioning of the space into mutually exclusive polytopes 
-2. an assignment of probabilities  within each polytope
-
-(this is true for decision trees, random forests, gradient boosting trees, etc)
+- This is true for decision trees, random forests, gradient boosting trees, etc.
+      - Axis-aligned trees yield cells that are each right rectangular prisms (also called rectangular cuboids, rectangular parallelepiped, and orthogonal parallelipiped)
+      - Axis-oblique trees yield cells that are more general polytopes
 
 ---
 

@@ -453,7 +453,7 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 <img src="images/L2M_18mo_nxor_xor_lifelong.png" style="height:275px; width:275px" class="center"/>
 
 - Lifelong forests perform as well as the best method regardless of the amount of N-XOR data
-- Lifelong forests therefore exhibits transfer learning more effectively than a naive transfer learning forest
+- Lifelong forests therefore exhibits .r[adaptation to new tasks and circumstances] more effectively than a naive transfer learning forest
 
 <!-- ---
 
@@ -472,9 +472,24 @@ class: left
 
 <img src="images/xor_rxor.png" style="width:475px" class="center"/>
 
----
 
-#### Evaluation
+---
+### Example 2: XOR and Rotated XOR
+
+<!-- Rotated XOR rotates data from the XOR problem so that the optimal decision boundaries are not the coordinate axes but are still orthogonal.
+
+We can paramaterize the rotated XOR problem by $ \theta \in [0, 180) $.
+
+Then 
+- XOR = rotated XOR with $ \theta = 0 $
+- not-XOR = rotated XOR with $ \theta = \pi / 2 $.
+
+Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one task  has information about the other task so long as $ \theta' \neq \theta + k \pi/4 $ for $ k \in \mathbb{N} $
+
+ -->
+<!-- --- -->
+
+<!-- #### Evaluation -->
 
 - Every slide that follows: 
   - we plot error on .r[XOR] as a function of the # of .r[R-XOR] data samples
@@ -541,36 +556,20 @@ class: left
 <img src="images/L2M_18mo_xor_rxor_lifelong.png" style="height:275px; width:275px" class="center"/>
 
 - Lifelong forests do not dramatically degrade performance of past tasks, despite maximally adversarial tasks
-- Therefore, lifelong forests avoid catastrophic forgetting regardless of new task distributions
+- Therefore, lifelong forests avoid .r[catastrophic forgetting] regardless of new task distributions, making it fundamentally .r[safe].
 
 
 <!-- - Lifelong forests perform as well as the best method and hence exhibit backwards transfer. -->
 
----
-We now look at how well analogous algorithms perform on the target task (N-XOR).
 
-
----
-### Example 2: XOR and Rotated XOR
-
-Rotated XOR rotates data from the XOR problem so that the optimal decision boundaries are not the coordinate axes but are still orthogonal.
-
-We can paramaterize the rotated XOR problem by $ \theta \in [0, 180) $.
-
-Then 
-- XOR = rotated XOR with $ \theta = 0 $
-- not-XOR = rotated XOR with $ \theta = \pi / 2 $.
-
-Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one task  has information about the other task so long as $ \theta' \neq \theta + k \pi/4 $ for $ k \in \mathbb{N} $
-
----
+<!-- ---
 
 class: left
 
 <img src="images/vip_results_XOR_rotated_XOR_n200 (2)-1.png" style="height:400px;"/>
 
 - Using both partitions (Lifelong Forests) does not help because the two tasks have mutually unhelpful decision boundaries.
-- But Lifelong Forests is robust to adversarial tasks, making it fundamentally safe.
+- But Lifelong Forests is robust to adversarial tasks, making it fundamentally safe. -->
 
 ---
 

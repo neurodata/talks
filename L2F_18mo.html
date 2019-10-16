@@ -365,16 +365,95 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 **Optimal Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using $ n + m $ {source / target} data -->
 
 ---
-### Example 1: Parity and Not Parity
+### Example 1: XOR vs Not XOR (NXOR)
 
-The 2D parity problem is as follows:
-Samples in the (+, +) and (-, -) quadrants are class 0 and samples in the (-, +) and (+, -) quadrants are class 1. The goal is to construct a classification procedure that minimizes the probability of misclassifying an unlabeled observation.
 
-The 2D not-parity problem switches which quadrants are class 0 and class 1. 
+<img src="images/xor_nxor.png" style="height:275px; width:275px" class="center"/>
 
-The optimal decision boundaries for both problems are the coordinate axes. In the sense that the two problems share the same optimal decision boundaries, these two tasks can be said to be "similar".
+
+- Samples in the (+, +) and (-, -) quadrants are class 0  
+- samples in the (-, +) and (+, -) quadrants are class 1. 
+- The goal is to construct a classification procedure that minimizes the probability of misclassifying an unlabeled observation.
+- NXOR  switches which quadrants are class 0 and class 1. 
+- The optimal decision boundaries for both problems are the coordinate axes. 
+
+---
+
+#### Evaluation
+
+- (Generalization) Error: 
+<!-- In the sense that the two problems share the same optimal decision boundaries, these two tasks can be said to be "similar". -->
 
 In the following slides, the amount of data from parity is constant. We are interested in how the performance of an algorithm changes as a function of the number of samples from not-parity. We think of parity as the "source" task and not parity as the "target" task.
+
+<!-- revise text -->
+<!-- add slide here showing parity and not parity, remove from all other slides -->
+<!-- state how many parity samples for each -->
+<!-- just "Error" not "Gen. Error" -->
+
+---
+### Decision Forests (target)
+
+<img src="images/L2M_18mo_notparity_rf.png" style="height:275px; width:275px" class="center"/>
+
+- Decision Forest Not Parity uses data from not parity to estimate the optimal partition of the space and subsequently uses other data from not parity to estimate the posterior distribution of each cell in the partition. 
+
+---
+### Decision Forests (target)
+
+<img src="images/L2M_18mo_notparity_rf.png" style="height:275px; width:275px" class="center"/>
+
+- Since the number of samples from not parity is increasing, the performance of Decision Forest Not Parity gets better (as would be expected from any reasonable classification procedure).
+
+---
+### Out of Task Decision Forests (target)
+
+<img src="images/L2M_18mo_notparity_transfer.png" style="height:275px; width:275px" class="center"/>
+
+- Decision Forest Parity uses data from parity to estimate the optimal partition of the space and subsequently uses data from not parity to estimate the posterior distribution of each cell in the partition.
+
+---
+### Out of Task Decision Forests (target)
+
+<img src="images/L2M_18mo_notparity_transfer.png" style="height:275px; width:275px" class="center"/>
+
+- Decision Forest Parity's performance gets better because the forest has access to more relevant data and so can estimate the relevant posteriors more effectively. 
+
+---
+### Out of Task Decision Forests (target)
+
+<img src="images/L2M_18mo_notparity_transfer.png" style="height:275px; width:275px" class="center"/>
+
+- The fact that Decision Forest Parity's performance gets better means that forward transfer is possible.
+
+<!-- replace is possible -->
+
+---
+### Lifelong Forests (target)
+
+<img src="images/L2M_18mo_notparity_lifelong.png" style="height:275px; width:275px" class="center"/>
+
+- Lifelong Forests estimate the optimal decision boundary twice: once with the data from parity and another time with the data from not parity. Posteriors are then estimated using data from parity. The posterior used for prediction is then the average estimated posterior.
+
+---
+### Lifelong Forests (target)
+
+<img src="images/L2M_18mo_notparity_lifelong.png" style="height:275px; width:275px" class="center"/>
+
+- Lifelong forests perform as well as the best method and hence exhibit forward transfer.
+
+<!-- ---
+
+class: left
+
+<img src="images/vip_results_parity_not_parity_n200-1.png" style="height:250px;"/>
+
+- Using both partitions (Lifelong Forests) is better than just one because the two tasks share the same optimal decision boundary. 
+- Lifelong Forests exhibit both forward and backward transfer. -->
+
+---
+
+switch
 
 ---
 ### Decision Forests (source)
@@ -426,6 +505,8 @@ In the following slides, the amount of data from parity is constant. We are inte
 
 - The fact that Decision Forest Not Parity's performance gets better means that backward transfer is possible.
 
+<!-- replace is possible -->
+
 ---
 ### Lifelong Forests (source)
 
@@ -442,63 +523,7 @@ In the following slides, the amount of data from parity is constant. We are inte
 
 ---
 We now look at how well analogous algorithms perform on the target task (not parity).
----
-### Decision Forests (target)
 
-<img src="images/L2M_18mo_notparity_rf.png" style="height:275px; width:275px" class="center"/>
-
-- Decision Forest Not Parity uses data from not parity to estimate the optimal partition of the space and subsequently uses other data from not parity to estimate the posterior distribution of each cell in the partition. 
-
----
-### Decision Forests (target)
-
-<img src="images/L2M_18mo_notparity_rf.png" style="height:275px; width:275px" class="center"/>
-
-- Since the number of samples from not parity is increasing, the performance of Decision Forest Not Parity gets better (as would be expected from any reasonable classification procedure).
-
----
-### Out of Task Decision Forests (target)
-
-<img src="images/L2M_18mo_notparity_transfer.png" style="height:275px; width:275px" class="center"/>
-
-- Decision Forest Parity uses data from parity to estimate the optimal partition of the space and subsequently uses data from not parity to estimate the posterior distribution of each cell in the partition.
-
----
-### Out of Task Decision Forests (target)
-
-<img src="images/L2M_18mo_notparity_transfer.png" style="height:275px; width:275px" class="center"/>
-
-- Decision Forest Parity's performance gets better because the forest has access to more relevant data and so can estimate the relevant posteriors more effectively. 
-
----
-### Out of Task Decision Forests (target)
-
-<img src="images/L2M_18mo_notparity_transfer.png" style="height:275px; width:275px" class="center"/>
-
-- The fact that Decision Forest Parity's performance gets better means that forward transfer is possible.
-
----
-### Lifelong Forests (target)
-
-<img src="images/L2M_18mo_notparity_lifelong.png" style="height:275px; width:275px" class="center"/>
-
-- Lifelong Forests estimate the optimal decision boundary twice: once with the data from parity and another time with the data from not parity. Posteriors are then estimated using data from parity. The posterior used for prediction is then the average estimated posterior.
-
----
-### Lifelong Forests (target)
-
-<img src="images/L2M_18mo_notparity_lifelong.png" style="height:275px; width:275px" class="center"/>
-
-- Lifelong forests perform as well as the best method and hence exhibit forward transfer.
-
-<!-- ---
-
-class: left
-
-<img src="images/vip_results_parity_not_parity_n200-1.png" style="height:250px;"/>
-
-- Using both partitions (Lifelong Forests) is better than just one because the two tasks share the same optimal decision boundary. 
-- Lifelong Forests exhibit both forward and backward transfer. -->
 
 ---
 ### Example 2: Parity and Rotated Parity

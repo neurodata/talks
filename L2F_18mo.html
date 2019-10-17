@@ -354,16 +354,26 @@ class: center, middle, inverse
 - $P_1 \neq P_2$
 - Assume for simplicity that data are batched into tasks. 
 
-<!-- --- -->
-<!-- 
+
+---
 ### Algorithms 
-On the next slide, each learning algorithm has access to $ n + m $ total data. 
 
-**Decision Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using the {$ n $ source / $ m $ target} data then constructs a classifier using only that partition 
+<!-- On the next slide, each learning algorithm has access to $ n + m $ total data.  -->
 
-**Lifelong Forest {Source / Target}** - Estimates two partitions of $ \mathbb{R}^{2} $, one from the $ n $ source data and the other from the $ m $ target data. The resulting classifier uses both of these partitions to make a prediction.
+**Decision Forest** - Estimates the optimal partition  using a subset of the $ n $ data samples, and estimates the posterior probabilities per cell with the remaining samples
 
-**Optimal Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using $ n + m $ {source / target} data -->
+**Transfer  Forest** - Estimate the optimal partition using all the data from one task, and then estimate the posterior probabilities using all the data from another task
+
+**Lifelong Forest** - Estimate the partition separately using data from each task, and  estimate the posterior probabilities for each task using all partitions.  Average posterior probabilities from all partitions.
+
+<!-- **Optimal Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using $ n + m $ {source / target} data -->
+
+---
+### Representation Learning
+
+- All transfer learning and lifelong learning algorithms learn a representation of the data that they can apply to any new data point 
+- In lifelong forests, the representation of choice is simply the index of the cell in which the data point resides 
+- To our knowledge, this is a novel universal data representation for lifelong learning
 
 ---
 ### Example 1: XOR vs Not-XOR
@@ -385,10 +395,10 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 
 #### Evaluation
 
--  Error:  generalization error, as defined above, estimated using 10,000 new samples
+-  Error:  generalization error, as defined above, estimated using 100 new samples
 - Every slide that follows: 
   - we plot error on .r[N-XOR] as a function of the # of .r[N-XOR] data samples
-  - we used 100 XOR data samples
+  - we used 100 .r[XOR] data samples
 
 
   <!-- In the following slides, the amount of data from XOR is constant. We are interested in how the performance of an algorithm changes as a function of the number of samples from not-XOR. We think of XOR as the "source" task and N-XOR as the "target" task. -->
@@ -420,7 +430,7 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 - Since the number of samples from N-XOR is increasing, the performance of Decision Forest N-XOR gets better (as would be expected from any reasonable classification procedure). -->
 
 ---
-### Transfer Learning Forests
+### Transfer  Forests
 
 <img src="images/L2M_18mo_nxor_xor_transfer.png" style="height:275px; width:275px" class="center"/>
 
@@ -429,7 +439,7 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
   - data from N-XOR to estimate the posterior distribution of each cell in the partition.
 
 ---
-### Transfer Learning Forests
+### Transfer  Forests
 
 <img src="images/L2M_18mo_nxor_xor_transfer.png" style="height:275px; width:275px" class="center"/>
 
@@ -494,7 +504,7 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 
 - Every slide that follows: 
   - we plot error on .r[XOR] as a function of the # of .r[R-XOR] data samples
-  - we used 100 XOR data samples
+  - we used 100 .r[XOR] data samples
 
 
 
@@ -510,14 +520,14 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 
 
 ---
-### Transfer Learning 
+### Transfer Forests 
 
 <img src="images/L2M_18mo_xor_rxor_transfer.png" style="height:275px; width:275px" class="center"/>
 
 - Decision Forest R-XOR uses 
   - data from R-XOR to estimate the optimal partition
   - data from XOR to estimate the posterior per cell
-- Performance only increases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimates of the partitions, the optimal partitions are fully uninformative)
+- Error only decreases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimates of the partitions, the optimal partitions are fully uninformative)
 
 
 <!-- ---

@@ -278,13 +278,12 @@ class: middle, inverse
 
 ### What are Decision Forests?
 
-- Two things:
-  1. a partitioning of the space into mutually exclusive cells 
-  2. an assignment of probabilities  within each cell
+Two things:
 
-- This is true for decision trees, random forests, gradient boosting trees, etc.
-      - Axis-aligned trees yield cells that are each right rectangular prisms (also called rectangular cuboids, rectangular parallelepiped, and orthogonal parallelipiped)
-      - Axis-oblique trees yield cells that are more general polytopes
+1. a partitioning of the space into mutually exclusive polytopes 
+2. an assignment of probabilities  within each polytope
+
+(this is true for decision trees, random forests, gradient boosting trees, etc)
 
 ---
 
@@ -339,6 +338,20 @@ class: center, middle, inverse
 
 
 ---
+### Lifelong learning algorithms
+- Fundamentally, a lifelong learning algorithm must summarize previous tasks via a useful representation to effectively use these tasks for learning a new task. 
+
+- In supervised classification, the most useful representation of a task is its corresponding optimal decision boundary.
+
+---
+### Lifelong learning algorithms
+<!-- - In supervised classificaion, the most useful representation of a task is its corresponding optimal decision boundary. -->
+
+- If the researcher knew that the two tasks below had the same optimal linear decision boundary (representation), data from both tasks would be useful for creating a classification procedeure for either task.
+
+<img src="images/gaussian.png" style="width:475px" class="center"/>
+
+---
 
 ### Simulations
 
@@ -385,7 +398,7 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 
 #### Evaluation
 
--  Error:  generalization error, as defined above, estimated using 10,000 new samples
+-  Error:  generalization error, as defined above, estimated using 100 new samples
 - Every slide that follows: 
   - we plot error on .r[N-XOR] as a function of the # of .r[N-XOR] data samples
   - we used 100 XOR data samples

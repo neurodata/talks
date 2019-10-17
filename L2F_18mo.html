@@ -278,12 +278,17 @@ class: middle, inverse
 
 ### What are Decision Forests?
 
-Two things:
+- Two things:
+  1. a partitioning of the space into mutually exclusive cells 
+  2. an assignment of probabilities  within each cell
 
-1. a partitioning of the space into mutually exclusive polytopes 
-2. an assignment of probabilities  within each polytope
 
-(this is true for decision trees, random forests, gradient boosting trees, etc)
+- This is true for decision trees, random forests, gradient boosting trees, etc.	
+  - Axis-aligned trees yield cells that are each right rectangular prisms (also called rectangular cuboids, rectangular parallelepiped, and orthogonal parallelipiped)	
+  - Axis-oblique trees yield cells that are more general polytopes
+
+Note: Deep Nets with ReLu activation function also tesselate space into polytopes  
+
 
 ---
 
@@ -306,7 +311,7 @@ $$\hat{P}(f\_n) \rightarrow P$$
 - Partitions can be learned on a **per task** basis
 - Probabilities can be estimated given **any** partition, including those from other tasks
 - Use all data to estimate probabilities on the partitions learned separately for each task
-
+- Average probabilities learned on each partition to obtain final answer
 
 
 ---
@@ -324,8 +329,8 @@ $$\hat{P}(f\_n) \rightarrow P$$
 
   Notes:
 
-- This procedure could be applied to any pair of algorithms for learning partitions and probabilities. 
-- eg, deep nets partition the data into polytopes as well.
+- This exact procedure can be applied as $J$ continues to increase
+- This procedure could be use any pair of algorithms for learning partitions and probabilities. 
 - We focus on random forests for simplicity.
 - We assumed related measurement spaces, specifically, $\mathcal{Z}\_j= \lbrace \mathcal{X} \times \mathcal{Y}\_j \rbrace$
 
@@ -344,13 +349,14 @@ class: center, middle, inverse
 
 - In supervised classification, the most useful representation of a task is its corresponding optimal decision boundary.
 
----
+- More generally, tessellating space into cells yields a representation/compression valuable for any subsequence inference task.
+
+<!-- ---
 ### Lifelong learning algorithms
-<!-- - In supervised classificaion, the most useful representation of a task is its corresponding optimal decision boundary. -->
 
 - If the researcher knew that the two tasks below had the same optimal linear decision boundary (representation), data from both tasks would be useful for creating a classification procedeure for either task.
 
-<img src="images/gaussian.png" style="width:475px" class="center"/>
+<img src="images/gaussian.png" style="width:475px" class="center"/> -->
 
 ---
 

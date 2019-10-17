@@ -303,6 +303,7 @@ $$\hat{P}(f\_n) \rightarrow P$$
 
 ### Key Algorithmic Insight 
 
+- Cells of a partition of space can be a universal representation
 - Partitions can be learned on a **per task** basis
 - Probabilities can be estimated given **any** partition, including those from other tasks
 - Use all data to estimate probabilities on the partitions learned separately for each task
@@ -368,6 +369,22 @@ class: center, middle, inverse
 
 <!-- **Optimal Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using $ n + m $ {source / target} data -->
 
+
+---
+
+#### Key Algorithm Parameters Per Tree
+
+- To learn Partitions:
+  - bootstrap = true (sklearn default)
+  - min_samples_leaf=1 (sklearn default; maximally pure trees)
+  - max_features = $\sqrt{p}$ (sklearn default; not relevant for 2D data)
+  - max_depth=30 (to accelerate run time; makes accuracy worse typically)
+  - max_samples = 0.32 (to enable samples for estimating posteriors)
+- To estimate posterior probabilities:
+  - finite sample correction = 1 / ( 2 $\times$ # samples in cell)
+
+Nothing special about our tree construction, basically default sklearn parameters plus modifications to enable estimating posteriors
+
 ---
 ### Representation Learning
 
@@ -387,8 +404,6 @@ class: center, middle, inverse
 - Not-XOR (N-XOR)
   - Samples in the (+, +) and (-, -) quadrants are class 1  
   - samples in the (-, +) and (+, -) quadrants are class 0. 
-
-
 - The optimal decision boundaries for both problems are the coordinate axes. 
 
 ---

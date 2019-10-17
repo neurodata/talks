@@ -302,6 +302,7 @@ $$\hat{P}(f\_n) \rightarrow P$$
 
 ### Key Algorithmic Insight 
 
+- Cells of a partition of space can be a universal representation
 - Partitions can be learned on a **per task** basis
 - Probabilities can be estimated given **any** partition, including those from other tasks
 - Use all data to estimate probabilities on the partitions learned separately for each task
@@ -367,22 +368,48 @@ class: center, middle, inverse
 - $P_1 \neq P_2$
 - Assume for simplicity that data are batched into tasks. 
 
-<!-- --- -->
-<!-- 
+
+---
 ### Algorithms 
-On the next slide, each learning algorithm has access to $ n + m $ total data. 
 
-**Decision Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using the {$ n $ source / $ m $ target} data then constructs a classifier using only that partition 
+<!-- On the next slide, each learning algorithm has access to $ n + m $ total data.  -->
 
-**Lifelong Forest {Source / Target}** - Estimates two partitions of $ \mathbb{R}^{2} $, one from the $ n $ source data and the other from the $ m $ target data. The resulting classifier uses both of these partitions to make a prediction.
+**Decision Forest** - Estimates the optimal partition  using a subset of the $ n $ data samples, and estimates the posterior probabilities per cell with the remaining samples
 
-**Optimal Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using $ n + m $ {source / target} data -->
+**Transfer  Forest** - Estimate the optimal partition using all the data from one task, and then estimate the posterior probabilities using all the data from another task
+
+**Lifelong Forest** - Estimate the partition separately using data from each task, and  estimate the posterior probabilities for each task using all partitions.  Average posterior probabilities from all partitions.
+
+<!-- **Optimal Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using $ n + m $ {source / target} data -->
+
+
+---
+
+#### Key Algorithm Parameters Per Tree
+
+- To learn Partitions:
+  - bootstrap = true (sklearn default)
+  - min_samples_leaf=1 (sklearn default; maximally pure trees)
+  - max_features = $\sqrt{p}$ (sklearn default; not relevant for 2D data)
+  - max_depth=30 (to accelerate run time; makes accuracy worse typically)
+  - max_samples = 0.32 (to enable samples for estimating posteriors)
+- To estimate posterior probabilities:
+  - finite sample correction = 1 / ( 2 $\times$ # samples in cell)
+
+Nothing special about our tree construction, basically default sklearn parameters plus modifications to enable estimating posteriors
+
+---
+### Representation Learning
+
+- All transfer learning and lifelong learning algorithms learn a representation of the data that they can apply to any new data point 
+- In lifelong forests, the representation of choice is simply the index of the cell in which the data point resides 
+- To our knowledge, this is a novel universal data representation for lifelong learning
 
 ---
 ### Example 1: XOR vs Not-XOR
 
 
-<img src="images/xor_nxor.png" style="width:475px" class="center"/>
+<img src="images/XOR-NXOR.png" style="width:475px" class="center"/>
 
 - XOR
   - Samples in the (+, +) and (-, -) quadrants are class 0  
@@ -390,8 +417,6 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 - Not-XOR (N-XOR)
   - Samples in the (+, +) and (-, -) quadrants are class 1  
   - samples in the (-, +) and (+, -) quadrants are class 0. 
-
-
 - The optimal decision boundaries for both problems are the coordinate axes. 
 
 ---
@@ -401,7 +426,7 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 -  Error:  generalization error, as defined above, estimated using 100 new samples
 - Every slide that follows: 
   - we plot error on .r[N-XOR] as a function of the # of .r[N-XOR] data samples
-  - we used 100 XOR data samples
+  - we used 100 .r[XOR] data samples
 
 
   <!-- In the following slides, the amount of data from XOR is constant. We are interested in how the performance of an algorithm changes as a function of the number of samples from not-XOR. We think of XOR as the "source" task and N-XOR as the "target" task. -->
@@ -416,7 +441,7 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 <!-- just "Error" not "Gen. Error" -->
 
 ---
-### Decision Forests N-XOR Error
+### Decision Forests
 
 <img src="images/L2M_18mo_nxor_xor_rf.png" style="height:275px; width:275px" class="center"/>
 
@@ -433,7 +458,7 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
 - Since the number of samples from N-XOR is increasing, the performance of Decision Forest N-XOR gets better (as would be expected from any reasonable classification procedure). -->
 
 ---
-### Transfer Learning Forests
+### Transfer  Forests
 
 <img src="images/L2M_18mo_nxor_xor_transfer.png" style="height:275px; width:275px" class="center"/>
 
@@ -442,7 +467,7 @@ On the next slide, each learning algorithm has access to $ n + m $ total data.
   - data from N-XOR to estimate the posterior distribution of each cell in the partition.
 
 ---
-### Transfer Learning Forests
+### Transfer  Forests
 
 <img src="images/L2M_18mo_nxor_xor_transfer.png" style="height:275px; width:275px" class="center"/>
 
@@ -507,12 +532,12 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 
 - Every slide that follows: 
   - we plot error on .r[XOR] as a function of the # of .r[R-XOR] data samples
-  - we used 100 XOR data samples
+  - we used 100 .r[XOR] data samples
 
 
 
 ---
-### Decision Forests Error
+### Decision Forests 
 
 <img src="images/L2M_18mo_xor_rxor_rf.png" style="height:275px; width:275px" class="center"/>
 
@@ -523,14 +548,14 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 
 
 ---
-### Transfer Learning 
+### Transfer Forests 
 
 <img src="images/L2M_18mo_xor_rxor_transfer.png" style="height:275px; width:275px" class="center"/>
 
 - Decision Forest R-XOR uses 
   - data from R-XOR to estimate the optimal partition
   - data from XOR to estimate the posterior per cell
-- Performance only increases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimates of the partitions, the optimal partitions are fully uninformative)
+- Error only decreases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimates of the partitions, the optimal partitions are fully uninformative)
 
 
 <!-- ---
@@ -597,7 +622,7 @@ class: left
 
 ---
 
-### Previous State of the Art 
+### Previous State-of-the-Art #1
 
 - David Lopez-Paz, Marc'Aurelio Ranzato. "[Gradient Episodic Memory for Continual Learning](https://papers.nips.cc/paper/7225-gradient-episodic-memory-for-continual-learning.pdf)." NIPS 2017.
 - 127 Citations 
@@ -605,6 +630,18 @@ class: left
 <img src="images/evoplot_cifar100.png" style="width:750px;"/>
 
 Figure 1: evolution of the test accuracy at the first task, as more tasks are learned.
+
+
+---
+
+### Previous State-of-the-Art #2
+
+- Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019.
+
+<img src="images/progressive_nets.png" style="width:500px;"/>
+
+Figure 1: No approaches demonstrate reverse transfer, and most demonstrate catastrophic forgetting.
+
 
 ---
 

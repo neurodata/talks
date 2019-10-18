@@ -390,6 +390,20 @@ class: center, middle, inverse
 
 
 ---
+**Decision Forest** - Estimates the optimal partition  using a subset of the $ n $ data samples, and estimates the posterior probabilities per cell with the remaining samples
+
+<img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/>
+
+
+---
+**Transfer  Forest** - Estimate the optimal partition using all the data from one task, and then estimate the posterior probabilities using all the data from another task
+<img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
+
+---
+**Lifelong Forest** - Estimate the partition separately using data from each task, and  estimate the posterior probabilities for each task using all partitions.  Average posterior probabilities from all partitions.
+<img src="images/l2m_lifelong_cartoon.jpg" style="width:475px" class="center"/>
+
+---
 
 #### Key Algorithm Parameters Per Tree
 
@@ -449,24 +463,33 @@ Nothing special about our tree construction, basically default sklearn parameter
 ---
 ### Decision Forests
 
-<img src="images/L2M_18mo_nxor_xor_rf.png" style="height:275px; width:275px" class="center"/>
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_nxor_xor_rf.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Decision Forest N-XOR uses: 
   - data from N-XOR to estimate the optimal partition of the space, and
   - other data from N-XOR to estimate the posterior distribution of each cell in the partition. 
 - Error monotonically decreases with increasing sample size
 
-<!-- ---
-### Decision Forests (target)
-
-<img src="images/L2M_18mo_nxor_xor_rf.png" style="height:275px; width:275px" class="center"/>
-
-- Since the number of samples from N-XOR is increasing, the performance of Decision Forest N-XOR gets better (as would be expected from any reasonable classification procedure). -->
-
 ---
 ### Transfer  Forests
 
-<img src="images/L2M_18mo_nxor_xor_transfer.png" style="height:275px; width:275px" class="center"/>
+<!-- <img src="images/L2M_18mo_nxor_xor_transfer.png" style="height:275px; width:275px" class="center"/>
+ -->
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_nxor_xor_transfer.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Decision Forest XOR uses:
   - data from XOR to estimate the optimal partition of the space
@@ -475,7 +498,16 @@ Nothing special about our tree construction, basically default sklearn parameter
 ---
 ### Transfer  Forests
 
-<img src="images/L2M_18mo_nxor_xor_transfer.png" style="height:275px; width:275px" class="center"/>
+<!-- <img src="images/L2M_18mo_nxor_xor_transfer.png" style="height:275px; width:275px" class="center"/>
+ -->
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_nxor_xor_transfer.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Estimating partitions is "harder" than posteriors per cell:
   - DF XOR only gets 100 samples to estimate partitions,  
@@ -486,7 +518,16 @@ Nothing special about our tree construction, basically default sklearn parameter
 ---
 ### Lifelong  Forests 
 
-<img src="images/L2M_18mo_nxor_xor_lifelong.png" style="height:275px; width:275px" class="center"/>
+<!-- <img src="images/L2M_18mo_nxor_xor_lifelong.png" style="height:275px; width:275px" class="center"/>
+ -->
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_nxor_xor_lifelong.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Lifelong Forests estimate the optimal decision boundary using  data from both (1) XOR, and (2) N-XOR. 
 - Posteriors are  estimated using only data from N-XOR on both partitions. 
@@ -495,7 +536,16 @@ Nothing special about our tree construction, basically default sklearn parameter
 ---
 ### Lifelong Forests
 
-<img src="images/L2M_18mo_nxor_xor_lifelong.png" style="height:275px; width:275px" class="center"/>
+<!-- <img src="images/L2M_18mo_nxor_xor_lifelong.png" style="height:275px; width:275px" class="center"/>
+ -->
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_nxor_xor_lifelong.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Lifelong forests perform as well as the best method regardless of the amount of N-XOR data
 - Lifelong forests therefore exhibits .r[adaptation to new tasks and circumstances] more effectively than a naive transfer learning forest
@@ -545,7 +595,16 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 ---
 ### Decision Forests 
 
-<img src="images/L2M_18mo_xor_rxor_rf.png" style="height:275px; width:275px" class="center"/>
+<!-- <img src="images/L2M_18mo_xor_rxor_rf.png" style="height:275px; width:275px" class="center"/>
+ -->
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_rxor_xor_rf.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_rxor_rf.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Decision Forest XOR uses 
   - data from XOR to estimate the  partition
@@ -556,7 +615,16 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 ---
 ### Transfer Forests 
 
-<img src="images/L2M_18mo_xor_rxor_transfer.png" style="height:275px; width:275px" class="center"/>
+<!-- <img src="images/L2M_18mo_xor_rxor_transfer.png" style="height:275px; width:275px" class="center"/>
+ -->
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_rxor_xor_transfer.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_rxor_transfer.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Decision Forest R-XOR uses 
   - data from R-XOR to estimate the optimal partition
@@ -587,7 +655,16 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 ---
 ### Lifelong Forests
 
-<img src="images/L2M_18mo_xor_rxor_lifelong.png" style="height:275px; width:275px" class="center"/>
+<!-- <img src="images/L2M_18mo_xor_rxor_lifelong.png" style="height:275px; width:275px" class="center"/>
+ -->
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_rxor_xor_lifelong.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Lifelong Forests estimate the optimal decision boundary using  data from both (1) XOR, and (2) R-XOR. 
 - Posteriors are  estimated using only data from XOR on both partitions. 
@@ -598,7 +675,16 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 ---
 ### Lifelong Forests 
 
-<img src="images/L2M_18mo_xor_rxor_lifelong.png" style="height:275px; width:275px" class="center"/>
+<!-- <img src="images/L2M_18mo_xor_rxor_lifelong.png" style="height:275px; width:275px" class="center"/>
+ -->
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <img src="images/L2M_18mo_rxor_xor_lifelong.png" alt="Snow" style="height:275px; width:275px">
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <img src="images/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
 
 - Lifelong forests do not dramatically degrade performance of past tasks, despite maximally adversarial tasks
 - Therefore, lifelong forests avoid .r[catastrophic forgetting] regardless of new task distributions, making it fundamentally .r[safe].

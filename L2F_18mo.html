@@ -421,15 +421,15 @@ class: center, middle, inverse
 
 ## .center[L2F Lifelong Learns Empirically]
 ---
-### Example 1: XOR vs Not-XOR
+### Example 1: .orange[XOR] vs .purple[Not-XOR (N-XOR)]
 
 
 <img src="images/XOR-NXOR.png" style="width:475px" class="center"/>
 
-- XOR
+- .orange[XOR]
   - Samples in the (+, +) and (-, -) quadrants are class 0  
   - samples in the (-, +) and (+, -) quadrants are class 1. 
-- Not-XOR (N-XOR)
+- .purple[N-XOR]
   - Samples in the (+, +) and (-, -) quadrants are class 1  
   - samples in the (-, +) and (+, -) quadrants are class 0. 
 - The optimal decision boundaries for both problems are the coordinate axes. 
@@ -438,22 +438,22 @@ class: center, middle, inverse
 
 #### Evaluation
 
--  Error:  generalization error, as defined above, estimated using 100 new samples
-- Every slide that follows: 
-  - we plot error on .r[N-XOR] as a function of the # of .r[N-XOR] data samples
-  - we used 100 .r[XOR] data samples
-- The right figure on the opcoming slides shows the estimated probability of an observation from that point in the domain being from class 1. The shown posteriors are forest level posteriors and estimated using 100 samples from XOR data and 300 samples from NXOR.
-- Results generalize to K-class classification problems in an arbitrary Euclidean space. 
-- Results generalize to structured data (images, time series, etc.) and regression setitings via small algorithm adaptations.
-  <!-- In the following slides, the amount of data from XOR is constant. We are interested in how the performance of an algorithm changes as a function of the number of samples from not-XOR. We think of XOR as the "source" task and N-XOR as the "target" task. -->
+- Left figures: 
+  -  y-axis is  generalization error on .purple[N-XOR], as defined above, estimated using 100 new samples 
+  - x-axis is # of .purple[N-XOR] training samples
+  - we used 100 .orange[XOR] training samples
+- Right figures:
+  - estimated probability of an observation  being class 1 
+  - used 100 .orange[XOR]  and 300 .purple[N-XOR] training samples 
+  <!-- In the following slides, the amount of data from .orange[XOR] is constant. We are interested in how the performance of an algorithm changes as a function of the number of samples from not-XOR. We think of .orange[XOR] as the "source" task and .purple[N-XOR] as the "target" task. -->
 
 
 <!-- - The goal is to construct a classification procedure that minimizes the probability of misclassifying an unlabeled observation. -->
 
 
 <!-- revise text -->
-<!-- add slide here showing XOR and N-XOR, remove from all other slides -->
-<!-- state how many XOR samples for each -->
+<!-- add slide here showing .orange[XOR] and .purple[N-XOR], remove from all other slides -->
+<!-- state how many .orange[XOR] samples for each -->
 <!-- just "Error" not "Gen. Error" -->
 
 ---
@@ -468,9 +468,9 @@ class: center, middle, inverse
      </div>
 </div>
 
-- Decision Forest N-XOR uses: 
-  - data from N-XOR to estimate the optimal partition of the space, and
-  - other data from N-XOR to estimate the posterior distribution of each cell in the partition. 
+- Decision Forest .purple[N-XOR] uses: 
+  - data from .purple[N-XOR] to estimate the optimal partition of the space, and
+  - other data from .purple[N-XOR] to estimate the posterior distribution of each cell in the partition. 
 - Error monotonically decreases with increasing sample size
 
 ---
@@ -485,9 +485,9 @@ class: center, middle, inverse
      </div>
 </div>
 
-- Decision Forest XOR uses:
-  - data from XOR to estimate the optimal partition of the space
-  - data from N-XOR to estimate the posterior distribution of each cell in the partition.
+- Decision Forest .orange[XOR] uses:
+  - data from .orange[XOR] to estimate the optimal partition of the space
+  - data from .purple[N-XOR] to estimate the posterior distribution of each cell in the partition.
 
 ---
 ### Transfer  Forests
@@ -502,9 +502,9 @@ class: center, middle, inverse
 </div>
 
 - Estimating partitions is "harder" than posteriors per cell:
-  - DF XOR only gets 100 samples to estimate partitions,  
-  - DF N-XOR gets up to 400
-- Nonetheless, DF XOR exhibits transfer learning, because its error decreases with increasing sample size
+  - DF .orange[XOR] only gets 100 samples to estimate partitions,  
+  - DF .purple[N-XOR] gets up to 400
+- Nonetheless, DF .orange[XOR] exhibits transfer learning, because its error decreases with increasing sample size
 
 
 ---
@@ -519,8 +519,8 @@ class: center, middle, inverse
      </div>
 </div>
 
-- Lifelong Forests estimate the optimal decision boundary using  data from both (1) XOR, and (2) N-XOR.
-- Posteriors are  estimated using only data from N-XOR on both partitions.
+- Lifelong Forests estimate the optimal decision boundary using  data from both (1) .orange[XOR], and (2) .purple[N-XOR].
+- Posteriors are  estimated using only data from .purple[N-XOR] on both partitions.
 - Prediction is based on  the  estimated posterior averaged over both partitions.
 
 ---
@@ -535,7 +535,7 @@ class: center, middle, inverse
      </div>
 </div>
 
-- Lifelong forests perform as well as the best method regardless of the amount of N-XOR data
+- Lifelong forests perform as well as the best method regardless of the amount of .purple[N-XOR] data
 - Lifelong forests therefore exhibits .r[adaptation to new tasks and circumstances] more effectively than a naive transfer learning forest
 
 <!-- ---
@@ -550,22 +550,23 @@ class: left
 ---
 ### Adversarial Tasks 
 
-- XOR vs N-XOR is the easiest possible sequence of tasks 
+- .orange[XOR] vs .purple[N-XOR] is the easiest possible sequence of tasks 
 - Consider an adversarial task: a second task which has zero information about the first task; therefore, its data can only add noise and increase error 
 
 <img src="images/xor_rxor.png" style="width:475px" class="center"/>
 
 
 ---
-### Example 2: XOR and Rotated XOR
+### Example 2:.r[XOR] and .blue[Rotated XOR (R-XOR)]
 
-<!-- Rotated XOR rotates data from the XOR problem so that the optimal decision boundaries are not the coordinate axes but are still orthogonal.
 
-We can paramaterize the rotated XOR problem by $ \theta \in [0, 180) $.
+<!-- Rotated .r[XOR] rotates data from the .r[XOR] problem so that the optimal decision boundaries are not the coordinate axes but are still orthogonal.
+
+We can paramaterize the rotated .r[XOR] problem by $ \theta \in [0, 180) $.
 
 Then 
-- XOR = rotated XOR with $ \theta = 0 $
-- not-XOR = rotated XOR with $ \theta = \pi / 2 $.
+- .r[XOR] = rotated .r[XOR] with $ \theta = 0 $
+- not-XOR = rotated .r[XOR] with $ \theta = \pi / 2 $.
 
 Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one task  has information about the other task so long as $ \theta' \neq \theta + k \pi/4 $ for $ k \in \mathbb{N} $
 
@@ -574,10 +575,13 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 
 <!-- #### Evaluation -->
 
-- Every slide that follows: 
-  - we plot error on .r[XOR] as a function of the # of .r[R-XOR] data samples
+- Left figures: 
+  - y-axis is  error on .r[XOR] estimated using 100 samples 
+  - x-axis is # of .blue[R-XOR] data samples
   - we used 100 .r[XOR] data samples
-- The right figure on the opcoming slides shows the estimated probability of an observation from that point in the domain being from class 1. The shown posteriors are forest level posteriors and estimated using 100 samples from XOR data and 300 samples from RXOR.
+- Right figures:
+  - estimated probability of an observation from class 1
+  - estimated using 100 .r[XOR]  and 300 .blue[R-XOR] training samples
 
 
 ---
@@ -592,10 +596,10 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
      </div>
 </div>
 
-- Decision Forest XOR uses 
-  - data from XOR to estimate the  partition
-  - other data from XOR to estimate the posterior per cell 
-- Since the number of samples from XOR is fixed, the error of DF-XOR is constant
+- Decision Forest .r[XOR] uses 
+  - data from .r[XOR] to estimate the  partition
+  - other data from .r[XOR] to estimate the posterior per cell 
+- Since the number of samples from .r[XOR] is fixed, the error of DF .r[XOR] is constant
 
 
 ---
@@ -610,9 +614,9 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
      </div>
 </div>
 
-- Decision Forest R-XOR uses 
-  - data from R-XOR to estimate the optimal partition
-  - data from XOR to estimate the posterior per cell
+- Decision Forest  .blue[R-XOR] uses 
+  - data from  .blue[R-XOR] to estimate the optimal partition
+  - data from .r[XOR] to estimate the posterior per cell
 - Error only decreases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimates of the partitions, the optimal partitions are fully uninformative)
 
 
@@ -622,9 +626,9 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
   <img src="images/L2M_18mo_xor_rxor_transfer.png" style="height:275px; width:275px" class="center"/>
   
 
-- DF R-XOR's performance gets better because 
-  1. XOR and N-XOR share an optimal decision boundary. So a forest that has access to more data from N-XOR can estimate this boundary better. 
-  2. since we did not use any XOR data to estimate the optimal decision boundary, we could use it all to estimate the relevant posteriors. This leads to more stable (and in this case consistent) posterior estimation and better prediction. -->
+- DF  .blue[R-XOR]'s performance gets better because 
+  1. .r[XOR] and .purple[N-XOR] share an optimal decision boundary. So a forest that has access to more data from .purple[N-XOR] can estimate this boundary better. 
+  2. since we did not use any .r[XOR] data to estimate the optimal decision boundary, we could use it all to estimate the relevant posteriors. This leads to more stable (and in this case consistent) posterior estimation and better prediction. -->
 
 
 <!-- ---
@@ -632,7 +636,7 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 
 <img src="images/L2M_18mo_xor_rxor_transfer.png" style="height:275px; width:275px" class="center"/>
 
-- The fact that Decision Forest N-XOR's performance gets better means that backward transfer is possible. -->
+- The fact that Decision Forest .purple[N-XOR]'s performance gets better means that backward transfer is possible. -->
 
 <!-- replace is possible -->
 
@@ -648,13 +652,11 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
      </div>
 </div>
 
-- Lifelong Forests estimate the optimal decision boundary using  data from both (1) XOR, and (2) R-XOR. 
-
-- Posteriors are  estimated using only data from XOR on both partitions. 
-
+- Lifelong Forests estimate the optimal decision boundary using  data from both (1) .r[XOR], and (2)  .blue[R-XOR]. 
+- Posteriors are  estimated using only data from .r[XOR] on both partitions. 
 - Prediction is based on  the  estimated posterior averaged over both partitions.
 
-<!-- - Lifelong Forests estimate the optimal decision boundary twice: once with the data from XOR and another time with the data from N-XOR. Posteriors are then estimated using data from XOR. The posterior used for prediction is then the average estimated posterior. -->
+<!-- - Lifelong Forests estimate the optimal decision boundary twice: once with the data from .r[XOR] and another time with the data from .purple[N-XOR]. Posteriors are then estimated using data from .r[XOR]. The posterior used for prediction is then the average estimated posterior. -->
 
 ---
 ### Lifelong Forests 
@@ -669,7 +671,6 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 </div>
 
 - Lifelong forests do not dramatically degrade performance of past tasks, despite maximally adversarial tasks
-
 - Therefore, lifelong forests avoid .r[catastrophic forgetting] regardless of new task distributions, making it fundamentally .r[safe].
 
 
@@ -724,7 +725,7 @@ Figure 1: No approaches demonstrate reverse transfer, and most demonstrate catas
 
 - Lifelong Forests exhibit the ability to "reverse" or "backward" transfer: its performance on previously observed tasks increases as more tasks are observed.
 
-- Taking the intuition built from the rotated XOR examples, we posit that the optimal decision boundaries for each of the tasks are "similar", allowing for transfer.
+- Taking the intuition built from the rotated .r[XOR] examples, we posit that the optimal decision boundaries for each of the tasks are "similar", allowing for transfer.
 
 ---
 
@@ -794,8 +795,8 @@ class: middle, inverse
 ### Concrete Examples and Limitations 
 
 - Any supervised lifelong learning classification problem with the same feature space code will run on today.
-- Any supervised lifelong learning regression problem code will run  soon.
-- If all feature spaces are  "typical" manifolds (images, time-series), improved code will run soon.
+- Any supervised lifelong learning .r[regression] problem code will run  soon.
+- If all feature spaces are  "typical" .r[manifolds] (images, time-series), improved code will run soon.
 - We will soon have an implementation that does not require the data or model to fit in main memory.
 - If different tasks have different feature spaces (eg, some only have images, others only have text), code will run in near future.
 - We do not plan to have reinforcement learning in near future.

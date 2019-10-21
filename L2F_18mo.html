@@ -271,149 +271,171 @@ We largely focus on supervised setting hereafter.
 class: middle, inverse
 
 
-## .center[Lifelong Learning Forests (L2F)]
+## .center[Lifelong Learning Machines (L2M)]
 
 ---
 
-### Lifelong learning algorithms
-- Fundamentally, a lifelong learning algorithm must summarize previous tasks via a useful representation to effectively use these tasks for learning a new task. 
+### Basic Assumptions 
 
-- In supervised classification, the most useful representation of a task is its corresponding optimal decision boundary.
+Make the following assumptions:
 
-- More generally, tessellating space into cells yields a representation/compression valuable for any subsequence inference task.
+1. At each time step $t$, we observe 
+  - a sample $z_t \in \mathcal{Z}$, and  
+  - a task identifier $j_t \in \mathcal{J}$ (which includes $\emptyset$).
+3. The number of samples $n$ increases faster than the number of unique tasks $J$, that is, $n/J \rightarrow \infty$.
+3. All samples are independent of each other.
+3. All (non-identical) tasks are independent of each other.
 
----
-
-### What are Decision Forests?
-
-- Two things:
-  1. a partitioning of the space into mutually exclusive cells 
-  2. an assignment of probabilities  within each cell
-
-
-- This is true for decision trees, random forests, gradient boosting trees, etc.	
-  - Axis-aligned trees yield cells that are each right rectangular prisms (also called rectangular cuboids, rectangular parallelepiped, and orthogonal parallelipiped)	
-  - Axis-oblique trees yield cells that are more general polytopes
-
-Note: Deep Nets with ReLu activation function also tesselate space into polytopes  
+Assumptions 3-4 can be relaxed.
 
 
 ---
 
-### What are Honest Trees?
+### Constituents of  Learning Machines 
 
-1. Subset the data into 2 subsets
-2. Learn the partitions using 1 set
-3. Learn the probabilities using the other set.
-
-
-Doing so yields consistent estimates of the probabilities, that is,
-
-$$\hat{P}(f\_n) \rightarrow P$$
-
----
-
-### Key Algorithmic Insight 
-
-- Cells of a partition of space can be a universal representation
-- Partitions can be learned on a **per task** basis
-- Probabilities can be estimated given **any** partition, including those from other tasks
-- Use all data to estimate probabilities on the partitions learned separately for each task
-- Average probabilities learned on each partition to obtain final answer
-
-
----
-### Algorithm (High-Level)
-
-- Input: $n$ points associated with $J$ different supervised classification/regression tasks
-- Output: A classifier/regressor function for each task 
-- Algorithm: 
-      - for $j \in [J]$ 
-        - Learn partition of space using only data from task $j$
-        - Learn probabilities using partitions $1, \ldots, j$ 
-        - Output average over all $j$ probability estimates 
+1. A .r[representation], where each data point can be represented 
+2. A .r[transformer], $f$, which transforms any given data point into the  representation 
+3. A .r[decider], $g$, which decides on an action to take on the basis of data in the universal representation 
 
 --
 
-  Notes:
+##### Example
 
-- This exact procedure can be applied as $J$ continues to increase
-- This procedure could be use any pair of algorithms for learning partitions and probabilities. 
-- We focus on random forests for simplicity.
-- We assumed related measurement spaces, specifically, $\mathcal{Z}\_j= \lbrace \mathcal{X} \times \mathcal{Y}\_j \rbrace$
+Linear 2-class classification
 
-<!-- ---
-### Lifelong learning algorithms
-
-- If the researcher knew that the two tasks below had the same optimal linear decision boundary (representation), data from both tasks would be useful for creating a classification procedeure for either task.
-
-<img src="images/gaussian.png" style="width:475px" class="center"/> -->
-
-<!-- ---
-
-### Simulations
-
-
-- Supervised lifelong learning
-- Setting is the same for each task:  2-class classification
-  - $\mathcal{Z}= \mathbb{R}^p \times \lbrace 0,1 \rbrace$ 
-  - $\mathcal{P}=$ all distributions on $\mathcal{Z}$ 
-  - $\mathcal{A} = \lbrace 0,1 \rbrace$
-  - $\mathcal{H}=$ all 2-class classifiers 
-  - $\ell=0-1$ loss 
-  - $R=$ expected loss
-- $P_1 \neq P_2$
-- Assume for simplicity that data are batched into tasks.  -->
-
----
-### Algorithms 
-
-<!-- On the next slide, each learning algorithm has access to $ n + m $ total data.  -->
-
-**Decision Forest** - Estimates the optimal partition  using a subset of the $ n $ data samples, and estimates the posterior probabilities per cell with the remaining samples
-
-**Transfer  Forest** - Estimate the optimal partition using all the data from one task, and then estimate the posterior probabilities using all the data from another task
-
-**Lifelong Forest** - Estimate the partition separately using data from each task, and  estimate the posterior probabilities for each task using all partitions.  Average posterior probabilities from all partitions.
-
-<!-- **Optimal Forest {Source / Target}** - Estimates the optimal partition of $ \mathbb{R}^{2} $ using $ n + m $ {source / target} data -->
+1. Representation: the real number line 
+2. Transformer: projection matrix that maps data onto real number line 
+3. Decider: threshold such that values above threshold are one class, and below are the other
 
 
 ---
-**Decision Forest** - Estimates the optimal partition  using a subset of the $ n $ data samples, and estimates the posterior probabilities per cell with the remaining samples
 
-<img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/>
+### Constituents of Lifelong  LM (L2M) 
+
+1. A .r[universal representation], where each data point from any task can be represented 
+2. A .r[transformer], $f$, which transforms any given data point into the universal representation 
+3. A .r[decider], $g$, which decides on an action to take on the basis of data in the universal representation 
+
+--
+
+##### Example
+
+Two linear 2-class classification tasks
+
+1. Representation: the real number line 
+2. Transformer: two different projection matrix that maps data onto real number line 
+3. Decider: two thresholds such that values above threshold are one class, and below are the other
+
+
 
 
 ---
-**Transfer  Forest** - Estimate the optimal partition using all the data from one task, and then estimate the posterior probabilities using all the data from another task
-<img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
+
+### Basic L2M (unbounded storage)
+
+<!-- Given the above assumptions, all lifelong learning algorithms can be characterized as follows. -->
+
+
+For each $(z_t, j_t)$,
+1. update .r[transformer]  using all available data: $h\_t (\lbrace z\_t,j\_t \rbrace) \rightarrow \hat{f}\_t$ 
+2. for each sample, apply .r[transformer]: $\hat{f}\_t (z\_i) = \tilde{z}\_i$
+3. for each  .r[decider], update using all available data: 
+      $g\_t (\lbrace \tilde{z}\_t,j\_t \rbrace) \rightarrow  \lbrace \hat{\eta}\_j \rbrace $
+4. apply .r[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
+
+
 
 ---
-**Lifelong Forest** - Estimate the partition separately using data from each task, and  estimate the posterior probabilities for each task using all partitions.  Average posterior probabilities from all partitions.
-<img src="images/l2m_lifelong_cartoon.jpg" style="width:475px" class="center"/>
+
+### Basic L2M (bounded storage)
+
+
+
+For each $(z_t, j_t)$,
+1. update .r[transformer]: $h\_t ( z\_t,j\_t, \hat{f}\_{t-1} ) \rightarrow \hat{f}\_t$ 
+2. apply .r[transformer]: $\hat{f}\_t (z\_t) = \tilde{z}\_t$
+3. update all .r[deciders]: 
+      $g\_t ( \tilde{z}\_t,j\_t, \hat{\eta}\_{t-1} ) \rightarrow  \lbrace \hat{\eta}\_j \rbrace $
+4. apply .r[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
+
+
+---
+
+### Constituents of Decision Trees 
+
+1. Universal Representation: hyper-rectangles of a partition 
+2. Transformers: parcellation of space into cells/leaf-nodes
+3. Deciders: plurality  (or average) of elements per cell
+
+--
+
+### Constituents of Decision Forests 
+
+1. Universal Representation: hyper-rectangles  of a partition
+2. Transformers: union of decision trees
+3. Deciders: average of decision trees (posterior probabilities)
+
 
 ---
 
 #### Key Algorithm Parameters Per Tree
 
-- To learn Partitions:
+- To learn partitions:
   - bootstrap = true (sklearn default)
   - min_samples_leaf=1 (sklearn default; maximally pure trees)
   - max_features = $\sqrt{p}$ (sklearn default; not relevant for 2D data)
   - max_depth=30 (to accelerate run time; makes accuracy worse typically)
-  - max_samples = 0.32 (to enable samples for estimating posteriors)
-- To estimate posterior probabilities:
+  - max_samples = 0.32 (to enable samples for learning posteriors)
+- To learn posteriors:
   - finite sample correction = 1 / ( 2 $\times$ # samples in cell)
 
-Nothing special about our tree construction, basically default sklearn parameters plus modifications to enable estimating posteriors
+Nothing special about our tree construction, basically 
+- default sklearn parameters, plus 
+- modifications to enable learning posteriors (deciders)
 
-<!-- ---
-### Representation Learning
 
-- All transfer learning and lifelong learning algorithms learn a representation of the data that they can apply to any new data point 
-- In lifelong forests, the representation of choice is simply the index of the cell in which the data point resides 
-- To our knowledge, this is a novel universal data representation for lifelong learning -->
+---
+### Decision Forests
+
+- Transformer: partition space using a subset of the $ n $ data samples
+- Decider:  majority vote on remaining samples
+
+<img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/>
+
+
+
+---
+### Transfer  Forests
+
+- Transformer: partition space using all the data from source task
+- Decider: average of majority vote in each node from each tree applied to target task data 
+
+<img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
+
+
+
+---
+
+### Lifelong Forests
+
+
+- Transformer: a forest to partition space for each task 
+- Deciders: average of majority vote in each node from each tree applied to each task's data
+<img src="images/l2m_lifelong_cartoon.jpg" style="width:475px" class="center"/>
+
+
+
+---
+
+### Lifelong  Forests 
+
+- Assume data are batched into unique tasks
+- For each task, $ z_t | j_t = j$
+  1. Learn a new forest using data only from task $j_t$
+  2. Apply forest to each observation so far 
+  3. For each task, update plurality/average vote per tree 
+  4. Apply average vote for $z_t$
+
 
 ---
 
@@ -439,22 +461,12 @@ class: center, middle, inverse
 #### Evaluation
 
 - Left figures: 
-  -  y-axis is  generalization error on .purple[N-XOR], as defined above, estimated using 100 new samples 
+  -  y-axis is  generalization error on .purple[N-XOR], as defined above, learned using 100 new samples 
   - x-axis is # of .purple[N-XOR] training samples
   - we used 100 .orange[XOR] training samples
 - Right figures:
-  - estimated probability of an observation  being class 1 
+  - learned probability of an observation  being class 1 
   - used 100 .orange[XOR]  and 300 .purple[N-XOR] training samples 
-  <!-- In the following slides, the amount of data from .orange[XOR] is constant. We are interested in how the performance of an algorithm changes as a function of the number of samples from not-XOR. We think of .orange[XOR] as the "source" task and .purple[N-XOR] as the "target" task. -->
-
-
-<!-- - The goal is to construct a classification procedure that minimizes the probability of misclassifying an unlabeled observation. -->
-
-
-<!-- revise text -->
-<!-- add slide here showing .orange[XOR] and .purple[N-XOR], remove from all other slides -->
-<!-- state how many .orange[XOR] samples for each -->
-<!-- just "Error" not "Gen. Error" -->
 
 ---
 ### Decision Forests
@@ -469,8 +481,8 @@ class: center, middle, inverse
 </div>
 
 - Decision Forest .purple[N-XOR] uses: 
-  - data from .purple[N-XOR] to estimate the optimal partition of the space, and
-  - other data from .purple[N-XOR] to estimate the posterior distribution of each cell in the partition. 
+  - data from .purple[N-XOR] to learn transformers (partition)
+  - other data from .purple[N-XOR] to learn deciders (posteriors)
 - Error monotonically decreases with increasing sample size
 
 ---
@@ -486,11 +498,11 @@ class: center, middle, inverse
 </div>
 
 - Decision Forest .orange[XOR] uses:
-  - data from .orange[XOR] to estimate the optimal partition of the space
-  - data from .purple[N-XOR] to estimate the posterior distribution of each cell in the partition.
+  - data from .orange[XOR] to learn transformers (partition)
+  - data from .purple[N-XOR] to learn decider (posterior)
 
 ---
-### Transfer  Forests
+### Transfer Forests
 
 <div style="display:inline-flex">
      <div>
@@ -501,8 +513,8 @@ class: center, middle, inverse
      </div>
 </div>
 
-- Estimating partitions is "harder" than posteriors per cell:
-  - DF .orange[XOR] only gets 100 samples to estimate partitions,  
+- Learning partitions is "harder" than posteriors:
+  - DF .orange[XOR] only gets 100 samples to learn partitions,  
   - DF .purple[N-XOR] gets up to 400
 - Nonetheless, DF .orange[XOR] exhibits transfer learning, because its error decreases with increasing sample size
 
@@ -519,9 +531,9 @@ class: center, middle, inverse
      </div>
 </div>
 
-- Lifelong Forests estimate the optimal decision boundary using  data from both (1) .orange[XOR], and (2) .purple[N-XOR].
-- Posteriors are  estimated using only data from .purple[N-XOR] on both partitions.
-- Prediction is based on  the  estimated posterior averaged over both partitions.
+- Lifelong Forests learn the optimal decision boundary using  data from both (1) .orange[XOR], and (2) .purple[N-XOR].
+- Posteriors are  learned using only data from .purple[N-XOR] on both partitions.
+- Prediction is based on  the  learned posterior averaged over both partitions.
 
 ---
 ### Lifelong Forests
@@ -536,52 +548,32 @@ class: center, middle, inverse
 </div>
 
 - Lifelong forests perform as well as the best method regardless of the amount of .purple[N-XOR] data
-- Lifelong forests therefore exhibits .r[adaptation to new tasks and circumstances] more effectively than a naive transfer learning forest
+- Lifelong forests therefore exhibits .r[adaptation to new tasks and circumstances] more effectively than a na&iuml;ve transfer  forest
 
-<!-- ---
-
-class: left
-
-<img src="images/vip_results_XOR_not_XOR_n200-1.png" style="height:250px;"/>
-
-- Using both partitions (Lifelong Forests) is better than just one because the two tasks share the same optimal decision boundary. 
-- Lifelong Forests exhibit both forward and backward transfer. -->
 
 ---
 ### Adversarial Tasks 
 
 - .orange[XOR] vs .purple[N-XOR] is the easiest possible sequence of tasks 
-- Consider an adversarial task: a second task which has zero information about the first task; therefore, its data can only add noise and increase error 
+- Consider an adversarial task: 
+  - a second task which has zero information about the first task; 
+  - therefore, its data can only add noise and increase error 
 
 <img src="images/xor_rxor.png" style="width:475px" class="center"/>
 
 
 ---
-### Example 2:.r[XOR] and .blue[Rotated XOR (R-XOR)]
+### Example 2: .r[XOR] and .blue[Rotated XOR (R-XOR)]
 
 
-<!-- Rotated .r[XOR] rotates data from the .r[XOR] problem so that the optimal decision boundaries are not the coordinate axes but are still orthogonal.
-
-We can paramaterize the rotated .r[XOR] problem by $ \theta \in [0, 180) $.
-
-Then 
-- .r[XOR] = rotated .r[XOR] with $ \theta = 0 $
-- not-XOR = rotated .r[XOR] with $ \theta = \pi / 2 $.
-
-Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one task  has information about the other task so long as $ \theta' \neq \theta + k \pi/4 $ for $ k \in \mathbb{N} $
-
- -->
-<!-- --- -->
-
-<!-- #### Evaluation -->
 
 - Left figures: 
-  - y-axis is  error on .r[XOR] estimated using 100 samples 
+  - y-axis is  error on .r[XOR] learned using 100 samples 
   - x-axis is # of .blue[R-XOR] data samples
   - we used 100 .r[XOR] data samples
 - Right figures:
   - estimated probability of an observation from class 1
-  - estimated using 100 .r[XOR]  and 300 .blue[R-XOR] training samples
+  - learned using 100 .r[XOR]  and 300 .blue[R-XOR] training samples
 
 
 ---
@@ -597,8 +589,8 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 </div>
 
 - Decision Forest .r[XOR] uses 
-  - data from .r[XOR] to estimate the  partition
-  - other data from .r[XOR] to estimate the posterior per cell 
+  - data from .r[XOR] to learn  transformer (partition)
+  - other data from .r[XOR] to learn  decider (posterior) 
 - Since the number of samples from .r[XOR] is fixed, the error of DF .r[XOR] is constant
 
 
@@ -615,30 +607,10 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
 </div>
 
 - Decision Forest  .blue[R-XOR] uses 
-  - data from  .blue[R-XOR] to estimate the optimal partition
-  - data from .r[XOR] to estimate the posterior per cell
-- Error only decreases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimates of the partitions, the optimal partitions are fully uninformative)
+  - data from  .blue[R-XOR] to learn transformers(partition)
+  - data from .r[XOR] to learn decider (posterior)
+- Error only decreases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimate of the partition, the optimal partition is fully uninformative)
 
-
-<!-- ---
-### Out of Task Decision Forests (source)
-  
-  <img src="images/L2M_18mo_xor_rxor_transfer.png" style="height:275px; width:275px" class="center"/>
-  
-
-- DF  .blue[R-XOR]'s performance gets better because 
-  1. .r[XOR] and .purple[N-XOR] share an optimal decision boundary. So a forest that has access to more data from .purple[N-XOR] can estimate this boundary better. 
-  2. since we did not use any .r[XOR] data to estimate the optimal decision boundary, we could use it all to estimate the relevant posteriors. This leads to more stable (and in this case consistent) posterior estimation and better prediction. -->
-
-
-<!-- ---
-### Out of Task Decision Forests (source)
-
-<img src="images/L2M_18mo_xor_rxor_transfer.png" style="height:275px; width:275px" class="center"/>
-
-- The fact that Decision Forest .purple[N-XOR]'s performance gets better means that backward transfer is possible. -->
-
-<!-- replace is possible -->
 
 ---
 ### Lifelong Forests
@@ -652,11 +624,9 @@ Given any two $ \theta, \theta' \in [0, 180) $ the learned partitions from one t
      </div>
 </div>
 
-- Lifelong Forests estimate the optimal decision boundary using  data from both (1) .r[XOR], and (2)  .blue[R-XOR]. 
-- Posteriors are  estimated using only data from .r[XOR] on both partitions. 
+- Lifelong Forests learn the optimal decision boundary using  data from both (1) .r[XOR], and (2)  .blue[R-XOR]. 
+- Posteriors are  learned using only data from .r[XOR] on both partitions. 
 - Prediction is based on  the  estimated posterior averaged over both partitions.
-
-<!-- - Lifelong Forests estimate the optimal decision boundary twice: once with the data from .r[XOR] and another time with the data from .purple[N-XOR]. Posteriors are then estimated using data from .r[XOR]. The posterior used for prediction is then the average estimated posterior. -->
 
 ---
 ### Lifelong Forests 
@@ -721,11 +691,11 @@ Figure 1: No approaches demonstrate reverse transfer, and most demonstrate catas
 
 ---
 
-<img src="images/initial-cifar-100-debugged-1-subsample-precision.png" style="width:500px;"/>
+<img src="images/initial-cifar-100-debugged-1-subsample-precision.png" style="width:750px;"/>
 
 - Lifelong Forests exhibit the ability to "reverse" or "backward" transfer: its performance on previously observed tasks increases as more tasks are observed.
 
-- Taking the intuition built from the rotated .r[XOR] examples, we posit that the optimal decision boundaries for each of the tasks are "similar", allowing for transfer.
+<!-- - Taking the intuition built from the rotated .r[XOR] examples, we posit that the optimal decision boundaries for each of the tasks are "similar", allowing for transfer. -->
 
 ---
 
@@ -1139,6 +1109,85 @@ Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 class:center
 
 <img src="images/liono_holds_babyv.jpeg" style="position:absolute; top:0px; left:200px; height:100%;"/>
+
+---
+class: middle, inverse
+
+
+## .center[Extra Slides]
+
+
+---
+
+
+
+### Lifelong learning algorithms
+- Fundamentally, a lifelong learning algorithm must summarize previous tasks via a useful representation to effectively use these tasks for learning a new task. 
+
+- In supervised classification, the most useful representation of a task is its corresponding optimal decision boundary.
+
+- More generally, tessellating space into cells yields a representation/compression valuable for any subsequence inference task.
+
+---
+
+### What are Decision Forests?
+
+- Two things:
+  1. a partitioning of the space into mutually exclusive cells 
+  2. an assignment of probabilities  within each cell
+
+
+- This is true for decision trees, random forests, gradient boosting trees, etc.	
+  - Axis-aligned trees yield cells that are each right rectangular prisms (also called rectangular cuboids, rectangular parallelepiped, and orthogonal parallelipiped)	
+  - Axis-oblique trees yield cells that are more general polytopes
+
+Note: Deep Nets with ReLu activation function also tesselate space into polytopes  
+
+
+---
+
+### What are Honest Trees?
+
+1. Subset the data into 2 subsets
+2. Learn the partitions using 1 set
+3. Learn the probabilities using the other set.
+
+
+Doing so yields consistent estimates of the probabilities, that is,
+
+$$\hat{P}(f\_n) \rightarrow P$$
+
+---
+
+### Key Algorithmic Insight 
+
+- Cells of a partition of space can be a universal representation
+- Partitions can be learned on a **per task** basis
+- Probabilities can be estimated given **any** partition, including those from other tasks
+- Use all data to estimate probabilities on the partitions learned separately for each task
+- Average probabilities learned on each partition to obtain final answer
+
+
+---
+### Algorithm (High-Level)
+
+- Input: $n$ points associated with $J$ different supervised classification/regression tasks
+- Output: A classifier/regressor function for each task 
+- Algorithm: 
+      - for $j \in [J]$ 
+        - Learn partition of space using only data from task $j$
+        - Learn probabilities using partitions $1, \ldots, j$ 
+        - Output average over all $j$ probability estimates 
+
+--
+
+  Notes:
+
+- This exact procedure can be applied as $J$ continues to increase
+- This procedure could be use any pair of algorithms for learning partitions and probabilities. 
+- We focus on random forests for simplicity.
+- We assumed related measurement spaces, specifically, $\mathcal{Z}\_j= \lbrace \mathcal{X} \times \mathcal{Y}\_j \rbrace$
+
 
 
 </textarea>

@@ -294,8 +294,8 @@ Assumptions 3-4 can be relaxed.
 ### Constituents of  Learning Machines 
 
 1. A .r[representation], where each data point can be represented 
-2. A .r[transformer], $f$, which transforms any given data point into the  representation 
-3. A .r[decider], $g$, which decides on an action to take on the basis of data in the universal representation 
+2. A .r[transformer], $f$, which transforms any given data point into the representation 
+3. A .r[decider], $g$, which decides on an action to take on the basis of data in the representation 
 
 --
 
@@ -326,7 +326,7 @@ Two linear 2-class classification tasks
 2. Transformer: two different projection matrix that maps data onto real number line 
 3. Decider: two thresholds such that values above threshold are one class, and below are the other
 
-
+<!-- you may want to mention here that the transformer's action may depend on the take from which the data came -->
 
 
 ---
@@ -336,7 +336,7 @@ Two linear 2-class classification tasks
 <!-- Given the above assumptions, all lifelong learning algorithms can be characterized as follows. -->
 
 
-For each $(z_t, j_t)$,
+For each $(z_t, j_t)$ = (data, task index),
 1. update .r[transformer]  using all available data: $h\_t (\lbrace z\_t,j\_t \rbrace) \rightarrow \hat{f}\_t$ 
 2. for each sample, apply .r[transformer]: $\hat{f}\_t (z\_i) = \tilde{z}\_i$
 3. for each  .r[decider], update using all available data: 
@@ -363,7 +363,7 @@ For each $(z_t, j_t)$,
 
 ### Constituents of Decision Trees 
 
-1. Universal Representation: hyper-rectangles of a partition 
+1. Representation: hyper-rectangles of a partition 
 2. Transformers: parcellation of space into cells/leaf-nodes
 3. Deciders: plurality  (or average) of elements per cell
 
@@ -371,7 +371,7 @@ For each $(z_t, j_t)$,
 
 ### Constituents of Decision Forests 
 
-1. Universal Representation: hyper-rectangles  of a partition
+1. Representation: hyper-rectangles of a partition
 2. Transformers: union of decision trees
 3. Deciders: average of decision trees (posterior probabilities)
 

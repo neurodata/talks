@@ -276,7 +276,7 @@ class: middle, inverse
 
 ---
 
-### Machine Learning: Basic Set Up
+### Machine Learning: Basic Set-Up
 
 Given
 1. A task $ T $ 
@@ -297,13 +297,15 @@ Assumption 3 can be relaxed. -->
 
 ### Constituents of  Learning Machines 
 
-1. A .r[representation space] which the data is transformed in to. 
-2. A .r[transformer] maps each point to the representation space.
-3. A .r[decider] takes an action using the transformed data.
+1.  .r[representation space]: data are transformed into this space
+2.  .r[transformer]: maps each point to the representation space
+3.  .r[decider]: takes an action using the transformed data
 
---
+---
 
-##### Example 1: Linear 2-class classification
+### Example 1 
+
+Linear 2-class classification
 
 1. Representation space: the real number line 
 2. Transformer: projection matrix that maps each feature vector onto real number line 
@@ -328,7 +330,7 @@ Assumption 3 can be relaxed. -->
 <!-- figure of a data point in a cell of the partition -->
 <!-- figure of classifying a data point in a cell of the partition -->
 
---
+---
 
 ### Constituents of Decision Forests 
 
@@ -353,7 +355,10 @@ diagram 2: transformer data
 diagram 3: partitions learned on transformer data
 diagram 4: posteriors estimated using transformer data (continue to show data)
 diagram 5: posteriors estimated using decider data (continue to show data)
-diagram 6: somehow show quality of posteriors -->
+diagram 6: show true posterior
+diagram 7: consider showing posterior errors
+- explan n, d
+-->
 ---
 
 ### Key Insight of Uncertainty Forests 
@@ -379,8 +384,9 @@ $$\hat{P}(f\_n) \rightarrow P$$
   - default sklearn parameters, plus 
   - modifications to enable learning posteriors (deciders)
 
----
-add error + posterior plots for linear example
+<!--   
+new slide: add error + posterior plots for linear example 
+-->
 
 ---
 
@@ -438,7 +444,7 @@ Right:
 
 ---
 
-### Transfer Learning: Basic Set Up
+### Transfer Learning: Basic Set-Up
 
 Given
 1. a task $ T $
@@ -462,31 +468,55 @@ Assumption 4 can be relaxed. -->
 
 ---
 
-### Constituents of a Transfer Machine 
+### Constituents of Transfer Machines 
 
-1. A .r[joint representation space] both the source and target data is transformed in to. 
-2. .r[Transformers] map each point to the joint representation space.
-3. A .r[decider] takes an action using all transformed data.
+
+1.  .r[universal representation space]: source and target data are transformed into this space
+2.  .r[transformers]: map each source and target point to the representation space
+3.  .r[decider]: takes an action using all the transformed data
+
+
+---
+
+### Example 3
+
+Two linear 2-class classification tasks
+
+1. Universal Representation Space: the real number line 
+2. Transformer: projection matrix that maps data onto real number line 
+3. Decider: threshold such that target values above threshold are one class, and below are the other
+
+<!-- task 1: 
+    - mean1 = (1,1) orange
+    -  mean0 = (0,0) purple
+task 2: 
+  - mean1 = (0,0) green
+  - and mean0 = (1,1) magenta
+-->
+
 
 ---
 ### Constituents of Transfer Forests
 
-- Joint Representation Space: a partition of $ \mathbb{R}^{d} $
-- Transformer: partition space using all the data from source task
-- Decider: average of majority vote in each node from each tree applied to target task data 
+- Universal representation space: a partition of $ \mathbb{R}^{d} $
+- Transformer: partition space using all the data from source task (and potentially updated using target data)
+- Decider: average of majority vote in each node from each tree applied to target  data 
 
 <img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
 
---
-
-##### Example 3:  Two linear 2-class classification tasks
-
-1. Joint Representation Space: the real number line 
-2. Transformer: two different projection matrix that maps data onto real number line 
-3. Decider: a thresholds such that target values above threshold are one class, and below are the other
+<!-- update above image as above: label arrows transformer and decider -->
 
 
+<!-- 
+new slide: 
+  show error and posteriors
+but, x-axis in # of source data samples (for fixed target)
+y-axis is target error
+2 lines: one using only target, and one also using increasing source 
 
+give title to posterior plot
+http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
+-->
 
 ---
 ### Example 4: .orange[XOR] to .purple[Not-XOR (N-XOR)]
@@ -546,67 +576,42 @@ Assumption 4 can be relaxed. -->
 
 ---
 
-### Lifelong Learning: Basic Assumptions 
+### Lifelong Learning: Basic Set-up 
 
-Make the following assumptions:
 
-1. At each time step $t$, we observe 
-  - a sample $z_t \in \mathcal{Z}$, and  
-  - a task identifier $j_t \in \mathcal{J}$ (which includes $\emptyset$).
-3. The number of samples $n$ increases faster than the number of unique tasks $J$, that is, $n/J \rightarrow \infty$.
-3. All samples are independent of each other.
-3. All (non-identical) tasks are independent of each other.
+Given
 
-Assumptions 3-4 can be relaxed.
+1. a universe of potential tasks, $\mathcal{J}$
+1. a sequence of data and task pairs $(z_1, j_1), (z_2,j_2),\ldots$, where each $j_t \in \mathcal{J}$
+<!-- 2. data and t$ z'\_1, z'\_2, .., z'\_s $  -->
+<!-- 3. observed target data $ z\_1, z\_2, .., z\_n $ -->
+
+Assume
+1. the $ z\_t $ are all  independent 
+1. total \# samples > \# unique tasks 
 
 ---
 
 ### Constituents of Lifelong  LM (L2M) 
 
-1. A .r[universal representation], where each data point from any task can be represented 
-2. A .r[transformer], $f$, which transforms any given data point into the universal representation 
-3. A .r[decider], $g$, which decides on an action to take on the basis of data in the universal representation 
 
---
+1.  .r[universal representation space]: data from all tasks are transformed into this space
+2.  .r[transformers]: map each data point from all tasks to the representation space
+3.  .r[deciders]: takes an action using transformed data from all tasks
 
-##### Example 5:  $J$ increasing linear 2-class classification tasks
+
+---
+
+### Example 5  
+
+$J$ increasing linear 2-class classification tasks
 
 1. Representation: the real number line 
-2. Transformer: $J$ different projection matrix that maps data onto real number line 
-3. Decider: $J$ thresholds such that values above threshold are one class, and below are the other
+2. Transformers: $J$ different projection matrix that maps data onto real number line 
+3. Deciders: $J$ thresholds such that values above threshold are one class, and below are the other
 
 
-
-
----
-
-### Basic L2M (unbounded storage)
-
-<!-- Given the above assumptions, all lifelong learning algorithms can be characterized as follows. -->
-
-
-For each $(z_t, j_t)$,
-1. update .r[transformer]  using all available data: $h\_t (\lbrace z\_t,j\_t \rbrace) \rightarrow \hat{f}\_t$ 
-2. for each sample, apply .r[transformer]: $\hat{f}\_t (z\_i) = \tilde{z}\_i$
-3. for each  .r[decider], update using all available data: 
-      $g\_t (\lbrace \tilde{z}\_t,j\_t \rbrace) \rightarrow  \lbrace \hat{\eta}\_j \rbrace $
-4. apply .r[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
-
-
-
----
-
-### Basic L2M (bounded storage)
-
-
-
-For each $(z_t, j_t)$,
-1. update .r[transformer]: $h\_t ( z\_t,j\_t, \hat{f}\_{t-1} ) \rightarrow \hat{f}\_t$ 
-2. apply .r[transformer]: $\hat{f}\_t (z\_t) = \tilde{z}\_t$
-3. update all .r[deciders]: 
-      $g\_t ( \tilde{z}\_t,j\_t, \hat{\eta}\_{t-1} ) \rightarrow  \lbrace \hat{\eta}\_j \rbrace $
-4. apply .r[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
-
+<!-- means are +/- j (potentially with jitter added) -->
 
 
 ---
@@ -614,22 +619,11 @@ For each $(z_t, j_t)$,
 ### Lifelong Forests
 
 
-- Transformer: a forest to partition space for each task 
+- Transformers: a forest to partition space for each task 
 - Deciders: average of majority vote in each node from each tree applied to each task's data
 <img src="images/l2m_lifelong_cartoon.jpg" style="width:475px" class="center"/>
 
-
-
----
-
-### Lifelong  Forests 
-
-- Assume data are batched into unique tasks
-- For each task, $ z_t | j_t = j$
-  1. Learn a new forest using data only from task $j_t$
-  2. Apply forest to each observation so far 
-  3. For each task, update plurality/average vote per tree 
-  4. Apply average vote for $z_t$
+<!-- update a la other ones -->
 
 
 
@@ -647,17 +641,8 @@ For each $(z_t, j_t)$,
   - samples in the (-, +) and (+, -) quadrants are class 0. 
 - The optimal decision boundaries for both problems are the coordinate axes. 
 
-<!-- ---
 
-#### Evaluation
-
-- Left figures: 
-  -  y-axis is   error on .purple[N-XOR], as defined above, learned using 100 new samples 
-  - x-axis is # of .purple[N-XOR] training samples
-  - we used 100 .orange[XOR] training samples
-- Right figures:
-  - learned probability of an observation  being class 1 
-  - used 100 .orange[XOR]  and 300 .purple[N-XOR] training samples  -->
+<!-- update colors  -->
 
 
 ---
@@ -678,6 +663,10 @@ For each $(z_t, j_t)$,
 - Posteriors are  learned using only 300 samples from .purple[N-XOR] on both partitions.
 - Prediction is based on  the  learned posterior averaged over both partitions.
 
+<!-- make same as transfer learning plots but add new line
+update text accordingly
+-->
+
 ---
 ### Lifelong Forests
 
@@ -693,6 +682,8 @@ For each $(z_t, j_t)$,
 - Lifelong forests perform as well as the best method regardless of the amount of .purple[N-XOR] data
 - Lifelong forests therefore exhibits .r[adaptation to new tasks and circumstances] more effectively than a na&iuml;ve transfer  forest
 
+<!-- may want to show plots for other transfer direction -->
+
 
 ---
 ### Adversarial Tasks 
@@ -704,12 +695,15 @@ For each $(z_t, j_t)$,
 
 <img src="images/xor_rxor.png" style="width:475px" class="center"/>
 
+<!-- add two linear two-class classification problem w adverserial source task -->
+
+<!-- adverserial source task = either means reflected across x-axis or two gaussians centered at 0,0 -->
 
 ---
 ### Example 7: .r[XOR] and .blue[R-XOR]
 
 
-
+<!-- integrate this content into slide with figure -->
 - Left figures: 
   - y-axis is  error on .r[XOR] learned using 100 samples 
   - x-axis is # of .blue[R-XOR] data samples
@@ -736,6 +730,7 @@ For each $(z_t, j_t)$,
   - other data from .r[XOR] to learn  decider (posterior) 
 - Since the number of samples from .r[XOR] is fixed, the error of DF .r[XOR] is constant
 
+<!-- fix posterior plots as above, with titles -->
 
 ---
 ### Transfer Forests 
@@ -754,6 +749,7 @@ For each $(z_t, j_t)$,
   - data from .r[XOR] to learn decider (posterior)
 - Error only decreases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimate of the partition, the optimal partition is fully uninformative)
 
+<!-- fix posterior plots as above  -->
 
 ---
 ### Lifelong Forests
@@ -771,6 +767,8 @@ For each $(z_t, j_t)$,
 - Posteriors are  learned using only data from .r[XOR] on both partitions. 
 - Prediction is based on  the  estimated posterior averaged over both partitions.
 
+<!-- fix posterior plots as above  -->
+
 ---
 ### Lifelong Forests 
 
@@ -785,6 +783,8 @@ For each $(z_t, j_t)$,
 
 - Lifelong forests do not dramatically degrade performance of past tasks, despite maximally adversarial tasks
 - Therefore, lifelong forests avoid .r[catastrophic forgetting] regardless of new task distributions, making it fundamentally .r[safe].
+
+<!-- fix poster plots as above  -->
 
 ---
 
@@ -801,7 +801,12 @@ class: center, middle, inverse
 - There are 500 training images and 100 testing images per class.
 - CIFAR 10x10 break the 100 class task problem into 10 problems, each a 10 class problem.
 
-
+<!-- show images of each task/class
+eg, https://www.cs.toronto.edu/~kriz/cifar.html for 1 task,
+make a table left column is superclass and next 5 columns are tasks
+include this info: This dataset is just like the CIFAR-10, except it has 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. Each image comes with a "fine" label (the class to which it belongs) and a "coarse" label (the superclass to which it belongs).
+Here is the list of classes in the CIFAR-100:
+-->
 
 ---
 
@@ -830,9 +835,13 @@ Figure 1: No approaches demonstrate reverse transfer, and most demonstrate catas
 
 <img src="images/initial-cifar-100-debugged-1-subsample-precision.png" style="width:750px;"/>
 
-- Lifelong Forests exhibit the ability to "reverse" or "backward" transfer: its performance on previously observed tasks increases as more tasks are observed.
+- Lifelong Forests exhibit both "reverse" or "backward" transfer: its performance on previously observed tasks increases as more tasks are observed.
 
-<!-- - Taking the intuition built from the rotated .r[XOR] examples, we posit that the optimal decision boundaries for each of the tasks are "similar", allowing for transfer. -->
+<!-- 
+ keep these 2 plots in appendix 
+add error  normalized each line by dividing by single task performance 
+with errorbars
+-->
 
 ---
 
@@ -1324,6 +1333,51 @@ $$\hat{P}(f\_n) \rightarrow P$$ -->
 - This procedure could be use any pair of algorithms for learning partitions and probabilities. 
 - We focus on random forests for simplicity.
 - We assumed related measurement spaces, specifically, $\mathcal{Z}\_j= \lbrace \mathcal{X} \times \mathcal{Y}\_j \rbrace$
+
+
+
+---
+
+### Basic L2M (unbounded storage)
+
+<!-- Given the above assumptions, all lifelong learning algorithms can be characterized as follows. -->
+
+
+For each $(z_t, j_t)$,
+1. update .r[transformer]  using all available data: $h\_t (\lbrace z\_t,j\_t \rbrace) \rightarrow \hat{f}\_t$ 
+2. for each sample, apply .r[transformer]: $\hat{f}\_t (z\_i) = \tilde{z}\_i$
+3. for each  .r[decider], update using all available data: 
+      $g\_t (\lbrace \tilde{z}\_t,j\_t \rbrace) \rightarrow  \lbrace \hat{\eta}\_j \rbrace $
+4. apply .r[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
+
+
+
+---
+
+### Basic L2M (bounded storage)
+
+
+
+For each $(z_t, j_t)$,
+1. update .r[transformer]: $h\_t ( z\_t,j\_t, \hat{f}\_{t-1} ) \rightarrow \hat{f}\_t$ 
+2. apply .r[transformer]: $\hat{f}\_t (z\_t) = \tilde{z}\_t$
+3. update all .r[deciders]: 
+      $g\_t ( \tilde{z}\_t,j\_t, \hat{\eta}\_{t-1} ) \rightarrow  \lbrace \hat{\eta}\_j \rbrace $
+4. apply .r[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
+
+
+
+---
+
+### Lifelong  Forests 
+
+- Assume data are batched into unique tasks
+- For each task, $ z_t | j_t = j$
+  1. Learn a new forest using data only from task $j_t$
+  2. Apply forest to each observation so far 
+  3. For each task, update plurality/average vote per tree 
+  4. Apply average vote for $z_t$
+
 
 
 

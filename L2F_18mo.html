@@ -276,27 +276,30 @@ class: middle, inverse
 
 ---
 
-### Machine Learning: Basic Assumptions
+### Machine Learning: Basic Set Up
 
-Make the following assumptions:
+Given
+1. A task $ T $ 
+2. Observed data $ z\_1, z\_2, .., z\_n $
 
-1. At each time step $t$, we observe 
+Assume
+1. The $ z\_t $ are independent
+
+<!-- 1. At each time step $t$, we observe 
   - a sample $z_t \in \mathcal{Z}$,   
   - a task identifier $j \in \mathcal{J}$ (which is fixed for all $t$).
 3. The number of samples $n$ increases.
 3. All samples are independent of each other.
 
-Assumption 3 can be relaxed.
-
-
+Assumption 3 can be relaxed. -->
 
 ---
 
 ### Constituents of  Learning Machines 
 
-1. A .r[representation space], space in which the data is transformed in to. 
+1. A .r[representation space] which the data is transformed in to. 
 2. A .r[transformer] maps each point to the representation space.
-3. A .r[decider] takes an action based on transformed data.
+3. A .r[decider] takes an action using the transformed data.
 
 --
 
@@ -306,34 +309,37 @@ Assumption 3 can be relaxed.
 2. Transformer: projection matrix that maps each feature vector onto real number line 
 3. Decider: threshold such that values above threshold are one class, and below are the other
 
+<!-- diagram of linear classifier (projection from R^d to R then threshold) for two class, spherical gaussians -->
+<!-- figure of problem -->
+<!-- figure with representation -->
+<!-- figure showing transformation of one data point to the line -->
+<!-- figure showing decider acting on a the transformed data point -->
 
 ---
 
 ### Constituents of Decision Trees 
 
 1. Representation space: a partition of $ \mathbb{R}^{d} $
-2. Transformer: a function that maps a data point to a cell of the partition
-3. Deciders: plurality  (or average) of elements per cell
+2. Transformer: maps a data point to a cell of the partition
+3. Deciders: plurality (or average) of elements per cell
+
+<!-- diagram of a partition for two class, spherical gaussians -->
+<!-- figure of representation (partition) -->
+<!-- figure of a data point in a cell of the partition -->
+<!-- figure of classifying a data point in a cell of the partition -->
 
 --
 
 ### Constituents of Decision Forests 
 
-1. Universal Representation: a set of partitions of $ \mathbb{R}^{d} $ 
-2. Transformers: a function that maps a data point to a cell of each of the partitions
+1. Representation space: a set of partitions of $ \mathbb{R}^{d} $ 
+2. Transformer: maps a data point to a cell of each of the partitions
 3. Deciders: average of decision trees (posterior probabilities)
 
----
-
-### Key Insight of Uncertainty Forests 
-
-- Sub-sample data into two sets, one to learn transformers, and one to learn deciders
-- Doing so yields consistent estimates of the probabilities averaged per cell, that is,
-$$\hat{P}(f\_n) \rightarrow P$$
-
-
-
-
+<!-- diagram for two class, spherical gaussians -->
+<!-- figure of representtaion (multiple partitions) -->
+<!-- figure of data point in a cell of each of the partitions -->
+<!-- figure of classifying a data point  -->
 ---
 ### Decision Forests
 
@@ -342,6 +348,19 @@ $$\hat{P}(f\_n) \rightarrow P$$
 
 <img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/>
 
+<!-- diagram 1: all data
+diagram 2: transformer data
+diagram 3: partitions learned on transformer data
+diagram 4: posteriors estimated using transformer data (continue to show data)
+diagram 5: posteriors estimated using decider data (continue to show data)
+diagram 6: somehow show quality of posteriors -->
+---
+
+### Key Insight of Uncertainty Forests 
+
+- Sub-sample data into two sets, one to learn transformers, and one to learn deciders
+- Doing so yields consistent estimates of the probabilities averaged per cell, that is,
+$$\hat{P}(f\_n) \rightarrow P$$
 ---
 
 #### Key Algorithm Parameters Per Tree
@@ -361,6 +380,9 @@ $$\hat{P}(f\_n) \rightarrow P$$
   - modifications to enable learning posteriors (deciders)
 
 ---
+add error + posterior plots for linear example
+
+---
 
 ### Example 2: .purple[Not-XOR (N-XOR)]
   
@@ -371,8 +393,8 @@ $$\hat{P}(f\_n) \rightarrow P$$
     - Samples in the (+, +) and (-, -) quadrants are class 1  
     - samples in the (-, +) and (+, -) quadrants are class 0. 
   - The optimal decision boundary is the coordinate axes. 
-  
 
+<!-- change from n-xor to xor -->
 
 ---
 ### Decision Forests
@@ -389,11 +411,11 @@ $$\hat{P}(f\_n) \rightarrow P$$
 Left:
 - Error is estimated generalization error, $\hat{\mathbb{E}}_{P}[R(f_n(D_n))]$
 - estimated using 100 .purple[N-XOR] samples
-- data from .purple[N-XOR] to learn transformers (partition)
-- other data from .purple[N-XOR] to learn deciders (posteriors)
+- transformer (partition) learned using one subset of data from .purple[N-XOR] 
+- decider (posteriors) learned using other data from .purple[N-XOR]
 - Error monotonically decreases with increasing sample size
-  
 
+<!-- change from n-xor to xor -->
 
 ---
 ### Decision Forests
@@ -411,49 +433,59 @@ Right:
 - learned probability of an observation  being class 1 
 - using 300 .purple[N-XOR] training samples 
 
+<!-- change from n-xor to xor -->
+<!-- change colormap to purple / green diverging  -->
 
 ---
 
-### Transfer Learing: Basic Assumptions 
+### Transfer Learning: Basic Set Up
 
-Make the following assumptions:
+Given
+1. a task $ T $
+2. observed source data $ z'\_1, z'\_2, .., z'\_s $ 
+3. observed target data $ z\_1, z\_2, .., z\_n $
+
+Assume
+1. the $ z\_t $, $ z'\_t $ are all mutually independent 
+
+<!-- Make the following assumptions:
 
 1. We are given $m$ training samples from a .r[source] task
-1. At each time step $t$, we observe 
+2. At each time step $t$, we observe 
   - a target sample $z_t \in \mathcal{Z}$, and  
   - a task identifier $j_t \in \mathcal{J}$ (which includes $\emptyset$).
 3. The number of target samples $n$ increases.
-3. All samples are independent of each other.
+4. All samples are independent of each other.
 
-Assumption 4 can be relaxed.
+Assumption 4 can be relaxed. -->
 
 
 ---
 
 ### Constituents of a Transfer Machine 
 
-1. A .r[universal representation], where each data point from both tasks can be represented 
-2. A .r[transformer], $f$, which transforms any given data point into the universal representation 
-3. A .r[decider], $g$, which decides on an action to take on the basis of data in the universal representation 
+1. A .r[joint representation space] both the source and target data is transformed in to. 
+2. .r[Transformers] map each point to the joint representation space.
+3. A .r[decider] takes an action using all transformed data.
+
+---
+### Constituents of Transfer Forests
+
+- Joint Representation Space: a partition of $ \mathbb{R}^{d} $
+- Transformer: partition space using all the data from source task
+- Decider: average of majority vote in each node from each tree applied to target task data 
+
+<img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
 
 --
 
 ##### Example 3:  Two linear 2-class classification tasks
 
-1. Representation: the real number line 
+1. Joint Representation Space: the real number line 
 2. Transformer: two different projection matrix that maps data onto real number line 
-3. Decider: two thresholds such that values above threshold are one class, and below are the other
+3. Decider: a thresholds such that target values above threshold are one class, and below are the other
 
 
-
-
----
-### Transfer  Forests
-
-- Transformer: partition space using all the data from source task
-- Decider: average of majority vote in each node from each tree applied to target task data 
-
-<img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
 
 
 ---

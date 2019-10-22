@@ -37,7 +37,7 @@ Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JH
 
 ### Program goals
 
-1. Formalize Theory of Lifelong Learning 
+1. Formalize A General Theory of (Lifelong) Learning 
 2. Develop  Lifelong Learning Forests (L2F) algorithm
 3. Demonstrate L2F achieves SOA lifelong learning 
 3. Prove L2F theoretically "solves" lifelong learning
@@ -48,7 +48,7 @@ Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JH
 ---
 class: middle, inverse
 
-## .center[What is Lifelong Learning?]
+## .center[A General Theory of Learning]
 
 ---
 
@@ -271,22 +271,23 @@ We largely focus on supervised setting hereafter.
 class: middle, inverse
 
 
-## .center[Lifelong Learning Machines (L2M)]
+## .center[General (Lifelong) Learning Machines]
+
 
 ---
 
-### Basic Assumptions 
+### Machine Learning: Basic Assumptions
 
 Make the following assumptions:
 
 1. At each time step $t$, we observe 
-  - a sample $z_t \in \mathcal{Z}$, and  
-  - a task identifier $j_t \in \mathcal{J}$ (which includes $\emptyset$).
-3. The number of samples $n$ increases faster than the number of unique tasks $J$, that is, $n/J \rightarrow \infty$.
+  - a sample $z_t \in \mathcal{Z}$,   
+  - a task identifier $j \in \mathcal{J}$ (which is fixed for all $t$).
+3. The number of samples $n$ increases.
 3. All samples are independent of each other.
-3. All (non-identical) tasks are independent of each other.
 
-Assumptions 3-4 can be relaxed.
+Assumption 3 can be relaxed.
+
 
 
 ---
@@ -299,14 +300,232 @@ Assumptions 3-4 can be relaxed.
 
 --
 
-##### Example
-
-Linear 2-class classification
+##### Example 1: Linear 2-class classification
 
 1. Representation: the real number line 
-2. Transformer: projection matrix that maps data onto real number line 
+2. Transformer: projection matrix that maps each feature vector onto real number line 
 3. Decider: threshold such that values above threshold are one class, and below are the other
 
+
+---
+
+### Constituents of Decision Trees 
+
+1. Universal Representation: hyper-rectangles of a partition 
+2. Transformers: parcellation of space into cells/leaf-nodes
+3. Deciders: plurality  (or average) of elements per cell
+
+--
+
+### Constituents of Decision Forests 
+
+1. Universal Representation: hyper-rectangles  of a partition
+2. Transformers: union of decision trees
+3. Deciders: average of decision trees (posterior probabilities)
+
+---
+
+### Key Insight of Uncertainty Forests 
+
+- Sub-sample data into two sets, one to learn transformers, and one to learn deciders
+- Doing so yields consistent estimates of the probabilities averaged per cell, that is,
+$$\hat{P}(f\_n) \rightarrow P$$
+
+
+
+
+---
+### Decision Forests
+
+- Transformer: partition space using a subset of the $ n $ data samples
+- Decider:  majority vote on remaining samples
+
+<img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/>
+
+---
+
+#### Key Algorithm Parameters Per Tree
+
+- To learn partitions:
+  - bootstrap = true (sklearn default)
+  - min_samples_leaf=1 (sklearn default; maximally pure trees)
+  - max_features = $\sqrt{p}$ (sklearn default; not relevant for 2D data)
+  - max_depth=30 (to accelerate run time; makes accuracy worse typically)
+  - max_samples = 0.32 (to enable samples for learning posteriors)
+- To learn posteriors:
+  - finite sample correction = 1 / ( 2 $\times$ # samples in cell)
+
+
+- Nothing special about our tree construction, basically:
+  - default sklearn parameters, plus 
+  - modifications to enable learning posteriors (deciders)
+
+---
+
+### Example 2: .purple[Not-XOR (N-XOR)]
+  
+  
+  <img src="images/NXOR.png" style="width:275px" class="center"/>
+  
+  - .purple[N-XOR]
+    - Samples in the (+, +) and (-, -) quadrants are class 1  
+    - samples in the (-, +) and (+, -) quadrants are class 0. 
+  - The optimal decision boundary is the coordinate axes. 
+  
+
+
+---
+### Decision Forests
+  
+  <div style="display:inline-flex">
+       <div>
+            <img src="images/L2M_18mo_nxor_xor_rf.png" alt="Snow" style="height:300px; width:300px">
+       </div>
+       <div>
+            <img src="images/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
+       </div>
+  </div>
+
+Left:
+- Error is estimated generalization error, $\hat{\mathbb{E}}_{P}[R(f_n(D_n))]$
+- estimated using 100 .purple[N-XOR] samples
+- data from .purple[N-XOR] to learn transformers (partition)
+- other data from .purple[N-XOR] to learn deciders (posteriors)
+- Error monotonically decreases with increasing sample size
+  
+
+
+---
+### Decision Forests
+  
+  <div style="display:inline-flex">
+       <div>
+            <img src="images/L2M_18mo_nxor_xor_rf.png" alt="Snow" style="height:300px; width:300px">
+       </div>
+       <div>
+            <img src="images/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
+       </div>
+  </div>
+
+Right:
+- learned probability of an observation  being class 1 
+- using 300 .purple[N-XOR] training samples 
+
+
+---
+
+### Transfer Learing: Basic Assumptions 
+
+Make the following assumptions:
+
+1. We are given $m$ training samples from a .r[source] task
+1. At each time step $t$, we observe 
+  - a target sample $z_t \in \mathcal{Z}$, and  
+  - a task identifier $j_t \in \mathcal{J}$ (which includes $\emptyset$).
+3. The number of target samples $n$ increases.
+3. All samples are independent of each other.
+
+Assumption 4 can be relaxed.
+
+
+---
+
+### Constituents of a Transfer Machine 
+
+1. A .r[universal representation], where each data point from both tasks can be represented 
+2. A .r[transformer], $f$, which transforms any given data point into the universal representation 
+3. A .r[decider], $g$, which decides on an action to take on the basis of data in the universal representation 
+
+--
+
+##### Example 3:  Two linear 2-class classification tasks
+
+1. Representation: the real number line 
+2. Transformer: two different projection matrix that maps data onto real number line 
+3. Decider: two thresholds such that values above threshold are one class, and below are the other
+
+
+
+
+---
+### Transfer  Forests
+
+- Transformer: partition space using all the data from source task
+- Decider: average of majority vote in each node from each tree applied to target task data 
+
+<img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
+
+
+---
+### Example 4: .orange[XOR] to .purple[Not-XOR (N-XOR)]
+
+
+<img src="images/XOR-NXOR.png" style="width:475px" class="center"/>
+
+- .orange[XOR]
+  - Samples in the (+, +) and (-, -) quadrants are class 0  
+  - samples in the (-, +) and (+, -) quadrants are class 1. 
+- .purple[N-XOR]
+  - Samples in the (+, +) and (-, -) quadrants are class 1  
+  - samples in the (-, +) and (+, -) quadrants are class 0. 
+- The optimal decision boundaries for both problems are the coordinate axes. 
+
+
+
+
+---
+### Transfer  Forests
+
+<div style="display:inline-flex">
+     <div>
+          <img src="images/L2M_18mo_nxor_xor_transfer.png" alt="Snow" style="height:300px; width:300px">
+     </div>
+     <div>
+          <img src="images/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
+
+- (Left)  Decision Forest .orange[XOR] uses:
+  - 100 samples from .orange[XOR] to learn transformers (partition)
+  - $n$ data from .purple[N-XOR] to learn decider (posterior)
+- (Right) learned probability of an observation  being class 1 
+  - used 100 .orange[XOR]  and 300 .purple[N-XOR] training samples 
+
+
+---
+### Transfer Forests
+
+<div style="display:inline-flex">
+     <div>
+          <img src="images/L2M_18mo_nxor_xor_transfer.png" alt="Snow" style="height:300px; width:300px">
+     </div>
+     <div>
+          <img src="images/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
+
+- Learning partitions is "harder" than posteriors:
+  - DF .orange[XOR] only gets 100 samples to learn partitions,  
+  - DF .purple[N-XOR] gets up to 400
+- Nonetheless, DF .orange[XOR] exhibits transfer learning, because its error decreases with increasing sample size
+
+
+
+
+---
+
+### Lifelong Learning: Basic Assumptions 
+
+Make the following assumptions:
+
+1. At each time step $t$, we observe 
+  - a sample $z_t \in \mathcal{Z}$, and  
+  - a task identifier $j_t \in \mathcal{J}$ (which includes $\emptyset$).
+3. The number of samples $n$ increases faster than the number of unique tasks $J$, that is, $n/J \rightarrow \infty$.
+3. All samples are independent of each other.
+3. All (non-identical) tasks are independent of each other.
+
+Assumptions 3-4 can be relaxed.
 
 ---
 
@@ -318,13 +537,11 @@ Linear 2-class classification
 
 --
 
-##### Example
-
-Two linear 2-class classification tasks
+##### Example 5:  $J$ increasing linear 2-class classification tasks
 
 1. Representation: the real number line 
-2. Transformer: two different projection matrix that maps data onto real number line 
-3. Decider: two thresholds such that values above threshold are one class, and below are the other
+2. Transformer: $J$ different projection matrix that maps data onto real number line 
+3. Decider: $J$ thresholds such that values above threshold are one class, and below are the other
 
 
 
@@ -359,60 +576,6 @@ For each $(z_t, j_t)$,
 4. apply .r[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
 
 
----
-
-### Constituents of Decision Trees 
-
-1. Universal Representation: hyper-rectangles of a partition 
-2. Transformers: parcellation of space into cells/leaf-nodes
-3. Deciders: plurality  (or average) of elements per cell
-
---
-
-### Constituents of Decision Forests 
-
-1. Universal Representation: hyper-rectangles  of a partition
-2. Transformers: union of decision trees
-3. Deciders: average of decision trees (posterior probabilities)
-
-
----
-
-#### Key Algorithm Parameters Per Tree
-
-- To learn partitions:
-  - bootstrap = true (sklearn default)
-  - min_samples_leaf=1 (sklearn default; maximally pure trees)
-  - max_features = $\sqrt{p}$ (sklearn default; not relevant for 2D data)
-  - max_depth=30 (to accelerate run time; makes accuracy worse typically)
-  - max_samples = 0.32 (to enable samples for learning posteriors)
-- To learn posteriors:
-  - finite sample correction = 1 / ( 2 $\times$ # samples in cell)
-
-Nothing special about our tree construction, basically 
-- default sklearn parameters, plus 
-- modifications to enable learning posteriors (deciders)
-
-
----
-### Decision Forests
-
-- Transformer: partition space using a subset of the $ n $ data samples
-- Decider:  majority vote on remaining samples
-
-<img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/>
-
-
-
----
-### Transfer  Forests
-
-- Transformer: partition space using all the data from source task
-- Decider: average of majority vote in each node from each tree applied to target task data 
-
-<img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
-
-
 
 ---
 
@@ -437,13 +600,9 @@ Nothing special about our tree construction, basically
   4. Apply average vote for $z_t$
 
 
----
 
-class: center, middle, inverse
-
-## .center[L2F Lifelong Learns Empirically]
 ---
-### Example 1: .orange[XOR] vs .purple[Not-XOR (N-XOR)]
+### Example 6: .orange[XOR] and .purple[Not-XOR (N-XOR)]
 
 
 <img src="images/XOR-NXOR.png" style="width:475px" class="center"/>
@@ -456,67 +615,17 @@ class: center, middle, inverse
   - samples in the (-, +) and (+, -) quadrants are class 0. 
 - The optimal decision boundaries for both problems are the coordinate axes. 
 
----
+<!-- ---
 
 #### Evaluation
 
 - Left figures: 
-  -  y-axis is  generalization error on .purple[N-XOR], as defined above, learned using 100 new samples 
+  -  y-axis is   error on .purple[N-XOR], as defined above, learned using 100 new samples 
   - x-axis is # of .purple[N-XOR] training samples
   - we used 100 .orange[XOR] training samples
 - Right figures:
   - learned probability of an observation  being class 1 
-  - used 100 .orange[XOR]  and 300 .purple[N-XOR] training samples 
-
----
-### Decision Forests
-
-<div style="display:inline-flex">
-     <div>
-          <img src="images/L2M_18mo_nxor_xor_rf.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
-
-- Decision Forest .purple[N-XOR] uses: 
-  - data from .purple[N-XOR] to learn transformers (partition)
-  - other data from .purple[N-XOR] to learn deciders (posteriors)
-- Error monotonically decreases with increasing sample size
-
----
-### Transfer  Forests
-
-<div style="display:inline-flex">
-     <div>
-          <img src="images/L2M_18mo_nxor_xor_transfer.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
-
-- Decision Forest .orange[XOR] uses:
-  - data from .orange[XOR] to learn transformers (partition)
-  - data from .purple[N-XOR] to learn decider (posterior)
-
----
-### Transfer Forests
-
-<div style="display:inline-flex">
-     <div>
-          <img src="images/L2M_18mo_nxor_xor_transfer.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
-
-- Learning partitions is "harder" than posteriors:
-  - DF .orange[XOR] only gets 100 samples to learn partitions,  
-  - DF .purple[N-XOR] gets up to 400
-- Nonetheless, DF .orange[XOR] exhibits transfer learning, because its error decreases with increasing sample size
+  - used 100 .orange[XOR]  and 300 .purple[N-XOR] training samples  -->
 
 
 ---
@@ -531,8 +640,10 @@ class: center, middle, inverse
      </div>
 </div>
 
-- Lifelong Forests learn the optimal decision boundary using  data from both (1) .orange[XOR], and (2) .purple[N-XOR].
-- Posteriors are  learned using only data from .purple[N-XOR] on both partitions.
+- Lifelong Forests learn the optimal decision boundary using  both 
+  1.  100 samples from .orange[XOR], and 
+  2. $n$ samples from  .purple[N-XOR].
+- Posteriors are  learned using only 300 samples from .purple[N-XOR] on both partitions.
 - Prediction is based on  the  learned posterior averaged over both partitions.
 
 ---
@@ -563,7 +674,7 @@ class: center, middle, inverse
 
 
 ---
-### Example 2: .r[XOR] and .blue[Rotated XOR (R-XOR)]
+### Example 7: .r[XOR] and .blue[Rotated XOR (R-XOR)]
 
 
 
@@ -643,18 +754,12 @@ class: center, middle, inverse
 - Lifelong forests do not dramatically degrade performance of past tasks, despite maximally adversarial tasks
 - Therefore, lifelong forests avoid .r[catastrophic forgetting] regardless of new task distributions, making it fundamentally .r[safe].
 
+---
 
-<!-- - Lifelong forests perform as well as the best method and hence exhibit backwards transfer. -->
+class: center, middle, inverse
 
+## .center[L2F Lifelong Learns Empirically on Real Data]
 
-<!-- ---
-
-class: left
-
-<img src="images/vip_results_XOR_rotated_XOR_n200 (2)-1.png" style="height:400px;"/>
-
-- Using both partitions (Lifelong Forests) does not help because the two tasks have mutually unhelpful decision boundaries.
-- But Lifelong Forests is robust to adversarial tasks, making it fundamentally safe. -->
 
 ---
 
@@ -1144,7 +1249,7 @@ class: middle, inverse
 Note: Deep Nets with ReLu activation function also tesselate space into polytopes  
 
 
----
+<!-- ---
 
 ### What are Honest Trees?
 
@@ -1155,7 +1260,7 @@ Note: Deep Nets with ReLu activation function also tesselate space into polytope
 
 Doing so yields consistent estimates of the probabilities, that is,
 
-$$\hat{P}(f\_n) \rightarrow P$$
+$$\hat{P}(f\_n) \rightarrow P$$ -->
 
 ---
 

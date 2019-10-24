@@ -15,15 +15,14 @@
 name:opening
 
 
-#### Big Brain Data Analytics: Progress Report
-
+#### A "Soup-to-Nuts" Pipeline for Analysis of Whole Cleared Brain Data 
 [Joshua T. Vogelstein](https://neurodata.io) (JHU)  <br>
 
 
 <!-- {[BME](https://www.bme.jhu.edu/),[ICM](https://icm.jhu.edu/),[CIS](http://cis.jhu.edu/),[KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/)  -->
 
 
-<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:420px;"/></a>
+<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:360px;"/></a>
 
 
 <!-- <img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/> -->
@@ -37,32 +36,31 @@ name:opening
 <img src="faces/baby_violette.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
 
 
----
-
-### Project Goals 
-
-1. Scalable pipeline for cleared brain analysis 
-1. Further democratize access to data 
-
 
 
 ---
 
 ### [Reggie](https://neurodata.io/reg/)
 
-- Pipeline for analysis of CLARITY/COLM/iDisco/etc. data 
-      - Downloads from cloud
-      - Cleans artifacts
-      - Stitches using Terastitcher
-      - Nonlinear registration  atlas to data by Large deformation diffeomorphic metric mapping (LDDMM)
-      - Inverts registration to atlas
-      - Uploads registered brain and atlas to cloud
-      - Visualize registered brain in cloud
-- Properties 
-      - [Open source](https://github.com/neurodata/ardent) 
-      - [Documented with tutorials](https://ardent.neurodata.io/demo/demo.html)
-      - [pip installable](https://ardent.neurodata.io/install.html) 
-      - GPU and distributed support 
+Pipeline for analysis of CLARITY/COLM/iDisco/etc. data 
+
+- Downloads 2D tiles from cloud
+- Cleans artifacts
+- Stitch 2D tiles into 3D volume using Terastitcher
+- Downsample to atlas resolution
+- Nonlinear registration  atlas to data
+- Inverts registration to atlas
+- Upsample registration to native resolution
+- Upload registered brain and atlas to cloud
+- Visualize registered brain in cloud
+- Democratize access
+
+
+--
+
+- Detect all cells (works ok)
+- Track all processes (nothing works yet out of the box for us)
+
 
 ---
 
@@ -70,6 +68,12 @@ name:opening
 
 <img src="images/reggie.png" style="width:100%;"/>
 
+- [Open source](https://github.com/neurodata/ardent) 
+- [Documented with tutorials](https://ardent.neurodata.io/demo/demo.html)
+- [pip installable](https://ardent.neurodata.io/install.html) 
+- GPU and distributed support 
+- Mostly automatic
+- Runs in a few hours
 
 
 
@@ -98,7 +102,7 @@ name:opening
 
 
 ---
-### iDisco Rat  &larr; Waxholm Atlas
+### LaVision iDisco Rat  &larr; Waxholm Atlas
 
 <a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=LIky0E7KVaEaBg">
   <img src="images/idisco_rat.png" style="position:absolute; left:0px; width:100%;"/>
@@ -117,17 +121,6 @@ name:opening
 <!-- .footnote[ (?)] -->
 
 
-
----
-
-### Data Visualization & Democratization 
-
-- From local to web viz with atlas overlays ([Neuroglancer](https://github.com/google/neuroglancer))
-- From centralized to distributed storage (no more [BOSS](https://github.com/jhuapl-boss/boss))
-- From database to flat files ([zarr](https://zarr.readthedocs.io/en/stable/) coming soon)
-- From blosc to brotli compression ([brotli](https://github.com/google/brotli))
-
-
 ---
 
 
@@ -137,14 +130,31 @@ name:opening
 
 .footnote[Allen Atlas + CLARITY + AI Cell Detection (from Ailey Crow at Karl Deisseroth)]
 
+
+
+
+---
+
+### Data Visualization & Democratization 
+
+- From local to web viz with atlas overlays ([Neuroglancer](https://github.com/google/neuroglancer))
+- From spatial database to flat files ([zarr](https://zarr.readthedocs.io/en/stable/) coming soon)
+- From centralized to distributed storage (no more [BOSS](https://github.com/jhuapl-boss/boss))
+- From blosc to brotli compression ([brotli](https://github.com/google/brotli))
+
+
+
 ---
 
 ### Discussion 
 
-- Previously implemented in [ITK](https://github.com/InsightSoftwareConsortium/ITKNDReg/), but lacked GPU support 
-- Nonlinear registration works well for lots of different data 
-- Now works for 2D to 3D ([paper here](https://link.springer.com/chapter/10.1007/978-3-030-33226-6_18))
+- LDDMM previously implemented in [ITK](https://github.com/InsightSoftwareConsortium/ITKNDReg/), but lacked GPU support 
+- Nonlinear registration works well across modalities and taxa
+- Integrating 2D to 3D ([paper here](https://link.springer.com/chapter/10.1007/978-3-030-33226-6_18))
+- Integrating missing data and artifacts [paper here](https://neurodata.io/reg/)
 - Applying now to Janelia [MouseLight](https://www.janelia.org/project-team/mouselight)  project
+- Working on BICCN with Brain Architecture  and Pavel Osten
+- Working with Sam Wang to integrate atlas with full cerebellum
 - Integrating into [scikit-image](https://scikit-image.org) (widely used image library)
 - Active development, community participation encouraged!
 

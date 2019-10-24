@@ -38,6 +38,11 @@ top: 50px;
   left: 2em;
 }
 
+.headnote {
+  position: absolute;
+  top: 1em;
+  left: 2em;
+}
 .navbar {
   position: absolute;
   float: center;
@@ -85,6 +90,7 @@ li p { line-height: 1.25em; }
 .w {color: white;}
 .k {color: black;}
 .ye { color: #FFFF00; }
+.gold { color: #ffd700; }
 .y { color: #fcfaf6; }
 .pink { color: #FF87F3;}
 .orange { color: #FFA500;}

@@ -15,20 +15,20 @@
 name:opening
 
 
-#### A "Soup-to-Nuts" Pipeline for Analysis of Whole Cleared Brain Data 
-[Joshua T. Vogelstein](https://neurodata.io) (JHU)  <br>
+#### Ailey in an Hour:<br>(A "Soup-to-Nuts" Pipeline for Analysis of Whole Cleared Brain Data) 
+
 
 
 <!-- {[BME](https://www.bme.jhu.edu/),[ICM](https://icm.jhu.edu/),[CIS](http://cis.jhu.edu/),[KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/)  -->
 
 
-<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:360px;"/></a>
+<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:390px;"/></a>
 
 
 <!-- <img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/> -->
 <!-- <img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
 <!-- <font color="grey"></font> -->
-.foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)]
+.foot[[Joshua T. Vogelstein](https://neurodata.io) | [jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | [neurodata](http://neurodata.io) | [@neuro_data](https://twitter.com/neuro_data)]
 
 
 ---
@@ -51,15 +51,12 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 - Nonlinear registration  atlas to data
 - Inverts registration to atlas
 - Upsample registration to native resolution
+- .gold[Detect all cells (works ok)]
+- .r[Track all processes (nothing works yet out of the box for us)]
 - Upload registered brain and atlas to cloud
 - Visualize registered brain in cloud
 - Democratize access
 
-
---
-
-- Detect all cells (works ok)
-- Track all processes (nothing works yet out of the box for us)
 
 
 ---
@@ -73,7 +70,8 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 - [pip installable](https://ardent.neurodata.io/install.html) 
 - GPU and distributed support 
 - Mostly automatic
-- Runs in a few hours
+- .r[Runs in a 1 hour] on LaVision data
+- .r[Runs in a 9 hours] on 1 TB data (COLM)
 
 
 
@@ -151,7 +149,7 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 - LDDMM previously implemented in [ITK](https://github.com/InsightSoftwareConsortium/ITKNDReg/), but lacked GPU support 
 - Nonlinear registration works well across modalities and taxa
 - Integrating 2D to 3D ([paper here](https://link.springer.com/chapter/10.1007/978-3-030-33226-6_18))
-- Integrating missing data and artifacts [paper here](https://neurodata.io/reg/)
+- Integrating missing data and artifacts [paper here](https://doi.org/10.1101/494005)
 - Applying now to Janelia [MouseLight](https://www.janelia.org/project-team/mouselight)  project
 - Working on BICCN with Brain Architecture  and Pavel Osten
 - Working with Sam Wang to integrate atlas with full cerebellum
@@ -166,7 +164,7 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 
 - New cloud technology enables more scalable data access
 - From developer to integrator
-- Use open source, community developed, widely used, general tools 
+- Use open-source, community-developed, widely-used, general tools 
 
 ---
 
@@ -175,15 +173,21 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 - A. Charles, et al. [Towards Community-Driven Big Open Brain Science](mailto:jovo@jhu.edu). Annual Reviews in Neuroscience, 2020.
 - J. T. Vogelstein, et al. [A Community-Developed Open-Source Computational Ecosystem for Big Neuro Data](https://www.nature.com/articles/s41592-018-0181-1). Nature Methods, 2018.
 - A. Branch, et al. [An optimized protocol for iDISCO+ rat brain clearing, imaging, and analysis](https://doi.org/10.1101/639674). bioRxiv, 2019.
+- D. J. Tward, et al. [Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease](https://doi.org/10.1101/494005). bioRxiv, 2019.
+- V.  Chandrashekhar, Nonlinear Registration for all. In prep.
+
+
+
+---
 
 ### Code
 
 - [NeuroData Cloud](http://neurodata.io/nd_cloud)
 - [Reggie](https://neurodata.io/reg/)
-- [Neuroglancer visualization](https://github.com/google/neuroglancer)
-- [Zarr file format](https://zarr.readthedocs.io/en/stable/)
-- [Brotli compression](https://github.com/google/brotli)
-- [Scikit-Image](https://scikit-image.org)
+- [Neuroglancer visualization](https://github.com/google/neuroglancer) (not us)
+- [Zarr file format](https://zarr.readthedocs.io/en/stable/) (not us)
+- [Brotli compression](https://github.com/google/brotli) (not us)
+- [Scikit-Image](https://scikit-image.org) (not us)
 
 
 
@@ -248,10 +252,10 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
   <div class="centered">Carey Priebe</div>
 </div> -->
 
-<!-- <div class="small-container">
+<div class="small-container">
   <img src="faces/randal.jpg"/>
   <div class="centered">Randal Burns</div>
-</div> -->
+</div>
 
 
 <!-- <div class="small-container">
@@ -425,7 +429,7 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 </div> -->
 
 
-
+<br>
 
 </div>
 <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
@@ -441,7 +445,7 @@ class:center
 
 <img src="faces/lion_swing.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
 
-.footnote[questions?]
+.headnote[Questions?]
 
 ---
 class: middle, inverse

@@ -174,6 +174,7 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 - J. T. Vogelstein, et al. [A Community-Developed Open-Source Computational Ecosystem for Big Neuro Data](https://www.nature.com/articles/s41592-018-0181-1). Nature Methods, 2018.
 - A. Branch, et al. [An optimized protocol for iDISCO+ rat brain clearing, imaging, and analysis](https://doi.org/10.1101/639674). bioRxiv, 2019.
 - D. J. Tward, et al. [Diffeomorphic registration with intensity transformation and missing data: Application to 3D digital pathology of Alzheimer's disease](https://doi.org/10.1101/494005). bioRxiv, 2019.
+- D. J. Tward, et al. [3D Mapping of Serial Histology Sections with Anomalies Using a Novel Robust Deformable Registration Algorithm](https://link.springer.com/chapter/10.1007/978-3-030-33226-6_18). International Workshop on Multimodal Brain Image Analysis, 2019
 - V.  Chandrashekhar, Nonlinear Registration for all. In prep.
 
 
@@ -190,6 +191,17 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 - [Brotli compression](https://github.com/google/brotli) (not us)
 - [Scikit-Image](https://scikit-image.org) (not us)
 
+---
+
+### Website: [neurodata](https://neurodata.io)
+
+<img src="images/google_analytics.png" style="width:65%;"/>
+
+- $\approx$ 100,000 unique visitors to date
+- $>$130 countries & $>$3,000 cities
+- Support data from $>$30 labs (including several NeuroNex PIs)
+- Modalities/scales: EM/nano, LM/micro, MRI/milli 
+- Taxa: worms, flies, fish, mice, rats, sea lions, coyotes, non-human primates, humans
 
 
 ---
@@ -469,7 +481,7 @@ class: middle, inverse
 
 ---
 
-## Centralized vs. Distributed
+### Centralized vs. Distributed
 
 
 
@@ -489,7 +501,7 @@ class: middle, inverse
 ---
 
 
-## File Formats
+### File Formats
 
 
 | Property | [BOSS](https://github.com/jhuapl-boss/boss) | CloudVolume + [Precomputed](https://github.com/google/neuroglancer/tree/master/src/neuroglancer/datasource/precomputed)  | [Zarr](https://zarr.readthedocs.io/en/stable/) + [n5](https://github.com/saalfeldlab/n5)
@@ -506,7 +518,7 @@ class: middle, inverse
 
 ---
 
-## Compression 
+### Compression 
 
 
 | Property | [Blosc](http://blosc.org/) | [Gzip](https://www.gzip.org) | [Brotli](https://github.com/google/brotli)
@@ -571,14 +583,14 @@ class: middle, inverse
 
 ---
 
-## Access Rates
+### Access Rates
 
 <img src="images/centralized_vs_distributed.png" style="width:650px;"/>
 
 
 ---
 
-## [Benchmarks](https://www.opencpu.org/posts/brotli-benchmarks/)
+### [Benchmarks](https://www.opencpu.org/posts/brotli-benchmarks/)
 
 
 <!-- <img src="images/brotli_size.png" style="height:270px;"/>

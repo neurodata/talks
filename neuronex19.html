@@ -136,7 +136,7 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 ### Data Visualization & Democratization 
 
 - From local to web viz with atlas overlays ([Neuroglancer](https://github.com/google/neuroglancer))
-- From spatial database to flat files ([zarr](https://zarr.readthedocs.io/en/stable/) coming soon)
+- From spatial database to flat files ([zarr](https://zarr.readthedocs.io/en/stable/)+[n5](https://github.com/saalfeldlab/n5) coming soon)
 - From centralized to distributed storage (no more [BOSS](https://github.com/jhuapl-boss/boss))
 - From blosc to brotli compression ([brotli](https://github.com/google/brotli))
 
@@ -186,6 +186,7 @@ Pipeline for analysis of CLARITY/COLM/iDisco/etc. data
 - [Reggie](https://neurodata.io/reg/)
 - [Neuroglancer visualization](https://github.com/google/neuroglancer) (not us)
 - [Zarr file format](https://zarr.readthedocs.io/en/stable/) (not us)
+- [n5](https://github.com/saalfeldlab/n5) (not us)
 - [Brotli compression](https://github.com/google/brotli) (not us)
 - [Scikit-Image](https://scikit-image.org) (not us)
 
@@ -491,9 +492,9 @@ class: middle, inverse
 ## File Formats
 
 
-| Property | [BOSS](https://github.com/jhuapl-boss/boss) | [NG Precomputed](https://github.com/google/neuroglancer/tree/master/src/neuroglancer/datasource/precomputed) | [Zarr](https://zarr.readthedocs.io/en/stable/)
+| Property | [BOSS](https://github.com/jhuapl-boss/boss) | CloudVolume + [Precomputed](https://github.com/google/neuroglancer/tree/master/src/neuroglancer/datasource/precomputed)  | [Zarr](https://zarr.readthedocs.io/en/stable/) + [n5](https://github.com/saalfeldlab/n5)
 |:--- |:--- |:--- | 
-| Developer | Us &rarr; APL | Google | [Biologists](https://www.cggh.org/)
+| Developer | Us &rarr; [Will Gray Roncal](https://bossdb.org/about) | [Seung Lab](http://seunglab.org/) + [Google](https://github.com/google/neuroglancer/graphs/contributors) | [Biologists](https://www.cggh.org/) + [Saalfeld Lab](https://www.janelia.org/lab/saalfeld-lab)
 | Last commit | Aug 9 | Sep 26 | yesterday
 | Used by (github) | 0 |  18 | 121 
 | User Auth  | yes | no | no 
@@ -530,7 +531,7 @@ class: middle, inverse
 
 
 
-| Property | [Fiji/ImageJ](https://imagej.net/Fiji) | [catmaid](https://catmaid.readthedocs.io/en/stable/) |  [Neuroglancer](https://github.com/google/neuroglancer)
+| Property | [Fiji/ImageJ](https://imagej.net/Fiji) | [CATMAID](https://catmaid.readthedocs.io/en/stable/) |  [Neuroglancer](https://github.com/google/neuroglancer)
 |:--- |:--- |:--- | 
 | Developer | [scientists](https://github.com/imagej/imagej/graphs/contributors)| [Janelia](https://github.com/catmaid/CATMAID/graphs/contributors) | [Google](https://github.com/google/neuroglancer/graphs/contributors)+us
 | Lat commit | Oct 8 |  yesterday | yesterday

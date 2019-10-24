@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Neuronex19</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+name:opening
+
+
+#### Big Brain Data Analytics: Progress Report
+
+[Joshua T. Vogelstein](https://neurodata.io) (JHU)  <br>
+
+
+<!-- {[BME](https://www.bme.jhu.edu/),[ICM](https://icm.jhu.edu/),[CIS](http://cis.jhu.edu/),[KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/)  -->
+
+
+<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:420px;"/></a>
+
+
+<!-- <img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <font color="grey"></font> -->
+.foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)]
+
+
+---
+
+<img src="faces/baby_violet.JPG" style="position:absolute; top:0px; left:0px; height:100%;"/>
+
+
+---
+
+### Project Goals 
+
+1. Scalable pipeline for cleared brain analysis 
+1. Further democratize access to data 
+
+
+
+---
+
+### [Reggie](https://neurodata.io/reg/)
+
+- Pipeline for analysis of CLARITY/COLM/iDisco/etc. data 
+      - Downloads from cloud
+      - Cleans artifacts
+      - Stitches using Terastitcher
+      - Nonlinear registration  atlas to data by Large deformation diffeomorphic metric mapping (LDDMM)
+      - Inverts registration to atlas
+      - Uploads registered brain and atlas to cloud
+      - Visualize registered brain in cloud
+- Properties 
+      - [Open source](https://github.com/neurodata/ardent) 
+      - [Documented with tutorials](https://ardent.neurodata.io/demo/demo.html)
+      - [pip installable](https://ardent.neurodata.io/install.html) 
+      - GPU and distributed support 
+
+---
+
+### [Reggie](https://neurodata.io/reg/)
+
+<img src="images/reggie.png" style="width:100%;"/>
+
+
+
+
+---
+
+### LaVision &rarr; Overlay &larr; Allen Atlas
+
+
+
+<a href="https://ara.viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=grp62z6p_By_7Q">
+  <img src="images/lavision_mouse.png" style="position:absolute; left:0px; width:100%;"/>
+</a>
+
+.footnote[  (from Ailey Crow at Karl Deisseroth)]
+
+
+---
+### COLM &rarr; Overlay &larr; Allen Atlas
+
+<img src="images/colm_mouse.png" style="position:absolute; left:0px; width:100%;"/>
+
+.footnote[  (1 TB image from Ailey Crow at Karl Deisseroth)]
+
+
+
+
+
+---
+### iDisco Rat  &larr; Waxholm Atlas
+
+<a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=LIky0E7KVaEaBg">
+  <img src="images/idisco_rat.png" style="position:absolute; left:0px; width:100%;"/>
+</a>
+
+.footnote[  (from Audrey Branch at Michela Gallagher)]
+
+
+---
+### Human MRI &rarr; Overlay &larr; Desikan
+
+<a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=1W2-JxfOQIvLqA">
+  <img src="images/mri_human.png" style="position:absolute; left:0px; width:100%;"/>
+</a>
+
+<!-- .footnote[ (?)] -->
+
+
+
+---
+
+### Data Visualization & Democratization 
+
+- From local to web viz with atlas overlays ([Neuroglancer](https://github.com/google/neuroglancer))
+- From centralized to distributed storage (no more [BOSS](https://github.com/jhuapl-boss/boss))
+- From database to flat files ([zarr](https://zarr.readthedocs.io/en/stable/) coming soon)
+- From blosc to brotli compression ([brotli](https://github.com/google/brotli))
+
+
+---
+
+
+<a href="https://ara.viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=nXUxo32Juxit-A">
+<img src="images/neuroglancer_ara.png" style="position:absolute; left:0px; width:100%;"/>
+</a>
+
+.footnote[Allen Atlas + CLARITY + AI Cell Detection (from Ailey Crow at Karl Deisseroth)]
+
+---
+
+### Discussion 
+
+- Previously implemented in [ITK](https://github.com/InsightSoftwareConsortium/ITKNDReg/), but lacked GPU support 
+- Nonlinear registration works well for lots of different data 
+- Now works for 2D to 3D ([paper here](https://link.springer.com/chapter/10.1007/978-3-030-33226-6_18))
+- Applying now to Janelia [MouseLight](https://www.janelia.org/project-team/mouselight)  project
+- Integrating into [scikit-image](https://scikit-image.org) (widely used image library)
+- Active development, community participation encouraged!
+
+
+
+--
+
+#### Lessons learned
+
+- New cloud technology enables more scalable data access
+- From developer to integrator
+- Use open source, community developed, widely used, general tools 
+
+---
+
+### Papers 
+
+- J. T. Vogelstein, et al. [A Community-Developed Open-Source Computational Ecosystem for Big Neuro Data](https://www.nature.com/articles/s41592-018-0181-1). Nature Methods, 2018.
+- A. Branch, et al. [An optimized protocol for iDISCO+ rat brain clearing, imaging, and analysis](https://doi.org/10.1101/639674). bioRxiv, 2019.
+- A. Charles, et al. [Towards Community-Driven Big Open Brain Science](mailto:jovo@jhu.edu). Annual Reviews in Neuroscience, 2020.
+
+### Code
+
+- [NeuroData Cloud](http://neurodata.io/nd_cloud)
+- [Reggie](https://neurodata.io/reg/)
+- [Neuroglancer visualization](https://github.com/google/neuroglancer)
+- [Zarr file format](https://zarr.readthedocs.io/en/stable/)
+- [Brotli compression](https://github.com/google/brotli)
+- [Scikit-Image](https://scikit-image.org)
+
+
+
+
+
+
+---
+### Acknowledgements
+
+
+
+<!-- <div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+-->
+
+
+
+<div class="small-container">
+  <img src="faces/yummy.jpg"/>
+  <div class="centered">yummy</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/lion_skateboard.jpg"/>
+  <div class="centered">lion</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/violet.jpg"/>
+  <div class="centered">baby girl</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jklv.jpg"/>
+  <div class="centered">family</div>
+</div>
+
+
+
+<div class="small-container">
+  <img src="faces/earth.jpg"/>
+  <div class="centered">earth</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/milkyway.jpg"/>
+  <div class="centered">milkyway</div>
+</div>
+
+<br>
+
+<!-- -- -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/bruce_rosen.jpg"/>
+  <div class="centered">Bruce Rosen</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/kent.jpg"/>
+  <div class="centered">Kent Kiehl</div>
+</div> -->
+
+<div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<!-- <div class="small-container">
+  <img src="faces/jaewon.jpg"/>
+  <div class="centered">Jaewon Chung</div>
+</div> 
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div> -->
+
+<div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div> 
+
+<div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div>
+
+<div class="small-container">
+    <img src="faces/devin.jpg"/>
+    <div class="centered">Devin Crowley</div>
+  </div>
+  
+  <!-- <div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div> -->
+
+<!-- 
+<div class="small-container">
+  <img src="faces/meghana.png"/>
+  <div class="centered">Meghana Madhya</div>
+</div>
+-->
+
+<!-- <div class="small-container">
+  <img src="faces/percy.png"/>
+  <div class="centered">Percy Li</div>
+</div>
+-->
+
+<!-- <div class="small-container">
+  <img src="faces/hayden.png"/>
+  <div class="centered">Hayden Helm</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/satish.png"/>
+  <div class="centered">Satish Palaniappan</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/nate.png"/>
+  <div class="centered">Nate Anderson</div>
+</div> -->
+<!-- 
+<div class="small-container">
+  <img src="faces/fan.png"/>
+  <div class="centered">Qiuyun Fan</div>
+</div> -->
+
+
+
+
+</div>
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
+
+---
+class:center
+
+
+<img src="faces/lion_swing.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
+
+.footnote[questions?]
+
+---
+class: middle, inverse
+
+
+## .center[Extra Slides]
+
+
+---
+
+
+<a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=LdxWc0NSQTZhXg">
+<img src="images/precomputed_brotli.png" style="position:absolute; left:0px; width:100%;"/>
+</a>
+
+.footnote[Precomputed + Brotli + EM (from [Forrest Collman](https://alleninstitute.org/what-we-do/brain-science/about/team/staff-profiles/forrest-collman/) at Allen Institute)]
+
+
+
+
+---
+
+## Centralized vs. Distributed
+
+
+
+| Property | Centralized | Distributed
+|:--- |:--- |:--- | 
+| Developer | Us &rarr; APL | Community
+| Where are data | cloud | cloud 
+| Access rates  | ~100 mbps | ~100 mbps 
+| Who pays  | me |  you 
+| Who is in control | me | you
+| Who has access |  up to me | up to you
+| Costs | more | less
+| Who manages | all me | me + you + new software
+| Our current | yes | yes 
+| Our plan | no | yes
+
+---
+
+
+## File Formats
+
+
+| Property | [BOSS](https://github.com/jhuapl-boss/boss) | [NG Precomputed](https://github.com/google/neuroglancer/tree/master/src/neuroglancer/datasource/precomputed) | [Zarr](https://zarr.readthedocs.io/en/stable/)
+|:--- |:--- |:--- | 
+| Developer | Us &rarr; APL | Google | [Biologists](https://www.cggh.org/)
+| Last commit | Aug 9 | Sep 26 | yesterday
+| Used by (github) | 0 |  18 | 121 
+| User Auth  | yes | no | no 
+| Data Management | yes | no | no
+| Our current | most | some | none 
+| Our plan | no | maybe | probably
+
+
+
+---
+
+## Compression 
+
+
+| Property | [Blosc](http://blosc.org/) | [Gzip](https://www.gzip.org) | [Brotli](https://github.com/google/brotli)
+|:--- |:--- |:--- | 
+| Developer | [some guy](http://blosc.org/pages/francesc-alted-resume/)| [GNU](https://www.gnu.org/home.en.html) | [Google]()
+| Lat commit | Sep 30 |  2018 | Oct 2
+| Used by (github) | ? |  $\gg 0$ | 502 
+| Browser support | none | all | all
+| Compression size | ok | good | better
+| Decompression speed | great | good | good 
+| Compression speed |  great | good | ok 
+| Our current | most | some | none 
+| Our plan | none | none | all
+
+
+
+
+
+---
+
+### Visualization
+
+
+
+| Property | [Fiji/ImageJ](https://imagej.net/Fiji) | [catmaid](https://catmaid.readthedocs.io/en/stable/) |  [Neuroglancer](https://github.com/google/neuroglancer)
+|:--- |:--- |:--- | 
+| Developer | [scientists](https://github.com/imagej/imagej/graphs/contributors)| [Janelia](https://github.com/catmaid/CATMAID/graphs/contributors) | [Google](https://github.com/google/neuroglancer/graphs/contributors)+us
+| Lat commit | Oct 8 |  yesterday | yesterday
+| Used by (github) | ? |  ? | 18 
+| Web | no | yes | yes
+| skeletons | yes | yes | yes
+| volume annotations |  yes | recently | yes 
+| analysis | lots | skeletons | none 
+| atlas overlay | yes | maybe | yes 
+| Our current | local | none | all 
+| Our plan | local | none | all
+
+
+
+
+---
+
+### Registration
+
+
+
+| Property | [Reggie](https://neurodata.io/reg/) | [NDReg](https://github.com/InsightSoftwareConsortium/ITKNDReg) | [ANTS](https://github.com/ANTsX/ANTs) | [skimage](https://scikit-image.org)
+|:--- |:--- |:--- | 
+| Developer | [Us](https://github.com/neurodata/ardent/graphs/contributors)| [ITK](https://github.com/InsightSoftwareConsortium/ITKNDReg/graphs/contributors) | [Brian Avants](http://stnava.github.io/) | [300+](https://github.com/scikit-image/scikit-image/graphs/contributors)
+| Lat commit | yesterday | Aug 21 | yesterday | yesterday 
+| Used by  | just us | nobody? | MRI people | millions?
+| Used by (github) | 0 | 0 | ? | 26,500
+| Linear registration | yes | yes | yes | no
+| LDDMM | yes | yes | approximate | no
+| GPU Support | yes | no | no | no
+| cleared brains | yes | yes | no | no
+| Our current | yes | no | no | no 
+| Our plan | yes | no | no | yes
+
+
+
+
+---
+
+## Access Rates
+
+<img src="images/centralized_vs_distributed.png" style="width:650px;"/>
+
+
+---
+
+## [Benchmarks](https://www.opencpu.org/posts/brotli-benchmarks/)
+
+
+<!-- <img src="images/brotli_size.png" style="height:270px;"/>
+<img src="images/brotli_compress.png" style="height:270px;"/>
+<img src="images/brotli_decompress.png" style="height:270px;"/>
+ -->
+
+
+<div style="display:inline-flex">
+  <div>
+      Size
+       <img src="images/brotli_size.png" alt="Snow" style="height:380px">
+  </div>
+  <div>
+      Decompress
+      <img src="images/brotli_decompress.png" alt="nah" style="height:380px">
+  </div>
+    <div>
+    Compress
+       <img src="images/brotli_compress.png" alt="nah" style="height:380px">
+  </div>
+</div>
+
+brotli = red, gzip = blue
+
+
+
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="remark-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+  var slideshow = remark.create(options, renderMath);
+
+</script>
+</body>
+</html>

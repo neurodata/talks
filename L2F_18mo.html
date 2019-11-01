@@ -305,11 +305,19 @@ Assumption 3 can be relaxed. -->
 
 ### Example 1 
 
-Linear 2-class classification
+Linear 2-class classification (we want to label black dot)
+
+<img src="images/l2m_18mo/cml_all_data.png" style="width:475px" class="center"/>
+
+
+---
+### Example 1 - Linear Discriminant Analysis
 
 1. Representation space: the real number line 
 2. Transformer: projection matrix that maps each feature vector onto real number line 
 3. Decider: threshold such that values above threshold are one class, and below are the other
+
+<img src="images/l2m_18mo/cml_linear.jpg" style="width:475px" class="center"/>
 
 <!-- diagram of linear classifier (projection from R^d to R then threshold) for two class, spherical gaussians -->
 <!-- figure of problem -->
@@ -319,11 +327,13 @@ Linear 2-class classification
 
 ---
 
-### Constituents of Decision Trees 
+### Example 1 - Decision Tree
 
 1. Representation space: a partition of $ \mathbb{R}^{d} $
 2. Transformer: maps a data point to a cell of the partition
 3. Deciders: plurality (or average) of elements per cell
+
+<img src="images/l2m_18mo/cml_decision_tree.jpg" style="width:475px" class="center"/>
 
 <!-- diagram of a partition for two class, spherical gaussians -->
 <!-- figure of representation (partition) -->
@@ -332,23 +342,25 @@ Linear 2-class classification
 
 ---
 
-### Constituents of Decision Forests 
+### Example 1 - Decision Forests 
 
 1. Representation space: a set of partitions of $ \mathbb{R}^{d} $ 
 2. Transformer: maps a data point to a cell of each of the partitions
 3. Deciders: average of decision trees (posterior probabilities)
 
+<img src="images/l2m_18mo/cml_forest.jpg" style="width:475px" class="center"/>
+
 <!-- diagram for two class, spherical gaussians -->
 <!-- figure of representtaion (multiple partitions) -->
 <!-- figure of data point in a cell of each of the partitions -->
 <!-- figure of classifying a data point  -->
----
+<!-- ---
 ### Decision Forests
 
 - Transformer: partition space using a subset of the $ n $ data samples
 - Decider:  majority vote on remaining samples
 
-<img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/>
+<img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/> -->
 
 <!-- diagram 1: all data
 diagram 2: transformer data
@@ -390,16 +402,29 @@ new slide: add error + posterior plots for linear example
 
 ---
 
-### Example 2: .purple[Not-XOR (N-XOR)]
+### Example 2: .r[XOR]
+
+<div style="display:inline-flex">
+   <div>
+        <img src="images/XOR.png" style="width:275px" class="center"/>
+   </div>
+   <div>
+        <img src="images/NXOR.png" style="width:275px" class="center"/>
+   </div>
+</div>
   
   
-  <img src="images/NXOR.png" style="width:275px" class="center"/>
+  <!-- <img src="images/NXOR.png" style="width:275px" class="center"/> <img src="images/NXOR.png" style="width:275px" class="center"/>  -->
   
-  - .purple[N-XOR]
+  - .r[XOR]
     - Samples in the (+, +) and (-, -) quadrants are class 1  
     - samples in the (-, +) and (+, -) quadrants are class 0. 
-  - The optimal decision boundary is the coordinate axes. 
-
+    - The optimal decision boundary is the coordinate axes. 
+  - .purple[N-XOR]
+    - Samples in the (+, +) and (-, -) quadrants are class 0  
+    - samples in the (-, +) and (+, -) quadrants are class 1. 
+    - The optimal decision boundary is the coordinate axes. 
+  - .purple[N-XOR] is just .r[XOR] with the class labels flipped
 <!-- change from n-xor to xor -->
 
 ---
@@ -407,7 +432,7 @@ new slide: add error + posterior plots for linear example
   
   <div style="display:inline-flex">
        <div>
-            <img src="images/L2M_18mo_nxor_xor_rf.png" alt="Snow" style="height:300px; width:300px">
+            <img src="images/l2m_18mo/L2M_18mo_xor_nxor_rf.png" alt="Snow" style="height:300px; width:300px">
        </div>
        <div>
             <img src="images/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
@@ -416,9 +441,9 @@ new slide: add error + posterior plots for linear example
 
 Left:
 - Error is estimated generalization error, $\hat{\mathbb{E}}_{P}[R(f_n(D_n))]$
-- estimated using 100 .purple[N-XOR] samples
-- transformer (partition) learned using one subset of data from .purple[N-XOR] 
-- decider (posteriors) learned using other data from .purple[N-XOR]
+- estimated using 100 .r[XOR] samples
+- transformer (partition) learned using one subset of data from .r[XOR] 
+- decider (posteriors) learned using other data from .r[XOR]
 - Error monotonically decreases with increasing sample size
 
 <!-- change from n-xor to xor -->
@@ -428,7 +453,7 @@ Left:
   
   <div style="display:inline-flex">
        <div>
-            <img src="images/L2M_18mo_nxor_xor_rf.png" alt="Snow" style="height:300px; width:300px">
+            <img src="images/l2m_18mo/L2M_18mo_xor_nxor_rf.png" alt="Snow" style="height:300px; width:300px">
        </div>
        <div>
             <img src="images/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
@@ -646,7 +671,7 @@ $J$ increasing linear 2-class classification tasks
 
 
 ---
-### Lifelong  Forests 
+### Lifelong Forests 
 
 <div style="display:flex">
       <div>

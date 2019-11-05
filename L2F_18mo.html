@@ -519,6 +519,61 @@ task 2:
   - and mean0 = (1,1) magenta
 -->
 
+---
+
+### Source Data
+
+Data that is not necessarily for the task of interest, but still can be learned from.
+
+<img src="images/l2m_18mo/tlsource_linear_problem.png" style="width:475px" class="center"/>
+
+---
+
+### Source Representation
+
+The representation is the line that LDA will project all of the data onto in order to classify them.
+
+<img src="images/l2m_18mo/tlsource_linear_rep.png" style="width:475px" class="center"/>
+
+---
+
+### Source Transformer
+
+The source "transformer" executes the projection onto this line.
+
+<img src="images/l2m_18mo/source-projected.png" style="width:700px" class="center"/>
+
+---
+
+### Source Decider
+
+Finally, decisions are made based on which half of the line the projected data falls into.
+
+<img src="images/l2m_18mo/tlsource_decider.png" style="width:475px" class="center"/>
+
+---
+
+### Source Decision
+
+The test point is colored by its predicted class. 
+
+<img src="images/l2m_18mo/tlsource_classified.png" style="width:475px" class="center"/>
+
+---
+
+### Source and Target Representations
+
+The representations learned by LDA from both the target data and source data are shown.
+
+<img src="images/l2m_18mo/tlboth_reps.png" style="width:475px" class="center"/>
+
+---
+
+### Source and Target Transformer
+
+The test point is projected onto both, and a predicted class is decided for both representations based on **target** data. The predictions are then averaged for the final prediction.
+
+<img src="images/l2m_18mo/transfer-projected.png" style="width:700px" class="center"/>
 
 ---
 ### Constituents of Transfer Forests

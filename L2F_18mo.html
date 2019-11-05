@@ -307,17 +307,17 @@ Assumption 3 can be relaxed. -->
 
 Linear 2-class classification (we want to label black dot)
 
-<img src="images/l2m_18mo/cml_all_data.png" style="width:475px" class="center"/>
+<img src="images/l2m_18mo/cml_all_data.png" style="width:500px" class="center"/>
 
 
 ---
-### Example 1 - Linear Discriminant Analysis
+#### Example 1.1 - Linear Discriminant Analysis
 
 1. Representation space: the real number line 
 2. Transformer: projection matrix that maps each feature vector onto real number line 
 3. Decider: threshold such that values above threshold are one class, and below are the other
 
-<img src="images/l2m_18mo/cml_linear.jpg" style="width:475px" class="center"/>
+<img src="images/l2m_18mo/cml_linear.jpg" style="width:600px" class="center"/>
 
 <!-- diagram of linear classifier (projection from R^d to R then threshold) for two class, spherical gaussians -->
 <!-- figure of problem -->
@@ -327,13 +327,13 @@ Linear 2-class classification (we want to label black dot)
 
 ---
 
-### Example 1 - Decision Tree
+#### Example 1.2 - Decision Tree
 
 1. Representation space: a partition of $ \mathbb{R}^{d} $
 2. Transformer: maps a data point to a cell of the partition
 3. Deciders: plurality (or average) of elements per cell
 
-<img src="images/l2m_18mo/cml_decision_tree.jpg" style="width:475px" class="center"/>
+<img src="images/l2m_18mo/cml_decision_tree.jpg" style="width:650px" class="center"/>
 
 <!-- diagram of a partition for two class, spherical gaussians -->
 <!-- figure of representation (partition) -->
@@ -342,7 +342,7 @@ Linear 2-class classification (we want to label black dot)
 
 ---
 
-### Example 1 - Decision Forests 
+#### Example 1.3 - Decision Forests 
 
 1. Representation space: a set of partitions of $ \mathbb{R}^{d} $ 
 2. Transformer: maps a data point to a cell of each of the partitions
@@ -350,23 +350,23 @@ Linear 2-class classification (we want to label black dot)
 
 ---
 
-### Decision Tree 1
+#### Example 1.3 - Decision Forests (Tree 1)
 
-Subsample the data and learn a partition of the input space. The input space is $\mathbb{R}\^2$ and the classes are green or purple. Each cell of the partition has an associated probability of class green. A new data point is first placed into a cell, and then its class is predicted based on the cell's probability.
+Subsample the data and learn a partition of the input space. The input space is $\mathbb{R}^2$ and the classes are green or purple. Each cell of the partition has an associated probability of class green. A new data point is first placed into a cell, and then its class is predicted based on the cell's probability.
 
 <img src="images/l2m_18mo/decisiontree_for_forest1.png" style="width:400px" class="center"/>
 
 ---
 
-## Decision Tree 2
+#### Example 1.3 - Decision Forests (Tree 2)
 
 Similarly, another random subsample will yield a different decision tree, with different cells and cell probabilities.
 
-<img src="images/l2m_18mo/decisiontree_for_forest2.png" style="width:400px" class="center"/>
+<img src="images/l2m_18mo/decisiontree_for_forest2.png" style="width:500px" class="center"/>
 
 ---
 
-### Decision Forests / Random Forests
+#### Example 1.3 - Decision Forests
 
 Each partition learned from the various subsamples is a **representation**, and the decision tree **transforms** data into those representations. The **decider** chooses the class based on the cell probability. 
 
@@ -426,7 +426,7 @@ new slide: add error + posterior plots for linear example
 
 ### Example 2
 
-XOR (we want to label black dotgit )
+XOR (we want to label black dot)
 - Samples in the (+, +) and (-, -) quadrants are class 1  
 - samples in the (-, +) and (+, -) quadrants are class 0. 
 - The optimal decision boundary is the coordinate axes. 
@@ -457,7 +457,7 @@ XOR (we want to label black dotgit )
 <!-- change from n-xor to xor -->
 
 ---
-### Decision Forests
+### Example 2.1 - Decision Forests
   
   <div style="display:inline-flex">
        <div>
@@ -477,11 +477,11 @@ Left:
 <!-- change from n-xor to xor -->
 
 ---
-### Decision Forests
+### Example 2.1 - Decision Forests
   
   <div style="display:inline-flex">
        <div>
-            <img src="images/l2m_18mo/L2M_18mo_xor_nxor_rf.png" alt="Snow" style="height:300px; width:300px">
+            <img src="images/l2m_18mo/just_xor.png" alt="Snow" style="height:300px; width:300px">
        </div>
        <div>
             <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
@@ -552,15 +552,15 @@ task 2:
 
 Data that is not necessarily for the task of interest, but still can be learned from.
 
-<img src="images/l2m_18mo/tlsource_linear_problem.png" style="width:475px" class="center"/>
+<img src="images/l2m_18mo/tlsource_linear_problem.png" style="width:500px" class="center"/>
 
 ---
 
 ### Source Representation
 
-The representation is the line that LDA will project all of the data onto in order to classify them.
+The representation is the line that LDA will project all of the data onto in order to classify them. This line is learned using the **source** data.
 
-<img src="images/l2m_18mo/tlsource_linear_rep.png" style="width:475px" class="center"/>
+<img src="images/l2m_18mo/tlsource_linear_rep.png" style="width:500px" class="center"/>
 
 ---
 
@@ -576,7 +576,7 @@ The source "transformer" executes the projection onto this line.
 
 Finally, decisions are made based on which half of the line the projected data falls into.
 
-<img src="images/l2m_18mo/tlsource_decider.png" style="width:475px" class="center"/>
+<img src="images/l2m_18mo/tlsource_decider.png" style="width:500px" class="center"/>
 
 ---
 
@@ -590,7 +590,7 @@ The test point is colored by its predicted class.
 
 ### Source and Target Representations
 
-The representations learned by LDA from both the target data and source data are shown.
+The representations learned by LDA from both the **target** data and **source** data are shown.
 
 <img src="images/l2m_18mo/tlboth_reps.png" style="width:475px" class="center"/>
 
@@ -600,14 +600,16 @@ The representations learned by LDA from both the target data and source data are
 
 The test point is projected onto both, and a predicted class is decided for both representations based on **target** data. The predictions are then averaged for the final prediction.
 
-<img src="images/l2m_18mo/transfer-projected.png" style="width:700px" class="center"/>
+<img src="images/l2m_18mo/transfer-projected.png" style="width:650px" class="center"/>
+
+<!-- for transfer algorithms, do we want to use target data representations at all? -->
 
 ---
 ### Constituents of Transfer Forests
 
-- Universal representation space: a partition of $ \mathbb{R}^{d} $
-- Transformer: partition space using all the data from source task (and potentially updated using target data)
-- Decider: average of majority vote in each node from each tree applied to target  data 
+- Universal representation space: a set of partitions of $ \mathbb{R}^{d} $
+- Transformer: places data point into a cell of each partition learned on **source** data
+- Decider: average of majority vote of **target** data in each node from each tree
 
 <!-- update above image as above: label arrows transformer and decider -->
 
@@ -627,7 +629,7 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
 
 ## Transfer Forests
 
-**Similar to before:** Use source and target data to learn **two** transfomers that send data to representations. Populated both partitions with data to learn deciders. Then, average predictions from each decider.
+**Similar to before:** Use source data to estimate positions and to learn a transformer. Populate both partitions with data to learn deciders. Then, average predictions from each decider.
 
 <img src="images/l2m_18mo/cml_forest.jpg" style="width:700px" class="center"/>
 
@@ -645,6 +647,7 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
   - samples in the (-, +) and (+, -) quadrants are class 0. 
 - The optimal decision boundaries for both problems are the coordinate axes. 
 
+<!-- change from black/pink to green/purple -->
 
 
 
@@ -666,7 +669,7 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
 - (Right) learned probability of an observation  being class 1 
   - used 100 .orange[XOR]  and 300 .purple[N-XOR] training samples 
 
-
+<!-- change posterior heatmap colors -->
 ---
 ### Transfer Forests
 
@@ -685,7 +688,7 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
 - Nonetheless, DF .orange[XOR] exhibits transfer learning, because its error decreases with increasing sample size
 
 
-
+<!-- change posterior heatmap colors -->
 
 ---
 
@@ -785,7 +788,7 @@ The same as transfer forests, but **each task** yields a representation. The dat
 
 <div style="display:flex">
       <div>
-          <img src="images/L2M_18mo_nxor_xor_lifelong.png" alt="Snow" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/L2M_18mo_xor_nxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
           <img src="images/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
@@ -807,7 +810,7 @@ update text accordingly
 
 <div style="display:flex">
      <div>
-          <img src="images/L2M_18mo_nxor_xor_lifelong.png" alt="Snow" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/L2M_18mo_xor_nxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
           <img src="images/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
@@ -853,7 +856,7 @@ update text accordingly
 
 <div style="display:flex">
      <div>
-          <img src="images/L2M_18mo_xor_rxor_rf.png" alt="Snow" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_rf.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
           <img src="images/posterior_heatmap_xor_rxor_rf.png" alt="nah" style="height:300px; width:300px">
@@ -872,7 +875,7 @@ update text accordingly
 
 <div style="display:flex">
      <div>
-          <img src="images/L2M_18mo_xor_rxor_transfer.png" alt="Snow" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_transfer.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
           <img src="images/posterior_heatmap_xor_rxor_transfer.png" alt="nah" style="height:300px; width:300px">
@@ -891,7 +894,7 @@ update text accordingly
 
 <div style="display:flex">
      <div>
-          <img src="images/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
           <img src="images/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
@@ -909,7 +912,7 @@ update text accordingly
 
 <div style="display:flex">
      <div>
-          <img src="images/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
           <img src="images/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">

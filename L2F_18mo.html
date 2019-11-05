@@ -634,22 +634,17 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
 <img src="images/l2m_18mo/cml_forest.jpg" style="width:700px" class="center"/>
 
 ---
-### Example 4: .orange[XOR] to .purple[Not-XOR (N-XOR)]
+### Example 4: .r[XOR] to .blue[Not-XOR (N-XOR)]
 
-
-<img src="images/XOR-NXOR.png" style="width:475px" class="center"/>
-
-- .orange[XOR]
+- .r[XOR]
   - Samples in the (+, +) and (-, -) quadrants are class 0  
   - samples in the (-, +) and (+, -) quadrants are class 1. 
-- .purple[N-XOR]
+- .blue[N-XOR]
   - Samples in the (+, +) and (-, -) quadrants are class 1  
   - samples in the (-, +) and (+, -) quadrants are class 0. 
-- The optimal decision boundaries for both problems are the coordinate axes. 
+- The optimal decision boundaries for both problems are the coordinate axes.
 
-<!-- change from black/pink to green/purple -->
-
-
+<img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/> 
 
 ---
 ### Transfer  Forests
@@ -659,15 +654,15 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
           <img src="images/l2m_18mo/L2M_18mo_xor_nxor_transfer.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
-          <img src="images/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
      </div>
 </div>
 
-- (Left)  Decision Forest .orange[XOR] uses:
-  - 100 samples from .orange[XOR] to learn transformers (partition)
-  - $n$ data from .purple[N-XOR] to learn decider (posterior)
+- (Left)  Decision Forest .r[XOR] uses:
+  - 100 samples from .r[XOR] to learn decider (posterior)
+  - $n$ data from .blue[N-XOR] to learn transformer / representation (partition)
 - (Right) learned probability of an observation  being class 1 
-  - used 100 .orange[XOR]  and 300 .purple[N-XOR] training samples 
+  - used 100 .r[XOR]  and 300 .blue[N-XOR] training samples 
 
 <!-- change posterior heatmap colors -->
 ---
@@ -678,14 +673,14 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
           <img src="images/l2m_18mo/L2M_18mo_xor_nxor_transfer.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
-          <img src="images/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_transfer.png" alt="nah" style="height:300px; width:300px">
      </div>
 </div>
 
 - Learning partitions is "harder" than posteriors:
-  - DF .orange[XOR] only gets 100 samples to learn partitions,  
-  - DF .purple[N-XOR] gets up to 400
-- Nonetheless, DF .orange[XOR] exhibits transfer learning, because its error decreases with increasing sample size
+  - DF .r[XOR] only gets 100 samples to learn partitions,  
+  - DF .blue[N-XOR] gets up to 400
+- DF .r[N-XOR] exhibits transfer learning, because its error decreases on .r[XOR] as the number of samples from .blue[N-XOR] increases for a fixed amount of data from .r[XOR] 
 
 
 <!-- change posterior heatmap colors -->
@@ -766,20 +761,17 @@ The same as transfer forests, but **each task** yields a representation. The dat
 
 
 ---
-### Example 6: .orange[XOR] and .purple[Not-XOR (N-XOR)]
+### Example 6: .r[XOR] and .blue[Not-XOR (N-XOR)]
 
-
-<img src="images/XOR-NXOR.png" style="width:475px" class="center"/>
-
-- .orange[XOR]
+- .r[XOR]
   - Samples in the (+, +) and (-, -) quadrants are class 0  
   - samples in the (-, +) and (+, -) quadrants are class 1. 
-- .purple[N-XOR]
+- .blue[N-XOR]
   - Samples in the (+, +) and (-, -) quadrants are class 1  
   - samples in the (-, +) and (+, -) quadrants are class 0. 
 - The optimal decision boundaries for both problems are the coordinate axes. 
 
-
+<img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/>
 <!-- update colors  -->
 
 
@@ -791,14 +783,14 @@ The same as transfer forests, but **each task** yields a representation. The dat
           <img src="images/l2m_18mo/L2M_18mo_xor_nxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
-          <img src="images/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
      </div>
 </div>
 
 - Lifelong Forests learn the optimal decision boundary using  both 
-  1.  100 samples from .orange[XOR], and 
-  2. $n$ samples from  .purple[N-XOR].
-- Posteriors are  learned using only 300 samples from .purple[N-XOR] on both partitions.
+  1.  100 samples from .r[XOR], and 
+  2. $n$ samples from  .blue[N-XOR].
+- Posteriors are  learned using only 300 samples from .blue[N-XOR] on both partitions.
 - Prediction is based on  the  learned posterior averaged over both partitions.
 
 <!-- make same as transfer learning plots but add new line
@@ -813,11 +805,11 @@ update text accordingly
           <img src="images/l2m_18mo/L2M_18mo_xor_nxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
-          <img src="images/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
      </div>
 </div>
 
-- Lifelong forests perform as well as the best method regardless of the amount of .purple[N-XOR] data
+- Lifelong forests perform as well as the best method regardless of the amount of .blue[N-XOR] data
 - Lifelong forests therefore exhibits .r[adaptation to new tasks and circumstances] more effectively than a na&iuml;ve transfer  forest
 
 <!-- may want to show plots for other transfer direction -->
@@ -826,12 +818,12 @@ update text accordingly
 ---
 ### Adversarial Tasks 
 
-- .orange[XOR] vs .purple[N-XOR] is the easiest possible sequence of tasks 
+- .r[XOR] vs .blue[N-XOR] is the easiest possible sequence of tasks 
 - Consider an adversarial task: 
   - a second task, .blue[Rotated-XOR (R-XOR)], which has zero information about the first task; 
   - therefore, its data can only add noise and increase error 
 
-<img src="images/xor_rxor.png" style="width:475px" class="center"/>
+<img src="images/l2m_18mo/xor_rxor.png" style="width:475px" class="center"/>
 
 <!-- add two linear two-class classification problem w adverserial source task -->
 
@@ -859,7 +851,7 @@ update text accordingly
           <img src="images/l2m_18mo/L2M_18mo_xor_rxor_rf.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
-          <img src="images/posterior_heatmap_xor_rxor_rf.png" alt="nah" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_rf.png" alt="nah" style="height:300px; width:300px">
      </div>
 </div>
 
@@ -878,7 +870,7 @@ update text accordingly
           <img src="images/l2m_18mo/L2M_18mo_xor_rxor_transfer.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
-          <img src="images/posterior_heatmap_xor_rxor_transfer.png" alt="nah" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_transfer.png" alt="nah" style="height:300px; width:300px">
      </div>
 </div>
 
@@ -897,7 +889,7 @@ update text accordingly
           <img src="images/l2m_18mo/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
-          <img src="images/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
      </div>
 </div>
 
@@ -915,7 +907,7 @@ update text accordingly
           <img src="images/l2m_18mo/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
      </div>
      <div>
-          <img src="images/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
      </div>
 </div>
 

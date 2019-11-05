@@ -402,21 +402,28 @@ new slide: add error + posterior plots for linear example
 
 ---
 
-### Example 2: .r[XOR]
+### Example 2
 
-<div style="display:inline-flex">
-   <div>
-        <img src="images/XOR.png" style="width:275px" class="center"/>
-   </div>
+XOR (we want to label black dotgit )
+- Samples in the (+, +) and (-, -) quadrants are class 1  
+- samples in the (-, +) and (+, -) quadrants are class 0. 
+- The optimal decision boundary is the coordinate axes. 
+
+<img src="images/l2m_18mo/xor.png" style="width:400px" class="center"/>
+
+<!-- <div style="display:inline-flex">
+   <div> -->
+
+ <!--   </div>
    <div>
         <img src="images/NXOR.png" style="width:275px" class="center"/>
    </div>
-</div>
+</div> -->
   
   
   <!-- <img src="images/NXOR.png" style="width:275px" class="center"/> <img src="images/NXOR.png" style="width:275px" class="center"/>  -->
   
-  - .r[XOR]
+<!--   - .r[XOR]
     - Samples in the (+, +) and (-, -) quadrants are class 1  
     - samples in the (-, +) and (+, -) quadrants are class 0. 
     - The optimal decision boundary is the coordinate axes. 
@@ -424,7 +431,7 @@ new slide: add error + posterior plots for linear example
     - Samples in the (+, +) and (-, -) quadrants are class 0  
     - samples in the (-, +) and (+, -) quadrants are class 1. 
     - The optimal decision boundary is the coordinate axes. 
-  - .purple[N-XOR] is just .r[XOR] with the class labels flipped
+  - .purple[N-XOR] is just .r[XOR] with the class labels flipped -->
 <!-- change from n-xor to xor -->
 
 ---
@@ -432,16 +439,15 @@ new slide: add error + posterior plots for linear example
   
   <div style="display:inline-flex">
        <div>
-            <img src="images/l2m_18mo/L2M_18mo_xor_nxor_rf.png" alt="Snow" style="height:300px; width:300px">
+            <img src="images/l2m_18mo/just_xor.png" alt="Snow" style="height:300px; width:300px">
        </div>
        <div>
-            <img src="images/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
+            <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
        </div>
   </div>
 
 Left:
 - Error is estimated generalization error, $\hat{\mathbb{E}}_{P}[R(f_n(D_n))]$
-- estimated using 100 .r[XOR] samples
 - transformer (partition) learned using one subset of data from .r[XOR] 
 - decider (posteriors) learned using other data from .r[XOR]
 - Error monotonically decreases with increasing sample size
@@ -456,13 +462,13 @@ Left:
             <img src="images/l2m_18mo/L2M_18mo_xor_nxor_rf.png" alt="Snow" style="height:300px; width:300px">
        </div>
        <div>
-            <img src="images/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
+            <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_rf.png" alt="nah" style="height:300px; width:300px">
        </div>
   </div>
 
 Right:
-- learned probability of an observation  being class 1 
-- using 300 .purple[N-XOR] training samples 
+- learned probability of an observation being green 
+- using 100 .r[XOR] training samples 
 
 <!-- change from n-xor to xor -->
 <!-- change colormap to purple / green diverging  -->

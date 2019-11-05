@@ -348,7 +348,29 @@ Linear 2-class classification (we want to label black dot)
 2. Transformer: maps a data point to a cell of each of the partitions
 3. Deciders: average of decision trees (posterior probabilities)
 
-<img src="images/l2m_18mo/cml_forest.jpg" style="width:475px" class="center"/>
+---
+
+### Decision Tree 1
+
+Subsample the data and learn a partition of the input space. The input space is $\mathbb{R}\^2$ and the classes are green or purple. Each cell of the partition has an associated probability of class green. A new data point is first placed into a cell, and then its class is predicted based on the cell's probability.
+
+<img src="images/l2m_18mo/decisiontree_for_forest1.png" style="width:400px" class="center"/>
+
+---
+
+## Decision Tree 2
+
+Similarly, another random subsample will yield a different decision tree, with different cells and cell probabilities.
+
+<img src="images/l2m_18mo/decisiontree_for_forest2.png" style="width:400px" class="center"/>
+
+---
+
+### Decision Forests / Random Forests
+
+Each partition learned from the various subsamples is a **representation**, and the decision tree **transforms** data into those representations. The **decider** chooses the class based on the cell probability. 
+
+<img src="images/l2m_18mo/cml_forest.jpg" style="width:600px" class="center"/>
 
 <!-- diagram for two class, spherical gaussians -->
 <!-- figure of representtaion (multiple partitions) -->
@@ -506,7 +528,6 @@ Assumption 4 can be relaxed. -->
 2.  .r[transformers]: map each source and target point to the representation space
 3.  .r[decider]: takes an action using all the transformed data
 
-
 ---
 
 ### Example 3
@@ -588,8 +609,6 @@ The test point is projected onto both, and a predicted class is decided for both
 - Transformer: partition space using all the data from source task (and potentially updated using target data)
 - Decider: average of majority vote in each node from each tree applied to target  data 
 
-<img src="images/l2m_transfer_cartoon.jpg" style="width:475px" class="center"/>
-
 <!-- update above image as above: label arrows transformer and decider -->
 
 
@@ -603,6 +622,14 @@ y-axis is target error
 give title to posterior plot
 http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
 -->
+
+---
+
+## Transfer Forests
+
+**Similar to before:** Use source and target data to learn **two** transfomers that send data to representations. Populated both partitions with data to learn deciders. Then, average predictions from each decider.
+
+<img src="images/l2m_18mo/cml_forest.jpg" style="width:700px" class="center"/>
 
 ---
 ### Example 4: .orange[XOR] to .purple[Not-XOR (N-XOR)]
@@ -699,15 +726,37 @@ $J$ increasing linear 2-class classification tasks
 
 <!-- means are +/- j (potentially with jitter added) -->
 
+---
+
+### Many Representations of a Lifelong Learner
+
+Each of the $J$ tasks can result in a (possibly different) learned representation.
+
+<img src="images/l2m_18mo/l2_reps.png" style="width:475px" class="center"/>
+
+---
+
+### Many Transformers of a Lifelong Learner
+
+The test point can be transformed into instances in each representation.
+
+<img src="images/l2m_18mo/l2-projected.png" style="width:600px" class="center"/>
+
+---
+
+The data point can be classified in each representation. The black star represents a point with 0.5 predicted probability. However, all of these predictions are averaged for the final prediction. 
+
+Thus, catastrophic forgetting is avoided in this example by retaining at least one "useful" representation. 
+
+<img src="images/l2m_18mo/l2_classifed.png" style="width:475px" class="center"/>
 
 ---
 
 ### Lifelong Forests
 
-
+The same as transfer forests, but **each task** yields a representation. The data is transformed into each representation, and the deciders make predictions in each representation. The prediction is then averaged across representations. 
 - Transformers: a forest to partition space for each task 
 - Deciders: average of majority vote in each node from each tree applied to each task's data
-<img src="images/l2m_lifelong_cartoon.jpg" style="width:475px" class="center"/>
 
 <!-- update a la other ones -->
 

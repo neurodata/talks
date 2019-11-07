@@ -91,14 +91,17 @@ li p { line-height: 1.25em; }
 .k {color: black;}
 .ye { color: #FFFF00; }
 .gold { color: #ffd700; }
+.green { color:  #00cc44; }
 .y { color: #fcfaf6; }
 .pink { color: #FF87F3;}
 .orange { color: #FFA500;}
 .g { color: #00CC00; }
 .blue { color: #0000FF; }
+.h { color: #318dde; }
 .lb { color: #75E9FF;}
 .s {color :#318dde;}
 .purple { color: #A149A9;}
+.pu { color: #A149A9;}
 .large { font-size: 2em; }
 .black { color: black; background-color: white;}
 a, a > code {
@@ -121,12 +124,24 @@ code {
 
 .pull-left {
   float: left;
-  width: 47%;
+  width: 48%;
 }
+.pull-l {
+  position: absolute;
+  left: 0;
+  width: 48%;
+}
+
 .pull-right {
   float: right;
-  width: 47%;
+  width: 48%;
 }
+.pull-r {
+  position: absolute;
+  right: 0;
+  width: 48%;
+}
+
 .center {
   margin: auto;
   width: 100%;

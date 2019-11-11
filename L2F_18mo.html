@@ -391,31 +391,6 @@ diagram 6: show true posterior
 diagram 7: consider showing posterior errors
 - explan n, d
 -->
----
-
-### Key Insight of Uncertainty Forests 
-
-- Sub-sample data into two sets, one to learn transformers, and one to learn deciders
-- This yields consistent estimates of the probabilities averaged per cell:
-$$\hat{P}(f\_n) \rightarrow P$$
-
----
-
-#### Key Algorithm Parameters Per Tree
-
-- To learn partitions:
-  - bootstrap = true (sklearn default)
-  - min_samples_leaf=1 (sklearn default; maximally pure trees)
-  - max_features = $\sqrt{p}$ (sklearn default; not relevant for 2D data)
-  - max_depth=30 (to accelerate run time; makes accuracy worse typically)
-  - max_samples = 0.32 (to enable samples for learning posteriors)
-- To learn posteriors:
-  - finite sample correction = 1 / ( 2 $\times$ # samples in cell)
-
-
-- Nothing special about our tree construction, basically:
-  - default sklearn parameters, plus 
-  - modifications to enable learning posteriors (deciders)
 
 <!--   
 new slide: add error + posterior plots for linear example 
@@ -438,6 +413,7 @@ XOR (we want to label black dot)
 ### Example 2.1 - Decision Forests
   
 <img src="images/l2m_18mo/just_xor.png" alt="Snow" style="height:300px;">
+<!-- <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_rf.png" style="height:300px;"> -->
 
 - Error is estimated generalization error, $\hat{\mathbb{E}}_{P}[R(f_n(D_n))]$
 - transformer (partition) learned using one subset of data from XOR 
@@ -492,11 +468,20 @@ Assumption 4 can be relaxed. -->
 
 ### Example 3
 
-Two linear 2-class classification tasks
+Two 2-class classification problems
 
-1. .pu[representation]: the real number line 
+<div style="display:inline-flex">
+     <div>
+          <img src="images/l2m_18mo/cml_linear_problem1.png" alt="Snow" style="height:300px; width:300px">
+     </div>
+     <div>
+          <img src="images/l2m_18mo/cml_linear_problem_dataset2.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
+
+<!-- 1. .pu[representation]: the real number line 
 2. .pu[transformer]: projection matrix that maps data onto real number line 
-3. .pu[decider]: threshold such that target values above threshold are one class, and below are the other
+3. .pu[decider]: threshold such that target values above threshold are one class, and below are the other -->
 
 <!-- task 1: 
     - mean1 = (1,1) orange
@@ -507,70 +492,13 @@ task 2:
 -->
 
 ---
+### Constituents of Transfer Trees
 
-### Source Data
+1. .pu[representation]: a partition of $ \mathbb{R}^{d} $
+2. .pu[transformer]: places data point into a cell of the partition learned on **source** data
+3. .pu[decider]: majority vote of **target** data in the cell of the partition
 
-Data that is not necessarily from the same distribution as target data, but might be useful for learning
-
-<img src="images/l2m_18mo/tlsource_linear_problem.png" style="width:500px" class="center"/>
-
----
-
-### Source Representation
-
-The representation is the line that LDA will project all of the data onto in order to classify them. This line is learned using the **source** data.
-
-<img src="images/l2m_18mo/tlsource_linear_rep.png" style="width:500px" class="center"/>
-
----
-
-### Source transformer
-
-The source "transformer" executes the projection onto this line.
-
-<img src="images/l2m_18mo/source-projected.png" style="width:700px" class="center"/>
-
----
-
-### Source decider
-
-Finally, decisions are made based on which half of the line the projected data falls into.
-
-<img src="images/l2m_18mo/tlsource_decider.png" style="width:500px" class="center"/>
-
----
-
-### Source Decision
-
-The test point is colored by its predicted class. 
-
-<img src="images/l2m_18mo/tlsource_classified.png" style="width:475px" class="center"/>
-
----
-
-### Source and Target Representations
-
-The representations learned by LDA from both the **target** data and **source** data are shown.
-
-<img src="images/l2m_18mo/tlboth_reps.png" style="width:475px" class="center"/>
-
----
-
-### Source and Target transformer
-
-The test point is projected onto both, and a predicted class is decided for both representations based on **target** data. The predictions are then averaged for the final prediction.
-
-<img src="images/l2m_18mo/transfer-projected.png" style="width:650px" class="center"/>
-
-<!-- for transfer algorithms, do we want to use target data representations at all? -->
-
----
-### Constituents of Transfer Forests
-
-1. .pu[representation]: a set of partitions of $ \mathbb{R}^{d} $
-2. .pu[transformer]: places data point into a cell of each partition learned on **source** data
-3. .pu[decider]: average of majority vote of **target** data in each node from each tree
-
+<img src="images/l2m_18mo/transfer-tree.jpg" class="center" alt="Snow" style="height:300px; width:550px">
 <!-- update above image as above: label arrows transformer and decider -->
 
 
@@ -585,25 +513,25 @@ give title to posterior plot
 http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
 -->
 
----
+<!-- ---
 
-## Transfer Forests
+## Transfer Tree
 
 - Use **source** data to learn a transformer (estimate partitions) 
 - Use **source** and **target** data to learn deciders (estimate posteriors)
 - Average predictions from each decider.
 
-<img src="images/l2m_18mo/cml_forest.jpg" style="width:700px" class="center"/>
+<img src="images/l2m_18mo/transfer-tree.jpg" class="center" alt="Snow" style="height:300px; width:550px"> -->
 
 ---
-### Example 4: .r[XOR] to .blue[Not-XOR (N-XOR)]
+### Example 4: .blue[Not-XOR (N-XOR)] to .r[XOR]
 
 - .r[XOR]
-  - Samples in the (+, +) and (-, -) quadrants are class 0  
-  - samples in the (-, +) and (+, -) quadrants are class 1. 
+  - Samples in the (+, +) and (-, -) quadrants are green  
+  - samples in the (-, +) and (+, -) quadrants are purple. 
 - .blue[N-XOR]
-  - Samples in the (+, +) and (-, -) quadrants are class 1  
-  - samples in the (-, +) and (+, -) quadrants are class 0. 
+  - Samples in the (+, +) and (-, -) quadrants are green  
+  - samples in the (-, +) and (+, -) quadrants are purple. 
 - The optimal decision boundaries for both problems are the coordinate axes.
 
 <img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/> 
@@ -623,7 +551,7 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
 - (Left)  Decision Forest .r[XOR] uses:
   - 100 samples from .r[XOR] to learn decider (posterior)
   - $n$ data from .blue[N-XOR] to learn transformer  (partition)
-- (Right) learned probability of an observation  being class 1 
+- (Right) learned probability of an observation  being green
   - used 100 .r[XOR]  and 300 .blue[N-XOR] training samples 
 
 <!-- change posterior heatmap colors -->
@@ -642,7 +570,7 @@ http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
 - Learning partitions is "harder" than posteriors:
   - DF .r[XOR] only gets 100 samples to learn partitions,  
   - DF .blue[N-XOR] gets up to 400
-- DF .r[N-XOR] exhibits transfer learning, because its error decreases on .r[XOR] as the number of samples from .blue[N-XOR] increases for a fixed amount of data from .r[XOR] 
+- DF .blue[N-XOR] exhibits transfer learning, because its error decreases on .r[XOR] as the number of samples from .blue[N-XOR] increases for a fixed amount of data from .r[XOR] 
 
 
 <!-- change posterior heatmap colors -->
@@ -679,48 +607,46 @@ Assume
 
 $J$ increasing linear 2-class classification tasks
 
-1. .pu[representation]: the real number line 
+<div style="display:inline-flex">
+     <div>
+          <img src="images/l2m_18mo/cml_linear_problem1.png" alt="Snow" style="height:200px; width:200px">
+     </div>
+     <div>
+          <img src="images/l2m_18mo/cml_linear_problem_dataset2.png" alt="nah" style="height:200px; width:200px">
+     </div>
+     <div>
+          <img src="images/l2m_18mo/cml_linear_problem3.png" alt="Snow" style="height:200px; width:200px">
+     </div>
+</div> ...
+
+<!-- 1. .pu[representation]: the real number line 
 2. .pu[transformers]: $J$ different projection matrix that maps data onto real number line 
-3. .pu[deciders]: $J$ thresholds such that values above threshold are one class, and below are the other
+3. .pu[deciders]: $J$ thresholds such that values above threshold are one class, and below are the other -->
+
+
+
+
 
 
 <!-- means are +/- j (potentially with jitter added) -->
 
 ---
-
-### Many Representations of a Lifelong Learner
-
-Each of the $J$ tasks can result in a (possibly different) learned representation.
-
-<img src="images/l2m_18mo/l2_reps.png" style="width:475px" class="center"/>
-
----
-
-### Many transformers of a Lifelong Learner
-
-The test point can be transformed into instances in each representation.
-
-<img src="images/l2m_18mo/l2-projected.png" style="width:600px" class="center"/>
-
----
-
-The data point can be classified in each representation. The black star represents a point with 0.5 predicted probability. However, all of these predictions are averaged for the final prediction. 
-
-Thus, catastrophic forgetting is avoided in this example by retaining at least one "useful" representation. 
-
-<img src="images/l2m_18mo/l2_classifed.png" style="width:475px" class="center"/>
-
----
-
-### Lifelong Forests
+### Lifelong Trees
 
 1. .pu[representation]: set of partitions
-2. .pu[transformers]: a forest to partition space for each task 
+2. .pu[transformers]: a tree to partition space for each task 
 3. .pu[deciders]: average of majority vote in each node from each tree applied to each task's data
 
+<img src="images/l2m_18mo/lifelong-tree.jpg" class="center" alt="Snow" style="height:400px;width:550px">
 
---
 
+
+---
+### Lifelong Trees
+
+1. .pu[representation]: set of partitions
+2. .pu[transformers]: a tree to partition space for each task 
+3. .pu[deciders]: average of majority vote in each node from each tree applied to each task's data
 
 - **each task** yields a representation,
 - the data are transformed into each representation,  
@@ -734,11 +660,11 @@ Thus, catastrophic forgetting is avoided in this example by retaining at least o
 ### Example 6: .r[XOR] and .blue[Not-XOR (N-XOR)]
 
 - .r[XOR]
-  - Samples in the (+, +) and (-, -) quadrants are class 0  
-  - samples in the (-, +) and (+, -) quadrants are class 1. 
+  - Samples in the (+, +) and (-, -) quadrants are green  
+  - samples in the (-, +) and (+, -) quadrants are purple. 
 - .blue[N-XOR]
-  - Samples in the (+, +) and (-, -) quadrants are class 1  
-  - samples in the (-, +) and (+, -) quadrants are class 0. 
+  - Samples in the (+, +) and (-, -) quadrants are purple  
+  - samples in the (-, +) and (+, -) quadrants are green. 
 - The optimal decision boundaries for both problems are the coordinate axes. 
 
 <img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/>
@@ -809,7 +735,7 @@ update text accordingly
   - x-axis is # of .blue[R-XOR] data samples
   - we used 100 .r[XOR] data samples
 - Right figures:
-  - estimated probability of an observation from class 1
+  - estimated probability of an observation from purple
   - learned using 100 .r[XOR]  and 300 .blue[R-XOR] training samples
 
 
@@ -930,6 +856,22 @@ Figure 1: evolution of the test accuracy at the first task, as more tasks are le
 
 Figure 1: No approaches demonstrate reverse transfer, and most demonstrate catastrophic forgetting.
 
+---
+#### Key Algorithm Parameters Per Tree
+
+- To learn partitions:
+  - bootstrap = true (sklearn default)
+  - min_samples_leaf=1 (sklearn default; maximally pure trees)
+  - max_features = $\sqrt{p}$ (sklearn default; not relevant for 2D data)
+  - max_depth=30 (to accelerate run time; makes accuracy worse typically)
+  - max_samples = 0.32 (to enable samples for learning posteriors)
+- To learn posteriors:
+  - finite sample correction = 1 / ( 2 $\times$ # samples in cell)
+
+
+- Nothing special about our tree construction, basically:
+  - default sklearn parameters, plus 
+  - modifications to enable learning posteriors (deciders)
 
 ---
 
@@ -966,6 +908,14 @@ $\mathcal{E}\_{S}(f\_n,P)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f,P)$ as
 
 $\forall P \in \mathcal{P}: \mathcal{E}\_{S}(f\_n,P)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f,P)$ as $n \to \infty$.
 
+
+---
+
+### Key Insight of Uncertainty Forests 
+
+- Sub-sample data into two sets, one to learn transformers, and one to learn deciders
+- This yields consistent estimates of the probabilities averaged per cell:
+$$\hat{P}(f\_n) \rightarrow P$$
 
 ---
 

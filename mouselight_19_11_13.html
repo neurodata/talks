@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="slides_style.css">
     <link rel="stylesheet" href="font-awesome.min.css">
     <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  
+    
   </head>
   <body>
     <textarea id="source">
@@ -86,7 +88,7 @@ w: <http://neurodata.io/talks/mouselight_19_11_13.html>]
 - Linux workstation (32GB RAM, 2 monitors)
 
 ###On the way
-- 2 x Linux workstations (GB RAM)
+- 2 x Linux workstations (128GB RAM)
 - 2 x 200TB Servers
 
 ---
@@ -114,16 +116,95 @@ w: <http://neurodata.io/talks/mouselight_19_11_13.html>]
 ### Rationale
 - Current "Ground-Truth" is a tree of spatial coordinates
 
+.pull-left[
+<figure>
+    <img src="images/mouselight/neuron.png"  style="width:80%">
+    <figcaption>Example Trace.</figcaption>
+  </figure>
+]
 
-<div class="row">
-  <div class="column">
-    <img src="images/mouselight/neuron.png" alt="Snow" style="width:20%">
-  </div>
-  <div class="column">
-    <img src="images/mouselight/neuron.png" alt="Forest" style="width:20%">
-  </div>
-</div>
+.pull-right[
+<figure>
+    <img src="images/mouselight/trailmap.jpg" alt="Trulli" style="width:49%">
+    <figcaption>Friedmann et. al. 2019</figcaption>
+  </figure>
+]
 
+- Convert to voxel-wise segmentation for:
+  -  ML training
+  -  Consistent evaluation
+  -  Morphology statistics
+
+---
+
+### Semi-automated Approach
+- Automatic Methods
+  -  Skeleton &#8745; Threshold
+  -  Region Growing
+
+- Manual Trimming
+  -  ?
+
+---
+
+### Skeleton &#8745; Threshold
+
+<figure>
+    <img src="images/mouselight/good2.png"  style="width:100%">
+  </figure>
+
+---
+
+### Skeleton &#8745; Threshold
+
+<figure>
+    <img src="images/mouselight/good3.png" alt="Trulli" style="width:100%">
+  </figure>
+
+---
+
+### Skeleton &#8745; Threshold
+
+<figure>
+    <img src="images/mouselight/good1.png" alt="Trulli" style="width:100%">
+  </figure>
+
+---
+
+### Skeleton &#8745; Threshold
+
+<figure>
+  <img src="images/mouselight/curve1.png" alt="Trulli" style="width:100%">
+  <figcaption>Neuron curves between points.</figcaption>
+</figure>
+
+---
+
+### Skeleton &#8745; Threshold
+
+<figure>
+    <img src="images/mouselight/noise1.png" alt="Trulli" style="width:100%">
+    <figcaption>Noise affects threshold.</figcaption>
+  </figure>
+
+
+---
+
+### Region Growing
+
+?
+
+---
+
+### Statistics
+
+?
+
+---
+
+### Manual Trimming
+
+?
 
 ---
 
@@ -132,121 +213,55 @@ w: <http://neurodata.io/talks/mouselight_19_11_13.html>]
 
 ---
 
-### Clark 320
-- Windows workstation (192GB RAM, 2 monitors)
-- Linux workstation (32GB RAM, 2 monitors)
+### Basic Image Processing
+- Preprocessing
+- Thresholding and morphological closing
+- Region growing/watershedding
 
-###On the way
-- 2 x Linux workstations (GB RAM)
-- 2 x 200TB Servers
+### Geman and Jedynak, 1996
+- Road model - piecewise linear and 3 attachment angles 
+- Distribution assumptions
+  -  Spatial Invariance
+  -  Conditional Independence
+- Finding MLE is convex problem - exact and fast
+
+### State of the art CNNs
+- TrailMap (Friedmann, 2019)
+- DeepNeruon (Zhou, 2018)
+- Floodfilling network (Januszewski, 2018)
 
 ---
 class: top, left
 
 ### Acknowledgements
 
-
 <div class="container">
-  <img src="faces/cep.png"/>
-  <div class="centered">Carey Priebe</div>
+  <img src="faces/jovo.png"/>
+  <div class="centered">Joshua Vogelstein</div>
 </div>
 
 <div class="container">
-  <img src="faces/randal.jpg"/>
-  <div class="centered">Randal Burns</div>
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
 </div>
 
 <div class="container">
-  <img src="faces/minh.jpg"/>
-  <div class="centered">Minh Tang</div>
-</div>
+    <img src="faces/anthony.jpg"/>
+    <div class="centered">Anthony Kolasny</div>
+  </div>
 
 <div class="container">
-  <img src="faces/avanti.jpg"/>
-  <div class="centered">Avanti Athreya</div>
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
 </div>
 
-<div class="container">
-  <img src="faces/vince.jpg"/>
-  <div class="centered">Vince Lyzinski</div>
-</div>
 
-<div class="container">
-  <img src="faces/dpmcsuss.jpg"/>
-  <div class="centered">Daniel Sussman</div>
-</div>
-
-<div class="container">
-  <img src="faces/percy.jpg"/>
-  <div class="centered">Percy Li</div>
-</div>
-
-<div class="container">
-  <img src="faces/youngser.jpg"/>
-  <div class="centered">Youngser Park</div>
-</div>
-
-<div class="container">
-  <img src="faces/gkiar.jpg"/>
-  <div class="centered">Greg Kiar</div>
-</div>
-
-<div class="container">
-  <img src="faces/ebridge.jpg"/>
-  <div class="centered">Eric Bridgeford</div>
-</div>
-
-<div class="container">
-  <img src="faces/bcaffo.jpg"/>
-  <div class="centered">Brian Caffo</div>
-</div>
-
-<div class="container">
-  <img src="faces/milham.jpg"/>
-  <div class="centered">Michael Milham</div>
-</div>
-
-<div class="container">
-  <img src="faces/al_johnson.jpg"/>
-  <div class="centered">G. Allan Johnson</div>
-</div>
-
-<div class="container">
-  <img src="faces/scott_emmons.jpg"/>
-  <div class="centered">Scott Emmons</div>
-</div>
-
-<div class="container">
-  <img src="faces/marta.jpg"/>
-  <div class="centered">Marta Zlatic</div>
-</div>
-
-<div class="container">
-  <img src="faces/albert.jpg"/>
-  <div class="centered">Albert Cardona</div>
-</div>
-
-<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
-
-
-<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
 <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
-<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
-<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
-<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
-<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
 
 
 
 ---
 
-
-<img src="images/lion_beach.jpg" STYLE="Position:absolute; TOP:0px; HEIGHT:700px; LEFT:400px"/>
-
-
-e: [jovo@jhu.edu](mailto:jovo at jhu dot edu)<br>
-w: <http://neurodata.io/><br>
-t: [@neuro_data](https://twitter.com/neuro_data)
 
 
 

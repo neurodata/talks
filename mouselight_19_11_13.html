@@ -198,6 +198,8 @@ Thomas L. Athey
 
 ### Region Growing
 
+- Label pixels connected to a seed and lie within a range of intensities.
+
 <figure>
   <img src="images/mouselight/rgood2.png" alt="Trulli" style="width:100%">
   <figcaption>Can address curved axons.</figcaption>
@@ -264,10 +266,9 @@ Thomas L. Athey
 
 ### Geman and Jedynak, 1996
 - Road model - piecewise linear and 3 attachment angles 
-- Distribution assumptions
-  -  Spatial Invariance
-  -  Conditional Independence
-- Finding MLE is convex problem - exact and fast
+- Assume spatial invariance and conditional independence
+- Approximate MLE with sequential tests - convex problem
+  -  6000 x 7800 image in 1min
 
 ### State of the art CNNs
 - TrailMap (Friedmann, 2019)

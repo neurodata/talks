@@ -895,6 +895,49 @@ with errorbars
 class: middle, inverse
 
 
+## .center[Hardware Design Implications]
+
+---
+
+
+### Forest > Neural Nets (single threaded)
+
+
+<img src="images/s-rerf_6plot_times.png" style="width:750px;"/>
+
+- Forests are red, Neural nets are blue 
+
+
+---
+
+### Forest > Neural Nets (single threaded)
+
+
+- Forests can be trained in a massively parallel fashion 
+  - unlike DeepNets and ConvNets
+- Forests can make predictions in a massively parallel fashion
+  - unlike DeepNets and ConvNets
+- Even single threaded, 
+  - forest training is faster than NN
+  - forest prediction is faster than NN 
+- Forests can only access a small fraction of the stored model to make a prediction 
+  - because most leaves are not activated for any given input
+
+---
+
+### Implications 
+
+- GPUs/TPUs are not required 
+- Forests can be deployed on IoT/Mobile devices with hard drives to store model 
+- Additional layers of memory (L1/L2/L3 Cache, etc.) will immediately accelerate prediction time 
+- Incremental updating of trees is a new access pattern that no modern hardware is designed to efficiently support
+
+
+
+---
+class: middle, inverse
+
+
 ## .center[L2F Lifelong Learns Consistently]
 
 ---

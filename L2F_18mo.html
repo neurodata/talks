@@ -73,26 +73,19 @@ class: middle, inverse
 
 Tom Mitchell 1997 (not exact quote):
 
+"An algorithm $f$ is said to learn from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
 
-"Given  data $D_n$ from distribution $P$ in  .purple[setting $S$], an .purple[algorithm $f$]  **learns**    when  $f$'s .purple[performance  $\mathcal{E}$]  improves with increasing sample size $n$."
-
-<br>
-
---
-
-A machine learning **task** is: 
-
-Given  $n$ samples from  $P$ in  $S$, design  $f$ to optimize  $\mathcal{E}$ .
 
 ---
 
-### What is a Setting?
+### What is a Task?
 
-A setting is a sextuple $S = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{P}, \mathcal{H}, \ell, {R} \rbrace$
+A task is defined by a septuple $T = \lbrace \mathcal{Z}, \mathcal{A}, P, \mathcal{P}, \mathcal{H}, \ell, {R} \rbrace$
 
 | Definition | Notation | Example
 |:--- |:--- |:--- | 
 | Measurements  | $ \mathcal{Z}$ |  $z_i = (x_i,y_i): i \in [n]$ |
+|  Density | $P\_\theta : \mathcal{Z} \rightarrow \mathbb{R}_{\geq 0}$  | standard normal
 |  Model | $\mathcal{P} := \lbrace P_\theta : \theta \in \Theta \rbrace$ | Gaussian
 | Action space |  $\mathcal{A}$ |  turn left
 | Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a = \mathbb{I}(z>0)$
@@ -105,80 +98,57 @@ A setting is a sextuple $S = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{P}, \mat
 
 ### What is an Algorithm?
 
-$f$ is a sequence of learning procedures, $f_1, f_2, \ldots$, where each $f_n \in \mathcal{F}$ maps from an element of data space to an action, $f\_n : \mathcal{Z}^n \to \mathcal{H}$.
+$f$ is a sequence of learning procedures, $f_1, f_2, \ldots$, where each $f_n \in \mathcal{F}$ maps from a data corpus $\mathcal{D}_n$  to a hypothesis $h$, $f\_n : \mathcal{Z}^n \to \mathcal{H}$.
 
 
 ### What is  Performance?
 
 Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
 
-$$ \mathcal{E}\_S(f\_n,P) = \mathbb{E}_{P}[R(f_n(D_n))].$$
+$$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 
 
 
 ---
 ## What is  Learning?
 
-
-
-"Given  data $D_n$ from distribution $P$ in  .pu[setting $S$], an .pu[algorithm $f$]  **learns**    when  $f$'s .pu[performance  $\mathcal{E}$]  improves with increasing sample size $n$."
-
+"An algorithm $f$ is said to learn from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 <br>
+
+$f_0$ learns from data iff $$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1,$$ and $\mathcal{E}_T(f_0)$ would otherwise not change. 
+
+<!-- <br>
 
 $f$ learns iff $\mathcal{E}\_S(f\_n,P)$ is non-constant monotonically decreasing:
 
 $$ \forall n: \; \mathcal{E}\_S(f\_n,P) \geq \mathcal{E}\_S(f\_{n+1},P) \text{ (never goes up)}$$ 
 
-$$\exists \; n:  \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (sometimes goes down)}$$ 
+$$\exists \; n:  \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (sometimes goes down)}$$  -->
 
 
----
-
-### What is Learning Efficiency?
-
-The relative efficiency of $f\_n$ relative to $f'\_n$ is 
-$$RE\_{n}^{P}(f,f') := \frac{\mathcal{E}\_S(f\_n,P)}{\mathcal{E}\_S(f'\_n,P)}.$$
-
-<br>
-
-In general, we want $RE \leq 1 - \delta$, for some $\delta>0$ and $n,n' > n_0$. 
---
-
-<br>
-
-The goal of machine learning is to design new $f$'s that are increasingly more efficient. 
 
 ---
 
 ### What is Transfer Learning? 
 
 
-Given $n> n\_0$ samples from $P$ in  setting $S$ .pu[and $n'> n\_0$ samples from $Q$], 
-an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}$  improves with increasing sample size $n$ .pu[more when also including the $n'$ samples from $Q$].
+An algorithm $f$ is said to .pu[transfer] learn from data $D_n$ .pu[sampled from some other distribution $Q$] with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
+
+
+<!-- Given $n$ samples from $P$ and .pu[and $n'$ samples from $Q$], 
+an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}_T$  improves  .pu[more when also including the $n'$ samples from $Q$]. -->
 
 --
 
-Let $TLE\_{n,n'}^{P,Q}(f):=\frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},P)}.$
 
-Formally, $f$ transfer learns iff $\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+<!-- Letting $f_0$ be an algorithm that outputs a hypothesis that has already trained on data sampled from $P$,  -->
 
-$TLE\_{n,n'}^{P,Q}(f) < 1 - \delta.$
+$f_0$ .pu[transfer] learns from data iff 
 
----
-
-### What is Universal Transfer Learning?
-
-We say that $f$ **universally** transfers in setting $S$ iff 
-$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
-
-<!-- $\forall n,n' > n\_0$, $\exists \; \delta > 0$ such that: -->
+$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
 
-
-$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta$ (sometimes better), and
-
-$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \delta$  (never much worse).
 
 
 ---
@@ -187,7 +157,7 @@ $\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \delta$  (never muc
 
 
 
-Given $n$ samples from .pu[$J$ different distributions $P\_j$ in settings $S\_j$], 
+Given $n$ samples from .pu[$J$ different distributions $P\_j$], 
 an algorithm $f$  **multi-task learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ more .pu[on average] when also including  .pu[all the other $n-n\_j$ samples].
 
 --
@@ -1472,6 +1442,26 @@ For each $(z_t, j_t)$,
   4. Apply average vote for $z_t$
 
 
+---
+
+# Universal Slides 
+
+
+
+---
+
+### What is Universal Transfer Learning?
+
+We say that $f$ **universally** transfers in setting $S$ iff 
+$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+
+<!-- $\forall n,n' > n\_0$, $\exists \; \delta > 0$ such that: -->
+
+
+
+$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta$ (sometimes better), and
+
+$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \delta$  (never much worse).
 
 
 </textarea>

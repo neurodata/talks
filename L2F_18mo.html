@@ -73,7 +73,7 @@ class: middle, inverse
 
 Tom Mitchell 1997 (not exact quote):
 
-"An algorithm $f$ is said to learn from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
+"An algorithm $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
 
 
 ---
@@ -112,7 +112,7 @@ $$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 ---
 ## What is  Learning?
 
-"An algorithm $f$ is said to learn from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
+"An algorithm $f$ learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 <br>
 
@@ -133,7 +133,7 @@ $$\exists \; n:  \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (so
 ### What is Transfer Learning? 
 
 
-An algorithm $f$ is said to .pu[transfer] learn from data $D_n$ .pu[sampled from some other distribution $Q$] with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
+An algorithm $f$  .pu[transfer] learns from data $D_n$ .pu[sampled from some other distribution $Q$] with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 
 <!-- Given $n$ samples from $P$ and .pu[and $n'$ samples from $Q$], 
@@ -155,42 +155,17 @@ $$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
 ### What is Multi-Task (MT) Learning?
 
+<!-- $D\_{n\_1}^{(1)}, \ldots, D\_{n\_J}^{(J)}$ -->
 
-
-Given $n$ samples from .pu[$J$ different distributions $P\_j$], 
-an algorithm $f$  **multi-task learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ more .pu[on average] when also including  .pu[all the other $n-n\_j$ samples].
+An algorithm $f$  .pu[multi-task] learns from data $D_n$  .pu[sampled from distributions $P^{(1)}, \ldots, P^{(J)}$] with respect to multi-task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 --
 
+$f_0$ .pu[multi-task] learns from data iff 
 
-Let $MTE^{\vec{P}}\_{\vec{n}}(f) :=  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)}.$
+$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1,$$
 
-<br> 
-Formally, $f$ MT learns 
-iff $\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
- <!-- \; \& \; \forall j \in [J]$: -->
-<!-- $ \forall j \in [J]$ $\exists \;  n\_j >n\_0 \;  \&  \; \delta > 0$ such that  -->
-$$MTE^{\vec{P}}\_{\vec{n}}(f) < 1 - \delta. $$
-
-
-<br>
-
-
-
----
-
-### What is Universal MT Learning?
-
-We say that $f$ **universally** multi-task learns in settings $\vec{S}$ iff
-$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
-
-
-$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta$  (sometimes better), and
-
-$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \delta$ (never much worse).
-
-
-
+where $f_0$ is the algorithm trained separately on each task.
 
 
 ---
@@ -198,29 +173,23 @@ $\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \d
 ### What is Lifelong Learning?
 
 
-
-Given $n$ .pu[sequential] samples from .$J$ different distributions $P\_j$ in settings $S\_j$, an algorithm $f$  **lifelong learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ more on average when also including  .pu[both future and past data], and performance .pu[never  gets much worse].
-
+An algorithm $f$  .pu[lifelong] learns from data $D_n$  .pu[sequentially] sampled from distributions $P^{(1)}, \ldots, P^{(J)}$ with respect to lifelong task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 
-Let $ LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) :=   \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)}.$
+--
+
+$f_0$ .pu[lifelong] learns from data iff 
+
+$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1,$$
+
+where $f_0$ is the algorithm trained separately on each task.
 
 
 
-Formally, $f$ lifelong learns iff 
-$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$: 
-
-$\frac{1}{J}\sum\_{j=1}^J LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) <  1 - \delta$ (average better), and
-
-$\nexists j \in [J]: LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) \geq  1 + \delta$  (never much worse).
+<!-- Given $n$ .pu[sequential] samples from .$J$ different distributions $P\_j$ in settings $S\_j$, an algorithm $f$  **lifelong learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ more on average when also including  .pu[both future and past data], and performance .pu[never  gets much worse]. -->
 
 
----
 
-### What is Universal Lifelong Learning?
-
-
-We say that $f$ **universally** lifelong learns in settings $\vec{S}$ iff $\forall n\_j > n\_0$ and $\forall \vec{P} \in \vec{\mathcal{P}}$, lifelong learning holds.
 
 
 
@@ -1462,6 +1431,31 @@ $\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
 $\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta$ (sometimes better), and
 
 $\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \delta$  (never much worse).
+
+
+---
+
+### What is Universal MT Learning?
+
+We say that $f$ **universally** multi-task learns in settings $\vec{S}$ iff
+$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+
+
+$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta$  (sometimes better), and
+
+$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \delta$ (never much worse).
+
+
+
+
+---
+
+### What is Universal Lifelong Learning?
+
+
+We say that $f$ **universally** lifelong learns in settings $\vec{S}$ iff $\forall n\_j > n\_0$ and $\forall \vec{P} \in \vec{\mathcal{P}}$, lifelong learning holds.
+
+
 
 
 </textarea>

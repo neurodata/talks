@@ -110,22 +110,17 @@ $$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 
 
 ---
-## What is  Learning?
+## What is Learning?
 
 "An algorithm $f$ learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 <br>
 
-$f_0$ learns from data iff $$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1,$$ and $\mathcal{E}_T(f_0)$ would otherwise not change. 
+$f_0$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
 
-<!-- <br>
+<br>
 
-$f$ learns iff $\mathcal{E}\_S(f\_n,P)$ is non-constant monotonically decreasing:
-
-$$ \forall n: \; \mathcal{E}\_S(f\_n,P) \geq \mathcal{E}\_S(f\_{n+1},P) \text{ (never goes up)}$$ 
-
-$$\exists \; n:  \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (sometimes goes down)}$$  -->
-
+$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1$$ 
 
 
 ---
@@ -135,27 +130,19 @@ $$\exists \; n:  \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (so
 
 An algorithm $f$  .pu[transfer] learns from data $D_n$ .pu[sampled from some other distribution $Q$] with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
 
-
-<!-- Given $n$ samples from $P$ and .pu[and $n'$ samples from $Q$], 
-an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}_T$  improves  .pu[more when also including the $n'$ samples from $Q$]. -->
-
 --
 
-
-<!-- Letting $f_0$ be an algorithm that outputs a hypothesis that has already trained on data sampled from $P$,  -->
 
 $f_0$ .pu[transfer] learns from data iff 
 
 $$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
-
-
+where $f_0$ did not observe $D_n$.
 
 ---
 
 ### What is Multi-Task (MT) Learning?
 
-<!-- $D\_{n\_1}^{(1)}, \ldots, D\_{n\_J}^{(J)}$ -->
 
 An algorithm $f$  .pu[multi-task] learns from data $D_n$  .pu[sampled from distributions $P^{(1)}, \ldots, P^{(J)}$] with respect to multi-task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
 
@@ -766,6 +753,9 @@ class: center, middle, inverse
 - There are 500 training images and 100 testing images per class.
 - CIFAR 10x10 break the 100 class task problem into 10 problems, each a 10 class problem.
 
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
+
+
 <!-- show images of each task/class
 eg, https://www.cs.toronto.edu/~kriz/cifar.html for 1 task,
 make a table left column is superclass and next 5 columns are tasks
@@ -780,7 +770,7 @@ Here is the list of classes in the CIFAR-100:
 - David Lopez-Paz, Marc'Aurelio Ranzato. "[Gradient Episodic Memory for Continual Learning](https://papers.nips.cc/paper/7225-gradient-episodic-memory-for-continual-learning.pdf)." NIPS 2017.
 - 127 Citations 
 
-<img src="images/evoplot_cifar100.png" style="width:750px;"/>
+<img src="images/l2m_18mo/evoplot_cifar100.png" style="width:750px;"/>
 
 Figure 1: evolution of the test accuracy at the first task, as more tasks are learned.
 
@@ -791,7 +781,7 @@ Figure 1: evolution of the test accuracy at the first task, as more tasks are le
 
 - Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019.
 
-<img src="images/progressive_nets.png" style="width:500px;"/>
+<img src="images/l2m_18mo/progressive_nets.png" style="width:500px;"/>
 
 Figure 1: No approaches demonstrate reverse transfer, and most demonstrate catastrophic forgetting.
 

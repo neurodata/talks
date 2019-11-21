@@ -126,10 +126,10 @@ $$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1$$
 
 ### What is Transfer Learning? 
 
-Given
-- data $D_0$, and an algorithm $f_0$ trained using only $D_0$. 
-- data $D_n$ from possibly another distribution, 
-- algorithm $f_n$ trained using both $D_0$ and $D_n$
+- Given
+  - data $D_0$, and an algorithm $f_0$ trained using only $D_0$. 
+  - data $D_n$ from possibly another distribution, 
+  - algorithm $f_n$ trained using both $D_0$ and $D_n$
 
 
 
@@ -148,16 +148,22 @@ $$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
 ### What is Multi-Task (MT) Learning?
 
+- Given
+  - for $j=1,\ldots, J$ 
+      - data $D_j$, possibly from different distributions, 
+      - algorithm $f_j$ trained using only $D_j$,
+  - algorithm $f_n$ trained using all $D_j$'s,
+  - a multi-task risk (e.g., average risk across tasks).
 
-An algorithm $f$  .pu[multi-task] learns from data $D_n$  .pu[sampled from distributions $P^{(1)}, \ldots, P^{(J)}$] with respect to multi-task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
+
+An algorithm $f$  .pu[multi-task] learns from data $D_n$   with respect to multi-task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 --
 
 $f_0$ .pu[multi-task] learns from data iff 
 
-$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1,$$
+$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
-where $f_0$ is the algorithm trained separately on each task.
 
 
 ---

@@ -171,20 +171,35 @@ $$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
 ### What is Lifelong Learning?
 
 
-An algorithm $f$  .pu[lifelong] learns from data $D_n$  .pu[sequentially] sampled from distributions $P^{(1)}, \ldots, P^{(J)}$ with respect to lifelong task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
+- Given
+  - for $j=1,\ldots$ 
+      - data $D_j$, possibly from different distributions, 
+      - algorithm $f_j$ trained using only $D_j$,
+  - algorithm  $f_n$ .pu[sequentially] trained using all $D_j$'s,
+  - a multi-task risk (e.g., average risk across tasks).
+
+
+An algorithm $f$  .pu[lifelong] learns from data $D_n$   with respect to lifelong task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 
 --
 
-$f_0$ .pu[lifelong] learns from data iff 
+$f$ .pu[lifelong] learns from data iff 
 
-$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1,$$
+$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
-where $f_0$ is the algorithm trained separately on each task.
+---
 
+###  Generalized Learning
 
+<br> 
 
-<!-- Given $n$ .pu[sequential] samples from .$J$ different distributions $P\_j$ in settings $S\_j$, an algorithm $f$  **lifelong learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ more on average when also including  .pu[both future and past data], and performance .pu[never  gets much worse]. -->
+|       | $J>1$ | Sequential  | 
+| :---: | :---: | :---:       | 
+| Machine     | 0 | 0 | 
+| Multi-task  | 1 | 0 | 
+| Lifelong    | 1 | 1 | 
+
 
 
 

@@ -112,32 +112,37 @@ $$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 ---
 ## What is Learning?
 
-"An algorithm $f$ learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
+"An algorithm $f$ learns from  data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 <br>
 
-$f_0$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
+$f$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
 
 <br>
 
 $$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1$$ 
 
-
 ---
 
 ### What is Transfer Learning? 
 
+Given
+- data $D_0$, and an algorithm $f_0$ trained using only $D_0$. 
+- data $D_n$ from possibly another distribution, 
+- algorithm $f_n$ trained using both $D_0$ and $D_n$
 
-An algorithm $f$  .pu[transfer] learns from data $D_n$ .pu[sampled from some other distribution $Q$] with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
+
+
+"An algorithm $f$  .pu[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves over  with $D_n$.'"
 
 --
 
 
-$f_0$ .pu[transfer] learns from data iff 
+$f$ .pu[transfer] learns from data iff 
 
 $$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
-where $f_0$ did not observe $D_n$.
+
 
 ---
 

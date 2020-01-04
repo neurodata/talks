@@ -73,26 +73,19 @@ class: middle, inverse
 
 Tom Mitchell 1997 (not exact quote):
 
+"An algorithm $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
 
-"Given  data $D_n$ from distribution $P$ in  .purple[setting $S$], an .purple[algorithm $f$]  **learns**    when  $f$'s .purple[performance  $\mathcal{E}$]  improves with increasing sample size $n$."
-
-<br>
-
---
-
-A machine learning **task** is: 
-
-Given  $n$ samples from  $P$ in  $S$, design  $f$ to optimize  $\mathcal{E}$ .
 
 ---
 
-### What is a Setting?
+### What is a Task?
 
-A setting is a sextuple $S = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{P}, \mathcal{H}, \ell, {R} \rbrace$
+A task is defined by a septuple $T = \lbrace \mathcal{Z}, P, \mathcal{P}, \mathcal{A},  \mathcal{H}, \ell, {R} \rbrace$
 
 | Definition | Notation | Example
 |:--- |:--- |:--- | 
 | Measurements  | $ \mathcal{Z}$ |  $z_i = (x_i,y_i): i \in [n]$ |
+|  Density | $P\_\theta : \mathcal{Z} \rightarrow \mathbb{R}_{\geq 0}$  | standard normal
 |  Model | $\mathcal{P} := \lbrace P_\theta : \theta \in \Theta \rbrace$ | Gaussian
 | Action space |  $\mathcal{A}$ |  turn left
 | Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a = \mathbb{I}(z>0)$
@@ -105,121 +98,71 @@ A setting is a sextuple $S = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{P}, \mat
 
 ### What is an Algorithm?
 
-$f$ is a sequence of learning procedures, $f_1, f_2, \ldots$, where each $f_n \in \mathcal{F}$ maps from an element of data space to an action, $f\_n : \mathcal{Z}^n \to \mathcal{H}$.
+$f$ is a sequence of learning procedures, $f_1, f_2, \ldots$, where each $f_n \in \mathcal{F}$ maps from a data corpus $\mathcal{D}_n$  to a hypothesis $h$, $f\_n : \mathcal{Z}^n \to \mathcal{H}$.
 
 
 ### What is  Performance?
 
 Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
 
-$$ \mathcal{E}\_S(f\_n,P) = \mathbb{E}_{P}[R(f_n(D_n))].$$
+$$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 
 
 
 ---
-## What is  Learning?
+## What is Learning?
 
-
-
-"Given  data $D_n$ from distribution $P$ in  .pu[setting $S$], an .pu[algorithm $f$]  **learns**    when  $f$'s .pu[performance  $\mathcal{E}$]  improves with increasing sample size $n$."
-
+"An algorithm $f$ learns from  data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 <br>
 
-$f$ learns iff $\mathcal{E}\_S(f\_n,P)$ is non-constant monotonically decreasing:
-
-$$ \forall n: \; \mathcal{E}\_S(f\_n,P) \geq \mathcal{E}\_S(f\_{n+1},P) \text{ (never goes up)}$$ 
-
-$$\exists \; n:  \mathcal{E}\_S(f\_n,P) > \mathcal{E}\_S(f\_{n+1},P)  \text{ (sometimes goes down)}$$ 
-
-
----
-
-### What is Learning Efficiency?
-
-The relative efficiency of $f\_n$ relative to $f'\_n$ is 
-$$RE\_{n}^{P}(f,f') := \frac{\mathcal{E}\_S(f\_n,P)}{\mathcal{E}\_S(f'\_n,P)}.$$
+$f$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
 
 <br>
 
-In general, we want $RE \leq 1 - \delta$, for some $\delta>0$ and $n,n' > n_0$. 
---
-
-<br>
-
-The goal of machine learning is to design new $f$'s that are increasingly more efficient. 
+$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1$$ 
 
 ---
 
 ### What is Transfer Learning? 
 
+- Given
+  - data $D_0$, and an algorithm $f_0$ trained using only $D_0$. 
+  - data $D_n$ from possibly another distribution, 
+  - algorithm $f_n$ trained using both $D_0$ and $D_n$
 
-Given $n> n\_0$ samples from $P$ in  setting $S$ .pu[and $n'> n\_0$ samples from $Q$], 
-an algorithm $f$  **transfer learns**    when  $f$'s performance  $\mathcal{E}$  improves with increasing sample size $n$ .pu[more when also including the $n'$ samples from $Q$].
+
+
+"An algorithm $f$  .pu[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves over  with $D_n$.'"
 
 --
 
-Let $TLE\_{n,n'}^{P,Q}(f):=\frac{\mathcal{E}\_S(f\_{n+n'},P)}{\mathcal{E}\_S(f\_{n},P)}.$
 
-Formally, $f$ transfer learns iff $\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+$f$ .pu[transfer] learns from data iff 
 
-$TLE\_{n,n'}^{P,Q}(f) < 1 - \delta.$
+$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
----
-
-### What is Universal Transfer Learning?
-
-We say that $f$ **universally** transfers in setting $S$ iff 
-$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
-
-<!-- $\forall n,n' > n\_0$, $\exists \; \delta > 0$ such that: -->
-
-
-
-$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta$ (sometimes better), and
-
-$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \delta$  (never much worse).
 
 
 ---
 
 ### What is Multi-Task (MT) Learning?
 
+- Given
+  - for $j=1,\ldots, J$ 
+      - data $D_j$, possibly from different distributions, 
+      - algorithm $f_j$ trained using only $D_j$,
+  - algorithm $f_n$ trained using all $D_j$'s,
+  - a multi-task risk (e.g., average risk across tasks).
 
 
-Given $n$ samples from .pu[$J$ different distributions $P\_j$ in settings $S\_j$], 
-an algorithm $f$  **multi-task learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ more .pu[on average] when also including  .pu[all the other $n-n\_j$ samples].
+An algorithm $f$  .pu[multi-task] learns from data $D_n$   with respect to multi-task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 --
 
+$f_0$ .pu[multi-task] learns from data iff 
 
-Let $MTE^{\vec{P}}\_{\vec{n}}(f) :=  \frac{1}{J}\sum\_{j=1}^J \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)}.$
-
-<br> 
-Formally, $f$ MT learns 
-iff $\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
- <!-- \; \& \; \forall j \in [J]$: -->
-<!-- $ \forall j \in [J]$ $\exists \;  n\_j >n\_0 \;  \&  \; \delta > 0$ such that  -->
-$$MTE^{\vec{P}}\_{\vec{n}}(f) < 1 - \delta. $$
-
-
-<br>
-
-
-
----
-
-### What is Universal MT Learning?
-
-We say that $f$ **universally** multi-task learns in settings $\vec{S}$ iff
-$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
-
-
-$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta$  (sometimes better), and
-
-$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \delta$ (never much worse).
-
-
+$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
 
 
@@ -228,29 +171,38 @@ $\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \d
 ### What is Lifelong Learning?
 
 
+- Given
+  - for $j=1,\ldots$ 
+      - data $D_j$, possibly from different distributions, 
+      - algorithm $f_j$ trained using only $D_j$,
+  - algorithm  $f_n$ .pu[sequentially] trained using all $D_j$'s,
+  - a multi-task risk (e.g., average risk across tasks).
 
-Given $n$ .pu[sequential] samples from .$J$ different distributions $P\_j$ in settings $S\_j$, an algorithm $f$  **lifelong learns**   when  $f$'s performance  $\mathcal{E}\_j$ $\forall j$ improves with increasing sample size $n\_j$ more on average when also including  .pu[both future and past data], and performance .pu[never  gets much worse].
+
+An algorithm $f$  .pu[lifelong] learns from data $D_n$   with respect to lifelong task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 
+--
 
-Let $ LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) :=   \frac{\mathcal{E}\_j(f\_{\sum\_j n\_j},P\_j)}{\mathcal{E}\_j(f\_{n_j},P\_j)}.$
+$f$ .pu[lifelong] learns from data iff 
 
-
-
-Formally, $f$ lifelong learns iff 
-$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$: 
-
-$\frac{1}{J}\sum\_{j=1}^J LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) <  1 - \delta$ (average better), and
-
-$\nexists j \in [J]: LLE^{P\_j,\vec{P}}\_{n\_j,\vec{n}}(f) \geq  1 + \delta$  (never much worse).
-
+$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
 ---
 
-### What is Universal Lifelong Learning?
+###  Generalized Learning
+
+<br> 
+
+|       | $J>1$ | Sequential  | 
+| :---: | :---: | :---:       | 
+| Machine     | 0 | 0 | 
+| Multi-task  | 1 | 0 | 
+| Lifelong    | 1 | 1 | 
 
 
-We say that $f$ **universally** lifelong learns in settings $\vec{S}$ iff $\forall n\_j > n\_0$ and $\forall \vec{P} \in \vec{\mathcal{P}}$, lifelong learning holds.
+
+
 
 
 
@@ -827,6 +779,9 @@ class: center, middle, inverse
 - There are 500 training images and 100 testing images per class.
 - CIFAR 10x10 break the 100 class task problem into 10 problems, each a 10 class problem.
 
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
+
+
 <!-- show images of each task/class
 eg, https://www.cs.toronto.edu/~kriz/cifar.html for 1 task,
 make a table left column is superclass and next 5 columns are tasks
@@ -841,7 +796,7 @@ Here is the list of classes in the CIFAR-100:
 - David Lopez-Paz, Marc'Aurelio Ranzato. "[Gradient Episodic Memory for Continual Learning](https://papers.nips.cc/paper/7225-gradient-episodic-memory-for-continual-learning.pdf)." NIPS 2017.
 - 127 Citations 
 
-<img src="images/evoplot_cifar100.png" style="width:750px;"/>
+<img src="images/l2m_18mo/evoplot_cifar100.png" style="width:750px;"/>
 
 Figure 1: evolution of the test accuracy at the first task, as more tasks are learned.
 
@@ -852,7 +807,7 @@ Figure 1: evolution of the test accuracy at the first task, as more tasks are le
 
 - Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019.
 
-<img src="images/progressive_nets.png" style="width:500px;"/>
+<img src="images/l2m_18mo/progressive_nets.png" style="width:500px;"/>
 
 Figure 1: No approaches demonstrate reverse transfer, and most demonstrate catastrophic forgetting.
 
@@ -1470,6 +1425,51 @@ For each $(z_t, j_t)$,
   2. Apply forest to each observation so far 
   3. For each task, update plurality/average vote per tree 
   4. Apply average vote for $z_t$
+
+
+---
+
+# Universal Slides 
+
+
+
+---
+
+### What is Universal Transfer Learning?
+
+We say that $f$ **universally** transfers in setting $S$ iff 
+$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+
+<!-- $\forall n,n' > n\_0$, $\exists \; \delta > 0$ such that: -->
+
+
+
+$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta$ (sometimes better), and
+
+$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \delta$  (never much worse).
+
+
+---
+
+### What is Universal MT Learning?
+
+We say that $f$ **universally** multi-task learns in settings $\vec{S}$ iff
+$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
+
+
+$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta$  (sometimes better), and
+
+$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \delta$ (never much worse).
+
+
+
+
+---
+
+### What is Universal Lifelong Learning?
+
+
+We say that $f$ **universally** lifelong learns in settings $\vec{S}$ iff $\forall n\_j > n\_0$ and $\forall \vec{P} \in \vec{\mathcal{P}}$, lifelong learning holds.
 
 
 

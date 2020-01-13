@@ -34,246 +34,86 @@ Thomas L. Athey
 
 <br> 
 
-.foot[w: <http://neurodata.io/talks/mouselight_19_11_13.html>]
+.foot[w: <http://neurodata.io/talks/mouselight_20_01_15.html>]
 
 
 ---
 
 ## Outline
 
-- Personnel
-- Computational Resources
-- Cloud Storage and Visualization
-- Voxel-wise Ground Truth 
-- Segmentation Algorithms
+- Linear Model
+- Gabor Filters
+- Logistic Regression
+- Experiments
+- Dimensionality Reduction 
 
 
 ---
 
-## .k[Personnel]
+## .k[Linear Models]
 
 
 ---
 
-.pull-left[#### Advisors
-- Prof. Joshua Vogelstein
-- Prof. Jeremias Sulam
-- Prof. Donald Geman
-- Prof. Daniel Tward
-- Prof. Michael Miller
-]
-.pull-right[
-#### Computer Vision
-- Thomas Athey
-- NDD Group
-
-#### Cloud Computation
-- Vikram Chandrashekhar
-
-#### Infrastructure
-- Anthony Kolasny
-- Ben Falk, PhD.
-]
+## Linear Models
+- y = f(Wx)
+- ***
 
 ---
 
-## .k[Computational Resources]
+## .k[Gabor Filters]
 
 
 ---
 
-### Clark 320
-- Windows workstation (192GB RAM, 2 monitors)
-- Linux workstation (32GB RAM, 2 monitors)
-
-###On the way
-- 2 x Linux workstations (128GB RAM)
-- 2 x 200TB Servers
-
-###Data
-- 1 complete mouse brain, 2 channels (~28TB total)
-- 180 completely traced neurons
-- ~250k neuron fragments
+### Mathematical Motivation
+- Product of wave and Gaussian
+- Specifies frequency and spatial content
+- "Elementary Signal" with maximum possible density of time/frequency information [Gabor, 1946]
 
 ---
 
-## .k[Cloud Storage and Visualization]
-
-
----
-## Neuroglancer Precomputed Format
-
-- Store on public server (e.g. Amazon S3)
-- Able to manually visualize output of algorithms in 3d
-- Viewable and downloadable from <a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=KgL6mPbLwFKGtw">anywhere</a>
-- Can show statistics across space
-- Can show results of image processing
-
-<img src="images/mouselight/neuroglancer.PNG" STYLE="HEIGHT:300px;"/>
-
----
-
-## .k[Voxel-wise Ground Truth]
-
-
----
-
-### Rationale
-- Current "Ground-Truth" is a tree of spatial coordinates
+### Biological Motivation
+- Mimics simple cells in the mammalian visual cortex
 
 .pull-left[
 <figure>
-    <img src="images/mouselight/neuron.PNG"  style="width:80%">
-    <figcaption>Example Trace.</figcaption>
+    <img src="images/mouselight/2020/Gabor_filter.png" STYLE="HEIGHT:300px;"/>
+    <figcaption>Gabor Filter (wikipedia.com).</figcaption>
   </figure>
 ]
 
 .pull-right[
 <figure>
-    <img src="images/mouselight/trailmap.jpg" alt="Trulli" style="width:49%">
-    <figcaption>Friedmann et. al. 2019</figcaption>
+    <img src="images/mouselight/2020/hw_gabor.png" STYLE="HEIGHT:300px;"/>
+    <figcaption>Hubel and Wiesel, 1962.</figcaption>
   </figure>
 ]
 
-- Convert to voxel-wise segmentation for:
-  -  Machine learning training
-  -  Evaluation with voxel-wise error
-  -  Morphology statistics
 
 ---
 
-### Semi-automated Approach
-- Automatic Methods
-  -  Skeleton &#8745; Threshold
-  -  Region Growing
-
-- Manual Trimming
-  -  Napari
-
----
-
-### Skeleton &#8745; Threshold
-
-<figure>
-    <img src="images/mouselight/good2.png"  style="width:100%">
-  </figure>
-
----
-
-### Skeleton &#8745; Threshold
-
-<figure>
-    <img src="images/mouselight/good3.png" alt="Trulli" style="width:100%">
-  </figure>
-
----
-
-### Skeleton &#8745; Threshold
-
-<figure>
-    <img src="images/mouselight/good1.png" alt="Trulli" style="width:100%">
-  </figure>
-
----
-
-### Skeleton &#8745; Threshold
-
-<figure>
-  <img src="images/mouselight/curve1.png" alt="Trulli" style="width:100%">
-  <figcaption>Neuron curves between points.</figcaption>
-</figure>
-
----
-
-### Skeleton &#8745; Threshold
-
-<figure>
-    <img src="images/mouselight/noise1.png" alt="Trulli" style="width:100%">
-    <figcaption>Noise affects threshold.</figcaption>
-  </figure>
-
+## .k[Logistic Regression]
 
 
 ---
+## Logistic Regression
 
-### Region Growing
-
-- Label pixels connected to a seed and lie within a range of intensities.
-
-<figure>
-  <img src="images/mouselight/rgood2.png" alt="Trulli" style="width:100%">
-  <figcaption>Can address curved axons.</figcaption>
-</figure>
+- Formula***
+- Maximum Likelihood (consistency (BD p410), asym normality (file:///C:/Users/Thomas%20Athey/Downloads/logisticregression.pdf))
+- Convex Optimization (http://mathgotchas.blogspot.com/2011/10/why-is-error-function-minimized-in.html)
 
 ---
 
-### Region Growing
-
-<figure>
-    <img src="images/mouselight/rgood1.png" alt="Trulli" style="width:100%">
-    <figcaption>But may grow into nearby axons.</figcaption>
-  </figure>
-
-
+## .k[Experiments]
 
 ---
+## Experiment 1
 
-### Region Growing
-
-<figure>
-    <img src="images/mouselight/rgood3.png" alt="Trulli" style="width:100%">
-  </figure>
-
----
-
-### Signal to Noise Ratio
-
-<figure>
-<img src="images/mouselight/snr0.png"  style="width:100%" class="center">
-</figure>
-
----
-### Signal to Noise Ratio
-
-
-<figure>
-  <img src="images/mouselight/snr1.png"  style="width:100%" class="center">
-</figure>
-
-
----
-
-### Manual Trimming
-
-- Napari - fast, interactive, multi-dimensional image viewer for Python
-- <a href="https://github.com/napari/napari">Open source</a>
-
-<figure>
-    <img src="images/mouselight/napari2.png"  style="width:80%">
-  </figure>
-
----
-
-## .k[Segmentation Algorithms]
-
-
----
-
-### Basic Image Processing
-- Preprocessing
-- Thresholding and morphological closing
-- Region growing/watershedding
-
-### Geman and Jedynak, 1996
-- Road model - piecewise linear and 3 attachment angles 
-- Assume spatial invariance and conditional independence
-- Approximate MLE with sequential tests - convex problem
-  -  6000 x 7800 image in 1min
-
-### State of the art CNNs
-- TrailMap (Friedmann, 2019)
-- DeepNeuron (Zhou, 2018)
-- Floodfilling network (Januszewski, 2018)
+- Consensus Points and offset points ***
+- 5 fold cross validation
+- 94% accuracy
+- All 0 offset
 
 ---
 class: top, left
@@ -316,22 +156,7 @@ class: top, left
 w: <http://neurodata.io/talks/mouselight_19_11_13.html></http:>
 
 ---
-### Supplement - Skeleton &#8745; Threshold
-
-1.  Threshold at minimum intensity of points
-
-2.  Create skeleton from points
-
-3.  Find intersection of 1 and 2
-
----
-### Supplement - SNR
-
-SNR = (mean(points)-mean(image))/sd(image)
-
-<figure>
-  <img src="images/mouselight/snr_paper.PNG"  style="width:80%" class="center">
-</figure>
+### Supplement 
 
 ---
 

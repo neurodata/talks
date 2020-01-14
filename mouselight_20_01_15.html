@@ -57,7 +57,10 @@ Thomas L. Athey
 
 ## Linear Features
 - Pixel $p$
-- $x_p \in $
+- $\overrightarrow{x_p}$ - Local neighborhood around pixel
+- $\overrightarrow{f_p} = W \overrightarrow{x_p}$ - Features of pixel
+- Translation Invariance
+- Localized Information
 
 ---
 
@@ -99,9 +102,15 @@ Thomas L. Athey
 ---
 ## Logistic Regression
 
-- Formula***
-- Maximum Likelihood (consistency (BD p410), asym normality (file:///C:/Users/Thomas%20Athey/Downloads/logisticregression.pdf))
-- Convex Optimization (http://mathgotchas.blogspot.com/2011/10/why-is-error-function-minimized-in.html)
+- $l_p$ - pixel label (neuron or background)
+- $l_p \text{\textasciisstilde} Bern(\pi_p)$
+- How to relate $\pi_p$ and $f_p$?
+- $\eta_p = log\frac{\pi_p}{1-\pi_p}$
+- $\beta^T\f_p = \eta_p$
+- Or 
+- $\pi_p = \frac{1}{1+e^{-\beta^T\f_p}}$
+- Maximum Likelihood
+- Convex Optimization 
 
 ---
 
@@ -158,6 +167,7 @@ w: <http://neurodata.io/talks/mouselight_19_11_13.html></http:>
 ---
 ### References
 -  Mairal, J., Bach, F., & Ponce, J. (2014). Sparse modeling for image and vision processing. Foundations and Trends® in Computer Graphics and Vision, 8(2-3), 85-283.
+- Beer, M. (2001). Asymptotic Properties of the Maximum Likelihood Estimator in Dichotomous Logistic Regression Models. Diploma Thesis, Department of Mathematics, Faculty of Sciences, University of Fribourg Switzerland.
 
 ---
 

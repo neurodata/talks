@@ -44,7 +44,6 @@ Thomas L. Athey
 - Linear Features
 - Gabor Filters
 - Logistic Regression
-- Training Data
 - Experiments
 - Dimensionality Reduction 
 
@@ -59,9 +58,10 @@ Thomas L. Athey
 ## Linear Features
 - Pixel $p$
 - $\underline{x_p}$ - Local neighborhood around pixel
-- $\underline{f_p} = W \overrightarrow{x_p}$ - Features of pixel
+- $\underline{f_p} = W \underline{x_p}$ - Features of pixel
 - Translation Invariance
 - Localized Information
+- Parallelizable
 
 ---
 
@@ -74,6 +74,7 @@ Thomas L. Athey
 - Product of wave and Gaussian
 - Specifies frequency and spatial content
 - "Elementary Signal" with maximum possible density of time/frequency information [Gabor, 1946]
+
 
 ---
 
@@ -104,41 +105,120 @@ Thomas L. Athey
 ## Logistic Regression
 
 - $l_p$ - pixel label (neuron or background)
-- $l_p \text{\textasciitilde} Bern(\pi_p)$
+- $l_p \sim Bern(\pi_p)$
+
 - How to relate $\pi_p$ and $f_p$?
-- $\eta_p = log\frac{\pi_p}{1-\pi_p}$
-- $\beta^T \f_p = \eta_p$
+
+- $\eta_p = \log\frac{\pi_p}{1-\pi_p}$
+- $\beta^T f_p = \eta_p$
+
 - Or 
-- $\pi_p = \frac{1}{1+e^{-\beta^T \f_p}}$
+
+- $\pi_p = \frac{1}{1+e^{-\beta^T f_p}}$
+
+
+---
+
+## Parameter Esimation
+
+- $l_p \sim Bern(\pi_p)$
+- $\pi_p = \frac{1}{1+e^{-\beta^T f_p}}$
+
+- Estimate $\beta$
+
 - Maximum Likelihood
 - Convex Optimization 
-
----
-
-## .k[Training Data]
-
----
-
-## Training Data 
-
-- 
 
 ---
 
 ## .k[Experiments]
 
 ---
-## Experiment 1
+## Experiments
 
-- Consensus Points and offset points ***
+### Training Data
+- ~76000 pixels, equal neuron/background split
+- Neuron - Consensus Points (manual traces)
+  - Every 10-100 um
+- Background - Offset Point **
+### Experiment 
 - 5 fold cross validation
-- 94% accuracy
-- All 0 offset
+
+---
+## Exp. 1 - Intensity Only
+
+- Accuracy: 87%
+
+<figure>
+    <img src="images/mouselight/2020/seg1_intensity.PNG" style="width: 60%;"/>
+  </figure>
+
+<figure>
+    <img src="images/mouselight/2020/seg2_intensity.PNG" style="width: 60%;"/>
+  </figure>
+
+
+---
+## Exp. 2 - Linear Features
+
+- Features: Intensity, 3 Gaussian kernels, Gabor filters (36 combinations of parameters)
+- Accuracy: 91%
+
+<figure>
+    <img src="images/mouselight/2020/seg1_gabor.PNG" style="width: 60%;"/>
+  </figure>
+
+
+<figure>
+    <img src="images/mouselight/2020/seg2_gabor.PNG" style="width: 60%;"/>
+  </figure>
+
+
+---
+## Semi-Automated Pixel-wise Segmentation
+
+
+.pull-left[
+<figure>
+    <img src="images/mouselight/2020/napari.PNG" STYLE="HEIGHT:250px;"/>
+    <figcaption>Image</figcaption>
+  </figure>
+]
+
+.pull-right[
+<figure>
+    <img src="images/mouselight/2020/napari_trace.PNG" STYLE="HEIGHT:250px;"/>
+    <figcaption>Trace</figcaption>
+  </figure>
+]
+
+---
+## Exp. 3 - Features + Pixel-wise
+
+- Accuracy: 90%
+
+<figure>
+    <img src="images/mouselight/2020/seg1_manual.PNG" style="width: 60%;"/>
+  </figure>
+
+<figure>
+    <img src="images/mouselight/2020/seg2_manual.PNG" style="width: 60%;"/>
+  </figure>
+
+
+
+---
+
+## .k[Dimensionality Reduction]
+
+---
+
+## Dictionary Learning
 
 ---
 class: top, left
 
-### Thanks for the Help on the Slides
+### Thanks
 
 <div class="container">
   <img src="faces/jovo.png"/>
@@ -147,6 +227,11 @@ class: top, left
 
 <div class="container">
   <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="container">
+  <img src="faces/jeremias.png"/>
   <div class="centered">Michael Miller</div>
 </div>
 

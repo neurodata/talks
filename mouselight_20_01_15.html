@@ -44,6 +44,7 @@ Thomas L. Athey
 - Linear Features
 - Gabor Filters
 - Logistic Regression
+- Training Data
 - Experiments
 - Dimensionality Reduction 
 
@@ -57,8 +58,8 @@ Thomas L. Athey
 
 ## Linear Features
 - Pixel $p$
-- $\overrightarrow{x_p}$ - Local neighborhood around pixel
-- $\overrightarrow{f_p} = W \overrightarrow{x_p}$ - Features of pixel
+- $\underline{x_p}$ - Local neighborhood around pixel
+- $\underline{f_p} = W \overrightarrow{x_p}$ - Features of pixel
 - Translation Invariance
 - Localized Information
 
@@ -103,14 +104,24 @@ Thomas L. Athey
 ## Logistic Regression
 
 - $l_p$ - pixel label (neuron or background)
-- $l_p \text{\textasciisstilde} Bern(\pi_p)$
+- $l_p \text{\textasciitilde} Bern(\pi_p)$
 - How to relate $\pi_p$ and $f_p$?
 - $\eta_p = log\frac{\pi_p}{1-\pi_p}$
-- $\beta^T\f_p = \eta_p$
+- $\beta^T \f_p = \eta_p$
 - Or 
-- $\pi_p = \frac{1}{1+e^{-\beta^T\f_p}}$
+- $\pi_p = \frac{1}{1+e^{-\beta^T \f_p}}$
 - Maximum Likelihood
 - Convex Optimization 
+
+---
+
+## .k[Training Data]
+
+---
+
+## Training Data 
+
+- 
 
 ---
 
@@ -168,6 +179,7 @@ w: <http://neurodata.io/talks/mouselight_19_11_13.html></http:>
 ### References
 -  Mairal, J., Bach, F., & Ponce, J. (2014). Sparse modeling for image and vision processing. Foundations and Trends® in Computer Graphics and Vision, 8(2-3), 85-283.
 - Beer, M. (2001). Asymptotic Properties of the Maximum Likelihood Estimator in Dichotomous Logistic Regression Models. Diploma Thesis, Department of Mathematics, Faculty of Sciences, University of Fribourg Switzerland.
+- Bickel, P. J., & Doksum, K. A. (2015). Mathematical Statistics: Basic Ideas and Selected Topics, Volumes I-II Package. Chapman and Hall/CRC.
 
 ---
 

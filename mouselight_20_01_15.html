@@ -9,15 +9,6 @@
     <link rel="stylesheet" href="font-awesome.min.css">
     <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-
-    <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-
-    <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
-        onload="renderMathInElement(document.body);"></script>
-    
   </head>
   <body>
     <textarea id="source">
@@ -159,14 +150,19 @@ Or
 ---
 ## Exp. 1 - Intensity Only
 
-- Accuracy: 87%
+<figure>
+  <img src="images/mouselight/2020/roc_intensity.png" style="width: 100%;"/>
+</figure>
+
+---
+## Exp. 1 - Intensity Only
 
 <figure>
-    <img src="images/mouselight/2020/seg1_intensity.PNG" style="width: 60%;"/>
+    <img src="images/mouselight/2020/int1.png" style="width: 90%;"/>
   </figure>
 
 <figure>
-    <img src="images/mouselight/2020/seg2_intensity.PNG" style="width: 60%;"/>
+    <img src="images/mouselight/2020/int2.png" style="width: 90%;"/>
   </figure>
 
 
@@ -174,15 +170,21 @@ Or
 ## Exp. 2 - Linear Features
 
 - Features: Intensity, 3 Gaussian kernels, Gabor filters (36 combinations of parameters)
-- Accuracy: 91%
 
 <figure>
-    <img src="images/mouselight/2020/seg1_gabor.PNG" style="width: 55%;"/>
+  <img src="images/mouselight/2020/roc_features.png" style="width: 95%;"/>
+</figure>
+
+---
+## Exp. 2 - Linear Features
+
+<figure>
+    <img src="images/mouselight/2020/feat1.png" style="width: 90%;"/>
   </figure>
 
 
 <figure>
-    <img src="images/mouselight/2020/seg2_gabor.PNG" style="width: 55%;"/>
+    <img src="images/mouselight/2020/feat2.png" style="width: 90%;"/>
   </figure>
 
 
@@ -207,25 +209,44 @@ Or
 ---
 ## Exp. 3 - Features + Pixel-wise
 
-- Accuracy: 90%
 
 <figure>
-    <img src="images/mouselight/2020/seg1_manual.PNG" style="width: 60%;"/>
+  <img src="images/mouselight/2020/roc_manual.png" style="width: 100%;"/>
+</figure>
+
+---
+## Exp. 3 - Features + Pixel-wise
+
+
+<figure>
+    <img src="images/mouselight/2020/man1.png" style="width: 90%;"/>
   </figure>
 
 <figure>
-    <img src="images/mouselight/2020/seg2_manual.PNG" style="width: 60%;"/>
+    <img src="images/mouselight/2020/man2.png" style="width: 90%;"/>
   </figure>
 
 
 
 ---
 
-## .k[Dimensionality Reduction]
+Segmentation of 30x30x100 um^3 volume
+
+<figure>
+  <img src="images/mouselight/2020/large_im2.PNG" style="width: 50%;"/>
+</figure>
+
+<figure>
+  <img src="images/mouselight/2020/large_seg2.PNG" style="width: 50%;"/>
+</figure>
 
 ---
+## Next Steps
 
-## Dictionary Learning
+- More pixel-wise training data 
+- Segment larger volume 
+- Filter out non-neuron "spots"
+- Connect segments
 
 ---
 class: top, left
@@ -244,7 +265,7 @@ class: top, left
 
 <div class="container">
   <img src="faces/jeremias.png"/>
-  <div class="centered">Michael Miller</div>
+  <div class="centered">Jeremias Sulam</div>
 </div>
 
 <div class="container">
@@ -270,7 +291,7 @@ class: top, left
 <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
 
 
-w: <http://neurodata.io/talks/mouselight_19_11_13.html></http:>
+w: <http://neurodata.io/talks/mouselight_20_01_15.html></http:>
 
 ---
 ### References

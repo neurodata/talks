@@ -47,16 +47,6 @@ class: inverse
 
 
 
----
-class: inverse
-
-## What is Learning?
-
-
---
-
-<br>
-a line
 
 ---
 class: inverse
@@ -68,7 +58,7 @@ class: inverse
 ---
 class:inverse
 
-## How to build a learner?
+## What do classifiers do?
 
 
 ---
@@ -102,17 +92,19 @@ class:inverse
 ---
 class:inverse
 
-## How to build a learner?
+## What do classifiers do?
 
 --
 <br>
 
 train:
 1. partition feature space into "parts",
-2. the majority vote of points in the part determines its class
+2.  majority vote of points in each part determines that part's class.
 
 predict: 
+
 2. for a new unlabeled point, find its part,
+
 3. report the majority vote in its part.
 
 
@@ -172,8 +164,8 @@ class: inverse
 
 <br>
 
-1. learning is partitioning space and then voting 
-2. brains do both things
+1. Learning is partitioning space and then voting. 
+2. Brains  do both things (unambiguously/undeniably/irrefutably).
 
 
 --
@@ -233,6 +225,7 @@ class: inverse
 - honey bees can also transfer to different sensory modality (smell)
 - honeybees do not forget how to do the first task
 - this is called "forward transfer"
+- bees learn the concept of "sameness"
 
 ---
 class: inverse 
@@ -268,6 +261,22 @@ are able to learn and remember many different tasks." -- Kirkpatrick et al. (PNA
 "To get there, we will need something else too: a fundamental rethinking of how learning works. We need to invent a new kind of learning that leverages existing knowledge, rather than one that obstinately starts over from square one in every domain it confronts.”— Rebooting AI: Building Artificial Intelligence We Can Trust by Gary Marcus, Ernest Davis
 
 
+---
+class: inverse 
+
+## A Real Challenge 
+
+Industry:
+- Amazon trained a recommender system on existing products, then a new product is launched, desire to update model to both recommend for new products
+- Google recommends websites, then new websites are created, want to update model 
+
+Healthcare:
+- A new disease, test, treatment exists, want to update model
+
+Augmented Reality
+- Walking around, go to a new place, want to update model
+
+In all cases, re-training from scratch is just too expensive.
 
 ---
 class:inverse 
@@ -714,7 +723,7 @@ class: inverse
 
 - Nothing really special about "forests", could apply the same idea to any deep net.
 - Bees transfer across modalities, we don't know how to do that.
-
+- We (= anybody in AI) also don't know how to learn concepts like "sameness"
 
 ---
 class: inverse
@@ -1011,6 +1020,13 @@ class: middle, inverse
 ## .center[Extra Slides]
 
 
+
+---
+class: inverse
+
+## Not So Clevr
+
+<img src="images/not-so-clever.png" style="width:475px" class="center"/>
 
 
 ---

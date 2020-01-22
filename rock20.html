@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>L2F</title>
+    <title>rock20</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="fonts/quadon/quadon.css">
     <link rel="stylesheet" href="fonts/gentona/gentona.css">
@@ -12,107 +12,76 @@
     <textarea id="source">
 
 
-name:opening
+
+class: inverse 
 
 
-**A Theory and Practice of the Lifelong Learnable Forest**<br>
-Hayden Helm | Ronak Mehta <br>
-Carey E. Priebe | Raman Arora | [Joshua T. Vogelstein](https://neurodata.io) (JHU)  <br>
-
-
-<!-- {[BME](https://www.bme.jhu.edu/),[ICM](https://icm.jhu.edu/),[CIS](http://cis.jhu.edu/),[KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/)  -->
-
-
-<a href="https://neurodata.io"><img src="images/neurodata_purple.png" style="height:430px;"/></a>
-
-
-<!-- <img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
-<!-- <font color="grey"></font> -->
-.foot[[jovo&#0064;jhu.edu](mailto:jovo@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)]
 
 
 
 ---
-
-### Program goals
-
-1. Formalize A General Theory of (Lifelong) Learning 
-2. Develop  Lifelong Learning Forests (L2F) algorithm
-3. Demonstrate L2F achieves SOA lifelong learning 
-3. Prove L2F theoretically "solves" lifelong learning
-4. Discuss Future plans
-
-
-
----
-class: middle, inverse
-
-## .center[A General Theory of Learning]
-
----
+class: inverse
 
 ## What is Learning?
 
 
-<img src="images/Vapnik71.png" style="width:500px;"/>
 --
-<img src="images/Valiant84.png" style="width:500px;"/>
+
+<br>
+"The acquisition of knowledge or skills through experience, study, or by being taught."
+
+-- Google, 2020
 
 ---
+class: inverse 
+
+
+(linear classifier?)
+
+
+---
+class: inverse 
+
+
+(nonlinear classifier?)
+
+
+
+
+
+---
+class: inverse
 
 ## What is Learning?
 
-<img src="images/Mitchell97.png" style="width:600px;"/>
+
+<img src="images/Vapnik71b.png" style="width:400px;"/>
+<img src="images/Valiant84.png" style="width:400px;"/>
+<img src="images/Mitchell97.png" style="width:400px;"/>
 
 
 ---
-
+class: inverse
 
 ## What is  Learning? 
 
-Tom Mitchell 1997 (not exact quote):
 
-"An algorithm $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
+"An agent $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
 
-
----
-
-### What is a Task?
-
-A task is defined by a septuple $T = \lbrace \mathcal{Z}, P, \mathcal{P}, \mathcal{A},  \mathcal{H}, \ell, {R} \rbrace$
-
-| Definition | Notation | Example
-|:--- |:--- |:--- | 
-| Measurements  | $ \mathcal{Z}$ |  $z_i = (x_i,y_i): i \in [n]$ |
-|  Density | $P\_\theta : \mathcal{Z} \rightarrow \mathbb{R}_{\geq 0}$  | standard normal
-|  Model | $\mathcal{P} := \lbrace P_\theta : \theta \in \Theta \rbrace$ | Gaussian
-| Action space |  $\mathcal{A}$ |  turn left
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a = \mathbb{I}(z>0)$
-| Loss Function | $\ell: \mathcal{H} \times \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
-| Risk Functional | $R: \mathcal{P} \times \mathcal{L} \times  \mathcal{H} \to \mathbb{R}_+$  | $\mathbb{E}_P[\ell( h(z), a)]$
-
+-- Tom Mitchell, 1997 (not exact quote)
 
 
 ---
-
-### What is an Algorithm?
-
-$f$ is a sequence of learning procedures, $f_1, f_2, \ldots$, where each $f_n \in \mathcal{F}$ maps from a data corpus $\mathcal{D}_n$  to a hypothesis $h$, $f\_n : \mathcal{Z}^n \to \mathcal{H}$.
+class:inverse 
 
 
-### What is  Performance?
+## What is Learning (formally)?
+
 
 Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
 
 $$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
 
-
-
----
-## What is Learning?
-
-"An algorithm $f$ learns from  data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$."
 
 <br>
 
@@ -120,7 +89,61 @@ $f$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)
 
 <br>
 
-$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1$$ 
+$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1.$$ 
+
+--
+
+-- jovo, 2019
+
+
+---
+class:inverse
+
+## How to build a learner?
+(a classifier)
+--
+
+
+1. partition feature space, 
+2. for a new unlabeled point, find the its "cell",
+3. take a majority vote in its cell.
+
+
+.center[<img src="images/rock20/Euclidean_Voronoi_diagram.svg" style="width:400px;"/>]
+
+
+
+
+
+
+---
+class:inverse
+
+
+---
+class: inverse
+
+## What is Learning?
+
+--
+
+<br>
+Wikipedia says:<br>
+"Learning is the process of acquiring new, or modifying existing, knowledge, behaviors, skills, values, or preferences."
+
+
+
+---
+class: inverse 
+
+
+(another linear classifier?)
+
+
+---
+
+
+
 
 ---
 

@@ -112,7 +112,7 @@ train:
 2. the majority vote of points in the part determines its class
 
 predict: 
-2. for a new unlabeled point, find the its part,
+2. for a new unlabeled point, find its part,
 3. report the majority vote in its part.
 
 
@@ -159,9 +159,10 @@ class: inverse
 
 ## Neurons vote
 
-<img src="images/rock20/brody1.jpg" style="height:500px;"/>
 
+<img src="images/rock20/brody1.jpg" style="height:500px;" class="center"/>
 
+      
 
 ---
 class: inverse
@@ -173,9 +174,9 @@ class: inverse
 ## What is Learning (formally)?
 
 
-<img src="images/Vapnik71b.png" style="width:400px;"/>
-<img src="images/Valiant84.png" style="width:400px;"/>
-<img src="images/Mitchell97a.png" style="width:400px;"/>
+<img src="images/Vapnik71b.png" style="width:400px;"/ class="center">
+<img src="images/Valiant84.png" style="width:400px;"/ class="center">
+<img src="images/Mitchell97a.png" style="width:400px;"/ class="center">
 
 
 ---
@@ -284,7 +285,7 @@ shouldn't learning be .r[faster] if we already learned a related task?
 
 --
 
-yes. this is called "transfer learning".
+yes. this is called "transfer learning."
 
 
 ---
@@ -321,9 +322,10 @@ class: inverse
 
 ## 30 years later... 
 
-<img src="images/rock20/masse1.png" style="width:600px;"/>
-<img src="images/rock20/flesch1.png" style="width:600px;"/>
-<img src="images/rock20/kirkpatrick1.png" style="width:600px;"/>
+
+<img src="images/rock20/masse1.png" style="width:600px;"/ class="center">
+<img src="images/rock20/flesch1.png" style="width:600px;"/ class="center">
+<img src="images/rock20/kirkpatrick1.png" style="width:600px;"/ class="center">
 
 
 ---
@@ -346,7 +348,7 @@ class:inverse
 
 - *CIFAR 100* is a popular image classification dataset with 100 classes of images, containing 600 images, each 32x32 colour images.
 - There are 500 training images and 100 testing images per class.
-- CIFAR 10x10 breaks the 100 class task problem into 10 problems, each a 10 class problem.
+- CIFAR 10x10 breaks the 100-class task problem into 10 problems, each a 10-class problem.
 
 <img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
 
@@ -358,8 +360,9 @@ class: inverse
 ## Current State-of-the-Art
 
 
-<img src="images/l2m_18mo/progressive_nets.png" style="width:650px;"/>
+<img src="images/l2m_18mo/progressive_nets.png" style="width:650px;"/ class="center">
 
+  
 Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019.
 
 
@@ -379,7 +382,7 @@ class: inverse
 ## What about .r[reverse transfer]?
 
 
-- In general, tasks are complex, built of sub-tasks, if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too.
+- In general, tasks are complex, built of sub-tasks; if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too.
 
 - "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
 
@@ -449,7 +452,7 @@ class: inverse
 - the optimal decision boundary is the coordinate axes 
 - we want to classify black dot
 
-<img src="images/rock20/xor.png" style="width:400px"/>
+<img src="images/rock20/xor.png" style="width:400px"/ class="center">
 
 
 
@@ -460,7 +463,7 @@ class: inverse
   
 <img src="images/l2m_18mo/just_xor.png"  style="height:300px;">
 
-- error is estimated generalization error
+- error is estimated using generalization error
 - partition learned using a subset of data from XOR 
 
 
@@ -487,9 +490,9 @@ class: inverse
   - Samples in the (+, +) and (-, -) quadrants are green  
   - samples in the (-, +) and (+, -) quadrants are purple 
 - .lb[N-XOR]
-  - Samples in the (+, +) and (-, -) quadrants are green  
-  - samples in the (-, +) and (+, -) quadrants are purple. 
-- Optimal decision boundary for both problems are  coordinate axes
+  - Samples in the (+, +) and (-, -) quadrants are purple  
+  - samples in the (-, +) and (+, -) quadrants are green 
+- Optimal decision boundaries for both problems are coordinate axes
 
 <img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/> 
 
@@ -573,7 +576,7 @@ class:inverse
 ---
 class:inverse 
 
-<img src="images/rock20/EWC_CIFAR.png" style="height:530px;"/>
+<img src="images/rock20/EWC_CIFAR.png" style="height:530px;" class="center"/>
 
 DeepMind's "Elastic Weight Consolidation"
 
@@ -581,14 +584,14 @@ DeepMind's "Elastic Weight Consolidation"
 ---
 class:inverse 
 
-<img src="images/rock20/SI_CIFAR.png" style="height:530px;"/>
+<img src="images/rock20/SI_CIFAR.png" style="height:530px;" class="center"/>
 
 Surya Ganguli's "Synaptic Intelligence"
 
 ---
 class:inverse
 
-<img src="images/l2m_18mo/cifar-100-TLE-Accuracy.png" style="height:530px;"/>
+<img src="images/l2m_18mo/cifar-100-TLE-Accuracy.png" style="height:530px;" class="center"/>
 
 --
 

@@ -18,65 +18,6 @@ class: inverse
 ---
 class: inverse
 
-<img src="rock20/s2.png" style="width:600px;", class="center"/>
-
-
----
-class: inverse
-
-<img src="rock20/s3.png" style="width:600px;", class="center"/>
-
-
----
-class: inverse
-
----
-class: inverse
-
-<img src="rock20/s2.png" style="width:600px;", class="center"/>
-
-
----
-class: inverse
-
-<img src="rock20/s3.png" style="width:600px;", class="center"/>
-
----
-class: inverse
-
-<img src="rock20/s4.png" style="width:600px;", class="center"/>
-
-
----
-class: inverse
-
-<img src="rock20/s5.png" style="width:600px;", class="center"/>
-
-
----
-class: inverse
-
-<img src="rock20/s6.png" style="width:600px;", class="center"/>
-
----
-class: inverse
-
-<img src="rock20/s7.png" style="width:600px;", class="center"/>
-
----
-class: inverse
-
-<img src="rock20/s8.png" style="width:600px;", class="center"/>
-
-
----
-class: inverse
-
-<img src="rock20/s9.png" style="width:600px;", class="center"/>
-
----
-class: inverse
-
 ## What is Learning?
 
 
@@ -91,12 +32,12 @@ class: inverse
 ---
 class: inverse
 
-## Consider a simple dataset
+## Consider a simple example
 
 - 2 classes: green and purple
-- we observe 100 points each 
+- we observe 100 points  
 - each point has 2 features: dim1 and dim2
-- we desire to learn a classifier that discriminates between these two classes
+- we desire to .r[learn] a classifier that discriminates between these two classes
 
 
 ---
@@ -122,54 +63,6 @@ class: inverse
 
 <img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
 
-
-
-
----
-class: inverse
-
-## What is Learning?
-
-
-<img src="images/Vapnik71b.png" style="width:400px;"/>
-<img src="images/Valiant84.png" style="width:400px;"/>
-<img src="images/Mitchell97.png" style="width:400px;"/>
-
-
----
-class: inverse
-
-## What is  Learning? 
-
-
-"An agent $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
-
--- Tom Mitchell, 1997 (not exact quote)
-
-
----
-class:inverse 
-
-
-## What is Learning (formally)?
-
-
-Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
-
-$$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
-
-
-<br>
-
-$f$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
-
-<br>
-
-$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1.$$ 
-
---
-
--- jovo, 2019
 
 
 ---
@@ -212,10 +105,11 @@ class:inverse
 ## How to build a learner?
 
 --
+<br>
 
 train:
 1. partition feature space into "parts",
-2. assign each part to the majority vote.  
+2. the majority vote of points in the part determines its class
 
 predict: 
 2. for a new unlabeled point, find the its part,
@@ -223,22 +117,6 @@ predict:
 
 
 
----
-class:inverse
-
-## The fundamental theorem of statistical pattern recognition
-
---
-
-If each cell is:
-
-- small enough, and 
-- has enough points in it, 
-
-then given enough data, one can learn *perfectly, no matter what*! 
-
-
--- Stone, 1977
 
 
 
@@ -255,8 +133,8 @@ class:inverse
 
 (brains obviously learn)
 
-1. do brains partition feature space?
-2. is there some kind of "voting" occurring within each part?
+1. Do brains partition feature space?
+2. Is there some kind of "voting" occurring within each part?
 
 
 ---
@@ -279,8 +157,97 @@ class: inverse
 ---
 class: inverse
 
-## Activated neurons vote
+## Neurons vote
 
+<img src="images/rock20/brody1.jpg" style="height:500px;"/>
+
+
+
+---
+class: inverse
+
+
+---
+class: inverse
+
+## What is Learning (formally)?
+
+
+<img src="images/Vapnik71b.png" style="width:400px;"/>
+<img src="images/Valiant84.png" style="width:400px;"/>
+<img src="images/Mitchell97a.png" style="width:400px;"/>
+
+
+---
+class: inverse
+
+## What is  Learning (formally)? 
+
+
+"An agent $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
+
+-- Tom Mitchell, 1997 (not exact quote)
+
+
+---
+class:inverse 
+
+
+## What is Learning (formally)?
+
+
+Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
+
+$$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
+
+
+<br>
+
+$f$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
+
+<br>
+
+$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1.$$ 
+
+--
+
+-- jovo, 2019
+
+
+---
+class:inverse
+
+## The fundamental theorem of statistical pattern recognition
+
+--
+
+If each cell is:
+
+- small enough, and 
+- has enough points in it, 
+
+then given enough data, one can learn *perfectly, no matter what*! 
+
+
+-- Stone, 1977
+
+
+---
+class: inverse 
+
+
+## Summary so far 
+
+<br>
+
+1. learning is partitioning space and then voting 
+2. brains do that 
+3. if an agent does it appropriately, it can learn anything
+
+
+--
+
+satisfied?
 
 
 ---
@@ -291,375 +258,222 @@ class: inverse
 --
 
 <br>
-Wikipedia says:<br>
-"Learning is the process of acquiring new, or modifying existing, knowledge, behaviors, skills, values, or preferences."
+"Learning is the process of acquiring new, .r[or modifying existing], knowledge, behaviors, skills, values, or preferences."
 
+-- Wikipedia
+
+
+
+---
+class: inverse
+
+<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
+
+
+---
+class: inverse
+
+<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%; transform:rotate(30deg);"/>
+
+
+---
+class: inverse, middle
+
+
+shouldn't learning be .r[faster] if we already learned a related task?
+
+--
+
+yes. this is called "transfer learning".
+
+
+---
+class: inverse 
+
+## Honey Bees can do it
+
+
+<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
+
+---
+class:inverse
+
+## Some important details
+
+<br>
+
+- honeybees do not forget how to do the first task
+- technically, this is called "forward transfer"
+
+---
+class: inverse 
+
+## Can AI do it?
+
+--
+
+"Training on a new set of items may drastically disrupt performance on previously learned items."
+
+-- McCloskey & Cohen, 1989
+
+---
+class: inverse 
+
+## 30 years later... 
+
+<img src="images/rock20/masse1.png" style="width:600px;"/>
+<img src="images/rock20/flesch1.png" style="width:600px;"/>
+<img src="images/rock20/kirkpatrick1.png" style="width:600px;"/>
+
+
+---
+class: inverse 
+
+## A Grand Challenge
+
+"Achieving artificial general intelligence requires that agents
+are able to learn and remember many different tasks." -- Kirkpatrick et al. (PNAS, 2017)
+
+
+"To get there, we will need something else too: a fundamental rethinking of how learning works. We need to invent a new kind of learning that leverages existing knowledge, rather than one that obstinately starts over from square one in every domain it confronts.”— Rebooting AI: Building Artificial Intelligence We Can Trust by Gary Marcus, Ernest Davis
+
+
+
+---
+class:inverse 
+
+## Consider an  example
+
+- *CIFAR 100* is a popular image classification dataset with 100 classes of images, containing 600 images, each 32x32 colour images.
+- There are 500 training images and 100 testing images per class.
+- CIFAR 10x10 breaks the 100 class task problem into 10 problems, each a 10 class problem.
+
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
 
 
 ---
 class: inverse 
 
 
-(another linear classifier?)
+## Current State-of-the-Art
+
+Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019.
+
+<img src="images/l2m_18mo/progressive_nets.png" style="width:650px;"/>
 
 
 ---
+class: inverse 
 
-
-
-
----
-
-### What is Transfer Learning? 
-
-- Given
-  - data $D_0$, and an algorithm $f_0$ trained using only $D_0$. 
-  - data $D_n$ from possibly another distribution, 
-  - algorithm $f_n$ trained using both $D_0$ and $D_n$
-
-
-
-"An algorithm $f$  .pu[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves over  with $D_n$.'"
+## Problem solved?
 
 --
 
-
-$f$ .pu[transfer] learns from data iff 
-
-$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
-
+not quite 
 
 
 ---
+class: inverse 
 
-### What is Multi-Task (MT) Learning?
-
-- Given
-  - for $j=1,\ldots, J$ 
-      - data $D_j$, possibly from different distributions, 
-      - algorithm $f_j$ trained using only $D_j$,
-  - algorithm $f_n$ trained using all $D_j$'s,
-  - a multi-task risk (e.g., average risk across tasks).
+## What about .r[reverse transfer]?
 
 
-An algorithm $f$  .pu[multi-task] learns from data $D_n$   with respect to multi-task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
+- "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
 
 --
 
-$f_0$ .pu[multi-task] learns from data iff 
-
-$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
-
+Tasks are complex, built of sub-tasks, if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too.
 
 
 ---
-
-### What is Lifelong Learning?
-
-
-- Given
-  - for $j=1,\ldots$ 
-      - data $D_j$, possibly from different distributions, 
-      - algorithm $f_j$ trained using only $D_j$,
-  - algorithm  $f_n$ .pu[sequentially] trained using all $D_j$'s,
-  - a multi-task risk (e.g., average risk across tasks).
+class:inverse 
 
 
-An algorithm $f$  .pu[lifelong] learns from data $D_n$   with respect to lifelong task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
+## AI cannot currently reverse transfer 
+
+
+but we can.... 
+
+---
+class:inverse 
+
+
+---
+class:inverse 
+
+## A very simple agent
+
+<img src="images/rock20/L2F-RF.svg" style="width:650px;">
 
 
 --
 
-$f$ .pu[lifelong] learns from data iff 
-
-$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
-
----
-
-###  Generalized Learning
-
-<br> 
-
-|       | $J>1$ | Sequential  | 
-| :---: | :---: | :---:       | 
-| Machine     | 0 | 0 | 
-| Multi-task  | 1 | 0 | 
-| Lifelong    | 1 | 1 | 
-
-
-
-
-
-
+Problem: gerrymandering
 
 
 ---
+class:inverse 
 
-### Three Kinds of Lifelong Learning 
+## An honet agent
 
-1. Supervised: setting is provided for each data sample 
-2. Unsupervised: setting is not provided for any data sample 
-3. Semi-supervised: setting is sometimes provided for some data samples 
+<img src="images/rock20/L2F-UF.svg" style="width:650px;">
 
 --
 
-We largely focus on supervised setting hereafter.
-
----
-class: middle, inverse
-
-
-## .center[General (Lifelong) Learning Machines]
-
-
----
-
-### Machine Learning: Basic Set-Up
-
-Given
-1. A task $ T $ 
-2. Observed data $ z\_1, z\_2, .., z\_n $
-
-Assume
-1. The $ z\_t $ are independent
-
----
-
-### Constituents of  Learning Machines 
-
-1.  .pu[representation]: data are transformed into a representation space
-2.  .pu[transformer]: maps each point to the representation space
-3.  .pu[decider]: takes an action using the transformed data
-
----
-
-### Example 1 
-
-Linear 2-class classification (we want to label black dot)
-
-<img src="images/l2m_18mo/cml_all_data.png" style="width:500px" class="center"/>
-
-
----
-#### Example 1.1 - Linear Discriminant Analysis
-
-1. .pu[representation]: the real number line 
-2. .pu[transformer]: projection matrix that maps each feature vector onto real number line 
-3. .pu[decider]: threshold such that values above threshold are one class, and below are the other
-
-<img src="images/l2m_18mo/cml_linear.jpg" style="width:600px" class="center"/>
-
-<!-- diagram of linear classifier (projection from R^d to R then threshold) for two class, spherical gaussians -->
-<!-- figure of problem -->
-<!-- figure with representation -->
-<!-- figure showing transformation of one data point to the line -->
-<!-- figure showing decider acting on a the transformed data point -->
-
----
-
-#### Example 1.2 - Decision Tree
-
-1. .pu[representation]: a partition of $ \mathbb{R}^{d} $
-2. .pu[transformer]: maps a data point to a cell of the partition
-3. .pu[deciders]: plurality (or average) of elements per cell
-
-<img src="images/l2m_18mo/cml-tree.jpg" style="width:650px" class="center"/>
-
-<!-- diagram of a partition for two class, spherical gaussians -->
-<!-- figure of representation (partition) -->
-<!-- figure of a data point in a cell of the partition -->
-<!-- figure of classifying a data point in a cell of the partition -->
-
----
-
-#### Example 1.3 - Decision Forests 
-
-1. .pu[representation]: a set of partitions of $ \mathbb{R}^{d} $ 
-2. .pu[transformer]: maps a data point to a cell of each of the partitions
-3. .pu[deciders]: average of decision trees (posterior probabilities)
-
-<img src="images/l2m_18mo/cml_forest.jpg" style="width:600px" class="center"/>
-
-Each tree uses a different subset of data to transform (partition) space
-
-<!-- Each partition learned from the various subsamples is a **representation**, and the decision tree **transforms** data into those representations. The **decider** chooses the class based on the cell probability.  -->
-
-<!-- --- -->
-
-<!-- #### Example 1.3 - Decision Forests (Tree 1)
-
-Subsample the data and learn a partition of the input space. The input space is $\mathbb{R}^2$ and the classes are green or purple. Each cell of the partition has an associated probability of class green. A new data point is first placed into a cell, and then its class is predicted based on the cell's probability.
-
-<img src="images/l2m_18mo/decisiontree_for_forest1.png" style="width:400px" class="center"/> -->
-
-<!-- ---   -->
-
-<!-- #### Example 1.3 - Decision Forests (Tree 2) -->
-
-<!-- Similarly, another random subsample will yield a different decision tree, with different cells and cell probabilities. -->
-
-<!-- <img src="images/l2m_18mo/decisiontree_for_forest2.png" style="width:500px" class="center"/> -->
-
-<!-- --- -->
-
-<!-- #### Example 1.3 - Decision Forests -->
-
-<!-- Each partition learned from the various subsamples is a **representation**, and the decision tree **transforms** data into those representations. The **decider** chooses the class based on the cell probability.  -->
-
-<!-- <img src="images/l2m_18mo/cml_forest.jpg" style="width:600px" class="center"/> --> 
-
-<!-- diagram for two class, spherical gaussians -->
-<!-- figure of representtaion (multiple partitions) -->
-<!-- figure of data point in a cell of each of the partitions -->
-<!-- figure of classifying a data point  -->
-<!-- ---
-### Decision Forests
-
--.pu[transformer]: partition space using a subset of the $ n $ data samples
--.pu[decider]:  majority vote on remaining samples
-
-<img src="images/l2m_rf_cartoon.jpg" style="width:475px" class="center"/> -->
-
-<!-- diagram 1: all data
-diagram 2: transformer data
-diagram 3: partitions learned on transformer data
-diagram 4: posteriors estimated using transformer data (continue to show data)
-diagram 5: posteriors estimated using decider data (continue to show data)
-diagram 6: show true posterior
-diagram 7: consider showing posterior errors
-- explan n, d
--->
-
-<!--   
-new slide: add error + posterior plots for linear example 
--->
-
----
-
-### Example 2
-
-XOR (we want to label black dot)
-- Samples in the (+, +) and (-, -) quadrants are class 1  
-- samples in the (-, +) and (+, -) quadrants are class 0. 
-- The optimal decision boundary is the coordinate axes. 
-
-<img src="images/l2m_18mo/xor.png" style="width:400px" class="center"/>
+ML calls this "calibrated"
 
 
 
 ---
-### Example 2.1 - Honest Forests
+class:inverse 
+
+## A  transfer agent
+
+<img src="images/rock20/L2F-TF.svg" style="width:650px;">
+
+--
+
+This is really the core innovation
+
+
+---
+class: inverse
+
+### An illustrative example: XOR 
+
+- samples in the (+, +) and (-, -) quadrants are class 1  
+- samples in the (-, +) and (+, -) quadrants are class 0 
+- the optimal decision boundary is the coordinate axes 
+- we want to classify black dot
+
+<img src="images/rock20/xor.png" style="width:400px" class="center"/>
+
+
+
+---
+class: inverse
+
+##  Honest Forests
   
 <img src="images/l2m_18mo/just_xor.png" alt="Snow" style="height:300px;">
-<!-- <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_rf.png" style="height:300px;"> -->
 
-- Error is estimated generalization error, $\hat{\mathbb{E}}_{P}[R(f_n(D_n))]$
-- transformer (partition) learned using one subset of data from XOR 
-- decider (posteriors) learned using .pu[other] data from XOR
-- Error monotonically decreases with increasing sample size
+- error is estimated generalization error
+- partition learned using a subset of data from XOR 
 
 
 ---
-### Example 2.1 - Honest Forests
+class: inverse
+
+##  Honest Forests
 
 <img src="images/l2m_18mo/just_xor.png" alt="Snow" style="height:300px;">
-<img src="images/l2m_18mo/posterior_heatmap_xor_nxor_rf.png" style="height:300px;">
+<img src="images/rock20/posterior_heatmap_xor_nxor_rf.png" style="height:300px;">
 
-- learned probability of an observation being green 
-- using 100 XOR training samples 
-
-
----
-
-### Transfer Learning: Basic Set-Up
-
-Given
-1. a task $ T $
-2. observed source data $ z'\_1, z'\_2, .., z'\_s $ 
-3. observed target data $ z\_{s+1}, z\_{s+2}, .., z\_n $
-
-Assume
-1. the $ z\_t $, $ z'\_t $ are all mutually independent 
-
-<!-- Make the following assumptions:
-
-1. We are given $m$ training samples from a .r[source] task
-2. At each time step $t$, we observe 
-  - a target sample $z_t \in \mathcal{Z}$, and  
-  - a task identifier $j_t \in \mathcal{J}$ (which includes $\emptyset$).
-3. The number of target samples $n$ increases.
-4. All samples are independent of each other.
-
-Assumption 4 can be relaxed. -->
+- error is estimated generalization error
+- partition learned using a subset of data from XOR 
+- votes happened using other XOR data
 
 
----
-
-### Constituents of Transfer Machines 
-
-
-1.  .pu[representation]: source and target data are transformed into this space
-2.  .pu[transformers]: map each source and target point to the representation space
-3.  .pu[decider]: takes an action using all the transformed data
-
----
-
-### Example 3
-
-A 2-class classification problem, also with other 2-class data
-
-<div style="display:inline-flex">
-     <div>
-          <img src="images/l2m_18mo/cml_linear_problem1.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/l2m_18mo/cml_linear_problem_dataset2.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
-
-<!-- 1. .pu[representation]: the real number line 
-2. .pu[transformer]: projection matrix that maps data onto real number line 
-3. .pu[decider]: threshold such that target values above threshold are one class, and below are the other -->
-
-<!-- task 1: 
-    - mean1 = (1,1) orange
-    -  mean0 = (0,0) purple
-task 2: 
-  - mean1 = (0,0) green
-  - and mean0 = (1,1) magenta
--->
-
----
-### Constituents of Transfer Trees
-
-1. .pu[representation]: a partition of $ \mathbb{R}^{d} $
-2. .pu[transformer]: places data point into a cell of the partition learned on **source** data
-3. .pu[decider]: majority vote of **target** data in the cell of the partition
-
-<img src="images/l2m_18mo/transfer-tree.jpg" class="center" alt="Snow" style="height:300px; width:550px">
-<!-- update above image as above: label arrows transformer and decider -->
-
-
-<!-- 
-new slide: 
-  show error and posteriors
-but, x-axis in # of source data samples (for fixed target)
-y-axis is target error
-2 lines: one using only target, and one also using increasing source 
-
-give title to posterior plot
-http://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11
--->
-
-<!-- ---
-
-## Transfer Tree
-
-- Use **source** data to learn a transformer (estimate partitions) 
-- Use **source** and **target** data to learn deciders (estimate posteriors)
-- Average predictions from each decider.
-
-<img src="images/l2m_18mo/transfer-tree.jpg" class="center" alt="Snow" style="height:300px; width:550px"> -->
 
 ---
 ### Example 4: .blue[Not-XOR (N-XOR)] to .r[XOR]
@@ -1664,6 +1478,241 @@ class:inverse
 
 <img src="images/rock20/sphx_glr_plot_iris_dtc_001.png" style="position:absolute; top:0px; left:0px; height:100%;"/>
 
+
+
+---
+class: inverse
+
+<img src="images/rock20/s2.png" style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+
+---
+class: inverse
+
+<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
+
+---
+class: inverse
+
+---
+class: inverse
+
+<img src="images/rock20/s2.png" style="width:600px;", style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+
+---
+class: inverse
+
+<img src="images/rock20/s3.png" style="width:600px;", style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+---
+class: inverse
+
+<img src="images/rock20/s4.png" style="width:600px;", style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+
+---
+class: inverse
+
+<img src="images/rock20/s5.png" style="width:600px;", style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+
+---
+class: inverse
+
+<img src="images/rock20/s6.png" style="width:600px;", style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+---
+class: inverse
+
+<img src="images/rock20/s7.png" style="width:600px;", style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+---
+class: inverse
+
+<img src="images/rock20/s8.png" style="width:600px;", style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+
+---
+class: inverse
+
+<img src="images/rock20/s9.png" style="width:600px;", style="position:absolute; top:0px; left:100px; height:100%;"/>/>
+
+
+
+---
+
+### What is Transfer Learning? 
+
+- Given
+  - data $D_0$, and an algorithm $f_0$ trained using only $D_0$. 
+  - data $D_n$ from possibly another distribution, 
+  - algorithm $f_n$ trained using both $D_0$ and $D_n$
+
+
+
+"An algorithm $f$  .pu[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves over  with $D_n$.'"
+
+--
+
+
+$f$ .pu[transfer] learns from data iff 
+
+$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
+
+
+
+---
+
+### What is Multi-Task (MT) Learning?
+
+- Given
+  - for $j=1,\ldots, J$ 
+      - data $D_j$, possibly from different distributions, 
+      - algorithm $f_j$ trained using only $D_j$,
+  - algorithm $f_n$ trained using all $D_j$'s,
+  - a multi-task risk (e.g., average risk across tasks).
+
+
+An algorithm $f$  .pu[multi-task] learns from data $D_n$   with respect to multi-task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
+
+--
+
+$f_0$ .pu[multi-task] learns from data iff 
+
+$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
+
+
+
+---
+
+### What is Lifelong Learning?
+
+
+- Given
+  - for $j=1,\ldots$ 
+      - data $D_j$, possibly from different distributions, 
+      - algorithm $f_j$ trained using only $D_j$,
+  - algorithm  $f_n$ .pu[sequentially] trained using all $D_j$'s,
+  - a multi-task risk (e.g., average risk across tasks).
+
+
+An algorithm $f$  .pu[lifelong] learns from data $D_n$   with respect to lifelong task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
+
+
+--
+
+$f$ .pu[lifelong] learns from data iff 
+
+$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
+
+---
+
+###  Generalized Learning
+
+<br> 
+
+|       | $J>1$ | Sequential  | 
+| :---: | :---: | :---:       | 
+| Machine     | 0 | 0 | 
+| Multi-task  | 1 | 0 | 
+| Lifelong    | 1 | 1 | 
+
+
+
+
+
+
+
+
+---
+
+### Three Kinds of Lifelong Learning 
+
+1. Supervised: setting is provided for each data sample 
+2. Unsupervised: setting is not provided for any data sample 
+3. Semi-supervised: setting is sometimes provided for some data samples 
+
+--
+
+We largely focus on supervised setting hereafter.
+
+---
+class: middle, inverse
+
+
+## .center[General (Lifelong) Learning Machines]
+
+
+---
+
+### Machine Learning: Basic Set-Up
+
+Given
+1. A task $ T $ 
+2. Observed data $ z\_1, z\_2, .., z\_n $
+
+Assume
+1. The $ z\_t $ are independent
+
+---
+
+### Constituents of  Learning Machines 
+
+1.  .pu[representation]: data are transformed into a representation space
+2.  .pu[transformer]: maps each point to the representation space
+3.  .pu[decider]: takes an action using the transformed data
+
+---
+
+### Example 1 
+
+Linear 2-class classification (we want to label black dot)
+
+<img src="images/l2m_18mo/cml_all_data.png" style="width:500px" class="center"/>
+
+
+---
+#### Example 1.1 - Linear Discriminant Analysis
+
+1. .pu[representation]: the real number line 
+2. .pu[transformer]: projection matrix that maps each feature vector onto real number line 
+3. .pu[decider]: threshold such that values above threshold are one class, and below are the other
+
+<img src="images/l2m_18mo/cml_linear.jpg" style="width:600px" class="center"/>
+
+<!-- diagram of linear classifier (projection from R^d to R then threshold) for two class, spherical gaussians -->
+<!-- figure of problem -->
+<!-- figure with representation -->
+<!-- figure showing transformation of one data point to the line -->
+<!-- figure showing decider acting on a the transformed data point -->
+
+---
+
+#### Example 1.2 - Decision Tree
+
+1. .pu[representation]: a partition of $ \mathbb{R}^{d} $
+2. .pu[transformer]: maps a data point to a cell of the partition
+3. .pu[deciders]: plurality (or average) of elements per cell
+
+<img src="images/l2m_18mo/cml-tree.jpg" style="width:650px" class="center"/>
+
+<!-- diagram of a partition for two class, spherical gaussians -->
+<!-- figure of representation (partition) -->
+<!-- figure of a data point in a cell of the partition -->
+<!-- figure of classifying a data point in a cell of the partition -->
+
+---
+
+#### Example 1.3 - Decision Forests 
+
+1. .pu[representation]: a set of partitions of $ \mathbb{R}^{d} $ 
+2. .pu[transformer]: maps a data point to a cell of each of the partitions
+3. .pu[deciders]: average of decision trees (posterior probabilities)
+
+<img src="images/l2m_18mo/cml_forest.jpg" style="width:600px" class="center"/>
+
+Each tree uses a different subset of data to transform (partition) space
 
 
 

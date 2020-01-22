@@ -163,74 +163,6 @@ class: inverse
 
 
 
----
-class: inverse
-
-
----
-class: inverse
-
-## What is Learning (formally)?
-
-
-<img src="images/Vapnik71b.png" style="width:400px;"/>
-<img src="images/Valiant84.png" style="width:400px;"/>
-<img src="images/Mitchell97a.png" style="width:400px;"/>
-
-
----
-class: inverse
-
-## What is  Learning (formally)? 
-
-
-"An agent $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
-
--- Tom Mitchell, 1997 (not exact quote)
-
-
----
-class:inverse 
-
-
-## What is Learning (formally)?
-
-
-Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
-
-$$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
-
-
-<br>
-
-$f$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
-
-<br>
-
-$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1.$$ 
-
---
-
--- jovo, 2019
-
-
----
-class:inverse
-
-## The fundamental theorem of statistical pattern recognition
-
---
-
-If each cell is:
-
-- small enough, and 
-- has enough points in it, 
-
-then given enough data, one can learn *perfectly, no matter what*! 
-
-
--- Stone, 1977
-
 
 ---
 class: inverse 
@@ -294,6 +226,9 @@ class: inverse
 
 
 <img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
+
+<br><br><br><br><br><br><br><br><br><br><br>
+They also tried to transfer to different sensory modality (smell), and the transfer still works about equally well
 
 ---
 class:inverse
@@ -391,9 +326,9 @@ class:inverse
 ## Summary of transfer learning
 
 - Modern AI can forward transfer
-- Modern AI cannot reverse transfer 
+- Modern AI **cannot** reverse transfer 
 - Biological intelligence can do both
-
+- AI should do both
 
 ---
 class:inverse 
@@ -406,10 +341,10 @@ class:inverse
 
 <img src="images/rock20/L2F-RF.svg" style="width:650px;">
 
-
 --
 
-Problem: gerrymandering
+
+- Problem: gerrymandering
 
 
 ---
@@ -437,7 +372,7 @@ class:inverse
 --
 
 - each task gets a unique partition
-- use both partitions for 2nd task
+- task 2 uses both partitions
 
 
 
@@ -580,7 +515,7 @@ class:inverse
 
 - same CIFAR experiment as before
   -  10  tasks, each with 10 classes, 500 training samples / class
-- y-axis indicates .r[transfer efficiency], which is the ratio of "single task error" to "error using other tasks"
+- y-axis indicates .r[transfer efficiency] (TE), which is the ratio of "single task error" to "error using other tasks"
 - we want the numbers to be >1
 - each task will have a line
   - if the line starts >1, that means it is doing "forward transfer"
@@ -607,7 +542,6 @@ class:inverse
 
 <img src="images/l2m_18mo/cifar-100-TLE-Accuracy.png" style="height:530px;"/>
 
---
 
 
 - TE starting >1 indicates forward transfer
@@ -619,18 +553,124 @@ class:inverse
 class: inverse 
 
 
-## Summary of  Results 
+## Summary of Experiments 
 
-- Lifelong forest seems to be the only algorithm that exhibits reverse transfer 
+<br> 
+
+Lifelong forest is the only AI that exhibits reverse transfer 
+
+---
+class: inverse
+
+
+
+---
+class: inverse 
+
+## Models of the Brain 
+
+- obviously, there are many 
+- we are proposing one for how brains learn efficiently
+- models main utility is in suggesting the next experiment to perform 
 
 
 ---
 class: inverse
 
-##  Next Steps 
+## Next experiment to perform
 
-- Extend empirical and theoretical results to more general settings
-- Extend empirical and theoretical results to deep learning
+Experiment:
+- select a species that can transfer learn 
+- teach one task 0 (source task)
+- teach it one of two "target tasks"
+  - target task A is very similar to source task
+  - target task B is very different from source task
+
+Predictions:
+1. same neurons will be activated for task 0 and task 1
+1. those neurons will exhibit distinct firing patterns for the two tasks
+2. different neurons will be activated for tasks 0 and task 2
+
+
+---
+class: inverse
+
+There are many models of the brain, how is this one better?
+
+
+---
+class: inverse
+
+## What is Learning (formally)?
+
+
+<img src="images/Vapnik71b.png" style="width:400px;"/>
+<img src="images/Valiant84.png" style="width:400px;"/>
+<img src="images/Mitchell97a.png" style="width:400px;"/>
+
+
+---
+class: inverse
+
+## What is  Learning (formally)? 
+
+
+"An agent $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
+
+-- Tom Mitchell, 1997 (not exact quote)
+
+
+---
+class:inverse 
+
+
+## What is Learning (formally)?
+
+
+Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
+
+$$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
+
+
+<br>
+
+$f$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
+
+<br>
+
+$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1.$$ 
+
+--
+
+-- jovo, 2019
+
+
+---
+class:inverse
+
+## The fundamental theorem of statistical pattern recognition
+
+--
+
+If each cell is:
+
+- small enough, and 
+- has enough points in it, 
+
+then given enough data, one can learn *perfectly, no matter what*! 
+
+
+-- Stone, 1977
+
+
+
+---
+class: inverse
+
+##  What next?
+
+- nothing really special about "forests", could apply the same idea to any deep net
+- bee's transfer across modalities, we don't know how to do that
 
 
 

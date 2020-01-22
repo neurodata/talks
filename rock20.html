@@ -421,7 +421,9 @@ class:inverse
 
 --
 
-ML calls this "calibrated"
+- in ML, a "calibrated" learner is one who consistently provides the probability of a given sample is in each class 
+- most ML algorithms are *not* calibrated 
+- this includes all Deep Learning algorithms ever, to my knowledge
 
 
 
@@ -435,8 +437,23 @@ class:inverse
 --
 
 - each task gets a unique partition
+- use both partitions for 2nd task
+
+
+
+---
+class:inverse 
+
+## A  lifelong learning agent
+
+<img src="images/rock20/L2F-LF.svg" style="width:650px;">
+
+--
+
+- each task gets a unique partition
 - all tasks use all partitions 
 - any task can benefit from any other task if partition is relevant
+
 
 
 ---

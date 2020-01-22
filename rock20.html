@@ -32,19 +32,40 @@ class: inverse
 
 -- Google, 2020
 
----
-class: inverse 
-
-
-(linear classifier?)
-
 
 ---
-class: inverse 
+class: inverse
+
+## Consider a simple dataset
+
+- 2 classes: green and purple
+- we observe 100 points each 
+- each point has 2 features: dim1 and dim2
+- we desire to learn a classifier that discriminates between these two classes
 
 
-(nonlinear classifier?)
+---
+class: inverse
 
+<img src="images/rock20/s2.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
+
+
+
+---
+class: inverse
+
+## What is Learning?
+
+
+--
+
+<br>
+a line
+
+---
+class: inverse
+
+<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
 
 
 
@@ -100,24 +121,111 @@ $$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1.$$
 class:inverse
 
 ## How to build a learner?
-(a classifier)
---
 
 
-1. partition feature space, 
-2. for a new unlabeled point, find the its "cell",
-3. take a majority vote in its cell.
+---
+
+<img src="images/rock20/sphx_glr_plot_lda_qda_001.png" class="center"/>
 
 
-.center[<img src="images/rock20/Euclidean_Voronoi_diagram.svg" style="width:400px;"/>]
+---
+
+<img src="images/rock20/sphx_glr_plot_iris_svc_001.png" class="center"/>
 
 
+---
 
+<img src="images/rock20/sphx_glr_plot_nearest_centroid_001.png" class="center"/>
+
+---
+
+<img src="images/rock20/sphx_glr_plot_classification_001.png" class="center"/>
+
+---
+
+<img src="images/rock20/sphx_glr_plot_iris_dtc_001.png" class="center"/>
+
+---
+
+<img src="images/rock20/sphx_glr_plot_forest_iris_001.png" class="center"/>
 
 
 
 ---
 class:inverse
+
+## How to build a learner?
+
+--
+
+train:
+1. partition feature space into "parts",
+2. assign each part to the majority vote.  
+
+predict: 
+2. for a new unlabeled point, find the its part,
+3. report the majority vote in its part.
+
+
+
+---
+class:inverse
+
+## The fundamental theorem of statistical pattern recognition
+
+--
+
+If each cell is:
+
+- small enough, and 
+- has enough points in it, 
+
+then given enough data, one can learn *perfectly, no matter what*! 
+
+
+-- Stone, 1977
+
+
+
+---
+class:inverse
+
+
+---
+class:inverse 
+
+## Do brains do it?
+
+--
+
+(brains obviously learn)
+
+1. do brains partition feature space?
+2. is there some kind of "voting" occurring within each part?
+
+
+---
+class: inverse
+
+## Brains partition space 
+
+
+1. visual receptive fields
+2. place fields / grid cells
+3. sensory homonculus
+
+<br>
+
+<img src="images/rock20/Side-black.gif" style="height:230px;"/>
+<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
+<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
+
+
+---
+class: inverse
+
+## Activated neurons vote
+
 
 
 ---
@@ -1361,18 +1469,6 @@ class: middle, inverse
 Note: Deep Nets with ReLu activation function also tesselate space into polytopes  
 
 
-<!-- ---
-
-### What are Honest Trees?
-
-1. Subset the data into 2 subsets
-2. Learn the partitions using 1 set
-3. Learn the probabilities using the other set.
-
-
-Doing so yields consistent estimates of the probabilities, that is,
-
-$$\hat{P}(f\_n) \rightarrow P$$ -->
 
 ---
 
@@ -1493,6 +1589,25 @@ $\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \d
 
 
 We say that $f$ **universally** lifelong learns in settings $\vec{S}$ iff $\forall n\_j > n\_0$ and $\forall \vec{P} \in \vec{\mathcal{P}}$, lifelong learning holds.
+
+
+
+---
+
+## Consider the iris dataset
+
+- introduced by RA Fisher (inventor of modern statistics) 
+- 150 points from 3 species of iris's
+  - setosa, virginica, versicolor
+- 4 dimensions/features: 
+  - sepal length, sepal width, petal length, petal width 
+
+
+
+---
+class:inverse
+
+<img src="images/rock20/sphx_glr_plot_iris_dtc_001.png" style="position:absolute; top:0px; left:0px; height:100%;"/>
 
 
 

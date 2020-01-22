@@ -303,7 +303,7 @@ class:inverse
 <br>
 
 - honeybees do not forget how to do the first task
-- technically, this is called "forward transfer"
+- this is called "forward transfer"
 
 ---
 class: inverse 
@@ -357,9 +357,10 @@ class: inverse
 
 ## Current State-of-the-Art
 
-Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019.
 
 <img src="images/l2m_18mo/progressive_nets.png" style="width:650px;"/>
+
+Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019.
 
 
 ---
@@ -369,7 +370,7 @@ class: inverse
 
 --
 
-not quite 
+not quite. 
 
 
 ---
@@ -378,21 +379,21 @@ class: inverse
 ## What about .r[reverse transfer]?
 
 
+- In general, tasks are complex, built of sub-tasks, if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too.
+
 - "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
 
---
-
-Tasks are complex, built of sub-tasks, if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too.
 
 
 ---
 class:inverse 
 
+## Summary of transfer learning
 
-## AI cannot currently reverse transfer 
+- Modern AI can forward transfer
+- Modern AI cannot reverse transfer 
+- Biological intelligence can do both
 
-
-but we can.... 
 
 ---
 class:inverse 
@@ -414,7 +415,7 @@ Problem: gerrymandering
 ---
 class:inverse 
 
-## An honet agent
+## An honest agent
 
 <img src="images/rock20/L2F-UF.svg" style="width:650px;">
 
@@ -433,20 +434,22 @@ class:inverse
 
 --
 
-This is really the core innovation
+- each task gets a unique partition
+- all tasks use all partitions 
+- any task can benefit from any other task if partition is relevant
 
 
 ---
 class: inverse
 
-### An illustrative example: XOR 
+## An illustrative example: XOR 
 
 - samples in the (+, +) and (-, -) quadrants are class 1  
 - samples in the (-, +) and (+, -) quadrants are class 0 
 - the optimal decision boundary is the coordinate axes 
 - we want to classify black dot
 
-<img src="images/rock20/xor.png" style="width:400px" class="center"/>
+<img src="images/rock20/xor.png" style="width:400px"/>
 
 
 
@@ -455,7 +458,7 @@ class: inverse
 
 ##  Honest Forests
   
-<img src="images/l2m_18mo/just_xor.png" alt="Snow" style="height:300px;">
+<img src="images/l2m_18mo/just_xor.png"  style="height:300px;">
 
 - error is estimated generalization error
 - partition learned using a subset of data from XOR 
@@ -476,20 +479,23 @@ class: inverse
 
 
 ---
-### Example 4: .blue[Not-XOR (N-XOR)] to .r[XOR]
+class: inverse
+
+## A Transfer Example
 
 - .r[XOR]
   - Samples in the (+, +) and (-, -) quadrants are green  
-  - samples in the (-, +) and (+, -) quadrants are purple. 
-- .blue[N-XOR]
+  - samples in the (-, +) and (+, -) quadrants are purple 
+- .lb[N-XOR]
   - Samples in the (+, +) and (-, -) quadrants are green  
   - samples in the (-, +) and (+, -) quadrants are purple. 
-- The optimal decision boundaries for both problems are the coordinate axes.
+- Optimal decision boundary for both problems are  coordinate axes
 
 <img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/> 
 
 ---
-### Transfer  Forests
+class: inverse
+## Transfer  Forests
 
 <div style="display:inline-flex">
      <div>
@@ -501,14 +507,14 @@ class: inverse
 </div>
 
 - (Left)  Decision Forest .r[XOR] uses:
-  - 100 samples from .r[XOR] to learn decider (posterior)
-  - $n$ data from .blue[N-XOR] to learn transformer  (partition)
+  - 100 samples from .r[XOR] to vote
+  - $n$ data from .lb[N-XOR] to learn partition
 - (Right) learned probability of an observation  being green
-  - used 100 .r[XOR]  and 300 .blue[N-XOR] training samples 
+  - used 100 .r[XOR]  and 300 .lb[N-XOR] training samples 
 
-<!-- change posterior heatmap colors -->
 ---
-### Transfer Forests
+class:inverse 
+## Transfer Forests
 
 <div style="display:inline-flex">
      <div>
@@ -521,110 +527,16 @@ class: inverse
 
 - Learning partitions is "harder" than posteriors:
   - DF .r[XOR] only gets 100 samples to learn partitions,  
-  - DF .blue[N-XOR] gets up to 400
-- DF .blue[N-XOR] exhibits transfer learning, because its error decreases on .r[XOR] as the number of samples from .blue[N-XOR] increases for a fixed amount of data from .r[XOR] 
+  - DF .lb[N-XOR] gets up to 400
+- DF .lb[N-XOR] exhibits transfer learning, because its error decreases on .r[XOR] as the number of samples from .lb[N-XOR] increases for a fixed amount of data from .r[XOR] 
 
-
-<!-- change posterior heatmap colors -->
-
----
-
-### Lifelong Learning: Basic Set-up 
-
-
-Given
-
-1. a universe of potential tasks, $\mathcal{J}$
-1. a sequence of data and task pairs $(z_1, j_1), (z_2,j_2),\ldots$, where each $j_t \in \mathcal{J}$
-<!-- 2. data and t$ z'\_1, z'\_2, .., z'\_s $  -->
-<!-- 3. observed target data $ z\_1, z\_2, .., z\_n $ -->
-
-Assume
-1. the $ z\_t $ are all  independent 
-1. total \# samples > \# unique tasks 
-
----
-
-### Constituents of Lifelong  LM (L2M) 
-
-
-1.  .pu[representation]: data from all tasks are transformed into this space
-2.  .pu[transformers]: map each data point from all tasks to the representation space
-3.  .pu[deciders]: takes an action using transformed data from all tasks
-
-
----
-
-### Example 5  
-
-$J$ increasing linear 2-class classification tasks
-
-<div style="display:inline-flex">
-     <div>
-          <img src="images/l2m_18mo/cml_linear_problem1.png" alt="Snow" style="height:200px; width:200px">
-     </div>
-     <div>
-          <img src="images/l2m_18mo/cml_linear_problem_dataset2.png" alt="nah" style="height:200px; width:200px">
-     </div>
-     <div>
-          <img src="images/l2m_18mo/cml_linear_problem3.png" alt="Snow" style="height:200px; width:200px">
-     </div>
-</div> ...
-
-<!-- 1. .pu[representation]: the real number line 
-2. .pu[transformers]: $J$ different projection matrix that maps data onto real number line 
-3. .pu[deciders]: $J$ thresholds such that values above threshold are one class, and below are the other -->
-
-
-
-
-
-
-<!-- means are +/- j (potentially with jitter added) -->
-
----
-### Lifelong Trees
-
-1. .pu[representation]: set of partitions
-2. .pu[transformers]: a tree to partition space for each task 
-3. .pu[deciders]: average of majority vote in each node from each tree applied to each task's data
-
-<img src="images/l2m_18mo/lifelong-tree.jpg" style="height:400px;width:550px">
 
 
 
 ---
-### Lifelong Trees
+class: inverse
 
-1. .pu[representation]: set of partitions
-2. .pu[transformers]: a tree to partition space for each task 
-3. .pu[deciders]: average of majority vote in each node from each tree applied to each task's data
-
-- **each task** yields a representation,
-- the data are transformed into each representation,  
-- the deciders make predictions in each representation,
-- the prediction is  averaged across representations. 
-<!-- update a la other ones -->
-
-
-
----
-### Example 6: .r[XOR] and .blue[Not-XOR (N-XOR)]
-
-- .r[XOR]
-  - Samples in the (+, +) and (-, -) quadrants are green  
-  - samples in the (-, +) and (+, -) quadrants are purple. 
-- .blue[N-XOR]
-  - Samples in the (+, +) and (-, -) quadrants are purple  
-  - samples in the (-, +) and (+, -) quadrants are green. 
-- The optimal decision boundaries for both problems are the coordinate axes. 
-
-<img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/>
-<!-- update colors  -->
-
-
----
-### Lifelong Forests 
+## Lifelong Forests 
 
 <div style="display:flex">
       <div>
@@ -635,391 +547,80 @@ $J$ increasing linear 2-class classification tasks
      </div>
 </div>
 
-- .green[Lifelong Forests] learn the optimal decision boundary using  both 
+- .green[Lifelong Forests] uses partitions from  both 
   -  100 samples from .r[XOR], and 
-  -  $n$ samples from  .blue[N-XOR].
-- Posteriors are  learned using only 300 samples from .blue[N-XOR] on both partitions.
+  -  $n$ samples from  .lb[N-XOR].
+- Posteriors are  learned using only 300 samples from .lb[N-XOR] on both partitions.
 - Prediction is based on  the  learned posterior averaged over both partitions.
 
-<!-- make same as transfer learning plots but add new line
-update text accordingly
--->
 
----
-### Lifelong Forests
-
-<div style="display:flex">
-     <div>
-          <img src="images/l2m_18mo/L2M_18mo_xor_nxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/l2m_18mo/posterior_heatmap_xor_nxor_lifelong.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
-
-- .green[Lifelong Forests] perform as well as the best method regardless of the amount of .blue[N-XOR] data
-- .green[Lifelong Forests] therefore exhibits .pu[adaptation to new tasks and circumstances] more effectively than a na&iuml;ve transfer  forest
-
-<!-- may want to show plots for other transfer direction -->
 
 
 ---
-### Adversarial Tasks 
+class:inverse
 
-- .r[XOR] vs .blue[N-XOR] is the easiest possible sequence of tasks 
-- Consider an adversarial task: 
-  - a second task, .blue[Rotated-XOR (R-XOR)], which has zero information about the first task; 
-  - therefore, its data can only add noise and increase error 
+## "Real" data example
 
-<img src="images/l2m_18mo/xor_rxor.png" style="width:475px" class="center"/>
-
-<!-- add two linear two-class classification problem w adverserial source task -->
-
-<!-- adverserial source task = either means reflected across x-axis or two gaussians centered at 0,0 -->
-
----
-### Example 7: .r[XOR] and .blue[R-XOR]
-
-
-<!-- integrate this content into slide with figure -->
-- Left figures: 
-  - y-axis is  error on .r[XOR] learned using 100 samples 
-  - x-axis is # of .blue[R-XOR] data samples
-  - we used 100 .r[XOR] data samples
-- Right figures:
-  - estimated probability of an observation from purple
-  - learned using 100 .r[XOR]  and 300 .blue[R-XOR] training samples
+- same CIFAR experiment as before
+  -  10  tasks, each with 10 classes, 500 training samples / class
+- y-axis indicates .r[transfer efficiency], which is the ratio of "single task error" to "error using other tasks"
+- we want the numbers to be >1
+- each task will have a line
+  - if the line starts >1, that means it is doing "forward transfer"
+  - if the line .r[increases], that means it is doing "reverse transfer"
 
 
 ---
-### Decision Forests 
+class:inverse 
 
-<div style="display:flex">
-     <div>
-          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_rf.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_rf.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
+<img src="images/rock20/EWC_CIFAR.png" style="height:530px;"/>
 
-- Decision Forest .r[XOR] uses 
-  - data from .r[XOR] to learn  transformer (partition)
-  - other data from .r[XOR] to learn  decider (posterior) 
-- Since the number of samples from .r[XOR] is fixed, the error of DF .r[XOR] is constant
-
-<!-- fix posterior plots as above, with titles -->
-
----
-### Transfer Forests 
-
-<div style="display:flex">
-     <div>
-          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_transfer.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_transfer.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
-
-- Decision Forest  .blue[R-XOR] uses 
-  - data from  .blue[R-XOR] to learn transformers(partition)
-  - data from .r[XOR] to learn decider (posterior)
-- Error only decreases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimate of the partition, the optimal partition is fully uninformative)
-
-<!-- fix posterior plots as above  -->
-
----
-### Lifelong Forests
-
-<div style="display:flex">
-     <div>
-          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
-
-- .green[Lifelong Forests] learn the optimal decision boundary using  data from both (1) .r[XOR], and (2)  .blue[R-XOR]. 
-- Posteriors are  learned using only data from .r[XOR] on both partitions. 
-- Prediction is based on  the  estimated posterior averaged over both partitions.
-
-<!-- fix posterior plots as above  -->
-
----
-### Lifelong Forests 
-
-<div style="display:flex">
-     <div>
-          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
-     </div>
-     <div>
-          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
-     </div>
-</div>
-
-- .green[Lifelong Forests] do not dramatically degrade performance of past tasks, despite maximally adversarial tasks
-- Therefore, .green[Lifelong Forests] avoid .pu[catastrophic forgetting] regardless of new task distributions, making it fundamentally .pu[safe].
-
-<!-- fix poster plots as above  -->
-
----
-
-class: center, middle, inverse
-
-## .center[L2F Lifelong Learns Empirically on Real Data]
+DeepMind's "Elastic Weight Consolidation"
 
 
 ---
+class:inverse 
 
-## "Real" Data: CIFAR 10-by-10
+<img src="images/rock20/SI_CIFAR.png" style="height:530px;"/>
 
-- CIFAR 100 is a popular image classification dataset with 100 classes of images, containing 600 images, each 32x32 colour images.
-- There are 500 training images and 100 testing images per class.
-- CIFAR 10x10 break the 100 class task problem into 10 problems, each a 10 class problem.
-
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
-
-
-<!-- show images of each task/class
-eg, https://www.cs.toronto.edu/~kriz/cifar.html for 1 task,
-make a table left column is superclass and next 5 columns are tasks
-include this info: This dataset is just like the CIFAR-10, except it has 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. Each image comes with a "fine" label (the class to which it belongs) and a "coarse" label (the superclass to which it belongs).
-Here is the list of classes in the CIFAR-100:
--->
+Surya Ganguli's "Synaptic Intelligence"
 
 ---
+class:inverse
 
-### Previous State-of-the-Art #1
-
-- David Lopez-Paz, Marc'Aurelio Ranzato. "[Gradient Episodic Memory for Continual Learning](https://papers.nips.cc/paper/7225-gradient-episodic-memory-for-continual-learning.pdf)." NIPS 2017.
-- 127 Citations 
-
-<img src="images/l2m_18mo/evoplot_cifar100.png" style="width:750px;"/>
-
-Figure 1: evolution of the test accuracy at the first task, as more tasks are learned.
-
-
----
-
-### Previous State-of-the-Art #2
-
-- Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019.
-
-<img src="images/l2m_18mo/progressive_nets.png" style="width:500px;"/>
-
-Figure 1: No approaches demonstrate reverse transfer, and most demonstrate catastrophic forgetting.
-
----
-#### Key Algorithm Parameters Per Tree
-
-- To learn partitions:
-  - bootstrap = true (sklearn default)
-  - min_samples_leaf=1 (sklearn default; maximally pure trees)
-  - max_features = $\sqrt{p}$ (sklearn default; not relevant for 2D data)
-  - max_depth=30 (to accelerate run time; makes accuracy worse typically)
-  - max_samples = 0.32 (to enable samples for learning posteriors)
-- To learn posteriors:
-  - finite sample correction = 1 / ( 2 $\times$ # samples in cell)
-
-
-- Nothing special about our tree construction, basically:
-  - default sklearn parameters, plus 
-  - modifications to enable learning posteriors (deciders)
-
----
-
-<img src="images/l2m_18mo/cifar-100-TLE-Accuracy.png" style="width:750px;"/>
-
-- Lifelong Forests exhibit both "reverse" or "backward" transfer: its performance on previously observed tasks increases as more tasks are observed.
-
-<!-- 
- keep these 2 plots in appendix 
-add error  normalized each line by dividing by single task performance 
-with errorbars
--->
-
-<!-- ---
-
-<img src="images/initial-cifar-100-debugged-1-subsample-recall.png" style="width:750px;"/>
- -->
-
-
----
-class: middle, inverse
-
-
-## .center[Hardware Design Implications]
-
----
-
-
-### Forest > Neural Nets (single threaded)
-
-
-<img src="images/s-rerf_6plot_times.png" style="width:750px;"/>
-
-- Forests are red, Neural nets are blue 
-
-
----
-
-### Forest > Neural Nets (single threaded)
-
-
-- Forests can be trained in a massively parallel fashion 
-  - unlike DeepNets and ConvNets
-- Forests can make predictions in a massively parallel fashion
-  - unlike DeepNets and ConvNets
-- Even single threaded, 
-  - forest training is faster than NN
-  - forest prediction is faster than NN 
-- Forests can only access a small fraction of the stored model to make a prediction 
-  - because most leaves are not activated for any given input
-
----
-
-### Implications 
-
-- GPUs/TPUs are not required 
-- Forests can be deployed on IoT/Mobile devices with hard drives to store model 
-- Additional layers of memory (L1/L2/L3 Cache, etc.) will immediately accelerate prediction time 
-- Incremental updating of trees is a new access pattern that no modern hardware is designed to efficiently support
-
-
-
----
-class: middle, inverse
-
-
-## .center[L2F Lifelong Learns Consistently]
-
----
-
-### What is Consistency?
-
-
-$\mathcal{E}\_{S}(f\_n,P)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f,P)$ as $n \to \infty$.
-
-### What is Universal Consistency?
-
-$\forall P \in \mathcal{P}: \mathcal{E}\_{S}(f\_n,P)  \rightarrow \arg \min\_f \; \mathcal{E}\_{S}(f,P)$ as $n \to \infty$.
-
-
----
-
-### Key Insight of Uncertainty Forests 
-
-- Sub-sample data into two sets, one to learn transformers, and one to learn deciders
-- This yields consistent estimates of the probabilities averaged per cell:
-$$\hat{P}(f\_n) \rightarrow P$$
-
----
-
-### L2F Theorems
-
-Lemma 1: Uncertainty Forests produce universally consistent estimates of posterior probabilities for k-class classification problems.
-
-Lemma 2: Posteriors estimated on sufficiently deep and random trees are also universally consistent for k-class classification problems.
-
-Conj 3: For a specific $\vec{S}$, where $\mathcal{Z}\_j = (\mathcal{X} \times \mathcal{Y}\_j)$, L2F is a universal lifelong learner.
-
-Proof: Stone's Theorem, 1977 + Biau et al. 2008 + a little more.
-
-
-
----
-class: middle, inverse
-
-
-## .center[Future Plans]
-
-
-
----
-
-## Test and Evaluation Process 
-
-1. Test dataset 1: psychopathy  data
-  - ~1000 subjects
-  - Cognitive, brain imaging, and other measurements acquired over 10 year span 
-  - Location, personnel, hardware, software, etc. changed over time.  
-  - Goal: predict recidivism (important social and moral considerations)
-2. Test dataset 2: lifespan human connectome project data 
-  - ~1000 subjects
-  - Cognitive, brain imaging, and other measurements acquired from people ranging from 5 to 81 years old 
-  - Goal: predict cognitive decline (important public health considerations)
-- Metrics: LLE as a function of sample size
-- Status: We have data, it is being processed.
-
----
-
-
-### Concrete Examples and Limitations 
-
-- Any supervised lifelong learning classification problem with the same feature space code will run on today.
-- Any supervised lifelong learning .pu[regression] problem code will run  soon.
-- If all feature spaces are  "typical" .pu[manifolds] (images, time-series), improved code will run soon.
-- We will soon have an implementation that does not require the data or model to fit in main memory.
-- If different tasks have different feature spaces (eg, some only have images, others only have text), code will run in near future.
-- We do not plan to have reinforcement learning in near future.
-
----
-
-## 5 Core Capabilities 
-
-1. Continual Learning: &#x2713 (can stream updating probabilities)
-2. Adaptation to New Tasks: &#x2713 (no catastrophic forgetting)
-3. Goal Driven Perception: &#x2713 (all conditional on $S$)
-4. Selective Plasticity: &#x2713 (uses consistent posterior estimates)
-5. Monitoring & Safety &#x2717;
+<img src="images/l2m_18mo/cifar-100-TLE-Accuracy.png" style="height:530px;"/>
 
 --
 
-Will incorporate streaming output of probabilities and changes in held-out error rate as new tasks are included. 
+
+- TE starting >1 indicates forward transfer
+- TE increasing with more tasks indicates reverse trasfer
 
 
 
 ---
+class: inverse 
 
-## Other Next Steps 
+
+## Summary of  Results 
+
+- Lifelong forest seems to be the only algorithm that exhibits reverse transfer 
+
+
+---
+class: inverse
+
+##  Next Steps 
 
 - Extend empirical and theoretical results to more general settings
 - Extend empirical and theoretical results to deep learning
 
----
-
-### Polytope space partitioning algorithms
-
-
-<img src="images/deep-polytopes.png" style="width:750px;"/>
-
-
-- NNs with ReLu nodes also partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)).
-
 
 
 ---
+class: inverse
 
-### Convolutional RF is competitive with NN on images & time-series
-
-<img src="images/s-rerf_6panel.png" style="width:750px;"/>
-
-
-
-
----
-
-### RF is more computationally efficient 
-
-
-<img src="images/s-rerf_6plot_times.png" style="width:750px;"/>
-
-
----
-
-### Summary Comparison 
+## Summary  
 
 - Any space partitioning algorithm can likely yield lifelong learning with guarantees
 - Decision forests (DF) with convolution match/exceed neural networks on basic image classification tasks
@@ -1029,8 +630,9 @@ Will incorporate streaming output of probabilities and changes in held-out error
 
 
 ---
+class: inverse
 
-### References 
+## References 
 
 3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
 1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
@@ -1042,23 +644,13 @@ Will incorporate streaming output of probabilities and changes in held-out error
 
 Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 
----
-
-### Other L2M Work Not Mentioned 
-
-1. J. Agterberg et al. Vertex Nomination, Consistent Estimation, and Adversarial Modification. arXiv, 2019.
-2. J. Yoder et al. Vertex nomination: The canonical sampling and the extended spectral nomination schemes. arXiv, 2018.
-3. V. Lyzinski et al. On consistent vertex nomination schemes. arXiv, 2017.
-4. H. Patsolic et al. Vertex Nomination Via Seeded Graph Matching. arXiv, 2017.
-
-
-
-
 
 
 
 ---
-### Acknowledgements
+class:inverse 
+
+## Acknowledgements
 
 
 
@@ -1116,10 +708,10 @@ Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 --
 
 
-<!-- <div class="small-container">
+<div class="small-container">
   <img src="faces/cep.png"/>
   <div class="centered">Carey Priebe</div>
-</div> -->
+</div>
 
 <div class="small-container">
   <img src="faces/randal.jpg"/>
@@ -1133,7 +725,7 @@ Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 </div>
 
 
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/bruce_rosen.jpg"/>
   <div class="centered">Bruce Rosen</div>
 </div>
@@ -1142,7 +734,7 @@ Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 <div class="small-container">
   <img src="faces/kent.jpg"/>
   <div class="centered">Kent Kiehl</div>
-</div>
+</div> -->
 
 <!-- <div class="small-container">
   <img src="faces/mim.jpg"/>
@@ -1186,10 +778,10 @@ Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
   <div class="centered">Eric Perlman</div>
 </div> -->
 
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/loftus.jpg"/>
   <div class="centered">Alex Loftus</div>
-</div>
+</div> -->
 
 <!-- <div class="small-container">
   <img src="faces/bcaffo.jpg"/>
@@ -1247,49 +839,46 @@ Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 </div> -->
 
 
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/jeremias.png"/>
   <div class="centered">Jeremias Sulam</div>
-</div>
+</div> -->
 
-<!-- 
+
 <div class="small-container">
   <img src="faces/meghana.png"/>
   <div class="centered">Meghana Madhya</div>
 </div>
-   -->
+  
 
 <!-- <div class="small-container">
   <img src="faces/percy.png"/>
   <div class="centered">Percy Li</div>
 </div>
-     -->
+-->
 
-<!-- <div class="small-container">
+<div class="small-container">
   <img src="faces/hayden.png"/>
   <div class="centered">Hayden Helm</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/satish.png"/>
-  <div class="centered">Satish Palaniappan</div>
-</div> -->
-
-
-
-<div class="small-container">
-  <img src="faces/nate.png"/>
-  <div class="centered">Nate Anderson</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/fan.png"/>
-  <div class="centered">Qiuyun Fan</div>
 </div>
 
 
- 
+<div class="small-container">
+  <img src="faces/rguo.jpg"/>
+  <div class="centered">Richard Gou</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/ronak.jpg"/>
+  <div class="centered">Ronak Mehta</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jayanta.jpg"/>
+  <div class="centered">Jayanta Dey</div>
+</div>
+
+
 
 </div>
 <!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
@@ -1300,7 +889,7 @@ Code: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 <!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
 
 ---
-class:center
+class:center, inverse
 
 <img src="images/liono_holds_babyv.jpeg" style="position:absolute; top:0px; left:200px; height:100%;"/>
 
@@ -1309,6 +898,120 @@ class: middle, inverse
 
 
 ## .center[Extra Slides]
+
+
+
+
+---
+class: inverse
+
+## Adversarial Tasks 
+
+- .r[XOR] vs .lb[N-XOR] is the easiest possible sequence of tasks 
+- Consider an adversarial task: 
+  - a second task, .lb[Rotated-XOR (R-XOR)], which has zero information about the first task; 
+  - therefore, its data can only add noise and increase error 
+
+<img src="images/rock20/xor_rxor.png" style="width:475px" class="center"/>
+
+<!-- add two linear two-class classification problem w adverserial source task -->
+
+<!-- adverserial source task = either means reflected across x-axis or two gaussians centered at 0,0 -->
+
+---
+class:inverse 
+
+## An Adversarial Example
+
+
+<!-- integrate this content into slide with figure -->
+- Left figures: 
+  - y-axis is  error on .r[XOR] learned using 100 samples 
+  - x-axis is # of .lb[R-XOR] data samples
+  - we used 100 .r[XOR] data samples
+- Right figures:
+  - estimated probability of an observation from purple
+  - learned using 100 .r[XOR]  and 300 .lb[R-XOR] training samples
+
+
+---
+class:inverse  
+
+## Decision Forests 
+
+<div style="display:flex">
+     <div>
+          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_rf.png" alt="Snow" style="height:300px; width:300px">
+     </div>
+     <div>
+          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_rf.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
+
+- Decision Forest .r[XOR] uses 
+  - data from .r[XOR] to learn  partition
+  - other data from .r[XOR] to vote
+- Since the number of samples from .r[XOR] is fixed, the error of DF .r[XOR] is constant
+
+
+---
+class: inverse 
+
+## Transfer Forests 
+
+<div style="display:flex">
+     <div>
+          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_transfer.png" alt="Snow" style="height:300px; width:300px">
+     </div>
+     <div>
+          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_transfer.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
+
+- Decision Forest  .lb[R-XOR] uses 
+  - data from  .lb[R-XOR] to learn partition
+  - data from .r[XOR] to vote
+- Error only decreases slightly because the partitions are nearly uninformative (the informativeness is actually due to noisy estimate of the partition, the optimal partition is fully uninformative)
+
+<!-- fix posterior plots as above  -->
+
+---
+class:inverse
+## Lifelong Forests
+
+<div style="display:flex">
+     <div>
+          <img src="images/l2m_18mo/L2M_18mo_xor_rxor_lifelong.png" alt="Snow" style="height:300px; width:300px">
+     </div>
+     <div>
+          <img src="images/l2m_18mo/posterior_heatmap_xor_rxor_lifelong.png" alt="nah" style="height:300px; width:300px">
+     </div>
+</div>
+
+- .green[Lifelong Forests] learn the optimal decision boundary using  data from both (1) .r[XOR], and (2)  .lb[R-XOR]. 
+- Posteriors are  learned using only data from .r[XOR] on both partitions. 
+- Prediction is based on  the  estimated posterior averaged over both partitions.
+
+
+---
+class: inverse
+
+## Polytope space partitioning algorithms
+
+
+<img src="images/deep-polytopes.png" style="width:750px;"/>
+
+
+- NNs with ReLu nodes also partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)).
+
+
+
+---
+
+### RF is more computationally efficient 
+
+
+<img src="images/s-rerf_6plot_times.png" style="width:750px;"/>
 
 
 ---

@@ -173,12 +173,12 @@ class: inverse
 <br>
 
 1. learning is partitioning space and then voting 
-2. brains do that 
-3. if an agent does it appropriately, it can learn anything
+2. brains do both things
 
 
 --
 
+<br>
 satisfied?
 
 
@@ -212,11 +212,11 @@ class: inverse
 class: inverse, middle
 
 
-shouldn't learning be .r[faster] if we already learned a related task?
+Shouldn't learning be .r[faster] if we already learned a related task?
 
 --
 
-yes. this is called "transfer learning".
+Yes. This is called "transfer learning".
 
 
 ---
@@ -227,16 +227,9 @@ class: inverse
 
 <img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
 
+--
 <br><br><br><br><br><br><br><br><br><br><br>
-They also tried to transfer to different sensory modality (smell), and the transfer still works about equally well
-
----
-class:inverse
-
-## Some important details
-
-<br>
-
+- honey bees can also transfer to different sensory modality (smell)
 - honeybees do not forget how to do the first task
 - this is called "forward transfer"
 
@@ -557,7 +550,7 @@ class: inverse
 
 <br> 
 
-Lifelong forest is the only AI that exhibits reverse transfer 
+Lifelong forest is the only AI that exhibits reverse transfer. 
 
 ---
 class: inverse
@@ -569,9 +562,9 @@ class: inverse
 
 ## Models of the Brain 
 
-- obviously, there are many 
-- we are proposing one for how brains learn efficiently
-- models main utility is in suggesting the next experiment to perform 
+- there are many 
+- we are proposing one for how brains learn efficiently, especially with respect to sequential task learning
+- the main utility of a model is in suggesting the next experiment to perform 
 
 
 ---
@@ -581,7 +574,7 @@ class: inverse
 
 Experiment:
 - select a species that can transfer learn 
-- teach one task 0 (source task)
+- teach an organism task 0 (source task)
 - teach it one of two "target tasks"
   - target task A is very similar to source task
   - target task B is very different from source task
@@ -593,9 +586,9 @@ Predictions:
 
 
 ---
-class: inverse
+class: inverse, middle
 
-There are many models of the brain, how is this one better?
+There are many models of the brain, in which ways is this one better?
 
 
 ---
@@ -654,8 +647,8 @@ class:inverse
 
 If each cell is:
 
-- small enough, and 
-- has enough points in it, 
+1. small enough, and 
+2. has enough points in it, 
 
 then given enough data, one can learn *perfectly, no matter what*! 
 
@@ -664,25 +657,75 @@ then given enough data, one can learn *perfectly, no matter what*!
 
 
 
+
+---
+class: inverse
+
+## What is Transfer Learning? 
+
+- Given
+  - data $D_0$, and an algorithm $f_0$ trained using only $D_0$. 
+  - data $D_n$ from possibly another distribution, 
+  - algorithm $f_n$ trained using both $D_0$ and $D_n$
+
+
+
+"An algorithm $f$  .r[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves over  with $D_n$.'"
+
+--
+
+
+$f$ .r[transfer] learns from data iff 
+
+$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
+
+
+---
+class:inverse
+
+## The fundamental .r[conjecture] of transfer learning
+
+--
+
+If each cell is:
+
+- small enough, and 
+- has enough points in it, 
+
+then given enough data, one can .r[transfer learn] *perfectly, no matter what*! 
+
+
+-- jovo, 2020
+
+--
+
+In other words, 
+- if brains brains transfer learn as described (partitions and voting), 
+- then they can transfer learn in essentially any scenario.
+
+
 ---
 class: inverse
 
 ##  What next?
 
-- nothing really special about "forests", could apply the same idea to any deep net
-- bee's transfer across modalities, we don't know how to do that
+- Nothing really special about "forests", could apply the same idea to any deep net
+- Bees transfer across modalities, we don't know how to do that
 
 
 
 ---
 class: inverse
 
-## Summary  
+## Total Summary  
 
-- Any space partitioning algorithm can likely yield lifelong learning with guarantees
-- Decision forests (DF) with convolution match/exceed neural networks on basic image classification tasks
-- DF is already much faster to train and test
-- DF is fundamentally massively parallel, unlike neural networks 
+- Learning can be done by partitioning + voting
+- Brains learn this way
+- Brains can transfer learn
+- Existing DeepNets can only forward transfer 
+- Lifelong Forests can also reverse transfer 
+- Neuro experiments suggested based on model 
+- Theory promising to prove partitioning + voting is basically required
 
 
 

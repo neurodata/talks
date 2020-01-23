@@ -309,7 +309,7 @@ class: inverse
 
 --
 
-not quite. 
+Not quite. 
 
 
 ---
@@ -341,7 +341,7 @@ class:inverse
 ---
 class:inverse 
 
-## A very simple agent
+## A very simple classifier
 
 <img src="images/rock20/L2F-RF.svg" style="width:650px;">
 
@@ -354,13 +354,13 @@ class:inverse
 ---
 class:inverse 
 
-## An honest agent
+## An honest classifier
 
 <img src="images/rock20/L2F-UF.svg" style="width:650px;">
 
 --
 
-- in ML, a "calibrated" learner is one who consistently provides the probability that a given sample is in each class 
+- in ML, a "calibrated" classifier is one who consistently provides the probability that a given sample is in each class 
 - most ML algorithms are *not* calibrated 
 - this includes all Deep Learning algorithms ever, to my knowledge
 
@@ -369,7 +369,7 @@ class:inverse
 ---
 class:inverse 
 
-## A  transfer agent
+## A  transfer classifier
 
 <img src="images/rock20/L2F-TF.svg" style="width:650px;">
 
@@ -383,7 +383,7 @@ class:inverse
 ---
 class:inverse 
 
-## A  lifelong learning agent
+## A  lifelong classifier
 
 <img src="images/rock20/L2F-LF.svg" style="width:650px;">
 
@@ -412,7 +412,7 @@ class: inverse
 ---
 class: inverse
 
-##  Honest Forests
+##  Honest Classifier
   
 <img src="images/l2m_18mo/just_xor.png"  style="height:300px;">
 
@@ -423,7 +423,7 @@ class: inverse
 ---
 class: inverse
 
-##  Honest Forests
+##  Honest Classifier
 
 <img src="images/l2m_18mo/just_xor.png" alt="Snow" style="height:300px;">
 <img src="images/rock20/posterior_heatmap_xor_nxor_rf.png" style="height:300px;">
@@ -451,7 +451,7 @@ class: inverse
 
 ---
 class: inverse
-## Transfer  Forests
+## Transfer  Classifier
 
 <div style="display:inline-flex">
      <div>
@@ -470,7 +470,7 @@ class: inverse
 
 ---
 class:inverse 
-## Transfer Forests
+## Transfer Classifier
 
 <div style="display:inline-flex">
      <div>
@@ -492,7 +492,7 @@ class:inverse
 ---
 class: inverse
 
-## Lifelong Forests 
+## Lifelong Classifier 
 
 <div style="display:flex">
       <div>
@@ -587,7 +587,7 @@ Experiment:
 - select a species that can transfer learn 
 - teach an organism task 0 (source task)
 - teach it one of two "target tasks"
-  - target task A is very similar to source task
+  - target task A is very similar to source task with respect to partitions
   - target task B is very different from source task
 
 Predictions:
@@ -711,7 +711,7 @@ then given enough data, one can .r[transfer learn] *perfectly, no matter what*!
 --
 
 In other words, 
-- if brains brains transfer learn as described (partitions and voting), 
+- if brains  transfer learn as described (partitions and voting), 
 - then they can transfer learn in essentially any scenario.
 
 

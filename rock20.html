@@ -13,8 +13,14 @@
 
 
 
-class: inverse
+class:inverse 
 
+# Lifelong Learning
+
+
+      
+Joshua T. Vogelstein, BME@JHU, [neurodata](https://neurodata.io)
+      
 ---
 class: inverse
 
@@ -133,10 +139,12 @@ class: inverse
 
 ## Brains partition  
 
-
-1. visual receptive fields
-2. place fields / grid cells
-3. sensory homonculus
+- Feature space = the set of all possible inputs to a brain
+- Partition = only a subset of "nodes" respond to any given input
+- Examples
+  1. visual receptive fields
+  2. place fields / grid cells
+  3. sensory homonculus
 
 <br>
 
@@ -150,8 +158,9 @@ class: inverse
 
 ## Brains vote
 
+- Vote = pattern of responses indicate which stimulus evoked response
 
-<img src="images/rock20/brody1.jpg" style="height:500px;" />
+<img src="images/rock20/brody1.jpg" style="height:400px;" />
 
       
 
@@ -261,7 +270,7 @@ are able to learn and remember many different tasks." -- Kirkpatrick et al. (PNA
 
 "To get there, we will need something else too: a fundamental rethinking of how learning works. We need to invent a new kind of learning that leverages existing knowledge, rather than one that obstinately starts over from square one in every domain it confronts.”— Rebooting AI: Building Artificial Intelligence We Can Trust by Gary Marcus, Ernest Davis
 
-"These expectations, however, have met with fundamental obstacles that cut across many applica- tion areas. One such obstacle is adaptability or robustness....  Intensive theoretical and experimental efforts toward “transfer learning,” “domain adap- tation,” and “Lifelong learning” [Chen and Liu 2016] are reflective of this obstacle." -- Judea Pearl, 2019
+"These expectations, however, have met with fundamental obstacles that cut across many application areas. One such obstacle is adaptability or robustness... Intensive theoretical and experimental efforts toward “transfer learning,” “domain adaptation,” and “Lifelong learning”  are reflective of this obstacle." -- Judea Pearl, 2019
 
 ---
 class: inverse 
@@ -286,8 +295,8 @@ class:inverse
 ## Consider an  example
 
 - *CIFAR 100* is a popular image classification dataset with 100 classes of images, containing 600 images, each 32x32 colour images.
-- There are 500 training images and 100 testing images per class.
 - CIFAR 10x10 breaks the 100-class task problem into 10 problems, each a 10-class problem.
+- There are 500 training images and 100 testing images per class.
 
 <img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
 
@@ -522,38 +531,18 @@ class:inverse
 
 - same CIFAR experiment as before
   -  10  tasks, each with 10 classes, 500 training samples / class
-- y-axis indicates .r[transfer efficiency] (TE), which is the ratio of "single task error" to "error using other tasks"
-- we want the numbers to be >1
+- y-axis indicates .r[reverse transfer efficiency] (RTE), 
+  - which is the ratio of "single task error" to "error using future tasks"
 - each task will have a line
-  - if the line starts >1, that means it is doing "forward transfer"
   - if the line .r[increases], that means it is doing "reverse transfer"
 
 
 ---
 class:inverse 
 
-<img src="images/rock20/EWC_CIFAR.png" style="height:530px;" />
+<img src="images/rock20/cifar-100-RTLE.png" style="height:530px;" />
 
-DeepMind's "Elastic Weight Consolidation"
-
-
----
-class:inverse 
-
-<img src="images/rock20/SI_CIFAR.png" style="height:530px;" />
-
-Surya Ganguli's "Synaptic Intelligence"
-
----
-class:inverse
-
-<img src="images/l2m_18mo/cifar-100-TLE-Accuracy.png" style="height:530px;" />
-
-
-
-- TE starting >1 indicates forward transfer
-- TE increasing with more tasks indicates reverse trasfer
-
+Only .r[Lifelong Forests] exhibits reverse transfer
 
 
 ---
@@ -564,7 +553,8 @@ class: inverse
 
 <br> 
 
-Lifelong forest is the only AI that exhibits reverse transfer. 
+- Lifelong learning is the best of both worlds, it weights tasks based on their utility
+- Lifelong forest is the only AI that exhibits reverse transfer. 
 
 ---
 class: inverse
@@ -740,14 +730,6 @@ class: inverse
 - Neuro experiments suggested based on model 
 - Theory promising to prove partitioning + voting is basically required
 
-
----
-class:inverse 
-
-# Lifelong Learning
-
-Joshua T. Vogelstein, BME@JHU<br>
-[neurodata](https://neurodata.io)
 
 
 

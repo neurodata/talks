@@ -111,6 +111,24 @@ predict:
 3. report the majority vote in its part.
 
 
+---
+class:inverse
+
+## What can regressors do?
+
+--
+<br>
+
+learn:
+1. partition feature space into "parts",
+2. average of points in each part determines that part's prediction.
+
+
+predict: 
+2. for a new unlabeled point, find its part,
+3. report the average vote in its part.
+
+
 
 
 ---
@@ -168,6 +186,7 @@ class: inverse
 <img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
 
 
+
 ---
 class: inverse
 
@@ -184,6 +203,7 @@ class: inverse
 ## Natural Questions 
 
 
+1. Do deep nets do this? (hint: not explicitly)
 1. Can brains learn anything? (hint: no)
 1. How do brains learn to partition feature space?
 2. How do brains learn to vote?
@@ -215,7 +235,7 @@ $$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 ---
 class: inverse
 
-## What is Multitask Learning (MTL)? 
+## What is Multitask Learning? 
 
 - Given $J$ tasks
   - algorithms $f_j$ trained using only $D_j$, for $j \in [J]$
@@ -237,24 +257,35 @@ i.e., on average, performance on each task improves by virtue of training also o
 ---
 class: inverse
 
-## What is Sequential MTL? 
+## What is Lifelong Learning? 
 
-- Given a sequence of $J$ tasks
+- Given a sequence of $n$ samples, each associated with a task
   - algorithms $f_j$ trained using only $D_j$, for $j \in [J]$
   - algorithm $f_n$ trained using $D_1, \ldots , D_J$
 
-An algorithm $f_n$  .r[sequentially multitask] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $T$ with performance measure $\mathcal{E}$, if $f_n$'s performance at each task improves on average over $f_j$'s performance.
+An algorithm $f_n$  .r[lifelong] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $T$ with performance measure $\mathcal{E}$, if $f_n$'s performance at each task improves on average over $f_j$'s performance.
 
 --
 
 
-$f$ .r[multitask] learns from data iff 
+$f$ .r[lifelong] learns from data iff 
 
 $$\frac{  \frac{1}{J} \sum\_j \mathcal{E}\_j(f\_j)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
 
 i.e., on average, performance on each task improves by virtue of training also on other tasks
 
+
+---
+class:inverse 
+
+## Forward and Backward Transfer 
+
+
+Forward Transfer Efficiency: improving performance on future tasks given past data  
+
+
+Backward Transfer Efficiency: improving performance on past tasks given future data 
 
 
 
@@ -271,12 +302,10 @@ Yup.
 
 
 
-
-
 ---
 class: inverse 
 
-## Honey Bees can do it
+## Honey Bees can forward transfer
 
 
 <img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
@@ -287,6 +316,20 @@ class: inverse
 - honeybees do not forget how to do the first task
 - this is called "forward transfer"
 - bees learn the concept of "sameness"
+
+
+---
+class: inverse 
+
+## What about .r[reverse transfer]?
+
+
+- In general, tasks are complex, built of sub-tasks; if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too.
+
+- "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
+
+
+
 
 ---
 class: inverse 
@@ -339,18 +382,6 @@ Augmented Reality
 - Walking around, go to a new place, want to update model
 
 In all cases, re-training from scratch is just too expensive.
-
-
----
-class: inverse 
-
-## What about .r[reverse transfer]?
-
-
-- In general, tasks are complex, built of sub-tasks; if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve, too.
-
-- "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
-
 
 
 ---

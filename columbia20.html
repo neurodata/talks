@@ -73,7 +73,7 @@ class: inverse
 ## Consider a simple example
 
 - 2 classes: green and purple
-- we observe 100 points  
+- we observe 100 points per class
 - each point has 2 features: dim1 and dim2
 - we desire to .r[learn] a classifier that discriminates between these two classes
 
@@ -195,13 +195,13 @@ class: inverse
 ## What is Transfer Learning? 
 
 - Given
-  - data $D_0$, and an algorithm $f_0$ trained using only $D_0$. 
-  - data $D_n$ from possibly another distribution, 
+  - data $D_0$ and an algorithm $f_0$ trained using only $D_0$ 
+  - data $D_n$ from possibly another distribution
   - algorithm $f_n$ trained using both $D_0$ and $D_n$
 
 
 
-"An algorithm $f$  .r[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves   with $D_n$.'"
+"An algorithm $f$  .r[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves   with $D_n$."
 
 --
 
@@ -319,9 +319,9 @@ class: inverse
 are able to learn and remember many different tasks." -- Kirkpatrick et al. (PNAS, 2017)
 
 
-"To get there, we will need something else too: a fundamental rethinking of how learning works. We need to invent a new kind of learning that leverages existing knowledge, rather than one that obstinately starts over from square one in every domain it confronts.”— Rebooting AI: Building Artificial Intelligence We Can Trust by Gary Marcus, Ernest Davis
+"To get there, we will need something else, too: a fundamental rethinking of how learning works. We need to invent a new kind of learning that leverages existing knowledge, rather than one that obstinately starts over from square one in every domain it confronts.”— Rebooting AI: Building Artificial Intelligence We Can Trust by Gary Marcus, Ernest Davis
 
-"These expectations, however, have met with fundamental obstacles that cut across many application areas. One such obstacle is adaptability or robustness... Intensive theoretical and experimental efforts toward “transfer learning,” “domain adaptation,” and “Lifelong learning”  are reflective of this obstacle." -- Judea Pearl, 2019
+"These expectations, however, have met with fundamental obstacles that cut across many application areas. One such obstacle is adaptability or robustness... Intensive theoretical and experimental efforts toward “transfer learning,” “domain adaptation,” and “lifelong learning”  are reflective of this obstacle." -- Judea Pearl, 2019
 
 ---
 class: inverse 
@@ -329,7 +329,7 @@ class: inverse
 ## A Real Challenge 
 
 Industry:
-- Amazon trained a recommender system on existing products, then a new product is launched, desire to update model to both recommend for new products
+- Amazon trained a recommender system on existing products, then a new product is launched, desire to update model to recommend for new products
 - Google recommends websites, then new websites are created, want to update model 
 
 Healthcare:
@@ -347,7 +347,7 @@ class: inverse
 ## What about .r[reverse transfer]?
 
 
-- In general, tasks are complex, built of sub-tasks; if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too.
+- In general, tasks are complex, built of sub-tasks; if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve, too.
 
 - "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
 
@@ -366,10 +366,10 @@ Given a sequence of datasets
 - For each training dataset  
   - Learn a partition on that dataset 
   - Learn most likely class in each part of that partition
-  - For each previously learning partition,  
+  - For each previously learned partition,  
       - Identify part of partition in which sample resides 
       - Identify most likely class of that partition 
-  - Take a majority vote across all partitions predictions
+  - Take a majority vote across all partitions' predictions
 
 
 
@@ -425,10 +425,10 @@ class:inverse
 
 ## Consider an  example
 
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images, 
-- CIFAR 10x10 breaks the 100-class task problem into 10 10-class problems
+- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
+- CIFAR 10x10 breaks the 100-class task problem into 10 10-class problems.
 - There are 500 training images and 100 testing images per class.
-- Each image is 32x32 color images.
+- All images are 32x32 color images.
 
 
 <img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
@@ -467,7 +467,7 @@ class:inverse
 
 <img src="images/rock20/cifar-100-RTLE.png" style="height:530px;" />
 
-Only .r[Lifelong Forests] exhibits reverse transfer
+Only .r[Lifelong Forests] exhibits reverse transfer.
 
 
 ---
@@ -500,13 +500,13 @@ Experiment:
 Predictions:
 1. same neurons will be activated for task 0 and task A
 1. those neurons will exhibit distinct firing patterns for the two tasks
-2. different neurons will be activated for tasks 0 and task B
+2. different neurons will be activated for task 0 and task B
 
 
 ---
 class: inverse, middle
 
-There are many models of the brain, in which ways is this one better?
+There are many models of the brain; in which ways is this one better?
 
 
 

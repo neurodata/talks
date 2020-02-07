@@ -184,12 +184,12 @@ class: inverse
   - algorithms $f_j$ trained using only $D_j$, for $j \in [J]$
   - algorithm $f_n$ trained using $D_1, \ldots , D_J$
 
-An algorithm $f_n$  .r[multitask] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f_n$'s performance at each task improves on average over $f_j$'s performance.
+An algorithm $f_n$  .r[multitask] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f(D_n)$'s performance at each task improves on average over $f(D_j)$'s performance.
 
 --
 
-$f$  .r[multitask] learns from data if, for example 
-$$\mathcal{E}_t(f,D_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,D_j),$$ or $f$ satisfies a stronger requirement such as, for all $j$
+$f$  weakly .r[multitask] learns from data if
+$$\mathcal{E}_t(f,D_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,D_j),$$ and $f$ strongly .r[multitask] learns if, for all $j$
 $$\mathcal{E}_j(f,D_n) < \mathcal{E}_j(f,D_j).$$ 
 
 
@@ -203,15 +203,16 @@ class: inverse
   - algorithms $f_j$ trained using only $D_j$, for $j \in [J_n]$
   - algorithm $f_n$ trained using $D_n$
 
-An algorithm $f_n$  .r[lifelong] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f_n$'s performance at each task improves on average over $f_j$'s performance.
+An algorithm $f_n$  .r[lifelong] learns from all data $D_n$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f(D_n)$'s performance at each task improves on average over $f(D_j)$'s performance.
 
 --
 
 
-
-$f$  .r[lifelong] learns from data if, for example 
-$$\mathcal{E}_t(f,D_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,D_j),$$ or $f$ satisfies a stronger requirement such as, for all $j$
+$f$  weakly .r[lifelong] learns from data if
+$$\mathcal{E}_t(f,D_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,D_j),$$ and $f$ strongly .r[lifelong] learns if, for all $j$
 $$\mathcal{E}_j(f,D_n) < \mathcal{E}_j(f,D_j).$$ 
+
+
 
 
 

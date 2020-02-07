@@ -213,18 +213,78 @@ $f$ weakly .r[lifelong] learns from data iff $\mathcal{E}_t(f,D_n) < \frac{1}{J}
 $f$ strongly .r[lifelong] learns from data iff $\mathcal{E}_j(f,D_n) < \mathcal{E}_j(f,D_j)$ for all $j$.
 
 
+---
+class:inverse, middle 
+
+## Evaluation Criteria
+
+
+---
+class:inverse
+
+## Transfer Efficiency
+
+
+Given a random data corpus $\mathcal{D}_n$ and letting $\mathcal{D}_j = \{(x, y, t) \in \mathcal{D}_n : t = j\}$, the transfer efficiency of learning algorithm $f$ for task $j$ is
+$$  TE\_j(f) := 
+    \frac{\mathcal{E}\_j(f, \mathcal{D}\_j)}{\mathcal{E}\_j(f, \mathcal{D}\_n)}.
+$$
+
+<br>
+
+Algorithm $ f $ transfer learns if $ TE_j(f) > 1 $. 
+
 
 ---
 class:inverse 
 
-## Forward and Backward Transfer 
+## Forward  Transfer Efficiency 
 
 
-Forward Transfer Efficiency: improving performance on future tasks given past data  
+Forward  Transfer Efficiency  (FTE) for task $j$ measures the improvement on task $j$ resulting from all data preceding the last index $i$ such that $t_i = j$. 
+
+Let $n\_j = \arg \max\_i t\_i = j$ be the last occurrence of task $j$, $\mathcal{D}_j = \{(x_i, y_i, t_i) \in \mathcal{D}_n : t_i = j\}$ be the set of task $j$ data, and $\mathcal{D}^F_j = \{(x_i, y_i, t_i) \in \mathcal{D}_n : i \leq n_j\}$ be the set of all data up to index $n_j$.
 
 
-Backward Transfer Efficiency: improving performance on past tasks given future data 
+The forward transfer efficiency of $ f $ for task $j$ is 
+$$    FTE_j(f) := 
+\frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}^F_j)}.
+$$
 
+
+---
+class:inverse 
+
+## Reverse  Transfer Efficiency
+
+
+Reverse  Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last index $i$ with $t_i = j$. 
+
+
+The reverse transfer efficiency of $ f $ for task $j$ is 
+$$    RTE\_j(f) := 
+\frac{\mathcal{E}\_j(f, \mathcal{D}^F_j)}{\mathcal{E}_j(f, \mathcal{D}_n)}.
+$$
+
+
+---
+class:inverse 
+
+##  Transfer Efficiency Factorizes
+
+$$
+\frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}^F_j)} \times \frac{\mathcal{E}\_j(f, \mathcal{D}^F_j)}{\mathcal{E}_j(f, \mathcal{D}_n)} 
+= \frac{\mathcal{E}\_j(f, \mathcal{D}\_j)}{\mathcal{E}\_j(f, \mathcal{D}\_n)} 
+= TE\_j(f).
+$$
+
+
+---
+class:inverse 
+
+##  What is Lifelong Learning 
+
+An algorithm $f$ lifelong learns if, and only if, for all tasks, both forward and reverse transfer efficiency are greater than one.
 
 
 

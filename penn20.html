@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Columbia</title>
+    <title>UPenn20</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="fonts/quadon/quadon.css">
     <link rel="stylesheet" href="fonts/gentona/gentona.css">
@@ -40,7 +40,7 @@ class: inverse
 ## What is  Learning? 
 
 
-"An agent $f$  learns from data $D_n$ with respect to task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves with $D_n$.''
+"An agent $f$  learns from data $D_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $D_n$.''
 
 -- Tom Mitchell, 1997 (not exact quote)
 
@@ -54,16 +54,13 @@ class:inverse
 
 Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
 
-$$ \mathcal{E}\_T(f\_n) = \mathbb{E}_{P}[R(f_n(D_n))].$$
+$$ \mathcal{E}\_t(f,D) = \mathbb{E}\_{D\_n}[R\_t(f(D))].$$
 
 
 <br>
 
-$f$ learns from data iff $\mathcal{E}_T(f_n)$ is better than $\mathcal{E}_T(f_0)$, or more formally
+$f$ learns from data iff $\mathcal{E}_t(f,D_n) < \mathcal{E}_t(f,D_0).$
 
-<br>
-
-$$\frac{\mathcal{E}_T(f_0)}{\mathcal{E}_T(f_n)} > 1.$$ 
 
 
 
@@ -146,67 +143,14 @@ If each part is:
 then given enough data, one can learn *perfectly, no matter what*! 
 
 
-$$\mathcal{E}\_T(f\_n) \rightarrow \mathcal{E}\_T^*$$
+$$\mathcal{E}\_t(f,D) \rightarrow \mathcal{E}\_t^*$$
 
 
 -- Stone, 1977
 
 
+NB: the parts can be overlapping (as in kNN) or not (as in histograms)
 
-
----
-class:inverse 
-
-## Do brains do it?
-
---
-
-(brains obviously learn)
-
-1. Do brains partition feature space?
-2. Is there some kind of "voting" occurring within each part?
-
-
----
-class: inverse
-
-## Brains partition  
-
-- Feature space = the set of all possible inputs to a brain
-- Partition = only a subset of "nodes" respond to any given input
-- Examples
-  1. visual receptive fields
-  2. place fields / grid cells
-  3. sensory homonculus
-
-<br>
-
-<img src="images/rock20/Side-black.gif" style="height:230px;"/>
-<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
-<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
-
-
-
----
-class: inverse
-
-## Brains vote
-
-- Vote = pattern of responses indicate which stimulus evoked response
-
-<img src="images/rock20/brody1.jpg" style="height:400px;" />
-
-      
----
-class: inverse 
-
-## Natural Questions 
-
-
-1. Do deep nets do this? (hint: not explicitly)
-1. Can brains learn anything? (hint: no)
-1. How do brains learn to partition feature space?
-2. How do brains learn to vote?
 
 
 ---
@@ -221,14 +165,13 @@ class: inverse
 
 
 
-"An algorithm $f$  .r[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves   with $D_n$."
+"An algorithm $f$  .r[transfer] learns from data $D_n$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves   with $D_n$."
 
 --
 
 
-$f$ .r[transfer] learns from data iff 
+$f$ .r[transfer] learns from data iff $\mathcal{E}_t(f,D_n) < \mathcal{E}_t(f,D_0).$
 
-$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
 
 
 
@@ -241,17 +184,14 @@ class: inverse
   - algorithms $f_j$ trained using only $D_j$, for $j \in [J]$
   - algorithm $f_n$ trained using $D_1, \ldots , D_J$
 
-An algorithm $f_n$  .r[multitask] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $T$ with performance measure $\mathcal{E}$, if $f_n$'s performance at each task improves on average over $f_j$'s performance.
+An algorithm $f_n$  .r[multitask] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f_n$'s performance at each task improves on average over $f_j$'s performance.
 
 --
 
+$f$ weakly .r[multitask] learns from data iff $\mathcal{E}_t(f,D_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,D_j).$
 
-$f$ .r[multitask] learns from data iff 
+$f$ strongly .r[multitask] learns from data iff $\mathcal{E}_j(f,D_n) < \mathcal{E}_j(f,D_j)$ for all $j$.
 
-$$\frac{  \frac{1}{J} \sum\_j \mathcal{E}\_j(f\_j)}{\mathcal{E}\_T(f\_{n})} > 1.$$
-
-
-i.e., on average, performance on each task improves by virtue of training also on other tasks
 
 
 ---
@@ -260,20 +200,18 @@ class: inverse
 ## What is Lifelong Learning? 
 
 - Given a sequence of $n$ samples, each associated with a task
-  - algorithms $f_j$ trained using only $D_j$, for $j \in [J]$
-  - algorithm $f_n$ trained using $D_1, \ldots , D_J$
+  - algorithms $f_j$ trained using only $D_j$, for $j \in [J_n]$
+  - algorithm $f_n$ trained using $D_n$
 
-An algorithm $f_n$  .r[lifelong] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $T$ with performance measure $\mathcal{E}$, if $f_n$'s performance at each task improves on average over $f_j$'s performance.
+An algorithm $f_n$  .r[lifelong] learns from datasets $\lbrace D_j \rbrace$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f_n$'s performance at each task improves on average over $f_j$'s performance.
 
 --
 
 
-$f$ .r[lifelong] learns from data iff 
+$f$ weakly .r[lifelong] learns from data iff $\mathcal{E}_t(f,D_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,D_j).$
 
-$$\frac{  \frac{1}{J} \sum\_j \mathcal{E}\_j(f\_j)}{\mathcal{E}\_T(f\_{n})} > 1.$$
+$f$ strongly .r[lifelong] learns from data iff $\mathcal{E}_j(f,D_n) < \mathcal{E}_j(f,D_j)$ for all $j$.
 
-
-i.e., on average, performance on each task improves by virtue of training also on other tasks
 
 
 ---
@@ -1237,14 +1175,14 @@ class: inverse
 
 
 
-"An algorithm $f$  .pu[transfer] learns from data $D_n$  with respect to transfer learning task $T$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $T$ improves over  with $D_n$.'"
+"An algorithm $f$  .pu[transfer] learns from data $D_n$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves over  with $D_n$.'"
 
 --
 
 
 $f$ .pu[transfer] learns from data iff 
 
-$$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
+$$\frac{\mathcal{E}\_t(f\_0)}{\mathcal{E}\_t(f\_{n})} > 1.$$
 
 
 
@@ -1260,13 +1198,13 @@ $$\frac{\mathcal{E}\_T(f\_0)}{\mathcal{E}\_T(f\_{n})} > 1.$$
   - a multi-task risk (e.g., average risk across tasks).
 
 
-An algorithm $f$  .pu[multi-task] learns from data $D_n$   with respect to multi-task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
+An algorithm $f$  .pu[multi-task] learns from data $D_n$   with respect to multi-task $t$ with overall performance measure $\mathcal{E}_t$, if $f$'s performance at task  $t$ improves with $D_n$."
 
 --
 
 $f_0$ .pu[multi-task] learns from data iff 
 
-$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
+$$\frac{\mathcal{E}\_t( \lbrace f\_j \rbrace )}{\mathcal{E}\_t(f\_{n})} > 1.$$
 
 
 
@@ -1283,14 +1221,14 @@ $$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
   - a multi-task risk (e.g., average risk across tasks).
 
 
-An algorithm $f$  .pu[lifelong] learns from data $D_n$   with respect to lifelong task $T$ with overall performance measure $\mathcal{E}_T$, if $f$'s performance at task  $T$ improves with $D_n$."
+An algorithm $f$  .pu[lifelong] learns from data $D_n$   with respect to lifelong task $t$ with overall performance measure $\mathcal{E}_t$, if $f$'s performance at task  $t$ improves with $D_n$."
 
 
 --
 
 $f$ .pu[lifelong] learns from data iff 
 
-$$\frac{\mathcal{E}\_T( \lbrace f\_j \rbrace )}{\mathcal{E}\_T(f\_{n})} > 1.$$
+$$\frac{\mathcal{E}\_t( \lbrace f\_j \rbrace )}{\mathcal{E}\_t(f\_{n})} > 1.$$
 
 ---
 

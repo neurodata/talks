@@ -37,8 +37,109 @@ class: inverse
 
 ## Outline 
 
-- Math
-- Biology
+- [Summary](#3)
+- [Math](#12)
+- [Biology](#61)
+
+
+
+---
+class: middle
+
+# Summary
+
+
+---
+class: inverse
+
+## What is Lifelong Learning?
+
+A computational system .r[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
+
+
+---
+class: inverse
+
+## What is Lifelong Learning?
+
+A computational system .r[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
+
+
+Motivation: in biology, learning subsequent tasks often improves performance on previously learned tasks 
+
+
+The key is learning internal representations of each data sample that is useful for multiple tasks
+
+
+---
+class: inverse
+
+## Current State of the Art 
+
+1. Used fixed architecture, finite capacity
+2. Increase capacity, with complicated architecture 
+
+
+---
+class: inverse
+
+## Our Approach 
+
+
+1. Formally define lifelong learning as a generalization of single task machine learning, with suitable metrics 
+2. Develop a generic lifelong learning approach, Omni-Directional Ensembling Representation (ODER)
+  1. Learn a new representation for each task
+  2. Ensemble all representations to make predictions 
+3. Implement a specific example of this approach, Lifelong Forests 
+4. Demonstrate that Lifelong Forests uniquely demonstrates lifelong learning
+
+
+
+---
+class: inverse
+
+## Evaluation Criteria ("Metrics")
+
+
+**Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including lots of other data.
+
+**Forward Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including .r[all past data]. 
+
+**Reverse Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .r[all data, both past and future].
+
+--
+
+If you don't reverse transfer, you haven't lifelong learned.
+
+
+---
+class:inverse 
+
+.r[Lifelong Forests] uniquely exhibits reverse transfer.
+
+
+<img src="images/cifar-rte.png" style="height:530px;" />
+
+
+---
+class:inverse 
+
+## Limitations 
+
+1. Capacity grows linearly with # of tasks 
+2. Tasks must be discrete 
+3. Data must be batched into tasks 
+4. Tasks must be known 
+5. Feature space must be the same for all tasks 
+
+
+
+---
+class:middle
+
+# Math 
+
+
 
 
 ---
@@ -58,7 +159,7 @@ class: inverse
 ## What is  Learning? 
 
 
-"An agent $f$  learns from data $D_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $D_n$.''
+"An agent $f$  learns from data $\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $\mathcal{D}_n$.''
 
 -- Tom Mitchell, 1997 (not exact quote)
 
@@ -72,12 +173,12 @@ class:inverse
 
 Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
 
-$$ \mathcal{E}\_t(f,D) = \mathbb{E}\_{D\_n}[R\_t(f(D))].$$
+$$ \mathcal{E}\_t(f,\mathcal{D}) = \mathbb{E}\_{D\_n}[R\_t(f(\mathcal{D}))].$$
 
 
 <br>
 
-$f$ learns from data iff $\mathcal{E}_t(f,D_n) < \mathcal{E}_t(f,D_0).$
+$f$ learns from data iff $\mathcal{E}_t(f,\mathcal{D}_n) < \mathcal{E}_t(f,\mathcal{D}_0).$
 
 
 
@@ -161,7 +262,7 @@ If each part is:
 then given enough data, one can learn *perfectly, no matter what*! 
 
 
-$$\mathcal{E}\_t(f,D) \rightarrow \mathcal{E}\_t^*$$
+$$\mathcal{E}\_t(f,\mathcal{D}) \rightarrow \mathcal{E}\_t^*$$
 
 
 -- Stone, 1977
@@ -177,18 +278,18 @@ class: inverse
 ## What is Transfer Learning? 
 
 - Given
-  - data $D_0$ and an algorithm $f_0$ trained using only $D_0$ 
-  - data $D_n$ from possibly another distribution
-  - algorithm $f_n$ trained using both $D_0$ and $D_n$
+  - data **source** $\mathcal{D}_0$ and an algorithm $f_0$ trained using only $\mathcal{D}_0$ 
+  - data **target** $\mathcal{D}_1$ from possibly another distribution
+  - algorithm $f_n$ trained using  $\mathcal{D} = \mathcal{D}_0 \cup  \mathcal{D}_1$
 
 
 
-"An algorithm $f$  .r[transfer] learns from data $D_n$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves   with $D_n$."
+"An algorithm $f$  .r[transfer] learns from data $\mathcal{D}_0$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves   with $\mathcal{D}_0$."
 
 --
 
 
-$f$ .r[transfer] learns from data iff $\mathcal{E}_t(f,D_n) < \mathcal{E}_t(f,D_0).$
+$f$ .r[transfer] learns from data iff $\mathcal{E}_t(f,\mathcal{D}) < \mathcal{E}_t(f,\mathcal{D}_0).$
 
 
 
@@ -199,16 +300,16 @@ class: inverse
 ## What is Multitask Learning? 
 
 - Given $J$ tasks
-  - algorithms $f_j$ trained using only $D_j$, for $j \in [J]$
-  - algorithm $f_n$ trained using $D_1, \ldots , D_J =D$
+  - algorithms $f_j$ trained using only $\mathcal{D}_j$, for $j \in [J]$
+  - algorithm $f_n$ trained using $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$
 
-An algorithm $f_n$  .r[multitask] learns from datasets $D=\lbrace D_j \rbrace$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f(D)$'s performance at each task improves on average over $f(D_j)$'s performance.
+An algorithm $f_n$  .r[multitask] learns from datasets $\mathcal{D}$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f(\mathcal{D})$'s performance at each task improves on average over $f(\mathcal{D}_j)$'s performance.
 
 --
 
 $f$  weakly .r[multitask] learns from data if
-$$\mathcal{E}_t(f,D) < \frac{1}{J} \sum_j \mathcal{E}_j(f,D_j),$$ and $f$ strongly .r[multitask] learns if, for all $j$
-$$\mathcal{E}_j(f,D) < \mathcal{E}_j(f,D_j).$$ 
+$$\mathcal{E}_t(f,\mathcal{D}) < \frac{1}{J} \sum_j \mathcal{E}_j(f,\mathcal{D}_j),$$ and $f$ strongly .r[multitask] learns if, for all $j$
+$$\mathcal{E}_j(f,\mathcal{D}) < \mathcal{E}_j(f,\mathcal{D}_j).$$ 
 
 
 
@@ -218,17 +319,17 @@ class: inverse
 ## What is Lifelong Learning? 
 
 - Given a sequence of $n$ samples, each associated with a task
-  - algorithms $f_j$ trained using only $D_j$, for $j \in [J_n]$
-  - algorithm $f_n$ trained using $D=D_1,D_2,\ldots $
+  - algorithms $f_j$ trained using only $\mathcal{D}_j$, for $j \in [J_n]$
+  - algorithm $f_n$ trained using $\mathcal{D}= \cup \mathcal{D}_j$
 
-An algorithm $f_n$  .r[lifelong] learns from all data $D$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f(D)$'s performance at each task improves on average over $f(D_j)$'s performance.
+An algorithm $f_n$  .r[lifelong] learns from all data $\mathcal{D}$  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f(\mathcal{D})$'s performance at each task improves on average over $f(\mathcal{D}_j)$'s performance.
 
 --
 
 
 $f$  weakly .r[lifelong] learns from data if
-$$\mathcal{E}_t(f,D) < \frac{1}{J} \sum_j \mathcal{E}_j(f,D_j),$$ and $f$ strongly .r[lifelong] learns if, for all $j$
-$$\mathcal{E}_j(f,D) < \mathcal{E}_j(f,D_j).$$ 
+$$\mathcal{E}_t(f,\mathcal{D}) < \frac{1}{J} \sum_j \mathcal{E}_j(f,\mathcal{D}_j),$$ and $f$ strongly .r[lifelong] learns if, for all $j$
+$$\mathcal{E}_j(f,\mathcal{D}) < \mathcal{E}_j(f,\mathcal{D}_j).$$ 
 
 
 
@@ -277,10 +378,10 @@ $$
 ---
 class:inverse 
 
-## Reverse  Transfer Efficiency
+## Reverse Transfer Efficiency
 
 
-Reverse  Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$. 
+Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$. 
 
 
 The reverse transfer efficiency of $ f $ for task $j$ is 
@@ -582,7 +683,7 @@ class: inverse
 
 
 ---
-class:inverse, middle 
+class: middle 
 
 # Biology
 

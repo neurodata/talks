@@ -54,7 +54,7 @@ class:middle
 ---
 class:inverse, middle 
 
-### A General Theory of the Learnable
+### A  Theory of the Lifelong Learnable
 
 
 
@@ -76,7 +76,7 @@ class: inverse
 ## What is  Learning? 
 
 
-"An agent $f$  learns from data $\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $n$.''
+"An agent $f$  learns from data $\mathcal{D}=\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $n$.''
 
 -- Tom Mitchell, 1997 (not exact quote)
 
@@ -107,43 +107,45 @@ class:inverse
 
 - Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
 - Sample $Z_i \sim P \in \mathcal{P}$, identical and independent
-- Let $\mathcal{D}_n=\lbrace Z_1, \ldots, Z_n \rbrace$
+- Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace$
+
+---
+class:inverse 
+
 
 ## What is an Algorithm?
 
-$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, $f : 2^{\mathcal{Z}^n} \rightarrow \mathcal{H}$.
+$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, 
 
-
-
-## What is  Performance?
-
-Generalization error $\mathcal{E}^t$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
-
-
-$$ \mathcal{E}^t(f,\mathcal{D}_n) = \mathbb{E}\_P[R(f(\mathcal{D}_n))].$$
-
+$$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
 
 
 ---
 class:inverse 
 
 
+
+## What is  Performance?
+
+Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
+
+
+$$ \mathcal{E}(f,\mathcal{D} ) := \mathcal{E}(f,\mathcal{D} \mid t) = \mathbb{E}\_P[R(f(\mathcal{D}))].$$
+
+
+
 ## What is Learning?
 
 
 
-
-<br>
-
-$f$ learns from data $\mathcal{D}_n$ iff $\mathcal{E}(f,\mathcal{D}_n) < \mathcal{E}(f,\mathcal{D}^0),$
+$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$
 
 
-where $\mathcal{D}^0$ be a dataset with no samples.
+where $\mathcal{D}_0$ be a dataset with no samples.
 
 
---
 
-$\mathcal{E}(f,\mathcal{D}^0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
+$\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
   - prior on $\theta$ 
   - inductive bias of $\mathcal{H}$
 
@@ -182,17 +184,19 @@ class: inverse
 ## What is Transfer Learning? 
 
 - Given
-  - .r[source] data $\mathcal{D}^j$, and 
-  - .r[target] data $\mathcal{D}^0$ from possibly another distribution.
-  - let $\mathcal{D}_n = \mathcal{D}^0 \cup \mathcal{D}^1$.
+  - .r[source] data $\mathcal{D}_1$, and 
+  - .r[target] data $\mathcal{D}_0$ from possibly another distribution.
+  - let $\mathcal{D} = \mathcal{D}_0 \cup \mathcal{D}_1$.
 
 
-<!-- "An algorithm $f$  .r[transfer] learns from data $\mathcal{D}^j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}^j$." -->
+<!-- "An algorithm $f$  .r[transfer] learns from data $\mathcal{D}_j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}_j$." -->
 
 --
 
 
-$f$ .r[transfer] learns from $\mathcal{D}^j$ iff $\mathcal{E}(f,\mathcal{D}_n) < \mathcal{E}(f,\mathcal{D}^0).$
+$f$ .r[transfer] learns for  task $t$ from $\mathcal{D}_1$ iff 
+
+$$\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$$
 
 
 
@@ -202,17 +206,25 @@ class: inverse
 
 ## What is Multitask Learning? 
 
-- Given datasets $\mathcal{D}^j$, for tasks $j \in [J]$,
-- Let $\mathcal{D}_n= \mathcal{D}^1, \ldots , \mathcal{D}^J$
+- Given datasets $\mathcal{D}_j$, for tasks $j \in \mathcal{J}$, where $|\mathcal{J}|=J$,
+- Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$
 
-<!-- An algorithm $f$  .r[multitask] learns from datasets $\mathcal{D}^1,\ldots, \mathcal{D}^J$,  with respect to learning multitask $t$ with performance measure $\mathcal{E}^t$, if $f(\mathcal{D}_n)$'s performance at each task improves on average over $f(\mathcal{D}^j)$'s performance. -->
+<!-- An algorithm $f$  .r[multitask] learns from datasets $\mathcal{D}_1,\ldots, \mathcal{D}_J$,  with respect to learning multitask $t$ with performance measure $\mathcal{E}^t$, if $f(\mathcal{D})$'s performance at each task improves on average over $f(\mathcal{D}_j)$'s performance. -->
 
 --
 
-$f$  weakly .r[multitask] learns from $\mathcal{D}_n$ if
-$$\mathcal{E}^t(f,\mathcal{D}_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,\mathcal{D}^j),$$ and $f$ strongly .r[multitask] learns if, for all $j$
-$$\mathcal{E}_j(f,\mathcal{D}_n) < \mathcal{E}_j(f,\mathcal{D}^j).$$ 
+$f$  weakly .r[multitask] learns from $\mathcal{D}$ if
 
+$$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum_j \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
+
+<br>
+
+
+and $f$ strongly .r[multitask] learns if, 
+
+<!-- $$\mathcal{E}_j(f,\mathcal{D}) < \mathcal{E}_j(f,\mathcal{D}_j).$$  -->
+
+$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
 
 
 ---
@@ -223,14 +235,14 @@ class: inverse
 - Given a sequence of $n$ samples, each associated with a task
 - Number of tasks therefore grows with $n$, possibly (countably) infinite
 
-An algorithm $f$  .r[lifelong] learns from all data $\mathcal{D}_n$  with respect to lifelong learning task $t$ with performance measure $\mathcal{E}$, if $f(\mathcal{D}_n)$'s performance at each task improves on average over $f(\mathcal{D}^j)$'s performance.
+An algorithm $f$  .r[lifelong] learns from all data $\mathcal{D}$  with respect to lifelong learning task $t$ with performance measure $\mathcal{E}$, if $f(\mathcal{D})$'s performance at each task improves on average over $f(\mathcal{D}_j)$'s performance.
 
 --
 
 
 $f$  weakly .r[lifelong] learns from data if
-$$\mathcal{E}(f,\mathcal{D}) < \frac{1}{J} \sum_j \mathcal{E}_j(f,\mathcal{D}^j),$$ and $f$ strongly .r[lifelong] learns if, for all $j$
-$$\mathcal{E}_j(f,\mathcal{D}) < \mathcal{E}_j(f,\mathcal{D}^j).$$ 
+$$\mathcal{E}(f,\mathcal{D}) < \frac{1}{J} \sum_j \mathcal{E}_j(f,\mathcal{D}_j),$$ and $f$ strongly .r[lifelong] learns if, for all $j$
+$$\mathcal{E}_j(f,\mathcal{D}) < \mathcal{E}_j(f,\mathcal{D}_j).$$ 
 
 
 
@@ -249,11 +261,11 @@ class:inverse
 ## Transfer Efficiency
 
 
-- Given a random data corpus $\mathcal{D}_n$,
-- Let $\mathcal{D}^j = \{(X, Y, T) \in \, \mathcal{D}_n : T = j\}$, 
+- Given a random data corpus $\mathcal{D}$,
+- Let $\mathcal{D}_j = \{(X, Y, T) \in \, \mathcal{D} : T = j\}$, 
 - The transfer efficiency of learning algorithm $f$ for task $j$ is
 $$  TE\_j(f) := 
-    \frac{\mathcal{E}\_j(f, \mathcal{D}^j)}{\mathcal{E}\_j(f, \mathcal{D_n})}.
+    \frac{\mathcal{E}\_j(f, \mathcal{D}_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}.
 $$
 
 <br>
@@ -269,12 +281,12 @@ class:inverse
 
 <!-- Forward  Transfer Efficiency  (FTE) for task $j$:  the improvement on task $j$ resulting from all data preceding task $j$ data. -->
 
-<!-- Let $n\_j = \arg \max\_i T\_i = j$ be the last occurrence of task $j$, $\mathcal{D}^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D}_n : T_i = j\}$ be the set of task $j$ data, and  -->
+<!-- Let $n\_j = \arg \max\_i T\_i = j$ be the last occurrence of task $j$, $\mathcal{D}_j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : T_i = j\}$ be the set of task $j$ data, and  -->
 
-- Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D}_n : i \leq n_j\}$ be the set of all data up to sample $n_j$.
+- Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_j\}$ be the set of all data up to sample $n_j$.
 - The forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data preceding task $j$ data
 $$    FTE_j(f) := 
-\frac{\mathcal{E}_j(f, \mathcal{D}^j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}.
+\frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}.
 $$
 
 
@@ -289,21 +301,7 @@ Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task 
 
 The reverse transfer efficiency of $ f $ for task $j$ is 
 $$    RTE\_j(f) := 
-\frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D}_n)}.
-$$
-
-
----
-class:inverse 
-
-##  Transfer Efficiency Factorizes
-
-<br>
-
-$$
-\frac{\mathcal{E}_j(f, \mathcal{D}^j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)} \times \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D}_n)} 
-= \frac{\mathcal{E}\_j(f, \mathcal{D}^j)}{\mathcal{E}\_j(f, \mathcal{D}\_n)} 
-= TE\_j(f).
+\frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
 $$
 
 
@@ -311,7 +309,7 @@ $$
 ---
 class:inverse, middle 
 
-## The State of AI for Lifelong Learning
+### The State of AI for Lifelong Learning
 
 
 
@@ -393,7 +391,7 @@ class:inverse
 --
 <br>
 
-learn: given $\mathcal{D}_n$
+learn: given $\mathcal{D}$
 1. partition feature space into "parts",
 2. compute plurality vote of points in each part
 
@@ -411,7 +409,7 @@ class:inverse
 --
 <br>
 
-learn: given $\mathcal{D}_n$
+learn: given $\mathcal{D}$
 1. partition feature space into "parts",
 2. compute average of points in each part.
 
@@ -438,7 +436,7 @@ If each part is:
 then given enough data, one can learn *perfectly, no matter what*! 
 
 
-$$\mathcal{E}\(f,\mathcal{D}_n) \rightarrow \mathcal{E}^*,$$
+$$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$
 
 where $\mathcal{E}^*$is Bayes optimal.
 
@@ -458,7 +456,7 @@ class: inverse
 - Let $\mathcal{X}^i=\mathcal{X}$ (feature spaces are the same)
 - Let $\mathcal{Y}_i$ be categorical with $K_i$ categories (always classification)
 - Assume data are "task batched", that is, samples $n, \ldots, n+n_j$ all come from task $j$
-- Given $\mathcal{D}^j= (X_i,Y_i,T_i)$ such that $T_i=j$ 
+- Given $\mathcal{D}_j= (X_i,Y_i,T_i)$ such that $T_i=j$ 
 
 
 ### Goal 
@@ -483,7 +481,7 @@ class: inverse
 
 ## Lifelong.Fit
 
-Given a new training dataset  $\mathcal{D}^J$
+Given a new training dataset  $\mathcal{D}_J$
 - Learn a new representation transformation  on that dataset 
 
 $$g^J: \mathcal{X} \rightarrow \tilde{\mathcal{X}}^J$$

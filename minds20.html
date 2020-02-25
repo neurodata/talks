@@ -51,6 +51,13 @@ class:middle
 
 
 
+---
+class:inverse, middle 
+
+### A General Theory of the Learnable
+
+
+
 
 ---
 class: inverse
@@ -69,7 +76,7 @@ class: inverse
 ## What is  Learning? 
 
 
-"An agent $f$  learns from data $\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $\mathcal{D}_n$.''
+"An agent $f$  learns from data $\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $n$.''
 
 -- Tom Mitchell, 1997 (not exact quote)
 
@@ -80,13 +87,12 @@ class:inverse
 
 ## What is a Task?
 
-A task is defined by a septuple $T = \lbrace \mathcal{Z}, P, \mathcal{P}, \mathcal{A},  \mathcal{H}, \ell, {R} \rbrace$
+A task is defined by a septuple $\lbrace \mathcal{Z},  \mathcal{P}, \mathcal{A},  \mathcal{H}, \ell, {R} \rbrace$
 
 | Definition | Notation | Example
 |:--- |:--- |:--- | 
 | Measurements  | $ \mathcal{Z}$ |  $z_i = (x_i,y_i): i \in [n]$ |
-| Density | $P\_\theta : \mathcal{Z} \rightarrow \mathbb{R}_{\geq 0}$  | standard normal
-| Model | $\mathcal{P} := \lbrace P_\theta : \theta \in \Theta \rbrace$ | Gaussian
+| Model | $\mathcal{P} := \lbrace P=P_Z : \theta \in \Theta \rbrace$ | Gaussian
 | Actions |  $\mathcal{A}$ |  turn left
 | Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a = \mathbb{I}(z>0)$
 | Loss Function | $\ell: \mathcal{H} \times \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
@@ -99,21 +105,22 @@ class:inverse
 
 ## What are data?
 
-$\mathcal{D}_n=\lbrace Z_1, Z_2, \ldots, Z_n \rbrace$, and we assume that each $Z_i$ is a $z \in \mathcal{Z}$ valued random variable sampled identically and independently from $P \in \mathcal{P}$. 
-
+- Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
+- Sample $Z_i \sim P \in \mathcal{P}$, identical and independent
+- Let $\mathcal{D}_n=\lbrace Z_1, \ldots, Z_n \rbrace$
 
 ## What is an Algorithm?
 
-$f$ is a sequence of learning procedures, $f_1, f_2, \ldots$, where each $f_n \in \mathcal{F}$ maps from a data set $\mathcal{D}_n$  to a hypothesis $h$, $f\_n : \mathcal{Z}^n \to \mathcal{H}$.
+$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, $f : 2^{\mathcal{Z}^n} \rightarrow \mathcal{H}$.
 
 
 
 ## What is  Performance?
 
-Generalization error $\mathcal{E}$ is the expected risk with respect to  training dataset:
+Generalization error $\mathcal{E}^t$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
 
 
-$$ \mathcal{E}(f,\mathcal{D}_n) = \mathbb{E}\_P[R(f(\mathcal{D}_n))].$$
+$$ \mathcal{E}^t(f,\mathcal{D}_n) = \mathbb{E}\_P[R(f(\mathcal{D}_n))].$$
 
 
 
@@ -128,26 +135,29 @@ class:inverse
 
 <br>
 
-$f$ learns from data $\mathcal{D}_n$ iff $\mathcal{E}(f,\mathcal{D}_n) < \mathcal{E}(f,\mathcal{D}_0),$
+$f$ learns from data $\mathcal{D}_n$ iff $\mathcal{E}(f,\mathcal{D}_n) < \mathcal{E}(f,\mathcal{D}^0),$
 
 
-where $\mathcal{D}_0$ be a dataset with no samples.
+where $\mathcal{D}^0$ be a dataset with no samples.
 
 
-<br> 
 --
 
-$\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and is therefore a function of  prior and the inductive bias of $f$.
+$\mathcal{E}(f,\mathcal{D}^0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
+  - prior on $\theta$ 
+  - inductive bias of $\mathcal{H}$
 
 ---
 class: inverse
 
 ## Consider a simple example
 
-- 2 classes: green and purple
-- we observe 100 points per class
-- each point has 2 features: dim1 and dim2
-- we desire to .r[learn] a classifier that discriminates between these two classes
+- $Z_i=(X_i,Y_i)$,
+- each feature vector has 2 features, $x \in \mathbb{R}^2$
+- 2 classes: green and purple, $y \in \lbrace 0,1 \rbrace$
+- we observe $n=200$ points, $i \in [200]$
+- we desire to .r[learn] a classifier that discriminates between 
+these two classes
 
 
 ---
@@ -165,69 +175,6 @@ class: inverse
 
 
 
----
-class:inverse
-
-## What do classifiers do?
-
---
-<br>
-
-learn:
-1. partition feature space into "parts",
-2.  majority vote of points in each part determines that part's class.
-
-
-predict: 
-2. for a new unlabeled point, find its part,
-3. report the majority vote in its part.
-
-
----
-class:inverse
-
-## What can regressors do?
-
---
-<br>
-
-learn:
-1. partition feature space into "parts",
-2. average of points in each part determines that part's prediction.
-
-
-predict: 
-2. for a new unlabeled point, find its part,
-3. report the average vote in its part.
-
-
-
-
----
-class:inverse
-
-## The fundamental theorem of statistical pattern recognition
-
-
-
-If each part is:
-
-1. small enough, and 
-2. has enough points in it, 
-
-then given enough data, one can learn *perfectly, no matter what*! 
-
-
-$$\mathcal{E}\(f,\mathcal{D}_n) \rightarrow \mathcal{E}^*,$$
-
-where $\mathcal{E}^*$is Bayes optimal.
-
--- Stone, 1977
-
-
-NB: the parts can be overlapping (as in kNN) or not (as in histograms)
-
-
 
 ---
 class: inverse
@@ -240,12 +187,12 @@ class: inverse
   - let $\mathcal{D}_n = \mathcal{D}^0 \cup \mathcal{D}^1$.
 
 
-"An algorithm $f$  .r[transfer] learns from data $\mathcal{D}^0$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves   with $\mathcal{D}^0$."
+<!-- "An algorithm $f$  .r[transfer] learns from data $\mathcal{D}^j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}^j$." -->
 
 --
 
 
-$f$ .r[transfer] learns from data iff $\mathcal{E}(f,\mathcal{D}_n) < \mathcal{E}(f,\mathcal{D}^0).$
+$f$ .r[transfer] learns from $\mathcal{D}^j$ iff $\mathcal{E}(f,\mathcal{D}_n) < \mathcal{E}(f,\mathcal{D}^0).$
 
 
 
@@ -258,12 +205,12 @@ class: inverse
 - Given datasets $\mathcal{D}^j$, for tasks $j \in [J]$,
 - Let $\mathcal{D}_n= \mathcal{D}^1, \ldots , \mathcal{D}^J$
 
-An algorithm $f$  .r[multitask] learns from datasets $\mathcal{D}^1,\ldots, \mathcal{D}^J$,  with respect to learning multitask $t$ with performance measure $\mathcal{E}$, if $f(\mathcal{D}_n)$'s performance at each task improves on average over $f(\mathcal{D}^j)$'s performance.
+<!-- An algorithm $f$  .r[multitask] learns from datasets $\mathcal{D}^1,\ldots, \mathcal{D}^J$,  with respect to learning multitask $t$ with performance measure $\mathcal{E}^t$, if $f(\mathcal{D}_n)$'s performance at each task improves on average over $f(\mathcal{D}^j)$'s performance. -->
 
 --
 
-$f$  weakly .r[multitask] learns from data if
-$$\mathcal{E}(f,\mathcal{D}_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,\mathcal{D}^j),$$ and $f$ strongly .r[multitask] learns if, for all $j$
+$f$  weakly .r[multitask] learns from $\mathcal{D}_n$ if
+$$\mathcal{E}^t(f,\mathcal{D}_n) < \frac{1}{J} \sum_j \mathcal{E}_j(f,\mathcal{D}^j),$$ and $f$ strongly .r[multitask] learns if, for all $j$
 $$\mathcal{E}_j(f,\mathcal{D}_n) < \mathcal{E}_j(f,\mathcal{D}^j).$$ 
 
 
@@ -302,9 +249,11 @@ class:inverse
 ## Transfer Efficiency
 
 
-Given a random data corpus $\mathcal{D}_n$ and letting $\mathcal{D}^j = \{(X, Y, T) \in \, \mathcal{D}_n : T = j\}$, the transfer efficiency of learning algorithm $f$ for task $j$ is
+- Given a random data corpus $\mathcal{D}_n$,
+- Let $\mathcal{D}^j = \{(X, Y, T) \in \, \mathcal{D}_n : T = j\}$, 
+- The transfer efficiency of learning algorithm $f$ for task $j$ is
 $$  TE\_j(f) := 
-    \frac{\mathcal{E}\_j(f, \mathcal{D}\_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}.
+    \frac{\mathcal{E}\_j(f, \mathcal{D}^j)}{\mathcal{E}\_j(f, \mathcal{D_n})}.
 $$
 
 <br>
@@ -318,12 +267,12 @@ class:inverse
 ## Forward  Transfer Efficiency 
 
 
-Forward  Transfer Efficiency  (FTE) for task $j$ measures the improvement on task $j$ resulting from all data preceding the last sample $i$ such that $T_i = j$. 
+<!-- Forward  Transfer Efficiency  (FTE) for task $j$:  the improvement on task $j$ resulting from all data preceding task $j$ data. -->
 
-Let $n\_j = \arg \max\_i T\_i = j$ be the last occurrence of task $j$, $\mathcal{D}^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D}_n : T_i = j\}$ be the set of task $j$ data, and $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D}_n : i \leq n_j\}$ be the set of all data up to sample $n_j$.
+<!-- Let $n\_j = \arg \max\_i T\_i = j$ be the last occurrence of task $j$, $\mathcal{D}^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D}_n : T_i = j\}$ be the set of task $j$ data, and  -->
 
-
-The forward transfer efficiency of $ f $ for task $j$ is 
+- Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D}_n : i \leq n_j\}$ be the set of all data up to sample $n_j$.
+- The forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data preceding task $j$ data
 $$    FTE_j(f) := 
 \frac{\mathcal{E}_j(f, \mathcal{D}^j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}.
 $$
@@ -360,6 +309,13 @@ $$
 
 
 ---
+class:inverse, middle 
+
+## The State of AI for Lifelong Learning
+
+
+
+---
 class: inverse 
 
 ## Catastrophic Forgetting vs Reverse Transfer 
@@ -383,7 +339,6 @@ class: inverse
 
 ## Can AI do it?
 
---
 
 "Training on a new set of items may drastically disrupt performance on previously learned items."
 
@@ -427,6 +382,70 @@ class: inverse
 
 In all cases, re-training from scratch is just too expensive.
 
+
+
+
+---
+class:inverse
+
+## What do classifiers do?
+
+--
+<br>
+
+learn: given $\mathcal{D}_n$
+1. partition feature space into "parts",
+2. compute plurality vote of points in each part
+
+
+predict: given $X$
+2. find its part, 
+3. report the plurality vote in its part.
+
+
+---
+class:inverse
+
+## What can regressors do?
+
+--
+<br>
+
+learn: given $\mathcal{D}_n$
+1. partition feature space into "parts",
+2. compute average of points in each part.
+
+
+predict: given $X$
+2. for a new unlabeled point, find its part,
+3. report the average vote in its part.
+
+
+
+
+---
+class:inverse
+
+## The fundamental theorem of statistical pattern recognition
+
+
+
+If each part is:
+
+1. small enough, and 
+2. has enough points in it, 
+
+then given enough data, one can learn *perfectly, no matter what*! 
+
+
+$$\mathcal{E}\(f,\mathcal{D}_n) \rightarrow \mathcal{E}^*,$$
+
+where $\mathcal{E}^*$is Bayes optimal.
+
+-- Stone, 1977
+
+
+NB: the parts can be overlapping (as in kNN) or not (as in histograms)
 
 
 
@@ -652,7 +671,9 @@ class: inverse, middle
 <!-- | SI         |  1.22  |  0.76    -->
 <!-- | ProgNN     |  1.17  |  1.00    -->
 <!-- | LwF        | .r[1.25] |  0.92    -->
-### Transfer Efficiency for Different Algorithms
+
+Lifelong Forests uniquely exhibits .r[strong] lifelong learning.
+
 <img src="images/all_TE.png" style="height:250px;" />
 
 ---
@@ -684,7 +705,9 @@ class: inverse
 - Introduced novel evaluation criteria: forward and reverse transfer efficiency
 - Proposed generic lifelong learning algorithm framework by ensembling internal representations
 - Implemented Lifelong Forests as a specific example 
-- Demonstrated Lifelong Forests uniquely exhibits reverse transfer 
+- Demonstrated Lifelong Forests uniquely exhibits 
+    - reverse transfer 
+    - stong lifelong learning
 - Conjectured theory promising to prove consistency and robustness
 
 

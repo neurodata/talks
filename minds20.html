@@ -32,11 +32,192 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 
 ---
+class: inverse, middle 
+
+
+Who is wise? He who learns from every man, as it is said: "From all who taught me have I gained understanding" 
+
+
+-- Pirkei Avot 4:1
+
+
+
+---
+class:inverse
+
+## What is Lifelong Learning 
+
+Given a sequence of data associated with different tasks, continually learn such that task performances improve by virtue of having data from other tasks.
+
+--
+
+If learning a new task causes performance degradation on previous tasks, it is said that the algorithm exhibited "catastrophic forgetting"
+
+--
+
+.r[But, data on future tasks can actually improve performance on past tasks.]  
+
+--
+
+In general, tasks are complex, built of sub-tasks; if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too....
+
+
+
+---
 class: inverse 
+
+## Goals of this work 
+
+- Formalize the above claims 
+- Develop algorithms that move beyond catastrophic forgetting 
+
+
+
+---
+class: inverse
+
+## A simple learning example
+
+- $Z_i=(X_i,Y_i)$, $i \in \lbrace 1, 2, \ldots, 200 \rbrace$
+  - $x \in \mathbb{R}^2$
+  - $y \in \lbrace 0,1 \rbrace$
+- we desire to learn a classifier that minimizes expected misclassification rate
+
+
+---
+class: inverse
+
+<img src="images/rock20/s2.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
+
+
+
+
+---
+class: inverse
+
+<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
+
+
+
+---
+class:inverse
+
+## What do classifiers do?
+
+<br>
+
+learn: given $(X_i,Y_i)$, for $i \in [n]$
+1. partition feature space into "parts",
+2. compute plurality  of points in each part
+
+
+predict: given $X$
+2. find its part, 
+3. report the plurality vote in its part.
+
+
+---
+class:inverse
+
+## What can regressors do?
+
+<br>
+
+learn: given $(X_i,Y_i)$, for $i \in [n]$
+1. partition feature space into "parts",
+2. compute average of points in each part.
+
+
+predict: given $X$
+2. find its part,
+3. report the average vote in its part.
+
+
+
+
+---
+class:inverse
+
+## The fundamental theorem of statistical pattern recognition
+
+
+
+If each part is:
+
+1. small enough, and 
+2. has enough points in it, 
+
+then given enough data, one can learn *perfectly, no matter what*! 
+
+
+<!-- $$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$ -->
+
+<!-- where $\mathcal{E}^*$is Bayes optimal. -->
+
+-- Stone, 1977
+
+
+<!-- NB: the parts can be overlapping (as in kNN) or not (as in histograms) -->
+
+
+
+
+---
+class: inverse 
+
+## But there is a problem...
+
+
+"Training on a new set of items may drastically disrupt performance on previously learned items."
+
+-- McCloskey & Cohen, 1989
+
+---
+class: inverse 
+
+## 30 years later... 
+
+
+<img src="images/rock20/masse1.png" style="width:600px;"/>
+<img src="images/rock20/flesch1.png" style="width:600px;"/>
+<img src="images/rock20/kirkpatrick1.png" style="width:600px;"/>
+
+
+---
+class: inverse 
+
+## Last Year: A Grand Challenge
+
+<br>
+
+"We need to invent a new kind of learning that .r[leverages existing knowledge], rather than one that obstinately starts over from square one.”— Rebooting AI, Gary Marcus, Ernest Davis, 2019
+
+<br>
+
+"One such obstacle is adaptability or robustness...  efforts toward “transfer learning,” “domain adaptation,” and “.r[lifelong learning]”  are reflective of this obstacle." -- Judea Pearl, 2019
+
+---
+class: inverse 
+
+## This Year: A Real Challenge 
+
+- Industry
+  - Microsoft/Amazon/Google trained a recommender system on existing products, then a new product is launched, desire to update model to recommend for new products
+- Healthcare
+  - A new disease, test, treatment exists, want to update model
+- Augmented Reality
+  - Walking around, go to a new place, want to update model
+
+In all cases, re-training from scratch is just too expensive.
+
+
+---
+class:inverse 
 
 
 ## Outline 
 
+- Background 
 - Math
 - Biology
 - Summary
@@ -48,6 +229,7 @@ class: inverse
 class:middle
 
 # Math 
+
 
 
 
@@ -76,13 +258,16 @@ class: inverse
 ## What is  Learning? 
 
 
-"An agent $f$  learns from data $\mathcal{D}=\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $n$.''
+<!-- "An agent $f$  learns from data $\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $n$.'' -->
+
+"An agent $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
+
 
 -- Tom Mitchell, 1997 (not exact quote)
 
 
 
----
+<!-- ---
 class:inverse
 
 ## What is a Task?
@@ -97,7 +282,7 @@ A task is defined by a septuple $\lbrace \mathcal{Z},  \mathcal{P}, \mathcal{A},
 | Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a = \mathbb{I}(z>0)$
 | Loss Function | $\ell: \mathcal{H} \times \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
 | Risk Functional | $R: \mathcal{P} \times \mathcal{L} \times  \mathcal{H} \to \mathbb{R}_+$  | $\mathbb{E}_P[\ell( h(z), a)]$
-
+ -->
 
 
 ---
@@ -106,8 +291,14 @@ class:inverse
 ## What are data?
 
 - Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
-- Sample $Z_i \sim P \in \mathcal{P}$, identical and independent
-- Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace$
+- Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
+- Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
+
+--
+
+For example 
+-  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
+- $P=P_{XY}$ is a mixture of Gaussians 
 
 ---
 class:inverse 
@@ -120,6 +311,13 @@ $f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $
 $$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
 
 
+--
+
+For example
+- $f$ is *RandomForestClassifier.fit*
+- $h$ is *RandomForestClassifier.predict*
+
+
 ---
 class:inverse 
 
@@ -130,52 +328,33 @@ class:inverse
 Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
 
 
-$$ \mathcal{E}(f,\mathcal{D} ) := \mathcal{E}(f,\mathcal{D} \mid t) = \mathbb{E}\_P[R(f(\mathcal{D}))].$$
+$$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[R(f(\mathcal{D}))].$$
 
 
+--
+
+For example
+- $R$ is expected misclassification rate
+
+---
+class:inverse
 
 ## What is Learning?
 
+Letting $\mathcal{D}_0$ be a data corpus with no samples,
 
 
-$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$
+.center[$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$]
 
 
-where $\mathcal{D}_0$ be a dataset with no samples.
 
 
 
 $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
   - prior on $\theta$ 
   - inductive bias of $\mathcal{H}$
-
----
-class: inverse
-
-## Consider a simple example
-
-- $Z_i=(X_i,Y_i)$,
-- each feature vector has 2 features, $x \in \mathbb{R}^2$
-- 2 classes: green and purple, $y \in \lbrace 0,1 \rbrace$
-- we observe $n=200$ points, $i \in [200]$
-- we desire to .r[learn] a classifier that discriminates between 
-these two classes
-
-
----
-class: inverse
-
-<img src="images/rock20/s2.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
-
-
-
-
----
-class: inverse
-
-<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
-
-
+  - estimation bias of $f$
+  - model bias of $\mathcal{P}$
 
 
 ---
@@ -183,10 +362,11 @@ class: inverse
 
 ## What is Transfer Learning? 
 
-- Given
-  - .r[source] data $\mathcal{D}_1$, and 
-  - .r[target] data $\mathcal{D}_0$ from possibly another distribution.
-  - let $\mathcal{D} = \mathcal{D}_0 \cup \mathcal{D}_1$.
+
+Given
+- .r[source] data $\mathcal{D}_1$,  
+- .r[target] data $\mathcal{D}_0$ from possibly another distribution.
+- let $\mathcal{D} = \mathcal{D}_0 \cup \mathcal{D}_1$.
 
 
 <!-- "An algorithm $f$  .r[transfer] learns from data $\mathcal{D}_j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}_j$." -->
@@ -194,9 +374,8 @@ class: inverse
 --
 
 
-$f$ .r[transfer] learns for  task $t$ from $\mathcal{D}_1$ iff 
-
-$$\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$$
+.center[$f$ .r[transfer] learns  from $\mathcal{D}_1$ iff 
+$\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$]
 
 
 
@@ -206,10 +385,12 @@ class: inverse
 
 ## What is Multitask Learning? 
 
-- Given datasets $\mathcal{D}_j$, for tasks $j \in \mathcal{J}$, where $|\mathcal{J}|=J$,
-- Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$
 
-<!-- An algorithm $f$  .r[multitask] learns from datasets $\mathcal{D}_1,\ldots, \mathcal{D}_J$,  with respect to learning multitask $t$ with performance measure $\mathcal{E}^t$, if $f(\mathcal{D})$'s performance at each task improves on average over $f(\mathcal{D}_j)$'s performance. -->
+- $|\mathcal{J}|=J$ is fixed and finite
+- $Z_i=(X_i,Y_i,T_i)$, where $T_i \in \mathcal{J}$ is a task label
+- Sample $Z\_i \sim P :=P\_{XYT}$, identically and independently
+- Let $\mathcal{D}_j = \lbrace (X_i,Y_i,T_i) :  T_i = j \rbrace$
+- Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$
 
 --
 
@@ -222,7 +403,6 @@ $$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum_j \mathcal{E}(f,\math
 
 and $f$ strongly .r[multitask] learns if, 
 
-<!-- $$\mathcal{E}_j(f,\mathcal{D}) < \mathcal{E}_j(f,\mathcal{D}_j).$$  -->
 
 $$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
 
@@ -232,18 +412,25 @@ class: inverse
 
 ## What is Lifelong Learning? 
 
-- Given a sequence of $n$ samples, each associated with a task
-- Number of tasks therefore grows with $n$, possibly (countably) infinite
-
-An algorithm $f$  .r[lifelong] learns from all data $\mathcal{D}$  with respect to lifelong learning task $t$ with performance measure $\mathcal{E}$, if $f(\mathcal{D})$'s performance at each task improves on average over $f(\mathcal{D}_j)$'s performance.
+Same as multitask learning, modulo
+- .data arrived sequentially
+- $|\mathcal{J}|$ is (countably) infinite
+- $J_n$ is the number of tasks observed after $n$ samples
+- Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$
 
 --
 
+$f$  weakly .r[lifelong] learns from $\mathcal{D}$ if
 
-$f$  weakly .r[lifelong] learns from data if
-$$\mathcal{E}(f,\mathcal{D}) < \frac{1}{J} \sum_j \mathcal{E}_j(f,\mathcal{D}_j),$$ and $f$ strongly .r[lifelong] learns if, for all $j$
-$$\mathcal{E}_j(f,\mathcal{D}) < \mathcal{E}_j(f,\mathcal{D}_j).$$ 
+$$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum_j \mathcal{E}(f,\mathcal{D}_j \mid j) P(T=j),$$ 
 
+<br>
+
+
+and $f$ strongly .r[lifelong] learns if, 
+
+
+$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
 
 
 
@@ -305,14 +492,6 @@ $$    RTE\_j(f) :=
 $$
 
 
-
----
-class:inverse, middle 
-
-### The State of AI for Lifelong Learning
-
-
-
 ---
 class: inverse 
 
@@ -323,127 +502,6 @@ class: inverse
 
 
 Avoiding catastrophic forgetting is insufficient for AGI, we need reverse transfer to maximize the value of each data sample.
-
---
-
-In general, tasks are complex, built of sub-tasks; if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too.
-
-
-
-
-
----
-class: inverse 
-
-## Can AI do it?
-
-
-"Training on a new set of items may drastically disrupt performance on previously learned items."
-
--- McCloskey & Cohen, 1989
-
----
-class: inverse 
-
-## 30 years later... 
-
-
-<img src="images/rock20/masse1.png" style="width:600px;"/>
-<img src="images/rock20/flesch1.png" style="width:600px;"/>
-<img src="images/rock20/kirkpatrick1.png" style="width:600px;"/>
-
-
----
-class: inverse 
-
-## A Grand Challenge
-
-
-
-"We need to invent a new kind of learning that .r[leverages existing knowledge], rather than one that obstinately starts over from square one in every domain it confronts.”— Rebooting AI: Building Artificial Intelligence We Can Trust by Gary Marcus, Ernest Davis
-
-<br>
-
-"One such obstacle is adaptability or robustness... Intensive theoretical and experimental efforts toward “transfer learning,” “domain adaptation,” and “.r[lifelong learning]”  are reflective of this obstacle." -- Judea Pearl, 2019
-
----
-class: inverse 
-
-## A Real Challenge 
-
-- Industry
-  - Microsoft/Amazon/Google trained a recommender system on existing products, then a new product is launched, desire to update model to recommend for new products
-- Healthcare
-  - A new disease, test, treatment exists, want to update model
-- Augmented Reality
-  - Walking around, go to a new place, want to update model
-
-In all cases, re-training from scratch is just too expensive.
-
-
-
-
----
-class:inverse
-
-## What do classifiers do?
-
---
-<br>
-
-learn: given $\mathcal{D}$
-1. partition feature space into "parts",
-2. compute plurality vote of points in each part
-
-
-predict: given $X$
-2. find its part, 
-3. report the plurality vote in its part.
-
-
----
-class:inverse
-
-## What can regressors do?
-
---
-<br>
-
-learn: given $\mathcal{D}$
-1. partition feature space into "parts",
-2. compute average of points in each part.
-
-
-predict: given $X$
-2. for a new unlabeled point, find its part,
-3. report the average vote in its part.
-
-
-
-
----
-class:inverse
-
-## The fundamental theorem of statistical pattern recognition
-
-
-
-If each part is:
-
-1. small enough, and 
-2. has enough points in it, 
-
-then given enough data, one can learn *perfectly, no matter what*! 
-
-
-$$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$
-
-where $\mathcal{E}^*$is Bayes optimal.
-
--- Stone, 1977
-
-
-NB: the parts can be overlapping (as in kNN) or not (as in histograms)
 
 
 

@@ -123,102 +123,6 @@ class: inverse
 
 
 ---
-class: inverse
-
-## What is Learning?
-
-
-<img src="images/Vapnik71b.png" style="width:400px;"/>
-<img src="images/Valiant84.png" style="width:400px;"/>
-<img src="images/Mitchell97a.png" style="width:400px;"/>
-
-
----
-class: inverse
-
-## What is  Learning? 
-
-
-"An agent $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
-
-
--- Tom Mitchell, 1997 (not exact quote)
-
----
-class:inverse 
-
-## What are data?
-
-- Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
-- Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
-- Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
-
---
-
-For example 
--  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
-- $P=P\_{XY}=P\_{X|Y}P\_Y$, where $P\_{X|Y}$ is Gaussian
-
----
-class:inverse 
-
-
-## What is an Algorithm?
-
-$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, 
-
-$$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
-
-
---
-
-For example
-- $f \in \mathcal{F}$ is *RandomForestClassifier.fit*
-- $h \in \mathcal{H}$ is *RandomForestClassifier.predict*
-
-
----
-class:inverse 
-
-
-
-## What is  Performance?
-
-Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
-
-
-$$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[R(f(\mathcal{D}))].$$
-
-
---
-
-For example
-- $R$ is expected misclassification rate
-
----
-class:inverse
-
-## What is Learning?
-
-Letting $\mathcal{D}_0$ be a data corpus with no samples,
-
-
-.center[$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$]
-
-
-
-
-
-$\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
-  - prior on $\theta$ 
-  - inductive bias of $\mathcal{H}$
-  - estimation bias of $f$
-  - model bias of $\mathcal{P}$
-
-
-
-
----
 class: inverse 
 
 ## But there is a problem...
@@ -287,6 +191,168 @@ In all cases, re-training from scratch is just too expensive.
 class:inverse, middle 
 
 ### A  Theory of the Lifelong Learnable
+
+
+
+
+---
+class: inverse
+
+## What is Learning?
+
+
+<img src="images/Vapnik71b.png" style="width:400px;"/>
+<img src="images/Valiant84.png" style="width:400px;"/>
+<img src="images/Mitchell97a.png" style="width:400px;"/>
+
+
+---
+class: inverse
+
+## What is  Learning? 
+
+
+"An agent $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
+
+
+-- Tom Mitchell, 1997 (not exact quote)
+
+
+
+---
+class:inverse 
+
+## What are data?
+
+- Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
+- Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
+- Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
+
+
+
+--
+
+
+
+- Example 1: Classification
+  -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
+  - $P=P\_{XY}=P\_{X|Y}P\_Y$, where $P\_{X|Y}$ is Gaussian
+
+
+--
+
+
+
+
+- Example 2: Reinforcment Learning
+  - $Z$ is a sequence of states and actions + current state
+  - $P$ a distribution over current states conditioned on 
+      - past states 
+      - past actions
+
+
+---
+class:inverse 
+
+
+## What is an Algorithm?
+
+$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, 
+
+$$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
+
+
+
+--
+
+
+
+- Example 1: Classification
+  - $f$ is *RandomForestClassifier.fit*
+  - $h$ is *RandomForestClassifier.predict*
+
+
+
+<!-- --
+
+
+
+- Example 2: Reinforment Learning 
+  - $f$
+  - $h$ 
+   -->
+
+
+---
+class:inverse 
+
+
+
+## What is  Performance?
+
+Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
+
+
+$$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
+
+
+--
+
+For example
+- $\mathcal{R}$ is expected misclassification rate
+
+
+
+---
+class:inverse
+
+## What is a Setting?
+
+A setting is defined by a septuple $\lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A},  \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
+
+| Definition | Notation | Example
+|:--- |:--- |:--- | 
+| Measurements  | $ \mathcal{Z}$ |  $(x,y) \in \, \mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
+|  Model | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
+| Action space |  $\mathcal{A}$ |  turn left
+| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a := \hat{y} = \mathbb{I}(x>0)$
+| Loss Function | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
+| Risk Functional | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[(a-y)^2]$
+| Algorithm | $\mathcal{F} = \lbrace f : \mathcal{Z}^n \to \mathcal{H} \rbrace$  | *RandomForestClassifier.fit*
+
+---
+class:inverse
+
+## What is a Task?
+
+Given 
+- some true but unknown distribution $P\_z \in \mathcal{P}$, 
+- a sample size $n$,
+<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
+
+find the $f \in \mathcal{F}$ that minimizes generalization error.
+
+.center[ $f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D}_n)$.]
+
+---
+class:inverse
+
+## What is Learning?
+
+Letting $\mathcal{D}_0$ be a data corpus with no samples,
+
+
+.center[$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$]
+
+
+
+
+
+$\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
+  - prior on $\theta$ 
+  - inductive bias of $\mathcal{H}$
+  - estimation bias of $f$
+  - model bias of $\mathcal{P}$
 
 
 
@@ -472,7 +538,7 @@ class: inverse
 ---
 class: inverse 
 
-<!-- ## Lifelong Forest Schema -->
+## Lifelong Forest Schema
 
 
 <img src="images/learning-schemas.svg" style="width:700px;"/>

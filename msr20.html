@@ -74,24 +74,11 @@ class: inverse
 
 
 ---
-class:inverse 
-
-
-## Outline 
-
-- Background 
-- Math
-- Biology
-- Summary
-
-
-
----
 class: inverse
 
 ## A simple learning example
 
-- $z_i=(x_i,y_i)$, $i \in \lbrace 1, 2, \ldots, 200 \rbrace$
+- $Z_i=(X_i,Y_i)$, $i \in \lbrace 1, 2, \ldots, 200 \rbrace$
   - $x \in \mathbb{R}^2$
   - $y \in \lbrace 0,1 \rbrace$
 - we desire to learn a classifier that minimizes expected misclassification rate
@@ -113,97 +100,64 @@ class: inverse
 
 
 ---
-class: inverse
+class:inverse
 
-## What is Learning?
+## What do classifiers do?
 
+<br>
 
-<img src="images/Vapnik71b.png" style="width:400px;"/>
-<img src="images/Valiant84.png" style="width:400px;"/>
-<img src="images/Mitchell97a.png" style="width:400px;"/>
-
-
----
-class: inverse
-
-## What is  Learning? 
+learn: given $\mathcal{D}$
+1. partition feature space into "parts",
+2. compute plurality vote of points in each part
 
 
-"An agent $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
+predict: given $X$
+2. find its part, 
+3. report the plurality vote in its part.
 
-
--- Tom Mitchell, 1997 (not exact quote)
-
----
-class:inverse 
-
-## What are data?
-
-- Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
-- Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
-- Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
-
---
-
-For example 
--  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
-- $P=P\_{XY}=P\_{X|Y}P\_Y$, where $P\_{X|Y}$ is Gaussian
-
----
-class:inverse 
-
-
-## What is an Algorithm?
-
-$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, 
-
-$$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
-
-
---
-
-For example
-- $f \in \mathcal{F}$ is *RandomForestClassifier.fit*
-- $h \in \mathcal{H}$ is *RandomForestClassifier.predict*
-
-
----
-class:inverse 
-
-
-
-## What is  Performance?
-
-Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
-
-
-$$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[R(f(\mathcal{D}))].$$
-
-
---
-
-For example
-- $R$ is expected misclassification rate
 
 ---
 class:inverse
 
-## What is Learning?
+## What can regressors do?
 
-Letting $\mathcal{D}_0$ be a data corpus with no samples,
+<br>
 
-
-.center[$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$]
-
-
-
+learn: given $\mathcal{D}$
+1. partition feature space into "parts",
+2. compute average of points in each part.
 
 
-$\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
-  - prior on $\theta$ 
-  - inductive bias of $\mathcal{H}$
-  - estimation bias of $f$
-  - model bias of $\mathcal{P}$
+predict: given $X$
+2. for a new unlabeled point, find its part,
+3. report the average vote in its part.
+
+
+
+
+---
+class:inverse
+
+## The fundamental theorem of statistical pattern recognition
+
+
+
+If each part is:
+
+1. small enough, and 
+2. has enough points in it, 
+
+then given enough data, one can learn *perfectly, no matter what*! 
+
+
+<!-- $$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$ -->
+
+<!-- where $\mathcal{E}^*$is Bayes optimal. -->
+
+-- Stone, 1977
+
+
+<!-- NB: the parts can be overlapping (as in kNN) or not (as in histograms) -->
 
 
 
@@ -257,6 +211,18 @@ class: inverse
 In all cases, re-training from scratch is just too expensive.
 
 
+---
+class:inverse 
+
+
+## Outline 
+
+- Background 
+- Math
+- Biology
+- Summary
+
+
 
 
 ---
@@ -274,6 +240,121 @@ class:inverse, middle
 
 
 
+
+---
+class: inverse
+
+## What is Learning?
+
+
+<img src="images/Vapnik71b.png" style="width:400px;"/>
+<img src="images/Valiant84.png" style="width:400px;"/>
+<img src="images/Mitchell97a.png" style="width:400px;"/>
+
+
+---
+class: inverse
+
+## What is  Learning? 
+
+
+<!-- "An agent $f$  learns from data $\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $n$.'' -->
+
+"An agent $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
+
+
+-- Tom Mitchell, 1997 (not exact quote)
+
+
+
+<!-- ---
+class:inverse
+
+## What is a Task?
+
+A task is defined by a septuple $\lbrace \mathcal{Z},  \mathcal{P}, \mathcal{A},  \mathcal{H}, \ell, {R} \rbrace$
+
+| Definition | Notation | Example
+|:--- |:--- |:--- | 
+| Measurements  | $ \mathcal{Z}$ |  $z_i = (x_i,y_i): i \in [n]$ |
+| Model | $\mathcal{P} := \lbrace P=P_Z : \theta \in \Theta \rbrace$ | Gaussian
+| Actions |  $\mathcal{A}$ |  turn left
+| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a = \mathbb{I}(z>0)$
+| Loss Function | $\ell: \mathcal{H} \times \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
+| Risk Functional | $R: \mathcal{P} \times \mathcal{L} \times  \mathcal{H} \to \mathbb{R}_+$  | $\mathbb{E}_P[\ell( h(z), a)]$
+ -->
+
+
+---
+class:inverse 
+
+## What are data?
+
+- Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
+- Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
+- Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
+
+--
+
+For example 
+-  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
+- $P=P_{XY}$ is a mixture of Gaussians 
+
+---
+class:inverse 
+
+
+## What is an Algorithm?
+
+$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, 
+
+$$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
+
+
+--
+
+For example
+- $f$ is *RandomForestClassifier.fit*
+- $h$ is *RandomForestClassifier.predict*
+
+
+---
+class:inverse 
+
+
+
+## What is  Performance?
+
+Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
+
+
+$$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[R(f(\mathcal{D}))].$$
+
+
+--
+
+For example
+- $R$ is expected misclassification rate
+
+---
+class:inverse
+
+## What is Learning?
+
+Letting $\mathcal{D}_0$ be a data corpus with no samples,
+
+
+.center[$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$]
+
+
+
+
+
+$\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
+  - prior on $\theta$ 
+  - inductive bias of $\mathcal{H}$
+  - estimation bias of $f$
+  - model bias of $\mathcal{P}$
 
 
 ---
@@ -364,10 +445,12 @@ class:inverse, middle
 ---
 class:inverse
 
-## Transfer Efficiency (TE)
+## Transfer Efficiency
 
 
-The transfer efficiency of learning algorithm $f$ for task $j$ is
+- Given a random data corpus $\mathcal{D}$,
+- Let $\mathcal{D}_j = \{(X, Y, T) \in \, \mathcal{D} : T = j\}$, 
+- The transfer efficiency of learning algorithm $f$ for task $j$ is
 $$  TE\_j(f) := 
     \frac{\mathcal{E}\_j(f, \mathcal{D}_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}.
 $$
@@ -380,28 +463,30 @@ Algorithm $ f $ transfer learns if $ TE_j(f) > 1 $.
 ---
 class:inverse 
 
-## Forward / Reverse TE 
+## Forward  Transfer Efficiency 
 
+
+<!-- Forward  Transfer Efficiency  (FTE) for task $j$:  the improvement on task $j$ resulting from all data preceding task $j$ data. -->
+
+<!-- Let $n\_j = \arg \max\_i T\_i = j$ be the last occurrence of task $j$, $\mathcal{D}_j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : T_i = j\}$ be the set of task $j$ data, and  -->
 
 - Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_j\}$ be the set of all data up to sample $n_j$.
-- Forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .r[preceding] task $j$
+- The forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data preceding task $j$ data
 $$    FTE_j(f) := 
 \frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}.
 $$
 
---
+
+---
+class:inverse 
+
+## Reverse Transfer Efficiency
 
 
-<!-- ## Reverse Transfer Efficiency -->
+Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$. 
 
 
-<!-- Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
-
-
-- Reverse transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .r[after] task $j$ 
-
-
-<!-- The reverse transfer efficiency of $ f $ for task $j$ is  -->
+The reverse transfer efficiency of $ f $ for task $j$ is 
 $$    RTE\_j(f) := 
 \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
 $$
@@ -416,12 +501,8 @@ class: inverse
 - Reverse transfer: performance on past tasks gets .r[better] given new task data
 
 
-Wise learning machines cannot simply avoid catastrophic forgetting, them must reverse transfer to gain understanding from every sample.
+Avoiding catastrophic forgetting is insufficient for AGI, we need reverse transfer to maximize the value of each data sample.
 
----
-class: inverse, middle 
-
-## Algorithm
 
 
 ---
@@ -436,7 +517,7 @@ class: inverse
 - Given $\mathcal{D}_j= (X_i,Y_i,T_i)$ such that $T_i=j$ 
 
 
-## Goal 
+### Goal 
 
 Be able to correctly classify a new sample from any of the tasks
 
@@ -446,22 +527,11 @@ Be able to correctly classify a new sample from any of the tasks
 class: inverse 
 
 
-## Key Insight: .r[Ensemble internal representations] 
+## Basic Idea 
 
 - Learn new representation for each task 
 - Increase dimensionality of internal representation after receiving each new batch of data 
-
-
-
----
-class: inverse 
-
-<!-- ## Lifelong Forest Schema -->
-
-
-<img src="images/learning-schemas.svg" style="width:700px;"/>
-
-
+- .r[Ensemble internal representations] 
 
 
 ---
@@ -504,6 +574,16 @@ $$\forall \, j \in [J], \qquad   h^{j'}(\tilde{X}^j) \rightarrow \hat{\eta}(X | 
 - Compute max of average of $J$ class posteriors  
 
 $$ \hat{Y}\_{n+1} = \arg \max \frac{1}{J} \sum\_j^J \hat{\eta}(X | j \rightarrow j') $$
+
+
+---
+class: inverse 
+
+## Lifelong Forest Schema
+
+<br> 
+
+.center[<img src="images/L2F-predict.svg" style="width:700px;"/>]
 
 
 ---
@@ -560,7 +640,7 @@ class:inverse
 ---
 class:inverse 
 
-## Graceful Forgetting
+### Adversarial Graceful Forgetting
 
 <img src="images/rxor-suite-new-row.png"  style="width:750px;">
 
@@ -570,6 +650,7 @@ class:inverse
 
 ---
 class: inverse, middle 
+
 
 ## Real Data 
 
@@ -651,81 +732,12 @@ Lifelong Forests uniquely exhibits .r[strong] lifelong learning.
 
 <img src="images/all_TE.png" style="height:250px;" />
 
-
-
----
-class: inverse, middle 
-
-## Theory
-
-
----
-class:inverse
-
-## What do classifiers do?
-
-<br>
-
-learn: given $(x_i,y_i)$, for $i \in [n]$
-1. partition feature space into "parts",
-2. compute plurality  of points in each part
-
-
-predict: given $x$
-2. find its part, 
-3. report the plurality vote in its part.
-
-
----
-class:inverse
-
-## What can regressors do?
-
-<br>
-
-learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \mathbb{R}$
-1. partition feature space into "parts",
-2. compute average of points in each part.
-
-
-predict: given $x$
-2. find its part,
-3. report the average vote in its part.
-
-
-
-
----
-class:inverse
-
-## The fundamental theorem of statistical pattern recognition
-
-
-
-If each part is:
-
-1. small enough, and 
-2. has enough points in it, 
-
-then given enough data, one can learn *perfectly, no matter what*! 
-
-
-<!-- $$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$ -->
-
-<!-- where $\mathcal{E}^*$is Bayes optimal. -->
-
--- Stone, 1977
-
-
-<!-- NB: the parts can be overlapping (as in kNN) or not (as in histograms) -->
-
-
-
 ---
 class:inverse
 
 ## The fundamental .r[conjecture] of transfer learning
 
+--
 
 If each cell is:
 
@@ -1552,7 +1564,6 @@ Each tree uses a different subset of data to transform (partition) space
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
 <script type="text/javascript">
-
   var options = {};
   var renderMath = function() {
     renderMathInElement(document.body);
@@ -1564,16 +1575,7 @@ Each tree uses a different subset of data to transform (partition) space
         {left: "\\(", right: "\\)", display: false},
     ]});
   }
-
   var slideshow = remark.create(options, renderMath);
-
-  // var slideshow = remark.create({
-  // Set the slideshow display ratio
-  // Default: '4:3'
-  // Alternatives: '16:9', ...
-  // {
-  // ratio: '16:9',
-  // });
 
 </script>
 </body>

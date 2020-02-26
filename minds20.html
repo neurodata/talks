@@ -84,6 +84,9 @@ class:inverse
 - Biology
 - Summary
 
+---
+
+# Background
 
 
 ---
@@ -260,12 +263,18 @@ In all cases, re-training from scratch is just too expensive.
 
 
 ---
-class:middle
 
 # Math 
 
 
-
+- Formalizing lifelong learning 
+- Introducing evaluation criteria
+- Proposing generic algorithm 
+- Implementing forest variant 
+- Illustrative Simulations 
+- Real data demonstrations 
+- Theoretical results
+- Discussion
 
 ---
 class:inverse, middle 
@@ -358,7 +367,7 @@ $$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)}
 ---
 class:inverse, middle 
 
-## Evaluation Criteria
+### Evaluation Criteria
 
 
 ---
@@ -421,7 +430,7 @@ Wise learning machines cannot simply avoid catastrophic forgetting, them must re
 ---
 class: inverse, middle 
 
-## Algorithm
+### Algorithm
 
 
 ---
@@ -509,7 +518,7 @@ $$ \hat{Y}\_{n+1} = \arg \max \frac{1}{J} \sum\_j^J \hat{\eta}(X | j \rightarrow
 ---
 class: inverse, middle 
 
-## Simulations
+### Simulations
 
 
 
@@ -571,7 +580,7 @@ class:inverse
 ---
 class: inverse, middle 
 
-## Real Data 
+### Real Data 
 
 
 
@@ -656,7 +665,7 @@ Lifelong Forests uniquely exhibits .r[strong] lifelong learning.
 ---
 class: inverse, middle 
 
-## Theory
+### Theory
 
 
 ---
@@ -741,9 +750,30 @@ then given enough data, one can .r[transfer learn] *perfectly, no matter what*!
 
 
 ---
+class: inverse, middle 
+
+### Discussion
+
+
+
+---
+class:inverse 
+
+## Limitations 
+
+1. Capacity grows linearly with # of tasks 
+2. Tasks must be discrete 
+3. Data must be batched into tasks 
+4. Tasks must be known 
+5. Feature space must be the same for all tasks 
+      
+      
+
+
+---
 class: inverse
 
-##  Summary of Key Insights
+##  Key Insights
 
   1. Avoiding catastrophic forgetting simply means not forgetting, but why stop there?
   2. Ensembling internal representations would enable reverse transfer 
@@ -752,7 +782,7 @@ class: inverse
 ---
 class: inverse
 
-##  Summary of Key Accomplishments
+##  Key Accomplishments
 
 
 - Formalized Lifelong Learning as generalization of classical machine learning

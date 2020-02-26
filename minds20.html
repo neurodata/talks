@@ -80,13 +80,20 @@ class:inverse
 ## Outline 
 
 - Background 
-- Math
-- Biology
-- Summary
+- Lifelong learning 
+- Evaluation criteria
+- Algorithm 
+- Implementation 
+- Simulations 
+- Real data
+- Theory
+- Discussion
+
 
 ---
+class:inverse, middle
 
-# Background
+### Background
 
 
 ---
@@ -262,7 +269,7 @@ In all cases, re-training from scratch is just too expensive.
 
 
 
----
+<!-- ---
 
 # Math 
 
@@ -274,7 +281,7 @@ In all cases, re-training from scratch is just too expensive.
 - Illustrative Simulations 
 - Real data demonstrations 
 - Theoretical results
-- Discussion
+- Discussion -->
 
 ---
 class:inverse, middle 
@@ -795,192 +802,6 @@ class: inverse
 - Conjectured theory promising to prove consistency and robustness
 
 
----
-class: middle 
-
-# Biology
-
-
----
-class:inverse 
-
-## Do brains do it?
-
---
-
-(brains obviously learn)
-
-1. Do brains partition feature space?
-2. Is there some kind of "voting" occurring within each part?
-
-
----
-class: inverse
-
-## Brains partition  
-
-- Feature space = the set of all possible inputs to a brain
-- Partition = only a subset of "nodes" respond to any given input
-- Examples
-  1. visual receptive fields
-  2. place fields / grid cells
-  3. sensory homonculus
-
-<br>
-
-<img src="images/rock20/Side-black.gif" style="height:230px;"/>
-<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
-<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
-
-
----
-class: inverse
-
-## Brains vote
-
-- Vote = pattern of responses indicate which stimulus evoked response
-
-<img src="images/rock20/brody1.jpg" style="height:400px;" />
-
-
-
----
-class: inverse 
-
-## Can Honey Bees Transfer Learn?
-
-
-<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
-
---
-<br><br><br><br><br><br><br><br><br><br><br>
-- honey bees can also transfer to different sensory modality (smell)
-- honeybees do not forget how to do the first task
-- this is called "forward transfer"
-- bees learn the concept of "sameness"
-
-      
----
-class: inverse 
-
-## Can Humans Reverse Transfer?
-
-
-- "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
-
-
-
----
-class: inverse 
-
-## Proposed Experiments 
-
-- Behavioral Experiment
-  - Source Task: Delayed Match to Sample (DMS) on colors
-  - Target Task A: Delayed Match to Not-Sample  on colors 
-  - Target Task B: DMS on orientation 
-- Measurements
-  - Arc-GFP to identify which neurons could learn 
-  - Ca2+-YFP to measure neural activity
-  - Narp-RFP to identify which neurons actually consolidate
-- Species 
-      - Zebrafish (Engert)
-      - Mouse (McNaughton and/or Tolias)
-      - Human (Isik)
-
-
-
-
----
-class: middle
-
-# Summary
-
-
----
-class: inverse
-
-## What is Lifelong Learning?
-
-A computational system .r[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
-
-
----
-class: inverse
-
-## What is Lifelong Learning?
-
-A computational system .r[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
-
-
-Motivation: in biology, learning subsequent tasks often improves performance on previously learned tasks 
-
-
-The key is learning internal representations of each data sample that is useful for multiple tasks
-
-
----
-class: inverse
-
-## Current State of the Art 
-
-1. Used fixed architecture, finite capacity
-2. Increase capacity, with complicated architecture 
-
-
----
-class: inverse
-
-## Our Approach 
-
-
-1. Formally define lifelong learning as a generalization of single task machine learning, with suitable metrics 
-2. Develop a generic lifelong learning approach, Omni-Directional Ensembling Representation (ODER)
-  1. Learn a new representation for each task
-  2. Ensemble all representations to make predictions 
-3. Implement a specific example of this approach, Lifelong Forests 
-4. Demonstrate that Lifelong Forests uniquely demonstrates lifelong learning
-
-
-
----
-class: inverse
-
-## Evaluation Criteria ("Metrics")
-
-
-**Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including lots of other data.
-
-**Forward Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including .r[all past data]. 
-
-**Reverse Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .r[all data, both past and future].
-
---
-
-If you don't reverse transfer, you haven't lifelong learned.
-
-
----
-class:inverse 
-
-.r[Lifelong Forests] uniquely exhibits reverse transfer.
-
-
-<img src="images/cifar-rte.png" style="height:530px;" />
-
-
----
-class:inverse 
-
-## Limitations 
-
-1. Capacity grows linearly with # of tasks 
-2. Tasks must be discrete 
-3. Data must be batched into tasks 
-4. Tasks must be known 
-5. Feature space must be the same for all tasks 
-      
-      
 
 
 ---
@@ -1274,7 +1095,195 @@ class: middle, inverse
 ## .center[Extra Slides]
 
 
-<!-- resource constraints -->
+
+---
+class: middle 
+
+# Biology
+
+
+---
+class:inverse 
+
+## Do brains do it?
+
+--
+
+(brains obviously learn)
+
+1. Do brains partition feature space?
+2. Is there some kind of "voting" occurring within each part?
+
+
+---
+class: inverse
+
+## Brains partition  
+
+- Feature space = the set of all possible inputs to a brain
+- Partition = only a subset of "nodes" respond to any given input
+- Examples
+  1. visual receptive fields
+  2. place fields / grid cells
+  3. sensory homonculus
+
+<br>
+
+<img src="images/rock20/Side-black.gif" style="height:230px;"/>
+<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
+<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
+
+
+---
+class: inverse
+
+## Brains vote
+
+- Vote = pattern of responses indicate which stimulus evoked response
+
+<img src="images/rock20/brody1.jpg" style="height:400px;" />
+
+
+
+---
+class: inverse 
+
+## Can Honey Bees Transfer Learn?
+
+
+<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
+
+--
+<br><br><br><br><br><br><br><br><br><br><br>
+- honey bees can also transfer to different sensory modality (smell)
+- honeybees do not forget how to do the first task
+- this is called "forward transfer"
+- bees learn the concept of "sameness"
+
+      
+---
+class: inverse 
+
+## Can Humans Reverse Transfer?
+
+
+- "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
+
+
+
+---
+class: inverse 
+
+## Proposed Experiments 
+
+- Behavioral Experiment
+  - Source Task: Delayed Match to Sample (DMS) on colors
+  - Target Task A: Delayed Match to Not-Sample  on colors 
+  - Target Task B: DMS on orientation 
+- Measurements
+  - Arc-GFP to identify which neurons could learn 
+  - Ca2+-YFP to measure neural activity
+  - Narp-RFP to identify which neurons actually consolidate
+- Species 
+      - Zebrafish (Engert)
+      - Mouse (McNaughton and/or Tolias)
+      - Human (Isik)
+
+
+
+
+---
+class: middle
+
+# Summary
+
+
+---
+class: inverse
+
+## What is Lifelong Learning?
+
+A computational system .r[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
+
+
+---
+class: inverse
+
+## What is Lifelong Learning?
+
+A computational system .r[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
+
+
+Motivation: in biology, learning subsequent tasks often improves performance on previously learned tasks 
+
+
+The key is learning internal representations of each data sample that is useful for multiple tasks
+
+
+---
+class: inverse
+
+## Current State of the Art 
+
+1. Used fixed architecture, finite capacity
+2. Increase capacity, with complicated architecture 
+
+
+---
+class: inverse
+
+## Our Approach 
+
+
+1. Formally define lifelong learning as a generalization of single task machine learning, with suitable metrics 
+2. Develop a generic lifelong learning approach, Omni-Directional Ensembling Representation (ODER)
+  1. Learn a new representation for each task
+  2. Ensemble all representations to make predictions 
+3. Implement a specific example of this approach, Lifelong Forests 
+4. Demonstrate that Lifelong Forests uniquely demonstrates lifelong learning
+
+
+
+---
+class: inverse
+
+## Evaluation Criteria ("Metrics")
+
+
+**Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including lots of other data.
+
+**Forward Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including .r[all past data]. 
+
+**Reverse Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .r[all data, both past and future].
+
+--
+
+If you don't reverse transfer, you haven't lifelong learned.
+
+
+---
+class:inverse 
+
+.r[Lifelong Forests] uniquely exhibits reverse transfer.
+
+
+<img src="images/cifar-rte.png" style="height:530px;" />
+
+
+---
+class:inverse 
+
+## Limitations 
+
+1. Capacity grows linearly with # of tasks 
+2. Tasks must be discrete 
+3. Data must be batched into tasks 
+4. Tasks must be known 
+5. Feature space must be the same for all tasks 
+      
+      
+
+
 
 ---
 class: inverse

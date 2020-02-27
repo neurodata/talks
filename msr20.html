@@ -20,12 +20,9 @@ Moving Beyond Avoiding Catastrophic Forgetting
 
 <br>      
 <br>      
-"Who is wise? He who learns from everyone." 
-
-
--- Pirkei Avot 4:1
 <br>      
-<br>
+<br>      
+<br>      
 <br>
 <br>      
 
@@ -35,15 +32,34 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 
 
+
+---
+class:inverse
+
+"Who is wise?" 
+
+
+-- Pirkei Avot 4:1
+
+
+--
+
+
+<br>
+
+"wise: access to internal knowledge"
+
+
+-- Cambridge Dictionary
+
 ---
 class:inverse
 
 ## Lifelong Learning in AI
 
-- Given a sequence of data associated with different tasks, continually learn such that task performances improve by virtue of having data from other tasks.
-- Catastrophic forgetting: If learning a new task causes performance degradation on previous tasks
-- Tasks are complex, compositions of built of sub-tasks
-
+- Given a sequence of data associated with different tasks, .r[continually learn] such that task performances improve by virtue of having data from other tasks.
+- Catastrophic forgetting: If learning a new task causes performance .r[degradation] on previous tasks
+- Why stop there? Let's .r[improve] performance on past tasks using future data
 
 
 --
@@ -53,7 +69,7 @@ class:inverse
 - Biological/natural intelligence (BI) is .r[progressive], data on future tasks can actually improve performance on past tasks.  
       - learning a 2nd language improves 1st language 
       - learning to run improves walking
-- Each task is a composition of many sub-tasks which overlap with other tasks
+- Each task is a composition of many sub-tasks which .r[overlap] with other tasks
 
 
 
@@ -548,6 +564,12 @@ class: inverse
 - Any learner with an explicit internal representation is ok, e.g.,  decision trees, decision forests, deep networks 
 - SVM, LR, and related shallow learners are not
 
+<!-- TODO: what about FLD? QDA? -->
+
+<!-- TODO: universal/general representation slide -->
+
+<!-- TODO@jv: implementation? forests? deep? polytopes? remove the next two slides -->
+
 ---
 class: inverse 
 
@@ -590,7 +612,6 @@ $$\forall \, j \in [J], \qquad   h^{j'}(\tilde{X}^j) \rightarrow \hat{\eta}(X | 
 $$ \hat{Y}\_{n+1} = \arg \max \frac{1}{J} \sum\_j^J \hat{\eta}(X | j \rightarrow j') $$
 
 
-<!-- TODO@jv: implementation? forests? deep? polytopes? remove the above two slides -->
 
 ---
 class: inverse, middle 

@@ -20,9 +20,12 @@ Moving Beyond Avoiding Catastrophic Forgetting
 
 <br>      
 <br>      
+"Who is wise? He who learns from everyone." 
+
+
+-- Pirkei Avot 4:1
 <br>      
-<br>      
-<br>      
+<br>
 <br>
 <br>      
 
@@ -31,35 +34,26 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 [jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)
 
 
----
-class: inverse, middle 
-
-
-Who is wise? He who learns from every man, as it is said: "From all who taught me have I gained understanding" 
-
-
--- Pirkei Avot 4:1
-
-
 
 ---
 class:inverse
 
-## What is Lifelong Learning 
+## Lifelong Learning in AI
 
-Given a sequence of data associated with different tasks, continually learn such that task performances improve by virtue of having data from other tasks.
+- Given a sequence of data associated with different tasks, continually learn such that task performances improve by virtue of having data from other tasks.
+- Catastrophic forgetting: If learning a new task causes performance degradation on previous tasks
+- Tasks are complex, compositions of built of sub-tasks
 
---
 
-If learning a new task causes performance degradation on previous tasks, it is said that the algorithm exhibited "catastrophic forgetting"
-
---
-
-.r[But, data on future tasks can actually improve performance on past tasks.]  
 
 --
 
-In general, tasks are complex, built of sub-tasks; if learning a new complex task can improve sub-task performance (including sub-tasks involved in previous tasks), then performance in previous tasks will improve too....
+## Biological Intelligence (BI)
+
+- Biological/natural intelligence (BI) is .r[progressive], data on future tasks can actually improve performance on past tasks.  
+      - learning a 2nd language improves 1st language 
+      - learning to run improves walking
+- Each task is a composition of many sub-tasks which overlap with other tasks
 
 
 
@@ -68,8 +62,10 @@ class: inverse
 
 ## Goals of this work 
 
-- Formalize the above claims 
-- Develop algorithms that move beyond catastrophic forgetting 
+- Formalize the above AI claims 
+- Develop algorithms that move beyond catastrophic forgetting, motivated by observations from BI 
+
+
 
 
 
@@ -271,6 +267,7 @@ $$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$
   - $f$ is *RandomForestClassifier.fit*
   - $h$ is *RandomForestClassifier.predict*
 
+<!-- TODO@ronak do i need both h and f? please make a compelling arguemtn for both yes and no :) -->
 
 
 <!-- --
@@ -327,12 +324,13 @@ class:inverse
 
 Given 
 - some true but unknown distribution $P\_z \in \mathcal{P}$, 
-- a sample size $n$,
+- a random data corpus $\mathcal{D}$ with sample size $n$
+- a setting $\mathcal{S}$
 <!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
 
 find the $f \in \mathcal{F}$ that minimizes generalization error.
 
-.center[ $f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D}_n)$.]
+.center[ $f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D})$.]
 
 ---
 class:inverse
@@ -380,7 +378,22 @@ $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$]
 
 
 
+---
+class: inverse 
 
+## Can Honey Bees Transfer?
+
+
+<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
+
+<br><br><br><br><br><br><br><br><br><br>
+
+- honey bees can also transfer to different sensory modality (smell)
+- honeybees do not forget how to do the first task (no forgetting)
+- this is called "forward transfer"
+- bees learn the concept of "sameness"
+
+      
 ---
 class: inverse
 
@@ -389,7 +402,7 @@ class: inverse
 
 - $T_i \in \lbrace{1,2,..,J\rbrace}=[J]$ is a task lable, 
 - Each task could differ by $P_z$ or any element of $\lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A}, \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
-- $\mathcal{D} :=\mathcal{D}_n= \lbrace (Z_i,T_i) \rbrace^n $]
+- $\mathcal{D} = \lbrace (Z_i,T_i) \rbrace^n $
 <!-- - Sample $Z\_i \sim P :=P\_{XYT}$, identically and independently -->
 - Let $\mathcal{D}_j = \lbrace (X_i,Y_i,T_i) :  T_i = j \rbrace$
 <!-- - Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$ -->
@@ -507,18 +520,6 @@ class: inverse, middle
 ### Algorithm
 
 
-<!-- ---
-class: inverse 
-
-## A Concrete Setting  
-
-
-- Let $\mathcal{X}^i=\mathcal{X} = \mathbb{R}^p$ (feature spaces are the same $p$-dimensional Euclidean space)
-- Let $\mathcal{Y}_i$ be categorical with $K_i$ categories (always classification)
-- Assume data are "task batched", that is, samples $n, \ldots, n+n_j$ all come from task $j$
-- Risk is expected misclassification rate -->
-
-
 
 ---
 class: inverse 
@@ -543,6 +544,9 @@ class: inverse
 
 <!-- TODO: add increasing complexity schema -->
 
+
+- Any learner with an explicit internal representation is ok, e.g.,  decision trees, decision forests, deep networks 
+- SVM, LR, and related shallow learners are not
 
 ---
 class: inverse 
@@ -585,6 +589,8 @@ $$\forall \, j \in [J], \qquad   h^{j'}(\tilde{X}^j) \rightarrow \hat{\eta}(X | 
 
 $$ \hat{Y}\_{n+1} = \arg \max \frac{1}{J} \sum\_j^J \hat{\eta}(X | j \rightarrow j') $$
 
+
+<!-- TODO@jv: implementation? forests? deep? polytopes? remove the above two slides -->
 
 ---
 class: inverse, middle 
@@ -1229,22 +1235,6 @@ class: inverse
 
 
 
----
-class: inverse 
-
-## Can Honey Bees Transfer Learn?
-
-
-<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
-
---
-<br><br><br><br><br><br><br><br><br><br><br>
-- honey bees can also transfer to different sensory modality (smell)
-- honeybees do not forget how to do the first task
-- this is called "forward transfer"
-- bees learn the concept of "sameness"
-
-      
 ---
 class: inverse 
 

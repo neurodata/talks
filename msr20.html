@@ -74,11 +74,34 @@ class: inverse
 
 
 ---
+class:inverse 
+
+
+## Outline 
+
+- Background 
+- Lifelong learning 
+- Evaluation criteria
+- Algorithm 
+- Implementation 
+- Simulations 
+- Real data
+- Theory
+- Discussion
+
+
+---
+class:inverse, middle
+
+### Background
+
+
+---
 class: inverse
 
 ## A simple learning example
 
-- $Z_i=(X_i,Y_i)$, $i \in \lbrace 1, 2, \ldots, 200 \rbrace$
+- $z_i=(x_i,y_i)$, $i \in \lbrace 1, 2, \ldots, 200 \rbrace$
   - $x \in \mathbb{R}^2$
   - $y \in \lbrace 0,1 \rbrace$
 - we desire to learn a classifier that minimizes expected misclassification rate
@@ -96,69 +119,6 @@ class: inverse
 class: inverse
 
 <img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
-
-
-
----
-class:inverse
-
-## What do classifiers do?
-
-<br>
-
-learn: given $\mathcal{D}$
-1. partition feature space into "parts",
-2. compute plurality vote of points in each part
-
-
-predict: given $X$
-2. find its part, 
-3. report the plurality vote in its part.
-
-
----
-class:inverse
-
-## What can regressors do?
-
-<br>
-
-learn: given $\mathcal{D}$
-1. partition feature space into "parts",
-2. compute average of points in each part.
-
-
-predict: given $X$
-2. for a new unlabeled point, find its part,
-3. report the average vote in its part.
-
-
-
-
----
-class:inverse
-
-## The fundamental theorem of statistical pattern recognition
-
-
-
-If each part is:
-
-1. small enough, and 
-2. has enough points in it, 
-
-then given enough data, one can learn *perfectly, no matter what*! 
-
-
-<!-- $$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$ -->
-
-<!-- where $\mathcal{E}^*$is Bayes optimal. -->
-
--- Stone, 1977
-
-
-<!-- NB: the parts can be overlapping (as in kNN) or not (as in histograms) -->
-
 
 
 
@@ -211,27 +171,21 @@ class: inverse
 In all cases, re-training from scratch is just too expensive.
 
 
----
-class:inverse 
 
 
-## Outline 
-
-- Background 
-- Math
-- Biology
-- Summary
-
-
-
-
----
-class:middle
+<!-- ---
 
 # Math 
 
 
-
+- Formalizing lifelong learning 
+- Introducing evaluation criteria
+- Proposing generic algorithm 
+- Implementing forest variant 
+- Illustrative Simulations 
+- Real data demonstrations 
+- Theoretical results
+- Discussion -->
 
 ---
 class:inverse, middle 
@@ -258,31 +212,11 @@ class: inverse
 ## What is  Learning? 
 
 
-<!-- "An agent $f$  learns from data $\mathcal{D}_n$ with respect to task $t$ with performance measure $\mathcal{E}$, if $f$'s performance at task  $t$ improves with $n$.'' -->
-
 "An agent $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
 
 
 -- Tom Mitchell, 1997 (not exact quote)
 
-
-
-<!-- ---
-class:inverse
-
-## What is a Task?
-
-A task is defined by a septuple $\lbrace \mathcal{Z},  \mathcal{P}, \mathcal{A},  \mathcal{H}, \ell, {R} \rbrace$
-
-| Definition | Notation | Example
-|:--- |:--- |:--- | 
-| Measurements  | $ \mathcal{Z}$ |  $z_i = (x_i,y_i): i \in [n]$ |
-| Model | $\mathcal{P} := \lbrace P=P_Z : \theta \in \Theta \rbrace$ | Gaussian
-| Actions |  $\mathcal{A}$ |  turn left
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a = \mathbb{I}(z>0)$
-| Loss Function | $\ell: \mathcal{H} \times \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
-| Risk Functional | $R: \mathcal{P} \times \mathcal{L} \times  \mathcal{H} \to \mathbb{R}_+$  | $\mathbb{E}_P[\ell( h(z), a)]$
- -->
 
 
 ---
@@ -294,11 +228,28 @@ class:inverse
 - Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
 - Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
 
+
+
 --
 
-For example 
--  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
-- $P=P_{XY}$ is a mixture of Gaussians 
+
+
+- Example 1: Classification
+  -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
+  - $P=P\_{XY}=P\_{X|Y}P\_Y$, where $P\_{X|Y}$ is Gaussian
+
+
+--
+
+
+
+
+- Example 2: Reinforcment Learning
+  - $Z$ is a sequence of states and actions + current state
+  - $P$ a distribution over current states conditioned on 
+      - past states 
+      - past actions
+
 
 ---
 class:inverse 
@@ -311,11 +262,25 @@ $f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $
 $$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
 
 
+
 --
 
-For example
-- $f$ is *RandomForestClassifier.fit*
-- $h$ is *RandomForestClassifier.predict*
+
+
+- Example 1: Classification
+  - $f$ is *RandomForestClassifier.fit*
+  - $h$ is *RandomForestClassifier.predict*
+
+
+
+<!-- --
+
+
+
+- Example 2: Reinforment Learning 
+  - $f$
+  - $h$ 
+   -->
 
 
 ---
@@ -328,13 +293,46 @@ class:inverse
 Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
 
 
-$$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[R(f(\mathcal{D}))].$$
+$$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
 
 
 --
 
 For example
-- $R$ is expected misclassification rate
+- $\mathcal{R}$ is expected misclassification rate
+
+
+
+---
+class:inverse
+
+## What is a Setting?
+
+A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A},  \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
+
+| Definition | Notation | Example
+|:--- |:--- |:--- | 
+| Measurements  | $ \mathcal{Z}^n$ |  $z=(x,y) \in \, \mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
+| Model | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
+| Distributions |  $\mathcal{A}$ |  {U,D,L,R,A,B}
+| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
+| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
+| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
+| Algorithms | $\mathcal{F} = \lbrace f : \mathcal{Z}^n \to \mathcal{H} \rbrace$  | *RandomForestClassifier.fit*
+
+---
+class:inverse
+
+## What is a Task?
+
+Given 
+- some true but unknown distribution $P\_z \in \mathcal{P}$, 
+- a sample size $n$,
+<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
+
+find the $f \in \mathcal{F}$ that minimizes generalization error.
+
+.center[ $f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D}_n)$.]
 
 ---
 class:inverse
@@ -355,6 +353,9 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
   - inductive bias of $\mathcal{H}$
   - estimation bias of $f$
   - model bias of $\mathcal{P}$
+
+
+
 
 
 ---
@@ -386,17 +387,18 @@ class: inverse
 ## What is Multitask Learning? 
 
 
-- $|\mathcal{J}|=J$ is fixed and finite
-- $Z_i=(X_i,Y_i,T_i)$, where $T_i \in \mathcal{J}$ is a task label
-- Sample $Z\_i \sim P :=P\_{XYT}$, identically and independently
+- $T_i \in \lbrace{1,2,..,J\rbrace}=[J]$ is a task lable, 
+- Each task could differ by $P_z$ or any element of $\lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A}, \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
+- $\mathcal{D} :=\mathcal{D}_n= \lbrace (Z_i,T_i) \rbrace^n $]
+<!-- - Sample $Z\_i \sim P :=P\_{XYT}$, identically and independently -->
 - Let $\mathcal{D}_j = \lbrace (X_i,Y_i,T_i) :  T_i = j \rbrace$
-- Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$
+<!-- - Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$ -->
 
 --
 
 $f$  weakly .r[multitask] learns from $\mathcal{D}$ if
 
-$$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum_j \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
+$$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
 
 <br>
 
@@ -412,17 +414,17 @@ class: inverse
 
 ## What is Lifelong Learning? 
 
-Same as multitask learning, modulo
-- .data arrived sequentially
+Same as multitask learning, but...
+- data arrived sequentially
 - $|\mathcal{J}|$ is (countably) infinite
-- $J_n$ is the number of tasks observed after $n$ samples
-- Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$
+  - $J_n$ is the number of tasks observed after $n$ samples
+<!-- - Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$ -->
 
 --
 
 $f$  weakly .r[lifelong] learns from $\mathcal{D}$ if
 
-$$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum_j \mathcal{E}(f,\mathcal{D}_j \mid j) P(T=j),$$ 
+$$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D}\_j \mid j) P(T=j),$$ 
 
 <br>
 
@@ -430,7 +432,7 @@ $$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum_j \mathcal{E}(f,\ma
 and $f$ strongly .r[lifelong] learns if, 
 
 
-$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
+$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in [J_n].$$ 
 
 
 
@@ -439,18 +441,16 @@ $$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)}
 ---
 class:inverse, middle 
 
-## Evaluation Criteria
+### Evaluation Criteria
 
 
 ---
 class:inverse
 
-## Transfer Efficiency
+## Transfer Efficiency (TE)
 
 
-- Given a random data corpus $\mathcal{D}$,
-- Let $\mathcal{D}_j = \{(X, Y, T) \in \, \mathcal{D} : T = j\}$, 
-- The transfer efficiency of learning algorithm $f$ for task $j$ is
+The transfer efficiency of learning algorithm $f$ for task $j$ is
 $$  TE\_j(f) := 
     \frac{\mathcal{E}\_j(f, \mathcal{D}_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}.
 $$
@@ -463,30 +463,28 @@ Algorithm $ f $ transfer learns if $ TE_j(f) > 1 $.
 ---
 class:inverse 
 
-## Forward  Transfer Efficiency 
+## Forward / Reverse TE 
 
-
-<!-- Forward  Transfer Efficiency  (FTE) for task $j$:  the improvement on task $j$ resulting from all data preceding task $j$ data. -->
-
-<!-- Let $n\_j = \arg \max\_i T\_i = j$ be the last occurrence of task $j$, $\mathcal{D}_j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : T_i = j\}$ be the set of task $j$ data, and  -->
 
 - Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_j\}$ be the set of all data up to sample $n_j$.
-- The forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data preceding task $j$ data
+- Forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .r[preceding] task $j$
 $$    FTE_j(f) := 
 \frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}.
 $$
 
-
----
-class:inverse 
-
-## Reverse Transfer Efficiency
+--
 
 
-Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$. 
+<!-- ## Reverse Transfer Efficiency -->
 
 
-The reverse transfer efficiency of $ f $ for task $j$ is 
+<!-- Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
+
+
+- Reverse transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .r[after] task $j$ 
+
+
+<!-- The reverse transfer efficiency of $ f $ for task $j$ is  -->
 $$    RTE\_j(f) := 
 \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
 $$
@@ -501,25 +499,24 @@ class: inverse
 - Reverse transfer: performance on past tasks gets .r[better] given new task data
 
 
-Avoiding catastrophic forgetting is insufficient for AGI, we need reverse transfer to maximize the value of each data sample.
-
-
+Wise learning machines cannot simply avoid catastrophic forgetting, them must reverse transfer to gain understanding from every sample.
 
 ---
+class: inverse, middle 
+
+### Algorithm
+
+
+<!-- ---
 class: inverse 
 
 ## A Concrete Setting  
 
-- Let $(X,Y,T)$ be feature vector, class label, and task identifier valued random variables 
-- Let $\mathcal{X}^i=\mathcal{X}$ (feature spaces are the same)
+
+- Let $\mathcal{X}^i=\mathcal{X} = \mathbb{R}^p$ (feature spaces are the same $p$-dimensional Euclidean space)
 - Let $\mathcal{Y}_i$ be categorical with $K_i$ categories (always classification)
 - Assume data are "task batched", that is, samples $n, \ldots, n+n_j$ all come from task $j$
-- Given $\mathcal{D}_j= (X_i,Y_i,T_i)$ such that $T_i=j$ 
-
-
-### Goal 
-
-Be able to correctly classify a new sample from any of the tasks
+- Risk is expected misclassification rate -->
 
 
 
@@ -527,11 +524,24 @@ Be able to correctly classify a new sample from any of the tasks
 class: inverse 
 
 
-## Basic Idea 
+## Key Idea 
 
 - Learn new representation for each task 
-- Increase dimensionality of internal representation after receiving each new batch of data 
-- .r[Ensemble internal representations] 
+- Learn classifier for each task on each representation
+- .r[Ensemble representations]
+- Dimensionality of internal representation grows linearly with number of tasks
+
+
+
+---
+class: inverse 
+
+## Lifelong Learning Schema
+
+
+<img src="images/learning-schemas.svg" style="width:700px;"/>
+
+<!-- TODO: add increasing complexity schema -->
 
 
 ---
@@ -577,19 +587,9 @@ $$ \hat{Y}\_{n+1} = \arg \max \frac{1}{J} \sum\_j^J \hat{\eta}(X | j \rightarrow
 
 
 ---
-class: inverse 
-
-## Lifelong Forest Schema
-
-<br> 
-
-.center[<img src="images/L2F-predict.svg" style="width:700px;"/>]
-
-
----
 class: inverse, middle 
 
-## Simulations
+### Simulations
 
 
 
@@ -622,6 +622,13 @@ class: inverse
 - .orange[Transfer Forest] uses $n$ samples from N-XOR to learn partitions 
 - .r[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions
 
+<!-- TODO: replace with four panel figure: 
+  TOP LEFT: XOR
+  TOP RIGHT: N-XOR
+  BOTTOM LEFT: x-axis is simply # samples, and y-axis is Generalization Error, and we show 4 lines: E_1(D_1), E_1(D_n), E_2(D_2), E_2(D_n)
+  BOTTOM RIGHT: x-axis is # of samples, maybe starting with n/2, y-axis is TE, two lines, TE_1 and TE_2   
+-->
+
 
 ---
 class: inverse
@@ -637,23 +644,25 @@ class:inverse
 
 <img src="images/spiral-all.png"  style="height:500px;">
 
+<!-- TODO: replace with same 4 panel figure as above -->
+
 ---
 class:inverse 
 
-### Adversarial Graceful Forgetting
+## Graceful Forgetting
 
 <img src="images/rxor-suite-new-row.png"  style="width:750px;">
 
 
-
+<!-- TODO: replace with 4 panel figure, same 3 panels as above
+    ADD: same as right, but n_1=1000, or possibly only show TE_1 for different n_1 ranging from 75, 100, 250, 500, 1000?
+-->
 
 
 ---
 class: inverse, middle 
 
-
-## Real Data 
-
+### Real Data 
 
 
 ---
@@ -669,6 +678,8 @@ class:inverse
 
 <img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
 
+
+<!-- TODO: replace CIFAR10 image with same thing but using CIFAR100 images and categories -->
 
 ---
 class: inverse 
@@ -690,7 +701,7 @@ class:inverse
 
 <img src="images/fte_cifar.png" style="height:530px;" />
 
-
+<!--  TODO: replace with average FTE + "error bars" and add legend outside -->
 
 ---
 class:inverse
@@ -712,9 +723,11 @@ class:inverse
 <img src="images/cifar-rte.png" style="height:530px;" />
 
 
+<!-- TODO: replace with average RTE + "error bars" and add legend outside -->
+
 
 ---
-class: inverse, middle 
+class: inverse 
 
 
 
@@ -732,12 +745,85 @@ Lifelong Forests uniquely exhibits .r[strong] lifelong learning.
 
 <img src="images/all_TE.png" style="height:250px;" />
 
+<!-- TODO: replace table with same thing but
+    1. remove Task specific TE (only show average and min)
+    2. color code names using the same color scheme as the figure
+-->
+
+
+---
+class: inverse, middle 
+
+### Theory
+
+
+---
+class:inverse
+
+## What do classifiers do?
+
+<br>
+
+learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \lbrace 0,1 \rbrace$
+1. partition feature space into "parts",
+2. compute plurality  of points in each part.
+
+
+predict: given $x$
+2. find its part, 
+3. report the plurality vote in its part.
+
+
+---
+class:inverse
+
+## What can regressors do?
+
+<br>
+
+learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \mathbb{R}$
+1. partition feature space into "parts",
+2. compute average of points in each part.
+
+
+predict: given $x$
+2. find its part,
+3. report the average vote in its part.
+
+
+
+
+---
+class:inverse
+
+## The fundamental theorem of statistical pattern recognition
+
+
+
+If each part is:
+
+1. small enough, and 
+2. has enough points in it, 
+
+then given enough data, one can learn *perfectly, no matter what*! 
+
+
+$$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$
+
+where $\mathcal{E}^*$is Bayes optimal.
+
+-- Stone, 1977
+
+
+<!-- NB: the parts can be overlapping (as in kNN) or not (as in histograms) -->
+
+
+
 ---
 class:inverse
 
 ## The fundamental .r[conjecture] of transfer learning
 
---
 
 If each cell is:
 
@@ -753,9 +839,40 @@ then given enough data, one can .r[transfer learn] *perfectly, no matter what*!
 
 
 ---
+class: inverse, middle 
+
+### Discussion
+
+
+
+---
 class: inverse
 
-##  Summary of Math
+##  Key Insights
+
+  1. Avoiding catastrophic forgetting simply means reverse transfer is 1, but why stop there?
+  2. Ensembling internal representations  enables reverse transfer > 1
+
+---
+class:inverse 
+
+## Limitations 
+
+2. Tasks must be discrete 
+3. Data must be batched into tasks 
+4. Tasks must be known 
+5. Feature space must be the same for all tasks 
+1. Internal representation grows linearly with # of tasks 
+      
+      
+
+
+
+---
+class: inverse
+
+##  Key Accomplishments
+
 
 - Formalized Lifelong Learning as generalization of classical machine learning
 - Introduced novel evaluation criteria: forward and reverse transfer efficiency
@@ -765,6 +882,302 @@ class: inverse
     - reverse transfer 
     - stong lifelong learning
 - Conjectured theory promising to prove consistency and robustness
+
+
+
+
+---
+class: inverse
+
+## References 
+
+1. H. Helm et al. Lifelong Learning Forests, 2020
+1. R. Mehta et al. A General Theory of Learnability, 2020. 
+3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
+1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
+1. R. Perry, et al. Manifold Forests: Closing the Gap on Neural Networks. preprint, 2019.
+1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2018
+7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.
+1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
+
+More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
+
+
+
+
+---
+class:inverse 
+
+### Acknowledgements
+
+
+
+<!-- <div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jaewon.jpg"/>
+  <div class="centered">Jaewon Chung</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/yummy.jpg"/>
+  <div class="centered">yummy</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/lion.jpg"/>
+  <div class="centered">lion</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/violet.jpg"/>
+  <div class="centered">baby girl</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/family.jpg"/>
+  <div class="centered">family</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/earth.jpg"/>
+  <div class="centered">earth</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/milkyway.jpg"/>
+  <div class="centered">milkyway</div>
+</div>
+
+
+##### JHU
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/bruce_rosen.jpg"/>
+  <div class="centered">Bruce Rosen</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/kent.jpg"/>
+  <div class="centered">Kent Kiehl</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div> -->
+
+<div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/meghana.png"/>
+  <div class="centered">Meghana Madhya</div>
+</div>
+  
+
+<!-- <div class="small-container">
+  <img src="faces/percy.png"/>
+  <div class="centered">Percy Li</div>
+</div>
+-->
+
+<div class="small-container">
+  <img src="faces/hayden.png"/>
+  <div class="centered">Hayden Helm</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/rguo.jpg"/>
+  <div class="centered">Richard Gou</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/ronak.jpg"/>
+  <div class="centered">Ronak Mehta</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jayanta.jpg"/>
+  <div class="centered">Jayanta Dey</div>
+</div>
+
+##### Microsoft Research
+
+<div class="small-container">
+  <img src="faces/chwh-180x180.jpg"/>
+  <div class="centered">Chris White</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/weiwei.jpg"/>
+  <div class="centered">Weiwei Yang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jolarso150px.png"/>
+  <div class="centered">Jonathan Larson</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/brtower-180x180.jpg"/>
+  <div class="centered">Bryan Tower</div>
+</div>
+
+
+##### DARPA 
+Hava, Ben, Robert, Jennifer, Ted.
+
+</div>
+<!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
+
+---
+class:center, inverse
+
+<img src="images/l_and_v.jpeg" style="position:absolute; top:0px; left:200px; height:100%;"/>
+
+---
+class: middle, inverse
+
+
+## .center[Extra Slides]
+
 
 
 ---
@@ -955,298 +1368,6 @@ class:inverse
       
 
 
----
-class: inverse
-
-## References 
-
-1. H. Helm et al. Lifelong Learning Forests, 2020
-1. R. Mehta et al. A General Theory of Learnability, 2020. 
-3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
-1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
-1. R. Perry, et al. Manifold Forests: Closing the Gap on Neural Networks. preprint, 2019.
-1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2018
-7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.
-1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
-
-More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
-
-
-
-
----
-class:inverse 
-
-### Acknowledgements
-
-
-
-<!-- <div class="small-container">
-  <img src="faces/ebridge.jpg"/>
-  <div class="centered">Eric Bridgeford</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/pedigo.jpg"/>
-  <div class="centered">Ben Pedigo</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/jaewon.jpg"/>
-  <div class="centered">Jaewon Chung</div>
-</div> -->
-
-
-<div class="small-container">
-  <img src="faces/yummy.jpg"/>
-  <div class="centered">yummy</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/lion.jpg"/>
-  <div class="centered">lion</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/violet.jpg"/>
-  <div class="centered">baby girl</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/family.jpg"/>
-  <div class="centered">family</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/earth.jpg"/>
-  <div class="centered">earth</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/milkyway.jpg"/>
-  <div class="centered">milkyway</div>
-</div>
-
-
-#### JHU
-
-<div class="small-container">
-  <img src="faces/cep.png"/>
-  <div class="centered">Carey Priebe</div>
-</div>
-
-<!-- <div class="small-container">
-  <img src="faces/randal.jpg"/>
-  <div class="centered">Randal Burns</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/cshen.jpg"/>
-  <div class="centered">Cencheng Shen</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/bruce_rosen.jpg"/>
-  <div class="centered">Bruce Rosen</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/kent.jpg"/>
-  <div class="centered">Kent Kiehl</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/mim.jpg"/>
-  <div class="centered">Michael Miller</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/dtward.jpg"/>
-  <div class="centered">Daniel Tward</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/vikram.jpg"/>
-  <div class="centered">Vikram Chandrashekhar</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/drishti.jpg"/>
-  <div class="centered">Drishti Mannan</div>
-</div> -->
-
-<div class="small-container">
-  <img src="faces/jesse.jpg"/>
-  <div class="centered">Jesse Patsolic</div>
-</div>
-
-<!-- <div class="small-container">
-  <img src="faces/falk_ben.jpg"/>
-  <div class="centered">Benjamin Falk</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/kwame.jpg"/>
-  <div class="centered">Kwame Kutten</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/perlman.jpg"/>
-  <div class="centered">Eric Perlman</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/loftus.jpg"/>
-  <div class="centered">Alex Loftus</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/bcaffo.jpg"/>
-  <div class="centered">Brian Caffo</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/minh.jpg"/>
-  <div class="centered">Minh Tang</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/avanti.jpg"/>
-  <div class="centered">Avanti Athreya</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/vince.jpg"/>
-  <div class="centered">Vince Lyzinski</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/dpmcsuss.jpg"/>
-  <div class="centered">Daniel Sussman</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/youngser.jpg"/>
-  <div class="centered">Youngser Park</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/shangsi.jpg"/>
-  <div class="centered">Shangsi Wang</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/tyler.jpg"/>
-  <div class="centered">Tyler Tomita</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/james.jpg"/>
-  <div class="centered">James Brown</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/disa.jpg"/>
-  <div class="centered">Disa Mhembere</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/gkiar.jpg"/>
-  <div class="centered">Greg Kiar</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/jeremias.png"/>
-  <div class="centered">Jeremias Sulam</div>
-</div> -->
-
-
-<div class="small-container">
-  <img src="faces/meghana.png"/>
-  <div class="centered">Meghana Madhya</div>
-</div>
-  
-
-<!-- <div class="small-container">
-  <img src="faces/percy.png"/>
-  <div class="centered">Percy Li</div>
-</div>
--->
-
-<div class="small-container">
-  <img src="faces/hayden.png"/>
-  <div class="centered">Hayden Helm</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/rguo.jpg"/>
-  <div class="centered">Richard Gou</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/ronak.jpg"/>
-  <div class="centered">Ronak Mehta</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/jayanta.jpg"/>
-  <div class="centered">Jayanta Dey</div>
-</div>
-
-#### Microsoft Research
-
-<div class="small-container">
-  <img src="faces/chwh-180x180.jpg"/>
-  <div class="centered">Chris White</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/weiwei.jpg"/>
-  <div class="centered">Weiwei Yang</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/jolarso150px.png"/>
-  <div class="centered">Jonathan Larson</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/brtower-180x180.jpg"/>
-  <div class="centered">Bryan Tower</div>
-</div>
-
-
-
-</div>
-<!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
-<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
-<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
-
----
-class:center, inverse
-
-<img src="images/l_and_v.jpeg" style="position:absolute; top:0px; left:200px; height:100%;"/>
-
----
-class: middle, inverse
-
-
-## .center[Extra Slides]
-
-
-<!-- resource constraints -->
 
 ---
 class: inverse
@@ -1564,6 +1685,7 @@ Each tree uses a different subset of data to transform (partition) space
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
 <script type="text/javascript">
+
   var options = {};
   var renderMath = function() {
     renderMathInElement(document.body);
@@ -1575,7 +1697,16 @@ Each tree uses a different subset of data to transform (partition) space
         {left: "\\(", right: "\\)", display: false},
     ]});
   }
+
   var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
 
 </script>
 </body>

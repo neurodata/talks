@@ -260,7 +260,7 @@ th, td {
     text-align: left;
     padding: 8px;
 }
-tr:nth-child(even){background-color: #dfd6c2}
+tr:nth-child(even){background-color: #5e5c5a}
 th {
     background-color: #94D6C9;
     color: white;

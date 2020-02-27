@@ -308,16 +308,16 @@ class:inverse
 
 ## What is a Setting?
 
-A setting is defined by a septuple $\lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A},  \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
+A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A},  \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
 
 | Definition | Notation | Example
 |:--- |:--- |:--- | 
 | Measurements  | $ \mathcal{Z}$ |  $(x,y) \in \, \mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
 |  Model | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
-| Action space |  $\mathcal{A}$ |  turn left
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | $a := \hat{y} = \mathbb{I}(x>0)$
+| Action space |  $\mathcal{A}$ |  {U,D,L,R,A,B}
+| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
 | Loss Function | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
-| Risk Functional | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[(a-y)^2]$
+| Risk Functional | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
 | Algorithm | $\mathcal{F} = \lbrace f : \mathcal{Z}^n \to \mathcal{H} \rbrace$  | *RandomForestClassifier.fit*
 
 ---
@@ -387,17 +387,18 @@ class: inverse
 ## What is Multitask Learning? 
 
 
-- $|\mathcal{J}|=J$ is fixed and finite
-- $Z_i=(X_i,Y_i,T_i)$, where $T_i \in \mathcal{J}$ is a task label
-- Sample $Z\_i \sim P :=P\_{XYT}$, identically and independently
+- $T_i \in \lbrace{1,2,..,J\rbrace}=[J]$ is a task lable, 
+- Each task could differ by $P_z$ or any element of $\lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A}, \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
+- $\mathcal{D} :=\mathcal{D}_n= \lbrace (Z_i,T_i) \rbrace^n $]
+<!-- - Sample $Z\_i \sim P :=P\_{XYT}$, identically and independently -->
 - Let $\mathcal{D}_j = \lbrace (X_i,Y_i,T_i) :  T_i = j \rbrace$
-- Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$
+<!-- - Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$ -->
 
 --
 
 $f$  weakly .r[multitask] learns from $\mathcal{D}$ if
 
-$$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum_j \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
+$$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
 
 <br>
 
@@ -413,17 +414,17 @@ class: inverse
 
 ## What is Lifelong Learning? 
 
-Same as multitask learning, modulo
-- .data arrived sequentially
+Same as multitask learning, but...
+- data arrived sequentially
 - $|\mathcal{J}|$ is (countably) infinite
-- $J_n$ is the number of tasks observed after $n$ samples
-- Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$
+  - $J_n$ is the number of tasks observed after $n$ samples
+<!-- - Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$ -->
 
 --
 
 $f$  weakly .r[lifelong] learns from $\mathcal{D}$ if
 
-$$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum_j \mathcal{E}(f,\mathcal{D}_j \mid j) P(T=j),$$ 
+$$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D}\_j \mid j) P(T=j),$$ 
 
 <br>
 
@@ -431,7 +432,7 @@ $$  \sum_j \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum_j \mathcal{E}(f,\ma
 and $f$ strongly .r[lifelong] learns if, 
 
 
-$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
+$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in [J_n].$$ 
 
 
 
@@ -506,21 +507,16 @@ class: inverse, middle
 ### Algorithm
 
 
----
+<!-- ---
 class: inverse 
 
 ## A Concrete Setting  
 
-- Let $(X,Y,T)$ be feature vector, class label, and task identifier valued random variables 
-- Let $\mathcal{X}^i=\mathcal{X}$ (feature spaces are the same)
+
+- Let $\mathcal{X}^i=\mathcal{X} = \mathbb{R}^p$ (feature spaces are the same $p$-dimensional Euclidean space)
 - Let $\mathcal{Y}_i$ be categorical with $K_i$ categories (always classification)
 - Assume data are "task batched", that is, samples $n, \ldots, n+n_j$ all come from task $j$
-- Given $\mathcal{D}_j= (X_i,Y_i,T_i)$ such that $T_i=j$ 
-
-
-## Goal 
-
-Be able to correctly classify a new sample from any of the tasks
+- Risk is expected misclassification rate -->
 
 
 
@@ -528,22 +524,24 @@ Be able to correctly classify a new sample from any of the tasks
 class: inverse 
 
 
-## Key Insight: .r[Ensemble internal representations] 
+## Key Idea 
 
 - Learn new representation for each task 
-- Increase dimensionality of internal representation after receiving each new batch of data 
+- Learn classifier for each task on each representation
+- .r[Ensemble representations]
+- Dimensionality of internal representation grows linearly with number of tasks
 
 
 
 ---
 class: inverse 
 
-## Lifelong Forest Schema
+## Lifelong Learning Schema
 
 
 <img src="images/learning-schemas.svg" style="width:700px;"/>
 
-
+<!-- TODO: add increasing complexity schema -->
 
 
 ---
@@ -624,6 +622,13 @@ class: inverse
 - .orange[Transfer Forest] uses $n$ samples from N-XOR to learn partitions 
 - .r[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions
 
+<!-- TODO: replace with four panel figure: 
+  TOP LEFT: XOR
+  TOP RIGHT: N-XOR
+  BOTTOM LEFT: x-axis is simply # samples, and y-axis is Generalization Error, and we show 4 lines: E_1(D_1), E_1(D_n), E_2(D_2), E_2(D_n)
+  BOTTOM RIGHT: x-axis is # of samples, maybe starting with n/2, y-axis is TE, two lines, TE_1 and TE_2   
+-->
+
 
 ---
 class: inverse
@@ -639,6 +644,8 @@ class:inverse
 
 <img src="images/spiral-all.png"  style="height:500px;">
 
+<!-- TODO: replace with same 4 panel figure as above -->
+
 ---
 class:inverse 
 
@@ -647,14 +654,15 @@ class:inverse
 <img src="images/rxor-suite-new-row.png"  style="width:750px;">
 
 
-
+<!-- TODO: replace with 4 panel figure, same 3 panels as above
+    ADD: same as right, but n_1=1000, or possibly only show TE_1 for different n_1 ranging from 75, 100, 250, 500, 1000?
+-->
 
 
 ---
 class: inverse, middle 
 
 ### Real Data 
-
 
 
 ---
@@ -670,6 +678,8 @@ class:inverse
 
 <img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
 
+
+<!-- TODO: replace CIFAR10 image with same thing but using CIFAR100 images and categories -->
 
 ---
 class: inverse 
@@ -691,7 +701,7 @@ class:inverse
 
 <img src="images/fte_cifar.png" style="height:530px;" />
 
-
+<!--  TODO: replace with average FTE + "error bars" and add legend outside -->
 
 ---
 class:inverse
@@ -713,6 +723,8 @@ class:inverse
 <img src="images/cifar-rte.png" style="height:530px;" />
 
 
+<!-- TODO: replace with average RTE + "error bars" and add legend outside -->
+
 
 ---
 class: inverse 
@@ -733,6 +745,10 @@ Lifelong Forests uniquely exhibits .r[strong] lifelong learning.
 
 <img src="images/all_TE.png" style="height:250px;" />
 
+<!-- TODO: replace table with same thing but
+    1. remove Task specific TE (only show average and min)
+    2. color code names using the same color scheme as the figure
+-->
 
 
 ---
@@ -748,9 +764,9 @@ class:inverse
 
 <br>
 
-learn: given $(x_i,y_i)$, for $i \in [n]$
+learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \lbrace 0,1 \rbrace$
 1. partition feature space into "parts",
-2. compute plurality  of points in each part
+2. compute plurality  of points in each part.
 
 
 predict: given $x$
@@ -792,9 +808,9 @@ If each part is:
 then given enough data, one can learn *perfectly, no matter what*! 
 
 
-<!-- $$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$ -->
+$$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$
 
-<!-- where $\mathcal{E}^*$is Bayes optimal. -->
+where $\mathcal{E}^*$is Bayes optimal.
 
 -- Stone, 1977
 
@@ -830,26 +846,26 @@ class: inverse, middle
 
 
 ---
-class:inverse 
-
-## Limitations 
-
-1. Capacity grows linearly with # of tasks 
-2. Tasks must be discrete 
-3. Data must be batched into tasks 
-4. Tasks must be known 
-5. Feature space must be the same for all tasks 
-      
-      
-
-
----
 class: inverse
 
 ##  Key Insights
 
-  1. Avoiding catastrophic forgetting simply means not forgetting, but why stop there?
-  2. Ensembling internal representations would enable reverse transfer 
+  1. Avoiding catastrophic forgetting simply means reverse transfer is 1, but why stop there?
+  2. Ensembling internal representations  enables reverse transfer > 1
+
+---
+class:inverse 
+
+## Limitations 
+
+2. Tasks must be discrete 
+3. Data must be batched into tasks 
+4. Tasks must be known 
+5. Feature space must be the same for all tasks 
+1. Internal representation grows linearly with # of tasks 
+      
+      
+
 
 
 ---

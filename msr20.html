@@ -15,7 +15,7 @@
 
 class:inverse 
 
-# Lifelong Learning:
+### Lifelong Learning via <br>Ensembling General Representations
 Moving Beyond Avoiding Catastrophic Forgetting
 
 <br>      
@@ -36,37 +36,18 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 ---
 class:inverse
 
-"Who is wise?" 
-
-
--- Pirkei Avot 4:1
-
-
---
-
-
-<br>
-
-"wise: access to internal knowledge"
-
-
--- Cambridge Dictionary
-
----
-class:inverse
-
 ## Lifelong Learning in AI
 
 - Given a sequence of data associated with different tasks, .r[continually learn] such that task performances improve by virtue of having data from other tasks.
-- Catastrophic forgetting: If learning a new task causes performance .r[degradation] on previous tasks
+- Catastrophic forgetting:  learning new tasks causes performance .r[degradation] on previous tasks
 - Why stop there? Let's .r[improve] performance on past tasks using future data
 
 
 --
 
-## Biological Intelligence (BI)
+## Natural Intelligence
 
-- Biological/natural intelligence (BI) is .r[progressive], data on future tasks can actually improve performance on past tasks.  
+- Biological/natural intelligence (BI) is .r[progressive], data on future tasks can actually improve performance on past tasks:  
       - learning a 2nd language improves 1st language 
       - learning to run improves walking
 - Each task is a composition of many sub-tasks which .r[overlap] with other tasks
@@ -79,7 +60,7 @@ class: inverse
 ## Goals of this work 
 
 - Formalize the above AI claims 
-- Develop algorithms that move beyond catastrophic forgetting, motivated by observations from BI 
+- Develop algorithms that move beyond catastrophic forgetting, motivated by observations from natural intelligence 
 
 
 
@@ -95,7 +76,6 @@ class:inverse
 - Lifelong learning 
 - Evaluation criteria
 - Algorithm 
-- Implementation 
 - Simulations 
 - Real data
 - Theory
@@ -174,13 +154,13 @@ class: inverse
 ## This Year: A Real Challenge 
 
 - Industry
-  - Microsoft/Amazon/Google trained a recommender system on existing products, then a new product is launched, desire to update model to recommend for new products
+  - Microsoft/Amazon/Google trained a recommender system on existing products, then a new product is launched
 - Healthcare
-  - A new disease, test, treatment exists, want to update model
+  - A new disease, test, treatment exists
 - Augmented Reality
-  - Walking around, go to a new place, want to update model
+  - Walking around, go to a new city
 
-In all cases, re-training from scratch is just too expensive.
+In all cases, re-training from scratch is just too expensive, we desire to dynamically update  with new data
 
 
 
@@ -212,10 +192,10 @@ class: inverse
 
 ## What is Learning?
 
-
-<img src="images/Vapnik71b.png" style="width:400px;"/>
-<img src="images/Valiant84.png" style="width:400px;"/>
-<img src="images/Mitchell97a.png" style="width:400px;"/>
+<img src="images/glivenko-cantelli.png" style="width:350px;"/>
+<img src="images/Vapnik71b.png" style="width:350px;"/>
+<img src="images/Valiant84.png" style="width:350px;"/>
+<img src="images/Mitchell97a.png" style="width:350px;"/>
 
 
 ---
@@ -254,13 +234,13 @@ class:inverse
 --
 
 
-
+<!-- 
 
 - Example 2: Reinforcment Learning
   - $Z$ is a sequence of states and actions + current state
   - $P$ a distribution over current states conditioned on 
       - past states 
-      - past actions
+      - past actions -->
 
 
 ---
@@ -309,44 +289,15 @@ Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for tas
 $$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
 
 
+
 --
 
-For example
+
+
+Example 1: Classification
 - $\mathcal{R}$ is expected misclassification rate
 
 
-
----
-class:inverse
-
-## What is a Setting?
-
-A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A},  \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
-
-| Definition | Notation | Example
-|:--- |:--- |:--- | 
-| Measurements  | $ \mathcal{Z}^n$ |  $z=(x,y) \in \, \mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
-| Model | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
-| Distributions |  $\mathcal{A}$ |  {U,D,L,R,A,B}
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
-| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (a - y)^2$
-| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
-| Algorithms | $\mathcal{F} = \lbrace f : \mathcal{Z}^n \to \mathcal{H} \rbrace$  | *RandomForestClassifier.fit*
-
----
-class:inverse
-
-## What is a Task?
-
-Given 
-- some true but unknown distribution $P\_z \in \mathcal{P}$, 
-- a random data corpus $\mathcal{D}$ with sample size $n$
-- a setting $\mathcal{S}$
-<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
-
-find the $f \in \mathcal{F}$ that minimizes generalization error.
-
-.center[ $f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D})$.]
 
 ---
 class:inverse
@@ -370,6 +321,39 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
 
 
 
+
+
+---
+class:inverse
+
+## What is a Setting?
+
+A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A},  \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
+
+| Object | Notation | Example
+|:--- |:--- |:--- | 
+| Measurements  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
+| Distributions | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
+| Actions |  $\mathcal{A}$ |  {↑,↓,←,←,B,A,start}
+| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
+| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
+| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
+| Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^N} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
+
+---
+class:inverse
+
+## What is a Task?
+
+Given 
+- some true but unknown distribution $P\_z \in \mathcal{P}$, 
+- a random data corpus $\mathcal{D}$ with sample size $n$
+- a setting $\mathcal{S}$
+<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
+
+find the $f \in \mathcal{F}$ that minimizes generalization error in that setting:
+
+.center[ $f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D})$.]
 
 
 ---
@@ -438,15 +422,27 @@ and $f$ strongly .r[multitask] learns if,
 $$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
 
 
+<!-- TODO@jv add online learning here? f : mcF x 2^D^N -> h ? -->
+---
+class: inverse
+
+## What is Sequential Learning? 
+
+Same as "batch" learning, except $f$ updates existing hypothesis on basis of new data, that is, 
+
+
+$$f : \mathcal{H} \times 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
+
+
+
 ---
 class: inverse
 
 ## What is Lifelong Learning? 
 
-Same as multitask learning, but...
-- data arrived sequentially
+Sequential multi-task learning, where
 - $|\mathcal{J}|$ is (countably) infinite
-  - $J_n$ is the number of tasks observed after $n$ samples
+- $J_n$ is the number of tasks observed after $n$ samples
 <!-- - Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$ -->
 
 --
@@ -464,6 +460,22 @@ and $f$ strongly .r[lifelong] learns if,
 $$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in [J_n].$$ 
 
 
+
+
+---
+class:inverse 
+
+
+###  Learning Scenarios
+
+<br> 
+
+|             | $J>1$ | Sequential  | 
+| :---:       | :---: | :---:       | 
+| Machine     | 0 | 0 | 
+| Sequential  | 0 | 1 |
+| Multi-task  | 1 | 0 | 
+| Lifelong    | 1 | 1 | 
 
 
 
@@ -540,13 +552,104 @@ class: inverse, middle
 ---
 class: inverse 
 
+## Composable Hypotheses 
+
+.center[ .r[$h = v \circ u$]]
+
+- Let $u$ be .r[transformer] data to a new representation, 
+
+$$ u : \mathcal{Z} \to \tilde{\mathcal{Z}}$$
+
+- Let $v$ be .r[voter] which operate on the transformed data 
+
+
+$$ v : \tilde{\mathcal{Z}} \to \mathcal{A}$$
+
+
+- Let $w$ be .r[decider] which decides which actions to take on the basis of the votes 
+
+
+- $h=w(v(u(z)))$
+
+---
+class: inverse 
+
+
+## Examples 
+
+- .r[Transformers] $u$
+  - Linear discriminant analysis: a projection onto a line 
+  - Quadratic discriminant analysis: a projection onto a quadratic function 
+  - Decision tree: a set non-overlapping of $p$-dimensional cuboids (polytopes)
+  - Decision forest: a set of overlapping $p$-dimensional cuboids 
+  - Neural network: $u$ is the "backbone", all the layers until the last layer 
+--
+
+- .r[Voters] $v$ 
+   - threshold to report simply the most likely class 
+   - posterior probability of any of the classes 
+   - a softmax layer
+--
+
+- .r[Deciders] $w$
+  - argmax over potential classes
+
+
+
+
+
+
+---
+class: inverse 
+
 
 ## Key Idea 
 
+.r[.center[different transformers can be learned and each composed with voters]]
+
+- learn many different transformers $u_j(\cdot)$'s
+- for each $u\_j$, learn many different $v\_{j,j'}$'s
+- use the decider to weight the various options 
+
+$$w(  \cup\_{j'} v\_{j,j'}( \cup\_j u\_j(\cdot) )  )$$  $$= w(v\_{1,1}(u\_1(\cdot)) , v\_{1,2}( u\_1(\cdot)), \ldots v\_{J,J}( u\_J(\cdot)))$$
+
+--
+
 - Learn new representation for each task 
-- Learn classifier for each task on each representation
-- .r[Ensemble representations]
 - Dimensionality of internal representation grows linearly with number of tasks
+- This is .r[ensembling representations]
+
+
+---
+class: inverse 
+
+## General Representations 
+
+- Transformers learn representations 
+- We desire representations that are sufficient for one task, and  useful for other tasks 
+- Decision trees, decision forests, and deep nets (with ReLu nodes) partition feature space into polytopes
+
+<!-- - They should be simple (eg, linear) for simple (eg, linear) tasks, and complicated for complicated task 
+- LDA, QDA, and other parametric methods cannot naively do this 
+- Decision trees, decision forests, can 
+- Parametric deep nets cannot, non-parametric deep nets could 
+--
+
+- A .r[universal representation] is a representation that is potentially useful for any other task (eg, "spans the space") -->
+
+
+<!-- ---
+class: inverse
+
+## Polytope Partitioning Representations -->
+
+--
+
+<img src="images/deep-polytopes.png" style="width:700px;"/>
+
+
+<!-- - NNs with ReLu nodes  partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)). -->
+
 
 
 
@@ -559,57 +662,17 @@ class: inverse
 <img src="images/learning-schemas.svg" style="width:700px;"/>
 
 <!-- TODO: add increasing complexity schema -->
+<!-- TODO: change to progressive? -->
 
-
-- Any learner with an explicit internal representation is ok, e.g.,  decision trees, decision forests, deep networks 
-- SVM, LR, and related shallow learners are not
-
-<!-- TODO: what about FLD? QDA? -->
-
-<!-- TODO: universal/general representation slide -->
+<!-- TODO: universal/general representation slide. LDA is ok, but if it mapped to 2 points, it would be useless -->
 
 <!-- TODO@jv: implementation? forests? deep? polytopes? remove the next two slides -->
 
----
-class: inverse 
 
-## Lifelong.Fit
-
-Given a new training dataset  $\mathcal{D}_J$
-- Learn a new representation transformation  on that dataset 
-
-$$g^J: \mathcal{X} \rightarrow \tilde{\mathcal{X}}^J$$
-
-- Apply $J^{th}$ transformation to all $n$ samples 
-
-$$\forall \, i \in [n], \qquad   g^J(X_i) \rightarrow \tilde{X}_i^J$$
+- Any learner with an explicit internal representation is ok, e.g.,  decision trees, decision forests, deep networks 
+- SVM, k-NN, etc., are not
 
 
-- Learn class-conditional posteriors on  $J^{th}$ representations for each task
-
-$$ \forall \, j \in [J] \qquad  h^j : \tilde{\mathcal{X}}^J \rightarrow \hat{\eta}(\cdot | J \rightarrow j)$$
-
-
----
-class: inverse 
-
-## Lifelong.Predict 
-
-
-Given a  test sample from task $j'$ 
-
-- Apply $J$ transformations to sample $n+1$
-
-$$\forall \, j \in [J], \qquad   g^j(X) \rightarrow \tilde{X}^j$$
-
-- Evaluate $J$ posteriors for sample $n+1$
-
-$$\forall \, j \in [J], \qquad   h^{j'}(\tilde{X}^j) \rightarrow \hat{\eta}(X | j \rightarrow j')$$
-
-
-- Compute max of average of $J$ class posteriors  
-
-$$ \hat{Y}\_{n+1} = \arg \max \frac{1}{J} \sum\_j^J \hat{\eta}(X | j \rightarrow j') $$
 
 
 
@@ -646,7 +709,7 @@ class: inverse
 
 
 - .lb[Uncertainty Forest] uses 100 samples from XOR to learn partitions
-- .orange[Transfer Forest] uses $n$ samples from N-XOR to learn partitions 
+<!-- - .orange[Transfer Forest] uses $n$ samples from N-XOR to learn partitions  -->
 - .r[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions
 
 <!-- TODO: replace with four panel figure: 
@@ -1387,18 +1450,6 @@ class: inverse
 
 <img src="images/not-so-clevr.png" style="width:650px" />
 
-
-
----
-class: inverse
-
-## Polytope space partitioning algorithms
-
-
-<img src="images/deep-polytopes.png" style="width:750px;"/>
-
-
-- NNs with ReLu nodes also partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)).
 
 
 

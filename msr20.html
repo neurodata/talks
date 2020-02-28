@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>MSR20</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" href="fonts/quadon/quadon.css">
-  <link rel="stylesheet" href="fonts/gentona/gentona.css">
-  <link rel="stylesheet" href="slides_style.css">
-  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
-</head>
-
-<body>
-  <textarea id="source">
+  <head>
+    <title>MINDS20</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
 
 
 
@@ -421,7 +419,7 @@ $$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J
 and $f$ strongly .r[multitask] learns if, 
 
 
-$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in \mathcal{J}.$$ 
+$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
 
 
 ---
@@ -458,7 +456,7 @@ $$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \
 and $f$ strongly .r[lifelong] learns if, 
 
 
-$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
+$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in [J_n].$$ 
 
 
 
@@ -631,7 +629,7 @@ class: inverse
 
 - Transformers learn representations 
 - We desire representations that are sufficient for one task, and  useful for other tasks 
-- Decision trees, decision forests, and deep nets (with ReLu nodes) partition feature space into polytopes
+- Decision trees, decision forests, and deep nets (with ReLu nodes) ..r[partition] feature space into polytopes
 
 <!-- - They should be simple (eg, linear) for simple (eg, linear) tasks, and complicated for complicated task 
 - LDA, QDA, and other parametric methods cannot naively do this 
@@ -790,7 +788,8 @@ Andrei A. Rusu et al. [Progressive Neural Networks](https://arxiv.org/abs/1606.0
 ---
 class:inverse 
 
-<img src="images/fte_cifar.png" style="height:530px;" />
+<!-- <img src="images/fte_cifar.png" style="height:530px;" /> -->
+<img src="images/fte_cifar_2.png" style="height:530px;" />
 
 <!--  TODO@JD: replace with average FTE + "error bars" and add legend outside -->
 
@@ -834,7 +833,8 @@ class: inverse
 
 Lifelong Forests uniquely exhibits .r[strong] lifelong learning.
 
-<img src="images/all_TE.png" style="height:250px;" />
+<!-- <img src="images/all_TE.png" style="height:250px;" /> -->
+<img src="images/all_TE_2.png" style="height:500px;" />
 
 <!-- TODO@JD: replace table with same thing but
     1. remove Task specific TE (only show average and min)
@@ -1742,28 +1742,26 @@ Each tree uses a different subset of data to transform (partition) space
 
 
 </textarea>
-  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
-  <script src="remark-latest.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
-  <script type="text/javascript">
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="remark-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
 
-    var options = {};
-    var renderMath = function () {
-      renderMathInElement(document.body);
-      // or if you want to use $...$ for math,
-      renderMathInElement(document.body, {
-        delimiters: [ // mind the order of delimiters(!?)
-          { left: "$$", right: "$$", display: true },
-          { left: "$", right: "$", display: false },
-          { left: "\\[", right: "\\]", display: true },
-          { left: "\\(", right: "\\)", display: false },
-        ]
-      });
-    }
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
 
-    var slideshow = remark.create(options, renderMath);
+  var slideshow = remark.create(options, renderMath);
 
   // var slideshow = remark.create({
   // Set the slideshow display ratio
@@ -1773,7 +1771,6 @@ Each tree uses a different subset of data to transform (partition) space
   // ratio: '16:9',
   // });
 
-  </script>
+</script>
 </body>
-
 </html>

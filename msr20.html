@@ -562,16 +562,16 @@ $$ u : \mathcal{Z} \to \tilde{\mathcal{Z}}$$
 - Let $v$ be .r[voter] which operate on the transformed data outputs votes on all possible actions 
 
 
-$$ v : \tilde{\mathcal{Z}} \to \Delta$$
+$$ v : \tilde{\mathcal{Z}} \to \mathcal{P}_{\tilde{\mathcal{Z}}}$$
 
 
 - Let $w$ be .r[decider] which decides which actions to take on the basis of the votes 
 
 
-$$ w : \Delta \to \mathcal{A}$$
+$$ w : \mathcal{P}_{\tilde{\mathcal{Z}}} \to \mathcal{A}$$
 
 
-- $h=w(v(u(z))) : \mathcal{Z} \to \mathcal{A}$
+- $h=w(v(u(z)))$
 
 ---
 class: inverse 
@@ -582,8 +582,8 @@ class: inverse
 - .r[Transformers] $u$
   - Linear discriminant analysis: a projection onto a line 
   - Quadratic discriminant analysis: a projection onto a quadratic function 
-  - Decision tree: a set non-overlapping of $p$-dimensional cuboids (polytopes)
-  - Decision forest: a set of overlapping $p$-dimensional cuboids 
+  - Decision tree: sending a point to one of many non-overlapping of $p$-dimensional cuboids (polytopes)
+  - Decision forest: sending a point to set of overlapping $p$-dimensional cuboids 
   - Neural network: $u$ is the "backbone", all the layers until the last layer 
 --
 
@@ -609,11 +609,19 @@ class: inverse
 
 .r[different transformers can composed with different voters]
 
-- learn many different transformers $u_j(\cdot)$'s
-- for each $u\_j$, learn many different $v\_{j,j'}$'s
+- learn many different transformers $u_j(\cdot)$'s (for $j \in [J]$)
+- for each $u\_j$, learn many different $v\_{j,j'}$'s for ($j' \in [J]$)
 - use the decider to weight the various options 
 
-$$w(  \cup\_{j'} v\_{j,j'}( \cup\_j u\_j(\cdot) )  )$$  $$= w(v\_{1,1}(u\_1(\cdot)) , v\_{1,2}( u\_1(\cdot)), \ldots v\_{J,J}( u\_J(\cdot)))$$
+$$h(\cdot)= w\Big(  \bigcup\_{j, j'} \ v\_{j,j'} \big(  u\_j(\cdot )  \big) \Big)$$  
+
+<br>
+
+$$h(\cdot)= w \circ  \bigcup\_{j, j'} \ v\_{j,j'} \circ  u\_j(\cdot )  $$  
+
+<br>
+
+$$ h(\cdot)= w(v\_{1,1} \circ u\_1(\cdot) , v\_{1,2}\circ u\_1(\cdot), \ldots, v\_{J,J}\circ u\_J(\cdot)\big)$$
 
 --
 

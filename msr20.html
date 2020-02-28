@@ -553,7 +553,7 @@ class: inverse
 
 ## Composable Hypotheses 
 
-.center[ .r[$h = v \circ u$]]
+.center[ .r[$h = w \circ v \circ u$]]
 
 - Let $u$ be .r[transformer] data to a new representation, 
 
@@ -562,13 +562,15 @@ $$ u : \mathcal{Z} \to \tilde{\mathcal{Z}}$$
 - Let $v$ be .r[voter] which operate on the transformed data 
 
 
-$$ v : \tilde{\mathcal{Z}} \to \mathcal{A}$$
+$$ v : \tilde{\mathcal{Z}} \to \Delta$$
 
 
 - Let $w$ be .r[decider] which decides which actions to take on the basis of the votes 
 
+$$ w : \Delta \to \mathcal{A}$$
 
-- $h=w(v(u(z)))$
+
+- $h=w(v(u(z))) : \mathcal{Z} \to \mathcal{A}$
 
 ---
 class: inverse 
@@ -604,7 +606,7 @@ class: inverse
 
 ## Key Idea 
 
-.r[.center[different transformers can be learned and each composed with voters]]
+.r[different transformers can be composed with different voters]
 
 - learn many different transformers $u_j(\cdot)$'s
 - for each $u\_j$, learn many different $v\_{j,j'}$'s
@@ -628,19 +630,7 @@ class: inverse
 - We desire representations that are sufficient for one task, and  useful for other tasks 
 - Decision trees, decision forests, and deep nets (with ReLu nodes) partition feature space into polytopes
 
-<!-- - They should be simple (eg, linear) for simple (eg, linear) tasks, and complicated for complicated task 
-- LDA, QDA, and other parametric methods cannot naively do this 
-- Decision trees, decision forests, can 
-- Parametric deep nets cannot, non-parametric deep nets could 
---
 
-- A .r[universal representation] is a representation that is potentially useful for any other task (eg, "spans the space") -->
-
-
-<!-- ---
-class: inverse
-
-## Polytope Partitioning Representations -->
 
 --
 

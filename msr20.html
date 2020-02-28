@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>MSR20</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" href="fonts/quadon/quadon.css">
-  <link rel="stylesheet" href="fonts/gentona/gentona.css">
-  <link rel="stylesheet" href="slides_style.css">
-  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
-</head>
-
-<body>
-  <textarea id="source">
+  <head>
+    <title>MINDS20</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="slides_style.css">
+    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
 
 
 
@@ -421,7 +419,7 @@ $$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J
 and $f$ strongly .r[multitask] learns if, 
 
 
-$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in \mathcal{J}.$$ 
+$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
 
 
 ---
@@ -458,7 +456,7 @@ $$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \
 and $f$ strongly .r[lifelong] learns if, 
 
 
-$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
+$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in [J_n].$$ 
 
 
 
@@ -555,7 +553,7 @@ class: inverse
 
 ## Composable Hypotheses 
 
-.center[ .r[$h = w \circ v \circ u$]]
+.center[ .r[$h = v \circ u$]]
 
 - Let $u$ be .r[transformer] data to a new representation, 
 
@@ -564,15 +562,13 @@ $$ u : \mathcal{Z} \to \tilde{\mathcal{Z}}$$
 - Let $v$ be .r[voter] which operate on the transformed data 
 
 
-$$ v : \tilde{\mathcal{Z}} \to \Delta$$
+$$ v : \tilde{\mathcal{Z}} \to \mathcal{A}$$
 
 
 - Let $w$ be .r[decider] which decides which actions to take on the basis of the votes 
 
-$$ w : \Delta \to \mathcal{A}$$
 
-
-- $h=w(v(u(z))) : \mathcal{Z} \to \mathcal{A}$
+- $h=w(v(u(z)))$
 
 ---
 class: inverse 
@@ -608,7 +604,7 @@ class: inverse
 
 ## Key Idea 
 
-.r[different transformers can be composed with different voters]
+.r[.center[different transformers can be learned and each composed with voters]]
 
 - learn many different transformers $u_j(\cdot)$'s
 - for each $u\_j$, learn many different $v\_{j,j'}$'s
@@ -632,7 +628,19 @@ class: inverse
 - We desire representations that are sufficient for one task, and  useful for other tasks 
 - Decision trees, decision forests, and deep nets (with ReLu nodes) partition feature space into polytopes
 
+<!-- - They should be simple (eg, linear) for simple (eg, linear) tasks, and complicated for complicated task 
+- LDA, QDA, and other parametric methods cannot naively do this 
+- Decision trees, decision forests, can 
+- Parametric deep nets cannot, non-parametric deep nets could 
+--
 
+- A .r[universal representation] is a representation that is potentially useful for any other task (eg, "spans the space") -->
+
+
+<!-- ---
+class: inverse
+
+## Polytope Partitioning Representations -->
 
 --
 
@@ -658,7 +666,7 @@ class: inverse
 
 
 - Any learner with an explicit internal representation is ok, e.g.,  decision trees, decision forests, deep networks 
-- kernel machines are not (afaict)
+- SVM, k-NN, etc., are not
 
 
 
@@ -943,7 +951,6 @@ class:inverse
 4. Tasks must be known 
 5. Feature space must be the same for all tasks 
 1. Internal representation grows linearly with # of tasks 
-1. Representations must be grown rather than recruited
       
       
 
@@ -1732,28 +1739,26 @@ Each tree uses a different subset of data to transform (partition) space
 
 
 </textarea>
-  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
-  <script src="remark-latest.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
-  <script type="text/javascript">
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="remark-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
 
-    var options = {};
-    var renderMath = function () {
-      renderMathInElement(document.body);
-      // or if you want to use $...$ for math,
-      renderMathInElement(document.body, {
-        delimiters: [ // mind the order of delimiters(!?)
-          { left: "$$", right: "$$", display: true },
-          { left: "$", right: "$", display: false },
-          { left: "\\[", right: "\\]", display: true },
-          { left: "\\(", right: "\\)", display: false },
-        ]
-      });
-    }
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
 
-    var slideshow = remark.create(options, renderMath);
+  var slideshow = remark.create(options, renderMath);
 
   // var slideshow = remark.create({
   // Set the slideshow display ratio
@@ -1763,7 +1768,6 @@ Each tree uses a different subset of data to transform (partition) space
   // ratio: '16:9',
   // });
 
-  </script>
+</script>
 </body>
-
 </html>

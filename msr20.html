@@ -38,19 +38,19 @@ class:inverse
 
 ## Lifelong Learning in AI
 
-- Given a sequence of data associated with different tasks, .r[continually learn] such that task performances improve by virtue of having data from other tasks.
-- Catastrophic forgetting:  learning new tasks causes performance .r[degradation] on previous tasks
-- Why stop there? Let's .r[improve] performance on past tasks using future data
+- Given a sequence of data associated with different tasks, .ye[continually learn] such that task performances improve by virtue of having data from other tasks.
+- Catastrophic forgetting:  learning new tasks causes performance .ye[degradation] on previous tasks
+- Why stop there? Let's .ye[improve] performance on past tasks using future data
 
 
 --
 
 ## Natural Intelligence
 
-- Biological/natural intelligence (BI) is .r[progressive], data on future tasks can actually improve performance on past tasks:  
+- Biological/natural intelligence (BI) is .ye[progressive], data on future tasks can actually improve performance on past tasks:  
       - learning a 2nd language improves 1st language 
       - learning to run improves walking
-- Each task is a composition of many sub-tasks which .r[overlap] with other tasks
+- Each task is a composition of many sub-tasks which .ye[overlap] with other tasks
 
 
 
@@ -142,11 +142,11 @@ class: inverse
 
 <br>
 
-"We need to invent a new kind of learning that .r[leverages existing knowledge], rather than one that obstinately starts over from square one.”— Rebooting AI, Gary Marcus, Ernest Davis, 2019
+"We need to invent a new kind of learning that .ye[leverages existing knowledge], rather than one that obstinately starts over from square one.”— Rebooting AI, Gary Marcus, Ernest Davis, 2019
 
 <br>
 
-"One such obstacle is adaptability or robustness...  efforts toward “transfer learning,” “domain adaptation,” and “.r[lifelong learning]”  are reflective of this obstacle." -- Judea Pearl, 2019
+"One such obstacle is adaptability or robustness...  efforts toward “transfer learning,” “domain adaptation,” and “.ye[lifelong learning]”  are reflective of this obstacle." -- Judea Pearl, 2019
 
 ---
 class: inverse 
@@ -363,17 +363,17 @@ class: inverse
 
 
 Given
-- .r[source] data $\mathcal{D}_1$,  
-- .r[target] data $\mathcal{D}_0$ from possibly another distribution.
+- .ye[source] data $\mathcal{D}_1$,  
+- .ye[target] data $\mathcal{D}_0$ from possibly another distribution.
 - let $\mathcal{D} = \mathcal{D}_0 \cup \mathcal{D}_1$.
 
 
-<!-- "An algorithm $f$  .r[transfer] learns from data $\mathcal{D}_j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}_j$." -->
+<!-- "An algorithm $f$  .ye[transfer] learns from data $\mathcal{D}_j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}_j$." -->
 
 --
 
 
-.center[$f$ .r[transfer] learns  from $\mathcal{D}_1$ iff 
+.center[$f$ .ye[transfer] learns  from $\mathcal{D}_1$ iff 
 $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$]
 
 
@@ -409,14 +409,14 @@ class: inverse
 
 --
 
-$f$  weakly .r[multitask] learns from $\mathcal{D}$ if
+$f$  weakly .ye[multitask] learns from $\mathcal{D}$ if
 
 $$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
 
 <br>
 
 
-and $f$ strongly .r[multitask] learns if, 
+and $f$ strongly .ye[multitask] learns if, 
 
 
 $$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
@@ -446,14 +446,14 @@ Sequential multi-task learning, where
 
 --
 
-$f$  weakly .r[lifelong] learns from $\mathcal{D}$ if
+$f$  weakly .ye[lifelong] learns from $\mathcal{D}$ if
 
 $$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D}\_j \mid j) P(T=j),$$ 
 
 <br>
 
 
-and $f$ strongly .r[lifelong] learns if, 
+and $f$ strongly .ye[lifelong] learns if, 
 
 
 $$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in [J_n].$$ 
@@ -507,7 +507,7 @@ class:inverse
 
 
 - Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_j\}$ be the set of all data up to sample $n_j$.
-- Forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .r[preceding] task $j$
+- Forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .ye[preceding] task $j$
 $$    FTE_j(f) := 
 \frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}.
 $$
@@ -521,7 +521,7 @@ $$
 <!-- Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
 
 
-- Reverse transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .r[after] task $j$ 
+- Reverse transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .ye[after] task $j$ 
 
 
 <!-- The reverse transfer efficiency of $ f $ for task $j$ is  -->
@@ -535,8 +535,8 @@ class: inverse
 
 ## Catastrophic Forgetting vs Reverse Transfer 
 
-- Catastrophic forgetting: performance on past tasks gets much .r[worse] given new task data 
-- Reverse transfer: performance on past tasks gets .r[better] given new task data
+- Catastrophic forgetting: performance on past tasks gets much .ye[worse] given new task data 
+- Reverse transfer: performance on past tasks gets .ye[better] given new task data
 
 
 Wise learning machines cannot simply avoid catastrophic forgetting, them must reverse transfer to gain understanding from every sample.
@@ -553,19 +553,19 @@ class: inverse
 
 ## Composable Hypotheses 
 
-.center[ .r[$h = w \circ v \circ u$]]
+.center[ .ye[$h = w \circ v \circ u$]]
 
-- Let $u$ be .r[transformer] data to a new representation, 
+- Let $u$ be .ye[transformer] data to a new representation, 
 
 $$ u : \mathcal{Z} \to \tilde{\mathcal{Z}}$$
 
-- Let $v$ be .r[voter] which operate on the transformed data outputs votes on all possible actions 
+- Let $v$ be .ye[voter] which operate on the transformed data outputs votes on all possible actions 
 
 
 $$ v : \tilde{\mathcal{Z}} \to \mathcal{P}_{\tilde{\mathcal{Z}}}$$
 
 
-- Let $w$ be .r[decider] which decides which actions to take on the basis of the votes 
+- Let $w$ be .ye[decider] which decides which actions to take on the basis of the votes 
 
 
 $$ w : \mathcal{P}_{\tilde{\mathcal{Z}}} \to \mathcal{A}$$
@@ -579,7 +579,7 @@ class: inverse
 
 ## Examples 
 
-- .r[Transformers] $u$
+- .ye[Transformers] $u$
   - Linear discriminant analysis: a projection onto a line 
   - Quadratic discriminant analysis: a projection onto a quadratic function 
   - Decision tree: sending a point to one of many non-overlapping of $p$-dimensional cuboids (polytopes)
@@ -587,13 +587,13 @@ class: inverse
   - Neural network: $u$ is the "backbone", all the layers until the last layer 
 --
 
-- .r[Voters] $v$ 
+- .ye[Voters] $v$ 
    - threshold to report simply the most likely class 
    - posterior probability of any of the classes 
    - a softmax layer
 --
 
-- .r[Deciders] $w$
+- .ye[Deciders] $w$
   - argmax over potential classes
 
 
@@ -607,7 +607,7 @@ class: inverse
 
 ## Key Idea 
 
-.r[different transformers can composed with different voters]
+.ye[different transformers can composed with different voters]
 
 - learn many different transformers $u_j(\cdot)$'s (for $j \in [J]$)
 - for each $u\_j$, learn many different $v\_{j,j'}$'s for ($j' \in [J]$)
@@ -626,7 +626,7 @@ $$h(\cdot)= w \circ  \bigcup\_{j, j'} \ v\_{j,j'} \circ  u\_j(\cdot )  $$
 
 - Learn new representation for each task 
 - Dimensionality of internal representation grows linearly with number of tasks
-- This is .r[ensembling representations].
+- This is .ye[ensembling representations].
 
 
 ---
@@ -636,7 +636,7 @@ class: inverse
 
 - Transformers learn representations 
 - We desire representations that are sufficient for one task, and  useful for other tasks 
-- Decision trees, decision forests, and deep nets (with ReLu nodes) .r[partition] feature space into polytopes
+- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
 
 --
 
@@ -680,7 +680,7 @@ class: inverse
 
 ## A Transfer Example
 
-- .r[XOR]
+- .ye[XOR]
   - Samples in the (0,0) and (1,1) quadrants are purple  
   - samples in the (0,1) and (1,0) quadrants are green 
 - .lb[N-XOR]
@@ -702,7 +702,7 @@ class: inverse
 
 - .lb[Uncertainty Forest] uses 100 samples from XOR to learn partitions
 <!-- - .orange[Transfer Forest] uses $n$ samples from N-XOR to learn partitions  -->
-- .r[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions
+- .ye[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions
 
 <!-- TODO@hh: replace with four panel figure: 
   TOP LEFT: XOR
@@ -791,16 +791,16 @@ class:inverse
 
 ## Reverse Transfer Efficiency
 
-- y-axis indicates .r[reverse transfer efficiency] (RTE), 
+- y-axis indicates .ye[reverse transfer efficiency] (RTE), 
   - which is the ratio of "single task error" to "error using future tasks"
 - each task will have a line
-  - if the line .r[increases], that means it is doing "reverse transfer"
+  - if the line .ye[increases], that means it is doing "reverse transfer"
 
 
 ---
 class:inverse 
 
-.r[Lifelong Forests] uniquely exhibits reverse transfer.
+.ye[Lifelong Forests] uniquely exhibits reverse transfer.
 
 
 <img src="images/cifar-rte.png" style="height:530px;" />
@@ -812,11 +812,11 @@ class:inverse
 ---
 class: inverse 
 
-Lifelong Forests uniquely exhibits .r[strong] lifelong learning.
+Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
 
 | Algorithm  | Average TE | Min TE 
 |:---        |:---       |:--- |
-| LF         |  1.14  |  .r[1.06] 
+| LF         |  1.14  |  .ye[1.06] 
 | DF-CNN     |  0.78  |  0.34   
 | Online EWC |  1.12  |  0.88  
 | EWC        |  1.17  |  0.96   
@@ -905,7 +905,7 @@ where $\mathcal{E}^*$is Bayes optimal.
 ---
 class:inverse
 
-## The fundamental .r[conjecture] of transfer learning
+## The fundamental .ye[conjecture] of transfer learning
 
 
 If each cell is:
@@ -913,7 +913,7 @@ If each cell is:
 - small enough, and 
 - has enough points in it, 
 
-then given enough data, one can .r[transfer learn] *perfectly, no matter what*! 
+then given enough data, one can .ye[transfer learn] *perfectly, no matter what*! 
 
 
 -- jovo, 2020
@@ -1354,7 +1354,7 @@ class: inverse
 
 ## What is Lifelong Learning?
 
-A computational system .r[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
+A computational system .ye[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
 
 
 ---
@@ -1362,7 +1362,7 @@ class: inverse
 
 ## What is Lifelong Learning?
 
-A computational system .r[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
+A computational system .ye[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
 
 
 Motivation: in biology, learning subsequent tasks often improves performance on previously learned tasks 
@@ -1403,9 +1403,9 @@ class: inverse
 
 **Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including lots of other data.
 
-**Forward Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including .r[all past data]. 
+**Forward Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including .ye[all past data]. 
 
-**Reverse Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .r[all data, both past and future].
+**Reverse Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .ye[all data, both past and future].
 
 --
 
@@ -1415,7 +1415,7 @@ If you don't reverse transfer, you haven't lifelong learned.
 ---
 class:inverse 
 
-.r[Lifelong Forests] uniquely exhibits reverse transfer.
+.ye[Lifelong Forests] uniquely exhibits reverse transfer.
 
 
 <img src="images/cifar-rte.png" style="height:530px;" />

@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   margin-bottom: 0;
   /* margin-left: 10px; */
-  color: #318dde;
+  color: #84c6ff;
   text-align: left;
   /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
 }
@@ -86,7 +86,7 @@ top: 50px;
     font-style: italic;
 }
 li p { line-height: 1.25em; }
-.r { color: #F41711; }
+.r { color: rgb(255, 91, 86); }
 .w {color: white;}
 .k {color: black;}
 .ye { color: #FFFF00; }

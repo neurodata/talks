@@ -33,16 +33,6 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 
 
----
-class: inverse
-
-## What is Learning?
-
-<img src="images/glivenko-cantelli.png" style="width:350px;"/>
-<img src="images/Vapnik71b.png" style="width:350px;"/>
-<img src="images/Valiant84.png" style="width:350px;"/>
-<img src="images/Mitchell97a.png" style="width:350px;"/>
-
 
 ---
 class: inverse
@@ -58,133 +48,15 @@ class: inverse
 
 
 ---
-class:inverse 
+class: inverse
 
-## What are data?
+## Consider a simple example
 
-- Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
-- Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
-- Let $\mathcal{D} := \mathcal{D}_n =\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
+- 2 classes: green and purple
+- we observe 100 points  
+- each point has 2 features (eg, height and weight)
+- we desire to .ye[learn] a classifier that discriminates between these two classes
 
-
-
---
-
-
-
-- Example 1: Classification
-  -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
-  - $P=P\_{XY}=P\_{X|Y}P\_Y$, where $P\_{X|Y}$ is Gaussian
-
-
---
-
-
-<!-- 
-
-- Example 2: Reinforcment Learning
-  - $Z$ is a sequence of states and actions + current state
-  - $P$ a distribution over current states conditioned on 
-      - past states 
-      - past actions -->
-
-
----
-class:inverse 
-
-
-## What is an Algorithm?
-
-$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, 
-
-$$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
-
-
-
---
-
-
-
-- Example 1: Classification
-  - $f$ is *RandomForestClassifier.fit*
-  - $h$ is *RandomForestClassifier.predict*
-
-<!-- TODO@Ronak do i need both h and f? please make a compelling arguemtn for both yes and no :) -->
-
-
-<!-- --
-
-
-
-- Example 2: Reinforment Learning 
-  - $f$
-  - $h$ 
-   -->
-
-
----
-class:inverse 
-
-
-
-## What is  Performance?
-
-Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
-
-
-$$ \mathcal{E}(f,\mathcal{D} )  := \mathcal{E}(f,\mathcal{D} \mid t )  = \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
-
-
-
---
-
-
-
-Example 1: Classification
-- $\mathcal{R}$ is expected misclassification rate
-
-
-
----
-class:inverse
-
-## What is Learning?
-
-Letting $\mathcal{D}_0$ be a data corpus with no samples,
-
-
-.center[$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$]
-
-
-
-
-
-$\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
-  - prior on $\theta$ 
-  - inductive bias of $\mathcal{H}$
-  - estimation bias of $f$
-  - model bias of $\mathcal{P}$
-
-
-
-
-
-  ---
-  class:inverse, middle
-  
-  ### Background
-  
-  
-  ---
-  class: inverse
-  
-  ## A simple learning example
-  
-  - $z_i=(x_i,y_i)$, $i \in \lbrace 1, 2, \ldots, 200 \rbrace$
-    - $x \in \mathbb{R}^2$
-    - $y \in \lbrace 0,1 \rbrace$
-  - we desire to learn a classifier that minimizes expected misclassification rate
-  
 
 ---
 class: inverse
@@ -208,477 +80,211 @@ class: inverse
 ---
 class:inverse
 
-## What is a Setting?
+## What do classifiers do?
 
-A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A},  \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
 
-| Object | Notation | Example
-|:--- |:--- |:--- | 
-| Measurements  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
-| Distributions | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
-| Actions |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
-| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
-| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
-| Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^N} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
+---
+
+<img src="images/rock20/sphx_glr_plot_lda_qda_001.png" class="center"/>
+
+
+---
+
+<img src="images/rock20/sphx_glr_plot_iris_svc_001.png" class="center"/>
+
+
+---
+
+<img src="images/rock20/sphx_glr_plot_nearest_centroid_001.png" class="center"/>
+
+---
+
+<img src="images/rock20/sphx_glr_plot_classification_001.png" class="center"/>
+
+---
+
+<img src="images/rock20/sphx_glr_plot_iris_dtc_001.png" class="center"/>
+
+---
+
+<img src="images/rock20/sphx_glr_plot_forest_iris_001.png" class="center"/>
+
 
 ---
 class:inverse
 
-## What is a Task?
+## What do classifiers do?
 
-Given 
-- some true but unknown distribution $P\_z \in \mathcal{P}$, 
-- a random data corpus $\mathcal{D}$ with sample size $n$
-- a setting $\mathcal{S}$
-<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
+<br>
 
-find the $f \in \mathcal{F}$ that minimizes generalization error in that setting:
+learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \lbrace 0,1 \rbrace$
+1. partition feature space into "parts",
+2. count votes per part per class.
 
-.center[ $f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D})$.]
+
+predict: given $x$
+2. find its part, 
+3. report the plurality vote in its part.
+
+
+---
+class:inverse
+
+## The fundamental theorem of statistical pattern recognition
+
+
+
+If each part is:
+
+1. small enough, and 
+2. has enough points in it, 
+
+then given enough data, one can learn *perfectly, no matter what*! 
+
+
+
+-- Stone, 1977
+
+
+<!-- NB: the parts can be overlapping (as in kNN) or not (as in histograms) -->
+
+
+
+
+---
+class:inverse 
+
+## Do brains do it?
+
+--
+
+(brains obviously learn)
+
+1. Do brains partition feature space?
+2. Is there some kind of "voting" occurring within each part?
 
 
 ---
 class: inverse
 
-## What is Transfer Learning? 
+## Brains partition  
+
+- Feature space = the set of all possible inputs to a brain
+- Partition = only a subset of "nodes" respond to any given input
+- Examples
+  1. visual receptive fields
+  2. place fields / grid cells
+  3. sensory homonculus
+
+<br>
+
+<img src="images/rock20/Side-black.gif" style="height:230px;"/>
+<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
+<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
 
 
-Given
-- .ye[source] data $\mathcal{D}_1$,  
-- .ye[target] data $\mathcal{D}_0$ from possibly another distribution.
-- let $\mathcal{D} = \mathcal{D}_0 \cup \mathcal{D}_1$.
+---
+class: inverse, middle 
 
 
-<!-- "An algorithm $f$  .ye[transfer] learns from data $\mathcal{D}_j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}_j$." -->
+
+.center[.ye[Claim 1: the connectome implements partitioning of feature space.]]
+
+
+
+---
+class: inverse
+
+## Brains vote
+
+Vote = pattern of responses indicate which stimulus evoked response
+
+<img src="images/rock20/brody1.jpg" style="height:400px;" />
+
+
+
+---
+class: inverse, middle
+
+
+How many tasks do you know how to do?
+
+---
+class: inverse, middle
+
+
+Shouldn't learning be .ye[faster] if we already learned a related task?
+
 
 --
 
 
-.center[$f$ .ye[transfer] learns  from $\mathcal{D}_1$ iff 
-$\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$]
+Yes. This is called "transfer learning."
+
 
 
 
 ---
 class: inverse 
 
-## Can Honey Bees Transfer?
+## Honey Bees can do it
 
 
 <img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
 
-<br><br><br><br><br><br><br><br><br><br>
-
+--
+<br><br><br><br><br><br><br><br><br><br><br>
 - honey bees can also transfer to different sensory modality (smell)
-- honeybees do not forget how to do the first task (no forgetting)
+- honeybees do not forget how to do the first task
 - this is called "forward transfer"
 - bees learn the concept of "sameness"
 
-      
----
-class: inverse
-
-## What is Multitask Learning? 
-
-
-- $T_i \in \lbrace{1,2,..,J\rbrace}=[J]$ is a task lable, 
-- Each task could differ by $P_z$ or any element of $\lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A}, \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
-- $\mathcal{D} = \lbrace (Z_i,T_i) \rbrace^n $
-<!-- - Sample $Z\_i \sim P :=P\_{XYT}$, identically and independently -->
-- Let $\mathcal{D}_j = \lbrace (X_i,Y_i,T_i) :  T_i = j \rbrace$
-<!-- - Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$ -->
-
---
-
-$f$  weakly .ye[multitask] learns from $\mathcal{D}$ if
-
-
-
-
-$$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
-
-<br>
-
-
-and $f$ strongly .ye[multitask] learns if, 
-
-$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J].$$ 
 
 
 
 ---
 class: inverse
 
-## What is Sequential Learning? 
 
-Same as "batch" learning, except $f$ updates existing hypothesis on basis of new data, that is, 
-
-
-$$f : \mathcal{H} \times 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
+## How to transfer learn? 
 
 
 
----
-class: inverse
-
-## What is Lifelong Learning? 
-
-Sequential multi-task learning, where
-- $|\mathcal{J}|$ is (countably) infinite
-- $J_n$ is the number of tasks observed after $n$ samples
-- Requires .ye[out of task] capabilities  
-<!-- - Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$ -->
-
---
-
-$f$  weakly .ye[lifelong] learns from $\mathcal{D}$ if
-
-$$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D}\_j \mid j) P(T=j),$$ 
-
-<br>
+learn: given a new dataset 
+1. learn/recruit a new partition of feature space
+2. count votes per class for each part .ye[from each existing partition]
+  
 
 
-and $f$ strongly .ye[lifelong] learns if, 
+predict: given a sample and task 
+2. find its part in *all* existing paritions, 
+3. compute average over partitions
+3. report the winning class 
 
 
-$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
-
-
-
-
-
-
----
-class:inverse 
-
-
-###  Learning Scenarios
-
-<br> 
-
-|             | $J>1$ | Sequential  | 
-| :---:       | :---: | :---:       | 
-| Machine     | 0 | 0 | 
-| Sequential  | 0 | 1 |
-| Multi-task  | 1 | 0 | 
-| Lifelong    | 1 | 1 | 
-
-
-
----
-class:inverse, middle 
-
-### Evaluation Criteria
-
-
----
-class:inverse
-
-## Transfer Efficiency (TE)
-
-
-The transfer efficiency of learning algorithm $f$ for task $j$ is
-$$  TE\_j(f) := 
-    \frac{\mathcal{E}\_j(f, \mathcal{D}_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}.
-$$
-
-<br>
-
-Algorithm $ f $ transfer learns if $ TE_j(f) > 1 $. 
-
-
----
-class:inverse 
-
-## Forward / Reverse TE 
-
-
-- Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_j\}$ be the set of all data up to sample $n_j$.
-- Forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .ye[preceding] task $j$
-$$    FTE_j(f) := 
-\frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}.
-$$
 
 --
 
 
-<!-- ## Reverse Transfer Efficiency -->
-
-
-<!-- Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
-
-
-- Reverse transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .ye[after] task $j$ 
-
-
-<!-- The reverse transfer efficiency of $ f $ for task $j$ is  -->
-$$    RTE\_j(f) := 
-\frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
-$$
-
-
----
-class: inverse 
-
-## Catastrophic Forgetting vs Reverse Transfer 
-
-- Catastrophic forgetting: performance on past tasks gets much .ye[worse] given new task data 
-- Reverse transfer: performance on past tasks gets .ye[better] given new task data
-
-
-Wise learning machines cannot simply avoid catastrophic forgetting, them must reverse transfer to gain understanding from every sample.
-
----
-class: inverse, middle 
-
-### Algorithm
-
-
-
----
-class: inverse 
-
-## Composable Hypotheses 
-
-.center[ .ye[$h := w \circ v \circ u = w(v(u(x)))$]]
-
-- Let $u$ be .ye[transformer] data to a new representation, 
-
-$$ u : \mathcal{X}  \to \tilde{\mathcal{X}}$$
-
-- Let $v$ be .ye[voter] which operate on the transformed data outputs votes on all possible actions 
-
-
-$$ v : \tilde{\mathcal{X}} \to \mathcal{P}_{A|X}$$
-
-
-- Let $w$ be .ye[decider] which decides which actions to take on the basis of the votes 
-
-
-$$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
-
-
-<!-- - $h=w(v(u(z)))$ -->
-
-
-
----
-class: inverse 
-
-
-## Simple Examples
-
-- Linear Discriminant Analysis (shallow)
-  - $u$: projection onto a line 
-  - $v$: fraction of points per over/under threshold
-  - $w$: maximum a posteriori class 
---
-
-
-
-- Decision Tree (deep)
- - $u$: union of polytopes
- - $v$: fraction of points per class per leaf node
- - $w$: maximum a posteriori class 
-
- 
----
-class:inverse
-
-## Complicated Example
-
-
-- Decision Forest 
-  - $u_b$ for $B$ trees: union of overlapping polytopes
-  - $v_b$ for $B$ trees: fraction of points per class per leaf node
-  - $w$: maximum a posteriori class averaging over trees 
---
-
-
-
-
-- Deep Nets 
-  - $u$: "backbone" (all but last layer)
-  - $v$: softmax layer
-  - $w$: max 
-
-
-
-
-
-
-
-
----
-class: inverse 
-
-
-## Composable Learning
-
-
-- Single task learning: $ h(\cdot) = w \circ v \circ u (\cdot)$
-
-- Multiple independent task learning
-
-$$ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$$ 
-
-
-- Single task ensemble learning
-
-$$ h(\cdot) = w \circ \bigcup_j v_j \big( u_j (\cdot) \big)$$ 
-
-
-- Multitask learning
-
-$$ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$$ 
-
-
-
-- Sequential Multitask learning
-
-$$ h\_j(\cdot) = w\_j \circ  \bigcup\_{j,j'} v\_{j,j'}  \big(    u\_j (\cdot) \big) $$ 
-
-
-
----
-class: inverse 
-
-
-## Key Idea 
-
-- .ye[Different transformers can composed with  voters]
-- Learn many different transformers $u_j(\cdot)$'s 
-- For each $u\_j$, learn voter per task $v\_{j,j'}$'s 
-- Use the decider to weight the various options 
-- This is .ye[ensembling representations].
-
-### Notes
-
-- We learn new representation for each task 
-- Dimensionality of internal representation grows linearly with number of tasks
-
-
-
-<!-- TODO@jv: somewhere must introduce the concept of adjusting representations -->
-
-
-
----
-class: inverse 
-
-## Lifelong Learning Schema
-
-
-<img src="images/learning-schemas.svg" style="width:700px;"/>
-
-<!-- TODO@jv: add increasing complexity schema -->
-<!-- TODO@jv: change to progressive? -->
-
-
-
-- Any learner with an explicit internal representation is ok, e.g.,  decision trees, decision forests, deep networks 
-- SVM, k-NN, etc., are not
-
-
-
----
-class: inverse 
-
-## General Representations 
-
-- Transformers learn representations 
-- We desire representations that are sufficient for one task, and  useful for other tasks 
-- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
-
---
-
-<img src="images/deep-polytopes.png" style="width:700px;"/>
-
-
-<!-- - NNs with ReLu nodes  partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)). -->
-
-
-
+key insights
+
+- .ye[One can compose different parcellations]
+- Sequentially learn many different parcellations  (one per task)
+- Represent each datapoint using all parcellations 
+- Vote on the joint representation 
+- This is ensembling representations.
 
 
 ---
 class: inverse, middle 
 
-### Simulations
+
+
+.center[.ye[Claim 2: learning is recruiting/growing neural circuits for a new task.]]
 
 
 
----
-class: inverse
 
-## A Transfer Example
-
-- .ye[XOR]
-  - Samples in the (0,0) and (1,1) quadrants are purple  
-  - samples in the (0,1) and (1,0) quadrants are green 
-- .lb[N-XOR]
-  - Samples in the (0,0) and (1,1) quadrants are green  
-  - samples in the (0,1) and (1,0) quadrants are purple 
-- Optimal decision boundaries for both problems are coordinate axes
-
-<img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/> 
-
-
-
----
-class: inverse
-
-## Lifelong Classifier 
-
-<img src="images/columbia20/xor-nxor-all.png"  style="height:300px;">
-
-
-- .lb[Uncertainty Forest] uses 100 samples from XOR to learn partitions
-<!-- - .orange[Transfer Forest] uses $n$ samples from N-XOR to learn partitions  -->
-- .ye[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions
-
-<!-- TODO@hh: replace with four panel figure: 
-  TOP LEFT: XOR
-  TOP RIGHT: N-XOR
-  BOTTOM LEFT: x-axis is simply # samples, and y-axis is Generalization Error, and we show 4 lines: E_1(D_1), E_1(D_n), E_2(D_2), E_2(D_n)
-  BOTTOM RIGHT: x-axis is # of samples, maybe starting with n/2, y-axis is TE, two lines, TE_1 and TE_2   
--->
-
-
----
-class: inverse
-
-## Lifelong Classifier 
-
-<img src="images/columbia20/xor-nxor-all2.png"  style="height:500px;">
-
----
-class:inverse 
-
-## Different # of Classes 
-
-<img src="images/spiral-all.png"  style="height:500px;">
-
-<!-- TODO@hh: replace with same 4 panel figure as above -->
-
----
-class:inverse 
-
-## Graceful Forgetting
-
-<img src="images/rxor-suite-new-row.png"  style="width:750px;">
-
-
-<!-- TODO@hh: replace with 4 panel figure, same 3 panels as above
-    ADD: same as right, but n_1=1000, or possibly only show TE_1 for different n_1 ranging from 75, 100, 250, 500, 1000?
--->
-
-
----
-class: inverse, middle 
-
-### Real Data 
 
 
 ---
@@ -697,18 +303,14 @@ class:inverse
 
 <!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories -->
 
+
 ---
-class: inverse 
+class:inverse
 
+## Forward Transfer Efficiency
 
-## Previous State-of-the-Art
-
-
-<img src="images/l2m_18mo/progressive_netsc.png" style="width:650px;"/>
-
-Andrei A. Rusu et al. [Progressive Neural Networks](https://arxiv.org/abs/1606.04671), arXiv, 2016.
-  
-<!-- Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019. -->
+- y-axis:  ratio of "single task error" to "error using .ye[past] tasks"
+- each algorithm has a line, if the line .ye[increases], that means it is doing "forward transfer"
 
 
 
@@ -725,10 +327,8 @@ class:inverse
 
 ## Reverse Transfer Efficiency
 
-- y-axis indicates .ye[reverse transfer efficiency] (RTE), 
-  - which is the ratio of "single task error" to "error using future tasks"
-- each task will have a line
-  - if the line .ye[increases], that means it is doing "reverse transfer"
+- y-axis: ratio of "single task error" to "error using .ye[future] tasks"
+- each algorithm has a line per task:  if the line .ye[increases], that means it is doing "reverse transfer"
 
 
 ---
@@ -743,103 +343,11 @@ class:inverse
 <!-- TODO@JD: replace with average RTE + "error bars" and add legend outside -->
 
 
----
-class: inverse 
-
-Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
-
-| Algorithm  | Average TE | Min TE 
-|:---        |:---       |:--- |
-| LF         |  1.14  |  .ye[1.06] 
-| DF-CNN     |  0.78  |  0.34   
-| Online EWC |  1.12  |  0.88  
-| EWC        |  1.17  |  0.96   
-| SI         |  1.02  |  0.76   
-| LwF        |  1.19  |  0.92   
-| ProgNN     |  0.99  |  0.87   
-
-
-<!-- <img src="images/all_TE.png" style="height:250px;" /> -->
-<!-- <img src="images/all_TE_2.png" style="height:500px;" /> -->
-
-<!-- TODO@JD: replace table with same thing but
-    1. remove Task specific TE (only show average and min)
-    2. color code names using the same color scheme as the figure
--->
-
-
----
-class: inverse, middle 
-
-### Theory
-
 
 ---
 class:inverse
 
-## What do classifiers do?
-
-<br>
-
-learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \lbrace 0,1 \rbrace$
-1. partition feature space into "parts",
-2. compute plurality  of points in each part.
-
-
-predict: given $x$
-2. find its part, 
-3. report the plurality vote in its part.
-
-
----
-class:inverse
-
-## What can regressors do?
-
-<br>
-
-learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \mathbb{R}$
-1. partition feature space into "parts",
-2. compute average of points in each part.
-
-
-predict: given $x$
-2. find its part,
-3. report the average vote in its part.
-
-
-
-
----
-class:inverse
-
-## The fundamental theorem of statistical pattern recognition
-
-
-
-If each part is:
-
-1. small enough, and 
-2. has enough points in it, 
-
-then given enough data, one can learn *perfectly, no matter what*! 
-
-
-$$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$
-
-where $\mathcal{E}^*$is Bayes optimal.
-
--- Stone, 1977
-
-
-<!-- NB: the parts can be overlapping (as in kNN) or not (as in histograms) -->
-
-
-
----
-class:inverse
-
-## The fundamental .ye[conjecture] of transfer learning
+## The fundamental *conjecture* of transfer learning
 
 
 If each cell is:
@@ -852,55 +360,19 @@ then given enough data, one can .ye[transfer learn] *perfectly, no matter what*!
 
 -- jovo, 2020
 
-
-
-
 ---
-class: inverse, middle 
+class:inverse
 
-### Discussion
-
-
-
----
-class: inverse
-
-##  Key Insights
-
-  1. Avoiding catastrophic forgetting simply means reverse transfer is 1, but why stop there?
-  2. Ensembling internal representations  enables reverse transfer > 1
-
----
-class:inverse 
-
-## Limitations 
-
-2. Tasks must be discrete 
-3. Data must be batched into tasks 
-4. Tasks must be known 
-5. Feature space must be the same for all tasks 
-1. Internal representation grows linearly with # of tasks 
-1. Must grow rather than recruit new internal representations       
-      
+## So What?
 
 
-
----
-class: inverse
-
-##  Key Accomplishments
-
-
-- Formalized Lifelong Learning as generalization of classical machine learning
-- Introduced novel evaluation criteria: forward and reverse transfer efficiency
-- Proposed generic lifelong learning algorithm framework by ensembling internal representations
-- Implemented Lifelong Forests as a specific example 
-- Demonstrated Lifelong Forests uniquely exhibits 
-    - reverse transfer 
-    - stong lifelong learning
-- Conjectured theory promising to prove consistency and robustness
-
-
+- If our conjecture is right, the only way to sequentially transfer learn is to (approximately) use the outlined approach 
+- Brains are not fully general sequential learners 
+- Studying learning in the brain essentially requires studying the differences before and after learning 
+- Testable Prediction: learning tasks that require different .ye[parcellations] requires building/recruiting new circuits 
+      - Behavioral measures: learning should be slower 
+      - Connectivity measures: structural connectome should change only after learning things that require new parcellations 
+- *Triplet experiment*: source, no new partition, yes new partition
 
 
 ---
@@ -912,10 +384,11 @@ class: inverse
 1. R. Mehta et al. A General Theory of Learnability, 2020. 
 3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
 1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
-1. R. Perry, et al. Manifold Forests: Closing the Gap on Neural Networks. preprint, 2019.
+1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://arxiv.org/abs/1909.11799). arXiv, 2019.
+1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
 1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2018
 7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.
-1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
+
 
 More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 
@@ -984,10 +457,10 @@ class:inverse
   <div class="centered">Carey Priebe</div>
 </div>
 
-<!-- <div class="small-container">
+<div class="small-container">
   <img src="faces/randal.jpg"/>
   <div class="centered">Randal Burns</div>
-</div> -->
+</div>
 
 
 <!-- <div class="small-container">

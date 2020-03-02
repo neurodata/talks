@@ -114,6 +114,8 @@ class: inverse
 
 
 
+<!-- TODO@JP add s3a with an unknown -->
+
 ---
 class: inverse 
 
@@ -165,20 +167,6 @@ In all cases, re-training from scratch is just too expensive, we desire to dynam
 
 
 
-<!-- ---
-
-# Math 
-
-
-- Formalizing lifelong learning 
-- Introducing evaluation criteria
-- Proposing generic algorithm 
-- Implementing forest variant 
-- Illustrative Simulations 
-- Real data demonstrations 
-- Theoretical results
-- Discussion -->
-
 ---
 class:inverse, middle 
 
@@ -218,7 +206,7 @@ class:inverse
 
 - Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
 - Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
-- Let $\mathcal{D}=\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
+- Let $\mathcal{D} := \mathcal{D}_n =\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
 
 
 
@@ -286,7 +274,7 @@ class:inverse
 Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
 
 
-$$ \mathcal{E}(f,\mathcal{D} \mid t )  := \mathcal{E}(f,\mathcal{D} )  = \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
+$$ \mathcal{E}(f,\mathcal{D} )  := \mathcal{E}(f,\mathcal{D} \mid t )  = \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
 
 
 
@@ -334,10 +322,10 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 |:--- |:--- |:--- | 
 | Measurements  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
 | Distributions | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
-| Actions |  $\mathcal{A}$ |  {↑,↓,←,←,B,A,start}
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
+| Actions |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
 | Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
 | Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
+| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
 | Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^N} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
 
 ---
@@ -411,6 +399,9 @@ class: inverse
 
 $f$  weakly .ye[multitask] learns from $\mathcal{D}$ if
 
+
+
+
 $$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
 
 <br>
@@ -418,8 +409,8 @@ $$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J
 
 and $f$ strongly .ye[multitask] learns if, 
 
+$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J].$$ 
 
-$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in \mathcal{J}.$$ 
 
 
 ---
@@ -442,6 +433,7 @@ class: inverse
 Sequential multi-task learning, where
 - $|\mathcal{J}|$ is (countably) infinite
 - $J_n$ is the number of tasks observed after $n$ samples
+- Requires .ye[out of task] capabilities  
 <!-- - Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$ -->
 
 --
@@ -456,7 +448,9 @@ $$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \
 and $f$ strongly .ye[lifelong] learns if, 
 
 
-$$ \frac{\mathcal{E}(f,\mathcal{D}_j \mid j)}{\mathcal{E}(f,\mathcal{D} \mid j)} > 1 \quad \forall j \in [J_n].$$ 
+$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
+
+
 
 
 
@@ -553,51 +547,103 @@ class: inverse
 
 ## Composable Hypotheses 
 
-.center[ .ye[$h = w \circ v \circ u$]]
+.center[ .ye[$h := w \circ v \circ u = w(v(u(x)))$]]
 
 - Let $u$ be .ye[transformer] data to a new representation, 
 
-$$ u : \mathcal{Z} \to \tilde{\mathcal{Z}}$$
+$$ u : \mathcal{X}  \to \tilde{\mathcal{X}}$$
 
 - Let $v$ be .ye[voter] which operate on the transformed data outputs votes on all possible actions 
 
 
-$$ v : \tilde{\mathcal{Z}} \to \mathcal{P}_{A|Z}$$
+$$ v : \tilde{\mathcal{X}} \to \mathcal{P}_{A|X}$$
 
 
 - Let $w$ be .ye[decider] which decides which actions to take on the basis of the votes 
 
 
-$$ w : \mathcal{P}_{A|Z} \to \mathcal{A}$$
+$$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 
-- $h=w(v(u(z)))$
+<!-- - $h=w(v(u(z)))$ -->
+
+
 
 ---
 class: inverse 
 
 
-## Examples 
+## Simple Examples
 
-- .ye[Transformers] $u$
-  - Linear discriminant analysis: a projection onto a line 
-  - Quadratic discriminant analysis: a projection onto a quadratic function 
-  - Decision tree: sending a point to one of many non-overlapping of $p$-dimensional cuboids (polytopes)
-  - Decision forest: sending a point to set of overlapping $p$-dimensional cuboids 
-  - Neural network: $u$ is the "backbone", all the layers until the last layer 
+- Linear Discriminant Analysis (shallow)
+  - $u$: projection onto a line 
+  - $v$: fraction of points per over/under threshold
+  - $w$: maximum a posteriori class 
 --
 
-- .ye[Voters] $v$ 
-   - threshold to report simply the most likely class 
-   - posterior probability of any of the classes 
-   - a softmax layer
+
+
+- Decision Tree (deep)
+ - $u$: union of polytopes
+ - $v$: fraction of points per class per leaf node
+ - $w$: maximum a posteriori class 
+
+ 
+---
+class:inverse
+
+## Complicated Example
+
+
+- Decision Forest 
+  - $u_b$ for $B$ trees: union of overlapping polytopes
+  - $v_b$ for $B$ trees: fraction of points per class per leaf node
+  - $w$: maximum a posteriori class averaging over trees 
 --
 
-- .ye[Deciders] $w$
-  - argmax over potential classes
 
 
 
+- Deep Nets 
+  - $u$: "backbone" (all but last layer)
+  - $v$: softmax layer
+  - $w$: max 
+
+
+
+
+
+
+
+
+---
+class: inverse 
+
+
+## Composable Learning
+
+
+- Single task learning: $ h(\cdot) = w \circ v \circ u (\cdot)$
+
+- Multiple independent task learning
+
+$$ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$$ 
+
+
+- Single task ensemble learning
+
+$$ h(\cdot) = w \circ \bigcup_j v_j \big( u_j (\cdot) \big)$$ 
+
+
+- Multitask learning
+
+$$ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$$ 
+
+
+
+- Sequential Multitask learning
+
+$$ h\_j(\cdot) = w\_j \circ  \bigcup\_{j,j'} v\_{j,j'}  \big(    u\_j (\cdot) \big) $$ 
 
 
 
@@ -607,44 +653,20 @@ class: inverse
 
 ## Key Idea 
 
-.ye[different transformers can composed with different voters]
-
-- learn many different transformers $u_j(\cdot)$'s (for $j \in [J]$)
-- for each $u\_j$, learn many different $v\_{j,j'}$'s for ($j' \in [J]$)
-- use the decider to weight the various options 
-
-$$h(\cdot)= w\Big(  \bigcup\_{j, j'} \ v\_{j,j'} \big(  u\_j(\cdot )  \big) \Big)$$  
-
-<br>
-
-$$h(\cdot)= w \circ  \bigcup\_{j, j'} \ v\_{j,j'} \circ  u\_j(\cdot )  $$  
-
-
-<!-- $$ h(\cdot)= w(v\_{1,1} \circ u\_1(\cdot) , v\_{1,2}\circ u\_1(\cdot), \ldots, v\_{J,J}\circ u\_J(\cdot)\big)$$ -->
-
---
-
-- Learn new representation for each task 
-- Dimensionality of internal representation grows linearly with number of tasks
+- .ye[Different transformers can composed with  voters]
+- Learn many different transformers $u_j(\cdot)$'s 
+- For each $u\_j$, learn voter per task $v\_{j,j'}$'s 
+- Use the decider to weight the various options 
 - This is .ye[ensembling representations].
 
+### Notes
 
----
-class: inverse 
-
-## General Representations 
-
-- Transformers learn representations 
-- We desire representations that are sufficient for one task, and  useful for other tasks 
-- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
-
---
-
-<img src="images/deep-polytopes.png" style="width:700px;"/>
+- We learn new representation for each task 
+- Dimensionality of internal representation grows linearly with number of tasks
 
 
-<!-- - NNs with ReLu nodes  partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)). -->
 
+<!-- TODO@jv: somewhere must introduce the concept of adjusting representations -->
 
 
 
@@ -663,6 +685,24 @@ class: inverse
 
 - Any learner with an explicit internal representation is ok, e.g.,  decision trees, decision forests, deep networks 
 - SVM, k-NN, etc., are not
+
+
+
+---
+class: inverse 
+
+## General Representations 
+
+- Transformers learn representations 
+- We desire representations that are sufficient for one task, and  useful for other tasks 
+- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
+
+--
+
+<img src="images/deep-polytopes.png" style="width:700px;"/>
+
+
+<!-- - NNs with ReLu nodes  partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)). -->
 
 
 
@@ -946,7 +986,7 @@ class:inverse
 4. Tasks must be known 
 5. Feature space must be the same for all tasks 
 1. Internal representation grows linearly with # of tasks 
-      
+1. Must grow rather than recruit new internal representations       
       
 
 

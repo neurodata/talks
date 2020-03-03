@@ -39,8 +39,9 @@ class: inverse
 
 ## What is  Learning? 
 
+--
 
-"An algorithm $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
+"An agent $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
 
 
 -- Tom Mitchell, 1997 (not exact quote)
@@ -75,12 +76,6 @@ class: inverse
 
 <img src="images/rock20/s3a.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
 
-
-
----
-class:inverse
-
-## What do classifiers do?
 
 
 ---
@@ -119,7 +114,7 @@ class:inverse
 
 learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \lbrace 0,1 \rbrace$
 1. partition feature space into "parts",
-2. count votes per part per class.
+2. for each part: count votes per class.
 
 
 predict: given $x$
@@ -192,28 +187,31 @@ class: inverse, middle
 
 
 
+
 ---
 class: inverse
 
-## Brains vote
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-Vote = pattern of responses indicate which stimulus evoked response
+Done? 
 
-<img src="images/rock20/brody1.jpg" style="height:400px;" />
-
-
-
----
-class: inverse, middle
-
+--
 
 How many tasks do you know how to do?
 
----
-class: inverse, middle
+
+--
 
 
-Shouldn't learning be .ye[faster] if we already learned a related task?
+
+
+Should learning be .ye[faster] if we already learned a related task?
 
 
 --
@@ -227,7 +225,7 @@ Yes. This is called "transfer learning."
 ---
 class: inverse 
 
-## Honey Bees can do it
+## Honey Bees Transfer Learn
 
 
 <img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
@@ -241,48 +239,64 @@ class: inverse
 
 
 
+---
+class: inverse
+
+
+## Lions Transfer Learn 
+
+<br>
+
+<!-- <video width="320" height="240" controls> -->
+  <!-- <source src="images/images/lion_climbing.ogg" type="video/ogg"> -->
+  <!-- <source src="movie.ogg" type="video/ogg"> -->
+<!-- Your browser does not support the video tag. -->
+<!-- </video> -->
+
+<!-- <img src="images/lion_climbing.mov" style="position:absolute; left:200px; width:100%; "/> -->
+
+
+<iframe width="840" height="472" src="https://www.youtube.com/embed/vpAFrdJ-ifA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ---
 class: inverse
 
 
-## How to transfer learn? 
+## How to transfer learn
 
 
 
-learn: given a new dataset 
-1. learn/recruit a new partition of feature space
-2. count votes per class for each part .ye[from each existing partition]
+Given a new dataset 
+1. learn a new partition of feature space
+2. .ye[for each existing partition]: 
+  1. for each new data point, find its part  
+  2. for each part, count the votes per class
   
+(eg, imagine both republicans and democrats get independently gerrymander to serve their own goals)
 
+---
+class: inverse
 
-predict: given a sample and task 
-2. find its part in *all* existing paritions, 
+## How to transfer predict 
+
+Given a sample and task
+
+2. find its part in *all* existing paritions
+2. get vote talley for all parts associated with this point
 3. compute average over partitions
 3. report the winning class 
 
-
-
---
-
-
-key insights
-
-- .ye[One can compose different parcellations]
-- Sequentially learn many different parcellations  (one per task)
-- Represent each datapoint using all parcellations 
-- Vote on the joint representation 
-- This is ensembling representations.
-
+(eg, the winner is the winner across different gerrymandered boundaries)
 
 ---
-class: inverse, middle 
+class: inverse 
 
+## Ensembling Representations
 
-
-.center[.ye[Claim 2: learning is recruiting/growing neural circuits for a new task.]]
-
-
+- Sequentially learn many different parcellations  (one per task)
+- Representation is the union across all parcellations 
+- Vote on the joint representation 
 
 
 
@@ -293,15 +307,36 @@ class:inverse
 ## Consider an  example
 
 - *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
 - 500 training images and 100 testing images per class.
 - All images are 32x32 color images.
+- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
 
 
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
+<img src="images/cifar100.gif" style="width:700px;"/>
+
+<!-- <img src="images/cifar100.gif" style="position:absolute; left:250px; width:400px;"/> -->
 
 
 <!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories -->
+
+
+---
+class: inverse 
+
+
+## AI has not solved this problem
+
+<img src="images/l2m_18mo/progressive_netsc.png" style="width:450px;"/>
+
+
+--
+
+- ProgNN from DeepMind, bought by Google for ~0.5B USD
+- ProgNN is essentially following the above pseudocode 
+- ProgNN does not catastrophically forget 
+- It is not obvious whether it forward transfers
+- It certainly does not reverse transfer 
+
 
 
 ---
@@ -317,6 +352,8 @@ class:inverse
 ---
 class:inverse 
 
+All these algorithms forward transfer about the same amount
+
 <!-- <img src="images/fte_cifar.png" style="height:530px;" /> -->
 <img src="images/fte_cifar_2.png" style="height:530px;" />
 
@@ -330,6 +367,10 @@ class:inverse
 - y-axis: ratio of "single task error" to "error using .ye[future] tasks"
 - each algorithm has a line per task:  if the line .ye[increases], that means it is doing "reverse transfer"
 
+
+Consider:
+- Learning a 2nd language improves performance at 1st language 
+- Learning to jump up a wall improves ability to jump on ground
 
 ---
 class:inverse 
@@ -360,28 +401,50 @@ then given enough data, one can .ye[transfer learn] *perfectly, no matter what*!
 
 -- jovo, 2020
 
+
+
+---
+class: inverse 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Claim 2A: Distinct neural circuits differentially parcellate feature space.
+
+
+.ye[Claim 2B: Learning new concepts for which we lack adequate partitions requires growing neural circuits].
+
+
+
+
 ---
 class:inverse
 
 ## So What?
 
 
-- If our conjecture is right, the only way to sequentially transfer learn is to (approximately) use the outlined approach 
-- Brains are not fully general sequential learners 
-- Studying learning in the brain essentially requires studying the differences before and after learning 
-- Testable Prediction: learning tasks that require different .ye[parcellations] requires building/recruiting new circuits 
-      - Behavioral measures: learning should be slower 
-      - Connectivity measures: structural connectome should change only after learning things that require new parcellations 
-- *Triplet experiment*: source, no new partition, yes new partition
+Testable Prediction: there exists tasks that do not require learning new partitions, rather, just re-weighting existing partitions 
 
+- Behavioral: learning such tasks should be faster  
+- Anatomy: structural connectome should not change
+
+
+### Next steps
+
+- Designing experiments in zebrafish, mice, humans, and brain organoids to test these predictions
 
 ---
 class: inverse
 
 ## References 
 
-1. H. Helm et al. Lifelong Learning Forests, 2020
-1. R. Mehta et al. A General Theory of Learnability, 2020. 
+1. H. Helm et al. Omnidirectional Transfer Learning via Ensembling Representations, 2020.
+1. R. Mehta et al. A General Theory of the Learnable, 2020. 
 3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
 1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
 1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://arxiv.org/abs/1909.11799). arXiv, 2019.
@@ -660,7 +723,11 @@ Hava, Ben, Robert, Jennifer, Ted.
 ---
 class:center, inverse
 
-<img src="images/l_and_v.jpeg" style="position:absolute; top:0px; left:200px; height:100%;"/>
+<img src="images/lion_skiing.png" style="position:absolute; top:0px; left:0px; height:100%;"/>
+<img src="images/shoshanamalkah.png" style="position:absolute; top:0px; height:100%;"/>
+
+
+<!-- <img src="images/l_and_v.jpeg" style="position:absolute; top:0px; left:200px; height:100%;"/> -->
 
 ---
 class: middle, inverse
@@ -668,6 +735,17 @@ class: middle, inverse
 
 ## .center[Extra Slides]
 
+
+
+
+---
+class: inverse
+
+## Brains vote
+
+Vote = pattern of responses indicate which stimulus evoked response
+
+<img src="images/rock20/brody1.jpg" style="height:400px;" />
 
 
 ---

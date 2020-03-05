@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="fonts/quadon/quadon.css">
     <link rel="stylesheet" href="fonts/gentona/gentona.css">
-    <link rel="stylesheet" href="slides_style.css">
+    <link rel="stylesheet" href="slides_style_i.css">
     <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
   </head>
   <body>
@@ -13,7 +13,7 @@
 
 
 
-class:inverse 
+ 
 
 ### Lifelong Learning via <br>Ensembling General Representations
 Moving Beyond Avoiding Catastrophic Forgetting
@@ -34,42 +34,44 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 
 ---
-class:inverse
 
-## Lifelong Learning in AI
 
+
+.pull-left[
+## Lifelong Artificial Intelligence
 - Given a sequence of data associated with different tasks, .ye[continually learn] such that task performances improve by virtue of having data from other tasks.
 - Catastrophic forgetting:  learning new tasks causes performance .ye[degradation] on previous tasks
 - Why stop there? Let's .ye[improve] performance on past tasks using future data
-
+]
 
 --
 
-## Natural Intelligence
+.pull-right[
+## (Lifelong) Natural Intelligence
 
 - Biological/natural intelligence (BI) is .ye[progressive], data on future tasks can actually improve performance on past tasks:  
       - learning a 2nd language improves 1st language 
       - learning to run improves walking
 - Each task is a composition of many sub-tasks which .ye[overlap] with other tasks
-
+]
 
 
 ---
-class: inverse 
+ 
 
+
+.pull-left[
 ## Goals of this work 
-
 - Formalize the above AI claims 
 - Develop algorithms that move beyond catastrophic forgetting, motivated by observations from natural intelligence 
+]
 
 
 
 
+--
 
----
-class:inverse 
-
-
+.pull-right[
 ## Outline 
 
 - Background 
@@ -80,16 +82,16 @@ class:inverse
 - Real data
 - Theory
 - Discussion
-
+]
 
 ---
-class:inverse, middle
+class:middle
 
 ### Background
 
 
 ---
-class: inverse
+
 
 ## A simple learning example
 
@@ -100,29 +102,30 @@ class: inverse
 
 
 ---
-class: inverse
-
-<img src="images/rock20/s2.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
+class: middle, center
 
 
+<img src="images/rock20/s2.png" style="position:absolute; top:0px; left:250px; height:100%;"/>
 
-
----
-class: inverse
-
-<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
 
 
 
 ---
-class: inverse
 
-<img src="images/rock20/s3a.png" style="position:absolute; top:0px; left:100px; height:100%;"/>
+
+<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:250px; height:100%;"/>
 
 
 
 ---
-class: inverse 
+
+
+<img src="images/rock20/s3a.png" style="position:absolute; top:0px; left:250px; height:100%;"/>
+
+
+
+---
+ 
 
 ## But there is a problem...
 
@@ -132,7 +135,7 @@ class: inverse
 -- McCloskey & Cohen, 1989
 
 ---
-class: inverse 
+ 
 
 ## 30 years later... 
 
@@ -143,20 +146,20 @@ class: inverse
 
 
 ---
-class: inverse 
+ 
 
 ## Last Year: A Grand Challenge
 
-<br>
-
+.pull-left[
 "We need to invent a new kind of learning that .ye[leverages existing knowledge], rather than one that obstinately starts over from square one.”— Rebooting AI, Gary Marcus, Ernest Davis, 2019
+]
 
-<br>
-
+.pull-right[
 "One such obstacle is adaptability or robustness...  efforts toward “transfer learning,” “domain adaptation,” and “.ye[lifelong learning]”  are reflective of this obstacle." -- Judea Pearl, 2019
+]
 
 ---
-class: inverse 
+ 
 
 ## This Year: A Real Challenge 
 
@@ -173,7 +176,7 @@ In all cases, re-training from scratch is just too expensive, we desire to dynam
 
 
 ---
-class:inverse, middle 
+class: middle 
 
 ### A  Theory of the Lifelong Learnable
 
@@ -181,18 +184,18 @@ class:inverse, middle
 
 
 ---
-class: inverse
+
 
 ## What is Learning?
 
-<img src="images/glivenko-cantelli.png" style="width:350px;"/>
-<img src="images/Vapnik71b.png" style="width:350px;"/>
-<img src="images/Valiant84.png" style="width:350px;"/>
-<img src="images/Mitchell97a.png" style="width:350px;"/>
+<img src="images/glivenko-cantelli.png" style="width:500px;"/>
+<img src="images/Vapnik71b.png" style="width:500px;"/>
+<img src="images/Valiant84.png" style="width:500px;"/>
+<img src="images/Mitchell97a.png" style="width:500px;"/>
 
 
 ---
-class: inverse
+
 
 ## What is  Learning? 
 
@@ -205,7 +208,7 @@ class: inverse
 
 
 ---
-class:inverse 
+ 
 
 ## What are data?
 
@@ -237,7 +240,7 @@ class:inverse
 
 
 ---
-class:inverse 
+ 
 
 
 ## What is an Algorithm?
@@ -270,7 +273,7 @@ $$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$
 
 
 ---
-class:inverse 
+ 
 
 
 
@@ -293,7 +296,7 @@ Example 1: Classification
 
 
 ---
-class:inverse
+
 
 ## What is Learning?
 
@@ -317,7 +320,7 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
 
 
 ---
-class:inverse
+
 
 ## What is a Setting?
 
@@ -334,7 +337,7 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 | Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^N} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
 
 ---
-class:inverse
+
 
 ## What is a Task?
 
@@ -350,7 +353,7 @@ find the $f \in \mathcal{F}$ that minimizes generalization error in that setting
 
 
 ---
-class: inverse
+
 
 ## What is Transfer Learning? 
 
@@ -372,12 +375,12 @@ $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$]
 
 
 ---
-class: inverse 
+ 
 
 ## Can Honey Bees Transfer?
 
 
-<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:80%; "/>
+<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:70%; "/>
 
 <br><br><br><br><br><br><br><br><br><br>
 
@@ -388,7 +391,7 @@ class: inverse
 
       
 ---
-class: inverse
+
 
 ## What is Multitask Learning? 
 
@@ -419,7 +422,7 @@ $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad
 
 
 ---
-class: inverse
+
 
 ## What is Sequential Learning? 
 
@@ -431,7 +434,7 @@ $$f : \mathcal{H} \times 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where
 
 
 ---
-class: inverse
+
 
 ## What is Lifelong Learning? 
 
@@ -460,31 +463,17 @@ $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad
 
 
 
----
-class:inverse 
-
-
-###  Learning Scenarios
-
-<br> 
-
-|             | $J>1$ | Sequential  | 
-| :---:       | :---: | :---:       | 
-| Machine     | 0 | 0 | 
-| Sequential  | 0 | 1 |
-| Multi-task  | 1 | 0 | 
-| Lifelong    | 1 | 1 | 
 
 
 
 ---
-class:inverse, middle 
+class:middle 
 
 ### Evaluation Criteria
 
 
 ---
-class:inverse
+
 
 ## Transfer Efficiency (TE)
 
@@ -500,7 +489,7 @@ Algorithm $ f $ transfer learns if $ TE_j(f) > 1 $.
 
 
 ---
-class:inverse 
+ 
 
 ## Forward / Reverse TE 
 
@@ -530,25 +519,32 @@ $$
 
 
 ---
-class: inverse 
+ 
+.pull-left[
+### Catastrophic Forgetting 
 
-## Catastrophic Forgetting vs Reverse Transfer 
+performance on past tasks gets much .ye[worse] given new task data 
+]
 
-- Catastrophic forgetting: performance on past tasks gets much .ye[worse] given new task data 
-- Reverse transfer: performance on past tasks gets .ye[better] given new task data
 
+.pull-right[
+### Reverse Transfer 
+performance on past tasks gets .ye[better] given new task data
+]
+
+<br>
 
 Wise learning machines cannot simply avoid catastrophic forgetting, them must reverse transfer to gain understanding from every sample.
 
 ---
-class: inverse, middle 
+class: middle 
 
 ### Algorithm
 
 
 
 ---
-class: inverse 
+ 
 
 ## Composable Hypotheses 
 
@@ -575,7 +571,7 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 
 ---
-class: inverse 
+ 
 
 
 ## Simple Examples
@@ -595,7 +591,7 @@ class: inverse
 
  
 ---
-class:inverse
+
 
 ## Complicated Example
 
@@ -622,38 +618,25 @@ class:inverse
 
 
 ---
-class: inverse 
+ 
 
 
 ## Composable Learning
 
+<br> 
 
-- Single task learning: $ h(\cdot) = w \circ v \circ u (\cdot)$
-
-- Multiple independent task learning
-
-$$ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$$ 
-
-
-- Single task ensemble learning
-
-$$ h(\cdot) = w \circ \bigcup_j v_j \big( u_j (\cdot) \big)$$ 
-
-
-- Multitask learning
-
-$$ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$$ 
-
-
-
-- Sequential Multitask learning
-
-$$ h\_j(\cdot) = w\_j \circ  \bigcup\_{j,j'} v\_{j,j'}  \big(    u\_j (\cdot) \big) $$ 
+|  Scenario | Composition 
+|  :--- | :--- 
+| Single task learning | $ h(\cdot) = w \circ v \circ u (\cdot)$
+| Multiple independent task learning | $ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$ 
+| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_j v_j \big( u_j (\cdot) \big)$ 
+| Multitask learning | $ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$
+| Sequential Multitask learning | $ h\_j(\cdot) = w\_j \circ  \bigcup\_{j,j'} v\_{j,j'}  \big(    u\_j (\cdot) \big) $
 
 
 
 ---
-class: inverse 
+ 
 
 
 ## Key Idea 
@@ -676,7 +659,7 @@ class: inverse
 
 
 ---
-class: inverse 
+ 
 
 ## Lifelong Learning Schema
 
@@ -688,24 +671,30 @@ class: inverse
 
 
 
-- Any learner with an explicit internal representation is ok, e.g.,  decision trees, decision forests, deep networks 
+- Any learner with an explicit internal representation is ok, 
+  - e.g.,  decision trees, decision forests, deep networks 
 - SVM, k-NN, etc., are not
 
 
 
 ---
-class: inverse 
+ 
 
 ## General Representations 
 
+<br> 
+
+.pull-left[
 - Transformers learn representations 
 - We desire representations that are sufficient for one task, and  useful for other tasks 
 - Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
+]
 
 --
 
-<img src="images/deep-polytopes.png" style="width:700px;"/>
-
+.pull-right[
+<img src="images/deep-polytopes.png" style="width:500px;"/>
+]
 
 <!-- - NNs with ReLu nodes  partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)). -->
 
@@ -714,14 +703,14 @@ class: inverse
 
 
 ---
-class: inverse, middle 
+class: middle 
 
 ### Simulations
 
 
 
 ---
-class: inverse
+
 
 ## A Transfer Example
 
@@ -738,7 +727,7 @@ class: inverse
 
 
 ---
-class: inverse
+
 
 ## Lifelong Classifier 
 
@@ -758,14 +747,14 @@ class: inverse
 
 
 ---
-class: inverse
+
 
 ## Lifelong Classifier 
 
 <img src="images/columbia20/xor-nxor-all2.png"  style="height:500px;">
 
 ---
-class:inverse 
+ 
 
 ## Different # of Classes 
 
@@ -774,39 +763,41 @@ class:inverse
 <!-- TODO@hh: replace with same 4 panel figure as above -->
 
 ---
-class:inverse 
+ 
 
 ## Graceful Forgetting
 
-<img src="images/rxor-suite-new-row.png"  style="width:750px;">
+<img src="images/rxor-suite-new-row.png"  style="width:1000px;">
 
 
 
 
 ---
-class: inverse, middle 
+class: middle 
 
 ### Real Data 
 
 
 ---
-class:inverse 
+ 
 
 ## Consider an  example
 
+.pull-left[
 - *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
 - 500 training images and 100 testing images per class.
 - All images are 32x32 color images.
+- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
+]
 
-
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:250px; width:400px;"/>
-
+.pull-right[
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:650px; width:400px;"/>
+]
 
 <!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories -->
 
 ---
-class: inverse 
+ 
 
 
 ## Previous State-of-the-Art
@@ -821,15 +812,18 @@ Andrei A. Rusu et al. [Progressive Neural Networks](https://arxiv.org/abs/1606.0
 
 
 ---
-class:inverse 
+
+
+Lifelong Forests demonstrates the .ye[largest forward transfer].
+
 
 <!-- <img src="images/fte_cifar.png" style="height:530px;" /> -->
-<img src="images/fte_cifar_2.png" style="height:530px;" />
+<img src="images/fte_cifar_2.png" style="height:550px;" />
 
-<!--  TODO@JD: replace with average FTE + "error bars" and add legend outside -->
+<!--  TODO@JD: replace with average FTE and add legend outside -->
 
 ---
-class:inverse
+
 
 ## Reverse Transfer Efficiency
 
@@ -840,19 +834,19 @@ class:inverse
 
 
 ---
-class:inverse 
+ 
 
-.ye[Lifelong Forests] uniquely exhibits reverse transfer.
+Lifelong Forests .ye[uniquely exhibits reverse transfer].
 
 
 <img src="images/cifar-rte.png" style="height:530px;" />
 
 
-<!-- TODO@JD: replace with average RTE + "error bars" and add legend outside -->
+<!-- TODO@JD: replace with average RTE and add legend outside -->
 
 
 ---
-class: inverse 
+ 
 
 Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
 
@@ -870,20 +864,16 @@ Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
 <!-- <img src="images/all_TE.png" style="height:250px;" /> -->
 <!-- <img src="images/all_TE_2.png" style="height:500px;" /> -->
 
-<!-- TODO@JD: replace table with same thing but
-    1. remove Task specific TE (only show average and min)
-    2. color code names using the same color scheme as the figure
--->
-
+<!-- TODO@JD: update table to have correct numbers -->
 
 ---
-class: inverse, middle 
+class: middle 
 
 ### Theory
 
 
 ---
-class:inverse
+
 
 ## What do classifiers do?
 
@@ -900,7 +890,7 @@ predict: given $x$
 
 
 ---
-class:inverse
+
 
 ## What can regressors do?
 
@@ -919,7 +909,7 @@ predict: given $x$
 
 
 ---
-class:inverse
+
 
 ## The fundamental theorem of statistical pattern recognition
 
@@ -945,7 +935,7 @@ where $\mathcal{E}^*$is Bayes optimal.
 
 
 ---
-class:inverse
+
 
 ## The fundamental .ye[conjecture] of transfer learning
 
@@ -964,14 +954,14 @@ then given enough data, one can .ye[transfer learn] *perfectly, no matter what*!
 
 
 ---
-class: inverse, middle 
+class: middle 
 
 ### Discussion
 
 
 
 ---
-class: inverse
+
 
 ##  Key Insights
 
@@ -979,7 +969,7 @@ class: inverse
   2. Ensembling internal representations  enables reverse transfer > 1
 
 ---
-class:inverse 
+ 
 
 ## Limitations 
 
@@ -994,7 +984,7 @@ class:inverse
 
 
 ---
-class: inverse
+
 
 ##  Key Accomplishments
 
@@ -1012,7 +1002,7 @@ class: inverse
 
 
 ---
-class: inverse
+
 
 ## References 
 
@@ -1031,7 +1021,7 @@ More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 
 
 ---
-class:inverse 
+ 
 
 ### Acknowledgements
 
@@ -1293,9 +1283,9 @@ Hava, Ben, Robert, Jennifer, Ted.
 <!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
 
 ---
-class:center, inverse
+class:center
 
-<img src="images/l_and_v.jpeg" style="position:absolute; top:0px; left:200px; height:100%;"/>
+<img src="images/l_and_v.jpeg" style=" height:600px;"/>
 
 ---
 class: middle, inverse
@@ -1312,7 +1302,7 @@ class: middle
 
 
 ---
-class:inverse 
+ 
 
 ## Do brains do it?
 
@@ -1325,7 +1315,7 @@ class:inverse
 
 
 ---
-class: inverse
+
 
 ## Brains partition  
 
@@ -1344,7 +1334,7 @@ class: inverse
 
 
 ---
-class: inverse
+
 
 ## Brains vote
 
@@ -1355,7 +1345,7 @@ class: inverse
 
 
 ---
-class: inverse 
+ 
 
 ## Can Humans Reverse Transfer?
 
@@ -1365,7 +1355,7 @@ class: inverse
 
 
 ---
-class: inverse 
+ 
 
 ## Proposed Experiments 
 
@@ -1392,7 +1382,7 @@ class: middle
 
 
 ---
-class: inverse
+
 
 ## What is Lifelong Learning?
 
@@ -1400,7 +1390,7 @@ A computational system .ye[lifelong learns] from data if, given a stream of data
 
 
 ---
-class: inverse
+
 
 ## What is Lifelong Learning?
 
@@ -1414,7 +1404,7 @@ The key is learning internal representations of each data sample that is useful 
 
 
 ---
-class: inverse
+
 
 ## Current State of the Art 
 
@@ -1423,7 +1413,7 @@ class: inverse
 
 
 ---
-class: inverse
+
 
 ## Our Approach 
 
@@ -1438,7 +1428,7 @@ class: inverse
 
 
 ---
-class: inverse
+
 
 ## Evaluation Criteria ("Metrics")
 
@@ -1455,7 +1445,7 @@ If you don't reverse transfer, you haven't lifelong learned.
 
 
 ---
-class:inverse 
+ 
 
 .ye[Lifelong Forests] uniquely exhibits reverse transfer.
 
@@ -1464,7 +1454,7 @@ class:inverse
 
 
 ---
-class:inverse 
+ 
 
 ## Limitations 
 
@@ -1479,7 +1469,7 @@ class:inverse
 
 
 ---
-class: inverse
+
 
 ## Not So Clevr
 
@@ -1659,7 +1649,7 @@ We say that $f$ **universally** lifelong learns in settings $\vec{S}$ iff $\fora
 
 
 ---
-class:inverse
+
 
 <img src="images/rock20/sphx_glr_plot_iris_dtc_001.png" style="position:absolute; top:0px; left:0px; height:100%;"/>
 
@@ -1777,8 +1767,8 @@ Each tree uses a different subset of data to transform (partition) space
 
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
-<script src="remark-latest.min.js"></script>
-<!-- <script src="remark-latest.min169.js"></script> -->
+<!-- <script src="remark-latest.min.js"></script> -->
+<script src="remark-latest.min169.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">

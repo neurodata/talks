@@ -226,6 +226,7 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
   - $t_i \in \lbrace 0, 1 \rbrace$ label each sample
   - $\mathcal{D}_0 = \lbrace (Z_i, T_i) : T_j = 0 \rbrace$ denote the .ye[target] data 
   - $\mathcal{D} = \lbrace (Z_i, T_i) \, \forall i \in [n] \rbrace$
+  - $\mathcal{Z}' = (\mathcal{Z},\lbrace 0,1 \rbrace)$
 - Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
 - Define a transfer learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
@@ -234,7 +235,7 @@ $$ \mathcal{F}_{TL} = \lbrace f_n : 2^{(\mathcal{Z} \times \lbrace 0,1 \rbrace )
 - Given
   - a sample size $n$
   - a true but unknown $P = \pi_0 P_0 + \pi_1 P_1$. 
-  - a target setting $\mathcal{S} := \mathcal{S}\_{TL} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F}\_{TL} \rbrace$
+  - a target setting $\mathcal{S} := \mathcal{S}\_{TL} = \lbrace \mathcal{Z}', \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F}\_{TL} \rbrace$
 
 
 <!-- - Let $P= \pi_0 P_0 + \pi_1 P_1$, where $P_0$ is the distribution of target data, and  -->
@@ -266,10 +267,7 @@ $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$
 ## What is a Multitask? 
 
 
-- Given
-  - a sample size $n$
-  - a multi-setting $\vec{\mathcal{S}} =  \lbrace \mathcal{S}_1, \mathcal{S}_2, \ldots, \mathcal{S}_J \rbrace$
-  - a true but unknown mixture distibution $P = \sum_{j \in [J]} \pi_j P_j$. 
+
 - Let  
   - $t_i \in [J]$ denote the task associated with sample $i$
   - $\mathcal{D}\_j = \lbrace (Z\_i, T\_i) : T\_i = j \rbrace$
@@ -277,8 +275,12 @@ $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$
 - Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
 - Define a multitask learning algorithm  as the sequence $f=f_1,f_2,\ldots$ where 
 
-$$f \in  \mathcal{F}_{MT} = \lbrace f_n : 2^{(\mathcal{Z} \times [J] )^n} \rightarrow \mathcal{H}  \,\, \forall n \rbrace$$ 
+$$f \in  \mathcal{F}_{MT} = \lbrace f_n : 2^{(\mathcal{Z} \times [J] )^n} \rightarrow \mathcal{H}\rbrace$$ 
 
+- Given
+  - a sample size $n$
+  - a multi-setting $\mathcal{S} =  \lbrace \mathcal{S}_1, \mathcal{S}_2, \ldots, \mathcal{S}_J \rbrace$
+  - a true but unknown mixture distibution $P = \sum_{j \in [J]} \pi_j P_j$. 
 
 
 
@@ -288,19 +290,19 @@ $$f \in  \mathcal{F}_{MT} = \lbrace f_n : 2^{(\mathcal{Z} \times [J] )^n} \right
 ## What is Multitask Learning? 
 
 
-Find $f$ that minimizes generalization error for the given $n$, $P$, and $\vec{\mathcal{S}}$:
+Find $f$ that minimizes generalization error for the given $n$, $P$, and $\mathcal{S}$:
 
 $$f^* = \arg \min\_{f \in \mathcal{F}_{MT}} \mathcal{E}(f,\mathcal{D}).$$
 
 
 
-$f$  weakly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ with sample size $n$ when
+$f$  weakly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\mathcal{S}$ with sample size $n$ when
 
 $$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
 
 <br>
 
-and $f$ strongly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ with sample size $n$  when 
+and $f$ strongly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\mathcal{S}$ with sample size $n$  when 
 
 $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J].$$ 
 
@@ -348,34 +350,43 @@ Sequential multi-task learning, where
 ## What is a Lifelong  Task? 
 
 
+
+
+- Let  
+  - $t_i \in$ .r[$\mathcal{J}$] denote the task associated with sample $i$
+  - $\mathcal{D} =  \cup\_{j \in [J_n]} \mathcal{D}\_j$
+- Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
+- Define a lifelong learning algorithm  as the sequence $f=f_1,f_2,\ldots$ where 
+
+$$f \in  \mathcal{F}_{L2} = \lbrace f_n : \mathcal{H} \times  2^{(\mathcal{Z} \times [J] )^n} \rightarrow \mathcal{H}\rbrace$$ 
+
 - Given
   - a sample size $n$
-  - a  label $t_i \in$ .r[$\mathcal{J}$] associated with each sample
-  - a multi-setting $\vec{\mathcal{S}} =  \lbrace \mathcal{S}\_1, \mathcal{S}\_2, \ldots, \mathcal{S}\_{J_n} \rbrace$
+  - a lifelong setting $\mathcal{S} =  \lbrace \mathcal{S}\_1, \mathcal{S}\_2, \ldots, \mathcal{S}\_{J_n} \rbrace$
   - a true but unknown mixture distibution $P = \sum_{j \in [J_n]} \pi_j P_j$. 
-- Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
-- Let  $\mathcal{D}\_j = \lbrace (Z\_i, T\_i) : T\_i = j \rbrace$ and  $\mathcal{D} =  \cup\_{j \in [J_n]} \mathcal{D}\_j$
-- Find the lifelong learning algorithm $f \in  \mathcal{F}_{L2} = \lbrace f_n :$ .r[$\mathcal{H}$] $\times  2^{(\mathcal{Z} \times \mathcal{J} )^n} \rightarrow \mathcal{H}  \,\, \forall n \rbrace$ that minimizes generalization error for the given $n$, $P$, and $\vec{\mathcal{S}}$:
-
-
-$$f^* = \arg \min\_{f \in \mathcal{L2}} \mathcal{E}(f,\mathcal{D}).$$
 
 
 ---
+
 
 
 ## What is Lifelong Learning? 
 
 
 
-$f$  weakly .ye[lifelong] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ if
+Find the lifelong learning algorithm $f$ that minimizes generalization error for the given $n$, $P$, and $\mathcal{S}$:
+
+$$f^* = \arg \min\_{f \in \mathcal{L2}} \mathcal{E}(f,\mathcal{D}).$$
+
+
+$f$  weakly .ye[lifelong] learns from $\mathcal{D} \sim P$ in setting $\mathcal{S}$ if
 
 $$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D}\_j \mid j) P(T=j),$$ 
 
 <br>
 
 
-and $f$  strongly .ye[lifelong] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ if
+and $f$  strongly .ye[lifelong] learns from $\mathcal{D} \sim P$ in setting $\mathcal{S}$ if
 
 
 

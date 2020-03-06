@@ -393,11 +393,34 @@ and $f$  strongly .ye[lifelong] learns from $\mathcal{D} \sim P$ in setting $\ma
 $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
 
 
+---
+
+## Ways to Lifelong Learn
+
+A set of tasks can different in any of the constituent parts
+
+| Component | Change |
+| :--- | :--- 
+| $\mathcal{Z}$ | {smaller, bigger, different}
+| $\mathcal{A}$ | {smaller, bigger, different}
+| $\mathcal{L}$ | {different}
+| $\mathcal{R}$ | {different}
+| $\mathcal{P}$ | {smaller, bigger, different}
+| $\mathcal{H}$ | {smaller, bigger, different}
+| $\mathcal{F}$ | {smaller, bigger, different}
+| $T_i$ | {always, never, sometimes} known
 
 
+---
 
+## Ways to Lifelong Learn
 
+There are $4\times4\times2\times2\times4\times4\times4\times3 = 12$,$288$ ways that 2 tasks can differ from one another.
 
+For example, our approach addresss:
+- $\mathcal{A}$ different 
+- $\mathcal{Z}$, $\mathcal{L}, \mathcal{R}, \mathcal{P}, \mathcal{H}, \mathcal{F}$ same
+- $T_i$ always known
 
 
 ---

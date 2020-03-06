@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MSR20</title>
+    <title>L2M 2yr</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="fonts/quadon/quadon.css">
     <link rel="stylesheet" href="fonts/gentona/gentona.css">
@@ -33,165 +33,12 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 
 
----
-
-
-
-.pull-left[
-## Lifelong Artificial Intelligence
-- Given a sequence of data associated with different tasks, .ye[continually learn] such that task performances improve by virtue of having data from other tasks.
-- Catastrophic forgetting:  learning new tasks causes performance .ye[degradation] on previous tasks
-- Why stop there? Let's .ye[improve] performance on past tasks using future data
-]
-
---
-
-.pull-right[
-## (Lifelong) Natural Intelligence
-
-- Biological/natural intelligence (BI) is .ye[progressive], data on future tasks can actually improve performance on past tasks:  
-      - learning a 2nd language improves 1st language 
-      - learning to run improves walking
-- Each task is a composition of many sub-tasks which .ye[overlap] with other tasks
-]
-
-
----
- 
-
-
-.pull-left[
-## Goals of this work 
-- Formalize the above AI claims 
-- Develop algorithms that move beyond catastrophic forgetting, motivated by observations from natural intelligence 
-]
-
-
-
-
---
-
-.pull-right[
-## Outline 
-
-- Background 
-- Lifelong learning 
-- Evaluation criteria
-- Algorithm 
-- Simulations 
-- Real data
-- Theory
-- Discussion
-]
-
----
-class:middle
-
-### Background
-
-
----
-
-
-## A simple learning example
-
-- $z_i=(x_i,y_i)$, $i \in \lbrace 1, 2, \ldots, 200 \rbrace$
-  - $x \in \mathbb{R}^2$
-  - $y \in \lbrace 0,1 \rbrace$
-- we desire to learn a classifier that minimizes expected misclassification rate
-
-
----
-class: middle, center
-
-
-<img src="images/rock20/s2.png" style="position:absolute; top:0px; left:250px; height:100%;"/>
-
-
-
-
----
-
-
-<img src="images/rock20/s3.png" style="position:absolute; top:0px; left:250px; height:100%;"/>
-
-
-
----
-
-
-<img src="images/rock20/s3a.png" style="position:absolute; top:0px; left:250px; height:100%;"/>
-
-
-
----
- 
-
-## But there is a problem...
-
-
-"Training on a new set of items may drastically disrupt performance on previously learned items."
-
--- McCloskey & Cohen, 1989
-
----
- 
-
-## 30 years later... 
-
-
-<img src="images/rock20/masse1.png" style="width:600px;"/>
-<img src="images/rock20/flesch1.png" style="width:600px;"/>
-<img src="images/rock20/kirkpatrick1.png" style="width:600px;"/>
-
-
----
- 
-
-## Last Year: A Grand Challenge
-
-.pull-left[
-"We need to invent a new kind of learning that .ye[leverages existing knowledge], rather than one that obstinately starts over from square one.”— Rebooting AI, Gary Marcus, Ernest Davis, 2019
-]
-
-.pull-right[
-"One such obstacle is adaptability or robustness...  efforts toward “transfer learning,” “domain adaptation,” and “.ye[lifelong learning]”  are reflective of this obstacle." -- Judea Pearl, 2019
-]
-
----
- 
-
-## This Year: A Real Challenge 
-
-- Industry
-  - Microsoft/Amazon/Google trained a recommender system on existing products, then a new product is launched
-- Healthcare
-  - A new disease, test, treatment exists
-- Augmented Reality
-  - Walking around, go to a new city
-
-In all cases, re-training from scratch is just too expensive, we desire to dynamically update  with new data
-
-
-
 
 ---
 class: middle 
 
-### A  Theory of the Lifelong Learnable
+### A General Theory of the Learnable
 
-
-
-
----
-
-
-## What is Learning?
-
-<img src="images/glivenko-cantelli.png" style="width:500px;"/>
-<img src="images/Vapnik71b.png" style="width:500px;"/>
-<img src="images/Valiant84.png" style="width:500px;"/>
-<img src="images/Mitchell97a.png" style="width:500px;"/>
 
 
 ---
@@ -200,7 +47,7 @@ class: middle
 ## What is  Learning? 
 
 
-"An algorithm $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$, if $f$'s performance  improves with $n$.''
+"An algorithm $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$ for task $t$, if $f$'s performance at $t$ improves with $n$.''
 
 
 -- Tom Mitchell, 1997 (not exact quote)
@@ -212,19 +59,10 @@ class: middle
 
 ## What are data?
 
-- Assume $Z_i$ is a $z \in \mathcal{Z}$ valued random variable
-- Sample $Z_i \sim P \in \mathcal{P}$, identically and independently
-- Let $\mathcal{D} := \mathcal{D}_n =\lbrace Z_1, \ldots, Z_n \rbrace \in \, \mathcal{Z}^n$
-
-
-
---
-
-
-
+- $z_i \in \mathcal{Z}$ for $i \in [n]$ are measurements
 - Example 1: Classification
   -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
-  - $P=P\_{XY}=P\_{X|Y}P\_Y$, where $P\_{X|Y}$ is Gaussian
+
 
 
 --
@@ -245,9 +83,13 @@ class: middle
 
 ## What is an Algorithm?
 
-$f$ is a  learning algorithm, which maps from a subset of data to a hypothesis $h$, 
+- $f_n$ is a  learner, which maps from a subset of $n$ samples to a hypothesis $h$
+- $f=f_1, f_2, \ldots$ is a sequence of learners, called a (single task) learning algorithm 
 
-$$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
+
+$$f \in \mathcal{F}_{ST} = \lbrace  f_n : 2^{\mathcal{Z}^n} \rightarrow \mathcal{H}\rbrace$$ 
+
+
 
 
 
@@ -272,26 +114,63 @@ $$f : 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$
    -->
 
 
+
+
+
 ---
- 
 
 
+## What is a Setting?
 
-## What is  Performance?
+A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F} \rbrace$
 
-Generalization error $\mathcal{E}$ is the expected risk of algorithm $f$ for task $t$ with respect to training dataset size $n$:
+| Object | Notation | Example
+|:--- |:--- |:--- | 
+| Measurements  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
+| Actions |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
+| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
+| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
+| Distributions | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
+| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
+| Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
 
 
-$$ \mathcal{E}(f,\mathcal{D} )  := \mathcal{E}(f,\mathcal{D} \mid t )  = \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
+---
+
+## Constraints 
+
+$\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learning 
 
 
+| Constraint | Example | 
+| :--- | :--- 
+| interpretability | hyperplanes or sparse 
+| complexity | $\mathcal{O}(n)$
+| memory | $< 1$ gigabyte of memory for a given dataset
+| time | $< 1$ sec on a specific hardware configuration for a given dataset
+| scalability| must operate on distributed storage and/or distributed compute
+| power | $< 1$ watt on a given system for a given dataset 
+| price | $< 1$ USD on a given system for a given dataset  
+| hardware | must run on iPhone X
 
---
+---
 
 
+## What is a Task?
 
-Example 1: Classification
-- $\mathcal{R}$ is expected misclassification rate
+- Given 
+  - a sample size $n$
+  - a setting $\mathcal{S}$,
+  - a true but unknown distribution $P \in \mathcal{P}$.
+- Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
+<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
+- Find the $f \in \mathcal{F} = \lbrace 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$ that minimizes generalization error in that setting:
+
+$$f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
+
+<!-- TODO@ronak n, P, and S are implicit in the above equation, maybe they shouldn't be? -->
+
+
 
 
 
@@ -322,35 +201,27 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
 ---
 
 
-## What is a Setting?
-
-A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A},  \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
-
-| Object | Notation | Example
-|:--- |:--- |:--- | 
-| Measurements  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
-| Distributions | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
-| Actions |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
-| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
-| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
-| Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^N} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
-
----
+## What is a Transfer Learning Task? 
 
 
-## What is a Task?
+- Given
+  - a sample size $n$
+  - a target setting $\mathcal{S}$
+  - a true but unknown $P = \pi_0 P_0 + \pi_1 P_1$. 
+- Let 
+  - $t_i \in \lbrace 0, 1 \rbrace$ label each sample
+  - $\mathcal{D}_0 = \lbrace (Z_i, T_i) : T_j = 0 \rbrace$ denote the .ye[target] data 
+  - $\mathcal{D} = \lbrace (Z_i, T_i) \, \forall i \in [n] \rbrace$
+- Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
+- Define a transfer learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
-Given 
-- some true but unknown distribution $P\_z \in \mathcal{P}$, 
-- a random data corpus $\mathcal{D}$ with sample size $n$
-- a setting $\mathcal{S}$
-<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
+$$ \mathcal{F}_{TL} = \lbrace f_n : 2^{(\mathcal{Z} \times \lbrace 0,1 \rbrace )^n} \rightarrow \mathcal{H} \rbrace$$
 
-find the $f \in \mathcal{F}$ that minimizes generalization error in that setting:
 
-.center[ $f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D})$.]
 
+<!-- - Let $P= \pi_0 P_0 + \pi_1 P_1$, where $P_0$ is the distribution of target data, and  -->
+
+<!-- "An algorithm $f$  .ye[transfer] learns from data $\mathcal{D}_j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}_j$." -->
 
 ---
 
@@ -358,36 +229,16 @@ find the $f \in \mathcal{F}$ that minimizes generalization error in that setting
 ## What is Transfer Learning? 
 
 
-Given
-- .ye[source] data $\mathcal{D}_1$,  
-- .ye[target] data $\mathcal{D}_0$ from possibly another distribution.
-- let $\mathcal{D} = \mathcal{D}_0 \cup \mathcal{D}_1$.
+Find the transfer learning algorithm $f$ that minimizes generalization error for the given $n$, $P$, and $\mathcal{S}$:
+
+$$f^* = \arg \min\_{f \in \mathcal{F}_{TL}} \mathcal{E}(f,\mathcal{D}).$$
+
+<br> 
+
+$f$ .ye[transfer] learns for a given $n$, $P$, and $\mathcal{S}$ when 
+$\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$
 
 
-<!-- "An algorithm $f$  .ye[transfer] learns from data $\mathcal{D}_j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}_j$." -->
-
---
-
-
-.center[$f$ .ye[transfer] learns  from $\mathcal{D}_1$ iff 
-$\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$]
-
-
-
----
- 
-
-## Can Honey Bees Transfer?
-
-
-<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:150px; width:70%; "/>
-
-<br><br><br><br><br><br><br><br><br><br>
-
-- honey bees can also transfer to different sensory modality (smell)
-- honeybees do not forget how to do the first task (no forgetting)
-- this is called "forward transfer"
-- bees learn the concept of "sameness"
 
       
 ---
@@ -397,18 +248,19 @@ $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$]
 ## What is a Multitask? 
 
 
-- $T_i \in \lbrace{1,2,..,J\rbrace}=[J]$ is a task lable correspond to a distribution $P_j$ and setting $\mathcal{S}_j$ pair, 
-- Each task could differ by $P_z$ or any element of $ \mathcal{S} = \lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A}, \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
-- A multi-setting is a set of settings, $\vec{\mathcal{S}} = \lbrace \mathcal{S}_1, \ldots, \mathcal{S}_J \rbrace$  
-- $\mathcal{D} = \lbrace (Z_i,T_i) \rbrace^n $, where $(Z_i,T_i) \sim P$, and $Z_i | T_i = j \sim P_j$.
-- a multitask learning algorithm $f$  maps from a subset of data (including task labels) to a hypothesis $h$, 
+- Given
+  - a sample size $n$
+  - a multi-setting $\vec{\mathcal{S}} =  \lbrace \mathcal{S}_1, \mathcal{S}_2, \ldots, \mathcal{S}_J \rbrace$
+  - a true but unknown mixture distibution $P = \sum_{j \in [J]} \pi_j P_j$. 
+- Let  
+  - $t_i \in [J]$ denote the task associated with sample $i$
+  - $\mathcal{D}\_j = \lbrace (Z\_i, T\_i) : T\_i = j \rbrace$
+  - $\mathcal{D} =  \cup\_{j \in [J]} \mathcal{D}\_j$
+- Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
+- Define a multitask learning algorithm  as the sequence $f=f_1,f_2,\ldots$ where 
 
-$$ \mathcal{F}_{MT} = \lbrace f : 2^{(\mathcal{Z} \times [J])^N} \rightarrow \mathcal{H} \rbrace$$
+$$f \in  \mathcal{F}_{MT} = \lbrace f_n : 2^{(\mathcal{Z} \times [J] )^n} \rightarrow \mathcal{H}  \,\, \forall n \rbrace$$ 
 
-
-Find the $f \in \mathcal{F}_{MT}$ that minimizes generalization error in that multi-setting:
-
-$$f^* = \arg \min\_{f \in \mathcal{F}_{MT}} \mathcal{E}(f,\mathcal{D}).$$
 
 
 
@@ -418,19 +270,24 @@ $$f^* = \arg \min\_{f \in \mathcal{F}_{MT}} \mathcal{E}(f,\mathcal{D}).$$
 ## What is Multitask Learning? 
 
 
---
+Find $f$ that minimizes generalization error for the given $n$, $P$, and $\vec{\mathcal{S}}$:
 
-$f$  weakly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ if
+$$f^* = \arg \min\_{f \in \mathcal{F}_{MT}} \mathcal{E}(f,\mathcal{D}).$$
+
+
+
+$f$  weakly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ with sample size $n$ when
 
 $$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
 
 <br>
 
-and $f$ strongly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$  if, 
+and $f$ strongly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ with sample size $n$  when 
 
 $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J].$$ 
 
 
+<!-- TODO@ronak i think n is implicit here. should we make it explicit? -->
 
 ---
 
@@ -440,32 +297,50 @@ $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad
 Same as "batch" learning, except $f$ updates existing hypothesis on basis of new data, that is, 
 
 
-$$\mathcal{F}_S = \lbrace  f : \mathcal{H} \times 2^{\mathcal{Z}^N} \rightarrow \mathcal{H} \rbrace$$ 
+$$\mathcal{F}_S = \lbrace  f : \mathcal{H} \times 2^{\mathcal{Z}^n} \rightarrow \mathcal{H} \rbrace$$ 
 
 
-Find the $f \in \mathcal{F}_{S}$ that minimizes generalization error in setting $\mathcal{S}$:
+Find the $f \in \mathcal{F}_{S}$ that minimizes generalization error for a given $n$, $P$, and setting $\mathcal{S}$:
 
 $$f^* = \arg \min\_{f \in \mathcal{F}_{S}} \mathcal{E}(f,\mathcal{D}).$$
+
+
+<!-- TODO@ronak do i need something else here? like a sequence of n's? -->
 
 
 ---
 
 
-## What is a Lifelong Learning Task? 
+## What is a Lifelong  Task? 
+
+
+
+
 
 Sequential multi-task learning, where
 - $|\mathcal{J}|$ is (countably) infinite
 - $J_n$ is the number of tasks observed after $n$ samples
 - Requires .ye[out of task] capabilities  
-<!-- - Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$ -->
-- $f$ is a lifelong learning algorithm if 
-
-$$ \mathcal{F}_{L2} = \lbrace f : \mathcal{H} \times 2^{(\mathcal{Z} \times \mathcal{J})^N} \rightarrow \mathcal{H} \rbrace$$ 
 
 
-Find the $f \in \mathcal{F}_{L2}$ that minimizes generalization error in multi-setting $\vec{\mathcal{S}}$:
 
-$$f^* = \arg \min\_{f \in \mathcal{F}_{L2}} \mathcal{E}(f,\mathcal{D}).$$
+---
+
+
+## What is a Lifelong  Task? 
+
+
+- Given
+  - a sample size $n$
+  - a  label $t_i \in$ .r[$\mathcal{J}$] associated with each sample
+  - a multi-setting $\vec{\mathcal{S}} =  \lbrace \mathcal{S}\_1, \mathcal{S}\_2, \ldots, \mathcal{S}\_{J_n} \rbrace$
+  - a true but unknown mixture distibution $P = \sum_{j \in [J_n]} \pi_j P_j$. 
+- Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
+- Let  $\mathcal{D}\_j = \lbrace (Z\_i, T\_i) : T\_i = j \rbrace$ and  $\mathcal{D} =  \cup\_{j \in [J_n]} \mathcal{D}\_j$
+- Find the lifelong learning algorithm $f \in  \mathcal{F}_{L2} = \lbrace f_n :$ .r[$\mathcal{H}$] $\times  2^{(\mathcal{Z} \times \mathcal{J} )^n} \rightarrow \mathcal{H}  \,\, \forall n \rbrace$ that minimizes generalization error for the given $n$, $P$, and $\vec{\mathcal{S}}$:
+
+
+$$f^* = \arg \min\_{f \in \mathcal{L2}} \mathcal{E}(f,\mathcal{D}).$$
 
 
 ---

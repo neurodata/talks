@@ -156,28 +156,46 @@ $\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learn
 ---
 
 
-## What is a Task?
+## What is Performance?
 
-- Given 
-  - a sample size $n$
-  - a setting $\mathcal{S}$,
-  - a true but unknown distribution $P \in \mathcal{P}$.
 - Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
 <!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
-- Find the $f \in \mathcal{F} = \lbrace 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$ that minimizes generalization error in that setting:
-
-$$f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
-
-<!-- TODO@ronak n, P, and S are implicit in the above equation, maybe they shouldn't be? -->
-
-
+- Performance is generalization error, that is, the expected risk of an algorithm 
+$$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
 
 
 
 ---
 
 
+## What is a Task?
+
+  <!-- - the learning algorithm $f= f_1, f_2, \ldots$  as the sequence that satisifies -->
+  <!-- $$f \in \mathcal{F} = \lbrace 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$$ -->
+
+- Given 
+  - a sample size $n$
+  - a true but unknown distribution $P$.
+  - a setting $\mathcal{S}$,
+
+
+  Find $f$ that minimizes generalization error for a specified $n$, $P$, and $\mathcal{S}$
+
+  $$f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D}).$$
+  
+  <!-- TODO@ronak n, P, and S are implicit in the above equation, maybe they shouldn't be? -->
+  
+<br>  
+
+Note: the constraints on $\mathcal{P}$ and $\mathcal{H}$ can be encoded into constraints on $\mathcal{F}$.
+
+
+---
+
+
 ## What is Learning?
+
+
 
 Letting $\mathcal{D}_0$ be a data corpus with no samples,
 
@@ -204,10 +222,6 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
 ## What is a Transfer Learning Task? 
 
 
-- Given
-  - a sample size $n$
-  - a target setting $\mathcal{S}$
-  - a true but unknown $P = \pi_0 P_0 + \pi_1 P_1$. 
 - Let 
   - $t_i \in \lbrace 0, 1 \rbrace$ label each sample
   - $\mathcal{D}_0 = \lbrace (Z_i, T_i) : T_j = 0 \rbrace$ denote the .ye[target] data 
@@ -217,6 +231,10 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
 
 $$ \mathcal{F}_{TL} = \lbrace f_n : 2^{(\mathcal{Z} \times \lbrace 0,1 \rbrace )^n} \rightarrow \mathcal{H} \rbrace$$
 
+- Given
+  - a sample size $n$
+  - a true but unknown $P = \pi_0 P_0 + \pi_1 P_1$. 
+  - a target setting $\mathcal{S} := \mathcal{S}\_{TL} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F}\_{TL} \rbrace$
 
 
 <!-- - Let $P= \pi_0 P_0 + \pi_1 P_1$, where $P_0$ is the distribution of target data, and  -->

@@ -586,9 +586,9 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 |  :--- | :--- 
 | Single task learning | $ h(\cdot) = w \circ v \circ u (\cdot)$
 | Multiple independent task learning | $ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$ 
-| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_j v_j \big( u_j (\cdot) \big)$ 
+| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_j [ v_j \circ u_j (\cdot)] $ 
 | Multitask learning | $ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$
-| Sequential Multitask learning | $ h\_j(\cdot) = w\_j \circ  \bigcup\_{j,j'} v\_{j,j'}  \big(    u\_j (\cdot) \big) $
+| .ye[Multitask ensemble representation learning]  | $ h\_j(\cdot) = w\_j \circ  \bigcup\_{j'}  [v\_{j,j'}  \circ    u\_{j'} (\cdot) ] $
 
 
 

@@ -393,29 +393,40 @@ $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$]
 ---
 
 
+
+## What is a Multitask? 
+
+
+- $T_i \in \lbrace{1,2,..,J\rbrace}=[J]$ is a task lable correspond to a distribution $P_j$ and setting $\mathcal{S}_j$ pair, 
+- Each task could differ by $P_z$ or any element of $ \mathcal{S} = \lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A}, \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
+- A multi-setting is a set of settings, $\vec{\mathcal{S}} = \lbrace \mathcal{S}_1, \ldots, \mathcal{S}_J \rbrace$  
+- $\mathcal{D} = \lbrace (Z_i,T_i) \rbrace^n $, where $(Z_i,T_i) \sim P$, and $Z_i | T_i = j \sim P_j$.
+- a multitask learning algorithm $f$  maps from a subset of data (including task labels) to a hypothesis $h$, 
+
+$$ \mathcal{F}_{MT} = \lbrace f : 2^{(\mathcal{Z} \times [J])^N} \rightarrow \mathcal{H} \rbrace$$
+
+
+Find the $f \in \mathcal{F}_{MT}$ that minimizes generalization error in that multi-setting:
+
+$$f^* = \arg \min\_{f \in \mathcal{F}_{MT}} \mathcal{E}(f,\mathcal{D}).$$
+
+
+
+---
+
+
 ## What is Multitask Learning? 
 
 
-- $T_i \in \lbrace{1,2,..,J\rbrace}=[J]$ is a task lable, 
-- Each task could differ by $P_z$ or any element of $\lbrace \mathcal{Z}, \mathcal{P}, \mathcal{A}, \mathcal{H}, \mathcal{L}, \mathcal{R}, \mathcal{F} \rbrace$
-- $\mathcal{D} = \lbrace (Z_i,T_i) \rbrace^n $
-<!-- - Sample $Z\_i \sim P :=P\_{XYT}$, identically and independently -->
-- Let $\mathcal{D}_j = \lbrace (X_i,Y_i,T_i) :  T_i = j \rbrace$
-<!-- - Let $\mathcal{D}= \mathcal{D}_1, \ldots , \mathcal{D}_J$ -->
-
 --
 
-$f$  weakly .ye[multitask] learns from $\mathcal{D}$ if
-
-
-
+$f$  weakly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ if
 
 $$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
 
 <br>
 
-
-and $f$ strongly .ye[multitask] learns if, 
+and $f$ strongly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$  if, 
 
 $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J].$$ 
 
@@ -429,8 +440,32 @@ $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad
 Same as "batch" learning, except $f$ updates existing hypothesis on basis of new data, that is, 
 
 
-$$f : \mathcal{H} \times 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where }N \gg n.$$ 
+$$\mathcal{F}_S = \lbrace  f : \mathcal{H} \times 2^{\mathcal{Z}^N} \rightarrow \mathcal{H} \rbrace$$ 
 
+
+Find the $f \in \mathcal{F}_{S}$ that minimizes generalization error in setting $\mathcal{S}$:
+
+$$f^* = \arg \min\_{f \in \mathcal{F}_{S}} \mathcal{E}(f,\mathcal{D}).$$
+
+
+---
+
+
+## What is a Lifelong Learning Task? 
+
+Sequential multi-task learning, where
+- $|\mathcal{J}|$ is (countably) infinite
+- $J_n$ is the number of tasks observed after $n$ samples
+- Requires .ye[out of task] capabilities  
+<!-- - Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$ -->
+- $f$ is a lifelong learning algorithm if 
+
+$$ \mathcal{F}_{L2} = \lbrace f : \mathcal{H} \times 2^{(\mathcal{Z} \times \mathcal{J})^N} \rightarrow \mathcal{H} \rbrace$$ 
+
+
+Find the $f \in \mathcal{F}_{L2}$ that minimizes generalization error in multi-setting $\vec{\mathcal{S}}$:
+
+$$f^* = \arg \min\_{f \in \mathcal{F}_{L2}} \mathcal{E}(f,\mathcal{D}).$$
 
 
 ---
@@ -438,22 +473,17 @@ $$f : \mathcal{H} \times 2^{\mathcal{Z}^N} \rightarrow \mathcal{H}, \text{ where
 
 ## What is Lifelong Learning? 
 
-Sequential multi-task learning, where
-- $|\mathcal{J}|$ is (countably) infinite
-- $J_n$ is the number of tasks observed after $n$ samples
-- Requires .ye[out of task] capabilities  
-<!-- - Let $\mathcal{D}= \mathcal{D}\_1, \ldots , \mathcal{D}\_{J_n}$ -->
 
---
 
-$f$  weakly .ye[lifelong] learns from $\mathcal{D}$ if
+$f$  weakly .ye[lifelong] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ if
 
 $$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D}\_j \mid j) P(T=j),$$ 
 
 <br>
 
 
-and $f$ strongly .ye[lifelong] learns if, 
+and $f$  strongly .ye[lifelong] learns from $\mathcal{D} \sim P$ in multi-setting $\vec{\mathcal{S}}$ if
+
 
 
 $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
@@ -977,6 +1007,7 @@ class: middle
 3. Data must be batched into tasks 
 4. Tasks must be known 
 5. Feature space must be the same for all tasks 
+6. Only unimodal data supported (e.g., images)
 1. Internal representation grows linearly with # of tasks 
 1. Must grow rather than recruit new internal representations       
       
@@ -1453,17 +1484,6 @@ If you don't reverse transfer, you haven't lifelong learned.
 <img src="images/cifar-rte.png" style="height:530px;" />
 
 
----
- 
-
-## Limitations 
-
-1. Capacity grows linearly with # of tasks 
-2. Tasks must be discrete 
-3. Data must be batched into tasks 
-4. Tasks must be known 
-5. Feature space must be the same for all tasks 
-      
       
 
 

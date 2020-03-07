@@ -598,25 +598,7 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 
 ---
- 
 
-
-## Composable Learning
-
-<br> 
-
-|  Scenario | Composition 
-|  :--- | :--- 
-| Single task learning | $ h(\cdot) = w \circ v \circ u (\cdot)$
-| Multiple independent task learning | $ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$ 
-| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_j [ v_j \circ u_j (\cdot)] $ 
-| Multitask learning | $ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$
-| .ye[Multitask ensemble representation learning]  | $ h\_j(\cdot) = w\_j \circ  \bigcup\_{j'}  [v\_{j,j'}  \circ    u\_{j'} (\cdot) ] $
-
-
-
----
- 
 
 
 ## Key Idea 
@@ -641,10 +623,29 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 ---
  
 
+
+## Composable Learning
+
+<br> 
+
+|  Scenario | Composition 
+|  :--- | :--- 
+| Single task learning | $ h(\cdot) = w \circ v \circ u (\cdot)$
+| Multiple independent task learning | $ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$ 
+| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_j [ v_j \circ u_j (\cdot)] $ 
+| Multitask learning | $ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$
+| .ye[Multitask ensemble representation learning]  | $ h\_j(\cdot) = w\_j \circ  \bigcup\_{j'}  [v\_{j,j'}  \circ    u\_{j'} (\cdot) ] $
+
+
+
+
+---
+ 
+
 ## Lifelong Learning Schema
 
 
-<img src="images/learning-schemas.svg" style="width:700px;"/>
+![:scale 100%](images/learning-schemas.svg)
 
 <!-- TODO@jv: add increasing complexity schema -->
 <!-- TODO@jv: change to progressive? -->
@@ -819,7 +820,6 @@ Lifelong Forests demonstrates the .ye[largest forward transfer].
 Lifelong Forests .ye[uniquely exhibits reverse transfer].
 
 
-<!-- <img src="images/cifar-rte.png" style="height:530px;" /> -->
 <img src="images/CIFAR_RTE.png" style="height:530px;" />
 
 <!-- TODO@JD: replace with average RTE and add legend outside -->
@@ -844,7 +844,12 @@ Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
 <!-- <img src="images/all_TE.png" style="height:250px;" /> -->
 <!-- <img src="images/all_TE_2.png" style="height:500px;" /> -->
 
-<!-- TODO@JD: update table to have correct numbers -->
+
+---
+class: center, middle
+
+
+![:scale 70%](images/cifar_accuracy.png)
 
 ---
 class: middle 
@@ -1487,7 +1492,10 @@ class: middle
     ]});
   }
 
-  var slideshow = remark.create(options, renderMath);
+  remark.macros.scale = function (percentage) {
+    var url = this;
+    return '<img src="' + url + '" style="width: ' + percentage + '" />';
+  };
 
   // var slideshow = remark.create({
   // Set the slideshow display ratio
@@ -1496,6 +1504,9 @@ class: middle
   // {
   // ratio: '16:9',
   // });
+
+  var slideshow = remark.create(options, renderMath);
+
 
 </script>
 </body>

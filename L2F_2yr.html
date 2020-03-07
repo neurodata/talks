@@ -15,8 +15,7 @@
 
  
 
-### Lifelong Learning via <br>Ensembling General Representations
-Moving Beyond Avoiding Catastrophic Forgetting
+### Lifelong Learning Machines 
 
 <br>      
 <br>      
@@ -37,7 +36,7 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 ---
 class: middle 
 
-### A General Theory of the Learnable
+### Lifelong Learning Definition
 
 
 
@@ -65,7 +64,6 @@ class: middle
 
 
 
---
 
 
 <!-- 
@@ -114,6 +112,18 @@ $$f \in \mathcal{F}_{ST} = \lbrace  f_n : 2^{\mathcal{Z}^n} \rightarrow \mathcal
    -->
 
 
+---
+
+
+## What is Performance?
+
+- Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
+<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
+- Loss quantifies the error 
+- Risk is a function of loss, eg, expected loss
+- Performance is generalization error: the expected risk of an algorithm 
+$$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
+where the expectation is with respect to the training data.
 
 
 
@@ -148,21 +158,10 @@ $\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learn
 | complexity | $\mathcal{O}(n)$
 | memory | $< 1$ gigabyte of memory for a given dataset
 | time | $< 1$ sec on a specific hardware configuration for a given dataset
-| scalability| must operate on distributed storage and/or distributed compute
+| scalability| must operate on distributed storage/compute
 | power | $< 1$ watt on a given system for a given dataset 
 | price | $< 1$ USD on a given system for a given dataset  
 | hardware | must run on iPhone X
-
----
-
-
-## What is Performance?
-
-- Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
-<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
-- Performance is generalization error, that is, the expected risk of an algorithm 
-$$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
-
 
 
 ---
@@ -187,7 +186,8 @@ $$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
   
 <br>  
 
-Note: the constraints on $\mathcal{P}$ and $\mathcal{H}$ can be encoded into constraints on $\mathcal{F}$.
+- the constraints on $\mathcal{P}$ and $\mathcal{H}$ can be encoded into constraints on $\mathcal{F}$.
+- the context is the other parts of a problem: $\lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R} \rbrace$.
 
 
 ---
@@ -219,7 +219,7 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
 ---
 
 
-## What is a Transfer Learning Task? 
+## A Transfer Learning Task? 
 
 
 - Let 
@@ -393,11 +393,17 @@ and $f$  strongly .ye[lifelong] learns from $\mathcal{D} \sim P$ in setting $\ma
 $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
 
 
+
+
+---
+class: middle 
+
+### Lifelong Learning Scenarios
+
 ---
 
-## Ways to Lifelong Learn
+## Ways Tasks can Differ
 
-A set of tasks can different in any of the constituent parts
 
 | Component | Change |
 | :--- | :--- 
@@ -408,6 +414,7 @@ A set of tasks can different in any of the constituent parts
 | $\mathcal{P}$ | {smaller, bigger, different}
 | $\mathcal{H}$ | {smaller, bigger, different}
 | $\mathcal{F}$ | {smaller, bigger, different}
+| $P$ | {different}
 | $T_i$ | {always, never, sometimes} known
 
 
@@ -415,18 +422,39 @@ A set of tasks can different in any of the constituent parts
 
 ## Ways to Lifelong Learn
 
-There are $4\times4\times2\times2\times4\times4\times4\times3 = 12$,$288$ ways that 2 tasks can differ from one another.
-
-For example, our approach addresss:
-- $\mathcal{A}$ different 
-- $\mathcal{Z}$, $\mathcal{L}, \mathcal{R}, \mathcal{P}, \mathcal{H}, \mathcal{F}$ same
-- $T_i$ always known
+- There are $4\times4\times2\times2\times4\times4\times4\times2\times3 \approx 24$,$000$ ways that 2 tasks can differ.
+- Let $\mathcal{C} = \lbrace \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$ denote constraints, and simplify to denote only whether they have changed, not how.  This reduces by a factor of 32, bringing the total down to $\approx 750$. 
+- Subsume loss into risk, because one can often change one instead of the other (eg, replace L2 with L1 norm vs replace mean with median), this brings it down to $384$.
 
 
 ---
-class:middle 
 
-### Evaluation Criteria
+## Ways Tasks can Differ
+
+
+| Component | Change |
+| :--- | :--- 
+| $\mathcal{Z}$ | {smaller, bigger, different}
+| $\mathcal{A}$ | {smaller, bigger, different}
+| $\mathcal{R}$ | {different}
+| $\mathcal{C}$ | {different}
+| $P$ | {different}
+| $T_i$ | {always, never, sometimes} known
+
+
+---
+
+## Examples
+
+1. Known $\mathcal{A}$ changes, which implies that $P$ changes (CIFAR 10x10)
+1. Unknown $P$ changes (continual learning)
+1. Known $\mathcal{A}$ growing (incremental learning)
+
+
+---
+class: middle 
+
+### Lifelong Learning Metrics
 
 
 ---
@@ -474,24 +502,19 @@ $$    RTE\_j(f) :=
 \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
 $$
 
-
 ---
- 
-.pull-left[
-### Catastrophic Forgetting 
 
-performance on past tasks gets much .ye[worse] given new task data 
-]
+## TE Factorizes
 
 
-.pull-right[
-### Reverse Transfer 
-performance on past tasks gets .ye[better] given new task data
-]
+$$  TE\_j(f) := 
+    \frac{\mathcal{E}\_j(f, \mathcal{D}_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}
+    = \frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}
+    \times
+    \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
+$$
 
-<br>
 
-Wise learning machines cannot simply avoid catastrophic forgetting, them must reverse transfer to gain understanding from every sample.
 
 ---
 class: middle 
@@ -575,25 +598,7 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 
 ---
- 
 
-
-## Composable Learning
-
-<br> 
-
-|  Scenario | Composition 
-|  :--- | :--- 
-| Single task learning | $ h(\cdot) = w \circ v \circ u (\cdot)$
-| Multiple independent task learning | $ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$ 
-| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_j [ v_j \circ u_j (\cdot)] $ 
-| Multitask learning | $ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$
-| .ye[Multitask ensemble representation learning]  | $ h\_j(\cdot) = w\_j \circ  \bigcup\_{j'}  [v\_{j,j'}  \circ    u\_{j'} (\cdot) ] $
-
-
-
----
- 
 
 
 ## Key Idea 
@@ -618,10 +623,29 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 ---
  
 
+
+## Composable Learning
+
+<br> 
+
+|  Scenario | Composition 
+|  :--- | :--- 
+| Single task learning | $ h(\cdot) = w \circ v \circ u (\cdot)$
+| Multiple independent task learning | $ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$ 
+| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_j [ v_j \circ u_j (\cdot)] $ 
+| Multitask learning | $ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$
+| .ye[Multitask ensemble representation learning]  | $ h\_j(\cdot) = w\_j \circ  \bigcup\_{j'}  [v\_{j,j'}  \circ    u\_{j'} (\cdot) ] $
+
+
+
+
+---
+ 
+
 ## Lifelong Learning Schema
 
 
-<img src="images/learning-schemas.svg" style="width:700px;"/>
+![:scale 100%](images/learning-schemas.svg)
 
 <!-- TODO@jv: add increasing complexity schema -->
 <!-- TODO@jv: change to progressive? -->
@@ -724,7 +748,7 @@ class: middle
 
 ## Graceful Forgetting
 
-<img src="images/rxor-suite-new-row.png"  style="width:1000px;">
+<img src="images/rxor-suite-new-row.png"  style="width:700px;">
 
 
 
@@ -748,7 +772,7 @@ class: middle
 ]
 
 .pull-right[
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:650px; width:400px;"/>
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
 ]
 
 <!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories -->
@@ -796,7 +820,6 @@ Lifelong Forests demonstrates the .ye[largest forward transfer].
 Lifelong Forests .ye[uniquely exhibits reverse transfer].
 
 
-<!-- <img src="images/cifar-rte.png" style="height:530px;" /> -->
 <img src="images/CIFAR_RTE.png" style="height:530px;" />
 
 <!-- TODO@JD: replace with average RTE and add legend outside -->
@@ -821,7 +844,12 @@ Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
 <!-- <img src="images/all_TE.png" style="height:250px;" /> -->
 <!-- <img src="images/all_TE_2.png" style="height:500px;" /> -->
 
-<!-- TODO@JD: update table to have correct numbers -->
+
+---
+class: center, middle
+
+
+![:scale 70%](images/cifar_accuracy.png)
 
 ---
 class: middle 
@@ -1254,86 +1282,6 @@ class: middle, inverse
 
 
 ---
-class: middle 
-
-# Biology
-
-
----
- 
-
-## Do brains do it?
-
---
-
-(brains obviously learn)
-
-1. Do brains partition feature space?
-2. Is there some kind of "voting" occurring within each part?
-
-
----
-
-
-## Brains partition  
-
-- Feature space = the set of all possible inputs to a brain
-- Partition = only a subset of "nodes" respond to any given input
-- Examples
-  1. visual receptive fields
-  2. place fields / grid cells
-  3. sensory homonculus
-
-<br>
-
-<img src="images/rock20/Side-black.gif" style="height:230px;"/>
-<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
-<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
-
-
----
-
-
-## Brains vote
-
-- Vote = pattern of responses indicate which stimulus evoked response
-
-<img src="images/rock20/brody1.jpg" style="height:400px;" />
-
-
-
----
- 
-
-## Can Humans Reverse Transfer?
-
-
-- "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
-
-
-
----
- 
-
-## Proposed Experiments 
-
-- Behavioral Experiment
-  - Source Task: Delayed Match to Sample (DMS) on colors
-  - Target Task A: Delayed Match to Not-Sample  on colors 
-  - Target Task B: DMS on orientation 
-- Measurements
-  - Arc-GFP to identify which neurons could learn 
-  - Ca2+-YFP to measure neural activity
-  - Narp-RFP to identify which neurons actually consolidate
-- Species 
-      - Zebrafish (Engert)
-      - Mouse (McNaughton and/or Tolias)
-      - Human (Isik)
-
-
-
-
----
 class: middle
 
 # Summary
@@ -1414,6 +1362,94 @@ If you don't reverse transfer, you haven't lifelong learned.
       
 
 
+---
+class: middle 
+
+# Biology
+
+
+---
+ 
+
+## Do brains do it?
+
+--
+
+(brains obviously learn)
+
+1. Do brains partition feature space?
+2. Is there some kind of "voting" occurring within each part?
+
+
+---
+
+
+## Brains partition  
+
+- Feature space = the set of all possible inputs to a brain
+- Partition = only a subset of "nodes" respond to any given input
+- Examples
+  1. visual receptive fields
+  2. place fields / grid cells
+  3. sensory homonculus
+
+<br>
+
+<img src="images/rock20/Side-black.gif" style="height:230px;"/>
+<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
+<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
+
+
+---
+
+
+## Brains vote
+
+- Vote = pattern of responses indicate which stimulus evoked response
+
+<img src="images/rock20/brody1.jpg" style="height:400px;" />
+
+
+
+---
+ 
+
+## Can Humans Reverse Transfer?
+
+
+- "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
+
+
+
+---
+ 
+
+## Proposed Experiments 
+
+- Behavioral Experiment
+  - Source Task: Delayed Match to Sample (DMS) on colors
+  - Target Task A: Delayed Match to Not-Sample  on colors 
+  - Target Task B: DMS on orientation 
+- Measurements
+  - Arc-GFP to identify which neurons could learn 
+  - Ca2+-YFP to measure neural activity
+  - Narp-RFP to identify which neurons actually consolidate
+- Species 
+      - Zebrafish (Engert)
+      - Mouse (McNaughton and/or Tolias)
+      - Human (Isik)
+
+
+
+
+
+
+---
+class: middle 
+
+# Other Stuff
+
+
 
 ---
 
@@ -1433,289 +1469,12 @@ If you don't reverse transfer, you haven't lifelong learned.
 <img src="images/s-rerf_6plot_times.png" style="width:750px;"/>
 
 
----
-
-
-
-### Lifelong learning algorithms
-- Fundamentally, a lifelong learning algorithm must summarize previous tasks via a useful representation to effectively use these tasks for learning a new task. 
-
-- In supervised classification, the most useful representation of a task is its corresponding optimal decision boundary.
-
-- More generally, tessellating space into cells yields a representation/compression valuable for any subsequence inference task.
-
----
-
-### What are Decision Forests?
-
-- Two things:
-  1. a partitioning of the space into mutually exclusive cells 
-  2. an assignment of probabilities  within each cell
-
-
-- This is true for decision trees, random forests, gradient boosting trees, etc.	
-  - Axis-aligned trees yield cells that are each right rectangular prisms (also called rectangular cuboids, rectangular parallelepiped, and orthogonal parallelipiped)	
-  - Axis-oblique trees yield cells that are more general polytopes
-
-Note: Deep Nets with ReLu activation function also tesselate space into polytopes  
-
-
-
----
-
-### Key Algorithmic Insight 
-
-- Cells of a partition of space can be a universal representation
-- Partitions can be learned on a **per task** basis
-- Probabilities can be estimated given **any** partition, including those from other tasks
-- Use all data to estimate probabilities on the partitions learned separately for each task
-- Average probabilities learned on each partition to obtain final answer
-
-
----
-### Algorithm (High-Level)
-
-- Input: $n$ points associated with $J$ different supervised classification/regression tasks
-- Output: A classifier/regressor function for each task 
-- Algorithm: 
-      - for $j \in [J]$ 
-        - Learn partition of space using only data from task $j$
-        - Learn probabilities using partitions $1, \ldots, j$ 
-        - Output average over all $j$ probability estimates 
-
---
-
-  Notes:
-
-- This exact procedure can be applied as $J$ continues to increase
-- This procedure could be use any pair of algorithms for learning partitions and probabilities. 
-- We focus on random forests for simplicity.
-- We assumed related measurement spaces, specifically, $\mathcal{Z}\_j= \lbrace \mathcal{X} \times \mathcal{Y}\_j \rbrace$
-
-
-
----
-
-### Basic L2M (unbounded storage)
-
-<!-- Given the above assumptions, all lifelong learning algorithms can be characterized as follows. -->
-
-
-For each $(z_t, j_t)$,
-1. update .pu[transformer]  using all available data: $h\_t (\lbrace z\_t,j\_t \rbrace) \rightarrow \hat{f}\_t$ 
-2. for each sample, apply .pu[transformer]: $\hat{f}\_t (z\_i) = \tilde{z}\_i$
-3. for each  .pu[decider], update using all available data: 
-      $g\_t (\lbrace \tilde{z}\_t,j\_t \rbrace) \rightarrow  \lbrace \hat{\eta}\_j \rbrace $
-4. apply .pu[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
-
-
-
----
-
-### Basic L2M (bounded storage)
-
-
-
-For each $(z_t, j_t)$,
-1. update .pu[transformer]: $h\_t ( z\_t,j\_t, \hat{f}\_{t-1} ) \rightarrow \hat{f}\_t$ 
-2. apply .pu[transformer]: $\hat{f}\_t (z\_t) = \tilde{z}\_t$
-3. update all .pu[deciders]: 
-      $g\_t ( \tilde{z}\_t,j\_t, \hat{\eta}\_{t-1} ) \rightarrow  \lbrace \hat{\eta}\_j \rbrace $
-4. apply .pu[decider]: $\hat{\eta}\_{j\_t}(\tilde{z}\_t) \rightarrow a\_t$
-
-
-
----
-
-### Lifelong  Forests 
-
-- Assume data are batched into unique tasks
-- For each task, $ z_t | j_t = j$
-  1. Learn a new forest using data only from task $j_t$
-  2. Apply forest to each observation so far 
-  3. For each task, update plurality/average vote per tree 
-  4. Apply average vote for $z_t$
-
-
----
-
-# Universal Slides 
-
-
-
----
-
-### What is Universal Transfer Learning?
-
-We say that $f$ **universally** transfers in setting $S$ iff 
-$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
-
-<!-- $\forall n,n' > n\_0$, $\exists \; \delta > 0$ such that: -->
-
-
-
-$\exists P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) <  1 - \delta$ (sometimes better), and
-
-$\forall P,Q \in \mathcal{P}: TLE\_{n,n'}^{P,Q}(f) \leq  1 + \delta$  (never much worse).
-
-
----
-
-### What is Universal MT Learning?
-
-We say that $f$ **universally** multi-task learns in settings $\vec{S}$ iff
-$\exists \; \delta, n\_0 > 0$ such that $\forall n\_j > n\_0$:
-
-
-$\exists \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) <  1 - \delta$  (sometimes better), and
-
-$\forall \vec{P} \in \vec{\mathcal{P}}: MTE\_{\vec{n}}^{\vec{P}}(f) \leq  1 + \delta$ (never much worse).
-
-
-
-
----
-
-### What is Universal Lifelong Learning?
-
-
-We say that $f$ **universally** lifelong learns in settings $\vec{S}$ iff $\forall n\_j > n\_0$ and $\forall \vec{P} \in \vec{\mathcal{P}}$, lifelong learning holds.
-
-
-
----
-
-## Consider the iris dataset
-
-- introduced by RA Fisher (inventor of modern statistics) 
-- 150 points from 3 species of iris's
-  - setosa, virginica, versicolor
-- 4 dimensions/features: 
-  - sepal length, sepal width, petal length, petal width 
-
-
-
----
-
-
-<img src="images/rock20/sphx_glr_plot_iris_dtc_001.png" style="position:absolute; top:0px; left:0px; height:100%;"/>
-
-
-
----
-
-###  Generalized Learning
-
-<br> 
-
-|       | $J>1$ | Sequential  | 
-| :---: | :---: | :---:       | 
-| Machine     | 0 | 0 | 
-| Multi-task  | 1 | 0 | 
-| Lifelong    | 1 | 1 | 
-
-
-
-
-
-
-
-
----
-
-### Three Kinds of Lifelong Learning 
-
-1. Supervised: setting is provided for each data sample 
-2. Unsupervised: setting is not provided for any data sample 
-3. Semi-supervised: setting is sometimes provided for some data samples 
-
---
-
-We largely focus on supervised setting hereafter.
-
----
-class: middle, inverse
-
-
-## .center[General (Lifelong) Learning Machines]
-
-
----
-
-### Machine Learning: Basic Set-Up
-
-Given
-1. A task $ T $ 
-2. Observed data $ z\_1, z\_2, .., z\_n $
-
-Assume
-1. The $ z\_t $ are independent
-
----
-
-### Constituents of  Learning Machines 
-
-1.  .pu[representation]: data are transformed into a representation space
-2.  .pu[transformer]: maps each point to the representation space
-3.  .pu[decider]: takes an action using the transformed data
-
----
-
-### Example 1 
-
-Linear 2-class classification (we want to label black dot)
-
-<img src="images/l2m_18mo/cml_all_data.png" style="width:500px" class="center"/>
-
-
----
-#### Example 1.1 - Linear Discriminant Analysis
-
-1. .pu[representation]: the real number line 
-2. .pu[transformer]: projection matrix that maps each feature vector onto real number line 
-3. .pu[decider]: threshold such that values above threshold are one class, and below are the other
-
-<img src="images/l2m_18mo/cml_linear.jpg" style="width:600px" class="center"/>
-
-<!-- diagram of linear classifier (projection from R^d to R then threshold) for two class, spherical gaussians -->
-<!-- figure of problem -->
-<!-- figure with representation -->
-<!-- figure showing transformation of one data point to the line -->
-<!-- figure showing decider acting on a the transformed data point -->
-
----
-
-#### Example 1.2 - Decision Tree
-
-1. .pu[representation]: a partition of $ \mathbb{R}^{d} $
-2. .pu[transformer]: maps a data point to a cell of the partition
-3. .pu[deciders]: plurality (or average) of elements per cell
-
-<img src="images/l2m_18mo/cml-tree.jpg" style="width:650px" class="center"/>
-
-<!-- diagram of a partition for two class, spherical gaussians -->
-<!-- figure of representation (partition) -->
-<!-- figure of a data point in a cell of the partition -->
-<!-- figure of classifying a data point in a cell of the partition -->
-
----
-
-#### Example 1.3 - Decision Forests 
-
-1. .pu[representation]: a set of partitions of $ \mathbb{R}^{d} $ 
-2. .pu[transformer]: maps a data point to a cell of each of the partitions
-3. .pu[deciders]: average of decision trees (posterior probabilities)
-
-<img src="images/l2m_18mo/cml_forest.jpg" style="width:600px" class="center"/>
-
-Each tree uses a different subset of data to transform (partition) space
-
 
 
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
 <!-- <script src="remark-latest.min.js"></script> -->
-<script src="remark-latest.min169.js"></script>
+<script src="remark-latest.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
@@ -1733,7 +1492,10 @@ Each tree uses a different subset of data to transform (partition) space
     ]});
   }
 
-  var slideshow = remark.create(options, renderMath);
+  remark.macros.scale = function (percentage) {
+    var url = this;
+    return '<img src="' + url + '" style="width: ' + percentage + '" />';
+  };
 
   // var slideshow = remark.create({
   // Set the slideshow display ratio
@@ -1742,6 +1504,9 @@ Each tree uses a different subset of data to transform (partition) space
   // {
   // ratio: '16:9',
   // });
+
+  var slideshow = remark.create(options, renderMath);
+
 
 </script>
 </body>

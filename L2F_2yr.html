@@ -15,8 +15,7 @@
 
  
 
-### Lifelong Learning via <br>Ensembling General Representations
-Moving Beyond Avoiding Catastrophic Forgetting
+### Lifelong Learning Machines 
 
 <br>      
 <br>      
@@ -37,7 +36,7 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 ---
 class: middle 
 
-### A General Theory of the Learnable
+### Lifelong Learning Definition
 
 
 
@@ -65,7 +64,6 @@ class: middle
 
 
 
---
 
 
 <!-- 
@@ -114,6 +112,18 @@ $$f \in \mathcal{F}_{ST} = \lbrace  f_n : 2^{\mathcal{Z}^n} \rightarrow \mathcal
    -->
 
 
+---
+
+
+## What is Performance?
+
+- Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
+<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
+- Loss quantifies the error 
+- Risk is a function of loss, eg, expected loss
+- Performance is generalization error: the expected risk of an algorithm 
+$$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
+where the expectation is with respect to the training data.
 
 
 
@@ -148,21 +158,10 @@ $\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learn
 | complexity | $\mathcal{O}(n)$
 | memory | $< 1$ gigabyte of memory for a given dataset
 | time | $< 1$ sec on a specific hardware configuration for a given dataset
-| scalability| must operate on distributed storage and/or distributed compute
+| scalability| must operate on distributed storage/compute
 | power | $< 1$ watt on a given system for a given dataset 
 | price | $< 1$ USD on a given system for a given dataset  
 | hardware | must run on iPhone X
-
----
-
-
-## What is Performance?
-
-- Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
-<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
-- Performance is generalization error, that is, the expected risk of an algorithm 
-$$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
-
 
 
 ---
@@ -187,7 +186,8 @@ $$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
   
 <br>  
 
-Note: the constraints on $\mathcal{P}$ and $\mathcal{H}$ can be encoded into constraints on $\mathcal{F}$.
+- the constraints on $\mathcal{P}$ and $\mathcal{H}$ can be encoded into constraints on $\mathcal{F}$.
+- the context is the other parts of a problem: $\lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R} \rbrace$.
 
 
 ---
@@ -219,7 +219,7 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
 ---
 
 
-## What is a Transfer Learning Task? 
+## A Transfer Learning Task? 
 
 
 - Let 
@@ -393,11 +393,17 @@ and $f$  strongly .ye[lifelong] learns from $\mathcal{D} \sim P$ in setting $\ma
 $$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
 
 
+
+
+---
+class: middle 
+
+### Lifelong Learning Scenarios
+
 ---
 
-## Ways to Lifelong Learn
+## Ways Tasks can Differ
 
-A set of tasks can different in any of the constituent parts
 
 | Component | Change |
 | :--- | :--- 
@@ -408,6 +414,7 @@ A set of tasks can different in any of the constituent parts
 | $\mathcal{P}$ | {smaller, bigger, different}
 | $\mathcal{H}$ | {smaller, bigger, different}
 | $\mathcal{F}$ | {smaller, bigger, different}
+| $P$ | {different}
 | $T_i$ | {always, never, sometimes} known
 
 
@@ -415,18 +422,39 @@ A set of tasks can different in any of the constituent parts
 
 ## Ways to Lifelong Learn
 
-There are $4\times4\times2\times2\times4\times4\times4\times3 = 12$,$288$ ways that 2 tasks can differ from one another.
-
-For example, our approach addresss:
-- $\mathcal{A}$ different 
-- $\mathcal{Z}$, $\mathcal{L}, \mathcal{R}, \mathcal{P}, \mathcal{H}, \mathcal{F}$ same
-- $T_i$ always known
+- There are $4\times4\times2\times2\times4\times4\times4\times2\times3 \approx 24$,$000$ ways that 2 tasks can differ.
+- Let $\mathcal{C} = \lbrace \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$ denote constraints, and simplify to denote only whether they have changed, not how.  This reduces by a factor of 32, bringing the total down to $\approx 750$. 
+- Subsume loss into risk, because one can often change one instead of the other (eg, replace L2 with L1 norm vs replace mean with median), this brings it down to $384$.
 
 
 ---
-class:middle 
 
-### Evaluation Criteria
+## Ways Tasks can Differ
+
+
+| Component | Change |
+| :--- | :--- 
+| $\mathcal{Z}$ | {smaller, bigger, different}
+| $\mathcal{A}$ | {smaller, bigger, different}
+| $\mathcal{R}$ | {different}
+| $\mathcal{C}$ | {different}
+| $P$ | {different}
+| $T_i$ | {always, never, sometimes} known
+
+
+---
+
+## Examples
+
+1. Known $\mathcal{A}$ changes, which implies that $P$ changes (CIFAR 10x10)
+1. Unknown $P$ changes (continual learning)
+1. Known $\mathcal{A}$ growing (incremental learning)
+
+
+---
+class: middle 
+
+### Lifelong Learning Metrics
 
 
 ---
@@ -474,24 +502,19 @@ $$    RTE\_j(f) :=
 \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
 $$
 
-
 ---
- 
-.pull-left[
-### Catastrophic Forgetting 
 
-performance on past tasks gets much .ye[worse] given new task data 
-]
+## TE Factorizes
 
 
-.pull-right[
-### Reverse Transfer 
-performance on past tasks gets .ye[better] given new task data
-]
+$$  TE\_j(f) := 
+    \frac{\mathcal{E}\_j(f, \mathcal{D}_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}
+    = \frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}
+    \times
+    \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
+$$
 
-<br>
 
-Wise learning machines cannot simply avoid catastrophic forgetting, them must reverse transfer to gain understanding from every sample.
 
 ---
 class: middle 
@@ -1715,7 +1738,7 @@ Each tree uses a different subset of data to transform (partition) space
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
 <!-- <script src="remark-latest.min.js"></script> -->
-<script src="remark-latest.min169.js"></script>
+<script src="remark-latest.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">

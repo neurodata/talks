@@ -66,6 +66,7 @@ Given .ye[data] $\mathcal{D}$ in .ye[setting] $\mathcal{S}$,
 
 
 
+
 ---
  
 
@@ -74,6 +75,7 @@ Given .ye[data] $\mathcal{D}$ in .ye[setting] $\mathcal{S}$,
 - $z_i \in \mathcal{Z}$ for $i \in [n]$ are measurements
 - Classification Example
   -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
+
 
 
 
@@ -89,15 +91,12 @@ Setting is provided by theBoss,  includes:
 -  Sample space: $\mathcal{Z}$, e.g., scalars, d-dimensional vectors, networks
 - Action space: $\mathcal{A}$, e.g., {&rarr;, &larr;, &uarr;, &darr;, A,B}, {reject, fail to reject}, $\mathbb{R}$
 - Query space: $\mathcal{Q}$, e.g., in which cluster is $z$?
+- Constraints: $\mathcal{C}$, e.g., $\mathcal{O}(n)$ training time
 
 
 
 
-
-<!-- -  Performance function: $\mathcal{E}$, e.g., sum of mean square error  -->
-
-<!--  : \mathcal{F} \times \mathbb{Z} \rightarrow \mathbb{R}_{\geq 0} -->
-   
+  
 
 ---
  
@@ -123,9 +122,9 @@ $$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrac
 
 
 
----
+<!-- --- -->
 
-
+<!-- 
 ## What are Constraints?
 
 Provided by subject matter expect and available resources, including:
@@ -136,19 +135,23 @@ Provided by subject matter expect and available resources, including:
 - Learning rule constraints, $f \in \mathcal{F}$, 
   - e.g., $\mathcal{O}(n)$, or Decision stump 
 
+-->
 
-<!-- Let $\mathcal{C}= \lbrace \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$. -->
+<!-- 
+  Let $\mathcal{C}= \lbrace \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$. 
+-->
 
-Let $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{Q}, \mathcal{A}, \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$.
+<!-- Let $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{Q}, \mathcal{A}, \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$. --> 
 
 
----
+<!-- --- -->
 
-## Constraints 
+
+<!-- ## Constraints  -->
 
 <!-- $\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learning  -->
 
-
+<!-- 
 | Constraint | Example | 
 | :--- | :--- 
 | interpretability | hyperplanes or sparse 
@@ -159,6 +162,7 @@ Let $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{Q}, \mathcal{A}, \mathcal{P}, \
 | power | $< 1$ watt on a given system for a given dataset 
 | price | $< 1$ USD on a given system for a given dataset  
 | hardware | must run on iPhone X
+ -->
 
 ---
 
@@ -167,7 +171,7 @@ Let $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{Q}, \mathcal{A}, \mathcal{P}, \
 
 
 - Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$ 
-- Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
+- Assume each measurement  is sampled identically and independentally (iid) from  $P$.
 - Risk is an expectation function of loss, eg, expected loss, or median loss
 - Performance is generalization error, e.g., the expected risk of an algorithm given data corpus $\mathcal{D}$
 $$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))]. $$
@@ -186,8 +190,6 @@ $$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))]. $$
 - The goal is to learn some functional of $P$ that minimizes the performance function, $\mathcal{E}$  -->
 
 
-
-
 ---
 
 
@@ -202,6 +204,9 @@ $f$ learns when its performance $\mathcal{E}$ improves due to data $\mathcal{D}$
 .center[$f$ learns when $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,0)$ under $\mathcal{S}$.]
 
 
+
+
+<!-- $f$ learns from data $\mathcal{D}$ in setting $\mathcal{S}$ when its performance $\mathcal{E}$ improves due to data $\mathcal{D}$: -->
 
 
   
@@ -238,9 +243,8 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 
   Find $f$ that minimizes generalization error for a specified $n$, $P$, and $\mathcal{S}$
 
-  $$f^* = \arg \min\_{f} \mathcal{E}(f,\mathcal{D}) \text{ subject to } \mathcal{S}.$$
+  $$f^* = \arg \min\_{f} \mathcal{E}\_P(f,\mathcal{D}_n) \text{ subject to } \mathcal{S}.$$
   
-  <!-- TODO@ronak n, P, and S are implicit in the above equation, maybe they shouldn't be? -->
   
 <!-- <br>   -->
 

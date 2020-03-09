@@ -42,14 +42,27 @@ class: middle
 
 ---
 
+## What is Learning?
 
-## What is  Learning? 
+--
+
+Given data $\mathcal{D}$ in setting $\mathcal{S}$, 
+
+$f$ learns when its performance $\mathcal{E}$ improves due to data $\mathcal{D}$:
+
+.center[$f$ learns when $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,0)$ under $\mathcal{S}$.]
 
 
-"An algorithm $f$  learns from data $\mathcal{D}_n$  with performance measure $\mathcal{E}$ for task $t$, if $f$'s performance at $t$ improves with $n$.''
+---
+
+## What is Learning?
 
 
--- Tom Mitchell, 1997 (not exact quote)
+Given .ye[data] $\mathcal{D}$ in .ye[setting] $\mathcal{S}$, 
+
+.ye[$f$] learns when its .ye[performance] $\mathcal{E}$ improves due to data $\mathcal{D}$:
+
+.center[$f$ learns when $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,0)$ under $\mathcal{S}$.]
 
 
 
@@ -59,97 +72,81 @@ class: middle
 ## What are data?
 
 - $z_i \in \mathcal{Z}$ for $i \in [n]$ are measurements
-- Example 1: Classification
+- Classification Example
   -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
 
 
 
 
+---
 
-<!-- 
 
-- Example 2: Reinforcment Learning
-  - $Z$ is a sequence of states and actions + current state
-  - $P$ a distribution over current states conditioned on 
-      - past states 
-      - past actions -->
 
+## What is a Setting?
+
+
+Setting is provided by theBoss,  includes:
+-  Sample space: $\mathcal{Z}$, e.g., scalars, d-dimensional vectors, networks
+- Action space: $\mathcal{A}$, e.g., {&rarr;, &larr;, &uarr;, &darr;, A,B}, {reject, fail to reject}, $\mathbb{R}$
+- Query space: $\mathcal{Q}$, e.g., in which cluster is $z$?
+
+
+
+
+
+<!-- -  Performance function: $\mathcal{E}$, e.g., sum of mean square error  -->
+
+<!--  : \mathcal{F} \times \mathbb{Z} \rightarrow \mathbb{R}_{\geq 0} -->
+   
 
 ---
  
 
 
-## What is an Algorithm?
+## What is $f$?
 
-- $f_n$ is a  learner, which maps from a subset of $n$ samples to a hypothesis $h$
-- $f=f_1, f_2, \ldots$ is a sequence of learners, called a (single task) learning algorithm 
+We get to choose this, with constraints
 
+- A hypothesis, $h : \mathcal{Q} \rightarrow \mathcal{A}$ takes an action on the basis of a query
+- $f_n$ is a  learner, which maps from a subset of $n$ samples in $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
+- $f=f_1, f_2, \ldots$ is a sequence of learners, called a learning algorithm 
 
-$$f \in \mathcal{F}_{ST} = \lbrace  f_n : 2^{\mathcal{Z}^n} \rightarrow \mathcal{H}\rbrace$$ 
-
-
-
+$$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrace$$ 
 
 
 --
-
 
 
 - Example 1: Classification
   - $f$ is *RandomForestClassifier.fit*
   - $h$ is *RandomForestClassifier.predict*
 
-<!-- TODO@Ronak do i need both h and f? please make a compelling arguemtn for both yes and no :) -->
-
-
-<!-- --
-
-
-
-- Example 2: Reinforment Learning 
-  - $f$
-  - $h$ 
-   -->
 
 
 ---
 
 
-## What is Performance?
+## What are Constraints?
 
-- Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
-<!-- - some (complexity) constraints on  $f \in \mathcal{F}$, $f: \mathcal{Z}^n  \to \mathcal{H}$: -->
-- Loss quantifies the error 
-- Risk is a function of loss, eg, expected loss
-- Performance is generalization error: the expected risk of an algorithm 
-$$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))].$$
-where the expectation is with respect to the training data.
-
-
-
----
+Provided by subject matter expect and available resources, including:
+- Distributional constraints $P \in \mathcal{P}$, 
+  - e.g, mixture of K Gaussians, or convex
+- Decision rule (or hypothesis) constraints, $h \in \mathcal{H}$, 
+  - e.g., $\mathcal{O}(1)$, or k-sparse 
+- Learning rule constraints, $f \in \mathcal{F}$, 
+  - e.g., $\mathcal{O}(n)$, or Decision stump 
 
 
-## What is a Setting?
+<!-- Let $\mathcal{C}= \lbrace \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$. -->
 
-A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F} \rbrace$
-
-| Object | Notation | Example
-|:--- |:--- |:--- | 
-| Measurements  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
-| Actions |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
-| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
-| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
-| Distributions | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
-| Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
+Let $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{Q}, \mathcal{A}, \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$.
 
 
 ---
 
 ## Constraints 
 
-$\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learning 
+<!-- $\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learning  -->
 
 
 | Constraint | Example | 
@@ -163,14 +160,75 @@ $\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learn
 | price | $< 1$ USD on a given system for a given dataset  
 | hardware | must run on iPhone X
 
+---
+
+
+## What is Performance?
+
+
+- Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$ 
+- Assume each measurement $Z_i \in \mathcal{D}$ is sampled identically and independentally (iid) from  $P$.
+- Risk is an expectation function of loss, eg, expected loss, or median loss
+- Performance is generalization error, e.g., the expected risk of an algorithm given data corpus $\mathcal{D}$
+$$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))]. $$
+<!-- = \mathbb{E}\_{\mathcal{D}_n} [ \mathbb{E}_P [\ell(h(\cdot)) ] ].$$ -->
+<!-- where the expectation is with respect to the training data. -->
+
+
+<!-- 
+
+
+## What is the State of Nature?
+
+
+- Assume each measurement $z_i$ is a $\mathcal{Z}$-valued random variable,  $Z_i$, sampled identically and independentally (iid) from  $P$.
+- $P$ is true but unknown 
+- The goal is to learn some functional of $P$ that minimizes the performance function, $\mathcal{E}$  -->
+
+
+
 
 ---
 
 
-## What is a Task?
+## What is  Learning? 
 
-  <!-- - the learning algorithm $f= f_1, f_2, \ldots$  as the sequence that satisifies -->
-  <!-- $$f \in \mathcal{F} = \lbrace 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$$ -->
+
+
+Given data $\mathcal{D}$ in setting $\mathcal{S}$, 
+
+$f$ learns when its performance $\mathcal{E}$ improves due to data $\mathcal{D}$:
+
+.center[$f$ learns when $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,0)$ under $\mathcal{S}$.]
+
+
+
+
+  
+
+
+<!-- 
+## What is a Setting?
+
+A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F} \rbrace$
+
+| Object | Notation | Example
+|:--- |:--- |:--- | 
+| Measurements  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
+| Actions |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
+| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
+| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
+| Distributions | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
+| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
+| Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
+ -->
+
+
+---
+
+
+## What is a Learning Task?
+
 
 - Given 
   - a sample size $n$
@@ -180,17 +238,17 @@ $\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learn
 
   Find $f$ that minimizes generalization error for a specified $n$, $P$, and $\mathcal{S}$
 
-  $$f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}(f,\mathcal{D}).$$
+  $$f^* = \arg \min\_{f} \mathcal{E}(f,\mathcal{D}) \text{ subject to } \mathcal{S}.$$
   
   <!-- TODO@ronak n, P, and S are implicit in the above equation, maybe they shouldn't be? -->
   
-<br>  
+<!-- <br>   -->
 
-- the constraints on $\mathcal{P}$ and $\mathcal{H}$ can be encoded into constraints on $\mathcal{F}$.
-- the context is the other parts of a problem: $\lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R} \rbrace$.
+<!-- - the constraints on $\mathcal{P}$ and $\mathcal{H}$ can be encoded into constraints on $\mathcal{F}$.
+- the context is the other parts of a problem: $\lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R} \rbrace$. -->
 
 
----
+<!-- ---
 
 
 ## What is Learning?
@@ -211,7 +269,7 @@ $\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing
   - inductive bias of $\mathcal{H}$
   - estimation bias of $f$
   - model bias of $\mathcal{P}$
-
+ -->
 
 
 

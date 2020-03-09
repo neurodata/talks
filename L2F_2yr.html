@@ -721,24 +721,16 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 ## General Representations 
 
-<br> 
-
-.pull-left[
 - Transformers learn representations 
 - We desire representations that are sufficient for one task, and  useful for other tasks 
 - Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
-]
 
 --
 
-.pull-right[
-<img src="images/deep-polytopes.png" style="width:500px;"/>
-]
-
-<!-- - NNs with ReLu nodes  partitions feature space into  polytopes ([NIPS, 2014](http://papers.nips.cc/paper/5422-on-the-number-of-linear-regions-of-deep-neural-networks.pdf)). -->
+![:scale 100%](images/deep-polytopes.png)
 
 
-
+<!-- <img src="images/deep-polytopes.png" style="width:500px;"/> -->
 
 
 ---
@@ -847,6 +839,19 @@ class: middle
 Andrei A. Rusu et al. [Progressive Neural Networks](https://arxiv.org/abs/1606.04671), arXiv, 2016.
   
 <!-- Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019. -->
+
+
+---
+
+
+
+## Forward Transfer Efficiency
+
+- y-axis indicates .ye[forward transfer efficiency] (FTE), 
+  - which is the ratio of "single task error" to "error using past tasks"
+- each algorithm has a line
+  - if the line .ye[increases], that means it is doing "forward transfer"
+
 
 
 

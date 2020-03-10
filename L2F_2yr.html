@@ -46,11 +46,11 @@ class: middle
 
 --
 
-Given data $\mathcal{D}$ in setting $\mathcal{S}$, 
+Given $n$ data points in setting $\mathcal{S}$, assuming $P$, 
 
-$f$ learns when its performance $\mathcal{E}$ improves due to data $\mathcal{D}$:
+$f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
-.center[$f$ learns when $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,0)$ under $\mathcal{S}$.]
+.center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
 
 
 ---
@@ -58,11 +58,14 @@ $f$ learns when its performance $\mathcal{E}$ improves due to data $\mathcal{D}$
 ## What is Learning?
 
 
-Given .ye[data] $\mathcal{D}$ in .ye[setting] $\mathcal{S}$, 
 
-.ye[$f$] learns when its .ye[performance] $\mathcal{E}$ improves due to data $\mathcal{D}$:
+Given $n$ .ye[data] points in .ye[setting] $\mathcal{S}$, .ye[assuming] $P$, 
 
-.center[$f$ learns when $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,0)$ under $\mathcal{S}$.]
+.ye[$f$] learns  when its .ye[performance] $\mathcal{E}$ improves due to the data:
+
+.center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
+
+
 
 
 
@@ -101,6 +104,17 @@ The setting is determined by our resources:
 
 
 
+---
+
+
+## What is the Assumptions?
+
+These are required to have any theoretical performance guarantees, though they can be quite general:
+
+- Assume the data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_z \in \mathcal{P}_z$
+- Assume a query, $q \in \mathcal{Q}$ is sampled sampled from some true but unknown distribution $P_q \in \mathcal{P}_q$ 
+- Let $P = P_z \otimes P_q \in \mathcal{P}$ denote the joint distribution over samples and queries
+  
   
 
 ---
@@ -109,7 +123,7 @@ The setting is determined by our resources:
 
 ## What is $f$?
 
-We get to choose this, with constraints
+We get to choose this, though we must respect the resource constraints defined by the setting:
 
 - A hypothesis, $h : \mathcal{Q} \rightarrow \mathcal{A}$ takes an action on the basis of a query
 - $f_n$ is a  learner, which maps from a subset of $n$ samples in $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
@@ -121,7 +135,7 @@ $$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrac
 --
 
 
-- Example 1: Classification
+- Supervised machine learning example
   - $f$ is *RandomForestClassifier.fit*
   - $h$ is *RandomForestClassifier.predict*
 
@@ -169,31 +183,22 @@ Provided by subject matter expect and available resources, including:
 | hardware | must run on iPhone X
  -->
 
+
+
 ---
 
 
 ## What is Performance?
 
 
-- Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$ 
-- Assume each measurement  is sampled identically and independentally (iid) from  $P$.
-- Risk is an expectation function of loss, eg, expected loss, or median loss
-- Performance is generalization error, e.g., the expected risk of an algorithm given data corpus $\mathcal{D}$
-$$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))]. $$
-<!-- = \mathbb{E}\_{\mathcal{D}_n} [ \mathbb{E}_P [\ell(h(\cdot)) ] ].$$ -->
-<!-- where the expectation is with respect to the training data. -->
+- Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\ell: \mathcal{A} \to \mathbb{R}$, eg, 0-1 loss 
+- Risk is a function of the distribution of over queries, $\mathcal{R} : \mathbb{R} \times \mathcal{P}_q \to \mathcal{R}$, eg, expected loss, or median loss, 
+- Performance, also called  generalization error, is a function of the distribution of risk over datasets, $\mathcal{E} : \mathcal{F} \times \mathcal{P}_z \to \mathbb{R}$, eg, expected risk:
+$$ \mathcal{E}(f_n) := \mathcal{E}_P(f_n) = \mathbb{E}\_Z[\mathbb{E}_Q(f_n)]. $$
 
+<!-- More genearlly, the expectations can be expectations of functions of the above operands, for example, eg, the median can be written as $\min \mathbb{E}[ \mid X - c | - |X|]$ -->
 
-<!-- 
-
-
-## What is the State of Nature?
-
-
-- Assume each measurement $z_i$ is a $\mathcal{Z}$-valued random variable,  $Z_i$, sampled identically and independentally (iid) from  $P$.
-- $P$ is true but unknown 
-- The goal is to learn some functional of $P$ that minimizes the performance function, $\mathcal{E}$  -->
-
+<!-- TODO@ronak i don't know what \ell, \mathcal{R}, and \mathcal{E} domain and range are -->
 
 ---
 
@@ -202,16 +207,16 @@ $$ \mathcal{E}(f,\mathcal{D}) := \mathbb{E}\_P[\mathcal{R}(f(\mathcal{D}))]. $$
 
 
 
-Given data $\mathcal{D}$ in setting $\mathcal{S}$, 
+Given $n$ data points in setting $\mathcal{S}$, assuming $P$, 
 
-$f$ learns when its performance $\mathcal{E}$ improves due to data $\mathcal{D}$:
+$f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
-.center[$f$ learns when $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,0)$ under $\mathcal{S}$.]
-
-
+.center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
 
 
-<!-- $f$ learns from data $\mathcal{D}$ in setting $\mathcal{S}$ when its performance $\mathcal{E}$ improves due to data $\mathcal{D}$: -->
+
+
+<!-- $f$ learns from data $\mathcal{D}$ in setting $\mathcal{S}$ when its performance $\mathcal{E}$ improves due to the data $\mathcal{D}$: -->
 
 
   
@@ -239,20 +244,14 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 
 ## What is a Learning Task?
 
+- Given
+ - a sample size $n$
+ - a setting $\mathcal{S}$
+- Assume a true but unknown distribution $P \in \mathcal{P}$ 
+- Find $f$ that minimizes generalization error
 
-- Given 
-  - a sample size $n$
-  - a setting $\mathcal{S}$,
-- Assume  a true but unknown distribution $P$.
-- Find $f$ that minimizes generalization error for a specified $n$, $P$, and $\mathcal{S}$
+$$f^* = \arg \min\_{f} \mathcal{E}\_P(f_n).$$
 
-  $$f^* = \arg \min\_{f} \mathcal{E}\_P(f_n) \text{ subject to } \mathcal{S}.$$
-  
-  
-<!-- <br>   -->
-
-<!-- - the constraints on $\mathcal{P}$ and $\mathcal{H}$ can be encoded into constraints on $\mathcal{F}$.
-- the context is the other parts of a problem: $\lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R} \rbrace$. -->
 
 
 <!-- ---

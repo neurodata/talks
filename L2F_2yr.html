@@ -99,6 +99,7 @@ The setting is determined by our resources:
   - e.g., in which cluster is $z$? what is this object?
 - Constraints: $\mathcal{C}$,  determined by hardware, time, money, subject matter expertise
   - e.g., $\mathcal{O}(n)$ training time, k-sparse, 8 GB
+- A learning setting is the set $\mathcal{S} := \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$ 
 
 
 
@@ -214,13 +215,6 @@ $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
 
 
-
-<!-- $f$ learns from data $\mathcal{D}$ in setting $\mathcal{S}$ when its performance $\mathcal{E}$ improves due to the data $\mathcal{D}$: -->
-
-
-  
-
-
 <!-- 
 ## What is a Setting?
 
@@ -249,77 +243,56 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 - Assume a true but unknown distribution $P \in \mathcal{P}$ 
 - Find $f$ that minimizes generalization error
 
-$$f^* = \arg \min\_{f} \mathcal{E}\_P(f_n).$$
-
-
-
-<!-- ---
-
-
-## What is Learning?
-
-
-
-Letting $\mathcal{D}_0$ be a data corpus with no samples,
-
-
-.center[$f$ learns from data $\mathcal{D}$ iff $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0),$]
-
-
-
-
-
-$\mathcal{E}(f,\mathcal{D}_0)$ is the initial performance of $f$ prior to seeing data, and therefore a function of
-  - prior on $\theta$ 
-  - inductive bias of $\mathcal{H}$
-  - estimation bias of $f$
-  - model bias of $\mathcal{P}$
- -->
-
+$$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
 
 
 
 ---
 
 
-## A Transfer Learning Task? 
+## What is Transfer Learning?  
 
 
 - Let 
-  - $t_i \in \lbrace 0, 1 \rbrace$ label each sample
-  - $\mathcal{D}_0 = \lbrace (Z_i, T_i) : T_j = 0 \rbrace$ denote the .ye[target] data 
-  - $\mathcal{D} = \lbrace (Z_i, T_i) \, \forall i \in [n] \rbrace$
+  - $t_i \in \lbrace 0, 1 \rbrace$ label each sample, where $0$ denotes source and $1$ denotes target 
   - $\mathcal{Z}' = (\mathcal{Z},\lbrace 0,1 \rbrace)$
-- Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
+- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{zt}$, $Z\_i | T\_i=j \sim P\_j$, 
+- Let  $P = P_{zt} \otimes P_q \in \mathcal{P}'$
 - Define a transfer learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
-$$ \mathcal{F}_{TL} = \lbrace f_n : 2^{(\mathcal{Z} \times \lbrace 0,1 \rbrace )^n} \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \lbrace 0,1 \rbrace )^n \rightarrow \mathcal{H} \rbrace$$
 
-- Given
-  - a sample size $n$
-  - a true but unknown $P = \pi_0 P_0 + \pi_1 P_1$. 
-  - a target setting $\mathcal{S} := \mathcal{S}\_{TL} = \lbrace \mathcal{Z}', \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F}\_{TL} \rbrace$
+- Let  $f^t$ denote the learner that only sees samples where $t_i=t$. 
+<!-- - Define a transfer learning setting as $\mathcal{S}\_{TL} = \lbrace \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$ -->
+- Identify the appropriate performance function.
 
 
-<!-- - Let $P= \pi_0 P_0 + \pi_1 P_1$, where $P_0$ is the distribution of target data, and  -->
-
-<!-- "An algorithm $f$  .ye[transfer] learns from data $\mathcal{D}_j$  with respect to transfer learning task $t$ with performance measure $\mathcal{E}^t$, if $f$'s performance at task  $t$ improves  with $\mathcal{D}_j$." -->
 
 ---
 
 
-## What is Transfer Learning? 
+## What is Transfer Learning?
 
 
-Find the transfer learning algorithm $f$ that minimizes generalization error for the given $n$, $P$, and $\mathcal{S}$:
+Given $n$ data points in transfer learning setting $\mathcal{S}\_{TL}$, assuming $P$, 
 
-$$f^* = \arg \min\_{f \in \mathcal{F}_{TL}} \mathcal{E}(f,\mathcal{D}).$$
+$f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the source data:
 
-<br> 
+.center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_n^1)$.]
 
-$f$ .ye[transfer] learns for a given $n$, $P$, and $\mathcal{S}$ when 
-$\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$
+---
 
+
+## A Transfer Learning Task?  
+
+
+- Given
+  - a sample size $n$
+  - a transfer learning setting $\mathcal{S} := \mathcal{S}\_{TL} = \lbrace \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$
+- Assume a true but unknown distribution $P \in \mathcal{P}'$
+- Find $f$ that minimizes generalization error
+  $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
+  
 
 
       
@@ -330,20 +303,24 @@ $\mathcal{E}(f,\mathcal{D}) < \mathcal{E}(f,\mathcal{D}_0).$
 ## What is a Multitask? 
 
 
+- Let 
+  - $t_i \in [T]$ denote the task associated with sample $i$
+  - $\mathcal{Z}' = (\mathcal{Z}, [T])$
+- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{zt}$, $Z\_i | T\_i=t \sim P\_t$, 
+- Let  $P = P_{zt} \otimes P_q \in \mathcal{P}'$
+- Define a multi-task learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
-- Let  
-  - $t_i \in [J]$ denote the task associated with sample $i$
-  - $\mathcal{D}\_j = \lbrace (Z\_i, T\_i) : T\_i = j \rbrace$
-  - $\mathcal{D} =  \cup\_{j \in [J]} \mathcal{D}\_j$
-- Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
-- Define a multitask learning algorithm  as the sequence $f=f_1,f_2,\ldots$ where 
+$$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times [T] )^n \rightarrow \mathcal{H} \rbrace$$
 
-$$f \in  \mathcal{F}_{MT} = \lbrace f_n : 2^{(\mathcal{Z} \times [J] )^n} \rightarrow \mathcal{H}\rbrace$$ 
+- Let $f^t$ denote the learner that only sees samples where $t_i=t$. 
+- Identify the appropriate performance function.
 
+
+<!-- 
 - Given
   - a sample size $n$
   - a multi-setting $\mathcal{S} =  \lbrace \mathcal{S}_1, \mathcal{S}_2, \ldots, \mathcal{S}_J \rbrace$
-  - a true but unknown mixture distibution $P = \sum_{j \in [J]} \pi_j P_j$. 
+  - a true but unknown mixture distibution $P = \sum_{j \in [J]} \pi_j P_j$.  -->
 
 
 
@@ -353,24 +330,31 @@ $$f \in  \mathcal{F}_{MT} = \lbrace f_n : 2^{(\mathcal{Z} \times [J] )^n} \right
 ## What is Multitask Learning? 
 
 
-Find $f$ that minimizes generalization error for the given $n$, $P$, and $\mathcal{S}$:
 
-$$f^* = \arg \min\_{f \in \mathcal{F}_{MT}} \mathcal{E}(f,\mathcal{D}).$$
+Given $n$ data points in multitask learning setting $\mathcal{S}\_{MT}$, assuming $P$, 
+
+<!-- $f$ .ye[multitask] learns  when its performances on tasks $\mathcal{E}_t$'s  improves due to other task data. -->
+
+
+<!-- .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_n^1)$.] -->
+
+<!-- Find $f$ that minimizes generalization error for the given $n$, $P$, and $\mathcal{S}$: -->
+
+<!-- $$f^* = \arg \min\_{f \in \mathcal{F}_{MT}} \mathcal{E}(f,\mathcal{D}).$$ -->
 
 
 
-$f$  weakly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\mathcal{S}$ with sample size $n$ when
+$f$ .ye[weakly multitask] learns when its performances $\mathcal{E}_t$'s improve due to other task's data .ye[on average]:
 
-$$  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D} \mid j ) P(j) <  \sum\_{j \in [J]} \mathcal{E}(f,\mathcal{D}_j \mid j) P(j),$$ 
+$$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
 
 <br>
 
-and $f$ strongly .ye[multitask] learns from $\mathcal{D} \sim P$ in multi-setting $\mathcal{S}$ with sample size $n$  when 
+$f$ .ye[strongly multitask] learns when its performances $\mathcal{E}_t$'s improve due to other task's data .ye[for each task]:
 
-$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J].$$ 
+$$ \mathcal{E}\_t(f_n) < \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
 
 
-<!-- TODO@ronak i think n is implicit here. should we make it explicit? -->
 
 ---
 

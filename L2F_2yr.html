@@ -87,11 +87,16 @@ Given .ye[data] $\mathcal{D}$ in .ye[setting] $\mathcal{S}$,
 ## What is a Setting?
 
 
-Setting is provided by theBoss,  includes:
--  Sample space: $\mathcal{Z}$, e.g., scalars, d-dimensional vectors, networks
-- Action space: $\mathcal{A}$, e.g., {&rarr;, &larr;, &uarr;, &darr;, A,B}, {reject, fail to reject}, $\mathbb{R}$
-- Query space: $\mathcal{Q}$, e.g., in which cluster is $z$?
-- Constraints: $\mathcal{C}$, e.g., $\mathcal{O}(n)$ training time
+The setting is determined by our resources:
+
+-  Sample space: $\mathcal{Z}$,  determined by available sensors
+  - e.g., scalars, d-dimensional vectors, networks
+- Action space: $\mathcal{A}$,  determined by available actuators
+  - e.g., {&rarr;, &larr;, &uarr;, &darr;, A,B}, {reject, fail to reject}, $\mathbb{R}$
+- Query space: $\mathcal{Q}$, determined by system's "interface"
+  - e.g., in which cluster is $z$? what is this object?
+- Constraints: $\mathcal{C}$,  determined by hardware, time, money, subject matter expertise
+  - e.g., $\mathcal{O}(n)$ training time, k-sparse, 8 GB
 
 
 
@@ -237,13 +242,11 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 
 - Given 
   - a sample size $n$
-  - a true but unknown distribution $P$.
   - a setting $\mathcal{S}$,
+- Assume  a true but unknown distribution $P$.
+- Find $f$ that minimizes generalization error for a specified $n$, $P$, and $\mathcal{S}$
 
-
-  Find $f$ that minimizes generalization error for a specified $n$, $P$, and $\mathcal{S}$
-
-  $$f^* = \arg \min\_{f} \mathcal{E}\_P(f,\mathcal{D}_n) \text{ subject to } \mathcal{S}.$$
+  $$f^* = \arg \min\_{f} \mathcal{E}\_P(f_n) \text{ subject to } \mathcal{S}.$$
   
   
 <!-- <br>   -->

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>L2M 2yr</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="fonts/quadon/quadon.css">
-    <link rel="stylesheet" href="fonts/gentona/gentona.css">
-    <link rel="stylesheet" href="slides_style_i.css">
-    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
-  </head>
-  <body>
-    <textarea id="source">
+
+<head>
+  <title>L2M 2yr</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style_i.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <textarea id="source">
 
 
 
- 
+
 
 ### Lifelong Learning Machines 
 
@@ -132,13 +134,14 @@ The setting is determined by our resources:
 ---
 
 
-## What is the Assumptions?
+## What are the Assumptions?
 
 These are required to have any theoretical performance guarantees, though they can be quite general:
 
 - Assume the data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_z \in \mathcal{P}_z$
-- Assume a query, $q \in \mathcal{Q}$ is sampled sampled from some true but unknown distribution $P_q \in \mathcal{P}_q$ 
-- Let $P = P_z \otimes P_q \in \mathcal{P}$ denote the joint distribution over samples and queries
+- Assume a query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_q \in \mathcal{P}_q$ 
+- Assume an optimal action , $a \in \mathcal{a}$ given $q$, is sampled from some true but unknown distribution $P\_{a \mid q} \in \mathcal{P}_{a \mid q}$ 
+- Let $P = P\_z \otimes P\_{q, a} \in \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
   
   
 
@@ -216,10 +219,18 @@ Provided by subject matter expect and available resources, including:
 ## What is Performance?
 
 
-- Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\ell: \mathcal{A} \to \mathbb{R}$, eg, 0-1 loss 
-- Risk is a function of the distribution of over queries, $\mathcal{R} : \mathbb{R} \times \mathcal{P}_q \to \mathcal{R}$, eg, expected loss, or median loss, 
-- Performance, also called  generalization error, is a function of the distribution of risk over datasets, $\mathcal{E} : \mathcal{F} \times \mathcal{P}_z \to \mathbb{R}$, eg, expected risk:
-$$ \mathcal{E}(f_n) := \mathcal{E}_P(f_n) = \mathbb{E}\_Z[\mathbb{E}_Q(f_n)]. $$
+- Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\ell: \mathcal{A} \times \mathcal{A} \to \mathbb{R}$, eg, 0-1 loss
+$$ \ell(a, a') := \mathbb{I}[a \neq a']. $$
+
+--
+
+- Risk is a function of the hypothesis, loss, distribution of over queries and optimal actions, $R : \mathcal{H} \times \mathcal{L} \times \mathcal{P}\_{q, a} \to \mathcal{R}$, eg, expected loss, or median loss. We think of this only as a function of $\color{yellow}{h \in \mathcal{H}}$, e.g.
+$$ R(\color{yellow}{h}) := R(\color{yellow}{h}, \ell, P\_{q, a}) = \ \mathbb{E}\_{Q, A}[\ell(\color{yellow}{h}(Q), A)]. $$ 
+
+--
+
+- Performance, also called  generalization error, is a function of the distribution of risk over datasets, $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$, eg, expected risk. We think of this only as a function of $\color{yellow}{f\_n \in \mathcal{F}}$, e.g.
+$$ \mathcal{E}(\color{yellow}{f\_n}) := \mathcal{E}(\color{yellow}{f\_n}, R, P\_{z}) = \ \mathbb{E}\_z[R(\color{yellow}{f\_n}(Z))]. $$
 
 <!-- More genearlly, the expectations can be expectations of functions of the above operands, for example, eg, the median can be written as $\min \mathbb{E}[ \mid X - c | - |X|]$ -->
 
@@ -1562,42 +1573,45 @@ class: middle
 
 
 </textarea>
-<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
-<!-- <script src="remark-latest.min.js"></script> -->
-<script src="remark-latest.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
-<script type="text/javascript">
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <!-- <script src="remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
 
-  var options = {};
-  var renderMath = function() {
-    renderMathInElement(document.body);
-    // or if you want to use $...$ for math,
-    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
-        {left: "$$", right: "$$", display: true},
-        {left: "$", right: "$", display: false},
-        {left: "\\[", right: "\\]", display: true},
-        {left: "\\(", right: "\\)", display: false},
-    ]});
-  }
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
 
-  remark.macros.scale = function (percentage) {
-    var url = this;
-    return '<img src="' + url + '" style="width: ' + percentage + '" />';
-  };
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
 
-  // var slideshow = remark.create({
-  // Set the slideshow display ratio
-  // Default: '4:3'
-  // Alternatives: '16:9', ...
-  // {
-  // ratio: '16:9',
-  // });
+    // var slideshow = remark.create({
+    // Set the slideshow display ratio
+    // Default: '4:3'
+    // Alternatives: '16:9', ...
+    // {
+    // ratio: '16:9',
+    // });
 
-  var slideshow = remark.create(options, renderMath);
+    var slideshow = remark.create(options, renderMath);
 
 
-</script>
+  </script>
 </body>
+
 </html>

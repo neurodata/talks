@@ -40,13 +40,15 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 
 - Formalized Lifelong Learning as generalization of classical machine learning
-- Introduced novel evaluation criteria: forward and reverse transfer efficiency
+- Introduced novel evaluation criteria: forward and backward transfer efficiency
 - Proposed generic omnidirectional transfer learning algorithm framework by ensembling  representations
 - Implemented Lifelong Forests as a specific example 
 - Demonstrated Lifelong Forests uniquely exhibits 
-    - reverse transfer 
-    - transfer efficiency
+    - positive forward transfer 
+    - positive backward transfer 
+    - positive transfer
 - Conjectured theory promising to prove consistency and robustness
+- Described equivalence between Decision Forests and Deep Nets
 
 
 
@@ -55,8 +57,8 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 ##  Key Insights
 
-1. Avoiding catastrophic forgetting simply means reverse transfer is 1, but why stop there?
-2. Ensembling internal representations  enables reverse transfer > 1
+1. Avoiding catastrophic forgetting simply means backward transfer is 1, but why stop there?
+2. Ensembling internal representations  enables positive backward transfer
 
 
 
@@ -72,11 +74,16 @@ class: middle
 ## What is Learning?
 
 
-Given $n$ data points in setting $\mathcal{S}$, assuming $P$, 
+Given $n$ new data points in setting $\mathcal{S}$, assuming $P$, 
 
 $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
 .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
+
+--
+
+
+$\mathcal{E}(f_0)$ is the current performance of $f$ prior to seeing $n$ new data 
 
 
 ---
@@ -85,11 +92,12 @@ $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
 
 
-Given $n$ .ye[data] points in .ye[setting] $\mathcal{S}$, .ye[assuming] $P$, 
+Given $n$ new .ye[data] points in .ye[setting] $\mathcal{S}$, .ye[assuming] $P$, 
 
 .ye[$f$] learns  when its .ye[performance] $\mathcal{E}$ improves due to the data:
 
 .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
+
 
 
 
@@ -225,12 +233,17 @@ $$ \ell(a, a') := \mathbb{I}[a \neq a']. $$
 --
 
 - Risk is a function of the hypothesis, loss, distribution of over queries and optimal actions, $R : \mathcal{H} \times \mathcal{L} \times \mathcal{P}\_{q, a} \to \mathcal{R}$, eg, expected loss, or median loss. We think of this only as a function of $\color{yellow}{h \in \mathcal{H}}$, e.g.
-$$ R(\color{yellow}{h}) := R(\color{yellow}{h}, \ell, P\_{q, a}) = \ \mathbb{E}\_{Q, A}[\ell(\color{yellow}{h}(Q), A)]. $$ 
+$$ R(\color{yellow}{h}) := R(\color{yellow}{h}; \ell, P\_{q, a}) = \ \mathbb{E}\_{Q, A}[\ell(\color{yellow}{h}(Q), A)]. $$ 
 
---
+
+---
+
+
+## What is Performance?
+
 
 - Performance, also called  generalization error, is a function of the distribution of risk over datasets, $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$, eg, expected risk. We think of this only as a function of $\color{yellow}{f\_n \in \mathcal{F}}$, e.g.
-$$ \mathcal{E}(\color{yellow}{f\_n}) := \mathcal{E}(\color{yellow}{f\_n}, R, P\_{z}) = \ \mathbb{E}\_z[R(\color{yellow}{f\_n}(Z))]. $$
+$$ \mathcal{E}(\color{yellow}{f\_n}) := \mathcal{E}(\color{yellow}{f\_n}; R, P\_{z}) = \ \mathbb{E}\_z[R(\color{yellow}{f\_n}(Z))]. $$
 
 <!-- More genearlly, the expectations can be expectations of functions of the above operands, for example, eg, the median can be written as $\min \mathbb{E}[ \mid X - c | - |X|]$ -->
 
@@ -248,6 +261,14 @@ Given $n$ data points in setting $\mathcal{S}$, assuming $P$,
 $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
 .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
+
+
+$\mathcal{E}(f_0)$ is the current performance of $f$ prior to seeing $n$ new data points, and therefore a function of
+  - prior on $\theta$ 
+  - inductive bias of $\mathcal{H}$
+  - estimation bias of $f$
+  - model bias of $\mathcal{P}$
+  - pre-training
 
 
 
@@ -559,7 +580,7 @@ Algorithm $ f $ transfer learns if $ TE_j(f) > 1 $.
 ---
  
 
-## Forward / Reverse TE 
+## Forward / Backward TE 
 
 
 - Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_j\}$ be the set of all data up to sample $n_j$.
@@ -571,16 +592,16 @@ $$
 --
 
 
-<!-- ## Reverse Transfer Efficiency -->
+<!-- ## Backward Transfer Efficiency -->
 
 
-<!-- Reverse Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
+<!-- Backward Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
 
 
-- Reverse transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .ye[after] task $j$ 
+- Backward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .ye[after] task $j$ 
 
 
-<!-- The reverse transfer efficiency of $ f $ for task $j$ is  -->
+<!-- The backward transfer efficiency of $ f $ for task $j$ is  -->
 $$    RTE\_j(f) := 
 \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
 $$
@@ -890,18 +911,18 @@ Lifelong Forests demonstrates the .ye[largest forward transfer].
 
 
 
-## Reverse Transfer Efficiency
+## Backward Transfer Efficiency
 
-- y-axis indicates .ye[reverse transfer efficiency] (RTE), 
+- y-axis indicates .ye[backward transfer efficiency] (RTE), 
   - which is the ratio of "single task error" to "error using future tasks"
 - each task will have a line
-  - if the line .ye[increases], that means it is doing "reverse transfer"
+  - if the line .ye[increases], that means it is doing "backward transfer"
 
 
 ---
  
 
-Lifelong Forests .ye[uniquely exhibits reverse transfer].
+Lifelong Forests .ye[uniquely exhibits backward transfer].
 
 
 <!-- <img src="images/CIFAR_RTE.png" style="height:530px;" /> -->
@@ -1353,11 +1374,11 @@ class: middle, inverse
 
 
 - Formalized Lifelong Learning as generalization of classical machine learning
-- Introduced novel evaluation criteria: forward and reverse transfer efficiency
+- Introduced novel evaluation criteria: forward and backward transfer efficiency
 - Proposed generic lifelong learning algorithm framework by ensembling internal representations
 - Implemented Lifelong Forests as a specific example 
 - Demonstrated Lifelong Forests uniquely exhibits 
-    - reverse transfer 
+    - backward transfer 
     - stong lifelong learning
 - Conjectured theory promising to prove consistency and robustness
 
@@ -1444,17 +1465,17 @@ The key is learning internal representations of each data sample that is useful 
 
 **Forward Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including .ye[all past data]. 
 
-**Reverse Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .ye[all data, both past and future].
+**Backward Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .ye[all data, both past and future].
 
 --
 
-If you don't reverse transfer, you haven't lifelong learned.
+If you don't backward transfer, you haven't lifelong learned.
 
 
 ---
  
 
-.ye[Lifelong Forests] uniquely exhibits reverse transfer.
+.ye[Lifelong Forests] uniquely exhibits backward transfer.
 
 
 <img src="images/cifar-rte.png" style="height:530px;" />
@@ -1515,7 +1536,7 @@ class: middle
 ---
  
 
-## Can Humans Reverse Transfer?
+## Can Humans Backward Transfer?
 
 
 - "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)

@@ -69,7 +69,7 @@ Either
 ##  Key Insights
 
 1. Avoiding catastrophic forgetting simply no data don't hurt performance on old tasks, but why stop there?
-1. The key to lifelong learning is the ability to transfer knowledge from one settting to others (both past and future).
+1. The key to lifelong learning is the ability to transfer knowledge from one setting to others (both past and future).
 2. This can be achieved by
   1. Learning new representation functions as necessary
   1. Ensembling  representations to take actions.
@@ -116,7 +116,7 @@ Given a sequence of samples associated with different tasks (and task labels if 
 
 A system has .ye[weakly] lifelong learned if the data improves task performance .ye[on average], and has .ye[strongly] lifelong learned if the data improves task performance .ye[for each task].
 
-Thus, the only way to lifelong learn is by .ye[transfering knowledge], ideally both forward (to improve future task performance) and backward (to improve past task performance).
+Thus, the only way to lifelong learn is by .ye[transferring knowledge], ideally both forward (to improve future task performance) and backward (to improve past task performance).
 
 Motivation: in biology, learning subsequent tasks often improves performance on past and future tasks.
 
@@ -1101,7 +1101,7 @@ class: middle
 3. Data must be batched into tasks (no sequential implementation)
 4. Tasks must be known (no implementation that imputes task ID)
 5. Feature space must be the same for all tasks (no data fusion step)
-6. Only unimodal data supported (no multimodal implementaiton)
+6. Only unimodal data supported (no multimodal implementation)
 1. Internal representation grows linearly with # of tasks (no pruning)
 1. Must grow rather than recruit new internal representations (no pre-training implemented)      
 1. No support for specific modalities (e.g., images)

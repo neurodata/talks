@@ -55,11 +55,43 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 ---
 
 
+## Current State of the Art 
+
+Either 
+1. Used fixed architecture, finite capacity
+2. Increase capacity, with complicated architecture 
+
+
+
+---
+
+
 ##  Key Insights
 
-1. Avoiding catastrophic forgetting simply means backward transfer  efficiency is 1, but why stop there?
+1. Avoiding catastrophic forgetting simply no data don't hurt performance on old tasks, but why stop there?
 1. The key to lifelong learning is the ability to transfer knowledge from one settting to others (both past and future).
-2. Ensembling internal representations  enables positive  transfer.
+2. This can be achieved by
+  1. Learning new representation functions as necessary (e.g., for a new task)
+  1. Ensembling  representations to take actions.
+
+
+
+---
+
+
+## Key Metrics
+
+
+**Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including lots of other data.
+
+**Forward Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including .ye[all past data]. 
+
+**Backward Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .ye[all data, both past and future].
+
+--
+
+If you don't  transfer, you haven't lifelong learned.
+
 
 
 ---
@@ -72,11 +104,15 @@ class: middle
 
 ## What is lifelong Learning?
 
-Given a sequence of samples associated with different tasks (and task labels if available), assuming samples and tasks are sampled from some true but unknown distribution, a lifelong learning algorithm updates an existing decision rule using the samples (and tasks if available) in an effort to jointly improve performances across all tasks.
+Given a sequence of samples associated with different tasks (and task labels if available),  a lifelong learning system updates decision rules using the data  to  improve performances across  tasks.
 
 A system has .ye[weakly] lifelong learned if the data improves task performance .ye[on average], and has .ye[strongly] lifelong learned if the data improves task performance .ye[for each task].
 
 Thus, the only way to lifelong learn is by .ye[transfering knowledge], ideally both forward (to improve future task performance) and backward (to improve past task performance).
+
+Motivation: in biology, learning subsequent tasks often improves performance on past and future tasks.
+
+The key is updating internal representations with each sample that are useful for multiple tasks.
 
 --
 
@@ -610,14 +646,23 @@ class: middle
 
 ### Algorithm
 
+---
 
+## Basic Idea 
+
+For each new task, learn a new representation function, apply it to all data from all tasks, and the updated representation for everything is the composition of this new representation with existing representations.  Then, update decision rule using this representation.
+
+Notes:
+- This linearly increases representation capacity.
+- Without increasing representation capacity, performance on all tasks will necessarily drop to chance levels eventually as number of tasks increases.
+- Thus, fixed capacity systems can only lifelong learn insofar as they are inefficient (unnecessarily big) for individual tasks.
 
 ---
  
 
 ## Composable Hypotheses 
 
-.center[ .ye[$h := w \circ v \circ u = w(v(u(x)))$]]
+.center[ .ye[$h(\cdot) := w \circ v \circ u (\cdot) = w(v(u(\cdot)))$]]
 
 - Let $u$ be .ye[transformer] data to a new representation, 
 
@@ -635,7 +680,6 @@ $$ v : \tilde{\mathcal{X}} \to \mathcal{P}_{A|X}$$
 $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 
-<!-- - $h=w(v(u(z)))$ -->
 
 
 
@@ -694,14 +738,14 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 - .ye[Different transformers can composed with  voters]
 - Learn many different transformers $u_t(\cdot)$'s 
-- For each $u\_t$, learn voter per task $v\_{j,j'}$'s 
+- For each $u\_t$, learn voter per task $v\_{t,t'}$'s 
 - Use the decider to weight the various options 
 - This is .ye[ensembling representations].
 
 ### Notes
 
-- We learn new representation for each task 
-- Dimensionality of internal representation grows linearly with number of tasks
+- We learn new representation for each task. 
+- Dimensionality of internal representation grows linearly with number of tasks.
 
 
 
@@ -723,7 +767,7 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 | Multiple independent task learning | $ h_t(\cdot) = w_t \circ  v_t \circ u_t (\cdot)$ 
 | Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_t [ v_t \circ u_t (\cdot)] $ 
 | Multitask learning | $ h_t(\cdot) = w_t \circ  v  \circ \bigcup_t  u_t (\cdot)$
-| .ye[Multitask ensemble representation learning]  | $ h\_t(\cdot) = w\_t \circ  \bigcup\_{j'}  [v\_{j,j'}  \circ    u\_{j'} (\cdot) ] $
+| .ye[Multitask ensemble representation learning]  | $ h\_t(\cdot) = w\_t \circ  \bigcup\_{t'}  [v\_{t,t'}  \circ    u\_{t'} (\cdot) ] $
 
 
 
@@ -743,7 +787,7 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 - Any learner with an explicit internal representation is ok, 
   - e.g.,  decision trees, decision forests, deep networks 
-- SVM, k-NN, etc., are not
+- SVM's are not
 
 
 
@@ -913,7 +957,7 @@ Lifelong Forests .ye[uniquely exhibits backward transfer].
 <!-- <img src="images/CIFAR_BTE.png" style="height:530px;" /> -->
 
 <!-- TODO@JD: replace with average BTE and add legend outside -->
-<img src="images/cifar-100-BTE.svg" style="height:550px;" /> 
+<!-- <img src="images/cifar-100-BTE.svg" style="height:550px;" />  -->
 
 ![:scale 100%](images/cifar-100-BTE.svg)
 
@@ -940,7 +984,7 @@ Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
 
 ---
 
-Lifelong Forests accuracy is worse than .ye[C]NNs with O(10M) parameters, and better than .ye[D]NNs with O(1M) parameters 
+Lifelong Forests accuracy is worse than .ye[C]NNs with O(10M) parameters, and better than .ye[D]NNs with O(1M) parameters. 
 
 
 ![:scale 100%](images/cifar-100-E.svg)
@@ -1352,121 +1396,18 @@ class: middle, inverse
 ## .center[Extra Slides]
 
 
----
-
-
-##  Key Accomplishments
-
-
-- Formalized Lifelong Learning as generalization of classical machine learning
-- Introduced novel evaluation criteria: forward and backward transfer efficiency
-- Proposed generic lifelong learning algorithm framework by ensembling internal representations
-- Implemented Lifelong Forests as a specific example 
-- Demonstrated Lifelong Forests uniquely exhibits 
-    - backward transfer 
-    - stong lifelong learning
-- Conjectured theory promising to prove consistency and robustness
-
-
-
 
 ---
 
 
-## References 
+## Background 
 
-1. H. Helm et al. Lifelong Learning Forests, 2020
-1. R. Mehta et al. A General Theory of Learnability, 2020. 
 3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
-1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
-1. R. Perry, et al. Manifold Forests: Closing the Gap on Neural Networks. preprint, 2019.
-1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2018
 7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.
-1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
 
 More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 
 
-
----
-class: middle
-
-# Summary
-
-
----
-
-
-## What is Lifelong Learning?
-
-A computational system .ye[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
-
-
----
-
-
-## What is Lifelong Learning?
-
-A computational system .ye[lifelong learns] from data if, given a stream of data and tasks, data associated with one task is used to improve performance on both past and future tasks. 
-
-
-Motivation: in biology, learning subsequent tasks often improves performance on previously learned tasks 
-
-
-The key is learning internal representations of each data sample that is useful for multiple tasks
-
-
----
-
-
-## Current State of the Art 
-
-1. Used fixed architecture, finite capacity
-2. Increase capacity, with complicated architecture 
-
-
----
-
-
-## Our Approach 
-
-
-1. Formally define lifelong learning as a generalization of single task machine learning, with suitable metrics 
-2. Develop a generic lifelong learning approach, Omni-Directional Ensembling Representation (ODER)
-  1. Learn a new representation for each task
-  2. Ensemble all representations to make predictions 
-3. Implement a specific example of this approach, Lifelong Forests 
-4. Demonstrate that Lifelong Forests uniquely demonstrates lifelong learning
-
-
-
----
-
-
-## Evaluation Criteria ("Metrics")
-
-
-**Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including lots of other data.
-
-**Forward Transfer Efficiency**: Performance on a task with only task-specific data, normalized by performance on the task including .ye[all past data]. 
-
-**Backward Transfer Efficiency**: Performance on a task with only up until and including task-specific data, normalized by performance on .ye[all data, both past and future].
-
---
-
-If you don't backward transfer, you haven't lifelong learned.
-
-
----
- 
-
-.ye[Lifelong Forests] uniquely exhibits backward transfer.
-
-
-<img src="images/cifar-rte.png" style="height:530px;" />
-
-
-      
 
 
 ---

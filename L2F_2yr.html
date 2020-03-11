@@ -1098,13 +1098,16 @@ class: middle
 ## Limitations 
 
 2. Tasks must be discrete 
-3. Data must be batched into tasks 
-4. Tasks must be known 
-5. Feature space must be the same for all tasks 
-6. Only unimodal data supported (e.g., images)
-1. Internal representation grows linearly with # of tasks 
-1. Must grow rather than recruit new internal representations       
-      
+3. Data must be batched into tasks (no sequential implementation)
+4. Tasks must be known (no implementation that imputes task ID)
+5. Feature space must be the same for all tasks (no data fusion step)
+6. Only unimodal data supported (no multimodal implementaiton)
+1. Internal representation grows linearly with # of tasks (no pruning)
+1. Must grow rather than recruit new internal representations (no pre-training implemented)      
+1. No support for specific modalities (e.g., images)
+1. No extension to reinforcement learning 
+1. No implementation using deep nets      
+
 
 ---
 

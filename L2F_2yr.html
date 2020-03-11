@@ -39,17 +39,17 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 
 
-- Formalized Lifelong Learning as generalization of classical machine learning
-- Introduced novel evaluation criteria: forward and backward transfer efficiency
-- Proposed generic omnidirectional transfer learning algorithm framework by ensembling  representations
-- Implemented Lifelong Forests as a specific example 
-- Demonstrated Lifelong Forests uniquely exhibits 
-    - positive forward transfer 
-    - positive backward transfer 
-    - positive transfer
-- Conjectured theory promising to prove consistency and robustness
-- Described equivalence between Decision Forests and Deep Nets
-
+1. Formalized Lifelong Learning as generalization of classical machine learning
+1. Introduced novel evaluation criteria: forward and backward transfer efficiency
+1. Proposed  omnidirectional transfer learning algorithm framework by ensembling  representations
+1. Implemented Lifelong Forests (LF) as a specific example 
+1. Demonstrated LF uniquely exhibits 
+    1. positive forward transfer 
+    1. positive backward transfer 
+    1. positive overall transfer
+1. Conjectured theory promising to prove consistency and robustness
+1. Described equivalence between Decision Forests and Deep Nets
+1. Proposed extension to implement and improve via Deep Nets
 
 
 ---
@@ -57,9 +57,9 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 ##  Key Insights
 
-1. Avoiding catastrophic forgetting simply means backward transfer is 1, but why stop there?
-2. Ensembling internal representations  enables positive backward transfer
-
+1. Avoiding catastrophic forgetting simply means backward transfer  efficiency is 1, but why stop there?
+1. The key to lifelong learning is the ability to transfer knowledge from one settting to others (both past and future).
+2. Ensembling internal representations  enables positive  transfer.
 
 
 ---
@@ -68,6 +68,19 @@ class: middle
 ### A General Theory of the Learnable
 
 
+---
+
+## What is lifelong Learning?
+
+Given a sequence of samples associated with different tasks (and task labels if available), assuming samples and tasks are sampled from some true but unknown distribution, a lifelong learning algorithm updates an existing decision rule using the samples (and tasks if available) in an effort to jointly improve performances across all tasks.
+
+A system has .ye[weakly] lifelong learned if the data improves task performance .ye[on average], and has .ye[strongly] lifelong learned if the data improves task performance .ye[for each task].
+
+Thus, the only way to lifelong learn is by .ye[transfering knowledge], ideally both forward (to improve future task performance) and backward (to improve past task performance).
+
+--
+
+Let's formalize it...
 
 ---
 
@@ -83,7 +96,7 @@ $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 --
 
 
-$\mathcal{E}(f_0)$ is the current performance of $f$ prior to seeing $n$ new data 
+$\mathcal{E}(f_0)$ is the  performance of $f$ prior to seeing $n$ new data. 
 
 
 ---
@@ -124,7 +137,7 @@ Given $n$ new .ye[data] points in .ye[setting] $\mathcal{S}$, .ye[assuming] $P$,
 ## What is a Setting?
 
 
-The setting is determined by our resources:
+The setting is determined by the available resources:
 
 -  Sample space: $\mathcal{Z}$,  determined by available sensors
   - e.g., scalars, d-dimensional vectors, networks
@@ -134,7 +147,7 @@ The setting is determined by our resources:
   - e.g., in which cluster is $z$? what is this object?
 - Constraints: $\mathcal{C}$,  determined by hardware, time, money, subject matter expertise
   - e.g., $\mathcal{O}(n)$ training time, k-sparse, 8 GB
-- A learning setting is the set $\mathcal{S} := \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$ 
+- A learning setting is an element of the set $\mathcal{S} := \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$ 
 
 
 
@@ -146,10 +159,10 @@ The setting is determined by our resources:
 
 These are required to have any theoretical performance guarantees, though they can be quite general:
 
-- Assume the data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_z \in \mathcal{P}_z$
-- Assume a query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_q \in \mathcal{P}_q$ 
-- Assume an optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{a \mid q} \in \mathcal{P}_{a \mid q}$ 
-- Let $P = P\_z \otimes P\_{q, a} \in \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
+- Assume the data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_Z \in \mathcal{P}_Z$
+- Assume a query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \mathcal{P}_Q$ 
+- Assume an optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \mathcal{P}_{A \mid Q}$ 
+- Let $P = P\_Z \otimes P\_{A, Q} \in \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
   
   
 
@@ -227,15 +240,16 @@ Provided by subject matter expect and available resources, including:
 ## What is Performance?
 
 
-- Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\ell: \mathcal{A} \times \mathcal{A} \to \mathbb{R}$, where $\ell \in \mathcal{L}$, e.g., 0-1 loss
-$$ \ell(a, a') := \mathbb{I}[a \neq a']. $$
+- Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\ell: \mathcal{A} \times \mathcal{A} \to \mathbb{R}$, where $\ell \in \mathcal{L}$, 
+  - e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a']. $
 
 <!-- $\mathsf{l}, \mathsf{R}, \mathsf{E}, \mathsf{h}, l, R, E, h$ -->
 
 --
 
-- Risk is a function of the hypothesis, loss, distribution of over queries and optimal actions, $R : \mathcal{H} \times \mathcal{L} \times \mathcal{P}\_{q, a} \to \mathbb{R}$, where $R \in \mathcal{R}$, eg, expected loss, or median loss. We think of this only as a function of $\color{yellow}{h \in \mathcal{H}}$, e.g.
-$$ R(\color{yellow}{h}) := R(\color{yellow}{h}; \ell, P\_{q, a}) = \ \mathbb{E}\_{Q, A}[\ell(\color{yellow}{h}(Q), A)]. $$ 
+- Risk quantifies the loss over the whole query sample space, $\mathcal{R} = \lbrace R : \mathcal{H} \times \mathcal{L} \times \mathcal{P}\_{Q, A} \to \mathbb{R} \rbrace$ 
+ - We think of this only as a function of $h \in \mathcal{H}$, because the loss and distribution effectively index the function
+  - eg, expected loss $ R(h) := R(h; \ell, P\_{Q, A}) = \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $ 
 
 
 ---
@@ -244,12 +258,12 @@ $$ R(\color{yellow}{h}) := R(\color{yellow}{h}; \ell, P\_{q, a}) = \ \mathbb{E}\
 ## What is Performance?
 
 
-- Performance, also called  generalization error, is a function of the distribution of risk over datasets, $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$,  e.g., expected risk. We think of this only as a function of $\color{yellow}{f\_n \in \mathcal{F}}$, e.g.
-$$ \mathcal{E}(\color{yellow}{f\_n}) := \mathcal{E}(\color{yellow}{f\_n}; R, P\_{z}) = \ \mathbb{E}\_z[R(\color{yellow}{f\_n}(Z))]. $$
+- Performance, also called  generalization .ye[error], quantifies risk over the distribution of possible training datasets,  $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$,  
+ - We think of this only as a function of $f\_n \in \mathcal{F}$, for the same reason as above 
+  - e.g., expected risk: 
+$ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(\cdot))]. $
 
-<!-- More genearlly, the expectations can be expectations of functions of the above operands, for example, eg, the median can be written as $\min \mathbb{E}[ \mid X - c | - |X|]$ -->
-
-<!-- TODO@ronak i don't know what \ell, \mathcal{R}, and \mathcal{E} domain and range are -->
+<!-- TODO@ronak i put a \cdot in there. ok? -->
 
 ---
 
@@ -258,14 +272,14 @@ $$ \mathcal{E}(\color{yellow}{f\_n}) := \mathcal{E}(\color{yellow}{f\_n}; R, P\_
 
 
 
-Given $n$ data points in setting $\mathcal{S}$, assuming $P$, 
+Given $n$ new data points in setting $\mathcal{S}$, assuming $P$, 
 
 $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
 .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
 
 
-$\mathcal{E}(f_0)$ is the current performance of $f$ prior to seeing $n$ new data points, and therefore a function of
+$\mathcal{E}(f_0)$ is the  performance of $f$ prior to seeing $n$ new data points, and therefore a function of
   - prior on $\theta$ 
   - inductive bias of $\mathcal{H}$
   - estimation bias of $f$
@@ -285,7 +299,7 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 | Actions |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
 | Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
 | Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
-| Distributions | $\mathcal{P} := \lbrace P_z \rbrace$ | Gaussian
+| Distributions | $\mathcal{P} := \lbrace P_Z \rbrace$ | Gaussian
 | Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
 | Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
  -->
@@ -315,8 +329,8 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
 - Let 
   - $t_i \in \lbrace 0, 1 \rbrace$ label each sample, where $0$ denotes source and $1$ denotes target 
   - $\mathcal{Z}' = (\mathcal{Z},\lbrace 0,1 \rbrace)$
-- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{zt}$, $Z\_i | T\_i=j \sim P\_j$, 
-- Let  $P = P_{zt} \otimes P_q \in \mathcal{P}'$
+- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=j \sim P\_t$, 
+- Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
 - Define a transfer learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
 $$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \lbrace 0,1 \rbrace )^n \rightarrow \mathcal{H} \rbrace$$
@@ -333,7 +347,7 @@ $$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \lbrace 0,1 \rbrace )^n 
 ## What is Transfer Learning?
 
 
-Given $n$ data points in transfer learning setting $\mathcal{S}\_{TL}$, assuming $P$, 
+Given $n$ source target data points in transfer learning setting $\mathcal{S}\_{TL}$, assuming $P$, 
 
 $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the source data:
 
@@ -365,21 +379,15 @@ $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the
 - Let 
   - $t_i \in [T]$ denote the task associated with sample $i$
   - $\mathcal{Z}' = (\mathcal{Z}, [T])$
-- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{zt}$, $Z\_i | T\_i=t \sim P\_t$, 
-- Let  $P = P_{zt} \otimes P_q \in \mathcal{P}'$
+- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=t \sim P\_t$, 
+- Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
 - Define a multi-task learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
 $$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times [T] )^n \rightarrow \mathcal{H} \rbrace$$
 
 - Let $f^t$ denote the learner that only sees samples where $t_i=t$. 
-- Identify the appropriate performance function.
+- Identify the appropriate performance functions $\lbrace \mathcal{E}_t \rbrace$.
 
-
-<!-- 
-- Given
-  - a sample size $n$
-  - a multi-setting $\mathcal{S} =  \lbrace \mathcal{S}_1, \mathcal{S}_2, \ldots, \mathcal{S}_J \rbrace$
-  - a true but unknown mixture distibution $P = \sum_{j \in [J]} \pi_j P_j$.  -->
 
 
 
@@ -392,24 +400,15 @@ $$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times [T] )^n \rightarrow \mat
 
 Given $n$ data points in multitask learning setting $\mathcal{S}\_{MT}$, assuming $P$, 
 
-<!-- $f$ .ye[multitask] learns  when its performances on tasks $\mathcal{E}_t$'s  improves due to other task data. -->
 
 
-<!-- .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_n^1)$.] -->
-
-<!-- Find $f$ that minimizes generalization error for the given $n$, $P$, and $\mathcal{S}$: -->
-
-<!-- $$f^* = \arg \min\_{f \in \mathcal{F}_{MT}} \mathcal{E}(f,\mathcal{D}).$$ -->
-
-
-
-$f$ .ye[weakly multitask] learns when its performances $\mathcal{E}_t$'s improve due to other task's data .ye[on average]:
+$f$ .ye[weakly multitask] learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average]:
 
 $$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
 
 <br>
 
-$f$ .ye[strongly multitask] learns when its performances $\mathcal{E}_t$'s improve due to other task's data .ye[for each task]:
+$f$ .ye[strongly multitask] learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
 
 $$ \mathcal{E}\_t(f_n) < \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
 
@@ -420,18 +419,18 @@ $$ \mathcal{E}\_t(f_n) < \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 
 ## What is Sequential Learning? 
 
-Same as "batch" learning, except $f$ updates existing hypothesis on basis of new data, that is, 
+Same as classical single task ("batch") learning, except $f$ .ye[explicitly] updates existing hypotheses on basis of new data, that is, 
 
 
-$$\mathcal{F}_S = \lbrace  f : \mathcal{H} \times 2^{\mathcal{Z}^n} \rightarrow \mathcal{H} \rbrace$$ 
+$$\mathcal{F}_S = \lbrace  f : \mathcal{H} \times {\mathcal{Z}^n} \rightarrow \mathcal{H} \rbrace$$ 
 
 
-Find the $f \in \mathcal{F}_{S}$ that minimizes generalization error for a given $n$, $P$, and setting $\mathcal{S}$:
+--
 
-$$f^* = \arg \min\_{f \in \mathcal{F}_{S}} \mathcal{E}(f,\mathcal{D}).$$
+This is useful when either or both:
+  - the data arrive sequentially
+  - the constraints in a setting demand a fixed capacity
 
-
-<!-- TODO@ronak do i need something else here? like a sequence of n's? -->
 
 
 ---
@@ -444,8 +443,8 @@ $$f^* = \arg \min\_{f \in \mathcal{F}_{S}} \mathcal{E}(f,\mathcal{D}).$$
 
 
 Sequential multi-task learning, where
-- $|\mathcal{J}|$ is (countably) infinite
-- $J_n$ is the number of tasks observed after $n$ samples
+- $|\mathcal{T}|$ is a (countably) infinite set of tasks
+- $T_n$ is the number of tasks observed after $n$ samples
 - Requires .ye[out of task] capabilities  
 
 
@@ -456,20 +455,17 @@ Sequential multi-task learning, where
 ## What is a Lifelong  Task? 
 
 
+- Let 
+  - $t_i \in \color{yellow}{\mathcal{T}}$ denote the task associated with sample $i$
+  - $\mathcal{Z}' = (\mathcal{Z}, \mathcal{T})$
+- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=t \sim P\_t$, 
+- Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
+- Define a lifelong learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
+$$ \mathcal{F}_{L2} = \lbrace f_n : \mathcal{H} \times (\mathcal{Z} \times \mathcal{T} )^n \rightarrow \mathcal{H} \rbrace$$
 
-- Let  
-  - $t_i \in$ .r[$\mathcal{J}$] denote the task associated with sample $i$
-  - $\mathcal{D} =  \cup\_{j \in [J_n]} \mathcal{D}\_j$
-- Assume $(Z_i,T_i)$  is sampled iid from $P$ and $Z_i | T_i=j \sim P_j$
-- Define a lifelong learning algorithm  as the sequence $f=f_1,f_2,\ldots$ where 
-
-$$f \in  \mathcal{F}_{L2} = \lbrace f_n : \mathcal{H} \times  2^{(\mathcal{Z} \times [J] )^n} \rightarrow \mathcal{H}\rbrace$$ 
-
-- Given
-  - a sample size $n$
-  - a lifelong setting $\mathcal{S} =  \lbrace \mathcal{S}\_1, \mathcal{S}\_2, \ldots, \mathcal{S}\_{J_n} \rbrace$
-  - a true but unknown mixture distibution $P = \sum_{j \in [J_n]} \pi_j P_j$. 
+- Let $f^t$ denote the learner that only sees samples where $t_i=t$. 
+- Identify the appropriate performance functions $\lbrace \mathcal{E}_t \rbrace$.
 
 
 ---
@@ -480,23 +476,21 @@ $$f \in  \mathcal{F}_{L2} = \lbrace f_n : \mathcal{H} \times  2^{(\mathcal{Z} \t
 
 
 
-Find the lifelong learning algorithm $f$ that minimizes generalization error for the given $n$, $P$, and $\mathcal{S}$:
 
-$$f^* = \arg \min\_{f \in \mathcal{L2}} \mathcal{E}(f,\mathcal{D}).$$
+Given $n$ data points sequentially in lifelong learning setting $\mathcal{S}\_{L2}$, assuming $P$, 
 
 
-$f$  weakly .ye[lifelong] learns from $\mathcal{D} \sim P$ in setting $\mathcal{S}$ if
 
-$$  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D} \mid j ) P(T=j) <  \sum\_{j \in [J\_n]} \mathcal{E}(f,\mathcal{D}\_j \mid j) P(T=j),$$ 
+$f$ .ye[weakly lifelong] learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average]:
+
+$$  \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
 
 <br>
 
+$f$ .ye[strongly lifelong] learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
 
-and $f$  strongly .ye[lifelong] learns from $\mathcal{D} \sim P$ in setting $\mathcal{S}$ if
+$$ \mathcal{E}\_t(f_n) < \mathcal{E}\_t(f_n^t) \quad \forall t \in [T\_n].$$ 
 
-
-
-$$ \mathcal{E}(f,\mathcal{D} \mid j) < \mathcal{E}(f,\mathcal{D}_j \mid j) \quad \forall j \in [J_n].$$ 
 
 
 
@@ -515,11 +509,10 @@ class: middle
 | :--- | :--- 
 | $\mathcal{Z}$ | {smaller, bigger, different}
 | $\mathcal{A}$ | {smaller, bigger, different}
-| $\mathcal{L}$ | {different}
-| $\mathcal{R}$ | {different}
+| $\mathcal{Q}$ | {smaller, bigger, different}
+| $\mathcal{C}$ | {smaller, bigger, different}
 | $\mathcal{P}$ | {smaller, bigger, different}
-| $\mathcal{H}$ | {smaller, bigger, different}
-| $\mathcal{F}$ | {smaller, bigger, different}
+| $\mathcal{E}$ | {different}
 | $P$ | {different}
 | $T_i$ | {always, never, sometimes} known
 
@@ -528,33 +521,22 @@ class: middle
 
 ## Ways to Lifelong Learn
 
-- There are $4\times4\times2\times2\times4\times4\times4\times2\times3 \approx 24$,$000$ ways that 2 tasks can differ.
-- Let $\mathcal{C} = \lbrace \mathcal{P}, \mathcal{H}, \mathcal{F} \rbrace$ denote constraints, and simplify to denote only whether they have changed, not how.  This reduces by a factor of 32, bringing the total down to $\approx 750$. 
-- Subsume loss into risk, because one can often change one instead of the other (eg, replace L2 with L1 norm vs replace mean with median), this brings it down to $384$.
+- There are $4^5\times2^2\times3 = 12$,$288$ ways that 2 tasks can differ.
+- Ignoring constraints, we have $3$,$072$
+- Ignoring performance functions, we have $1$,$536$.
 
 
----
-
-## Ways Tasks can Differ
-
-
-| Component | Change |
-| :--- | :--- 
-| $\mathcal{Z}$ | {smaller, bigger, different}
-| $\mathcal{A}$ | {smaller, bigger, different}
-| $\mathcal{R}$ | {different}
-| $\mathcal{C}$ | {different}
-| $P$ | {different}
-| $T_i$ | {always, never, sometimes} known
 
 
 ---
 
 ## Examples
 
-1. Known $\mathcal{A}$ changes, which implies that $P$ changes (CIFAR 10x10)
-1. Unknown $P$ changes (continual learning)
-1. Known $\mathcal{A}$ growing (incremental learning)
+1. Task 2: $P$ and $\mathcal{A}$ are different, 
+  - this is "Task Incremental Learning" (CIFAR 10x10)
+1. Task 2: $P$ changes and  $\mathcal{A}$ gets bigger, 
+  - this is "Class Incremental Learning"
+1. Task 2:  $P$ changes, but $f$ does not know (continual learning)
 
 
 ---
@@ -569,14 +551,14 @@ class: middle
 ## Transfer Efficiency (TE)
 
 
-The transfer efficiency of learning algorithm $f$ for task $j$ is
-$$  TE\_j(f) := 
-    \frac{\mathcal{E}\_j(f, \mathcal{D}_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}.
+The transfer efficiency of learning algorithm $f$ for task $t$ is
+$$  TE\_t(f) := 
+    \frac{\mathcal{E}\_t(f^t_n)}{\mathcal{E}\_t(f_n)}.
 $$
 
 <br>
 
-Algorithm $ f $ transfer learns if $ TE_j(f) > 1 $. 
+Algorithm $ f $ transfer learns if $ TE_t(f) > 1 $. 
 
 
 ---
@@ -585,10 +567,11 @@ Algorithm $ f $ transfer learns if $ TE_j(f) > 1 $.
 ## Forward / Backward TE 
 
 
-- Let $\mathcal{D}_F^j = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_j\}$ be the set of all data up to sample $n_j$.
-- Forward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .ye[preceding] task $j$
-$$    FTE_j(f) := 
-\frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}.
+- Let $f^{\leq t}_n$ denote the algorithm with all access up to the last sample associated with task $t$.
+<!-- - Let $\mathcal{D}_F^t = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_t\}$ be the set of all data up to sample $n_t$. -->
+- .ye[Forward] transfer efficiency of $ f $ for task $t$ is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
+$$    FTE_t(f) := 
+\frac{\mathcal{E}_t(f^t_n)}{\mathcal{E}_t(f^{\leq t}_n)}.
 $$
 
 --
@@ -597,15 +580,15 @@ $$
 <!-- ## Backward Transfer Efficiency -->
 
 
-<!-- Backward Transfer Efficiency (RTE) for task $j$ measures the improvement on task $j$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
+<!-- Backward Transfer Efficiency (BTE) for task $t$ measures the improvement on task $t$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
 
 
-- Backward transfer efficiency of $ f $ for task $j$ is the improvement on task $j$ resulting from all data .ye[after] task $j$ 
+- .ye[Backward] transfer efficiency of $ f $ for task $t$ is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
 
 
-<!-- The backward transfer efficiency of $ f $ for task $j$ is  -->
-$$    RTE\_j(f) := 
-\frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
+<!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
+$$    BTE\_t(f) := 
+\frac{\mathcal{E}\_t(f^{\leq t}_n)}{\mathcal{E}_t(f_n)}.
 $$
 
 ---
@@ -613,11 +596,11 @@ $$
 ## TE Factorizes
 
 
-$$  TE\_j(f) := 
-    \frac{\mathcal{E}\_j(f, \mathcal{D}_j)}{\mathcal{E}\_j(f, \mathcal{D_n})}
-    = \frac{\mathcal{E}_j(f, \mathcal{D}_j)}{\mathcal{E}_j(f, \mathcal{D}_F^j)}
+$$  TE\_t(f) := 
+    \frac{\mathcal{E}\_t(f^t\_n)}{\mathcal{E}\_t(f\_n)}
+    = \frac{\mathcal{E}_t(f^t_n)}{\mathcal{E}_t(f^{\leq t}_n)}
     \times
-    \frac{\mathcal{E}\_j(f, \mathcal{D}_F^j)}{\mathcal{E}_j(f, \mathcal{D})}.
+    \frac{\mathcal{E}\_t(f^{\leq t}_n)}{\mathcal{E}_t(f_n)}.
 $$
 
 
@@ -710,8 +693,8 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 ## Key Idea 
 
 - .ye[Different transformers can composed with  voters]
-- Learn many different transformers $u_j(\cdot)$'s 
-- For each $u\_j$, learn voter per task $v\_{j,j'}$'s 
+- Learn many different transformers $u_t(\cdot)$'s 
+- For each $u\_t$, learn voter per task $v\_{j,j'}$'s 
 - Use the decider to weight the various options 
 - This is .ye[ensembling representations].
 
@@ -737,10 +720,10 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 |  Scenario | Composition 
 |  :--- | :--- 
 | Single task learning | $ h(\cdot) = w \circ v \circ u (\cdot)$
-| Multiple independent task learning | $ h_j(\cdot) = w_j \circ  v_j \circ u_j (\cdot)$ 
-| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_j [ v_j \circ u_j (\cdot)] $ 
-| Multitask learning | $ h_j(\cdot) = w_j \circ  v  \circ \bigcup_j  u_j (\cdot)$
-| .ye[Multitask ensemble representation learning]  | $ h\_j(\cdot) = w\_j \circ  \bigcup\_{j'}  [v\_{j,j'}  \circ    u\_{j'} (\cdot) ] $
+| Multiple independent task learning | $ h_t(\cdot) = w_t \circ  v_t \circ u_t (\cdot)$ 
+| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_t [ v_t \circ u_t (\cdot)] $ 
+| Multitask learning | $ h_t(\cdot) = w_t \circ  v  \circ \bigcup_t  u_t (\cdot)$
+| .ye[Multitask ensemble representation learning]  | $ h\_t(\cdot) = w\_t \circ  \bigcup\_{j'}  [v\_{j,j'}  \circ    u\_{j'} (\cdot) ] $
 
 
 
@@ -915,7 +898,7 @@ Lifelong Forests demonstrates the .ye[largest forward transfer].
 
 ## Backward Transfer Efficiency
 
-- y-axis indicates .ye[backward transfer efficiency] (RTE), 
+- y-axis indicates .ye[backward transfer efficiency] (BTE), 
   - which is the ratio of "single task error" to "error using future tasks"
 - each task will have a line
   - if the line .ye[increases], that means it is doing "backward transfer"
@@ -927,12 +910,12 @@ Lifelong Forests demonstrates the .ye[largest forward transfer].
 Lifelong Forests .ye[uniquely exhibits backward transfer].
 
 
-<!-- <img src="images/CIFAR_RTE.png" style="height:530px;" /> -->
+<!-- <img src="images/CIFAR_BTE.png" style="height:530px;" /> -->
 
-<!-- TODO@JD: replace with average RTE and add legend outside -->
-<img src="images/cifar-100-RTE.svg" style="height:550px;" /> 
+<!-- TODO@JD: replace with average BTE and add legend outside -->
+<img src="images/cifar-100-BTE.svg" style="height:550px;" /> 
 
-![:scale 100%](images/cifar-100-RTE.svg)
+![:scale 100%](images/cifar-100-BTE.svg)
 
 
 ---

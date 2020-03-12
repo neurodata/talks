@@ -79,7 +79,7 @@ Either
 ---
 
 
-## Key Metrics
+## Proposed Metrics
 
 
 **Transfer Efficiency**: The extent to which performance on a specific task improves by virtue of data from .ye[all other task data].
@@ -100,12 +100,37 @@ Either
 1. If you don't  transfer, you haven't lifelong learned.
 2. We propose the only algorithm in the literature the demonstrates weak or strong lifelong learning.
 
+---
 
+## Outline 
+
+- [Definition](#def)
+- [Scenarios](#scenarios)
+<!-- TODO add concrete examples -->
+- [Metrics](#metrics)
+- [Algorithm](#alg)
+- [Simulations](#sims)
+- [Real](#real)
+- [Theory](#theory)
+- [Discussion](#disc)
+
+<!-- TODO add bio section -->
+<!-- TODO put outline slide at each place. -->
 
 ---
-class: middle 
+name:def
 
-### A General Theory of the Learnable
+
+## Outline 
+
+- Definition
+- [Scenarios](#scenarios)
+- [Metrics](#metrics)
+- [Algorithm](#alg)
+- [Simulations](#sims)
+- [Real](#real)
+- [Theory](#theory)
+- [Discussion](#disc)
 
 
 ---
@@ -122,9 +147,6 @@ Motivation: in biology, learning subsequent tasks often improves performance on 
 
 The key is updating internal representations with each sample that are useful for multiple tasks.
 
---
-
-Let's formalize it...
 
 ---
 
@@ -541,6 +563,7 @@ $$ \mathcal{E}\_t(f_n) < \mathcal{E}\_t(f_n^t) \quad \forall t \in [T\_n].$$
 
 ---
 class: middle 
+name:scenarios
 
 ### Lifelong Learning Scenarios
 
@@ -585,6 +608,7 @@ class: middle
 
 ---
 class: middle 
+name:metrics
 
 ### Lifelong Learning Metrics
 
@@ -651,6 +675,7 @@ $$
 
 ---
 class: middle 
+name:alg
 
 ### Algorithm
 
@@ -658,7 +683,10 @@ class: middle
 
 ## Basic Idea 
 
-For each new task, learn a new representation function, apply it to all data from all tasks, and the updated representation for everything is the composition of this new representation with existing representations.  Then, update decision rule using this representation.
+For each new task, 
+1. learn a new representation function, 
+2. apply it to all data from all tasks: the updated representation for everything is the composition of this new representation with existing representations.  
+4. update all decision rules using this representation.
 
 Notes:
 - This linearly increases representation capacity.
@@ -818,6 +846,7 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 ---
 class: middle 
+name:sims 
 
 ### Simulations
 
@@ -888,6 +917,7 @@ class: middle
 
 ---
 class: middle 
+name:real 
 
 ### Real Data 
 
@@ -1000,6 +1030,7 @@ Lifelong Forests accuracy is worse than .ye[C]NNs with O(10M) parameters, and be
 
 ---
 class: middle 
+name:theory
 
 ### Theory
 
@@ -1087,6 +1118,7 @@ then given enough data, one can .ye[transfer learn] *perfectly, no matter what*!
 
 ---
 class: middle 
+name:disc 
 
 ### Discussion
 
@@ -1397,9 +1429,12 @@ Hava, Ben, Robert, Jennifer, Ted.
 <!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
 
 ---
-class:center
+<!-- class:center -->
+background-image: url(images/l_and_v.jpeg)
 
-<img src="images/l_and_v.jpeg" style=" height:600px;"/>
+# Questions?
+
+<!-- <img src="images/l_and_v.jpeg" style=" height:600px;"/> -->
 
 ---
 class: middle, inverse

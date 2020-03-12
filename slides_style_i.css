@@ -274,10 +274,11 @@ th {
   opacity: 0; /* default: 0.5 */
 }
 
-/* .remark-slide-content {
+.remark-slide-content {
   background-size: contain;
   background-position: center;
-} */
+  background-repeat: no-repeat;
+}
 /*code.has-jax {
   font: inherit;
   font-size: 100%;

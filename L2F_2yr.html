@@ -604,13 +604,95 @@ name:scenarios
 
 ---
 
-## Examples
+## Vision Task 1
+
+
+
+.pull-left[
+- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
+- 500 training images and 100 testing images per class.
+- All images are 32x32 color images.
+- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
+]
+
+.pull-right[
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
+]
+
+<br>
+
+--
+
+Why its a good scenario:
+1. current reference dataset
+2. a variant of this is "Class Incremental", where each subsequent task includes all previous tasks, which is harder
+
+
+
+---
+
+## Vision Task 2
+
+
+
+- EfficientNet used we different image datasets 
+- Each has different number of classes, samples
+- Even within dataset, each image could be different size and aspect ratio
+- Sequentially train on each dataset
+
+![:scale 50%](images/12-datasets.png)
+
+Why it is a good scenario:
+1. Images are more real (different resolutions, scales, # classes)
+2. Many metrics (localization, fine grained objects, texture, scene)
+3. Benchmark results are available 
+
+---
+
+
+## Language Task 1
+
+
+
+- 8,194,317 sentences from wikipedia (downloaded from facebook). 
+- 156 languages
+- Trained using unsupervised FastText embedding
+- words, 2-4 char n-grams embedded into 16 dimensions
+- selected 30 languages
+- break into batches of 3 "related" languages
+
+![:scale 50%](images/30-languages.png) 
+
+Why it is a good scenario:
+1. Public data
+2. Not vision
+
+
+---
+
+
+## Language Task 2
+
+
+- same feature vectors as above
+- labels now correspond to Microsoft Bing "dominant type"
+- 10k training and 1k testing entities
+- 20 classes (each with at least 11k samples)
+- 4 classes per task
+
+![:scale 100%](images/30-languages.png) 
+
+
+<!-- 
+
+## Examples 
 
 1. Task 2: $P$ and $\mathcal{A}$ are different, 
   - this is "Task Incremental Learning" (CIFAR 10x10)
 1. Task 2: $P$ changes and  $\mathcal{A}$ gets bigger, 
   - this is "Class Incremental Learning"
-1. Task 2:  $P$ changes, but $f$ does not know (continual learning)
+1. Task 2:  $P$ changes, but $f$ does not know (continual learning) 
+-->
 
 
 ---
@@ -960,18 +1042,8 @@ name:real
 ---
  
 
-## Consider an  example
+<!-- ## Consider an  example -->
 
-.pull-left[
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
-- 500 training images and 100 testing images per class.
-- All images are 32x32 color images.
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
-]
-
-.pull-right[
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
-]
 
 <!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories -->
 
@@ -979,7 +1051,7 @@ name:real
  
 
 
-## Previous State-of-the-Art
+## CIFAR-10x10 Previous SOTA
 
 
 <img src="images/l2m_18mo/progressive_netsc.png" style="width:650px;"/>
@@ -1172,20 +1244,59 @@ name:disc
 - Discussion
 
 
+---
+
+## Extension #1: Streaming 
+
+- Current implementation requires all data per task are batched
+- Could stream trees per sample
+- Would provide truly continual transfer
+- Collaborators: JHU seedling (Braverman)
+
+---
+
+## Extension #2: Compression 
+
+- Current implementation linearly grows internal representation with each new task
+- Could compress internal representation after training to achieve a fixed representation space (e.g., using coresets)
+- For forests, this could happen at the node or tree level 
+- Collaborators: JHU seedling (Braverman)
+
+---
+
+## Extension #3: Replay
+
+- Current implementation requires storing some data to achieve *backwards* transfer
+- Could leverage replay to reduce dependency of increasing data storage
+- Collaborators: Baylor (Tolias) & McNaughton (UCI+UCSD)
+
+---
+
+## Extension #4: Agent
+
+- Current implementation's action are labels and do not impact future data
+- Could integrate into larger L2 system that incorporates agent based learning
+- Collaborators: Raghavan (SRI)
+
+
 
 ---
  
 
-## Limitations 
+## All possible extensions 
 
-2. Tasks must be discrete 
-1. No extension to reinforcement learning 
+1. Allow fully sequential data 
+2. Allow fixed capacity representation
+3. Allow replay to support fixed capacity 
+4. Allow agent based extension
+2. Allow non-discrete tasks 
+
+
+
 1. No implementation using deep nets      
-3. Data must be batched into tasks (no sequential implementation)
 4. Tasks must be known (no implementation that imputes task ID)
 5. Feature space must be the same for all tasks (no data fusion step)
 6. Only unimodal data supported (no multimodal implementation)
-1. Internal representation grows linearly with # of tasks (no pruning)
 1. Must grow rather than recruit new internal representations (no pre-training implemented)      
 1. Requires storing some samples to achieve backwards transfer (no replay capacity)
 1. No support for specific modalities (e.g., images)

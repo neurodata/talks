@@ -735,8 +735,8 @@ Algorithm $ f $ transfer learns if $ TE_t(f) > 1 $.
 - Let $f^{t_-}_n$ denote the algorithm with all access up to the last sample associated with task $t$.
 <!-- - Let $\mathcal{D}_F^t = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_t\}$ be the set of all data up to sample $n_t$. -->
 - .ye[Forward] transfer efficiency of $ f $ for task $t$ is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FTE_t(f) := 
-\frac{\mathcal{E}_t(f^t_n)}{\mathcal{E}_t(f^{\leq t}_n)}.
+$$    FTE\_t(f) := 
+\frac{\mathcal{E}\_t(f^t\_n)}{\mathcal{E}\_t(f^{t\_-}\_n)}.
 $$
 
 
@@ -758,7 +758,7 @@ $$
 
 <!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
 $$    BTE\_t(f) := 
-\frac{\mathcal{E}\_t(f^{\leq t}_n)}{\mathcal{E}_t(f_n)}.
+\frac{\mathcal{E}\_t(f^{t\_-}_n)}{\mathcal{E}_t(f_n)}.
 $$
 
 ---
@@ -768,9 +768,9 @@ $$
 
 $$  TE\_t(f) := 
     \frac{\mathcal{E}\_t(f^t\_n)}{\mathcal{E}\_t(f\_n)}
-    = \frac{\mathcal{E}_t(f^t_n)}{\mathcal{E}_t(f^{\leq t}_n)}
+    = \frac{\mathcal{E}\_t(f^t\_n)}{\mathcal{E}\_t(f^{t\_-}\_n)}
     \times
-    \frac{\mathcal{E}\_t(f^{\leq t}_n)}{\mathcal{E}_t(f_n)}.
+    \frac{\mathcal{E}\_t(f^{t\_-}\_n)}{\mathcal{E}\_t(f\_n)}.
 $$
 
 
@@ -941,13 +941,16 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 - Given  $\color{magenta}{j-1}$ transformers learned from the previous $\color{magenta}{j-1}$ datasets and  a new $\color{yellow}{j^{th}}$ dataset with task label $\color{yellow}{t_j}$, do:
 - learn a new transformer using $\color{yellow}{j^{th}}$ data
-- .magenta[reverse transfer update]: 
-    - transform a subset of the data from the $\color{magenta}{j-1}$ previous tasks through the $\color{yellow}{j^{th}}$ transformer
-    - this requires having stored some data from the $\color{magenta}{j-1}$ previous tasks
+- .magenta[reverse transfer update] for each of the $\color{magenta}{j-1}$ previous tasks: 
+    - transform a subset of the data through the $\color{yellow}{j^{th}}$ transformer
+    - (this requires having stored some of the data)
     - learn a new voter using the $\color{yellow}{j^{th}}$ representation of data
-    - update decision rules for $\color{magenta}{j-1}$ tasks by appending this additional voter
-- .ye[forward transfer update]:
-
+    - update decision rules by appending this additional voter
+- .ye[forward transfer update] for all data associated with $\color{yellow}{j^{th}}$ task:
+  - transform a subset of the data through the $\color{yellow}{j^{th}}$ transformer
+  - transform through each of the $\color{magenta}{j-1}$ existing transformers 
+  - learn a new voter for all $j$ transformers 
+  - make decision rule by averaging over $j$ voters
 
 ---
  

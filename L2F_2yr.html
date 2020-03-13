@@ -942,15 +942,15 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 - Given  $\color{magenta}{j-1}$ transformers learned from the previous $\color{magenta}{j-1}$ datasets and  a new $\color{yellow}{j^{th}}$ dataset with task label $\color{yellow}{t_j}$, do:
 - learn a new transformer using $\color{yellow}{j^{th}}$ data
 - .magenta[reverse transfer update] for each of the $\color{magenta}{j-1}$ previous tasks: 
-    - transform a subset of the data through the $\color{yellow}{j^{th}}$ transformer
-    - (this requires having stored some of the data)
-    - learn a new voter using the $\color{yellow}{j^{th}}$ representation of data
-    - update decision rules by appending this additional voter
+    1. transform a subset of the data through the $\color{yellow}{j^{th}}$ transformer
+     (this requires having stored some of the data)
+    3. learn a new voter using the $\color{yellow}{j^{th}}$ representation of data
+    4. update decision rules by appending this additional voter
 - .ye[forward transfer update] for all data associated with $\color{yellow}{j^{th}}$ task:
-  - transform a subset of the data through the $\color{yellow}{j^{th}}$ transformer
-  - transform through each of the $\color{magenta}{j-1}$ existing transformers 
-  - learn a new voter for all $j$ transformers 
-  - make decision rule by averaging over $j$ voters
+  1. transform a subset of the data through the $\color{yellow}{j^{th}}$ transformer
+  2. transform through each of the $\color{magenta}{j-1}$ existing transformers 
+  3. learn a new voter for all $j$ transformers 
+  4. make decision rule by averaging over $j$ voters
 
 ---
  

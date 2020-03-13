@@ -929,6 +929,19 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 - SVM's are not
 
 
+---
+
+## Pseudocode 
+
+- Given  $\color{magenta}{j-1}$ transformers learned from the previous $\color{magenta}{j-1}$ datasets and  a new $\color{yellow}{j^{th}}$ dataset with task label $\color{yellow}{t_j}$, do:
+- learn a new transformer using $\color{yellow}{j^{th}}$ data
+- .magenta[reverse transfer update]: 
+    - transform a subset of the data from the $\color{magenta}{j-1}$ previous tasks through the $\color{yellow}{j^{th}}$ transformer
+    - this requires having stored some data from the $\color{magenta}{j-1}$ previous tasks
+    - learn a new voter using the $\color{yellow}{j^{th}}$ representation of data
+    - update decision rules for $\color{magenta}{j-1}$ tasks by appending this additional voter
+- .ye[forward transfer update]:
+
 
 ---
  

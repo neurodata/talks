@@ -15,7 +15,7 @@
 
 
 
-
+<!-- TODO add slide numbers & maybe slide name -->
 
 ### Lifelong Learning Machines 
 
@@ -682,6 +682,7 @@ Why it is a good scenario:
 
 ![:scale 100%](images/30-languages.png) 
 
+<!-- TODO wrong image for this one -->
 
 <!-- 
 
@@ -731,12 +732,17 @@ Algorithm $ f $ transfer learns if $ TE_t(f) > 1 $.
 ## Forward / Backward TE 
 
 
-- Let $f^{\leq t}_n$ denote the algorithm with all access up to the last sample associated with task $t$.
+- Let $f^{t_-}_n$ denote the algorithm with all access up to the last sample associated with task $t$.
 <!-- - Let $\mathcal{D}_F^t = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_t\}$ be the set of all data up to sample $n_t$. -->
 - .ye[Forward] transfer efficiency of $ f $ for task $t$ is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
 $$    FTE_t(f) := 
 \frac{\mathcal{E}_t(f^t_n)}{\mathcal{E}_t(f^{\leq t}_n)}.
 $$
+
+
+<!-- TODO inequality is too close, maybe use t_- -->
+<!-- TODO fix notation on #76 -->
+<!-- TODO lifelong designed for federated/distributed (not necessarily) sequential data -->
 
 --
 

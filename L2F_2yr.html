@@ -111,11 +111,10 @@ Either
 - [Simulations](#sims)
 - [Real](#real)
 - [Theory](#theory)
+- [Neurobiology](#neuro)
 - [Discussion](#disc)
 
-<!-- TODO add concrete scenario examples -->
 <!-- TODO add bio section -->
-<!-- TODO put outline slide at each place. -->
 
 ---
 name:def
@@ -130,6 +129,7 @@ name:def
 - [Simulations](#sims)
 - [Real](#real)
 - [Theory](#theory)
+- [Neurobiology](#neuro)
 - [Discussion](#disc)
 
 
@@ -572,6 +572,7 @@ name:scenarios
 - [Simulations](#sims)
 - [Real](#real)
 - [Theory](#theory)
+- [Neurobiology](#neuro)
 - [Discussion](#disc)
 
 ---
@@ -664,7 +665,7 @@ Why it is a good scenario:
 ![:scale 50%](images/30-languages.png) 
 
 Why it is a good scenario:
-1. Public data
+1. Public and real data
 2. Not vision
 
 
@@ -673,16 +674,25 @@ Why it is a good scenario:
 
 ## Language Task 2
 
-
+.pull-left[
 - same feature vectors as above
 - labels now correspond to Microsoft Bing "dominant type"
 - 10k training and 1k testing entities
 - 20 classes (each with at least 11k samples)
 - 4 classes per task
 
-![:scale 100%](images/30-languages.png) 
+Why is this a good scenario:
+1. Public  data 
+2. Real application 
+]
 
-<!-- TODO wrong image for this one -->
+.pull-right[
+![:scale 100%](images/bing-dominant-types.png) 
+]
+
+
+
+
 
 <!-- 
 
@@ -707,6 +717,7 @@ name:metrics
 - [Simulations](#sims)
 - [Real](#real)
 - [Theory](#theory)
+- [Neurobiology](#neuro)
 - [Discussion](#disc)
 
 
@@ -740,9 +751,6 @@ $$    FTE\_t(f) :=
 $$
 
 
-<!-- TODO inequality is too close, maybe use t_- -->
-<!-- TODO fix notation on #76 -->
-<!-- TODO lifelong designed for federated/distributed (not necessarily) sequential data -->
 
 --
 
@@ -786,6 +794,7 @@ name:alg
 - [Simulations](#sims)
 - [Real](#real)
 - [Theory](#theory)
+- [Neurobiology](#neuro)
 - [Discussion](#disc)
 
 ---
@@ -925,8 +934,6 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 ![:scale 100%](images/learning-schemas.svg)
 
-<!-- TODO@jv: add increasing complexity schema -->
-<!-- TODO@jv: change to progressive? -->
 
 
 
@@ -980,6 +987,7 @@ name:sims
 - Simulations
 - [Real](#real)
 - [Theory](#theory)
+- [Neurobiology](#neuro)
 - [Discussion](#disc)
 
 
@@ -999,6 +1007,8 @@ name:sims
 
 <img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/> 
 
+<!-- TODO@HH replace with svg of Gaussian XOR & N-XOR -->
+
 
 
 ---
@@ -1009,16 +1019,12 @@ name:sims
 <img src="images/columbia20/xor-nxor-all.png"  style="height:300px;">
 
 
+<!-- TODO@HH replace with 3 lower panels of Fig 2 -->
+<!-- TODO@HH add titles to left and middle panel saying "Forward Transfer" and "Reverse Transfer",  respectively-->
+
 - .lb[Uncertainty Forest] uses 100 samples from XOR to learn partitions
-<!-- - .orange[Transfer Forest] uses $n$ samples from N-XOR to learn partitions  -->
 - .ye[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions
 
-<!-- TODO@hh: replace with four panel figure: 
-  TOP LEFT: XOR
-  TOP RIGHT: N-XOR
-  BOTTOM LEFT: x-axis is simply # samples, and y-axis is Generalization Error, and we show 4 lines: E_1(D_1), E_1(D_n), E_2(D_2), E_2(D_n)
-  BOTTOM RIGHT: x-axis is # of samples, maybe starting with n/2, y-axis is TE, two lines, TE_1 and TE_2   
--->
 
 
 ---
@@ -1028,6 +1034,9 @@ name:sims
 
 <img src="images/columbia20/xor-nxor-all2.png"  style="height:500px;">
 
+<!-- TODO@HH replace with 3 panels of XOR vs R-XOR -->
+<!-- TODO@HH add fig showing XOR-Chess & vice verse (so, 2x3 panels) -->
+
 ---
  
 
@@ -1035,7 +1044,8 @@ name:sims
 
 <img src="images/spiral-all.png"  style="height:500px;">
 
-<!-- TODO@hh: replace with same 4 panel figure as above -->
+
+<!-- TODO@HH replaec with new spiral figure -->
 
 ---
  
@@ -1045,6 +1055,7 @@ name:sims
 <img src="images/rxor-suite-new-row.png"  style="width:700px;">
 
 
+<!-- TODO@HH replace with new graceful forgetting figure -->
 
 
 ---
@@ -1058,6 +1069,7 @@ name:real
 - [Simulations](#sims)
 - Real
 - [Theory](#theory)
+- [Neurobiology](#neuro)
 - [Discussion](#disc)
 
 
@@ -1066,7 +1078,7 @@ name:real
 <!-- ## Consider an  example -->
 
 
-<!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories -->
+<!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories (not urgent, show me the image first) -->
 
 <!-- TODO@JV add multimodal example -->
 
@@ -1122,11 +1134,6 @@ Lifelong Forests demonstrates the .ye[largest forward transfer].
 Lifelong Forests .ye[uniquely exhibits backward transfer].
 
 
-<!-- <img src="images/CIFAR_BTE.png" style="height:530px;" /> -->
-
-<!-- TODO@JD: replace with average BTE and add legend outside -->
-<!-- <img src="images/cifar-100-BTE.svg" style="height:550px;" />  -->
-
 ![:scale 100%](images/cifar-100-BTE.svg)
 
 
@@ -1169,6 +1176,7 @@ name:theory
 - [Simulations](#sims)
 - [Real](#real)
 - Theory
+- [Neurobiology](#neuro)
 - [Discussion](#disc)
 
 
@@ -1223,7 +1231,7 @@ If each part is:
 then given enough data, one can learn *perfectly, no matter what*! 
 
 
-$$\mathcal{E}\(f,\mathcal{D}) \rightarrow \mathcal{E}^*,$$
+$$\mathcal{E}\(f_n) \rightarrow \mathcal{E}^*,$$
 
 where $\mathcal{E}^*$is Bayes optimal.
 
@@ -1252,6 +1260,58 @@ then given enough data, one can .ye[transfer learn] *perfectly, no matter what*!
 
 
 
+---
+class: middle 
+name:disc 
+
+- [Definition](#def)
+- [Scenarios](#scenarios)
+- [Metrics](#metrics)
+- [Algorithm](#alg)
+- [Simulations](#sims)
+- [Real](#real)
+- [Theory](#theory)
+- Neurobiology
+- [Discussion](#disc)
+
+---
+
+## Neurobiology Background
+
+- All brains start with 1 neurons, and *increase neural capacity* 
+- In many taxa, # of neurons increases throughout development 
+- In all taxa, # synapses increase through juvenile state
+- During development, basic concepts are established (including vision, audition, language)
+- If natural stimuli are unavailable developmentally, such concepts never form 
+- In adulthood, animals learn new concepts purely by recombining existing concepts 
+- Concepts that are not combinations of existing ones can never form 
+- So fixed capacity system only happens after significant training 
+
+
+---
+
+## How do brains learn? 
+
+- "Partitioning", as implemented by a network, corresponds to only a subset of nodes responding to any given input 
+- A brain's connectome implements a partitioning of feature space 
+- Each connectome dynamically reconfigures at multiple time-scales to store novel information 
+- Memory consolidation requires a physical reconfiguration implemented by a sequence of immediate early genes (IEGs)
+
+<img src="images/rock20/Side-black.gif" style="height:230px;"/>
+<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
+<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
+
+
+---
+
+## NeuroExperiments 
+
+- How does the brain select which neurons/synapses to modify to store new information?
+  - The choice should maximize transfer efficiency 
+- We can simultaneously observe neural and IEG activity during and after a learning event (e.g., a foot shock)
+- We can identify the neural ensembles primed to learn with Arc-GFP 
+- We can identify sets of ensembles of neural activity using jRGECO1a
+- We can then discover the relationship between these two sets of ensembles of neurons
 
 ---
 class: middle 
@@ -1264,6 +1324,7 @@ name:disc
 - [Simulations](#sims)
 - [Real](#real)
 - [Theory](#theory)
+- [Neurobiology](#neuro)
 - Discussion
 
 

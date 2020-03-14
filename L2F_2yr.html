@@ -188,7 +188,7 @@ Given $n$ new .ye[data] points in .ye[setting] $\mathcal{S}$, .ye[assuming] $P$,
 
 ## What are data?
 
-- $z_i \in \mathcal{Z}$ for $i \in [n]$ are measurements
+- $z_i \in \mathcal{Z}$ for $i \in [n]$ are samples
 - Classification Example
   -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
 
@@ -205,13 +205,13 @@ Given $n$ new .ye[data] points in .ye[setting] $\mathcal{S}$, .ye[assuming] $P$,
 
 The setting is determined by the available resources:
 
--  Sample space: $\mathcal{Z}$,  determined by available sensors
+-  .ye[Sample space]: $\mathcal{Z}$,  determined by available sensors
   - e.g., scalars, d-dimensional vectors, networks
-- Action space: $\mathcal{A}$,  determined by available actuators
+- .ye[Action space]: $\mathcal{A}$,  determined by available actuators
   - e.g., {&rarr;, &larr;, &uarr;, &darr;, A,B}, {reject, fail to reject}, $\mathbb{R}$
-- Query space: $\mathcal{Q}$, determined by system's "interface"
+- .ye[Query space]: $\mathcal{Q}$, determined by system's "interface"
   - e.g., in which cluster is $z$? what is this object?
-- Constraints: $\mathcal{C}$,  determined by hardware, time, money, subject matter expertise
+- .ye[Constraints]: $\mathcal{C}$,  determined by hardware, time, money, subject matter expertise
   - e.g., $\mathcal{O}(n)$ training time, k-sparse, 8 GB
 - A learning setting is an element of the set $\mathcal{S} := \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$ 
 
@@ -225,10 +225,11 @@ The setting is determined by the available resources:
 
 These are required to have any theoretical performance guarantees, though they can be quite general:
 
-- Assume the data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_Z \in \mathcal{P}_Z$
-- Assume a query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \mathcal{P}_Q$ 
-- Assume an optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \mathcal{P}_{A \mid Q}$ 
-- Let $P = P\_Z \otimes P\_{A, Q} \in \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
+- The data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_Z \in \mathcal{P}_Z$
+- A query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \mathcal{P}_Q$ 
+- An optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \mathcal{P}_{A \mid Q}$ 
+
+Let $P = P\_Z \otimes P\_{A, Q} \in \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
   
   
 
@@ -240,9 +241,9 @@ These are required to have any theoretical performance guarantees, though they c
 
 We get to choose this, though we must respect the resource constraints defined by the setting:
 
-- A hypothesis, $h : \mathcal{Q} \rightarrow \mathcal{A}$ takes an action on the basis of a query
-- $f_n$ is a  learner, which maps from a subset of $n$ samples in $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
-- $f=f_1, f_2, \ldots$ is a sequence of learners, called a learning algorithm 
+- A .ye[hypothesis], $h : \mathcal{Q} \rightarrow \mathcal{A}$ takes an action on the basis of a query
+- $f_n$ is a  .ye[learner], which maps from a subset of $n$ samples in $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
+- $f=f_1, f_2, \ldots$ is a sequence of learners, called a learning .ye[algorithm] 
 
 $$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrace$$ 
 
@@ -306,14 +307,14 @@ Provided by subject matter expect and available resources, including:
 ## What is Performance?
 
 
-- Loss quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\ell: \mathcal{A} \times \mathcal{A} \to \mathbb{R}$, where $\ell \in \mathcal{L}$, 
+- .ye[Loss] quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\ell: \mathcal{A} \times \mathcal{A} \to \mathbb{R}$, where $\ell \in \mathcal{L}$, 
   - e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a']. $
 
 <!-- $\mathsf{l}, \mathsf{R}, \mathsf{E}, \mathsf{h}, l, R, E, h$ -->
 
 --
 
-- Risk quantifies the loss over the whole query sample space, $\mathcal{R} = \lbrace R : \mathcal{H} \times \mathcal{L} \times \mathcal{P}\_{Q, A} \to \mathbb{R} \rbrace$ 
+- .ye[Risk] quantifies the loss over the whole query sample space, $\mathcal{R} = \lbrace R : \mathcal{H} \times \mathcal{L} \times \mathcal{P}\_{Q, A} \to \mathbb{R} \rbrace$ 
  - We think of this only as a function of $h \in \mathcal{H}$, because the loss and distribution effectively index the function
   - eg, expected loss $ R(h) := R(h; \ell, P\_{Q, A}) = \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $ 
 
@@ -393,13 +394,13 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
 
 
 - Let 
-  - $t_i \in \lbrace 0, 1 \rbrace$ label each sample, where $0$ denotes source and $1$ denotes target 
+  - $t_i \in \lbrace 0, 1 \rbrace$ label each sample, where $0$ denotes .ye[source] and $1$ denotes .ye[target] 
   - $\mathcal{Z}' = (\mathcal{Z},\lbrace 0,1 \rbrace)$
 - Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=j \sim P\_t$, 
 - Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
 - Define a transfer learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
-$$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \lbrace 0,1 \rbrace )^n \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{\lbrace 0,1 \rbrace })^n \rightarrow \mathcal{H} \rbrace$$
 
 - Let  $f^t$ denote the learner that only sees samples where $t_i=t$. 
 <!-- - Define a transfer learning setting as $\mathcal{S}\_{TL} = \lbrace \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$ -->
@@ -443,16 +444,16 @@ $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the
 
 
 - Let 
-  - $t_i \in [T]$ denote the task associated with sample $i$
+  - $t_i \in \color{yellow}{[T]}$ denote the task associated with sample $i$
   - $\mathcal{Z}' = (\mathcal{Z}, [T])$
 - Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=t \sim P\_t$, 
 - Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
 - Define a multi-task learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
-$$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times [T] )^n \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]} )^n \rightarrow \mathcal{H} \rbrace$$
 
 - Let $f^t$ denote the learner that only sees samples where $t_i=t$. 
-- Identify the appropriate performance functions $\lbrace \mathcal{E}_t \rbrace$.
+- Identify the appropriate performance functions $\color{yellow}{\lbrace \mathcal{E}_t \rbrace}$.
 
 
 
@@ -528,7 +529,7 @@ Sequential multi-task learning, where
 - Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
 - Define a lifelong learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
 
-$$ \mathcal{F}_{L2} = \lbrace f_n : \mathcal{H} \times (\mathcal{Z} \times \mathcal{T} )^n \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{L2} = \lbrace f_n : \mathcal{H} \times (\mathcal{Z} \times \color{yellow}{\mathcal{T}} )^n \rightarrow \mathcal{H} \rbrace$$
 
 - Let $f^t$ denote the learner that only sees samples where $t_i=t$. 
 - Identify the appropriate performance functions $\lbrace \mathcal{E}_t \rbrace$.

@@ -496,7 +496,7 @@ $$\mathcal{F}_S = \lbrace  f : \mathcal{H} \times {\mathcal{Z}^n} \rightarrow \m
 
 This is useful when either or both:
   - the data arrive sequentially
-  - the constraints in a setting demand a fixed capacity
+  - the constraints  demand a fixed capacity
 
 
 
@@ -1254,16 +1254,21 @@ If each cell is:
 - small enough, and 
 - has enough points in it, 
 
-then given enough data, one can .ye[transfer learn] *perfectly, no matter what*! 
+then given enough data, one can .ye[transfer learn] *no matter what*! 
 
 
 -- jovo, 2020
 
 
+Specifically, this means:
+- as $n_0 \to \infty$, TE is at least $1$ 
+- as $n_1 \to \infty$, $\mathcal{E}(f_n) \to \mathcal{E}^*$ 
+
+<!-- TODO@ronak i added the above two things, does that seem right to you as a conjecture? -->
 
 ---
 class: middle 
-name:disc 
+name:neuro 
 
 - [Definition](#def)
 - [Scenarios](#scenarios)
@@ -1288,6 +1293,43 @@ name:disc
 - Concepts that are not combinations of existing ones can never form 
 - So fixed capacity system only happens after significant training 
 
+---
+
+## How do brains learn? 
+
+- "Partitioning", as implemented by a network, corresponds to only a subset of nodes responding to any given input 
+
+<img src="images/rock20/Side-black.gif" style="height:230px;"/>
+<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
+<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
+
+
+<!-- - Each connectome dynamically reconfigures at multiple time-scales to store novel information  -->
+<!-- - Memory consolidation requires a physical reconfiguration implemented by a sequence of immediate early genes (IEGs) -->
+
+
+---
+
+## How do brains learn? 
+
+
+- "Partitioning", as implemented by a network, corresponds to only a subset of nodes responding to any given input 
+- A brain's connectome implements a partitioning of feature space 
+
+<iframe width="560" height="315" src="videos/zebrafish_em_traces.m4v" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+
+
+---
+
+## How do brains learn? 
+
+
+- "Partitioning", as implemented by a network, corresponds to only a subset of nodes responding to any given input 
+- A brain's connectome implements a partitioning of feature space 
+- Each connectome dynamically reconfigures at multiple time-scales to store novel information 
+
+<iframe width="560" height="315" src="videos/zebrafish_ca.m4v" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+
 
 ---
 
@@ -1298,10 +1340,8 @@ name:disc
 - Each connectome dynamically reconfigures at multiple time-scales to store novel information 
 - Memory consolidation requires a physical reconfiguration implemented by a sequence of immediate early genes (IEGs)
 
-<img src="images/rock20/Side-black.gif" style="height:230px;"/>
-<img src="images/rock20/Front_of_Sensory_Homunculus.gif" style="height:230px;"/>
-<img src="images/rock20/Rear_of_Sensory_Homunculus.jpg" style="height:230px;"/>
 
+<!-- TODO@JV add video? -->
 
 ---
 

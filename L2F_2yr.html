@@ -228,11 +228,11 @@ The setting is determined by the available resources:
 
 These are required to have any theoretical performance guarantees, though they can be quite general:
 
-- The data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_Z \in \mathcal{P}_Z$
-- A query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \mathcal{P}_Q$ 
-- An optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \mathcal{P}_{A \mid Q}$ 
+- The data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_Z \in \, \mathcal{P}_Z$
+- A query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
+- An optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
 
-Let $P = P\_Z \otimes P\_{A, Q} \in \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
+Let $P = P\_Z \otimes P\_{A, Q} \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
   
   
 
@@ -266,7 +266,7 @@ $$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrac
 ## What are Constraints?
 
 Provided by subject matter expect and available resources, including:
-- Distributional constraints $P \in \mathcal{P}$, 
+- Distributional constraints $P \in \, \mathcal{P}$, 
   - e.g, mixture of K Gaussians, or convex
 - Decision rule (or hypothesis) constraints, $h \in \mathcal{H}$, 
   - e.g., $\mathcal{O}(1)$, or k-sparse 
@@ -310,7 +310,7 @@ Provided by subject matter expect and available resources, including:
 ## What is Performance?
 
 
-- .ye[Loss] quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\ell: \mathcal{A} \times \mathcal{A} \to \mathbb{R}$, where $\ell \in \mathcal{L}$, 
+- .ye[Loss] quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\mathcal{L} = \lbrace  \ell: \mathcal{A} \times \mathcal{A} \to \mathbb{R} \rbrace$, 
   - e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a']. $
 
 <!-- $\mathsf{l}, \mathsf{R}, \mathsf{E}, \mathsf{h}, l, R, E, h$ -->
@@ -338,7 +338,7 @@ $ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(\cdot))
 ---
 
 
-## What is  Learning? 
+## Has $f$ Learned?
 
 
 
@@ -383,7 +383,7 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 - Given
  - a sample size $n$
  - a setting $\mathcal{S}$
-- Assume a true but unknown distribution $P \in \mathcal{P}$ 
+- Assume a true but unknown distribution $P \in \, \mathcal{P}$ 
 - Find $f$ that minimizes generalization error
 
 $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
@@ -400,13 +400,12 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
   - $t_i \in \lbrace 0, 1 \rbrace$ label each sample, where $0$ denotes .ye[source] and $1$ denotes .ye[target] 
   - $\mathcal{Z}' = (\mathcal{Z},\lbrace 0,1 \rbrace)$
 - Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=j \sim P\_t$, 
-- Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
-- Define a transfer learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
+- Let  $P = P_{Z,T} \otimes P_Q \in \, \mathcal{P}'$
+- Define a transfer learning algorithm $f$ as a sequence 
 
 $$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{\lbrace 0,1 \rbrace })^n \rightarrow \mathcal{H} \rbrace$$
 
 - Let  $f^t$ denote the learner that only sees samples where $t_i=t$. 
-<!-- - Define a transfer learning setting as $\mathcal{S}\_{TL} = \lbrace \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$ -->
 - Identify the appropriate performance function.
 
 
@@ -414,7 +413,7 @@ $$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{\lbrace 0
 ---
 
 
-## What is Transfer Learning?
+## Has $f$ Transfer Learned?
 
 
 Given $n$ source target data points in transfer learning setting $\mathcal{S}\_{TL}$, assuming $P$, 
@@ -432,7 +431,7 @@ $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the
 - Given
   - a sample size $n$
   - a transfer learning setting $\mathcal{S} := \mathcal{S}\_{TL} = \lbrace \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$
-- Assume a true but unknown distribution $P \in \mathcal{P}'$
+- Assume a true but unknown distribution $P \in \, \mathcal{P}'$
 - Find $f$ that minimizes generalization error
   $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
   
@@ -443,15 +442,15 @@ $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the
 
 
 
-## What is a Multitask? 
+## What is Multitask Learning? 
 
 
 - Let 
   - $t_i \in \color{yellow}{[T]}$ denote the task associated with sample $i$
   - $\mathcal{Z}' = (\mathcal{Z}, [T])$
 - Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=t \sim P\_t$, 
-- Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
-- Define a multi-task learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
+- Let  $P = P_{Z,T} \otimes P_Q \in \, \mathcal{P}'$
+- Define a multi-task learning algorithm $f$ as a sequence 
 
 $$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]} )^n \rightarrow \mathcal{H} \rbrace$$
 
@@ -464,7 +463,7 @@ $$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]} )^n 
 ---
 
 
-## What is Multitask Learning? 
+## Has $f$ Multitask Learned?
 
 
 
@@ -489,17 +488,59 @@ $$ \mathcal{E}\_t(f_n) < \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 
 ## What is Sequential Learning? 
 
-Same as classical single task ("batch") learning, except $f$ .ye[explicitly] updates existing hypotheses on basis of new data, that is, 
-
-
-$$\mathcal{F}_S = \lbrace  f : \mathcal{H} \times {\mathcal{Z}^n} \rightarrow \mathcal{H} \rbrace$$ 
-
-
---
-
-This is useful when either or both:
-  - the data arrive sequentially
+- When:
+  - the data arrive sequentially, potentially in batches of size $m$
   - the constraints  demand a fixed capacity
+- Then, a sequential learning algorithm updates existing hypotheses on the basis of new data, that is, 
+
+
+$$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m} \rightarrow \mathcal{H} \rbrace$$ 
+
+
+
+---
+
+
+
+## A Sequential Learning Task?  
+
+
+- Given
+  - a sequentially sampled size $n$
+  - a sequential learning setting $( \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
+- Assume a true but unknown distribution $P \in \, \mathcal{P}'$
+- Find $f$ that minimizes generalization error
+  $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
+  
+
+
+
+---
+
+## What is Online Learning?
+
+
+
+
+- Let 
+  - data arrive sequentially
+  - we also observe the prediction of $k$ experts, collectively in $\Xi$
+- Assume .ye[nothing], $Z\_i \sim P_i \in \mathcal{P}$,  distribution could be iid, conditionally dependent, or adversarial
+- Define an .ye[online] learning algorithm $f$ as a sequence  
+
+$$ \mathcal{F}_{O} = \lbrace f_n : (\mathcal{H} \times \mathcal{Z} \times \color{yellow}{\Xi} ) \rightarrow \mathcal{H} \rbrace$$
+
+
+---
+
+## An Online Learning Task?
+
+- Given
+  - a sequentially sampled size $n$
+  - a online learning setting $( \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
+- Find $f$ that minimizes .ye[cumulative error]
+$$f^* = \arg \min\_{f} \, \sum_{i=1}^n \mathcal{E}\_P(f).$$
+
 
 
 
@@ -529,8 +570,8 @@ Sequential multi-task learning, where
   - $t_i \in \color{yellow}{\mathcal{T}}$ denote the task associated with sample $i$
   - $\mathcal{Z}' = (\mathcal{Z}, \mathcal{T})$
 - Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=t \sim P\_t$, 
-- Let  $P = P_{Z,T} \otimes P_Q \in \mathcal{P}'$
-- Define a lifelong learning algorithm $f=f_1, f_2, \ldots$ as any sequence where 
+- Let  $P = P_{Z,T} \otimes P_Q \in \, \mathcal{P}'$
+- Define a lifelong learning algorithm $f=f_1, f_2, \ldots$ as a sequence
 
 $$ \mathcal{F}_{L2} = \lbrace f_n : \mathcal{H} \times (\mathcal{Z} \times \color{yellow}{\mathcal{T}} )^n \rightarrow \mathcal{H} \rbrace$$
 

@@ -509,14 +509,13 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 
 
 
-<!-- ---
-
+<!--
 
 ## What is Sequential Learning? 
 
 - When:
-  - the data arrive sequentially in rounds, potentially in batches of size $m$
-  - tasks can also change with each round, pulled from a (possibly infinite) environment $\mathcal{T}$
+  - the data arrive sequentially in batches, potentially in batches of size $m$
+  - tasks can also change with each batch, pulled from a (possibly infinite) environment $\mathcal{T}$
   - the sequence of tasks is called the syllabus
   - the constraints demand a fixed capacity
   - there is potential for additional, $\Xi$-valued side information 
@@ -525,40 +524,22 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 
 $$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m} \times \Xi \rightarrow \mathcal{H} \rbrace$$ 
 
+ -->
 
-
----
-
-
-
+<!-- 
 ## A Sequential Learning Task?  
 
 
 - Given
-  - a number of rounds $n$
+  - a number of batches $n$
   - a sequential learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
-- Assume a true but unknown distribution $P\_i \in \, \mathcal{P}$ that nature selects at each round $i$ (can be the same). 
+- Assume a true but unknown distribution $P\_i \in \, \mathcal{P}$ that nature selects at each batch $i$ (can be the same). 
 - Assume (potentially) a pool of side information, $\Xi$.
 - Find $f$ that minimizes a generalization error that is indexed by $n$
-  $$f^* = \arg \min\_{f} \, \mathcal{E}(f, n).$$ -->
+  $$f^* = \arg \min\_{f} \, \mathcal{E}(f, n).$$ 
+
+-->
   
-
-<!-- ---
-
-## Two Special Cases
-
-Online Learning (OL) and Reinforcement Learning (RL) are two special cases of sequential learning, in which:
-
---
-
-- The distribution of data $P\_i$ can change at each round $i$, perhaps adversarially.
-
---
-
-
-- Some side information $\Xi$ is required to learn, either in the form of:
-  - $k$ experts, as in OL, or
-  - the existence of some state transition matrix $[P\_{s, s' \mid a}]$ for each action $a \in \mathcal{A}$, as in RL. -->
 
 ---
 
@@ -568,10 +549,10 @@ Online Learning (OL) and Reinforcement Learning (RL) are two special cases of se
 
 
 - Let 
-  - data arrive sequentially in $n$ rounds
+  - data arrive sequentially in $n$ batches
   - we also observe the prediction of $k$ experts, collectively in $\Xi$
 - Assume .ye[nothing], $Q\_i \sim P_i \in \mathcal{P}$,  distribution could be i.i.d., conditionally dependent, or adversarial
-- Define aclass of .ye[online] learning algorithms $f$ as a maps
+- Define a class of .ye[online] learning algorithms $f$ as a maps
 
 $$ \mathcal{F}_{O} = \lbrace f : \mathcal{H} \times \color{yellow}{\Xi} \rightarrow \mathcal{H} \rbrace$$
 
@@ -582,8 +563,8 @@ $$ \mathcal{F}_{O} = \lbrace f : \mathcal{H} \times \color{yellow}{\Xi} \rightar
 
 - Given
   - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f \in \mathcal{O}(1) \, \forall n$
-  - a risk $R\_i$ at each round $i$
-  - expert advice $\xi\_i$ at each round $i$
+  - a risk $R\_i$ at each batch $i$
+  - expert advice $\xi\_i$ at each batch $i$
 - Find $f$ that minimizes .ye[regret]
 $$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi\_i)) - \min\_{h \in \mathcal{H}} \sum\_{i=1}^n R\_i(h).$$
 
@@ -596,8 +577,8 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi
 
 
 - Let 
-  - data (states) arrive sequentially in $n$ rounds
-  - $\mathcal{Z}\_i$ be the space of past states and actions at round $i$
+  - data (states) arrive sequentially in $n$ batches
+  - $\mathcal{Z}\_i$ be the space of past states and actions at batch $i$
 - Assume upon taking action $a$, state distribution changes according to some transition matrix transition matrix $[P\_{s, s' \mid a}]$ (for finite $\mathcal{Q}$ and $\mathcal{A}$).
 - Let $\mathcal{H}$ be the space of policies (hypotheses)
 - Define a .ye[reinforcment] learning algorithms $f$ as a sequence
@@ -1456,7 +1437,7 @@ name:neuro
 
 ---
 
-## Neurobiology Background
+## Neurobiology Backgbatch
 
 - All brains start with 1 neurons, and *increase neural capacity* during embroynic and juvenile developmental stages 
 <!-- - In many taxa, # of neurons increases throughout development  -->
@@ -1900,7 +1881,7 @@ Hava, Ben, Robert, Jennifer, Ted.
 
 ---
 <!-- class:center -->
-background-image: url(images/l_and_v.jpeg)
+backgbatch-image: url(images/l_and_v.jpeg)
 
 # Questions?
 
@@ -1917,7 +1898,7 @@ class: middle, inverse
 ---
 
 
-## Background 
+## Backgbatch 
 
 3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
 7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.

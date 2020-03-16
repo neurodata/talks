@@ -585,7 +585,7 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi
 - Let $\mathcal{H}$ be the space of policies (hypotheses)
 - Define a .ye[reinforcment] learning algorithms $f$ as a sequence
 
-$$ \mathcal{F}_{R} = \lbrace f\_i : \color{yellow}{\mathcal{Z}_i} \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{R} = \lbrace f\_i : \, \color{yellow}{\mathcal{Z}_i} \times \mathcal{H} \rightarrow \mathcal{H} \rbrace$$
 
 
 ---
@@ -599,7 +599,7 @@ $$ \mathcal{F}_{R} = \lbrace f\_i : \color{yellow}{\mathcal{Z}_i} \rightarrow \m
   - a discount rate $\gamma$
   - a reward function $\bar{R}$
 - Find $f$ that maximizes .ye[expected reward]
-$$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\big[ \sum\_{i=0}^n \gamma^{n-i} \bar{R}(Q\_i, f(Z\_i))\big] $$
+$$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\big[ \sum\_{i=0}^n \gamma^{n-i} \bar{R}(Q\_i, f(Z\_i, h\_{i-1}))\big] $$
 
 
 

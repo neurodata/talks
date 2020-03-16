@@ -544,7 +544,7 @@ Online Learning (OL) and Reinforcement Learning (RL) are two special cases of se
 
 - Some side information $\Xi$ is required to learn, either in the form of:
   - $k$ experts, as in OL, or
-  - the exists of some state transition matrix $[P\_{s, s' \mid a}]$ for each action $a \in \mathcal{A}$, as in RL.
+  - the existence of some state transition matrix $[P\_{s, s' \mid a}]$ for each action $a \in \mathcal{A}$, as in RL.
 
 ---
 
@@ -567,7 +567,7 @@ $$ \mathcal{F}_{O} = \lbrace f\_t : \color{yellow}{\Xi} \rightarrow \mathcal{H} 
 ## An Online Learning Task?
 
 - Given
-  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
+  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_t \in \mathcal{O}(1) \, \forall n$
   - a risk $R\_t$ at each round $t$
   - expert advice $\xi\_t$ at each round $t$
 - Find $f$ that minimizes .ye[regret]
@@ -581,27 +581,28 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f, T) = \sum\_{t=1}^T R\_t(f(\xi\_t)) - \m
 ### What is Reinforcement Learning?
 
 
-TODO.
 - Let 
-  - data arrive sequentially in $T$ rounds
-  - we also observe the prediction of $k$ experts, collectively in $\Xi$
-- Assume .ye[nothing], $Q\_t \sim P_t \in \mathcal{P}$,  distribution could be iid, conditionally dependent, or adversarial
-- Define an .ye[online] learning algorithm $f$ as a sequence  
+  - data (states) arrive sequentially in $T$ rounds
+  - $\mathcal{Z}_t$ be the space of past states and actions at round $t$
+- Assume upon taking action $a$, state distribution changes according to some transition matrix transition matrix $[P\_{s, s' \mid a}]$ (for finite $\mathcal{Q}$ and $\mathcal{A}$).
+- Let $\mathcal{H}$ be the space of policies (hypotheses)
+- Define an .ye[reinforcment] learning algorithm $f$ as a sequence  
 
-$$ \mathcal{F}_{O} = \lbrace f\_t : \color{yellow}{\Xi} \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{R} = \lbrace f\_t : \color{yellow}{\mathcal{Z}_t} \rightarrow \mathcal{H} \rbrace$$
 
 
 ---
 
 ### A Reinforcement Learning Task?
 
-TODO.
 - Given
-  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
-  - a risk $R\_t$ at each round $t$
-  - expert advice $\xi\_t$ at each round $t$
-- Find $f$ that minimizes .ye[regret]
-$$f^* = \arg \min\_{f} \, \mathcal{E}(f, T) = \sum\_{t=1}^T R\_t(f(\xi\_t)) - \min\_{h \in \mathcal{H}} \sum\_{t=1}^T R\_t(h).$$
+  - reinforcement learning settings $( \mathcal{Z}\_t, \mathcal{A}, \mathcal{Q}, \mathcal{C})\_t$, where 
+    - $\mathcal{Q}$ and $\mathcal{A}$ are the state and action spaces, respectively,
+    - $\mathcal{Z}\_t = (\mathcal{Q} \times \mathcal{A})^{t-1}$ is the space of past state-action pairs
+  - a discount rate $\gamma$
+  - a reward function $\bar{R}$
+- Find $f$ that maximizes .ye[expected reward]
+$$f^* = \arg \max\_{f} \, \mathcal{E}(f, T) = \ \mathbb{E}\_{Q\_t, Z\_t}\big[ \sum\_{t=0}^T \gamma^{T-t} \bar{R}(Q_t, f(Z_t))\big] $$
 
 
 

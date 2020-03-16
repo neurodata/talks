@@ -345,7 +345,7 @@ Provided by subject matter expect and available resources, including:
 - Performance, also called  generalization .ye[error], quantifies risk over the distribution of possible training datasets,  $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$,  
  - We think of this only as a function of $f\_n \in \mathcal{F}$, for the same reason as above 
   - e.g., expected risk: 
-$ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(\cdot))]. $
+$ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(Z))]. $
 
 <!-- TODO@ronak i put a \cdot in there. ok? -->
 
@@ -521,12 +521,12 @@ $$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m
 
 
 - Given
-  - a number of rounds $T$
+  - a number of rounds $n$
   - a sequential learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
-- Assume a true but unknown distribution $P_t \in \, \mathcal{P}$ that nature selects at each round $t$ (can be the same). 
+- Assume a true but unknown distribution $P\_i \in \, \mathcal{P}$ that nature selects at each round $i$ (can be the same). 
 - Assume (potentially) a pool of side information, $\Xi$.
-- Find $f$ that minimizes a performance measure that depends on $T$
-  $$f^* = \arg \min\_{f} \, \mathcal{E}(f, T).$$
+- Find $f$ that minimizes a generalization error that is indexed by $n$
+  $$f^* = \arg \min\_{f} \, \mathcal{E}(f, n).$$
   
 
 ---
@@ -537,7 +537,7 @@ Online Learning (OL) and Reinforcement Learning (RL) are two special cases of se
 
 --
 
-- The distribution of data $P\_t$ can change at each round $t$, perhaps adversarially.
+- The distribution of data $P\_i$ can change at each round $i$, perhaps adversarially.
 
 --
 
@@ -556,10 +556,10 @@ Online Learning (OL) and Reinforcement Learning (RL) are two special cases of se
 - Let 
   - data arrive sequentially in $T$ rounds
   - we also observe the prediction of $k$ experts, collectively in $\Xi$
-- Assume .ye[nothing], $Q\_t \sim P_t \in \mathcal{P}$,  distribution could be iid, conditionally dependent, or adversarial
-- Define an .ye[online] learning algorithm $f$ as a sequence  
+- Assume .ye[nothing], $Q\_i \sim P_i \in \mathcal{P}$,  distribution could be i.i.d., conditionally dependent, or adversarial
+- Define aclass of .ye[online] learning algorithms $f$ as a maps
 
-$$ \mathcal{F}_{O} = \lbrace f\_t : \color{yellow}{\Xi} \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{O} = \lbrace f : \mathcal{H} \times \color{yellow}{\Xi} \rightarrow \mathcal{H} \rbrace$$
 
 
 ---
@@ -567,11 +567,11 @@ $$ \mathcal{F}_{O} = \lbrace f\_t : \color{yellow}{\Xi} \rightarrow \mathcal{H} 
 ## An Online Learning Task?
 
 - Given
-  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_t \in \mathcal{O}(1) \, \forall n$
-  - a risk $R\_t$ at each round $t$
-  - expert advice $\xi\_t$ at each round $t$
+  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f \in \mathcal{O}(1) \, \forall n$
+  - a risk $R\_i$ at each round $i$
+  - expert advice $\xi\_i$ at each round $i$
 - Find $f$ that minimizes .ye[regret]
-$$f^* = \arg \min\_{f} \, \mathcal{E}(f, T) = \sum\_{t=1}^T R\_t(f(\xi\_t)) - \min\_{h \in \mathcal{H}} \sum\_{t=1}^T R\_t(h).$$
+$$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi\_i)) - \min\_{h \in \mathcal{H}} \sum\_{i=1}^n R\_i(h).$$
 
 
 
@@ -582,13 +582,13 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f, T) = \sum\_{t=1}^T R\_t(f(\xi\_t)) - \m
 
 
 - Let 
-  - data (states) arrive sequentially in $T$ rounds
-  - $\mathcal{Z}_t$ be the space of past states and actions at round $t$
+  - data (states) arrive sequentially in $n$ rounds
+  - $\mathcal{Z}\_i$ be the space of past states and actions at round $i$
 - Assume upon taking action $a$, state distribution changes according to some transition matrix transition matrix $[P\_{s, s' \mid a}]$ (for finite $\mathcal{Q}$ and $\mathcal{A}$).
 - Let $\mathcal{H}$ be the space of policies (hypotheses)
-- Define an .ye[reinforcment] learning algorithm $f$ as a sequence  
+- Define a .ye[reinforcment] learning algorithms $f$ as a sequence
 
-$$ \mathcal{F}_{R} = \lbrace f\_t : \color{yellow}{\mathcal{Z}_t} \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{R} = \lbrace f\_i : \color{yellow}{\mathcal{Z}_i} \rightarrow \mathcal{H} \rbrace$$
 
 
 ---
@@ -596,13 +596,13 @@ $$ \mathcal{F}_{R} = \lbrace f\_t : \color{yellow}{\mathcal{Z}_t} \rightarrow \m
 ### A Reinforcement Learning Task?
 
 - Given
-  - reinforcement learning settings $( \mathcal{Z}\_t, \mathcal{A}, \mathcal{Q}, \mathcal{C})\_t$, where 
+  - reinforcement learning settings $( \mathcal{Z}\_i, \mathcal{A}, \mathcal{Q}, \mathcal{C})\_i$, where 
     - $\mathcal{Q}$ and $\mathcal{A}$ are the state and action spaces, respectively,
-    - $\mathcal{Z}\_t = (\mathcal{Q} \times \mathcal{A})^{t-1}$ is the space of past state-action pairs
+    - $\mathcal{Z}\_i = (\mathcal{Q} \times \mathcal{A})^{i-1}$ is the space of past state-action pairs
   - a discount rate $\gamma$
   - a reward function $\bar{R}$
 - Find $f$ that maximizes .ye[expected reward]
-$$f^* = \arg \max\_{f} \, \mathcal{E}(f, T) = \ \mathbb{E}\_{Q\_t, Z\_t}\big[ \sum\_{t=0}^T \gamma^{T-t} \bar{R}(Q_t, f(Z_t))\big] $$
+$$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\big[ \sum\_{i=0}^n \gamma^{n-i} \bar{R}(Q\_i, f(Z\_i))\big] $$
 
 
 

@@ -434,7 +434,7 @@ Given $n$ source target data points in transfer learning setting $\mathcal{S}\_{
 
 $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the source data:
 
-.center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_n^1)$.]
+.center[$f$ learns when $\mathcal{E}(f_n) < \, \mathcal{E}(f_n^1)$.]
 
 ---
 
@@ -493,7 +493,7 @@ $$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E
 
 $f$ .ye[strongly multitask] learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
 
-$$ \mathcal{E}\_t(f_n) < \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
+$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
 
 
 
@@ -570,6 +570,7 @@ $$f^* = \arg \min\_{f} \, \sum_{i=1}^n \mathcal{E}\_P(f).$$
 Sequential multi-task learning, where
 - $|\mathcal{T}|$ is a (countably) infinite set of tasks
 - $T_n$ is the number of tasks observed after $n$ samples
+- $n_t$ is the number of samples for task $t$
 - Requires .ye[out of task] capabilities  
 
 
@@ -608,13 +609,23 @@ Given $n$ data points sequentially in lifelong learning setting $\mathcal{S}\_{L
 
 $f$ .ye[weakly lifelong] learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average]:
 
-$$  \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
+<!-- $$ \mathbb{E} \Big[ \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n )  \Big]  < 
+ \mathbb{E} \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n^t),$$  -->
+
+
+$$  \sum\_{t \in [T\_n]} n\_t \mathcal{E}\_t(f\_n )   < 
+ \sum\_{t \in [T\_n]} n\_t \mathcal{E}\_t(f\_n^t) ,$$ 
+
+ <!-- $$ \sum\_{i \in [n]} \mathcal{E}\_{t\_i}(f\_i ) 
+ < 
+  \sum\_{i \in [n]} \mathcal{E}\_{t\_i}(f\_i^{t_i}),$$  -->
+ 
 
 <br>
 
 $f$ .ye[strongly lifelong] learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
 
-$$ \mathcal{E}\_t(f_n) < \mathcal{E}\_t(f_n^t) \quad \forall t \in [T\_n].$$ 
+$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T\_n].$$ 
 
 
 

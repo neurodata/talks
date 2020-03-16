@@ -35,13 +35,39 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 ---
 
+## What is lifelong Learning?
+
+Lifelong learning occurs when 
+
+1. there is a stream of .ye[continually changing] tasks, and 
+2. performance improves by .ye[leveraging other tasks].
+
+--
+
+
+
+A system has .ye[weakly] lifelong learned if task performance .ye[on average], and has .ye[strongly] lifelong learned task performance improves .ye[for each task].
+
+
+--
+
+
+Thus, the only way to lifelong learn is by .ye[transferring knowledge across tasks], ideally both .ye[forward] (to improve future task performance) and .ye[backward] (to improve past task performance).
+
+
+
+
+
+
+---
+
 ## Key Accomplishments
 
 
 
 1. Formalized Lifelong Learning as generalization of classical machine learning
 1. Introduced novel evaluation criteria: forward and backward transfer efficiency
-1. Proposed  omnidirectional transfer learning algorithm framework by ensembling  representations
+1. Proposed  omnidirectional transfer learning  framework by ensembling  representations
 1. Implemented Lifelong Forests (LF) as a specific example 
 1. Demonstrated LF uniquely exhibits 
     1. positive forward transfer 
@@ -57,25 +83,28 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 ## Current State of the Art 
 
-Either 
-1. Used fixed architecture, finite capacity
-2. Increase capacity, with complicated architecture 
+Used either 
+1. fixed architecture/capacity, 
+2. increase capacity, with complicated architecture 
 
-
+But did not demonstrate transfer (so maybe did not lifelong learn)
 
 ---
 
 
 ##  Key Insights
 
-1. Avoiding catastrophic forgetting simply no data don't hurt performance on old tasks, but why stop there?
+1. Avoiding catastrophic forgetting: data don't hurt performance on old tasks. Why stop there?
 1. The key to lifelong learning is the ability to transfer knowledge from one setting to others (both past and future).
 2. This can be achieved by
-  1. Learning new representation functions as necessary
-  1. Ensembling  representations to take actions.
+  1. learning new representation functions (as necessary)
+  1. ensembling  representations to take actions.
 
 
+Motivation: in biology, learning subsequent tasks often improves performance on past and future tasks.
 
+The key is updating internal representations with each sample that are useful for multiple tasks.
+  
 
 
 ---
@@ -94,26 +123,11 @@ Either
 
 ---
 
-## What is lifelong Learning?
-
-Given a sequence of samples associated with different tasks (and task labels if available),  a lifelong learning system updates decision rules using the data  to  improve performances across  tasks.
-
-A system has .ye[weakly] lifelong learned if the data improves task performance .ye[on average], and has .ye[strongly] lifelong learned if the data improves task performance .ye[for each task].
-
-Thus, the only way to lifelong learn is by .ye[transferring knowledge], ideally both forward (to improve future task performance) and backward (to improve past task performance).
-
-Motivation: in biology, learning subsequent tasks often improves performance on past and future tasks.
-
-The key is updating internal representations with each sample that are useful for multiple tasks.
-
-
----
-
 
 ## Key Claims
 
 
-1. If you don't  transfer, you haven't lifelong learned.
+1. If you don't  transfer, you haven't lifelong learned, rather, you've .ye[sequentially compressed].
 2. We propose the only algorithm in the literature the demonstrates weak or strong lifelong learning.
 
 ---
@@ -430,7 +444,7 @@ $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the
 
 - Given
   - a sample size $n$
-  - a transfer learning setting $\mathcal{S} := \mathcal{S}\_{TL} = \lbrace \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C} \rbrace$
+  - a transfer learning setting $\mathcal{S} := \mathcal{S}\_{TL} = ( \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C} )$
 - Assume a true but unknown distribution $P \in \, \mathcal{P}'$
 - Find $f$ that minimizes generalization error
   $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
@@ -507,7 +521,7 @@ $$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m
 
 - Given
   - a sequentially sampled size $n$
-  - a sequential learning setting $( \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
+  - a sequential learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
 - Assume a true but unknown distribution $P \in \, \mathcal{P}'$
 - Find $f$ that minimizes generalization error
   $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$

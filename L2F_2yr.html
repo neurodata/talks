@@ -505,10 +505,11 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 - When:
   - the data arrive sequentially, potentially in batches of size $m$
   - the constraints  demand a fixed capacity
+  - there is potential for additional, $\Xi$-valued side information 
 - Then, a sequential learning algorithm updates existing hypotheses on the basis of new data, that is, 
 
 
-$$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m} \rightarrow \mathcal{H} \rbrace$$ 
+$$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m} \times \Xi \rightarrow \mathcal{H} \rbrace$$ 
 
 
 
@@ -520,14 +521,30 @@ $$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m
 
 
 - Given
-  - a sequentially sampled size $n$
+  - a number of rounds $T$
   - a sequential learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
-- Assume a true but unknown distribution $P \in \, \mathcal{P}'$
-- Find $f$ that minimizes generalization error
-  $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
+- Assume a true but unknown distribution $P_t \in \, \mathcal{P}$ that nature selects at each round $t$ (can be the same). 
+- Assume (potentially) a pool of side information, $\Xi$.
+- Find $f$ that minimizes a performance measure that depends on $T$
+  $$f^* = \arg \min\_{f} \, \mathcal{E}(f, T).$$
   
 
+---
 
+## Two Special Cases
+
+Online Learning (OL) and Reinforcement Learning (RL) are two special cases of sequential learning, in which:
+
+--
+
+- The distribution of data $P\_t$ can change at each round $t$, perhaps adversarially.
+
+--
+
+
+- Some side information $\Xi$ is required to learn, either in the form of:
+  - $k$ experts, as in OL, or
+  - the exists of some state transition matrix $[P\_{s, s' \mid a}]$ for each action $a \in \mathcal{A}$, as in RL.
 
 ---
 
@@ -537,12 +554,12 @@ $$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m
 
 
 - Let 
-  - data arrive sequentially
+  - data arrive sequentially in $T$ rounds
   - we also observe the prediction of $k$ experts, collectively in $\Xi$
-- Assume .ye[nothing], $Z\_i \sim P_i \in \mathcal{P}$,  distribution could be iid, conditionally dependent, or adversarial
+- Assume .ye[nothing], $Q\_t \sim P_t \in \mathcal{P}$,  distribution could be iid, conditionally dependent, or adversarial
 - Define an .ye[online] learning algorithm $f$ as a sequence  
 
-$$ \mathcal{F}_{O} = \lbrace f_n : (\mathcal{H} \times \mathcal{Z} \times \color{yellow}{\Xi} ) \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F}_{O} = \lbrace f\_t : \color{yellow}{\Xi} \rightarrow \mathcal{H} \rbrace$$
 
 
 ---
@@ -550,10 +567,41 @@ $$ \mathcal{F}_{O} = \lbrace f_n : (\mathcal{H} \times \mathcal{Z} \times \color
 ## An Online Learning Task?
 
 - Given
-  - a sequentially sampled size $n$
-  - a online learning setting $( \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
-- Find $f$ that minimizes .ye[cumulative error]
-$$f^* = \arg \min\_{f} \, \sum_{i=1}^n \mathcal{E}\_P(f).$$
+  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
+  - a risk $R\_t$ at each round $t$
+  - expert advice $\xi\_t$ at each round $t$
+- Find $f$ that minimizes .ye[regret]
+$$f^* = \arg \min\_{f} \, \mathcal{E}(f, T) = \sum\_{t=1}^T R\_t(f(\xi\_t)) - \min\_{h \in \mathcal{H}} \sum\_{t=1}^T R\_t(h).$$
+
+
+
+
+---
+
+### What is Reinforcement Learning?
+
+
+TODO.
+- Let 
+  - data arrive sequentially in $T$ rounds
+  - we also observe the prediction of $k$ experts, collectively in $\Xi$
+- Assume .ye[nothing], $Q\_t \sim P_t \in \mathcal{P}$,  distribution could be iid, conditionally dependent, or adversarial
+- Define an .ye[online] learning algorithm $f$ as a sequence  
+
+$$ \mathcal{F}_{O} = \lbrace f\_t : \color{yellow}{\Xi} \rightarrow \mathcal{H} \rbrace$$
+
+
+---
+
+### A Reinforcement Learning Task?
+
+TODO.
+- Given
+  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
+  - a risk $R\_t$ at each round $t$
+  - expert advice $\xi\_t$ at each round $t$
+- Find $f$ that minimizes .ye[regret]
+$$f^* = \arg \min\_{f} \, \mathcal{E}(f, T) = \sum\_{t=1}^T R\_t(f(\xi\_t)) - \min\_{h \in \mathcal{H}} \sum\_{t=1}^T R\_t(h).$$
 
 
 
@@ -670,6 +718,16 @@ name:scenarios
 - There are $4^5\times2^2\times3 = 12$,$288$ ways that 2 tasks can differ.
 - Ignoring constraints, we have $3$,$072$
 - Ignoring performance functions, we have $1$,$536$.
+
+---
+
+## Assumptions on Nature
+
+The curriculum decided by nature can be:
+- task constant
+- task semi-constant
+- task non-constant
+  - typically requires restrictions on amount of data per task, or side information (OL, RL, LL)
 
 
 

@@ -422,7 +422,7 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
 
 
 - Let 
-  - $t_i \in \lbrace 0, 1 \rbrace$ label each sample, where $0$ denotes .ye[source] and $1$ denotes .ye[target] 
+  - $t_i \in \lbrace 0, 1 \rbrace$ label each sample, where $0$ denotes .ye[source] and $1$ denotes .ye[target] (an environment of two tasks)
   - $\mathcal{Z}' = (\mathcal{Z},\lbrace 0,1 \rbrace)$
 - Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=j \sim P\_t$, 
 - Let  $P = P_{Z,T} \otimes P_Q \in \, \mathcal{P}'$
@@ -471,6 +471,7 @@ $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the
 
 
 - Let 
+  - $\color{yellow}{[T]}$ be the .ye[environment] of $T$ tasks.
   - $t_i \in \color{yellow}{[T]}$ denote the task associated with sample $i$
   - $\mathcal{Z}' = (\mathcal{Z}, [T])$
 - Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=t \sim P\_t$, 
@@ -514,8 +515,10 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 ## What is Sequential Learning? 
 
 - When:
-  - the data arrive sequentially, potentially in batches of size $m$
-  - the constraints  demand a fixed capacity
+  - the data arrive sequentially in rounds, potentially in batches of size $m$
+  - tasks can also change with each round, pulled from a (possibly infinite) environment $\mathcal{T}$
+  - the sequence of tasks is called the syllabus
+  - the constraints demand a fixed capacity
   - there is potential for additional, $\Xi$-valued side information 
 - Then, a sequential learning algorithm updates existing hypotheses on the basis of new data, that is, 
 
@@ -565,7 +568,7 @@ Online Learning (OL) and Reinforcement Learning (RL) are two special cases of se
 
 
 - Let 
-  - data arrive sequentially in $T$ rounds
+  - data arrive sequentially in $n$ rounds
   - we also observe the prediction of $k$ experts, collectively in $\Xi$
 - Assume .ye[nothing], $Q\_i \sim P_i \in \mathcal{P}$,  distribution could be i.i.d., conditionally dependent, or adversarial
 - Define aclass of .ye[online] learning algorithms $f$ as a maps
@@ -628,7 +631,8 @@ $$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\big[ \sum\_{i=0}^n \g
 
 
 Sequential multi-task learning, where
-- $|\mathcal{T}|$ is a (countably) infinite set of tasks
+- $|\mathcal{T}|$ is a (countably) infinite set of tasks, i.e. the environment
+- A syllabus can be fixed or random
 - $T_n$ is the number of tasks observed after $n$ samples
 - $n_t$ is the number of samples for task $t$
 - Requires .ye[out of task] capabilities  

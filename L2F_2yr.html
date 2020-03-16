@@ -112,9 +112,9 @@ Thus, the only way to lifelong learn is by .ye[transferring knowledge across tas
 
 Used either 
 1. fixed architecture/capacity, 
-2. increase capacity, with complicated architecture 
+2. increase capacity, with complicated architecture. 
 
-But did not demonstrate transfer (so maybe did not lifelong learn)
+But did not demonstrate transfer (so maybe did not lifelong learn).
 
 ---
 
@@ -718,38 +718,24 @@ name:scenarios
 
 ![:scale 100%](images/learning-taxonomy.svg)
 
----
-
-## Lifelong Learning Taxonomy 
-
-
-![:scale 100%](images/learning-taxonomy-red.svg)
-
 
 ---
 
 ## Ways Tasks can Differ
 
 
-| Component | Notation | Change |
+| Component | Notation | Examples |
 | :--- | :--- | :--- 
-| Sample Space | $\mathcal{Z}$ | {smaller, bigger, different}
-| Action Space | $\mathcal{A}$ | {smaller, bigger, different}
-| Query Space | $\mathcal{Q}$ | {smaller, bigger, different}
-| Constraints | $\mathcal{C}$ | {smaller, bigger, different}
-| Performance | $\mathcal{E}$ | {different}
-| Distribution | $P$ | {different}
+| Sample Space | $\mathcal{Z}$ | another modality
+| Action Space | $\mathcal{A}$ | class incremental, task incremental
+| Query Space | $\mathcal{Q}$ | new queries allowed
+| Constraints | $\mathcal{C}$ | added hardware
+| Performance | $\mathcal{E}$ | $L_2 \to L_1$
+| Distribution | $P$ | Gaussian to Log-Gaussian
 | Task Awareness | $T_i$ | {aware, oblivious, semi-aware}
 
+$2^6 \times 3 \approx 200$ ways tasks can differ.
 
-
----
-
-## Ways to Change Tasks
-
-- There are $4^5\times2^2\times3 = 12$,$288$ ways that 2 tasks can differ.
-- Ignoring constraints, we have $3$,$072$
-- Ignoring performance functions, we have $1$,$536$.
 
 ---
 
@@ -762,7 +748,7 @@ The curriculum decided by nature can be:
   - typically requires restrictions on amount of data per task, or side information (OL, RL, LL)
 
 
-
+<!-- TODO@JV maybe move below slides to real data -->
 
 ---
 

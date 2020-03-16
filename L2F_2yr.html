@@ -550,7 +550,7 @@ $$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m
 
 - Let 
   - data arrive sequentially in $n$ batches
-  - we also observe the prediction of $k$ experts, collectively in $\Xi$
+  - we also observe the prediction of  experts, collectively in $\Xi$
 - Assume .ye[nothing], $Q\_i \sim P_i \in \mathcal{P}$,  distribution could be i.i.d., conditionally dependent, or adversarial
 - Define a class of .ye[online] learning algorithms $f$ as a maps
 
@@ -566,14 +566,16 @@ $$ \mathcal{F}_{O} = \lbrace f : \mathcal{H} \times \color{yellow}{\Xi} \rightar
   - a risk $R\_i$ at each batch $i$
   - expert advice $\xi\_i$ at each batch $i$
 - Find $f$ that minimizes .ye[regret]
-$$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi\_i)) - \min\_{h \in \mathcal{H}} \sum\_{i=1}^n R\_i(h).$$
+$$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi\_i)). $$ 
+
+<!-- - \min\_{h \in \mathcal{H}} \sum\_{i=1}^n R\_i(h).$$ -->
 
 
 
 
 ---
 
-### What is Reinforcement Learning?
+## Reinforcement Learning?
 
 
 - Let 

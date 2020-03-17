@@ -736,30 +736,6 @@ The syllabus decided by nature can be:
 
 <!-- TODO@JV maybe move below slides to real data -->
 
-<!-- 
-
-## Vision Task 1
-
-
-
-.pull-left[
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
-- 500 training images and 100 testing images per class.
-- All images are 32x32 color images.
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
-]
-
-.pull-right[
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
-]
-
-<br>
-
-
-Why its a good scenario:
-1. current reference dataset
-2. a variant of this is "Class Incremental", where each subsequent task includes all previous tasks, which is harder 
--->
 
 ---
 
@@ -773,7 +749,7 @@ I'll propose a few classification domains.
 
 ---
 
-## Classification Task
+## Vision Task
 
 
 
@@ -789,6 +765,32 @@ Why it is a good scenario:
 2. Many metrics (localization, fine grained objects, texture, scene)
 3. SOTA benchmark results are available 
 4. Much larger than any existing image dataset
+
+---
+
+## Vision Task
+
+.small[
+1. What is application domain
+  - machine vision, image classification, object detection, etc.
+2. What are the distributions from which tasks are sampled?
+  - 12 different tasks, can sample in arbitrary order to get errorbars on performance 
+3. What is known by agent before deployment? What gets learned?
+  1. Only knowing setting 
+  2. pretrained on other image datasets 
+  3. convolutions are helpful
+4. What must be selectively remembered across tasks?
+  1. transformers (eg, hidden layers) from previous tasks  
+5. How does scenario present signal and noise 
+  1. many samples per class define signal per class 
+6. What aspects are unique to lifelong learning 
+  1. sequential tasks 
+7. Independent and dependent variables?
+  1. Independent: # classes, # samples/class, aspect-ratio/image, image-size/image, object-location/image, 
+  2. Dependent variables: forward and backward transfer efficiency
+]
+
+
 ---
 
 
@@ -810,6 +812,31 @@ Why it is a good scenario:
 1. Public and real data
 2. Not vision
 3. Many metrics (translation, language identification, grammar correcting, reference adding, etc.)
+
+
+---
+
+## Language Task 1
+
+.small[
+1. What is application domain
+  - natural language processing
+2. What are the distributions from which tasks are sampled?
+  - Natural sentences from 156 different languages.
+3. What is known by agent before deployment? What gets learned?
+  1. Only knowing setting 
+  2. pretrained on other language datasets 
+  3. Word embeddings from existing models
+4. What must be selectively remembered across tasks?
+  1. transformers (eg, hidden layers) from previous languages  
+5. How does scenario present signal and noise 
+  1. many samples per class define signal per language 
+6. What aspects are unique to lifelong learning 
+  1. sequential tasks 
+7. Independent and dependent variables?
+  1. Independent: # languages, # sentences/language 
+  2. Dependent variables: forward and backward transfer efficiency
+]
 
 
 ---
@@ -839,16 +866,31 @@ Why is this a good scenario:
 
 
 
-<!-- 
+---
 
-## Examples 
+## Language Task 2
 
-1. Task 2: $P$ and $\mathcal{A}$ are different, 
-  - this is "Task Incremental Learning" (CIFAR 10x10)
-1. Task 2: $P$ changes and  $\mathcal{A}$ gets bigger, 
-  - this is "Class Incremental Learning"
-1. Task 2:  $P$ changes, but $f$ does not know (continual learning) 
--->
+.small[
+1. What is application domain
+  - natural language processing
+2. What are the distributions from which tasks are sampled?
+  - Many words from each Bing dominant type
+3. What is known by agent before deployment? What gets learned?
+  1. Only knowing setting 
+  2. pretrained on other data 
+  3. Word embeddings from existing models
+4. What must be selectively remembered across tasks?
+  1. transformers (eg, hidden layers) from other types  
+5. How does scenario present signal and noise 
+  1. many samples per class define signal per dominant type 
+6. What aspects are unique to lifelong learning 
+  1. sequential tasks 
+7. Independent and dependent variables?
+  1. Independent: # types, # terms/type 
+  2. Dependent variables: forward and backward transfer efficiency
+]
+
+
 
 
 ---
@@ -1234,6 +1276,27 @@ name:real
 
 <!-- TODO@JV add multimodal example -->
 
+
+
+---
+
+## CIFAR 10x10
+
+
+
+.pull-left[
+- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
+- 500 training images and 100 testing images per class.
+- All images are 32x32 color images.
+- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
+]
+
+.pull-right[
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
+]
+
+
+
 ---
  
 
@@ -1268,6 +1331,7 @@ Lifelong Forests demonstrates the .ye[largest forward transfer].
 
 <!-- ![:scale 100%](images/cifar-100-FTE.svg) -->
 ![:scale 100%](images/cifar-100-FTE_.svg)
+
 ---
 
 
@@ -1305,9 +1369,6 @@ Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
 | ProgNN     |  1.02 (&plusmn;0.01)   |  0.97 (&plusmn;0.01)
 
 
-<!-- <img src="images/all_TE.png" style="height:250px;" /> -->
-<!-- <img src="images/all_TE_2.png" style="height:500px;" /> -->
-
 
 ---
 
@@ -1316,21 +1377,62 @@ Lifelong Forests accuracy is worse than .ye[C]NNs with O(10M) parameters, and be
 
 ![:scale 100%](images/cifar-100-E.svg)
 
+---
+
+
+## Language Identification
+
+
+
+- 8,194,317 sentences from wikipedia (downloaded from facebook). 
+- 156 languages
+- Trained using unsupervised FastText embedding
+- words, 2-4 char n-grams embedded into 16 dimensions
+- selected 30 languages
+- break into batches of 3 "related" languages
+
+![:scale 100%](images/30-languages.png) 
+
+
+
 
 ---
 class:inverse
 
-## Language Task 1 
+## Language Identification
 
 ![:scale 100%](images/RTE_language.png)
+
+
+
+
+---
+
+
+## Web-Search Categorization
+
+.pull-left[
+- Same data as above
+- labels now correspond to Microsoft Bing "dominant type"
+- 10k training 
+- 1k testing entities
+- 20 classes 
+  - each with &ge;11k samples
+- 4 classes per task
+]
+
+.pull-right[
+![:scale 100%](images/bing-dominant-types.png) 
+]
 
 
 ---
 
 ## Language Task 2 
 
-![:scale 100%](images/RTE_bing.png)
+![:scale 90%](images/RTE_bing.png)
 
+Note 1.34 RTE for task 4.
 
 ---
 name:theory

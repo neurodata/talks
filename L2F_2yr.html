@@ -676,25 +676,6 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T\_n].$$
 
 
 
-
-
----
-name:scenarios
-
-## Outline 
-
-- [Summary](#summary)
-- [Definition](#def)
-- Scenarios
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-
-
 ---
 
 ## Lifelong Learning Taxonomy 
@@ -721,7 +702,26 @@ name:scenarios
 $2^6 \times 3 \approx 200$ ways tasks can differ.
 
 
+
 ---
+name:scenarios
+
+## Outline 
+
+- [Summary](#summary)
+- [Definition](#def)
+- Scenarios
+- [Metrics](#metrics)
+- [Algorithm](#alg)
+- [Simulations](#sims)
+- [Real](#real)
+- [Theory](#theory)
+- [Neurobiology](#neuro)
+- [Discussion](#disc)
+
+
+
+<!-- ---
 
 ## Assumptions on Nature
 
@@ -729,12 +729,14 @@ The syllabus decided by nature can be:
 - task constant
 - task semi-constant
 - task non-constant
-  - typically requires restrictions on amount of data per task, or side information (OL, RL, LL)
+  - typically requires restrictions on amount of data per task, or side information (OL, RL, LL) 
+
+-->
 
 
 <!-- TODO@JV maybe move below slides to real data -->
 
----
+<!-- 
 
 ## Vision Task 1
 
@@ -753,32 +755,40 @@ The syllabus decided by nature can be:
 
 <br>
 
---
 
 Why its a good scenario:
 1. current reference dataset
-2. a variant of this is "Class Incremental", where each subsequent task includes all previous tasks, which is harder
-
-
+2. a variant of this is "Class Incremental", where each subsequent task includes all previous tasks, which is harder 
+-->
 
 ---
 
-## Vision Task 2
+## Scenario Desiderata
+
+1. &ge;1 classification 
+1. &ge;1 non-vision 
+1. &ge;1 cross-modal (vision to text)
+
+I'll propose a few classification domains.
+
+---
+
+## Classification Task
 
 
 
 - EfficientNet used we different image datasets 
 - Each has different number of classes, samples
-- Even within dataset, each image could be different size and aspect ratio
+- Within dataset images are different sizes / aspect ratios
 - Sequentially train on each dataset
 
 ![:scale 50%](images/12-datasets.png)
 
 Why it is a good scenario:
-1. Images are more real (different resolutions, scales, # classes)
+1. Images are  real (different resolutions, scales, # classes)
 2. Many metrics (localization, fine grained objects, texture, scene)
-3. Benchmark results are available 
-
+3. SOTA benchmark results are available 
+4. Much larger than any existing image dataset
 ---
 
 
@@ -788,16 +798,18 @@ Why it is a good scenario:
 
 - 8,194,317 sentences from wikipedia (downloaded from facebook). 
 - 156 languages
-- Trained using unsupervised FastText embedding
-- words, 2-4 char n-grams embedded into 16 dimensions
-- selected 30 languages
-- break into batches of 3 "related" languages
+<!-- - Trained using unsupervised FastText embedding -->
+<!-- - words, 2-4 char n-grams embedded into 16 dimensions -->
+<!-- - selected 30 languages -->
+<!-- - break into batches of 3 "related" languages -->
 
 ![:scale 50%](images/30-languages.png) 
+
 
 Why it is a good scenario:
 1. Public and real data
 2. Not vision
+3. Many metrics (translation, language identification, grammar correcting, reference adding, etc.)
 
 
 ---
@@ -806,15 +818,17 @@ Why it is a good scenario:
 ## Language Task 2
 
 .pull-left[
-- same feature vectors as above
+- Same feature data as above
 - labels now correspond to Microsoft Bing "dominant type"
-- 10k training and 1k testing entities
-- 20 classes (each with at least 11k samples)
-- 4 classes per task
+<!-- - 10k training and 1k testing entities -->
+<!-- - 20 classes (each with at least 11k samples) -->
+<!-- - 4 classes per task -->
 
 Why is this a good scenario:
 1. Public  data 
-2. Real application 
+2. Real application
+3. Not vision
+4. Many metrics (hierarchical classification) 
 ]
 
 .pull-right[

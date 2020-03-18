@@ -927,13 +927,12 @@ name:sims
   - samples in the (0,1) and (1,0) quadrants are purple 
 - Optimal decision boundaries for both problems are coordinate axes
 
-<img src="images/l2m_18mo/xor_nxor.png" style="width:475px" class="center"/> 
+<img src="images/gaussian-xor-nxor.png" style="width:475px" class="center"/> 
 
 <!-- TODO@HH replace with svg of Gaussian XOR & N-XOR -->
 
 
-
----
+<!-- 
 
 
 ## Lifelong Classifier 
@@ -945,39 +944,43 @@ name:sims
 <!-- TODO@HH add titles to left and middle panel saying "Forward Transfer" and "Reverse Transfer",  respectively-->
 
 - .lb[Uncertainty Forest] uses 100 samples from XOR to learn partitions
-- .ye[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions
+- .ye[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions -->
 
 
 
 ---
 
 
-## Lifelong Classifier 
+### XOR vs NXOR Transfer Efficiency
 
-<img src="images/columbia20/xor-nxor-all2.png"  style="height:500px;">
+![:scale 100%](images/xor-te.png)
 
-<!-- TODO@HH replace with 3 panels of XOR vs R-XOR -->
-<!-- TODO@HH add fig showing XOR-Chess & vice verse (so, 2x3 panels) -->
 
----
  
 
+---
+
+### Lots of Transfer Efficiency
+
+![:scale 55%](images/lotsa-te.png)
+
+<!-- 
 ## Different # of Classes 
 
-<img src="images/spiral-all.png"  style="height:500px;">
+<img src="images/spiral-all.png"  style="height:500px;"> -->
 
 
-<!-- TODO@HH replaec with new spiral figure -->
 
 ---
  
 
 ## Graceful Forgetting
 
-<img src="images/rxor-suite-new-row.png"  style="width:700px;">
+![:scale 100%](images/rxor-te.png)
 
 
-<!-- TODO@HH replace with new graceful forgetting figure -->
+
+
 
 
 ---

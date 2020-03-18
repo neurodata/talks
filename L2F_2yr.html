@@ -91,8 +91,7 @@ Thus, the only way to lifelong learn is by .ye[transferring knowledge across tas
 
 
 
-
----
+<!-- 
 
 
 ## Proposed Metrics
@@ -105,7 +104,7 @@ Improvement on a task by virtue of  .ye[all other task data].
 Improvement on a task by virtue of  .ye[all past task data]. 
 
 ##### **Backward Transfer Efficiency:**  
-Improvement on a task by virtue of  .ye[all future task data]. 
+Improvement on a task by virtue of  .ye[all future task data].  -->
 
 
 
@@ -146,13 +145,12 @@ name:def
 ## What is Learning?
 
 
-Given $n$ new samples in setting $\mathcal{S}$, assuming $P$, 
+In setting $\mathcal{S}$, given $n$ new samples,  assuming $P$, 
 
 $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
 .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
 
---
 
 
 $\mathcal{E}(f_0)$ is the  performance of $f$ prior to seeing $n$ new data. 
@@ -164,7 +162,7 @@ $\mathcal{E}(f_0)$ is the  performance of $f$ prior to seeing $n$ new data.
 
 
 
-Given $n$ new .ye[data] points in .ye[setting] $\mathcal{S}$, .ye[assuming] $P$, 
+In .ye[setting] $\mathcal{S}$, given $n$ new .ye[samples],   .ye[assuming] $P$, 
 
 .ye[$f$] learns  when its .ye[performance] $\mathcal{E}$ improves due to the data:
 
@@ -172,19 +170,6 @@ Given $n$ new .ye[data] points in .ye[setting] $\mathcal{S}$, .ye[assuming] $P$,
 
 $\mathcal{E}(f_0)$ is the  performance of $f$ prior to seeing $n$ new data. 
 
-
-
-
-
-
----
- 
-
-## What are data?
-
-- $z_i \in \mathcal{Z}$ for $i \in [n]$ are samples
-- Classification Example
-  -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
 
 
 
@@ -210,6 +195,20 @@ The setting is determined by the available resources:
 
 
 .ye[Setting]: an element of the tuple $\mathcal{S} :=  (\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$ 
+
+
+
+
+
+---
+ 
+
+## What are samples?
+
+- $z_i \in \mathcal{Z}$ for $i \in [n]$ are samples
+- Classification Example
+  -  $Z_i = (X_i,Y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
+
 
 
 
@@ -377,12 +376,12 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 ## What is a Learning Task?
 
 - Given
- - a sample size $n$
- - a setting $\mathcal{S}$
+  - a setting $\mathcal{S}$
+  - a sample size $n$
 - Assume a true but unknown distribution $P \in \, \mathcal{P}$ 
 - Find $f$ that minimizes generalization error
 
-$$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
+$$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
 
 
 
@@ -392,11 +391,11 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
 ## What is Transfer Learning?  
 
 
-- Let 
+- Given 
   - .ye[Environment]: $t_i \in \lbrace 0, 1 \rbrace$ label each sample 
       - $0$ denotes source data
       - $1$ denotes target data 
-  - .ye[Sample space]: $\mathcal{Z} = (\mathcal{Z},\lbrace 0,1 \rbrace)$
+  - .ye[Sample space]: $\mathcal{Z} \leftarrow (\mathcal{Z},\lbrace 0,1 \rbrace)$
 - Assume a  .ye[Statistical model]:   $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$, where 
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid
   - $(T\_1,\ldots, T\_n) \sim P\_T$
@@ -414,7 +413,7 @@ $$ \mathcal{F} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{\lbrace 0,1 \r
 ## Has $f$ Transfer Learned?
 
 
-Given $n$ source  samples in transfer  setting $\mathcal{S}$, assuming $P$, 
+In transfer  setting $\mathcal{S}$, given $n$  samples,  assuming $P$, 
 
 $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the source data:
 
@@ -429,11 +428,11 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
 
 
 - Given
+  - a transfer learning setting $\mathcal{S} =  ( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C} )$
   - a sample size $n$
-  - a transfer learning setting $\mathcal{S} := \mathcal{S} = ( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C} )$
 - Assume a true but unknown distribution $P \in \, \mathcal{P}$
 - Find $f$ that minimizes generalization error
-  $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
+  $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
   
 
 
@@ -447,7 +446,7 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
 
 
 
-- Let 
+- Given 
   - Environment: $t_i \in \color{yellow}{[T]}$ label each sample 
   - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\color{yellow}{[T]})$
 - Assume a  statistical model:  $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$, where
@@ -468,7 +467,7 @@ $$ \mathcal{F} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]})^n \right
 
 
 
-Given $n$ samples in multitask learning setting $\mathcal{S}$, assuming $P$, 
+In multitask learning setting $\mathcal{S}$, given $n$ samples,  assuming $P$, 
 
 
 
@@ -488,8 +487,8 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 #### What is Task-Oblivious Lifelong Learning? 
 
 
-- Let:
- - Environment: $t_i \in \color{yellow}{\mathcal{T}}$ a (.ye[potentially infinite]) set of tasks
+- Given
+ - Environment: $t_i \in \color{yellow}{\mathcal{T}}$  (.ye[potentially infinite]) set of tasks
  - .ye[Side information]: $\xi_i \in \Xi$ such as expert advise, or reinforcement learning structure
   <!-- - each batch may be associated with a new task -->
   <!-- - the sequence of tasks is called the .ye[syllabus] -->
@@ -497,7 +496,7 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 - Assume
   - data arrive .ye[sequentially] in batches
   - .ye[no  structure] to $P$, ie, could be iid, adversarial, etc.
-- A sequential learning algorithm updates existing hypotheses on the basis of a batch of $m$ new samples
+- Define a task-oblivious lifelong learning algorithm $f$ to update existing hypotheses on the basis of a batch of $m$ new samples
 
 $$\mathcal{F} = \lbrace  f : \color{yellow}{\mathcal{H}}  \times ({\mathcal{Z}} \times \Xi)^m \rightarrow \mathcal{H} \rbrace$$ 
 
@@ -514,7 +513,7 @@ $$\mathcal{F} = \lbrace  f : \color{yellow}{\mathcal{H}}  \times ({\mathcal{Z}} 
 
 
 
-Given $n$ samples in task-oblivious lifelong setting $\mathcal{S}$, assuming $P$, 
+In task-oblivious lifelong setting $\mathcal{S}$, given $n$ samples,  assuming $P$, 
 
 
 
@@ -547,15 +546,16 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in \mathcal{T
 
 
 
-- Let 
-  - Environment: $t_i \in \mathcal{T}$ (potentially infinite) label each sample 
+- Given 
+  - Environment: $t_i \in \mathcal{T}$ (potentially infinite) set of tasks 
   - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\mathcal{T})$
 - Assume a statistical model:  $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$
   -  $Z\_i | T\_i \sim P\_{Z|T}$, 
   - $(T\_1,\ldots, T\_n) \sim P\_T$
   - data arrive sequentially in batches
-- Define a lifelong learning algorithm $f$ as a sequence 
-$$ \mathcal{F} = \lbrace f_n : \mathcal{H}  \times (\mathcal{Z} \times \color{yellow}{\mathcal{T}})^n \rightarrow \mathcal{H} \rbrace$$
+- Define a task-aware lifelong learning algorithm $f$ to update existing hypotheses on the basis of a batch of $m$ new samples
+<!-- - Define a lifelong learning algorithm $f$ as a sequence  -->
+$$ \mathcal{F} = \lbrace f : \mathcal{H}  \times (\mathcal{Z} \times \color{yellow}{\mathcal{T}})^m \rightarrow \mathcal{H} \rbrace$$
 - $n_t$ is the number of samples for task $t$
 <!-- - Requires .ye[out of task] capabilities   -->
 <!-- - $N_T$ is the number of tasks observed after $n$ samples -->
@@ -571,7 +571,7 @@ $$ \mathcal{F} = \lbrace f_n : \mathcal{H}  \times (\mathcal{Z} \times \color{ye
 
 
 
-Given $n$ samples  in task-aware lifelong  setting $\mathcal{S}$, assuming $P$, 
+In task-aware lifelong  setting $\mathcal{S}$, given $n$ samples,   assuming $P$, 
 
 
 

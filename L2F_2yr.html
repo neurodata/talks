@@ -193,7 +193,7 @@ The setting is determined by the available resources:
   - e.g., $\mathcal{O}(n)$ training time, k-sparse, 8 GB
 
 
-.ye[Setting]: an element of the tuple $\mathcal{S} :=  (\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$ 
+.ye[Setting]: is  the tuple $\mathcal{S} :=  (\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$ 
 
 
 
@@ -441,7 +441,7 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
 
 
 - Given 
-  - Environment: $t_i \in \color{yellow}{[T]}$ label each sample 
+  - Environment: $t_i \in \color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ label each sample 
   - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\color{yellow}{[T]})$
 - Assume a  statistical model:  $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$, where
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
@@ -860,7 +860,7 @@ $$ w : \mathcal{P}_{A|X} \to \mathcal{A}$$
 
 - Any learner with an explicit internal representation is ok, 
   - e.g.,  decision trees, decision forests, deep networks 
-- SVM's are not
+<!-- - SVM's are not obviously -->
 
 
 ---
@@ -1100,7 +1100,7 @@ Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
 ---
 class:inverse 
 
-## DNN Forward Transfer  
+## DNN CIFAR Forward Transfer  
 
 ![:scale 100%](images/dnn_cifar_fte.png) 
 
@@ -1108,7 +1108,7 @@ class:inverse
 ---
 class: inverse
 
-## DNN Backward Transfer 
+### .black[DNN CIFAR Backward Transfer ]
 
 ![:scale 100%](images/dnn_cifar_rte.png) 
 

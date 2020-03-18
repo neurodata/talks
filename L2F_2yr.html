@@ -17,27 +17,31 @@
 
 <!-- TODO add slide numbers & maybe slide name -->
 
-### Lifelong Learning Machines 
+### Lifelong Learning Forests (JHU)
 
+
+
+Joshua T. Vogelstein | Neurostatistics<br>
+Carey E. Priebe | Big data & network statistics<br>
+Raman Arora | Representation learning
 
 ![:scale 60%](images/neurodata_blue.png)
 
-Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io)
+<!-- 
+{[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io)
 <br>
-[jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)
-
+[jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data) -->
 
 ---
 
 ## Outline 
 
-- [Summary](#summary)
+- [Introduction](#intro)
 - [Definition](#def)
-- [Scenarios](#scenarios)
 - [Metrics](#metrics)
+- [Real](#real)
 - [Algorithm](#alg)
 - [Simulations](#sims)
-- [Real](#real)
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
@@ -47,16 +51,22 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 ## Outline 
 
-- Summary
+- Introduction
 - [Definition](#def)
-- [Scenarios](#scenarios)
 - [Metrics](#metrics)
+- [Real](#real)
 - [Algorithm](#alg)
 - [Simulations](#sims)
-- [Real](#real)
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
+
+---
+
+## What are we trying to solve?
+
+1. Formally define LL from a statistical decision theory perspective
+2. Construct and implement a L2M that achieves the formal definition of L2M
 
 
 
@@ -75,8 +85,6 @@ An .ye[efficient] lifelong learner does so under space/time complexity constrain
 
 
 
-
-
 Thus, the only way to lifelong learn is by .ye[transferring knowledge across tasks], ideally both .ye[forward] (to improve future task performance) and .ye[backward] (to improve past task performance).
 
 
@@ -86,64 +94,21 @@ Thus, the only way to lifelong learn is by .ye[transferring knowledge across tas
 
 ---
 
-## Key Accomplishments
-
-
-<!-- TODO@JV add weakly & strongly -->
-
-1. Formalized Lifelong Learning as generalization of classical machine learning
-1. Introduced novel evaluation criteria: forward and backward transfer efficiency
-1. Proposed  omnidirectional transfer learning  framework by ensembling  representations
-1. Implemented Lifelong Forests (LF) as a specific example 
-1. Demonstrated LF uniquely exhibits 
-    1. positive forward transfer 
-    1. positive backward transfer 
-    1. positive overall transfer
-1. Conjectured theory promising to prove consistency and robustness
-1. Described equivalence between Decision Forests and Deep Nets
-1. Proposed extension to implement and improve via Deep Nets
-
-
----
-
-
-## Current State of the Art 
-
-Used either 
-1. fixed architecture/capacity, 
-2. increase capacity, with complicated architecture. 
-
-But did not demonstrate transfer (so maybe did not lifelong learn).
-
----
-
-
-##  Key Insights
-
-1. Avoiding catastrophic forgetting: data don't hurt performance on old tasks. Why stop there?
-1. The key to lifelong learning is the ability to transfer knowledge from one setting to others (both past and future).
-2. This can be achieved by
-  1. learning new representation functions (as necessary)
-  1. ensembling  representations to take actions.
-
-
-Motivation: in biology, learning subsequent tasks often improves performance on past and future tasks.
-
-The key is updating internal representations with each sample that are useful for multiple tasks.
-  
-
-
----
-
 
 ## Proposed Metrics
 
 
-**Transfer Efficiency**: The extent to which performance on a specific task improves by virtue of data from .ye[all other task data].
+##### **Transfer Efficiency:** 
+Improvement on a task by virtue of  .ye[all other task data].
 
-**Forward Transfer Efficiency**: The extent to which performance on a specific task improves by virtue of data from .ye[all past task data]. 
+##### **Forward Transfer Efficiency:**
+Improvement on a task by virtue of  .ye[all past task data]. 
 
-**Backward Transfer Efficiency**:  The extent to which performance on a specific task improves by virtue of data from .ye[all future task data]. 
+##### **Backward Transfer Efficiency:**  
+Improvement on a task by virtue of  .ye[all future task data]. 
+
+
+
 
 
 
@@ -154,7 +119,9 @@ The key is updating internal representations with each sample that are useful fo
 
 
 1. If you don't  transfer, you haven't lifelong learned, rather, you've .ye[sequentially compressed].
-2. We propose the only algorithm in the literature the demonstrates weak or strong lifelong learning.
+2. We propose the only algorithm in the literature the .ye[demonstrates] weak or strong lifelong learning.
+
+
 
 
 ---
@@ -162,13 +129,12 @@ name:def
 
 ## Outline 
 
-- [Summary](#summary)
+- [Introduction](#intro)
 - Definition
-- [Scenarios](#scenarios)
 - [Metrics](#metrics)
+- [Real](#real)
 - [Algorithm](#alg)
 - [Simulations](#sims)
-- [Real](#real)
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
@@ -180,7 +146,7 @@ name:def
 ## What is Learning?
 
 
-Given $n$ new data points in setting $\mathcal{S}$, assuming $P$, 
+Given $n$ new samples in setting $\mathcal{S}$, assuming $P$, 
 
 $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
@@ -261,7 +227,7 @@ These are required to have any theoretical performance guarantees, though they c
 
 Let $P = P\_Z \otimes P\_{A, Q} \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
   
-  
+$\mathcal{P}$ is called the .ye[statistcal model].
 
 ---
  
@@ -345,8 +311,9 @@ Provided by subject matter expect and available resources, including:
 --
 
 - .ye[Risk] quantifies the loss over the whole query sample space, $\mathcal{R} = \lbrace R : \mathcal{H} \times \mathcal{L} \times \mathcal{P}\_{Q, A} \to \mathbb{R} \rbrace$ 
- - We think of this only as a function of $h \in \mathcal{H}$, because the loss and distribution effectively index the function
-  - eg, expected loss $ R(h) := R(h; \ell, P\_{Q, A}) = \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $ 
+ <!-- - We think of this only as a function of $h \in \mathcal{H}$, because the loss and distribution effectively index the function -->
+  <!-- - eg, expected loss: $ R(h) := R(h; \ell, P\_{Q, A}) = \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $  -->
+  - eg, expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $ 
 
 
 ---
@@ -355,10 +322,12 @@ Provided by subject matter expect and available resources, including:
 ## What is Performance?
 
 
-- Performance, also called  generalization .ye[error], quantifies risk over the distribution of possible training datasets,  $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$,  
- - We think of this only as a function of $f\_n \in \mathcal{F}$, for the same reason as above 
+- Performance, also called  generalization .ye[error], quantifies risk over the distribution of possible training datasets,  
+<!-- $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$,   -->
+ <!-- - We think of this only as a function of $f\_n \in \mathcal{F}$, for the same reason as above  -->
   - e.g., expected risk: 
-$ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(Z))]. $
+<!-- $ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(Z))]. $ -->
+$ \mathcal{E}(f\_n) :=  \mathbb{E}\_Z[R(f\_n(Z))]. $
 
 <!-- TODO@ronak i put a \cdot in there. ok? -->
 
@@ -369,14 +338,14 @@ $ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(Z))]. $
 
 
 
-Given $n$ new data points in setting $\mathcal{S}$, assuming $P$, 
+Given $n$ new samples in setting $\mathcal{S}$, assuming $P$, 
 
 $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
 .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
 
 
-$\mathcal{E}(f_0)$ is the  performance of $f$ prior to seeing $n$ new data points, and therefore a function of
+$\mathcal{E}(f_0)$ is the  performance of $f$ prior to seeing $n$ new samples, and therefore a function of
   - prior on $\theta$ 
   - inductive bias of $\mathcal{H}$
   - estimation bias of $f$
@@ -424,16 +393,18 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
 
 
 - Let 
-  - $t_i \in \lbrace 0, 1 \rbrace$ label each sample, where $0$ denotes .ye[source] and $1$ denotes .ye[target] (an environment of two tasks)
-  - $\mathcal{Z}' = (\mathcal{Z},\lbrace 0,1 \rbrace)$
-- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=j \sim P\_t$, 
-- Let  $P = P_{Z,T} \otimes P_Q \in \, \mathcal{P}'$
-- Define a transfer learning algorithm $f$ as a sequence 
+  - .ye[Environment]: $t_i \in \lbrace 0, 1 \rbrace$ label each sample 
+      - $0$ denotes source data
+      - $1$ denotes target data 
+  - .ye[Sample space]: $\mathcal{Z} = (\mathcal{Z},\lbrace 0,1 \rbrace)$
+- Assume a  .ye[Statistical model]:   $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$, where 
+  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid
+  - $(T\_1,\ldots, T\_n) \sim P\_T$
+- Define a transfer learning .ye[algorithm] $f$ as a sequence 
 
-$$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{\lbrace 0,1 \rbrace })^n \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{\lbrace 0,1 \rbrace })^n \rightarrow \mathcal{H} \rbrace$$
 
-- Let  $f^t$ denote the learner that only sees samples where $t_i=t$. 
-- Identify the appropriate performance function.
+<!-- - Identify the appropriate performance function. -->
 
 
 
@@ -443,22 +414,24 @@ $$ \mathcal{F}_{TL} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{\lbrace 0
 ## Has $f$ Transfer Learned?
 
 
-Given $n$ source target data points in transfer learning setting $\mathcal{S}\_{TL}$, assuming $P$, 
+Given $n$ source  samples in transfer  setting $\mathcal{S}$, assuming $P$, 
 
 $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the source data:
 
 .center[$f$ learns when $\mathcal{E}(f_n) < \, \mathcal{E}(f_n^1)$.]
 
+Where  $f^t$ denote the learner that only sees samples where $t_i=t$. 
+
 ---
 
 
-## A Transfer Learning Task?  
+## A Transfer Learning Task
 
 
 - Given
   - a sample size $n$
-  - a transfer learning setting $\mathcal{S} := \mathcal{S}\_{TL} = ( \mathcal{Z}', \mathcal{A}, \mathcal{Q}, \mathcal{C} )$
-- Assume a true but unknown distribution $P \in \, \mathcal{P}'$
+  - a transfer learning setting $\mathcal{S} := \mathcal{S} = ( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C} )$
+- Assume a true but unknown distribution $P \in \, \mathcal{P}$
 - Find $f$ that minimizes generalization error
   $$f^* = \arg \min\_{f} \, \mathcal{E}\_P(f_n).$$
   
@@ -472,18 +445,18 @@ $f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the
 ## What is Multitask Learning? 
 
 
+
+
 - Let 
-  - $\color{yellow}{[T]}$ be the .ye[environment] of $T$ tasks.
-  - $t_i \in \color{yellow}{[T]}$ denote the task associated with sample $i$
-  - $\mathcal{Z}' = (\mathcal{Z}, [T])$
-- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=t \sim P\_t$, 
-- Let  $P = P_{Z,T} \otimes P_Q \in \, \mathcal{P}'$
-- Define a multi-task learning algorithm $f$ as a sequence 
+  - Environment: $t_i \in \color{yellow}{[T]}$ label each sample 
+  - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\color{yellow}{[T]})$
+- Assume a  statistical model:  $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$, where
+  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
+  - $(T\_1,\ldots, T\_n) \sim P\_T$
+- Define a multitask learning algorithm $f$ as a sequence 
 
-$$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]} )^n \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]})^n \rightarrow \mathcal{H} \rbrace$$
 
-- Let $f^t$ denote the learner that only sees samples where $t_i=t$. 
-- Identify the appropriate performance functions $\color{yellow}{\lbrace \mathcal{E}_t \rbrace}$.
 
 
 
@@ -495,7 +468,7 @@ $$ \mathcal{F}_{MT} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]} )^n 
 
 
 
-Given $n$ data points in multitask learning setting $\mathcal{S}\_{MT}$, assuming $P$, 
+Given $n$ samples in multitask learning setting $\mathcal{S}$, assuming $P$, 
 
 
 
@@ -509,150 +482,39 @@ $f$ .ye[strongly multitask] learns when its performances $\lbrace \mathcal{E}_t 
 
 $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
 
-
-
-<!--
-
-## What is Sequential Learning? 
-
-- When:
-  - the data arrive sequentially in batches, potentially in batches of size $m$
-  - tasks can also change with each batch, pulled from a (possibly infinite) environment $\mathcal{T}$
-  - the sequence of tasks is called the syllabus
-  - the constraints demand a fixed capacity
-  - there is potential for additional, $\Xi$-valued side information 
-- Then, a sequential learning algorithm updates existing hypotheses on the basis of new data, that is, 
-
-
-$$\mathcal{F}_S = \lbrace  f : \color{yellow}{\mathcal{H}} \times {\mathcal{Z}^m} \times \Xi \rightarrow \mathcal{H} \rbrace$$ 
-
- -->
-
-<!-- 
-## A Sequential Learning Task?  
-
-
-- Given
-  - a number of batches $n$
-  - a sequential learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f_n \in \mathcal{O}(1) \, \forall n$
-- Assume a true but unknown distribution $P\_i \in \, \mathcal{P}$ that nature selects at each batch $i$ (can be the same). 
-- Assume (potentially) a pool of side information, $\Xi$.
-- Find $f$ that minimizes a generalization error that is indexed by $n$
-  $$f^* = \arg \min\_{f} \, \mathcal{E}(f, n).$$ 
-
--->
-  
-
 ---
 
-## What is Online Learning?
+
+#### What is Task-Oblivious Lifelong Learning? 
 
 
+- Let:
+ - Environment: $t_i \in \color{yellow}{\mathcal{T}}$ a (.ye[potentially infinite]) set of tasks
+ - .ye[Side information]: $\xi_i \in \Xi$ such as expert advise, or reinforcement learning structure
+  <!-- - each batch may be associated with a new task -->
+  <!-- - the sequence of tasks is called the .ye[syllabus] -->
+  <!-- - there is potential for  $\Xi$-valued side information  -->
+- Assume
+  - data arrive .ye[sequentially] in batches
+  - .ye[no  structure] to $P$, ie, could be iid, adversarial, etc.
+- A sequential learning algorithm updates existing hypotheses on the basis of a batch of $m$ new samples
 
+$$\mathcal{F} = \lbrace  f : \color{yellow}{\mathcal{H}}  \times ({\mathcal{Z}} \times \Xi)^m \rightarrow \mathcal{H} \rbrace$$ 
 
-- Let 
-  - data arrive sequentially in $n$ batches
-  - we also observe the prediction of  experts, collectively in $\Xi$
-- Assume .ye[nothing], $Q\_i \sim P_i \in \mathcal{P}$,  distribution could be i.i.d., conditionally dependent, or adversarial
-- Define a class of .ye[online] learning algorithms $f$ as a maps
-
-$$ \mathcal{F}_{O} = \lbrace f : \mathcal{H} \times \color{yellow}{\Xi} \rightarrow \mathcal{H} \rbrace$$
-
-
----
-
-## An Online Learning Task?
-
-- Given
-  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f \in \mathcal{O}(1) \, \forall n$
-  - a risk $R\_i$ at each batch $i$
-  - expert advice $\xi\_i$ at each batch $i$
-- Find $f$ that minimizes .ye[regret]
-$$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi\_i)). $$ 
-
-<!-- - \min\_{h \in \mathcal{H}} \sum\_{i=1}^n R\_i(h).$$ -->
-
-
-
-
----
-
-## Reinforcement Learning?
-
-
-- Let 
-  - data (states) arrive sequentially in $n$ batches
-  - $\mathcal{Z}\_i$ be the space of past states and actions at batch $i$
-- Assume upon taking action $a$, state distribution changes according to some transition matrix transition matrix $[P\_{s, s' \mid a}]$ (for finite $\mathcal{Q}$ and $\mathcal{A}$).
-- Let $\mathcal{H}$ be the space of policies (hypotheses)
-- Define a .ye[reinforcment] learning algorithms $f$ as a sequence
-
-$$ \mathcal{F}_{R} = \lbrace f\_i : \, \color{yellow}{\mathcal{Z}_i} \times \mathcal{H} \rightarrow \mathcal{H} \rbrace$$
-
-
----
-
-### A Reinforcement Learning Task?
-
-- Given
-  - reinforcement learning settings $( \mathcal{Z}\_i, \mathcal{A}, \mathcal{Q}, \mathcal{C})\_i$, where 
-    - $\mathcal{Q}$ and $\mathcal{A}$ are the state and action spaces, respectively,
-    - $\mathcal{Z}\_i = (\mathcal{Q} \times \mathcal{A})^{i-1}$ is the space of past state-action pairs
-  - a discount rate $\gamma$
-  - a reward function $\bar{R}$
-- Find $f$ that maximizes .ye[expected reward]
-$$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\big[ \sum\_{i=0}^n \gamma^{n-i} \bar{R}(Q\_i, f(Z\_i, h\_{i-1}))\big] $$
-
+- Note: 
+  - $f$ is oblivious to whether the setting has changed 
+  - $m=1$ is a special case
 
 
 
 ---
 
 
-## What is a Lifelong  Task? 
+#### A Task-Oblivious Lifelong Learning Task
 
 
 
-
-
-Sequential multi-task learning, where
-- $|\mathcal{T}|$ is a (countably) infinite set of tasks, i.e. the environment
-- A syllabus can be fixed or random
-- $T_n$ is the number of tasks observed after $n$ samples
-- $n_t$ is the number of samples for task $t$
-- Requires .ye[out of task] capabilities  
-
-
-
----
-
-
-## What is a Lifelong  Task? 
-
-
-- Let 
-  - $t_i \in \color{yellow}{\mathcal{T}}$ denote the task associated with sample $i$
-  - $\mathcal{Z}' = (\mathcal{Z}, \mathcal{T})$
-- Assume $(Z\_i,T\_i)$  is sampled iid from $P\_{Z,T}$, $Z\_i | T\_i=t \sim P\_t$, 
-- Let  $P = P_{Z,T} \otimes P_Q \in \, \mathcal{P}'$
-- Define a lifelong learning algorithm $f=f_1, f_2, \ldots$ as a sequence
-
-$$ \mathcal{F}_{L2} = \lbrace f_n : \mathcal{H} \times (\mathcal{Z} \times \color{yellow}{\mathcal{T}} )^n \rightarrow \mathcal{H} \rbrace$$
-
-- Let $f^t$ denote the learner that only sees samples where $t_i=t$. 
-- Identify the appropriate performance functions $\lbrace \mathcal{E}_t \rbrace$.
-
-
----
-
-
-
-## What is Lifelong Learning? 
-
-
-
-
-Given $n$ data points sequentially in lifelong learning setting $\mathcal{S}\_{L2}$, assuming $P$, 
+Given $n$ samples in task-oblivious lifelong setting $\mathcal{S}$, assuming $P$, 
 
 
 
@@ -662,8 +524,8 @@ $f$ .ye[weakly lifelong] learns when its  performances $\lbrace \mathcal{E}_t \r
  \mathbb{E} \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n^t),$$  -->
 
 
-$$  \sum\_{t \in [T\_n]} n\_t \mathcal{E}\_t(f\_n )   < 
- \sum\_{t \in [T\_n]} n\_t \mathcal{E}\_t(f\_n^t) ,$$ 
+$$  \sum\_{t \in \mathcal{T}} n\_t \mathcal{E}\_t(f\_n )   < 
+ \sum\_{t \in \mathcal{T}} n\_t \mathcal{E}\_t(f\_n^t) ,$$ 
 
  <!-- $$ \sum\_{i \in [n]} \mathcal{E}\_{t\_i}(f\_i ) 
  < 
@@ -674,7 +536,64 @@ $$  \sum\_{t \in [T\_n]} n\_t \mathcal{E}\_t(f\_n )   <
 
 $f$ .ye[strongly lifelong] learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
 
-$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T\_n].$$ 
+$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in \mathcal{T}.$$ 
+
+
+
+---
+
+
+#### What is Task-Aware Lifelong Learning? 
+
+
+
+- Let 
+  - Environment: $t_i \in \mathcal{T}$ (potentially infinite) label each sample 
+  - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\mathcal{T})$
+- Assume a statistical model:  $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$
+  -  $Z\_i | T\_i \sim P\_{Z|T}$, 
+  - $(T\_1,\ldots, T\_n) \sim P\_T$
+  - data arrive sequentially in batches
+- Define a lifelong learning algorithm $f$ as a sequence 
+$$ \mathcal{F} = \lbrace f_n : \mathcal{H}  \times (\mathcal{Z} \times \color{yellow}{\mathcal{T}})^n \rightarrow \mathcal{H} \rbrace$$
+- $n_t$ is the number of samples for task $t$
+<!-- - Requires .ye[out of task] capabilities   -->
+<!-- - $N_T$ is the number of tasks observed after $n$ samples -->
+
+
+
+---
+
+
+
+#### A Task-Aware Lifelong Learning Task
+
+
+
+
+Given $n$ samples  in task-aware lifelong  setting $\mathcal{S}$, assuming $P$, 
+
+
+
+$f$ weakly lifelong learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data on average:
+
+<!-- $$ \mathbb{E} \Big[ \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n )  \Big]  < 
+ \mathbb{E} \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n^t),$$  -->
+
+
+$$  \sum\_{t \in \mathcal{T}} n\_t \mathcal{E}\_t(f\_n )   < 
+ \sum\_{t \in \mathcal{T}} n\_t \mathcal{E}\_t(f\_n^t) ,$$ 
+
+ <!-- $$ \sum\_{i \in [n]} \mathcal{E}\_{t\_i}(f\_i ) 
+ < 
+  \sum\_{i \in [n]} \mathcal{E}\_{t\_i}(f\_i^{t_i}),$$  -->
+ 
+
+<br>
+
+$f$ strongly lifelong learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data for each task:
+
+$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in \mathcal{T}.$$ 
 
 
 
@@ -695,202 +614,13 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T\_n].$$
 | :--- | :--- | :--- 
 | Sample Space | $\mathcal{Z}$ | another modality
 | Action Space | $\mathcal{A}$ | class incremental, task incremental
-| Query Space | $\mathcal{Q}$ | new queries allowed
-| Constraints | $\mathcal{C}$ | added hardware
+| Query Space | $\mathcal{Q}$ | new keyboard introduced
+| Constraints | $\mathcal{C}$ | added\removed hardware
 | Performance | $\mathcal{E}$ | $L_2 \to L_1$
 | Distribution | $P$ | Gaussian to Log-Gaussian
-| Task Awareness | $T_i$ | {aware, oblivious, semi-aware}
+| Task Awareness | $T_i$ | {aware, oblivious, ambivalent}
 
 $2^6 \times 3 \approx 200$ ways tasks can differ.
-
-
-
----
-name:scenarios
-
-## Outline 
-
-- [Summary](#summary)
-- [Definition](#def)
-- Scenarios
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-
-
-
-<!-- ---
-
-## Assumptions on Nature
-
-The syllabus decided by nature can be:
-- task constant
-- task semi-constant
-- task non-constant
-  - typically requires restrictions on amount of data per task, or side information (OL, RL, LL) 
-
--->
-
-
-<!-- TODO@JV maybe move below slides to real data -->
-
-
----
-
-## Scenario Desiderata
-
-1. &ge;1 classification 
-1. &ge;1 non-vision 
-1. &ge;1 cross-modal (vision to text)
-
-I'll propose a few classification domains.
-
----
-
-## Vision Task
-
-
-
-- EfficientNet used we different image datasets 
-- Each has different number of classes, samples
-- Within dataset images are different sizes / aspect ratios
-- Sequentially train on each dataset
-
-![:scale 50%](images/12-datasets.png)
-
-Why it is a good scenario:
-1. Images are  real (different resolutions, scales, # classes)
-2. Many metrics (localization, fine grained objects, texture, scene)
-3. SOTA benchmark results are available 
-4. Much larger than any existing image dataset
-
----
-
-## Vision Task
-
-.small[
-1. What is application domain
-  - machine vision, image classification, object detection, etc.
-2. What are the distributions from which tasks are sampled?
-  - 12 different tasks, can sample in arbitrary order to get errorbars on performance 
-3. What is known by agent before deployment? What gets learned?
-  1. Only knowing setting 
-  2. pretrained on other image datasets 
-  3. convolutions are helpful
-4. What must be selectively remembered across tasks?
-  1. transformers (eg, hidden layers) from previous tasks  
-5. How does scenario present signal and noise 
-  1. many samples per class define signal per class 
-6. What aspects are unique to lifelong learning 
-  1. sequential tasks 
-7. Independent and dependent variables?
-  1. Independent: # classes, # samples/class, aspect-ratio/image, image-size/image, object-location/image, 
-  2. Dependent variables: forward and backward transfer efficiency
-]
-
-
----
-
-
-## Language Task 1
-
-
-
-- 8,194,317 sentences from wikipedia (downloaded from facebook). 
-- 156 languages
-<!-- - Trained using unsupervised FastText embedding -->
-<!-- - words, 2-4 char n-grams embedded into 16 dimensions -->
-<!-- - selected 30 languages -->
-<!-- - break into batches of 3 "related" languages -->
-
-![:scale 50%](images/30-languages.png) 
-
-
-Why it is a good scenario:
-1. Public and real data
-2. Not vision
-3. Many metrics (translation, language identification, grammar correcting, reference adding, etc.)
-
-
----
-
-## Language Task 1
-
-.small[
-1. What is application domain
-  - natural language processing
-2. What are the distributions from which tasks are sampled?
-  - Natural sentences from 156 different languages.
-3. What is known by agent before deployment? What gets learned?
-  1. Only knowing setting 
-  2. pretrained on other language datasets 
-  3. Word embeddings from existing models
-4. What must be selectively remembered across tasks?
-  1. transformers (eg, hidden layers) from previous languages  
-5. How does scenario present signal and noise 
-  1. many samples per class define signal per language 
-6. What aspects are unique to lifelong learning 
-  1. sequential tasks 
-7. Independent and dependent variables?
-  1. Independent: # languages, # sentences/language 
-  2. Dependent variables: forward and backward transfer efficiency
-]
-
-
----
-
-
-## Language Task 2
-
-.pull-left[
-- Same feature data as above
-- labels now correspond to Microsoft Bing "dominant type"
-<!-- - 10k training and 1k testing entities -->
-<!-- - 20 classes (each with at least 11k samples) -->
-<!-- - 4 classes per task -->
-
-Why is this a good scenario:
-1. Public  data 
-2. Real application
-3. Not vision
-4. Many metrics (hierarchical classification) 
-]
-
-.pull-right[
-![:scale 100%](images/bing-dominant-types.png) 
-]
-
-
-
-
-
----
-
-## Language Task 2
-
-.small[
-1. What is application domain
-  - natural language processing
-2. What are the distributions from which tasks are sampled?
-  - Many words from each Bing dominant type
-3. What is known by agent before deployment? What gets learned?
-  1. Only knowing setting 
-  2. pretrained on other data 
-  3. Word embeddings from existing models
-4. What must be selectively remembered across tasks?
-  1. transformers (eg, hidden layers) from other types  
-5. How does scenario present signal and noise 
-  1. many samples per class define signal per dominant type 
-6. What aspects are unique to lifelong learning 
-  1. sequential tasks 
-7. Independent and dependent variables?
-  1. Independent: # types, # terms/type 
-  2. Dependent variables: forward and backward transfer efficiency
-]
 
 
 
@@ -900,13 +630,12 @@ name:metrics
 
 ## Outline 
 
-- [Summary](#summary)
+- [Introduction](#intro)
 - [Definition](#def)
-- [Scenarios](#scenarios)
 - Metrics
+- [Real](#real)
 - [Algorithm](#alg)
 - [Simulations](#sims)
-- [Real](#real)
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
@@ -972,6 +701,196 @@ $$  TE\_t(f) :=
     \frac{\mathcal{E}\_t(f^{t\_-}\_n)}{\mathcal{E}\_t(f\_n)}.
 $$
 
+<br>
+
+
+We therefore have a single metric to quantify transfer.
+
+
+
+
+---
+name:real 
+
+## Outline 
+
+- [Introduction](#intro)
+- [Definition](#def)
+- [Metrics](#metrics)
+- Real
+- [Algorithm](#alg)
+- [Simulations](#sims)
+- [Theory](#theory)
+- [Neurobiology](#neuro)
+- [Discussion](#disc)
+
+
+ 
+
+<!-- ## Consider an  example -->
+
+
+<!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories (not urgent, show me the image first) -->
+
+<!-- TODO@JV add multimodal example -->
+
+
+
+---
+
+## CIFAR 10x10
+
+
+
+.pull-left[
+- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
+- 500 training images and 100 testing images per class.
+- All images are 32x32 color images.
+- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
+]
+
+.pull-right[
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
+]
+
+
+<!-- 
+
+
+
+
+## Forward Transfer Efficiency
+
+- y-axis indicates .ye[forward transfer efficiency] (FTE), 
+  - which is the ratio of "single task error" to "error using past tasks"
+- each algorithm has a line
+  - if the line .ye[increases], that means it is doing "forward transfer"
+
+ -->
+
+
+
+---
+
+Lifelong Forests demonstrates the .ye[largest forward transfer].
+
+![:scale 100%](images/cifar-100-FTE.svg)
+
+<!-- 
+
+
+## Backward Transfer Efficiency
+
+- y-axis indicates .ye[backward transfer efficiency] (BTE), 
+  - which is the ratio of "single task error" to "error using future tasks"
+- each task will have a line
+  - if the line .ye[increases], that means it is doing "backward transfer" 
+
+-->
+
+
+---
+ 
+
+Lifelong Forests .ye[uniquely exhibits backward transfer].
+
+
+![:scale 100%](images/cifar-100-BTE.svg)
+
+
+---
+ 
+
+Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
+
+| Algorithm  | Average TE | Min TE 
+|:---        |:---       |:--- |
+| LF         |  .ye[1.13 (&plusmn;0.01)] | .ye[1.10 (&plusmn;0.01)] 
+| DF-CNN     |  0.75 (&plusmn;0.08)   |  0.40 (&plusmn;0.01)
+| Online EWC |  0.96 (&plusmn;0.01)   |  0.88 (&plusmn;0.01)
+| EWC        |  0.97 (&plusmn;0.01)  |  0.91 (&plusmn;0.01)   
+| SI         |  0.86 (&plusmn;0.02)   |  0.75 (&plusmn;0.01) 
+| LwF        |  1.00 (&plusmn;0.01)   |  0.97 (&plusmn;0.01)
+| ProgNN     |  1.02 (&plusmn;0.01)   |  0.97 (&plusmn;0.01)
+
+
+
+---
+class:inverse 
+
+## DNN Forward Transfer  
+
+![:scale 100%](images/dnn_cifar_fte.png) 
+
+
+---
+class: inverse
+
+## DNN Backward Transfer 
+
+![:scale 100%](images/dnn_cifar_rte.png) 
+
+
+
+
+---
+
+
+## Language Identification
+
+
+
+- 8,194,317 sentences from wikipedia (downloaded from facebook). 
+- 156 languages
+- Trained using unsupervised FastText embedding
+- words, 2-4 char n-grams embedded into 16 dimensions
+- selected 30 languages
+- break into batches of 3 "related" languages
+
+![:scale 100%](images/30-languages.png) 
+
+
+
+
+---
+class:inverse
+
+#### Language Identification Backward Transfer
+
+![:scale 100%](images/RTE_language.png)
+
+Note RTE &gt;5 for task 4.
+
+
+
+---
+
+
+## Web-Search Categorization
+
+.pull-left[
+- Same data as above
+- labels now correspond to Microsoft Bing "dominant type"
+- 10k training 
+- 1k testing entities
+- 20 classes 
+  - each with &ge;11k samples
+- 4 classes per task
+]
+
+.pull-right[
+![:scale 100%](images/bing-dominant-types.png) 
+]
+
+
+---
+
+## Web-Search Categorization
+
+![:scale 90%](images/RTE_bing.png)
+
+Note RTE &gt;>1.34 for task 4.
+
 
 
 ---
@@ -979,13 +898,12 @@ name:alg
 
 ## Outline 
 
-- [Summary](#summary)
+- [Introduction](#intro)
 - [Definition](#def)
-- [Scenarios](#scenarios)
 - [Metrics](#metrics)
+- [Real](#real)
 - Algorithm
 - [Simulations](#sims)
-- [Real](#real)
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
@@ -1173,13 +1091,12 @@ name:sims
 
 ## Outline 
 
-- [Summary](#summary)
+- [Introduction](#intro)
 - [Definition](#def)
-- [Scenarios](#scenarios)
 - [Metrics](#metrics)
+- [Real](#real)
 - [Algorithm](#alg)
 - Simulations
-- [Real](#real)
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
@@ -1251,205 +1168,23 @@ name:sims
 
 <!-- TODO@HH replace with new graceful forgetting figure -->
 
-
----
-name:real 
-
-## Outline 
-
-- [Summary](#summary)
-- [Definition](#def)
-- [Scenarios](#scenarios)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- Real
-- [Theory](#theory)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-
-
- 
-
-<!-- ## Consider an  example -->
-
-
-<!-- TODO@JD: replace CIFAR10 image with same thing but using CIFAR100 images and categories (not urgent, show me the image first) -->
-
-<!-- TODO@JV add multimodal example -->
-
-
-
----
-
-## CIFAR 10x10
-
-
-
-.pull-left[
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
-- 500 training images and 100 testing images per class.
-- All images are 32x32 color images.
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
-]
-
-.pull-right[
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
-]
-
-
-
----
- 
-
-
-## CIFAR-10x10 Previous SOTA
-
-
-<img src="images/l2m_18mo/progressive_netsc.png" style="width:650px;"/>
-
-Andrei A. Rusu et al. [Progressive Neural Networks](https://arxiv.org/abs/1606.04671), arXiv, 2016.
-  
-<!-- Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019. -->
-
-
----
-
-
-
-## Forward Transfer Efficiency
-
-- y-axis indicates .ye[forward transfer efficiency] (FTE), 
-  - which is the ratio of "single task error" to "error using past tasks"
-- each algorithm has a line
-  - if the line .ye[increases], that means it is doing "forward transfer"
-
-
-
-
----
-
-Lifelong Forests demonstrates the .ye[largest forward transfer].
-
-![:scale 100%](images/cifar-100-FTE.svg)
-
----
-
-
-
-## Backward Transfer Efficiency
-
-- y-axis indicates .ye[backward transfer efficiency] (BTE), 
-  - which is the ratio of "single task error" to "error using future tasks"
-- each task will have a line
-  - if the line .ye[increases], that means it is doing "backward transfer"
-
-
----
- 
-
-Lifelong Forests .ye[uniquely exhibits backward transfer].
-
-
-![:scale 100%](images/cifar-100-BTE.svg)
-
-
----
- 
-
-Lifelong Forests uniquely exhibits .ye[strong] lifelong learning.
-
-| Algorithm  | Average TE | Min TE 
-|:---        |:---       |:--- |
-| LF         |  .ye[1.13 (&plusmn;0.01)] | .ye[1.10 (&plusmn;0.01)] 
-| DF-CNN     |  0.75 (&plusmn;0.08)   |  0.40 (&plusmn;0.01)
-| Online EWC |  0.96 (&plusmn;0.01)   |  0.88 (&plusmn;0.01)
-| EWC        |  0.97 (&plusmn;0.01)  |  0.91 (&plusmn;0.01)   
-| SI         |  0.86 (&plusmn;0.02)   |  0.75 (&plusmn;0.01) 
-| LwF        |  1.00 (&plusmn;0.01)   |  0.97 (&plusmn;0.01)
-| ProgNN     |  1.02 (&plusmn;0.01)   |  0.97 (&plusmn;0.01)
-
-
-
----
-
-Lifelong Forests accuracy is worse than .ye[C]NNs with O(10M) parameters, and better than .ye[D]NNs with O(1M) parameters. 
-
-
-![:scale 100%](images/cifar-100-accuracy.svg)
-
----
-
-
-## Language Identification
-
-
-
-- 8,194,317 sentences from wikipedia (downloaded from facebook). 
-- 156 languages
-- Trained using unsupervised FastText embedding
-- words, 2-4 char n-grams embedded into 16 dimensions
-- selected 30 languages
-- break into batches of 3 "related" languages
-
-![:scale 100%](images/30-languages.png) 
-
-
-
-
----
-class:inverse
-
-## Language Identification
-
-![:scale 100%](images/RTE_language.png)
-
-
-
-
----
-
-
-## Web-Search Categorization
-
-.pull-left[
-- Same data as above
-- labels now correspond to Microsoft Bing "dominant type"
-- 10k training 
-- 1k testing entities
-- 20 classes 
-  - each with &ge;11k samples
-- 4 classes per task
-]
-
-.pull-right[
-![:scale 100%](images/bing-dominant-types.png) 
-]
-
-
----
-
-## Language Task 2 
-
-![:scale 90%](images/RTE_bing.png)
-
-Note 1.34 RTE for task 4.
-
 ---
 name:theory
 
 ## Outline 
 
-- [Summary](#summary)
+- [Introduction](#intro)
 - [Definition](#def)
-- [Scenarios](#scenarios)
 - [Metrics](#metrics)
+- [Real](#real)
 - [Algorithm](#alg)
 - [Simulations](#sims)
-- [Real](#real)
 - Theory
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
+
+
+
 
 
 ---
@@ -1542,20 +1277,33 @@ name:neuro
 
 ## Outline 
 
-- [Summary](#summary)
+- [Introduction](#intro)
 - [Definition](#def)
-- [Scenarios](#scenarios)
 - [Metrics](#metrics)
+- [Real](#real)
 - [Algorithm](#alg)
 - [Simulations](#sims)
-- [Real](#real)
 - [Theory](#theory)
 - Neurobiology
 - [Discussion](#disc)
 
+
 ---
 
-## Neurobiology Backgbatch
+
+##  Neurobiological Insights
+
+1. Lifelong learning happens in two phases:
+  1. a .ye[juvenile] phase, in which capacity is building
+  2. an .ye[adult] phase, in which capacity is basically fixed
+1. Implications
+  - adult learning essentially recombines knowledge from juvenile, but cannot add knowledge willy-nilly 
+  - the role of adult brain is to recruit resources to maximize transfer (and minimize forgetting important things)
+  
+
+---
+
+## Neurobiology Background
 
 - All brains start with 1 neurons, and *increase neural capacity* during embroynic and juvenile developmental stages 
 <!-- - In many taxa, # of neurons increases throughout development  -->
@@ -1641,16 +1389,38 @@ name:disc
 
 ## Outline 
 
-- [Summary](#summary)
+- [Introduction](#intro)
 - [Definition](#def)
-- [Scenarios](#scenarios)
 - [Metrics](#metrics)
+- [Real](#real)
 - [Algorithm](#alg)
 - [Simulations](#sims)
-- [Real](#real)
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - Discussion
+
+
+
+---
+
+## Phase 1 Accomplishments
+
+
+<!-- TODO@JV add weakly & strongly -->
+
+1. Formalized Lifelong Learning as generalization of classical machine learning
+1. Introduced forward and backward transfer efficiency
+1. Proposed  omnidirectional transfer learning  framework by ensembling  representations
+1. Implemented Lifelong Forests (LF) as a specific example (github code open source)
+1. Demonstrated LF uniquely exhibits 
+    1. positive forward transfer 
+    1. positive backward transfer 
+    1. positive overall transfer
+1. Conjectured theory promising to prove consistency and robustness
+1. Described equivalence between Decision Forests and Deep Nets
+1. Proposed extension to implement and improve via Deep Nets
+
+
 
 
 ---
@@ -2014,9 +1784,284 @@ class: middle, inverse
 
 
 ---
+ 
 
 
-## Backgbatch 
+## CIFAR-10x10 Previous SOTA
+
+
+<img src="images/l2m_18mo/progressive_netsc.png" style="width:650px;"/>
+
+Andrei A. Rusu et al. [Progressive Neural Networks](https://arxiv.org/abs/1606.04671), arXiv, 2016.
+  
+<!-- Seungwon Lee, James Stokes, and Eric Eaton. "[Learning Shared Knowledge for Deep Lifelong Learning Using Deconvolutional Networks](https://www.ijcai.org/proceedings/2019/393)." IJCAI, 2019. -->
+
+ 
+---
+
+Lifelong Forests accuracy is worse than .ye[C]NNs with O(10M) parameters, and better than .ye[D]NNs with O(1M) parameters. 
+
+
+![:scale 100%](images/cifar-100-accuracy.svg)
+
+---
+name:scenarios
+
+## Outline 
+
+- [Introduction](#intro)
+- [Definition](#def)
+- Scenarios
+- [Metrics](#metrics)
+- [Real](#real)
+- [Algorithm](#alg)
+- [Simulations](#sims)
+- [Theory](#theory)
+- [Neurobiology](#neuro)
+- [Discussion](#disc)
+
+
+
+<!-- ---
+
+## Assumptions on Nature
+
+The syllabus decided by nature can be:
+- task constant
+- task semi-constant
+- task non-constant
+  - typically requires restrictions on amount of data per task, or side information (OL, RL, LL) 
+
+-->
+
+
+<!-- TODO@JV maybe move below slides to real data -->
+
+
+---
+
+## Scenario Desiderata
+
+1. &ge;1 classification 
+1. &ge;1 non-vision 
+1. &ge;1 cross-modal (vision to text)
+
+I'll propose a few classification domains.
+
+---
+
+## Vision Task
+
+
+
+- EfficientNet used we different image datasets 
+- Each has different number of classes, samples
+- Within dataset images are different sizes / aspect ratios
+- Sequentially train on each dataset
+
+![:scale 50%](images/12-datasets.png)
+
+Why it is a good scenario:
+1. Images are  real (different resolutions, scales, # classes)
+2. Many metrics (localization, fine grained objects, texture, scene)
+3. SOTA benchmark results are available 
+4. Much larger than any existing image dataset
+
+---
+
+## Vision Task
+
+.small[
+1. What is application domain
+  - machine vision, image classification, object detection, etc.
+2. What are the distributions from which tasks are sampled?
+  - 12 different tasks, can sample in arbitrary order to get errorbars on performance 
+3. What is known by agent before deployment? What gets learned?
+  1. Only knowing setting 
+  2. pretrained on other image datasets 
+  3. convolutions are helpful
+4. What must be selectively remembered across tasks?
+  1. transformers (eg, hidden layers) from previous tasks  
+5. How does scenario present signal and noise 
+  1. many samples per class define signal per class 
+6. What aspects are unique to lifelong learning 
+  1. sequential tasks 
+7. Independent and dependent variables?
+  1. Independent: # classes, # samples/class, aspect-ratio/image, image-size/image, object-location/image, 
+  2. Dependent variables: forward and backward transfer efficiency
+]
+
+
+---
+
+
+## Language Task 1
+
+
+
+- 8,194,317 sentences from wikipedia (downloaded from facebook). 
+- 156 languages
+<!-- - Trained using unsupervised FastText embedding -->
+<!-- - words, 2-4 char n-grams embedded into 16 dimensions -->
+<!-- - selected 30 languages -->
+<!-- - break into batches of 3 "related" languages -->
+
+![:scale 50%](images/30-languages.png) 
+
+
+Why it is a good scenario:
+1. Public and real data
+2. Not vision
+3. Many metrics (translation, language identification, grammar correcting, reference adding, etc.)
+
+
+---
+
+## Language Task 1
+
+.small[
+1. What is application domain
+  - natural language processing
+2. What are the distributions from which tasks are sampled?
+  - Natural sentences from 156 different languages.
+3. What is known by agent before deployment? What gets learned?
+  1. Only knowing setting 
+  2. pretrained on other language datasets 
+  3. Word embeddings from existing models
+4. What must be selectively remembered across tasks?
+  1. transformers (eg, hidden layers) from previous languages  
+5. How does scenario present signal and noise 
+  1. many samples per class define signal per language 
+6. What aspects are unique to lifelong learning 
+  1. sequential tasks 
+7. Independent and dependent variables?
+  1. Independent: # languages, # sentences/language 
+  2. Dependent variables: forward and backward transfer efficiency
+]
+
+
+---
+
+
+## Language Task 2
+
+.pull-left[
+- Same feature data as above
+- labels now correspond to Microsoft Bing "dominant type"
+<!-- - 10k training and 1k testing entities -->
+<!-- - 20 classes (each with at least 11k samples) -->
+<!-- - 4 classes per task -->
+
+Why is this a good scenario:
+1. Public  data 
+2. Real application
+3. Not vision
+4. Many metrics (hierarchical classification) 
+]
+
+.pull-right[
+![:scale 100%](images/bing-dominant-types.png) 
+]
+
+
+
+
+
+---
+
+## Language Task 2
+
+.small[
+1. What is application domain
+  - natural language processing
+2. What are the distributions from which tasks are sampled?
+  - Many words from each Bing dominant type
+3. What is known by agent before deployment? What gets learned?
+  1. Only knowing setting 
+  2. pretrained on other data 
+  3. Word embeddings from existing models
+4. What must be selectively remembered across tasks?
+  1. transformers (eg, hidden layers) from other types  
+5. How does scenario present signal and noise 
+  1. many samples per class define signal per dominant type 
+6. What aspects are unique to lifelong learning 
+  1. sequential tasks 
+7. Independent and dependent variables?
+  1. Independent: # types, # terms/type 
+  2. Dependent variables: forward and backward transfer efficiency
+]
+
+ 
+
+
+---
+
+## What is Online Learning?
+
+
+
+
+- Let 
+  - data arrive sequentially in $n$ batches
+  - we also observe the prediction of  experts, collectively in $\Xi$
+- Assume .ye[nothing], $Q\_i \sim P_i \in \mathcal{P}$,  distribution could be i.i.d., conditionally dependent, or adversarial
+- Define a class of .ye[online] learning algorithms $f$ as a maps
+
+$$ \mathcal{F}_{O} = \lbrace f : \mathcal{H} \times \color{yellow}{\Xi} \rightarrow \mathcal{H} \rbrace$$
+
+
+---
+
+## An Online Learning Task?
+
+- Given
+  - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{C})$, where $\mathcal{C}$ includes that $f \in \mathcal{O}(1) \, \forall n$
+  - a risk $R\_i$ at each batch $i$
+  - expert advice $\xi\_i$ at each batch $i$
+- Find $f$ that minimizes .ye[regret]
+$$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi\_i)). $$ 
+
+<!-- - \min\_{h \in \mathcal{H}} \sum\_{i=1}^n R\_i(h).$$ -->
+
+
+
+
+---
+
+## Reinforcement Learning?
+
+
+- Let 
+  - data (states) arrive sequentially in $n$ batches
+  - $\mathcal{Z}\_i$ be the space of past states and actions at batch $i$
+- Assume upon taking action $a$, state distribution changes according to some transition matrix transition matrix $[P\_{s, s' \mid a}]$ (for finite $\mathcal{Q}$ and $\mathcal{A}$).
+- Let $\mathcal{H}$ be the space of policies (hypotheses)
+- Define a .ye[reinforcment] learning algorithms $f$ as a sequence
+
+$$ \mathcal{F}_{R} = \lbrace f\_i : \, \color{yellow}{\mathcal{Z}_i} \times \mathcal{H} \rightarrow \mathcal{H} \rbrace$$
+
+
+---
+
+### A Reinforcement Learning Task?
+
+- Given
+  - reinforcement learning settings $( \mathcal{Z}\_i, \mathcal{A}, \mathcal{Q}, \mathcal{C})\_i$, where 
+    - $\mathcal{Q}$ and $\mathcal{A}$ are the state and action spaces, respectively,
+    - $\mathcal{Z}\_i = (\mathcal{Q} \times \mathcal{A})^{i-1}$ is the space of past state-action pairs
+  - a discount rate $\gamma$
+  - a reward function $\bar{R}$
+- Find $f$ that maximizes .ye[expected reward]
+$$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\big[ \sum\_{i=0}^n \gamma^{n-i} \bar{R}(Q\_i, f(Z\_i, h\_{i-1}))\big] $$
+
+
+
+
+
+---
+
+
+## Background 
 
 3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
 7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.

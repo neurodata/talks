@@ -1412,10 +1412,10 @@ name:disc
 1. Introduced forward and backward transfer efficiency
 1. Proposed  omnidirectional transfer learning  framework by ensembling  representations
 1. Implemented Lifelong Forests (LF) as a specific example (github code open source)
-1. Demonstrated LF uniquely exhibits 
+1. Demonstrated LF  exhibits 
     1. positive forward transfer 
-    1. positive backward transfer 
-    1. positive overall transfer
+    1. positive backward transfer (uniquely?)
+    1. positive overall transfer (uniquely?)
 1. Conjectured theory promising to prove consistency and robustness
 1. Described equivalence between Decision Forests and Deep Nets
 1. Proposed extension to implement and improve via Deep Nets
@@ -1445,7 +1445,7 @@ name:disc
 
 ## Extension #3: Replay
 
-- Current implementation requires storing some data to achieve *backwards* transfer
+- Current implementation requires storing some data to achieve *backward* transfer
 - Could leverage replay to reduce dependency of increasing data storage
 - Collaborators: Baylor (Tolias) & McNaughton (UCI+UCSD)
 
@@ -1455,31 +1455,45 @@ name:disc
 
 - Current implementation's action are labels and do not impact future data
 - Could integrate into larger L2 system that incorporates agent based learning
-- Collaborators: Raghavan (SRI)
+- Collaborators: Aguilar-Simon (Teledyne)
 
 
 
 ---
  
 
-## All possible extensions 
+## Other possible extensions 
 
-1. Allow fully sequential data 
-2. Allow fixed capacity representation
-3. Allow replay to support fixed capacity 
-4. Allow agent based extension
 2. Allow non-discrete tasks 
+4. Support task-oblivious setting 
+5. Support multi-modal and cross-modal
+
+<!-- 1. Allow fully sequential data  -->
+<!-- 2. Allow fixed capacity representation -->
+<!-- 3. Allow replay to support fixed capacity  -->
+<!-- 4. Allow agent based extension -->
+<!-- 1. No implementation using deep nets       -->
+<!-- Tasks must be known (no implementation that imputes task ID) -->
+<!-- Feature space must be the same for all tasks (no data fusion step) -->
+<!-- 6. Only unimodal data supported (no multimodal implementation) -->
+<!-- 1. Must grow rather than recruit new internal representations (no pre-training implemented)       -->
+<!-- 1. Requires storing some samples to achieve backwards transfer (no replay capacity) -->
+<!-- 1. No support for specific modalities (e.g., images) -->
 
 
+---
 
-1. No implementation using deep nets      
-4. Tasks must be known (no implementation that imputes task ID)
-5. Feature space must be the same for all tasks (no data fusion step)
-6. Only unimodal data supported (no multimodal implementation)
-1. Must grow rather than recruit new internal representations (no pre-training implemented)      
-1. Requires storing some samples to achieve backwards transfer (no replay capacity)
-1. No support for specific modalities (e.g., images)
+## Collaboration Summary 
 
+- What we have to offer
+  - Theoretical framework characterizing lifelong learning 
+  - An approach with positive forward and backward transfer 
+- Seeking from a collaborator:
+  - Integration into a comprehensive LL system 
+- Other teams that could benefit:
+  - UMD 
+  - Wyoming 
+  - Duke
 
 ---
 
@@ -1769,7 +1783,7 @@ Hava, Ben, Robert, Jennifer, Ted.
 
 ---
 <!-- class:center -->
-backgbatch-image: url(images/l_and_v.jpeg)
+background-image: url(images/l_and_v.jpeg)
 
 # Questions?
 

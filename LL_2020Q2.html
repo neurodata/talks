@@ -189,11 +189,11 @@ The data are determined by physical implementation of the system:
 <!-- ## What are samples? -->
 
 <!-- - $z_i \in \mathcal{Z}$ for $i \in [n]$ are samples -->
-- Classification Example
-  - $z_i \in \mathcal{Z}$ for $i \in [n]$ are samples
-  - $z_i = (x_i,y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
-  - $a_i \in \lbrace 0, 1 \rbrace = \mathcal{Y}$ are class labels 
-  - $q_i \in \mathcal{X}=\mathbb{R}^p$ are possible feature vectors with unknown class labels 
+ Classification Example
+  <!-- - $z_i \in \mathcal{Z}$ for $i \in [n]$ are samples -->
+- $z_i = (x_i,y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
+- $a_i \in \lbrace 0, 1 \rbrace = \mathcal{Y}$ are class labels 
+- $q_i \in \mathcal{X}=\mathbb{R}^p$ are possible feature vectors with unknown class labels 
 
 
 
@@ -222,7 +222,7 @@ $\mathcal{P}$ is called the .ye[statistical model].
 We get to choose this, though we must respect the resource constraints defined by the setting:
 
 - A .ye[hypothesis], $h : \mathcal{Q} \rightarrow \mathcal{A}$ takes an action on the basis of a query
-- $f_n$ is a  .ye[learner], which maps from a subset of $n$ samples in $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
+- $f_n$ is a  learner, which maps from a subset of $n$ samples in $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
 - $f=f_1, f_2, \ldots$ is a sequence of learners, called a learning .ye[algorithm] 
 
 $$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrace$$ 
@@ -310,9 +310,23 @@ $$ \mathcal{E}(f\_n) :=  \mathbb{E}\_Z[R(f\_n(Z))]. $$
 
 ## What is the Setting?
 
-The setting is everything but the true but unknown distribution of the data:
+The setting is everything but the true but unknown distribution:
+<!-- $\mathcal{S}=(\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{H}, \mathcal{F}, \mathcal{E}, \mathcal{C})$ -->
 
-$$\mathcal{S}=(\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{H}, \mathcal{F}, \mathcal{E}, \mathcal{C})$$  
+<!-- A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F} \rbrace$ -->
+
+| Object | Notation | Example
+|:--- |:--- |:--- | 
+| Sample space  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
+| Action space |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
+| Query space |  $\mathcal{Q}$ |  any tweet
+| Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
+| Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
+| Algorithm Class | $\mathcal{F} = \lbrace f_n : {\mathcal{Z}^n} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
+| Error  | $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$  | average expected loss
+| Constraints  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathcal{O}(n)$
+
+
 
 
 ---
@@ -381,7 +395,7 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
       - $0$ denotes source data
       - $1$ denotes target data 
   - .ye[Sample space]: $\mathcal{Z} \leftarrow (\mathcal{Z},\lbrace 0,1 \rbrace)$
-- Assume a  .ye[statistical model]:   $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$, where 
+- Assume a  .ye[statistical model]:   $\mathcal{P} = \lbrace P := P\_{Z,T} \otimes P\_{Q,A} \rbrace$, where 
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid
   - $(T\_1,\ldots, T\_n) \sim P\_T$
 - Define a transfer learning .ye[algorithm] $f$ as a sequence 
@@ -433,16 +447,15 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
 
 
 - Given 
-  - Environment of $T$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
-  - A label $\color{yellow}{t_i} \in [T]$ for each sample $i$ which  indicates its setting $\mathcal{S}$ and performance measure $\mathcal{E}$
+  - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
+  - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $\mathcal{S}_i$
   - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\color{yellow}{[T]})$
-- Assume a  statistical model:  $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$, where
+- Assume a  statistical model:  $\mathcal{P} = \lbrace P := P\_{Z,T} \otimes P\_{Q,A} \rbrace$, where
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
   - $(T\_1,\ldots, T\_n) \sim P\_T$ (which can include dependence)
 - Define a multitask learning algorithm $f$ as a sequence 
 $$ \mathcal{F} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]})^n \rightarrow \mathcal{H}^T \rbrace$$
-- Define a multi-error as a function over all $T$ performance measures, e.g. 
-$\mathbb{M}$ is the mean (or min) generalization error over all tasks. 
+- Define a multi-error $\tilde{\mathcal{E}}$ as a function over all $T$ performance measures, e.g.  the mean (or min) generalization error over all tasks. 
 
 
 
@@ -452,20 +465,19 @@ $\mathbb{M}$ is the mean (or min) generalization error over all tasks.
 
 ## Has $f$ Multitask Learned?
 
-<!-- The multi-task setting $\mathcal{S}=\lbrace\mathcal{S}_1,\ldots, \mathcal{S}_T\rbrace$ -->
 
 
 In multitask learning setting $\mathcal{S}=\lbrace\mathcal{S}_1,\ldots, \mathcal{S}_T\rbrace$, given $n$ samples,  assuming $P$, 
 
 
 
-$f$ .ye[weakly multitask] learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average]:
+$f$ .ye[weakly multitask] learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average] ($\tilde{\mathcal{E}}$ is mean):
 
 $$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
 
 <br>
 
-$f$ .ye[strongly multitask] learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
+$f$ .ye[strongly multitask] learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task] ($\tilde{\mathcal{E}}$ is min):
 
 $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
 
@@ -473,20 +485,51 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 
 ## What is a Multitask?
 
-<!-- TODO -->
+
+
+- Given
+  - a multitask setting $\mathcal{S}=\lbrace\mathcal{S}_1,\ldots, \mathcal{S}_T\rbrace$
+  - a sample size $n$
+- Assume a true but unknown distribution $P \in \, \mathcal{P} = \mathcal{P}_1 \otimes \cdots \otimes \mathcal{P}_T$ 
+- Find $f$ that minimizes multitask generalization error
+
+$$f^* = \arg \min\_{f} \, \tilde{\mathcal{E}}(f_n).$$
+
 
 ---
 
 ## What is Meta-Learning?
 
-<!-- TODO -->
+
+
+- Given 
+  - Environment: $t_i \in \mathcal{T}$ (potentially infinite) set of tasks 
+  - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\mathcal{T})$
+- Assume a statistical model:  $\mathcal{P} = \lbrace P := P\_{Z,T} \otimes P\_{Q,A} \rbrace$
+  -  $Z\_i | T\_i \sim P\_{Z|T}$, 
+  - $(T\_1,\ldots, T\_n) \sim P\_T$
+- Define a meta-learning algorithm $f$ to update to provide a hypothesis for a as yet unseen task
+<!-- - Define a lifelong learning algorithm $f$ as a sequence  -->
+$$ \mathcal{F} = \lbrace f_n :  (\mathcal{Z} \times \color{yellow}{\mathcal{T}})^n \rightarrow \color{yellow}{\mathcal{H}} \rbrace$$
+- Requires .ye[out of task] capabilities
+- - Define a meta-error $\tilde{\mathcal{E}}$ as a function over all  performance measures, e.g.  the mean (or min) generalization error over all potential tasks. 
+
+<!-- - $N_T$ is the number of tasks observed after $n$ samples -->
 
 ---
 
 ## Has $f$ Meta-Learned?
 
-<!-- TODO -->
 
+In meta-learning setting $\mathcal{S}$, given $n$  samples,  assuming $P$, 
+
+$f$ .ye[meta-]learns  when its meta-performance $\mathcal{E}$ improves due to the source data:
+
+$$f \text{ learns when } \tilde{\mathcal{E}}\_{T+1}(f\_n) < \, \tilde{\mathcal{E}}\_{T+1}(f\_0).$$
+
+Where $\tilde{\mathcal{E}}_{T+1}$ denote the meta-generalization error, such as expected generalization error on some unseen task.  
+
+<!-- TODO@ronak this doesn't seem quite right. i feel like i need 2 n's, one for the data on all the observed tasks, and one for the data on the as yet unobserved task? -->
 
 ---
 

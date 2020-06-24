@@ -92,6 +92,11 @@ Jaewon Chung | Johns Hopkins University
   - constrained_layout : Removes as much empty space as possible between subplots
 - Returns a Figure object and array of Axes objects with shape (ncols, nrows)
 
+<br>
+<p style="text-align:center;font-size:33px">
+  fig, ax = plt.subplots(ncols=2, figsize=(10, 5), constrained_layout=True)
+</p>
+
 ---
 
 ### plt.subplots()
@@ -161,7 +166,7 @@ With seaborn's context
 
 <br><br><br>
 
-<p style="text-align:center;font-size:30px">fig, axes = plt.subplots(sharey=True, sharex=True)</p>
+<p style="text-align:center;font-size:30px">fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, sharex=True)</p>
 
 ---
 

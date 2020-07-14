@@ -34,6 +34,16 @@ Jaewon Chung | Johns Hopkins University
 
 .foot[[j1c&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks/> | [@j1chung](https://twitter.com/j1chung)]
 
+
+---
+
+### Jovo's Checklist for Figures
+
+- Guidelines for how figures should look for publication
+- Cover code to help meet guidelines
+
+.footnote[Checklist Link = [Bits and Brains](https://bitsandbrains.io/2018/09/08/figures.html)]
+
 ---
 
 ### Matplotlib
@@ -55,15 +65,6 @@ Jaewon Chung | Johns Hopkins University
 
 
 .footnote[Talk Link = [neurodata.io/talks/making_figures.html](neurodata.io/talks/making_figures.html)]
-
----
-
-### Jovo's Checklist for Figures
-
-- Guidelines for how figures should look for publication
-- Cover code to help meet guidelines
-
-.footnote[Checklist Link = [Bits and Brains](https://bitsandbrains.io/2018/09/08/figures.html)]
 
 ---
 
@@ -109,20 +110,17 @@ Jaewon Chung | Johns Hopkins University
 
 ---
 
-### Figure and Axis (#4 + #5)
+### Example Figure
 
-- ax.set_title("Insert Title Here") - title placed right above axes
-- fig.suptitle("Insert Title Here") - larger and placed above all axes titles
+<p style="text-align:center;font-size:29px">
+  fig, ax = plt.subplots(figsize=(10, 6))<br>
+  ax.scatter(X, Y)
+</p>
 
-
-- ax.set_xlabel("Insert Axis Label") - sets the x-axis label
-- ax.set_ylabel("Insert Axis Label") - sets the y-axis label
-
---
 <br>
 
 <div style="text-align:center">
-  <img src="images/making_figures/titles.png" style="height:250px; float:center;" />
+  <img src="images/making_figures/example.png" style="height:300px; float:center;" />
 </div>
 
 ---
@@ -183,6 +181,24 @@ Without shared x and y-axis
 With shared x and row-wise shared y-axis
 <div style="text-align:center">
   <img src="images/making_figures/shared_axis_on.png" style="height:480px; float:center;" />
+</div>
+
+---
+
+### Figure and Axis (#4 + #5)
+
+- ax.set_title("Insert Title Here") - title placed right above axes
+- fig.suptitle("Insert Title Here") - larger and placed above all axes titles
+
+
+- ax.set_xlabel("Insert Axis Label") - sets the x-axis label
+- ax.set_ylabel("Insert Axis Label") - sets the y-axis label
+
+--
+<br>
+
+<div style="text-align:center">
+  <img src="images/making_figures/titles.png" style="height:250px; float:center;" />
 </div>
 
 ---

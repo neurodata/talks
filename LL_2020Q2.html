@@ -471,13 +471,13 @@ In multitask learning setting $\mathcal{S}=\lbrace\mathcal{S}_1,\ldots, \mathcal
 
 
 
-$f$ .ye[weakly multitask] learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average] ($\tilde{\mathcal{E}}$ is mean):
+$f$ .ye[weakly multitask] learns (where multitask error, $\tilde{\mathcal{E}}$, is mean of errors across tasks) when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average]:
 
 $$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
 
 <br>
 
-$f$ .ye[strongly multitask] learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task] ($\tilde{\mathcal{E}}$ is min):
+$f$ .ye[strongly multitask] (where multitask error, $\tilde{\mathcal{E}}$, is min of errors across tasks) learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
 
 $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
 

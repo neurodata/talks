@@ -205,11 +205,11 @@ The data are determined by physical implementation of the system:
 
 The assumptions are determined by the subject matter expert, though they can be quite general:
 
-- The data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, is sampled from some true but unknown distribution $P_{\boldsymbol{Z}_n} \in \, \mathcal{P}_{n}$
+- The data, $(Z\_1,\ldots, Z\_n) \in \mathcal{Z}^n$, is sampled from some true but unknown distribution $P\_{\bold{Z}\_n} \in \, \mathcal{P}_{n}$
 - A query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
 - An optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
 
-Let $P_n = P\_{\boldsymbol{Z}_n} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
+Let $P\_n = P\_{\bold{Z}\_n} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
   
 $\mathcal{P}_n$ is called the .ye[statistical model].
 
@@ -266,7 +266,7 @@ $$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrac
   <!-- - -->
    e.g., expected risk: 
 <!-- $ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(Z))]. $ -->
-$$ \mathcal{E}(f\_n) :=  \mathbb{E}\_{\boldsymbol{Z}^n}[R(f\_n(\boldsymbol{Z}^n))]. $$
+$$ \mathcal{E}(f\_n) :=  \mathbb{E}\_{\bold{Z}^n}[R(f\_n(\bold{Z}^n))]. $$
 
 
 ---
@@ -343,7 +343,7 @@ $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
 
 
-$f_0$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
+$\mathcal{E}(f_0)$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
   - priors
   - inductive bias of $\mathcal{H}$
   <!-- - estimation bias of $f$ -->
@@ -391,19 +391,20 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
 
 
 - Given 
-  - Side information sequence $\boldsymbol{W}_{n_0} = (W_i)_{i = 1}^{n_0}$
-    - $W_i$ is observed in $\mathcal{W}$, and sampled from $\mathcal{W}$
-    - Used to help learn for the learning task
-  - .ye[Environment]: $t_i \in \lbrace 0, 1 \rbrace$ label each sample 
-      - $0$ denotes side information 
-      - $1$ denotes target data 
-  - .ye[Sample space]: $\mathcal{Z} \leftarrow (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
-- Assume a  .ye[statistical model]:   $\mathcal{P}_n = \lbrace P := P\_{\boldsymbol{Z}^n,T} \otimes P\_{Q,A} \rbrace$, where 
-  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid
-  - $(T\_1,\ldots, T\_n) \sim P\_T$
-- Define a transfer learning .ye[algorithm] $f$ as a sequence 
+<!-- TODO can't render sequence correctly -->
+  - Side information sequence $\bold{W}_{n_0} = (W_i)_1^{n_0}$
+      - $W_i$ is observed in $\mathcal{W}$, and sampled from $P_W$
+      - Used to help learn for the learning task
+  - Learning task $t = (\mathcal{S}, P\_{n\_1})$
+      - $\mathcal{S} = (\mathcal{Q}, \mathcal{A}, \mathcal{H}, \mathcal{R}, \mathcal{Z}, \mathcal{F})$
+      - Assume a  .ye[statistical model]:   $\mathcal{P}\_{n\_1} = \lbrace P := P\_{\bold{Z}^{n_1}, Q, A} \rbrace$
+  - .ye[Sample space]: $\mathcal{Z}^\prime = (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
+  - $\bold{W}\_{n\_0}$ and $\bold{Z}\_{n\_1}$ are iid sequences and independent of one another
+- Define a transfer learning .ye[algorithm] $f$ as the set of functions
 
-$$ \mathcal{F} = \lbrace f_n : \mathcal{Z}^n \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F} = \lbrace f_{n_0, n_1} : \mathcal{W}^{n\_0} \times \mathcal{Z}^{n\_1} \rightarrow \mathcal{H} \rbrace$$
+
+- Transfer setting is thus $\mathcal{S}^\prime = (\mathcal{Q}, \mathcal{A}, \mathcal{H}^\prime, \mathcal{R}, \mathcal{Z}^\prime, \mathcal{F}^\prime)$
 
 <!-- - Identify the appropriate performance function. -->
 
@@ -438,8 +439,6 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
   $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
   
 
-
-      
 ---
 
 
@@ -453,10 +452,11 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
   - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
   - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $\mathcal{S}_i$
   - Sample space: $\mathcal{Z} \leftarrow (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
-- Assume a  statistical model:  $\mathcal{P}_n = \lbrace P := P\_{\boldsymbol{Z}^n,T} \otimes P\_{Q,A} \rbrace$, where
-  - $\boldsymbol{Z}^n = (Z_i)_{i = 1]^{n}$
+- Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \times P\_{\bold{T}^n} \rbrace$, where
+  <!-- can't render correctly -->
+  - $\bold{Z}^n = (Z\_i)\_1^{n}$
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
-  - $(T\_1,\ldots, T\_n) \sim P\_T$ (which can include dependence)
+  - $(T\_1,\ldots, T\_n) \sim P\_{\bold{T}^n}$ (which can include dependence)
 - Define a multitask learning algorithm $f$ as a sequence 
 $$ \mathcal{F} = \lbrace f_n : \mathcal{Z}^n \rightarrow \mathcal{H}^T \rbrace$$
 - Define a multi-error $\tilde{\mathcal{E}}$ as a function over all $T$ performance measures, e.g.  the mean (or min) generalization error over all tasks. 
@@ -477,13 +477,13 @@ In multitask learning setting $\mathcal{S}=\lbrace\mathcal{S}_1,\ldots, \mathcal
 
 $f$ .ye[weakly multitask] learns (where multitask error, $\tilde{\mathcal{E}}$, is mean of errors across tasks) when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average]:
 
-$$  \tilde{\mathcal{E}} = \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
+$$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
 
 <br>
 
 $f$ .ye[strongly multitask] (where multitask error, $\tilde{\mathcal{E}}$, is min of errors across tasks) learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
 
-$$ \tilde{\mathcal{E}}\mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
+$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
 
 ---
 
@@ -564,7 +564,7 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in \mathcal{T
 
 - Given
  - Environment: $t_i \in \color{yellow}{\mathcal{T}}$  (.ye[potentially infinite]) set of tasks
- - .ye[Side information]: $\W_i \in \mathcal{W}$ such as expert advise, or reinforcement learning structure
+ - .ye[Side information]: $W_i \in \mathcal{W}$ such as expert advise, or reinforcement learning structure
   <!-- - each batch may be associated with a new task -->
   <!-- - the sequence of tasks is called the .ye[syllabus] -->
   <!-- - there is potential for  $\Xi$-valued side information  -->

@@ -450,7 +450,8 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
   - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
   - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $\mathcal{S}_i$
   - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\color{yellow}{[T]})$
-- Assume a  statistical model:  $\mathcal{P} = \lbrace P := P\_{Z,T} \otimes P\_{Q,A} \rbrace$, where
+- Assume a  statistical model:  $\mathcal{P}_n = \lbrace P := P\_{\boldsymbol{Z}^n,T} \otimes P\_{Q,A} \rbrace$, where
+  - $\boldsymbol{Z}^n = (Z_i)_{i = 1]^{n}$
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
   - $(T\_1,\ldots, T\_n) \sim P\_T$ (which can include dependence)
 - Define a multitask learning algorithm $f$ as a sequence 
@@ -473,13 +474,13 @@ In multitask learning setting $\mathcal{S}=\lbrace\mathcal{S}_1,\ldots, \mathcal
 
 $f$ .ye[weakly multitask] learns (where multitask error, $\tilde{\mathcal{E}}$, is mean of errors across tasks) when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average]:
 
-$$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
+$$  \tilde{\mathcal{E}} = \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
 
 <br>
 
 $f$ .ye[strongly multitask] (where multitask error, $\tilde{\mathcal{E}}$, is min of errors across tasks) learns when its performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[for each task]:
 
-$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
+$$ \tilde{\mathcal{E}}\mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
 
 ---
 
@@ -490,65 +491,13 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 - Given
   - a multitask setting $\mathcal{S}=\lbrace\mathcal{S}_1,\ldots, \mathcal{S}_T\rbrace$
   - a sample size $n$
-- Assume a true but unknown distribution $P \in \, \mathcal{P} = \mathcal{P}_1 \otimes \cdots \otimes \mathcal{P}_T$ 
+- Assume a true but unknown distribution $P_n \in \, \mathcal{P} = \mathcal{P}_1 \otimes \cdots \otimes \mathcal{P}_T$ 
 - Find $f$ that minimizes multitask generalization error
 
 $$f^* = \arg \min\_{f} \, \tilde{\mathcal{E}}(f_n).$$
 
 
 ---
-
-## What is Meta-Learning?
-
-
-
-- Given 
-  - Environment: $t_i \in \mathcal{T}$ (potentially infinite) set of tasks 
-  - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\mathcal{T})$
-- Assume a statistical model:  $\mathcal{P} = \lbrace P := P\_{Z,T} \otimes P\_{Q,A} \rbrace$
-  -  $Z\_i | T\_i \sim P\_{Z|T}$, 
-  - $(T\_1,\ldots, T\_n) \sim P\_T$
-- Define a meta-learning algorithm $f$ to update to provide a hypothesis for a as yet unseen task
-<!-- - Define a lifelong learning algorithm $f$ as a sequence  -->
-$$ \mathcal{F} = \lbrace f_n :  (\mathcal{Z} \times \color{yellow}{\mathcal{T}})^n \rightarrow \color{yellow}{\mathcal{H}} \rbrace$$
-- Requires .ye[out of task] capabilities
-- - Define a meta-error $\tilde{\mathcal{E}}$ as a function over all  performance measures, e.g.  the mean (or min) generalization error over all potential tasks. 
-
-<!-- - $N_T$ is the number of tasks observed after $n$ samples -->
-
----
-
-## Has $f$ Meta-Learned?
-
-
-In meta-learning setting $\mathcal{S}$, given $n$  samples,  assuming $P$, 
-
-$f$ .ye[meta-]learns  when its meta-performance $\mathcal{E}$ improves due to the source data:
-
-$$f \text{ learns when } \tilde{\mathcal{E}}\_{T+1}(f\_n) < \, \tilde{\mathcal{E}}\_{T+1}(f\_0).$$
-
-Where $\tilde{\mathcal{E}}_{T+1}$ denote the meta-generalization error, such as expected generalization error on some unseen task.  
-
-<!-- TODO@ronak this doesn't seem quite right. i feel like i need 2 n's, one for the data on all the observed tasks, and one for the data on the as yet unobserved task? -->
-
----
-
-## What is a Meta-Task?
-
-<!-- TODO -->
-
----
-
-## What is Streaming Learning?
-## Has $f$ Streaming Learned?
-## What is a streaming task?
-
-<!-- TODO: cumulative error -->
-
-
-
----
-
 
 #### What is Task-Aware Lifelong Learning? 
 
@@ -2224,8 +2173,58 @@ Why is this a good scenario:
 ![:scale 100%](images/bing-dominant-types.png) 
 ]
 
+    
+
+## What is Meta-Learning?
 
 
+
+- Given 
+  - Environment: $t_i \in \mathcal{T}$ (potentially infinite) set of tasks 
+  - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\mathcal{T})$
+- Assume a statistical model:  $\mathcal{P} = \lbrace P := P\_{Z,T} \otimes P\_{Q,A} \rbrace$
+  -  $Z\_i | T\_i \sim P\_{Z|T}$, 
+  - $(T\_1,\ldots, T\_n) \sim P\_T$
+- Define a meta-learning algorithm $f$ to update to provide a hypothesis for a as yet unseen task
+<!-- - Define a lifelong learning algorithm $f$ as a sequence  -->
+$$ \mathcal{F} = \lbrace f_n :  (\mathcal{Z} \times \color{yellow}{\mathcal{T}})^n \rightarrow \color{yellow}{\mathcal{H}} \rbrace$$
+- Requires .ye[out of task] capabilities
+- - Define a meta-error $\tilde{\mathcal{E}}$ as a function over all  performance measures, e.g.  the mean (or min) generalization error over all potential tasks. 
+
+<!-- - $N_T$ is the number of tasks observed after $n$ samples -->
+
+---
+
+## Has $f$ Meta-Learned?
+
+
+In meta-learning setting $\mathcal{S}$, given $n$  samples,  assuming $P$, 
+
+$f$ .ye[meta-]learns  when its meta-performance $\mathcal{E}$ improves due to the source data:
+
+$$f \text{ learns when } \tilde{\mathcal{E}}\_{T+1}(f\_n) < \, \tilde{\mathcal{E}}\_{T+1}(f\_0).$$
+
+Where $\tilde{\mathcal{E}}_{T+1}$ denote the meta-generalization error, such as expected generalization error on some unseen task.  
+
+<!-- TODO@ronak this doesn't seem quite right. i feel like i need 2 n's, one for the data on all the observed tasks, and one for the data on the as yet unobserved task? -->
+
+---
+
+## What is a Meta-Task?
+
+<!-- TODO -->
+
+---
+
+## What is Streaming Learning?
+## Has $f$ Streaming Learned?
+## What is a streaming task?
+
+<!-- TODO: cumulative error -->
+
+
+
+---
 
 
 ---

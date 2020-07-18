@@ -127,7 +127,7 @@ name:def
 ## What is Learning?
 
 
-In setting $\mathcal{S}$, given $n$ new samples,  assuming $P$, 
+In task setting $\mathcal{S}$, given $n$ new samples,  assuming $P_n$, 
 
 $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
@@ -135,7 +135,7 @@ $f$ learns  when its performance $\mathcal{E}$ improves due to the data:
 
 
 
-$f_0$ is the algorithm's performance prior to seeing $n$ new samples. 
+$\mathcal{E}(f_0)$ is the algorithm's performance prior to seeing $n$ new samples. 
 
 
 ---
@@ -144,13 +144,13 @@ $f_0$ is the algorithm's performance prior to seeing $n$ new samples.
 
 
 
-In .ye[setting] $\mathcal{S}$, given $n$ new .ye[samples],   .ye[assuming] $P$, 
+In .ye[task setting] $\mathcal{S}$, given $n$ new .ye[samples],   .ye[assuming] $P_n$, 
 
 .ye[$f$] learns  when its .ye[performance] $\mathcal{E}$ improves due to the data:
 
 .center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
 
-$f_0$ is the algorithm's performance prior to seeing $n$ new samples. 
+$\mathcal{E}(f_0)$ is the algorithm's performance prior to seeing $n$ new samples. 
 
 
 
@@ -180,7 +180,7 @@ The data are determined by physical implementation of the system:
     <!-- - e.g., $\mathcal{O}(n)$ training time, k-sparse, 8 GB -->
   
 
-<!-- .ye[Setting]: is  the tuple $\mathcal{S} =  (\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{C})$  -->
+<!-- .ye[Task setting]: is  the tuple $\mathcal{S} =  (\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{C})$  -->
 
 
 <!-- --- -->
@@ -205,13 +205,13 @@ The data are determined by physical implementation of the system:
 
 The assumptions are determined by the subject matter expert, though they can be quite general:
 
-- The data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, are sampled from some true but unknown distribution $P_Z \in \, \mathcal{P}_Z$
+- The data, $(Z_1,\ldots, Z_n) \in \mathcal{Z}^n$, is sampled from some true but unknown distribution $P_{\boldsymbol{Z}_n} \in \, \mathcal{P}_{n}$
 - A query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
 - An optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
 
-Let $P = P\_Z \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
+Let $P_n = P\_{\boldsymbol{Z}_n} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
   
-$\mathcal{P}$ is called the .ye[statistical model].
+$\mathcal{P}_n$ is called the .ye[statistical model].
 
 ---
  
@@ -266,7 +266,7 @@ $$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrac
   <!-- - -->
    e.g., expected risk: 
 <!-- $ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(Z))]. $ -->
-$$ \mathcal{E}(f\_n) :=  \mathbb{E}\_Z[R(f\_n(Z))]. $$
+$$ \mathcal{E}(f\_n) :=  \mathbb{E}\_{\boldsymbol{Z}^n}[R(f\_n(\boldsymbol{Z}^n))]. $$
 
 
 ---
@@ -347,7 +347,7 @@ $f_0$ is the algorithm's performance prior to seeing $n$ new samples, and theref
   - priors
   - inductive bias of $\mathcal{H}$
   <!-- - estimation bias of $f$ -->
-  - model bias of $\mathcal{P}$
+  - model bias of $\mathcal{P}_n$
   - pre-training
 
 
@@ -377,7 +377,7 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 - Given
   - a setting $\mathcal{S}$
   - a sample size $n$
-- Assume a true but unknown distribution $P \in \, \mathcal{P}$ 
+- Assume a true but unknown distribution $P_n \in \, \mathcal{P}_n$ 
 - Find $f$ that minimizes generalization error
 
 $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
@@ -391,16 +391,19 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
 
 
 - Given 
+  - Side information sequence $\boldsymbol{W}_{n_0} = (W_i)_{i = 1}^{n_0}$
+    - $W_i$ is observed in $\mathcal{W}$, and sampled from $\mathcal{W}$
+    - Used to help learn for the learning task
   - .ye[Environment]: $t_i \in \lbrace 0, 1 \rbrace$ label each sample 
-      - $0$ denotes source data
+      - $0$ denotes side information 
       - $1$ denotes target data 
-  - .ye[Sample space]: $\mathcal{Z} \leftarrow (\mathcal{Z},\lbrace 0,1 \rbrace)$
-- Assume a  .ye[statistical model]:   $\mathcal{P} = \lbrace P := P\_{Z,T} \otimes P\_{Q,A} \rbrace$, where 
+  - .ye[Sample space]: $\mathcal{Z} \leftarrow (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
+- Assume a  .ye[statistical model]:   $\mathcal{P}_n = \lbrace P := P\_{\boldsymbol{Z}^n,T} \otimes P\_{Q,A} \rbrace$, where 
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid
   - $(T\_1,\ldots, T\_n) \sim P\_T$
 - Define a transfer learning .ye[algorithm] $f$ as a sequence 
 
-$$ \mathcal{F} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{\lbrace 0,1 \rbrace })^n \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F} = \lbrace f_n : \mathcal{Z}^n \rightarrow \mathcal{H} \rbrace$$
 
 <!-- - Identify the appropriate performance function. -->
 
@@ -430,7 +433,7 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
   - a transfer learning setting $\mathcal{S}$ 
    <!-- =  ( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{C} )$ -->
   - a sample size $n$
-- Assume a true but unknown distribution $P \in \, \mathcal{P}$
+- Assume a true but unknown distribution $P_n \in \, \mathcal{P}_n$
 - Find $f$ that minimizes generalization error
   $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
   
@@ -449,13 +452,13 @@ Where  $f^t$ denote the learner that only sees samples where $t_i=t$.
 - Given 
   - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
   - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $\mathcal{S}_i$
-  - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\color{yellow}{[T]})$
+  - Sample space: $\mathcal{Z} \leftarrow (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
 - Assume a  statistical model:  $\mathcal{P}_n = \lbrace P := P\_{\boldsymbol{Z}^n,T} \otimes P\_{Q,A} \rbrace$, where
   - $\boldsymbol{Z}^n = (Z_i)_{i = 1]^{n}$
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
   - $(T\_1,\ldots, T\_n) \sim P\_T$ (which can include dependence)
 - Define a multitask learning algorithm $f$ as a sequence 
-$$ \mathcal{F} = \lbrace f_n : (\mathcal{Z} \times \color{yellow}{[T]})^n \rightarrow \mathcal{H}^T \rbrace$$
+$$ \mathcal{F} = \lbrace f_n : \mathcal{Z}^n \rightarrow \mathcal{H}^T \rbrace$$
 - Define a multi-error $\tilde{\mathcal{E}}$ as a function over all $T$ performance measures, e.g.  the mean (or min) generalization error over all tasks. 
 
 
@@ -505,14 +508,14 @@ $$f^* = \arg \min\_{f} \, \tilde{\mathcal{E}}(f_n).$$
 
 - Given 
   - Environment: $t_i \in \mathcal{T}$ (potentially infinite) set of tasks 
-  - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\mathcal{T})$
+  - Sample space: $\mathcal{Z} \leftarrow (\bigcup_{i \in \mathcal{T}}\mathcal{Z}_i,\mathcal{T})$
 - Assume a statistical model:  $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$
   -  $Z\_i | T\_i \sim P\_{Z|T}$, 
   - $(T\_1,\ldots, T\_n) \sim P\_T$
   - data arrive sequentially in batches
 - Define a task-aware lifelong learning algorithm $f$ to update existing hypotheses on the basis of a batch of $m$ new samples
 <!-- - Define a lifelong learning algorithm $f$ as a sequence  -->
-$$ \mathcal{F} = \lbrace f : \mathcal{H}  \times (\mathcal{Z} \times \color{yellow}{\mathcal{T}})^m \rightarrow \mathcal{H} \rbrace$$
+$$ \mathcal{F} = \lbrace f : \mathcal{H}  \times \mathcal{Z}^m \rightarrow \mathcal{H} \rbrace$$
 <!-- - Requires .ye[out of task] capabilities   -->
 <!-- - $N_T$ is the number of tasks observed after $n$ samples -->
 
@@ -561,7 +564,7 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in \mathcal{T
 
 - Given
  - Environment: $t_i \in \color{yellow}{\mathcal{T}}$  (.ye[potentially infinite]) set of tasks
- - .ye[Side information]: $\xi_i \in \Xi$ such as expert advise, or reinforcement learning structure
+ - .ye[Side information]: $\W_i \in \mathcal{W}$ such as expert advise, or reinforcement learning structure
   <!-- - each batch may be associated with a new task -->
   <!-- - the sequence of tasks is called the .ye[syllabus] -->
   <!-- - there is potential for  $\Xi$-valued side information  -->
@@ -570,7 +573,7 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in \mathcal{T
   - .ye[no  structure] to $P$, ie, could be iid, adversarial, etc.
 - Define a task-oblivious lifelong learning algorithm $f$ to update existing hypotheses on the basis of a batch of $m$ new samples
 
-$$\mathcal{F} = \lbrace  f\_m : \color{yellow}{\mathcal{H}}  \times ({\mathcal{Z}} \times \Xi)^m \rightarrow \mathcal{H} \rbrace$$ 
+$$\mathcal{F} = \lbrace  f\_m : \color{yellow}{\mathcal{H}}  \times ({\mathcal{Z}} \times \mathcal{W})^m \rightarrow \mathcal{H} \rbrace$$ 
 
 - Note:
   -  $f$ is oblivious to whether the setting has changed 

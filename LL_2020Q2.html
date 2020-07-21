@@ -121,21 +121,29 @@ name:def
 - [Appendix 2: Scenarios](#scenarios)
 
 
+---
+
+## What is the Learning Problem?
+
+In task $t$, given $n$ new samples,
+
+Find $f$ that minimizes the generalization error
+
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
 ---
 
 ## What is Learning?
 
 
-In task setting $\mathcal{S}$, given $n$ new samples,  assuming $P_n$, 
+In task $t$, given $n$ new samples,
 
-$f$ learns  when its performance $\mathcal{E}$ improves due to the data:
+$f$ learns when its performance improves due to the data:
 
-.center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
+.center[$f$ learns when $LE_n(f) = \mathbb{E}\Big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\Big] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))} > 1$.]
 
 
-
-$\mathcal{E}(f_0)$ is the algorithm's performance prior to seeing $n$ new samples. 
+$R(f(\bold{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samples. 
 
 
 ---
@@ -143,16 +151,13 @@ $\mathcal{E}(f_0)$ is the algorithm's performance prior to seeing $n$ new sample
 ## What is Learning?
 
 
+In .ye[task] $t$, given $n$ new .ye[samples],
 
-In .ye[task setting] $\mathcal{S}$, given $n$ new .ye[samples],   .ye[assuming] $P_n$, 
+.ye[$f$] learns  when its .ye[performance] improves due to the data:
 
-.ye[$f$] learns  when its .ye[performance] $\mathcal{E}$ improves due to the data:
+.center[$f$ learns when $LE_n(f) = \mathbb{E}\Big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\Big] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))} > 1$.]
 
-.center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
-
-$\mathcal{E}(f_0)$ is the algorithm's performance prior to seeing $n$ new samples. 
-
-
+$R(f(\bold{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samples. 
 
 
 
@@ -205,13 +210,14 @@ The data are determined by physical implementation of the system:
 
 The assumptions are determined by the subject matter expert, though they can be quite general:
 
-- The data, $(Z\_1,\ldots, Z\_n) \in \mathcal{Z}^n$, is sampled from some true but unknown distribution $P\_{\bold{Z}\_n} \in \, \mathcal{P}_{n}$
+- The data, $\bold{Z}\_n = \{Z\_1,\ldots, Z\_n\}\ , Z\_i \in \mathcal{Z}^n$ for $i \in [n]$, is such that each $Z\_i$ is sampled from some true but unknown distribution $P\_{Z} \in \,
+\mathcal{P}$
 - A query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
 - An optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
 
-Let $P\_n = P\_{\bold{Z}\_n} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
+Let $P\ = P\_{Z} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
   
-$\mathcal{P}_n$ is called the .ye[statistical model].
+$\mathcal{P}$ is called the .ye[statistical model].
 
 ---
  
@@ -222,12 +228,8 @@ $\mathcal{P}_n$ is called the .ye[statistical model].
 We get to choose this, though we must respect the resource constraints defined by the setting:
 
 - A .ye[hypothesis], $h : \mathcal{Q} \rightarrow \mathcal{A}$ takes an action on the basis of a query
-- $f_n$ is a  learner, which maps from a subset of $n$ samples in $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
-- $f=f_1, f_2, \ldots$ is a sequence of learners, called a learning .ye[algorithm] 
-
-$$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrace$$ 
-
-
+- $f: \mathcal{D} \to \mathcal{H}$ is a learning .ye[algorithm], which maps data sets from $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
+- $\mathcal{D} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$
 
 
 - Supervised machine learning example
@@ -259,14 +261,16 @@ $$f \in \mathcal{F} = \lbrace  f_n : \mathcal{Z}^n \rightarrow \mathcal{H}\rbrac
   <!-- - eg, expected loss: $ R(h) := R(h; \ell, P\_{Q, A}) = \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $  -->
   <!-- -  -->
   e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $ 
-- Performance, also called  generalization .ye[error], 
+- With an algorithm, the risk is
+$$ R(f(\bold{Z}_n)). $$
+- Performance is the expected ratio of risks
+$$ \mathcal{E}_n(f) :=  \mathbb{E}\big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\big]. $$
 <!-- quantifies risk over the distribution of possible training datasets,   -->
 <!-- $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$,   -->
  <!-- - We think of this only as a function of $f\_n \in \mathcal{F}$, for the same reason as above  -->
   <!-- - -->
-   e.g., expected risk: 
+  <!-- e.g., expected risk: -->
 <!-- $ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(Z))]. $ -->
-$$ \mathcal{E}(f\_n) :=  \mathbb{E}\_{\bold{Z}^n}[R(f\_n(\bold{Z}^n))]. $$
 
 
 ---
@@ -310,7 +314,7 @@ $$ \mathcal{E}(f\_n) :=  \mathbb{E}\_{\bold{Z}^n}[R(f\_n(\bold{Z}^n))]. $$
 
 ## What is the Setting?
 
-The setting is everything but the true but unknown distribution:
+The setting $s$ is the tuple of everything aside from the true but unknown distribution:
 <!-- $\mathcal{S}=(\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{H}, \mathcal{F}, \mathcal{E}, \mathcal{C})$ -->
 
 <!-- A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F} \rbrace$ -->
@@ -321,11 +325,32 @@ The setting is everything but the true but unknown distribution:
 | Action space |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
 | Query space |  $\mathcal{Q}$ |  any tweet
 | Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
-| Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
-| Algorithm Class | $\mathcal{F} = \lbrace f_n : {\mathcal{Z}^n} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
-| Error  | $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$  | average expected loss
+| Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A} \rbrace$  | hyperplanes
+| Algorithm Class | $\mathcal{F} = \lbrace f : \mathcal{D} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
+| Performance  | $\mathcal{E}_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | average expected loss
 | Constraints  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathcal{O}(n)$
 
+
+
+
+---
+
+## What is the Task?
+
+- The task is the joint distribution $P = P\_Z \otimes P\_{A|Q} \otimes P\_{Q} \in \mathcal{P}$ along with the setting $s \in \mathcal{S}$. 
+- In other words, the task $t$ is the pair $(s, P)$.
+
+---
+
+
+## What is the Learning Problem?
+
+- Given
+  - a task $t$
+  - a sample size $n$
+- Find $f$ that minimizes the generalization error
+
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f) = \mathbb{E}[R(f(\bold{Z}_n))].$$
 
 
 
@@ -336,18 +361,17 @@ The setting is everything but the true but unknown distribution:
 
 
 
-In setting $\mathcal{S}$, given $n$ new samples,  assuming $P$, 
+In task $t$, given $n$ new samples,  
 
-$f$ learns  when its performance $\mathcal{E}$ improves due to the data:
+$f$ learns  when its performance improves due to the data:
 
-.center[$f$ learns when $\mathcal{E}(f_n) < \mathcal{E}(f_0)$.]
+.center[$f$ learns when $LE_n(f) = \mathbb{E}\Big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\Big] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))} > 1$.]
 
-
-$\mathcal{E}(f_0)$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
+$R(f(\bold{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
   - priors
   - inductive bias of $\mathcal{H}$
   <!-- - estimation bias of $f$ -->
-  - model bias of $\mathcal{P}_n$
+  - model bias of $\mathcal{P}$
   - pre-training
 
 
@@ -368,22 +392,6 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 | Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
  -->
 
-
----
-
-
-## What is a Learning Task?
-
-- Given
-  - a setting $\mathcal{S}$
-  - a sample size $n$
-- Assume a true but unknown distribution $P_n \in \, \mathcal{P}_n$ 
-- Find $f$ that minimizes generalization error
-
-$$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
-
-
-
 ---
 
 
@@ -397,7 +405,7 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
       - Used to help learn for the learning task
   - Learning task $t = (\mathcal{S}, P\_{n\_1})$
       - $\mathcal{S} = (\mathcal{Q}, \mathcal{A}, \mathcal{H}, \mathcal{R}, \mathcal{Z}, \mathcal{F})$
-      - Assume a  .ye[statistical model]:   $\mathcal{P}\_{n\_1} = \lbrace P := P\_{\bold{Z}^{n_1}, Q, A} \rbrace$
+      - Assume a .ye[statistical model]:   $\mathcal{P}\_{n\_1} = \lbrace P := P\_{\bold{Z}^{n_1}, Q, A} \rbrace$
   - .ye[Sample space]: $\mathcal{Z}^\prime = (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
   - $\bold{W}\_{n\_0}$ and $\bold{Z}\_{n\_1}$ are iid sequences and independent of one another
 - Define a transfer learning .ye[algorithm] $f$ as the set of functions

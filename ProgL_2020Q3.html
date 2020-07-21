@@ -655,7 +655,21 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
 
 <!-- TODO@ali make this slide-->
 
+- Given query space $\mathcal{Q} = \mathbb{R}^d$ and $n$ samples, for example $(x\_i, y\_i)_{i = 1}^{n}$ ($y_i$ could be labels)
+- Transfomer $u$ partitions $\mathbb{R}^d$, mapping $x_i \in \mathbb{R}^d$ to its corresponding cell in the partition
+- Voter $v$ scores actions in each cell (e.g. empirical posterior distribution) given how they are populated by transformer 
+- For a given test query $x$, 
+    - $u$ maps $x$ to its cell
+    - $v$ votes on actions in this cell
+    - decider $w$ chooses action based on $v$'s votes (e.g. arg max)
 
+---
+
+### Ensemble, Partition and Vote 
+
+- Get a transformer class $U$, with each $u \in U$ partitioning $\mathbb{R}^d$ differently
+- Get a voter class $V$, with each $v \in V$ voting differently on each cell in a given partition, and make it vote on every partition 
+- Decider $w$ ensembles the votes on actions from each voter to decide on an action given a test query $x$
 
 ---
 

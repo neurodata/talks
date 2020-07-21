@@ -303,23 +303,64 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
  
 ---
 
+## Predictive Ensembling
 
-## Complicated Example
+
+- Ensemble votes from multiple voters in a decider
+  $$
+  w \circ
+  \begin{bmatrix}
+    v_1 \circ u_1 \\\\
+    v_2 \circ u_2 \\\\
+    \vdots \\\\
+    v_m \circ u_m 
+  \end{bmatrix}
+  $$
+
+---
+
+
+## Predictive Ensembling Example
 
 
 - Decision Forest 
   - $u_b$ for $B$ trees: union of overlapping polytopes
   - $v_b$ for $B$ trees: fraction of points per class per leaf node
   - $w$: maximum a posteriori class averaging over trees 
---
 
+---
+
+## Representational Ensembling
+
+
+- Ensemble representations from multiple transformers in a voter
+- Assume $m$ transformers and $n$ voters
+- Let $u = 
+  \begin{bmatrix}
+    u_1 \\\\
+    u_2 \\\\
+    \vdots \\\\
+    u_m 
+  \end{bmatrix}$
+  $$
+  w \circ
+  \begin{bmatrix}
+    v_1 \circ u \\\\
+    v_2 \circ u \\\\
+    \vdots \\\\
+    v_n \circ u 
+  \end{bmatrix}
+  $$
+
+---
+
+## Representational Ensembling Example
 
 
 - Deep Nets 
   - $u$: "backbone" (all but last layer)
   - $v$: softmax layer
   - $w$: max 
-
 
 
 ---

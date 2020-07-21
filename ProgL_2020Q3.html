@@ -210,7 +210,7 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 - $s$ is the setting, $s = (\mathcal{S},\mathcal{A},\mathcal{Z},\mathcal{P},\mathcal{H},R,\mathcal{F})$. 
 
 
-For task $s$, given data $\mathbf{Z}_n$ from true but unknown distribution $P_Z$, find $f$ that optimizes performance
+For setting $s$, given data $\mathbf{Z}_n$ from true but unknown distribution $P_Z$, find $f$ that optimizes performance
 
 $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
@@ -347,15 +347,15 @@ name:super
   - Side information  $\bold{W}_{n_0} = (W_i)_1^{n_0}$
       - $W_i$ is observed in $\mathcal{W}$, and sampled from $P_0$
       - Used to help learn for the learning task
-  - Learning task $t = (s, P_1)$, $n_1$ samples
+  <!-- - Learning task $t = (s, P_0,P_1)$, $n_1$ samples -->
 - Define
   - .ye[Sample space]: $\mathcal{Z}^\prime = (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
   - .ye[Data set space]: $\mathcal{D}^\prime = \bigcup_{n = 1}^{\infty}(\mathcal{Z}^\prime)^n$
   - .ye[Algorithm class]: $\mathcal{F}^\prime = \lbrace  f : \mathcal{D}^\prime \to \mathcal{H} \rbrace$
-- Transfer setting is $s = (\mathcal{Q}, \mathcal{A}, \mathcal{H}, \mathcal{R}, \mathcal{Z}^\prime, \mathcal{F}^\prime)$
-- Transfer task is the triple $(s, P_0, P_1)$.
+- Transfer setting is $s = (\mathcal{Q}, \mathcal{A}, \mathcal{Z}^\prime, \mathcal{P}^\prime, \mathcal{H}, \mathcal{R}, \mathcal{F}^\prime)$
+- Transfer task: For setting $s$, given data $\mathbf{D}\_n = (\mathbf{Z}\_n,\mathbf{W}\_n)$ from true but unknown distribution $P\_{Z,W}$, find $f$ that optimizes performance
 
-<!-- - Identify the appropriate performance function. -->
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
 
 
@@ -388,14 +388,14 @@ when its performance improves due to $\mathbf{Z}_0$, i.e., when
   - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
   - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $s_i$
   - Sample space: $\mathcal{Z} \leftarrow (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
-- Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \times P\_{\bold{T}^n} \rbrace$, where
+- Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \color{yellow}{\times P\_{\bold{T}^n}} \rbrace$, where
   <!-- can't render correctly -->
-  - $\bold{Z}^n = (Z\_i)\_1^{n}$
+  - $(T\_1,\ldots, T\_n) \sim P\_{\bold{T}^n}$, iid 
   -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
-  - $(T\_1,\ldots, T\_n) \sim P\_{\bold{T}^n}$ (which can include dependence)
+  - $\bold{D}^n = ((T\_i,Z\_i))\_1^{n}$
 - Define a multitask learning algorithm $f$ as a sequence 
 $$ \mathcal{F} = \lbrace f_n : \mathcal{Z}^n \rightarrow \mathcal{H}^T \rbrace$$
-- Define a multi-error $\tilde{\mathcal{E}}$ as a function over all $T$ performance measures, e.g.  the mean (or min) generalization error over all tasks. 
+<!-- - Define a multi-error $\tilde{\mathcal{E}}$ as a function over all $T$ performance measures, e.g.  the mean (or min) generalization error over all tasks.  -->
 
 
 

@@ -35,7 +35,7 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Results](#results)
@@ -51,7 +51,7 @@ name:learn
 ## Outline 
 
 
-- Learning
+- What is learning?
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Results](#results)
@@ -247,26 +247,13 @@ name:rep
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - Representation Ensembling
 - [Results](#results)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
 - [Appendix](#appendix)
 
----
-
-## Basic Idea 
-
-For each new task, 
-1. learn a new representation function, 
-2. apply it to all data from all tasks: the updated representation for everything is the composition of this new representation with existing representations.  
-4. update all decision rules using this representation.
-
-Notes:
-- This linearly increases representation capacity.
-- Without increasing representation capacity, performance on all tasks will necessarily drop to chance levels eventually as number of tasks increases.
-- Thus, fixed capacity systems can only lifelong learn insofar as they are inefficient (unnecessarily big) for individual tasks.
 
 ---
  
@@ -340,7 +327,20 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
 
 
   
-
+  ---
+  name:super
+  
+  ## Outline 
+  
+  
+  - [What is learning?](#learn)
+  - [Representation Ensembling](#rep)
+  - Super tasks
+  - [Results](#results)
+  - [Neurobiology](#neuro)
+  - [Discussion](#disc)
+  - [Appendix](#appendix)
+  
 
 
 
@@ -479,9 +479,10 @@ name:metrics
 ## Outline 
 
 
-- [Learning](#learn)
-- Metrics
+- [What is learning?](#learn)
+- [Representation Ensembling](#rep)
 - [Super tasks](#super)
+- Metrics
 - [Results](#results)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
@@ -551,6 +552,19 @@ We therefore have a single metric to quantify transfer.
 
 
 
+---
+
+## Basic Idea 
+
+For each new task, 
+1. learn a new representation function, 
+2. apply it to all data from all tasks: the updated representation for everything is the composition of this new representation with existing representations.  
+4. update all decision rules using this representation.
+
+Notes:
+- This linearly increases representation capacity.
+- Without increasing representation capacity, performance on all tasks will necessarily drop to chance levels eventually as number of tasks increases.
+- Thus, fixed capacity systems can only lifelong learn insofar as they are inefficient (unnecessarily big) for individual tasks.
 
 
 
@@ -652,7 +666,7 @@ name:results
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - Results
@@ -725,7 +739,7 @@ name:real
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Neurobiology](#neuro)
@@ -880,7 +894,7 @@ name:theory
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Results](#results)
@@ -983,7 +997,7 @@ name:neuro
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Results](#results)
@@ -1094,7 +1108,7 @@ name:disc
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Results](#results)
@@ -1521,7 +1535,7 @@ name:extra
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Results](#results)
@@ -1538,7 +1552,7 @@ name:intro
 ## Outline 
 
 - Introduction
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Results](#results)
@@ -1808,7 +1822,7 @@ name:scenarios
 ## Outline 
 
 
-- [Learning](#learn)
+- [What is learning?](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
 - [Results](#results)

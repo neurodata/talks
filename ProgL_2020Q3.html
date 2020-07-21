@@ -77,7 +77,7 @@ $\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new sample
 
 ---
 
-<!-- \mathbb{E}\Big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\Big] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))}  -->
+<!-- \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))}  -->
 
 
 ## What are the data?
@@ -315,7 +315,6 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
 
 
 
-
 - Deep Nets 
   - $u$: "backbone" (all but last layer)
   - $v$: softmax layer
@@ -323,27 +322,20 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
 
 
 
-
-
-
+---
+name:super
   
-  ---
-  name:super
-  
-  ## Outline 
+## Outline 
   
   
-  - [What is learning?](#learn)
-  - [Representation Ensembling](#rep)
-  - Super tasks
-  - [Results](#results)
-  - [Neurobiology](#neuro)
-  - [Discussion](#disc)
-  - [Appendix](#appendix)
+- [What is learning?](#learn)
+- [Representation Ensembling](#rep)
+- Super tasks
+- [Results](#results)
+- [Neurobiology](#neuro)
+- [Discussion](#disc)
+- [Appendix](#appendix)
   
-
-
-
 
 ---
 
@@ -496,7 +488,7 @@ name:metrics
 
 
 The transfer efficiency of learning algorithm $f$ for task $t$ and sample size $n$ is
-$$  TE\_t(f) := \mathbb{E}\big[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\big]
+$$  TE\_t(f) := \mathbb{E}\left[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\right]
 $$
 
 Where $D_n^t$ are the samples in $D_n$ from task $t$.
@@ -516,7 +508,7 @@ Algorithm $ f $ transfer learns if $ TE_t(f) > 1 $.
 - Let $D\_n^{< t} = \lbrace (Z\_i, T\_i)\_{i = 1}^{n\_t} \rbrace $.
 
 - .ye[Forward] transfer efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FTE\_t(f) := \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\mathcal{D}^{< t}\_n))} \big].  $$
+$$    FTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\mathcal{D}^{< t}\_n))} \right].  $$
 
 
 
@@ -533,7 +525,7 @@ $$    FTE\_t(f) := \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\math
 
 
 <!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
-$$    BTE\_t(f) := \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{< t}\_n))}{R^t(f(\mathcal{D}\_n))} \big].  $$
+$$    BTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathcal{D}^{< t}\_n))}{R^t(f(\mathcal{D}\_n))} \right].  $$
 $$
 
 ---
@@ -541,8 +533,8 @@ $$
 ## TE Factorizes
 
 
-$$  TE\_t(f) := \mathbb{E}\big[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\big] = \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\mathcal{D}^{< t}\_n))} \big] \times
-            \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{< t}\_n))}{R^t(f(\mathcal{D}\_n))} \big] $$
+$$  TE\_t(f) := \mathbb{E}\left[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\right] = \mathbb{E}\left[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\mathcal{D}^{< t}\_n))} \right] \times
+            \mathbb{E}\left[ \frac{R^t(f(\mathcal{D}^{< t}\_n))}{R^t(f(\mathcal{D}\_n))} \right] $$
 
 <br>
 
@@ -1704,7 +1696,7 @@ $$ \mathcal{F}_{R} = \lbrace f\_i : \, \color{yellow}{\mathcal{Z}_i} \times \mat
   - a discount rate $\gamma$
   - a reward function $\bar{R}$
 - Find $f$ that maximizes .ye[expected reward]
-$$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\big[ \sum\_{i=0}^n \gamma^{n-i} \bar{R}(Q\_i, f(Z\_i, h\_{i-1}))\big] $$
+$$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\left[ \sum\_{i=0}^n \gamma^{n-i} \bar{R}(Q\_i, f(Z\_i, h\_{i-1}))\right] $$
 
 
 
@@ -2045,7 +2037,7 @@ In task-aware lifelong  setting $\mathcal{S}$, given $n$ samples,   assuming $P$
 
 $f$ weakly lifelong learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data on average:
 
-<!-- $$ \mathbb{E} \Big[ \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n )  \Big]  < 
+<!-- $$ \mathbb{E} \left[ \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n )  \right]  < 
  \mathbb{E} \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n^t),$$  -->
 
 
@@ -2104,7 +2096,7 @@ In task-oblivious lifelong setting $\mathcal{S}$, given $n$ samples,  assuming $
 
 $f$ .ye[weakly lifelong] learns when its  performances $\lbrace \mathcal{E}_t \rbrace$ improve due to other task's data .ye[on average]:
 
-<!-- $$ \mathbb{E} \Big[ \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n )  \Big]  < 
+<!-- $$ \mathbb{E} \left[ \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n )  \right]  < 
  \mathbb{E} \sum\_{t \in [T\_n]} \mathcal{E}\_t(f\_n^t),$$  -->
 
 

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>LL</title>
+  <title>ProgL</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="fonts/quadon/quadon.css">
   <link rel="stylesheet" href="fonts/gentona/gentona.css">
@@ -35,32 +35,28 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
+- [Results](#results)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
 - [Appendix](#appendix)
 
 
 ---
+name: intro
 
 ## Outline 
 
 - Introduction
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
+- [Results](#results)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
+- [Appendix](#appendix)
 
 ---
 
@@ -109,39 +105,12 @@ name:def
 
 - [Introduction](#intro)
 - Definition
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
+- [Results](#results)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
-
-
----
-
-## What is the Learning Problem?
-
-In task $t$, given $n$ new samples,
-
-Find $f$ that minimizes the generalization error
-
-$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
-
----
-
-## What is Learning?
-
-
-In task $t$, given $n$ new samples,
-
-$f$ learns  when its performance improves due to the data, as measured by the learning efficiency:
-
-.center[$f$ learns when $LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
-
-$\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new samples. 
+- [Appendix](#appendix)
 
 
 ---
@@ -149,11 +118,12 @@ $\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new sample
 ## What is Learning?
 
 
-In .ye[task] $t$, given $n$ new .ye[samples],
 
-.ye[$f$] learns  when its .ye[performance] improves due to the data, as measured by the learning efficiency:
+.ye[$f$] learns .ye[task] $t$ from .ye[data] $\mathbf{Z}_n$ 
 
-.center[$f$ learns when $LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
+when its .ye[performance] improves due to $\mathbf{Z}_n$, i.e., when
+
+.center[$LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
 
 $\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new samples. 
 
@@ -176,23 +146,7 @@ The data are determined by physical implementation of the system:
   - e.g., in which cluster is $z$? what is this object?
 
 
-  <!-- - .ye[Statistical Model]: $\mathcal{P}$, determined by subject matter expert -->
-    <!-- - e.g., each sample is independent and identically distributed -->
-<!-- - .ye[Constraints]: $\mathcal{C}$,  determined by hardware, time, money, etc.  -->
-    <!-- - e.g., $\mathcal{O}(n)$ training time, k-sparse, 8 GB -->
-  
-
-<!-- .ye[Task setting]: is  the tuple $\mathcal{S} =  (\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{C})$  -->
-
-
-<!-- --- -->
- 
-
-<!-- ## What are samples? -->
-
-<!-- - $z_i \in \mathcal{Z}$ for $i \in [n]$ are samples -->
  Classification Example
-  <!-- - $z_i \in \mathcal{Z}$ for $i \in [n]$ are samples -->
 - $z_i = (x_i,y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
 - $a_i \in \lbrace 0, 1 \rbrace = \mathcal{Y}$ are class labels 
 - $q_i \in \mathcal{X}=\mathbb{R}^p$ are possible feature vectors with unknown class labels 
@@ -224,18 +178,15 @@ $\mathcal{P}$ is called the .ye[statistical model].
 
 We get to choose this, though we must respect the resource constraints defined by the setting:
 
-- A .ye[hypothesis], $h : \mathcal{Q} \rightarrow \mathcal{A}$ takes an action on the basis of a query
-- $f: \mathcal{D} \to \mathcal{H}$ is a learning .ye[algorithm], which maps data sets from $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
-- $\mathcal{D} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$
+-  $h : \mathcal{Q} \rightarrow \mathcal{A}$,  a .ye[hypothesis] takes an action on the basis of a query
+- $\mathcal{D} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$, a .ye[data corpus]
+- $f: \mathcal{D} \to \mathcal{H}$, a learning .ye[algorithm] maps data sets from $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
 
 
-- Supervised machine learning example
-  - $f$ is *RandomForestClassifier.fit*
-  - $h$ is *RandomForestClassifier.predict*
-
-
-
-<!-- --- -->
+Supervised machine learning example
+- $h$ is *RandomForestClassifier.predict*
+- $\mathcal{D}_n = (X_1, Y_1),  \ldots, (X_n, Y_n)$
+- $f$ is *RandomForestClassifier.fit*
 
 
 
@@ -246,54 +197,23 @@ We get to choose this, though we must respect the resource constraints defined b
 
 
 - .ye[Loss], 
-<!-- quantifies the error of a specific action $a$ taken by $h$ for a query $q$, $\mathcal{L} = \lbrace  \ell: \mathcal{A} \times \mathcal{A} \to \mathbb{R} \rbrace$,  -->
-  <!-- -  -->
   e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a']. $
-<!--  -->
-<!-- $\mathsf{l}, \mathsf{R}, \mathsf{E}, \mathsf{h}, l, R, E, h$ -->
-<!--  -->
 - .ye[Risk] 
-<!-- quantifies the loss over the whole query sample space, $\mathcal{R} = \lbrace R : \mathcal{H} \times \mathcal{L} \times \mathcal{P}\_{Q, A} \to \mathbb{R} \rbrace$  -->
- <!-- - We think of this only as a function of $h \in \mathcal{H}$, because the loss and distribution effectively index the function -->
-  <!-- - eg, expected loss: $ R(h) := R(h; \ell, P\_{Q, A}) = \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $  -->
-  <!-- -  -->
   e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $ 
 - With an algorithm, the risk is
 $$ R(f(\bold{Z}_n)). $$
-- Expected risk, otherwise known as .ye[generalization error],
+- Expected risk, otherwise known as .ye[generalization error] or .ye[performance],
 $$ \mathcal{E}_n(f) := \mathbb{E}[R(f(\bold{Z}_n))]. $$
 
-- Performance, or learning efficiency, is the ratio of generalization errors
-$$ LE_n(f) :=  \mathbb{E}\big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\big] = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)}. $$
-<!-- quantifies risk over the distribution of possible training datasets,   -->
-<!-- $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$,   -->
- <!-- - We think of this only as a function of $f\_n \in \mathcal{F}$, for the same reason as above  -->
-  <!-- - -->
-  <!-- e.g., expected risk: -->
-<!-- $ \mathcal{E}(f\_n) := \mathcal{E}(f\_n; R, P\_Z) = \mathbb{E}\_Z[R(f\_n(Z))]. $ -->
+- .ye[Learning efficiency], is the ratio of generalization errors
+$$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right]. $$
+<!-- $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)}. $$ -->
 
 
 ---
 
 
 ## What are Constraints?
-
-<!-- Provided by subject matter expect and available resources, including:
-- Distributional constraints $P \in \, \mathcal{P}$, 
-  - e.g, mixture of K Gaussians, or convex
-- Decision rule (or hypothesis) constraints, $h \in \mathcal{H}$, 
-  - e.g., $\mathcal{O}(1)$, or k-sparse 
-- Learning rule constraints, $f \in \mathcal{F}$, 
-  - e.g., $\mathcal{O}(n)$, or Decision stump 
- -->
-
-
-<!-- --- -->
-
-
-<!-- ## Constraints  -->
-
-<!-- $\mathcal{P}$, $\mathcal{H}$, and $\mathcal{F}$ are sets of constraints on learning  -->
 
 
 | Constraint | Example | 
@@ -321,24 +241,31 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 
 | Object | Notation | Example
 |:--- |:--- |:--- | 
-| Sample space  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
-| Action space |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
 | Query space |  $\mathcal{Q}$ |  any tweet
-| Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
+| Action space |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
 | Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A} \rbrace$  | hyperplanes
+| Sample space  | $ \mathcal{Z}$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
+| Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
 | Algorithm Class | $\mathcal{F} = \lbrace f : \mathcal{D} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
-| Performance  | $LE\_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | avg expected loss
-| Constraints  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathcal{O}(n)$
+<!-- | Performance  | $LE\_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | avg expected loss -->
+<!-- | Constraints  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathcal{O}(n)$ -->
 
 
 
 
 ---
 
-## What is the Task?
+## What is the learning task?
 
-- The task is the joint distribution $P = P\_Z \otimes P\_{A|Q} \otimes P\_{Q} \in \mathcal{P}$ along with the setting $s \in \mathcal{S}$. 
-- In other words, the task $t$ is the pair $(s, P)$.
+- $t$ is the task, $(s, P)$.
+- $P$ is the joint distribution, $P = P\_Z \otimes P\_{A|Q} \otimes P\_{Q} \in \mathcal{P}$ 
+- $s$ is the setting, $s = (\mathcal{S},\mathcal{A},\mathcal{H},R,\mathcal{Z},\mathcal{F})$. 
+
+
+For task $t$, given data $\mathbf{Z}_n$, find $f$ that optimizes performance
+
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
+
 
 ---
 
@@ -347,11 +274,12 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 
 
 
-In task $t$, given $n$ new samples,  
+.ye[$f$] learns .ye[task] $t$ from .ye[data] $\mathbf{Z}_n$ 
 
-$f$ learns  when its performance improves due to the data:
+when its .ye[performance] improves due to $\mathbf{Z}_n$, i.e., when
 
-.center[$f$ learns when $LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
+.center[$LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
+
 
 $\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
   - priors
@@ -362,21 +290,113 @@ $\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new sample
 
 
 
-<!-- 
-## What is a Setting?
 
-A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F} \rbrace$
 
-| Object | Notation | Example
-|:--- |:--- |:--- | 
-| Measurements  | $ \mathcal{Z}^n$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
-| Actions |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
-| Loss  | $\mathcal{L}: \mathcal{A} \to \mathbb{R}_+$  | $ (\hat{y} - y_*)^2$
-| Risk  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathbb{E}_P[ \mathcal{L}(a)]$
-| Distributions | $\mathcal{P} := \lbrace P_Z \rbrace$ | Gaussian
-| Hypotheses  | $\mathcal{H} = \lbrace h: \mathcal{Z} \to \mathcal{A} \rbrace$  | hyperplanes
-| Algorithms | $\mathcal{F} = \lbrace f : 2^{\mathcal{Z}^n} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
- -->
+ 
+---
+name:alg
+
+## Outline 
+
+- [Introduction](#intro)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- Algorithm
+- [Results](#results)
+- [Neurobiology](#neuro)
+- [Discussion](#disc)
+- [Appendix](#appendix)
+
+---
+
+## Basic Idea 
+
+For each new task, 
+1. learn a new representation function, 
+2. apply it to all data from all tasks: the updated representation for everything is the composition of this new representation with existing representations.  
+4. update all decision rules using this representation.
+
+Notes:
+- This linearly increases representation capacity.
+- Without increasing representation capacity, performance on all tasks will necessarily drop to chance levels eventually as number of tasks increases.
+- Thus, fixed capacity systems can only lifelong learn insofar as they are inefficient (unnecessarily big) for individual tasks.
+
+---
+ 
+
+## Composable Hypotheses 
+
+.center[ .ye[$h(\cdot) := w \circ v \circ u (\cdot) = w(v(u(\cdot)))$]]
+
+- Let $u$ be .ye[transformer] data to a new representation, 
+
+$$ u : \mathcal{Q}  \to \tilde{\mathcal{Q}}$$
+
+- Let $v$ be .ye[voter] which operate on the transformed data outputs votes (score functions, posteriors) on all possible actions 
+
+
+$$ v : \tilde{\mathcal{Q}} \to \mathcal{V}$$
+
+
+- Let $w$ be .ye[decider] which decides which actions to take on the basis of the votes 
+
+
+$$ w : \mathcal{V} \to \mathcal{A}$$
+
+
+
+
+
+---
+ 
+
+
+## Simple Examples
+
+- Linear Discriminant Analysis (shallow)
+  - $u$: projection onto a line 
+  - $v$: fraction of points per over/under threshold
+  - $w$: maximum a posteriori class 
+--
+
+
+
+- Decision Tree (deep)
+ - $u$: union of polytopes
+ - $v$: fraction of points per class per leaf node
+ - $w$: maximum a posteriori class 
+
+ 
+---
+
+
+## Complicated Example
+
+
+- Decision Forest 
+  - $u_b$ for $B$ trees: union of overlapping polytopes
+  - $v_b$ for $B$ trees: fraction of points per class per leaf node
+  - $w$: maximum a posteriori class averaging over trees 
+--
+
+
+
+
+- Deep Nets 
+  - $u$: "backbone" (all but last layer)
+  - $v$: softmax layer
+  - $w$: max 
+
+
+
+
+
+
+  
+
+
+
+
 
 ---
 
@@ -385,16 +405,14 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 
 
 - Given 
-<!-- TODO can't render sequence correctly -->
-  - Side information sequence $\bold{W}_{n_0} = (W_i)_1^{n_0}$
+  - Side information  $\bold{W}_{n_0} = (W_i)_1^{n_0}$
       - $W_i$ is observed in $\mathcal{W}$, and sampled from $P_0$
       - Used to help learn for the learning task
-  - Learning task $t = (s_1, P_1)$, $n_1$ samples
+  - Learning task $t = (s, P_1)$, $n_1$ samples
 - Define
   - .ye[Sample space]: $\mathcal{Z}^\prime = (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
   - .ye[Data set space]: $\mathcal{D}^\prime = \bigcup_{n = 1}^{\infty}(\mathcal{Z}^\prime)^n$
-  - .ye[Algorithm class]: $\mathcal{F}^\prime = \lbrace f | f : \mathcal{D}^\prime \to \mathcal{H} \rbrace$
-
+  - .ye[Algorithm class]: $\mathcal{F}^\prime = \lbrace  f : \mathcal{D}^\prime \to \mathcal{H} \rbrace$
 - Transfer setting is $s = (\mathcal{Q}, \mathcal{A}, \mathcal{H}, \mathcal{R}, \mathcal{Z}^\prime, \mathcal{F}^\prime)$
 - Transfer task is the triple $(s, P_0, P_1)$.
 
@@ -408,23 +426,14 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 ## Has $f$ Transfer Learned?
 
 
-In transfer task $t = (s, P_0, P_1)$, given $n_0$ side information samples, and $n_1$ target samples
 
-$f$ .ye[transfer] learns  when its performance $LE_{n_0, n_1}$ improves due to the side information:
+$f$ .ye[transfer learns] task $t$ from .ye[data] $\mathbf{Z}_0$ 
 
-.center[$f$ learns when $LE\_{n\_0, n\_1} = \mathbb{E}[\frac{R(f(\bold{Z}\_{n\_1}))}{R(f(\bold{Z}\_{n\_0, n\_1}))}]$
+when its performance improves due to $\mathbf{Z}_0$, i.e., when
+
+.center[$LE\_{n\_0, n\_1}(f) = \mathbb{E}\left[\frac{R(f(\bold{Z}\_{n\_1}))}{R(f(\bold{Z}\_{n\_0, n\_1}))}\right]$
 .]
 
-Where $\bold{Z}\_{n\_1}$ is the data set with just target data and $\bold{Z}\_{n\_0, n\_1}$ has the both the target data and side information
----
-
-
-## The Transfer Learning Problem
-
-
-- Given a transfer setting $t = (s, P_0, P_1)$, $n_0$ side information samples, $n_1$ target samples
-- Find $f$ that minimizes generalization error
-  $$f\_{n\_0, n\_1}^* = \arg \min\_{f} \, \mathcal{E}\_{n\_0, n\_1}(f).$$
   
 
 ---
@@ -438,7 +447,7 @@ Where $\bold{Z}\_{n\_1}$ is the data set with just target data and $\bold{Z}\_{n
 
 - Given 
   - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
-  - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $\mathcal{S}_i$
+  - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $s_i$
   - Sample space: $\mathcal{Z} \leftarrow (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
 - Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \times P\_{\bold{T}^n} \rbrace$, where
   <!-- can't render correctly -->
@@ -523,16 +532,13 @@ name:metrics
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
+- [Learning](#learn)
 - Metrics
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
+- [Super tasks](#super)
+- [Results](#results)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
+- [Appendix](#appendix)
 
 
 ---
@@ -594,107 +600,6 @@ $$  TE\_t(f) := \mathbb{E}\big[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D
 
 
 We therefore have a single metric to quantify transfer.
-
-
-
-
-
----
-name:alg
-
-## Outline 
-
-- [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- Algorithm
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
-
----
-
-## Basic Idea 
-
-For each new task, 
-1. learn a new representation function, 
-2. apply it to all data from all tasks: the updated representation for everything is the composition of this new representation with existing representations.  
-4. update all decision rules using this representation.
-
-Notes:
-- This linearly increases representation capacity.
-- Without increasing representation capacity, performance on all tasks will necessarily drop to chance levels eventually as number of tasks increases.
-- Thus, fixed capacity systems can only lifelong learn insofar as they are inefficient (unnecessarily big) for individual tasks.
-
----
- 
-
-## Composable Hypotheses 
-
-.center[ .ye[$h(\cdot) := w \circ v \circ u (\cdot) = w(v(u(\cdot)))$]]
-
-- Let $u$ be .ye[transformer] data to a new representation, 
-
-$$ u : \mathcal{Q}  \to \tilde{\mathcal{Q}}$$
-
-- Let $v$ be .ye[voter] which operate on the transformed data outputs votes (score functions, posteriors) on all possible actions 
-
-
-$$ v : \tilde{\mathcal{Q}} \to \mathcal{V}$$
-
-
-- Let $w$ be .ye[decider] which decides which actions to take on the basis of the votes 
-
-
-$$ w : \mathcal{V} \to \mathcal{A}$$
-
-
-
-
-
----
- 
-
-
-## Simple Examples
-
-- Linear Discriminant Analysis (shallow)
-  - $u$: projection onto a line 
-  - $v$: fraction of points per over/under threshold
-  - $w$: maximum a posteriori class 
---
-
-
-
-- Decision Tree (deep)
- - $u$: union of polytopes
- - $v$: fraction of points per class per leaf node
- - $w$: maximum a posteriori class 
-
- 
----
-
-
-## Complicated Example
-
-
-- Decision Forest 
-  - $u_b$ for $B$ trees: union of overlapping polytopes
-  - $v_b$ for $B$ trees: fraction of points per class per leaf node
-  - $w$: maximum a posteriori class averaging over trees 
---
-
-
-
-
-- Deep Nets 
-  - $u$: "backbone" (all but last layer)
-  - $v$: softmax layer
-  - $w$: max 
 
 
 
@@ -800,16 +705,15 @@ name:sims
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
 - Simulations
 - [Real](#real)
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
+- [Appendix](#appendix)
 
 
 
@@ -876,16 +780,15 @@ name:real
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
 - [Simulations](#sims)
 - Real
 - [Theory](#theory)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
+- [Appendix](#appendix)
 
 
  
@@ -1035,16 +938,15 @@ name:theory
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
 - [Simulations](#sims)
 - [Real](#real)
 - Theory
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
+- [Appendix](#appendix)
 
 
 
@@ -1141,16 +1043,13 @@ name:neuro
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
+- [Results](#results)
 - Neurobiology
 - [Discussion](#disc)
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
+- [Appendix](#appendix)
 
 
 ---
@@ -1255,16 +1154,13 @@ name:disc
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
+- [Results](#results)
 - [Neurobiology](#neuro)
 - Discussion
-- [Appendix 1: Extra Slides](#extra)
-- [Appendix 2: Scenarios](#scenarios)
+- [Appendix](#appendix)
 
 
 
@@ -1685,17 +1581,39 @@ name:extra
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
+- [Results](#results)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
 - Appendix 1: Extra Slides
 - [Appendix 2: Scenarios](#scenarios)
 
+
+
+
+---
+
+### What is the Learning Problem?
+
+In task $t$, given $n$ new samples,
+
+Find $f$ that minimizes the generalization error
+
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
+
+
+
+---
+
+
+## The Transfer Learning Problem
+
+
+- Given a transfer setting $t = (s, P_0, P_1)$, $n_0$ side information samples, $n_1$ target samples
+- Find $f$ that minimizes generalization error
+  $$f\_{n\_0, n\_1}^* = \arg \min\_{f} \, \mathcal{E}\_{n\_0, n\_1}(f).$$
 
 
 
@@ -1897,12 +1815,10 @@ name:scenarios
 ## Outline 
 
 - [Introduction](#intro)
-- [Definition](#def)
-- [Metrics](#metrics)
-- [Algorithm](#alg)
-- [Simulations](#sims)
-- [Real](#real)
-- [Theory](#theory)
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
+- [Results](#results)
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
 - [Appendix 1: Extra Slides](#extra)

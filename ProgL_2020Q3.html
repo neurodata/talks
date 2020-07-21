@@ -254,7 +254,7 @@ $\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new sample
   - Data set space: $\mathcal{D}^\prime = \bigcup_{n = 1}^{\infty}(\mathcal{Z}^\prime)^n$
   - Algorithm class: $\mathcal{F}^\prime = \lbrace  f : \mathcal{D}^\prime \to \mathcal{H} \rbrace$
 - Transfer setting is $s' = (\mathcal{Q}, \mathcal{A}, \mathcal{Z}^\prime, \mathcal{P}^\prime, \mathcal{H}, \mathcal{R}, \mathcal{F}^\prime)$
-- Transfer task: in setting $s'$ with true but unknown distribution $P'$, given  data  $\mathbf{D}\_n = (\mathbf{Z}\_n,\mathbf{W}\_n)$, find $f$ that optimizes performance
+- Transfer task: in setting $s'$ with true but unknown distribution $P'$, given  data  $\mathbf{D}\_n = \lbrace Z^\prime\_i \rbrace\_{i = 1}^{n}$, find $f$ that optimizes performance
 
 $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
@@ -267,11 +267,11 @@ $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
 
 
-$f$ .ye[transfer learns] task $t$ from data $\mathbf{Z}_0$ 
+$f$ .ye[transfer learns] task $t$ from data $\mathbf{D}\_n^0 = \lbrace Z^\prime\_i \in \mathbf{}D\_n : Z^\prime\_i = (W_i, 0) \rbrace$ 
 
-when its performance improves due to $\mathbf{Z}_0$, i.e., when
+when its performance improves due to $\mathbf{D}_n^0$, i.e., when
 
-.center[$LE\_{n\_0, n\_1}(f) = \mathbb{E}\left[\frac{R(f(\bold{Z}\_{n\_1}))}{R(f(\bold{Z}\_{n\_0, n\_1}))}\right]$
+.center[$LE\_{n}(f) = \mathbb{E}\left[\frac{R(f(\bold{D}\_{n\_1}))}{R(f(\bold{D}\_{n}))}\right]$
 .]
 
   

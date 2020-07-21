@@ -327,8 +327,8 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 | Query space |  $\mathcal{Q}$ |  any tweet
 | Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
 | Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A} \rbrace$  | hyperplanes
-| Algorithm Class | $\mathcal{F} = \lbrace f | f : \mathcal{D} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
-| Performance  | $\mathcal{LE}_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | average expected loss
+| Algorithm Class | $\mathcal{F} = \lbrace f : \mathcal{D} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
+| Performance  | $LE\_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | avg expected loss
 | Constraints  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathcal{O}(n)$
 
 
@@ -539,30 +539,31 @@ name:metrics
 ---
 
 
-## Lifelong Efficiency (L2E)
+## Transfer Efficiency (TE)
 
 
-The lifelong efficiency of learning algorithm $f$ for task $t$ and sample size $n$ is
-$$  L2E\_t(f) := \mathbb{E}\big[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\big]
+The transfer efficiency of learning algorithm $f$ for task $t$ and sample size $n$ is
+$$  TE\_t(f) := \mathbb{E}\big[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\big]
 $$
+
+Where $D_n^t$ are the samples in $D_n$ from task $t$.
 
 <br>
 
-Algorithm $ f $ lifelong learns if $ L2E_t(f) > 1 $. 
+Algorithm $ f $ lifelong learns if $ TE_t(f) > 1 $. 
 
 
 ---
  
 
-## Forward / Backward TE 
+## Forward / Backward Transfer Efficiency 
 
 
-- Let $f^{t_-}_n$ denote the algorithm with all access up to the last sample associated with task $t$.
-<!-- - Let $\mathcal{D}_F^t = \{(X_i, Y_i, T_i) \in \, \mathcal{D} : i \leq n_t\}$ be the set of all data up to sample $n_t$. -->
+- Let $n\_t = \max \lbrace i \in [n] : T\_i = t \rbrace \leq n$ be the index of the last occurence of task $t$ in $D\_n$. 
+- Let $D\_n^{< t} = \lbrace (Z\_i, T\_i)\_{i = 1}^{n\_t} \rbrace $.
+
 - .ye[Forward] transfer efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FTE\_t(f) := 
-\frac{\mathcal{E}\_t(f^t\_n)}{\mathcal{E}\_t(f^{t\_-}\_n)}.
-$$
+$$    FTE\_t(f) := \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\mathcal{D}^{< t}\_n))} \big].  $$
 
 
 
@@ -579,8 +580,7 @@ $$
 
 
 <!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
-$$    BTE\_t(f) := 
-\frac{\mathcal{E}\_t(f^{t\_-}_n)}{\mathcal{E}_t(f_n)}.
+$$    BTE\_t(f) := \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{< t}\_n))}{R^t(f(\mathcal{D}\_n))} \big].  $$
 $$
 
 ---
@@ -588,12 +588,8 @@ $$
 ## TE Factorizes
 
 
-$$  TE\_t(f) := 
-    \frac{\mathcal{E}\_t(f^t\_n)}{\mathcal{E}\_t(f\_n)}
-    = \frac{\mathcal{E}\_t(f^t\_n)}{\mathcal{E}\_t(f^{t\_-}\_n)}
-    \times
-    \frac{\mathcal{E}\_t(f^{t\_-}\_n)}{\mathcal{E}\_t(f\_n)}.
-$$
+$$  TE\_t(f) := \mathbb{E}\big[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\big] = \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\mathcal{D}^{< t}\_n))} \big] \times
+            \mathbb{E}\big[ \frac{R^t(f(\mathcal{D}^{< t}\_n))}{R^t(f(\mathcal{D}\_n))} \big] $$
 
 <br>
 

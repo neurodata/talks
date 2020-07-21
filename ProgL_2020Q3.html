@@ -309,20 +309,21 @@ $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
 
 
-$f$ .ye[weakly multitask] learns task $t$ from data $\mathbf{Z} = \mathbf{Z}_0, \mathbf{Z}_1, \ldots \mathbf{Z}_T$ 
+$f$ .ye[weakly multitask] learns task $t$ from data $\mathbf{Z} = \mathbf{Z}_1, \mathbf{Z}_2, \ldots \mathbf{Z}_T$ 
 
-when its .ye[average] performance $\lbrace \mathcal{E}_t \rbrace$ improves due to  other task's data, i.e., when
+when its .ye[average] performance improves due to  other task's data, i.e., when
 
 
-$$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
+$$\sum\_{t \in [T]} TE_n^t(f) P(t) > 1$$
+$$LE_n^t = \mathbb{E}\big[\frac{R^t(f(\mathbf{Z}_t))}{R^t(f(\mathbf{Z}))}$$
 
 <br>
 
 $f$ .ye[strongly multitask] learns task $t$ from data $\mathbf{Z}$
 
-  when .ye[each] performance $\lbrace \mathcal{E}_t \rbrace$ improves due to other task's data:
+  when .ye[each] performance improves due to other task's data:
 
-$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
+$$LE_n^t > 1 \ \ , t \in T$$
 
 
 
@@ -655,8 +656,8 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
 
 <!-- TODO@ali make this slide-->
 
-- Given query space $\mathcal{Q} = \mathbb{R}^d$ and $n$ samples, for example $(x\_i, y\_i)_{i = 1}^{n}$ ($y_i$ could be labels)
-- Transfomer $u$ partitions $\mathbb{R}^d$, mapping $x_i \in \mathbb{R}^d$ to its corresponding cell in the partition
+- Given query space $\mathcal{Q}$, say $\mathbb{R}^d$ and $n$ samples, for example $(x\_i, y\_i)_{i = 1}^{n}$, where $x_i \in \mathbb{R}^d$ and $y_i$ could be labels
+- Transfomer $u$ partitions $\mathcal{Q}$, mapping $x_i$ to its corresponding cell in the partition
 - Voter $v$ scores actions in each cell (e.g. empirical posterior distribution) given how they are populated by transformer 
 - For a given test query $x$, 
     - $u$ maps $x$ to its cell

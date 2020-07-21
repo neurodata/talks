@@ -204,7 +204,7 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 
 <!-- - $t$ is the task, $(s, P)$. -->
 - $P$ is the joint distribution, $P = P\_Z \otimes P\_{A|Q} \otimes P\_{Q} \in \mathcal{P}$ 
-- $s$ is the setting, $s = (\mathcal{A},\mathcal{Z},\mathcal{P},\mathcal{H},R,\mathcal{F})$. 
+- $s$ is the setting, $s = (\mathcal{Q}, \mathcal{A},\mathcal{Z},\mathcal{P},\mathcal{H},R,\mathcal{F})$. 
 
 
 In setting $s$ with true but unknown distribution $P$, given  data $\mathbf{Z}_n$   
@@ -288,7 +288,7 @@ when its performance improves due to $\mathbf{Z}_0$, i.e., when
 - Given 
   - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
   - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $s_i$
-  - Sample space: $\mathcal{Z}' \leftarrow (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
+  - Sample space: $\mathcal{Z}' = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
 - Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P' := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \color{yellow}{\times P\_{\bold{T}^n}} \rbrace$, where
   <!-- can't render correctly -->
   - $(T\_1,\ldots, T\_n) \sim P\_{\bold{T}^n}$, iid 
@@ -351,7 +351,7 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 ---
 
 ### What is Lifelong Learning? 
-  Given lifelong setting $s$ and distribution $P$, the lifelong task is to find $f^*$ such that
+  Given lifelong setting $s$, $n$ samples, and distribution $P$, the lifelong task is to find $f^*$ such that
 
   $$f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}\_n(f\_n)$$
 

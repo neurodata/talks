@@ -210,7 +210,9 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 - $s$ is the setting, $s = (\mathcal{S},\mathcal{A},\mathcal{Z},\mathcal{P},\mathcal{H},R,\mathcal{F})$. 
 
 
-For setting $s$, given data $\mathbf{Z}_n$ from true but unknown distribution $P_Z$, find $f$ that optimizes performance
+Given setting $s$, true but unknown distribution $P$, and data $\mathbf{Z}_n$   
+
+find $f$ that optimizes performance
 
 $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
@@ -361,6 +363,25 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
   - $u$: "backbone" (all but last layer)
   - $v$: softmax layer
   - $w$: max 
+
+
+---
+ 
+
+## General Representations 
+
+- Transformers learn representations 
+- We desire representations that are sufficient for one task, and  useful for other tasks 
+- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
+
+
+![:scale 100%](images/deep-polytopes.png)
+
+
+<!-- <img src="images/deep-polytopes.png" style="width:500px;"/> -->
+
+
+
 
 
 ---
@@ -531,31 +552,26 @@ Algorithm $ f $ transfer learns if $ TE_t(f) > 1 $.
 ---
  
 
-### Forward/Backward Transfer Efficiency 
+## Forward/Backward TE
 
 
 - Let $n\_t = \max \lbrace i \in [n] : T\_i = t \rbrace \leq n$ be the index of the last occurence of task $t$ in $D\_n$. 
 - Let $D\_n^{< t} = \lbrace (Z\_i, T\_i)\_{i = 1}^{n\_t} \rbrace $.
 
 - .ye[Forward] transfer efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\mathcal{D}^{< t}\_n))} \right].  $$
+$$    FTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{t}\_n))}{R^t(f(\mathbf{D}^{< t}\_n))} \right].  $$
 
 
 
 --
 
 
-<!-- ## Backward Transfer Efficiency -->
-
-
-<!-- Backward Transfer Efficiency (BTE) for task $t$ measures the improvement on task $t$ resulting from all data occurring after the last sample $i$ with $T_i = j$.  -->
-
 
 - .ye[Backward] transfer efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
 
 
 <!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
-$$    BTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathcal{D}^{< t}\_n))}{R^t(f(\mathcal{D}\_n))} \right].  $$
+$$    BTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{< t}\_n))}{R^t(f(\mathbf{D}\_n))} \right].  $$
 $$
 
 ---
@@ -563,8 +579,10 @@ $$
 ## TE Factorizes
 
 
-$$  TE\_t(f) := \mathbb{E}\left[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\right] = \mathbb{E}\left[ \frac{R^t(f(\mathcal{D}^{t}\_n))}{R^t(f(\mathcal{D}^{< t}\_n))} \right] \times
-            \mathbb{E}\left[ \frac{R^t(f(\mathcal{D}^{< t}\_n))}{R^t(f(\mathcal{D}\_n))} \right] $$
+$TE\_t(f) :=$ 
+
+$$\mathbb{E}\left[{\frac{R^t(f(\mathbf{D}^t\_n))}{R^t(f(\mathbf{D}\_n))}}\right] = \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{t}\_n))}{R^t(f(\mathbf{D}^{< t}\_n))} \right] \times
+            \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{< t}\_n))}{R^t(f(\mathbf{D}\_n))} \right] $$
 
 <br>
 
@@ -665,21 +683,6 @@ Notes:
   3. learn a new voter for all $j$ transformers 
   4. make decision rule by averaging over $j$ voters
 
----
- 
-
-## General Representations 
-
-- Transformers learn representations 
-- We desire representations that are sufficient for one task, and  useful for other tasks 
-- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
-
---
-
-![:scale 100%](images/deep-polytopes.png)
-
-
-<!-- <img src="images/deep-polytopes.png" style="width:500px;"/> -->
 
 
 ---
@@ -754,23 +757,6 @@ name:results
 <img src="images/spiral-all.png"  style="height:500px;"> -->
 
 
-
----
-name:real 
-
-## Outline 
-
-
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-- [Appendix](#appendix)
-
-
- 
-
 <!-- ## Consider an  example -->
 
 
@@ -820,6 +806,9 @@ Lifelong Forests and Networks consistently demonstrate .ye[forward transfer] for
 
 ![:scale 100%](images/cifar-100-FTE.svg)
 
+- left: resource building 
+- right: resource recruiting
+
 <!-- 
 
 
@@ -841,10 +830,12 @@ Lifelong Forests and Networks .ye[uniquely exhibits backward transfer].
 
 ![:scale 100%](images/cifar-100-BTE.svg)
 
+- left: resource building 
+- right: resource recruiting
 
 ---
 
-## LF Transfers on .ye[every task]
+### L2F & L2N  transfer on .ye[every task]
 
 
 ![:scale 60%](images/TE.svg) 
@@ -908,22 +899,6 @@ Lifelong Forests and Networks .ye[uniquely exhibits backward transfer].
 
 <!--Note RTE &gt;1.34 for task 4.
 -->
-
-
----
-name:theory
-
-## Outline 
-
-
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Results](#results)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-- [Appendix](#appendix)
-
 
 
 
@@ -993,7 +968,7 @@ where $\mathcal{E}^*$is Bayes optimal.
 ---
 
 
-## The fundamental .ye[conjecture] of transfer learning
+## The fundamental .ye[theorem] of transfer learning
 
 
 If each cell is:

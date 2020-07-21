@@ -326,22 +326,49 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$
 
 
 
+
 ---
 
+### What is Lifelong Learning? 
 
-### Transfer Efficiency (TE)
 
 
-The transfer efficiency of learning algorithm $f$ for task $t$ and sample size $n$ is
-$$  TE\_t(f) := \mathbb{E}\left[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\right]
-$$
 
-Where $D_n^t$ are the samples in $D_n$ from task $t$.
+- Given 
+  - Environment of $T < \infty$ tasks: $[T]=\lbrace t_1, \ldots t_T \rbrace$ 
+  - Query and action spaces $\mathcal{Q}$ and $\mathcal{A}$
+  - Curriculum of tasks $C$, which is a .ye[sequence] of tasks $(T\_i)_{i = 1}^{\infty}$, with $T\_i \in T$, with possible serial dependence, as well as dependence on the query and action
+  - Hypothesis class $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A}\rbrace$
+  - Risk class $\mathcal{R} = \lbrace R: \mathcal{H} \times \mathcal{P}\_{Q, A} \to \mathbb{R}\_{\geq 0}\rbrace$
+- Define
+  - Sample space: $\mathcal{Z} = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,[T])$
+  - Lifelong algorithm class: $\mathcal{F} = \lbrace ( f\_n: \mathcal{Z}^n \to \mathcal{H} \rbrace$ 
+  - Assume a statistical model $\mathcal{P} = \lbrace P := P\_{Z, Q, A, T_n} \rbrace$
+  - $T$ is the current task in the curriculum and $T_n$ is the next task 
+  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
+  - Lifelong setting space $\mathcal{S} = (\mathcal{Q}, \mathcal{A}, \mathcal{Z}, \mathcal{P}, \mathcal{R}, \mathcal{F} \rbrace)$
 
-<br>
+---
 
-Algorithm $ f $ transfer learns if $ TE_t(f) > 1 $. 
+### What is Lifelong Learning? 
+  Given lifelong setting $s$ and distribution $P$, the lifelong task is to find $f^*$ such that
 
+  $$f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}\_n(f\_n)$$
+
+<!-- --- -->
+
+
+### Has $f$ Lifelong Learned?
+
+
+
+Given lifelong setting $s$, distribution $P$, and $n$ samples, we say lifelong algorithm $f$ learns if 
+
+$$\mathbb{E}\left[\frac{R^t(f_n(D_n^t))}{R^t(f_n(D_n))}\right] > 1$$
+
+
+
+<!-- TODO@ali we don't mention progress learning anywhere, should we? -->
 
 ---
  
@@ -383,47 +410,6 @@ $$\mathbb{E}\left[{\frac{R^t(f(\mathbf{D}^t\_n))}{R^t(f(\mathbf{D}\_n))}}\right]
 
 We therefore have a single metric to quantify transfer.
 
-
----
-
-## What is Lifelong Learning? 
-
-
-
-
-- Given 
-  - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
-  - Query and action spaces $\mathcal{Q}$ and $\mathcal{A}$
-  - Curriculum of tasks $C$, which is a time series of tasks $(T\_i)_{i = 1}^{\infty}$, with $T\_i \in T$, with possible serial dependence, as well as dependence on the query and action
-  - Hypothesis class $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A}\rbrace$
-  - Risk class $\mathcal{R} = \lbrace R: \mathcal{H} \times \mathcal{P}\_{Q, A} \to \mathbb{R}\_{\geq 0}\rbrace$
-- Define
-  - .ye[Sample space]: $\mathcal{Z} = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
-  - .ye[Lifelong algorithm class]: $\mathcal{F} = \lbrace (f\_n)_{n = 1}^{\infty} | f\_n: \mathcal{Z}^n \to \mathcal{H} \rbrace$ 
-  - Assume a statistical model $\mathcal{P} = \lbrace P := P\_{Z, Q, A, T, T_n} \rbrace$
-  - $T$ is the current task in the curriculum and $T_n$ is the next task 
-  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
-  - Lifelong setting space $\mathcal{S} = (\mathcal{Q}, \mathcal{A}, \mathcal{Z}, \mathcal{P}, \mathcal{R}, \mathcal{F} \rbrace)$
-
----
-
-## What is Lifelong Learning? 
-  Given lifelong setting $s$ and distribution $P$, the lifelong task is to find $f^*$ such that
-
-  $$f^* = \arg \min\_{f \in \mathcal{F}}\lim\inf_{n\to\infty}\mathcal{E}\_n(f\_n)$$
-
----
-
-
-## Has $f$ Lifelong Learned?
-
-
-
-Given lifelong setting $s$, distribution $P$, and $n$ samples, we say lifelong algorithm $f$ learns if 
-
-$$\mathbb{E}\big[\frac{R^t(f_n(D_n^t))}{R^t(f_n(D_n))}\big] > 1$$
-
-Where $D\_n = (Z\_i, T\_i)_{i = 1}^{n}$
 
 
 

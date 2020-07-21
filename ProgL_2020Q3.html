@@ -34,7 +34,7 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
@@ -42,59 +42,6 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 - [Neurobiology](#neuro)
 - [Discussion](#disc)
 - [Appendix](#appendix)
-
-
----
-name:intro
-
-## Outline 
-
-- Introduction
-- [Learning](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Results](#results)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-- [Appendix](#appendix)
-
----
-
-## What are we trying to solve?
-
-1. Formally define lifelong learning
-2. Design and build machines the lifelong learn
-
-
-
----
-
-## What is lifelong Learning?
-
-
-<!-- A lifelong learning setting is a stream of .ye[potentially changing] tasks. -->
-
-A system lifelong learns when, given a data stream with dynamically changing tasks, the system's  performance improves by .ye[leveraging prior and future task] data.
-
-An .ye[efficient] lifelong learner does so under space/time complexity constraints.
-
-
-
-
-Thus, the only way to lifelong learn is by .ye[transferring knowledge across tasks], ideally both .ye[forward] (to improve future task performance) and .ye[backward] (to improve past task performance).
-
----
-
-## A Simple Story
-
-As anybody who plays a musical instrument, or a sport, understands, tasks are complex compositions of many sub-tasks.  This insight is important, because it motivates practicing sub-tasks, which, when improved, yields performance on the original (prior) task of the particular instrument or sport. 
-
-Artificial intelligence, however, has struggled deeply with sequentially learning how to perform different tasks, something we call "progressive intelligence". Specifically, although many AI solutions exist for transferring knowledge forward to improve new tasks, this typically comes with a cost of forgetting the past to some degree.  Anti-forgetting is the process of learning new skills or memories that actually enhance past skills or memories, and is the key reason that cross-training works.  We developed an approach to anti-forgetting called "progressive representation learning", which sequentially learns new representations of data such that performance on both past and future tasks improves. 
-
-
-
-
-
 
 
 
@@ -103,7 +50,7 @@ name:learn
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - Learning
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
@@ -243,9 +190,10 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 |:--- |:--- |:--- | 
 | Query space |  $\mathcal{Q}$ |  any tweet
 | Action space |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
-| Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A} \rbrace$  | hyperplanes
 | Sample space  | $ \mathcal{Z}$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
 | Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
+| Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A} \rbrace$  | hyperplanes
+| Risk  | $R: \mathcal{H} \times \mathcal{P}  \to \mathbb{R}_{\geq}$  | expected loss
 | Algorithm Class | $\mathcal{F} = \lbrace f : \mathcal{D} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
 <!-- | Performance  | $LE\_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | avg expected loss -->
 <!-- | Constraints  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathcal{O}(n)$ -->
@@ -257,12 +205,12 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 
 ## What is the learning task?
 
-- $t$ is the task, $(s, P)$.
+<!-- - $t$ is the task, $(s, P)$. -->
 - $P$ is the joint distribution, $P = P\_Z \otimes P\_{A|Q} \otimes P\_{Q} \in \mathcal{P}$ 
-- $s$ is the setting, $s = (\mathcal{S},\mathcal{A},\mathcal{H},R,\mathcal{Z},\mathcal{F})$. 
+- $s$ is the setting, $s = (\mathcal{S},\mathcal{A},\mathcal{Z},\mathcal{P},\mathcal{H},R,\mathcal{F})$. 
 
 
-For task $t$, given data $\mathbf{Z}_n$, find $f$ that optimizes performance
+For task $s$, given data $\mathbf{Z}_n$ from true but unknown distribution $P_Z$, find $f$ that optimizes performance
 
 $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
@@ -298,7 +246,7 @@ name:rep
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - Representation Ensembling
 - [Results](#results)
@@ -530,7 +478,7 @@ name:metrics
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - Metrics
 - [Super tasks](#super)
@@ -703,7 +651,7 @@ name:results
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
@@ -776,7 +724,7 @@ name:real
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
@@ -931,7 +879,7 @@ name:theory
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
@@ -1034,7 +982,7 @@ name:neuro
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
@@ -1145,7 +1093,7 @@ name:disc
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
@@ -1572,7 +1520,7 @@ name:extra
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)
@@ -1581,6 +1529,59 @@ name:extra
 - [Discussion](#disc)
 - Appendix 1: Extra Slides
 - [Appendix 2: Scenarios](#scenarios)
+
+
+
+---
+name:intro
+
+## Outline 
+
+- Introduction
+- [Learning](#learn)
+- [Representation Ensembling](#rep)
+- [Super tasks](#super)
+- [Results](#results)
+- [Neurobiology](#neuro)
+- [Discussion](#disc)
+- [Appendix](#appendix)
+
+---
+
+## What are we trying to solve?
+
+1. Formally define lifelong learning
+2. Design and build machines the lifelong learn
+
+
+
+---
+
+## What is lifelong Learning?
+
+
+<!-- A lifelong learning setting is a stream of .ye[potentially changing] tasks. -->
+
+A system lifelong learns when, given a data stream with dynamically changing tasks, the system's  performance improves by .ye[leveraging prior and future task] data.
+
+An .ye[efficient] lifelong learner does so under space/time complexity constraints.
+
+
+
+
+Thus, the only way to lifelong learn is by .ye[transferring knowledge across tasks], ideally both .ye[forward] (to improve future task performance) and .ye[backward] (to improve past task performance).
+
+---
+
+## A Simple Story
+
+As anybody who plays a musical instrument, or a sport, understands, tasks are complex compositions of many sub-tasks.  This insight is important, because it motivates practicing sub-tasks, which, when improved, yields performance on the original (prior) task of the particular instrument or sport. 
+
+Artificial intelligence, however, has struggled deeply with sequentially learning how to perform different tasks, something we call "progressive intelligence". Specifically, although many AI solutions exist for transferring knowledge forward to improve new tasks, this typically comes with a cost of forgetting the past to some degree.  Anti-forgetting is the process of learning new skills or memories that actually enhance past skills or memories, and is the key reason that cross-training works.  We developed an approach to anti-forgetting called "progressive representation learning", which sequentially learns new representations of data such that performance on both past and future tasks improves. 
+
+
+
+
 
 
 
@@ -1806,7 +1807,7 @@ name:scenarios
 
 ## Outline 
 
-- [Introduction](#intro)
+
 - [Learning](#learn)
 - [Representation Ensembling](#rep)
 - [Super tasks](#super)

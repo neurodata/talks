@@ -17,7 +17,7 @@
 
 <!-- TODO add slide numbers & maybe slide name -->
 
-### A theoretical and practical approach to progressive learning 
+### Transmedia progressive learning 
 
 
 [JHU](https://www.jhu.edu/): Hayden Helm | Jayanta Dey | Ronak Mehta | Will LeVine |
@@ -32,37 +32,35 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 
 ---
 
-## Outline 
+### Outline 
 
 
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Results](#results)
-- [Neurobiology](#neuro)
+- [Learning](#learn)
+- [Ensembling](#rep)
+- [Experiments](#exp)
+- [Theory](#theory)
+- [Brains](#neuro)
 - [Discussion](#disc)
-- [Appendix](#appendix)
 
 
 
 ---
 name:learn
 
-## Outline 
+### Outline 
 
 
-- What is learning?
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Results](#results)
-- [Neurobiology](#neuro)
+- Learning
+- [Ensembling](#rep)
+- [Experiments](#exp)
+- [Theory](#theory)
+- [Brains](#neuro)
 - [Discussion](#disc)
-- [Appendix](#appendix)
 
 
 ---
 
-## What is Learning?
+### What is Learning?
 
 
 
@@ -80,7 +78,7 @@ $\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new sample
 <!-- \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))}  -->
 
 
-## What are the data?
+### What are the data?
 
 
 The data are determined by physical implementation of the system:
@@ -104,7 +102,7 @@ The data are determined by physical implementation of the system:
 ---
 
 
-## What are the Assumptions?
+### What are the Assumptions?
 
 The assumptions are determined by the subject matter expert, though they can be quite general:
 
@@ -121,7 +119,7 @@ $\mathcal{P}$ is called the .ye[statistical model].
  
 
 
-## What is $f$?
+### What is $f$?
 
 We get to choose this, though we must respect the resource constraints defined by the setting:
 
@@ -140,7 +138,7 @@ Supervised machine learning example
 ---
 
 
-## What is Performance?
+### What is Performance?
 
 
 - .ye[Loss], 
@@ -160,7 +158,7 @@ $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right].
 ---
 
 
-## What are Constraints?
+### What are Constraints?
 
 
 | Constraint | Example | 
@@ -179,7 +177,7 @@ $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right].
  
 ---
 
-## What is the Setting?
+### What is the Setting?
 
 The setting $s$ is the tuple of everything aside from the true but unknown distribution:
 <!-- $\mathcal{S}=(\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{H}, \mathcal{F}, \mathcal{E}, \mathcal{C})$ -->
@@ -203,14 +201,14 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 
 ---
 
-## What is the learning task?
+### What is the learning task?
 
 <!-- - $t$ is the task, $(s, P)$. -->
 - $P$ is the joint distribution, $P = P\_Z \otimes P\_{A|Q} \otimes P\_{Q} \in \mathcal{P}$ 
 - $s$ is the setting, $s = (\mathcal{S},\mathcal{A},\mathcal{Z},\mathcal{P},\mathcal{H},R,\mathcal{F})$. 
 
 
-Given setting $s$, true but unknown distribution $P$, and data $\mathbf{Z}_n$   
+In setting $s$ with true but unknown distribution $P$, given  data $\mathbf{Z}_n$   
 
 find $f$ that optimizes performance
 
@@ -220,7 +218,7 @@ $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 ---
 
 
-## Has $f$ Learned?
+### Has $f$ Learned?
 
 
 
@@ -240,27 +238,201 @@ $\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new sample
 
 
 
+---
 
+
+### What is Transfer Learning?  
+
+
+- Given 
+  - Side information  $\bold{W}_{n_0} = (W_i)_1^{n_0}$
+      - $W_i$ is observed in $\mathcal{W}$, and sampled from $P_0$
+      - Used to help learn for the learning task
+  <!-- - Learning task $t = (s, P_0,P_1)$, $n_1$ samples -->
+- Define
+  - Sample space: $\mathcal{Z}^\prime = (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
+  - Model: $\mathcal{P}^\prime =  \lbrace P' = P_{\mathbf{Z},Q,A} \otimes P_W \in \mathcal{P}'\rbrace$
+  - Data set space: $\mathcal{D}^\prime = \bigcup_{n = 1}^{\infty}(\mathcal{Z}^\prime)^n$
+  - Algorithm class: $\mathcal{F}^\prime = \lbrace  f : \mathcal{D}^\prime \to \mathcal{H} \rbrace$
+- Transfer setting is $s' = (\mathcal{Q}, \mathcal{A}, \mathcal{Z}^\prime, \mathcal{P}^\prime, \mathcal{H}, \mathcal{R}, \mathcal{F}^\prime)$
+- Transfer task: in setting $s'$ with true but unknown distribution $P'$, given  data  $\mathbf{D}\_n = (\mathbf{Z}\_n,\mathbf{W}\_n)$, find $f$ that optimizes performance
+
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
+
+
+
+---
+
+
+### Has $f$ Transfer Learned?
+
+
+
+$f$ .ye[transfer learns] task $t$ from data $\mathbf{Z}_0$ 
+
+when its performance improves due to $\mathbf{Z}_0$, i.e., when
+
+.center[$LE\_{n\_0, n\_1}(f) = \mathbb{E}\left[\frac{R(f(\bold{Z}\_{n\_1}))}{R(f(\bold{Z}\_{n\_0, n\_1}))}\right]$
+.]
+
+  
+
+---
+
+
+
+### What is Multitask Learning? 
+
+
+
+
+- Given 
+  - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
+  - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $s_i$
+  - Sample space: $\mathcal{Z}' \leftarrow (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
+- Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P' := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \color{yellow}{\times P\_{\bold{T}^n}} \rbrace$, where
+  <!-- can't render correctly -->
+  - $(T\_1,\ldots, T\_n) \sim P\_{\bold{T}^n}$, iid 
+  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
+  - $\bold{D}^n = ((T\_i,Z\_i))\_1^{n} \in \mathcal{D}'$
+- Define a multitask learning algorithm $f$ as 
+$ \mathcal{F} = \lbrace f : \mathcal{D}' \rightarrow \mathcal{H}^T \rbrace$
+- Multitask: in setting $s'$ with true but unknown distribution $P'$, given  data  $\mathbf{D}\_n$, find $f$ that optimizes performance
+
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
+
+
+
+---
+
+
+### Has $f$ Multitask Learned?
+
+
+
+$f$ .ye[weakly multitask] learns task $t$ from data $\mathbf{Z} = \mathbf{Z}_0, \mathbf{Z}_1, \ldots \mathbf{Z}_T$ 
+
+when its .ye[average] performance $\lbrace \mathcal{E}_t \rbrace$ improves due to  other task's data, i.e., when
+
+
+$$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
+
+<br>
+
+$f$ .ye[strongly multitask] learns task $t$ from data $\mathbf{Z}$
+
+  when .ye[each] performance $\lbrace \mathcal{E}_t \rbrace$ improves due to other task's data:
+
+$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
+
+
+
+---
+
+
+### Transfer Efficiency (TE)
+
+
+The transfer efficiency of learning algorithm $f$ for task $t$ and sample size $n$ is
+$$  TE\_t(f) := \mathbb{E}\left[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\right]
+$$
+
+Where $D_n^t$ are the samples in $D_n$ from task $t$.
+
+<br>
+
+Algorithm $ f $ transfer learns if $ TE_t(f) > 1 $. 
+
+
+---
+ 
+
+### Forward/Backward TE
+
+
+- Let $n\_t = \max \lbrace i \in [n] : T\_i = t \rbrace \leq n$ be the index of the last occurence of task $t$ in $D\_n$. 
+- Let $D\_n^{< t} = \lbrace (Z\_i, T\_i)\_{i = 1}^{n\_t} \rbrace $.
+
+- .ye[Forward] transfer efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
+$$    FTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{t}\_n))}{R^t(f(\mathbf{D}^{< t}\_n))} \right].  $$
+
+
+
+--
+
+
+
+- .ye[Backward] transfer efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+
+
+<!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
+$$    BTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{< t}\_n))}{R^t(f(\mathbf{D}\_n))} \right].  $$
+$$
+
+---
+
+### TE Factorizes
+
+
+$TE\_t(f) :=$ 
+
+$$\mathbb{E}\left[{\frac{R^t(f(\mathbf{D}^t\_n))}{R^t(f(\mathbf{D}\_n))}}\right] = \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{t}\_n))}{R^t(f(\mathbf{D}^{< t}\_n))} \right] \times
+            \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{< t}\_n))}{R^t(f(\mathbf{D}\_n))} \right] $$
+
+<br>
+
+
+We therefore have a single metric to quantify transfer.
+
+
+
+
+---
+
+### Lifelong Learning Taxonomy 
+
+
+![:scale 100%](images/learning-taxonomy.svg)
+
+
+---
+
+### Ways Tasks can Differ
+
+
+| Component | Notation | Examples |
+| :--- | :--- | :--- 
+| Query Space | $\mathcal{Q}$ | new keyboard introduced
+| Action Space | $\mathcal{A}$ | class incremental, task incremental
+| Sample Space | $\mathcal{Z}$ | another modality
+| Statistical Model | $\mathcal{P}$ | Gaussian to Log-Gaussian
+| Hypotheses | $\mathcal{H}$ | linear functions
+| Risk | $R$ | expected loss
+| Algorithm Space | $\mathcal{F}$ | SVM
+| Distribution | $P$ | mean shift
+| Task Awareness | $T_i$ | {aware, oblivious, ambivalent}
+
+$2^8 \times 3 \approx 800$ ways tasks can differ.  
 
  
 ---
 name:rep
 
-## Outline 
+### Outline 
 
 
-- [What is learning?](#learn)
-- Representation Ensembling
-- [Results](#results)
-- [Neurobiology](#neuro)
+- [Learning](#learn)
+- Ensembling
+- [Experiments](#exp)
+- [Theory](#theory)
+- [Brains](#neuro)
 - [Discussion](#disc)
-- [Appendix](#appendix)
 
 
 ---
  
 
-## Composable Hypotheses 
+### Composable Hypotheses 
 
 .center[ .ye[$h(\cdot) := w \circ v \circ u (\cdot) = w(v(u(\cdot)))$]]
 
@@ -285,12 +457,13 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
 
 ![:scale 100%](images/single_decomposable_hypothesis.png)
 
+<!-- TODO: can we use an svg here? or a higher res png if you can't get a vector graphic? -->
 
 ---
  
 
 
-## Simple Examples
+### Simple Examples
 
 - Linear Discriminant Analysis (shallow)
   - $u$: projection onto a line 
@@ -308,7 +481,7 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
  
 ---
 
-## Predictive Ensembling
+### Predictive Ensembling
 
 
 - Ensemble votes from multiple voters in a decider
@@ -329,7 +502,7 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
 ---
 
 
-## Predictive Ensembling Example
+#### Predictive Ensembling Example
 
 
 - Decision Forest 
@@ -337,294 +510,10 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
   - $v_b$ for $B$ trees: fraction of points per class per leaf node
   - $w$: maximum a posteriori class averaging over trees 
 
----
-
-## Representational Ensembling
-
-
-- Ensemble representations from multiple transformers in a voter
-- Assume $m$ transformers and $n$ voters
-- Let $u = 
-  \begin{bmatrix}
-    u_1 \\\\
-    u_2 \\\\
-    \vdots \\\\
-    u_m 
-  \end{bmatrix}$
-  $$
-  w \circ
-  \begin{bmatrix}
-    v_1 \circ u \\\\
-    v_2 \circ u \\\\
-    \vdots \\\\
-    v_n \circ u 
-  \end{bmatrix}
-  $$
 
 ---
 
-![:scale 100%](images/representational_ensembling.png)
-
----
-
-## Representational Ensembling Example
-
-
-- Deep Nets 
-  - $u$: "backbone" (all but last layer)
-  - $v$: softmax layer
-  - $w$: max 
-
-
----
- 
-
-## General Representations 
-
-- Transformers learn representations 
-- We desire representations that are sufficient for one task, and  useful for other tasks 
-- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
-
-
-![:scale 100%](images/deep-polytopes.png)
-
-
-<!-- <img src="images/deep-polytopes.png" style="width:500px;"/> -->
-
-
-
-
-
----
-name:super
-  
-## Outline 
-  
-  
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- Super tasks
-- [Results](#results)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-- [Appendix](#appendix)
-  
-
----
-
-
-## What is Transfer Learning?  
-
-
-- Given 
-  - Side information  $\bold{W}_{n_0} = (W_i)_1^{n_0}$
-      - $W_i$ is observed in $\mathcal{W}$, and sampled from $P_0$
-      - Used to help learn for the learning task
-  <!-- - Learning task $t = (s, P_0,P_1)$, $n_1$ samples -->
-- Define
-  - .ye[Sample space]: $\mathcal{Z}^\prime = (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
-  - .ye[Data set space]: $\mathcal{D}^\prime = \bigcup_{n = 1}^{\infty}(\mathcal{Z}^\prime)^n$
-  - .ye[Algorithm class]: $\mathcal{F}^\prime = \lbrace  f : \mathcal{D}^\prime \to \mathcal{H} \rbrace$
-- Transfer setting is $s = (\mathcal{Q}, \mathcal{A}, \mathcal{Z}^\prime, \mathcal{P}^\prime, \mathcal{H}, \mathcal{R}, \mathcal{F}^\prime)$
-- Transfer task: For setting $s$, given data $\mathbf{D}\_n = (\mathbf{Z}\_n,\mathbf{W}\_n)$ from true but unknown distribution $P\_{Z,W}$, find $f$ that optimizes performance
-
-$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
-
-
-
----
-
-
-## Has $f$ Transfer Learned?
-
-
-
-$f$ .ye[transfer learns] task $t$ from data $\mathbf{Z}_0$ 
-
-when its performance improves due to $\mathbf{Z}_0$, i.e., when
-
-.center[$LE\_{n\_0, n\_1}(f) = \mathbb{E}\left[\frac{R(f(\bold{Z}\_{n\_1}))}{R(f(\bold{Z}\_{n\_0, n\_1}))}\right]$
-.]
-
-  
-
----
-
-
-
-## What is Multitask Learning? 
-
-
-
-
-- Given 
-  - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
-  - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $s_i$
-  - Sample space: $\mathcal{Z}' \leftarrow (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
-- Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \color{yellow}{\times P\_{\bold{T}^n}} \rbrace$, where
-  <!-- can't render correctly -->
-  - $(T\_1,\ldots, T\_n) \sim P\_{\bold{T}^n}$, iid 
-  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
-  - $\bold{D}^n = ((T\_i,Z\_i))\_1^{n} \in \mathcal{D}'$
-- Define a multitask learning algorithm $f$ as 
-$ \mathcal{F} = \lbrace f : \mathcal{D}' \rightarrow \mathcal{H}^T \rbrace$
-- Multitask: For setting $s$, given data $\mathbf{D}\_n$ from true but unknown distribution $P\_{T,Z}$, find $f$ that optimizes performance
-
-$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
-
-
-
----
-
-
-## Has $f$ Multitask Learned?
-
-
-
-$f$ .ye[weakly multitask] learns task $t$ from data $\mathbf{Z} = \mathbf{Z}_0, \mathbf{Z}_1, \ldots \mathbf{Z}_T$ 
-
-when its .ye[average] performance $\lbrace \mathcal{E}_t \rbrace$ improves due to  other task's data, i.e., when
-
-
-$$  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n ) P(t) <  \sum\_{t \in [T]} \mathcal{E}\_t(f\_n^t) P(t),$$ 
-
-<br>
-
-$f$ .ye[strongly multitask] learns task $t$ from data $\mathbf{Z}$
-
- when .ye[each] performance $\lbrace \mathcal{E}_t \rbrace$ improves due to other task's data:
-
-$$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in [T].$$ 
-
-
-
----
-
-## Lifelong Learning Taxonomy 
-
-
-![:scale 100%](images/learning-taxonomy.svg)
-
-
----
-
-## Ways Tasks can Differ
-
-
-| Component | Notation | Examples |
-| :--- | :--- | :--- 
-| Sample Space | $\mathcal{Z}$ | another modality
-| Action Space | $\mathcal{A}$ | class incremental, task incremental
-| Query Space | $\mathcal{Q}$ | new keyboard introduced
-| Statistical Model | $\mathcal{P}$ | Gaussian to Log-Gaussian
-| Constraints | $\mathcal{C}$ | added/removed hardware
-| Performance | $\mathcal{E}$ | $L_2 \to L_1$
-| Distribution | $P$ | mean shift
-| Task Awareness | $T_i$ | {aware, oblivious, ambivalent}
-
-$2^6 \times 3 \approx 200$ ways tasks can differ.
-
-
-
-
----
-name:metrics
-
-## Outline 
-
-
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- Metrics
-- [Results](#results)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-- [Appendix](#appendix)
-
-
----
-
-
-## Transfer Efficiency (TE)
-
-
-The transfer efficiency of learning algorithm $f$ for task $t$ and sample size $n$ is
-$$  TE\_t(f) := \mathbb{E}\left[{\frac{R^t(f(\mathcal{D}^t\_n))}{R^t(f(\mathcal{D}\_n))}}\right]
-$$
-
-Where $D_n^t$ are the samples in $D_n$ from task $t$.
-
-<br>
-
-Algorithm $ f $ transfer learns if $ TE_t(f) > 1 $. 
-
-
----
- 
-
-## Forward/Backward TE
-
-
-- Let $n\_t = \max \lbrace i \in [n] : T\_i = t \rbrace \leq n$ be the index of the last occurence of task $t$ in $D\_n$. 
-- Let $D\_n^{< t} = \lbrace (Z\_i, T\_i)\_{i = 1}^{n\_t} \rbrace $.
-
-- .ye[Forward] transfer efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{t}\_n))}{R^t(f(\mathbf{D}^{< t}\_n))} \right].  $$
-
-
-
---
-
-
-
-- .ye[Backward] transfer efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
-
-
-<!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
-$$    BTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{< t}\_n))}{R^t(f(\mathbf{D}\_n))} \right].  $$
-$$
-
----
-
-## TE Factorizes
-
-
-$TE\_t(f) :=$ 
-
-$$\mathbb{E}\left[{\frac{R^t(f(\mathbf{D}^t\_n))}{R^t(f(\mathbf{D}\_n))}}\right] = \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{t}\_n))}{R^t(f(\mathbf{D}^{< t}\_n))} \right] \times
-            \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{< t}\_n))}{R^t(f(\mathbf{D}\_n))} \right] $$
-
-<br>
-
-
-We therefore have a single metric to quantify transfer.
-
-
-
-
----
-
-## Basic Idea 
-
-For each new task, 
-1. learn a new representation function, 
-2. apply it to all data from all tasks: the updated representation for everything is the composition of this new representation with existing representations.  
-4. update all decision rules using this representation.
-
-Notes:
-- This linearly increases representation capacity.
-- Without increasing representation capacity, performance on all tasks will necessarily drop to chance levels eventually as number of tasks increases.
-- Thus, fixed capacity systems can only lifelong learn insofar as they are inefficient (unnecessarily big) for individual tasks.
-
-
-
-
----
-
-
-
-## Key Idea 
+### Key Idea 
 
 - .ye[Different transformers can composed with  voters]
 - Learn many different transformers $u_t(\cdot)$'s 
@@ -636,18 +525,59 @@ Notes:
 
 - We learn new representation for each task. 
 - Dimensionality of internal representation grows linearly with number of tasks.
+  
+
+---
 
 
+### Representational Ensembling
 
-<!-- TODO@jv: somewhere must introduce the concept of adjusting representations -->
+
+- Ensemble representations from multiple transformers in a voter
+- Assume $m$ transformers and $n$ voters
+- Let $u = 
+  \begin{bmatrix}
+    u_1 \\\\
+    u_2 \\\\
+    \vdots \\\\
+    u_m 
+  \end{bmatrix}$, and 
+ $
+  w \circ
+  \begin{bmatrix}
+    v_1 \circ u \\\\
+    v_2 \circ u \\\\
+    \vdots \\\\
+    v_n \circ u 
+  \end{bmatrix}
+  $
+
+---
+
+![:scale 100%](images/representational_ensembling.png)
+
+---
+
+#### Representational Ensembling Examples 
+
+- Uncertainty Forests 
+  - $u$: tree structures
+  - $v$: posterior estimators
+  - $w$: max 
+- Deep Nets 
+  - $u$: "backbone" (all but last layer)
+  - $v$: softmax layer
+  - $w$: max 
+
+
 
 
 
 ---
- 
 
 
-## Composable Learning
+
+### Composable Learning
 
 <br> 
 
@@ -663,9 +593,9 @@ Notes:
 
 
 ---
- 
+  
 
-## Lifelong Learning Schema
+### Lifelong Learning Schema
 
 
 ![:scale 100%](images/learning-schemas.png)
@@ -676,10 +606,54 @@ Notes:
   - e.g.,  decision trees, decision forests, deep networks 
 <!-- - SVM's are not obviously -->
 
+  
+
+---
+ 
+
+### General Representations 
+
+- Transformers learn representations 
+- We desire representations that are sufficient for one task, and  useful for other tasks 
+- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
+
+
+![:scale 100%](images/deep-polytopes.png)
+
+
+<!-- <img src="images/deep-polytopes.png" style="width:500px;"/> -->
 
 ---
 
-## Pseudocode 
+### Partition and Vote 
+
+<!-- TODO -->
+
+
+
+---
+
+### Lifelong Learning Algorithm
+
+For each new task, 
+1. learn a new representation function, 
+2. apply it to all data from all tasks: the updated representation for everything is the composition of this new representation with existing representations.  
+4. update all decision rules using this representation.
+
+Notes:
+- This linearly increases representation capacity.
+- Without increasing representation capacity, performance on all tasks will necessarily drop to chance levels eventually as number of tasks increases.
+- Thus, fixed capacity systems can only lifelong learn insofar as they are inefficient (unnecessarily big) for individual tasks.
+
+
+
+<!-- TODO@jv: somewhere must introduce the concept of adjusting representations -->
+
+
+
+---
+
+### Pseudocode 
 
 - Given  $\color{magenta}{j-1}$ transformers learned from the previous $\color{magenta}{j-1}$ datasets and  a new $\color{yellow}{j^{th}}$ dataset with task label $\color{yellow}{t_j}$, do:
 - learn a new transformer using $\color{yellow}{j^{th}}$ data
@@ -699,23 +673,22 @@ Notes:
 ---
 name:results 
 
-## Outline 
+### Outline 
 
 
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- Results
-- [Neurobiology](#neuro)
+- [Learning](#learn)
+- [Ensembling](#rep)
+- Experiments
+- [Theory](#theory)
+- [Brains](#neuro)
 - [Discussion](#disc)
-- [Appendix](#appendix)
 
 
 
 ---
 
 
-## A Transfer Example
+### A Transfer Example
 
 - .ye[XOR]
   - Samples in the (0,0) and (1,1) quadrants are purple  
@@ -730,19 +703,6 @@ name:results
 <!-- TODO@HH replace with svg of Gaussian XOR & N-XOR -->
 
 
-<!-- 
-
-
-## Lifelong Classifier 
-
-<img src="images/columbia20/xor-nxor-all.png"  style="height:300px;">
-
-
-<!-- TODO@HH replace with 3 lower panels of Fig 2 -->
-<!-- TODO@HH add titles to left and middle panel saying "Forward Transfer" and "Reverse Transfer",  respectively-->
-
-- .lb[Uncertainty Forest] uses 100 samples from XOR to learn partitions
-- .ye[Lifelong Forest] uses 100 samples from XOR and $n$ samples from N-XOR to learn partitions -->
 
 
 
@@ -763,7 +723,7 @@ name:results
 ![:scale 100%](images/lotsa-te.svg)
 
 <!-- 
-## Different # of Classes 
+### Different # of Classes 
 
 <img src="images/spiral-all.png"  style="height:500px;"> -->
 
@@ -779,7 +739,7 @@ name:results
 
 ---
 
-## CIFAR 10x10
+### CIFAR 10x10
 
 
 
@@ -800,7 +760,7 @@ name:results
 
 
 
-## Forward Transfer Efficiency
+### Forward Transfer Efficiency
 
 - y-axis indicates .ye[forward transfer efficiency] (FTE), 
   - which is the ratio of "single task error" to "error using past tasks"
@@ -823,7 +783,7 @@ Lifelong Forests and Networks consistently demonstrate .ye[forward transfer] for
 <!-- 
 
 
-## Backward Transfer Efficiency
+### Backward Transfer Efficiency
 
 - y-axis indicates .ye[backward transfer efficiency] (BTE), 
   - which is the ratio of "single task error" to "error using future tasks"
@@ -856,7 +816,7 @@ Lifelong Forests and Networks .ye[uniquely exhibits backward transfer].
 
 
 
-## Language Identification
+### Language Identification
 
 
 
@@ -874,7 +834,7 @@ Lifelong Forests and Networks .ye[uniquely exhibits backward transfer].
 
 ---
 
-##  Backward Transfer
+###  Backward Transfer
 
 ![:scale 60%](images/language.svg)
 
@@ -885,7 +845,7 @@ Lifelong Forests and Networks .ye[uniquely exhibits backward transfer].
 ---
 
 
-## Web-Search Categorization
+### Web-Search Categorization
 
 .pull-left[
 - Same data as above
@@ -904,20 +864,27 @@ Lifelong Forests and Networks .ye[uniquely exhibits backward transfer].
 
 ---
 
-## Backward Transfer
+### Backward Transfer
 
 ![:scale 60%](images/web.svg)
 
-<!--Note RTE &gt;1.34 for task 4.
--->
 
+---
 
+## Outline
+
+- [Learning](#learn)
+- [Ensembling](#rep)
+- [Experiments](#exp)
+- Theory
+- [Brains](#neuro)
+- [Discussion](#disc)
 
 
 ---
 
 
-## What do classifiers do?
+### What do classifiers do?
 
 <br>
 
@@ -934,7 +901,7 @@ predict: given $x$
 ---
 
 
-## What can regressors do?
+### What can regressors do?
 
 <br>
 
@@ -953,7 +920,7 @@ predict: given $x$
 ---
 
 
-## The fundamental theorem of statistical pattern recognition
+### The fundamental theorem of statistical pattern recognition
 
 
 
@@ -979,7 +946,7 @@ where $\mathcal{E}^*$is Bayes optimal.
 ---
 
 
-## The fundamental .ye[theorem] of transfer learning
+### The fundamental .ye[theorem] of transfer learning
 
 
 If each cell is:
@@ -1002,22 +969,21 @@ Specifically, this means:
 ---
 name:neuro 
 
-## Outline 
+### Outline 
 
 
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Results](#results)
-- Neurobiology
+- [Learning](#learn)
+- [Ensembling](#rep)
+- [Experiments](#exp)
+- [Theory](#theory)
+- Brains
 - [Discussion](#disc)
-- [Appendix](#appendix)
 
 
 ---
 
 
-##  Neurobiological Insights
+###  Neurobiological Insights
 
 1. Lifelong learning happens in two phases:
   1. a .ye[juvenile] phase, in which capacity is building
@@ -1029,7 +995,7 @@ name:neuro
 
 ---
 
-## Neurobiology Background
+### Neurobiology Background
 
 - All brains start with 1 neurons, and *increase neural capacity* during embroynic and juvenile developmental stages 
 <!-- - In many taxa, # of neurons increases throughout development  -->
@@ -1045,7 +1011,7 @@ name:neuro
 
 ---
 
-## How do brains learn? 
+### How do brains learn? 
 
 - "Partitioning", as implemented by a network, corresponds to only a subset of nodes responding to any given input 
 
@@ -1060,7 +1026,7 @@ name:neuro
 
 ---
 
-## How do brains learn? 
+### How do brains learn? 
 
 
 - "Partitioning", as implemented by a network, corresponds to only a subset of nodes responding to any given input 
@@ -1071,7 +1037,7 @@ name:neuro
 
 ---
 
-## How do brains learn? 
+### How do brains learn? 
 
 
 - "Partitioning", as implemented by a network, corresponds to only a subset of nodes responding to any given input 
@@ -1084,7 +1050,7 @@ name:neuro
 
 ---
 
-## How do brains learn? 
+### How do brains learn? 
 
 - "Partitioning", as implemented by a network, corresponds to only a subset of nodes responding to any given input 
 - A brain's connectome implements a partitioning of feature space 
@@ -1101,7 +1067,7 @@ name:neuro
 
 ---
 
-## NeuroExperiments 
+### NeuroExperiments 
 
 - How does the brain select which neurons/synapses to modify to store new information?
   - The choice should maximize transfer efficiency 
@@ -1113,16 +1079,15 @@ name:neuro
 ---
 name:disc 
 
-## Outline 
+### Outline 
 
 
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Results](#results)
-- [Neurobiology](#neuro)
+- [Learning](#learn)
+- [Ensembling](#rep)
+- [Experiments](#exp)
+- [Theory](#theory)
+- [Brains](#neuro)
 - Discussion
-- [Appendix](#appendix)
 
 
 
@@ -1130,7 +1095,7 @@ name:disc
 ---
 
 
-## Key Claims
+### Key Claims
 
 
 1. If you don't  transfer, you haven't lifelong learned, rather, you've .ye[sequentially compressed].
@@ -1139,7 +1104,7 @@ name:disc
 
 ---
 
-## Phase 1 Accomplishments
+### Summary of contributions
 
 
 <!-- TODO@JV add weakly & strongly -->
@@ -1147,12 +1112,12 @@ name:disc
 1. Formalized Lifelong Learning as generalization of classical machine learning
 1. Introduced forward and backward transfer efficiency
 1. Proposed  omnidirectional transfer learning  framework by ensembling  representations
-1. Implemented Decision Forests (LF) Neural Network  examples (github code open source)
-1. Demonstrated LF  exhibits 
+1. Implemented Lifelong Learning Forests and Networks  (L2F/L2N)  ([code](https://github.com/neurodata/progressive-learning))
+1. Demonstrated L2F/L2N  exhibits 
     1. positive forward transfer 
-    1. positive backward transfer (uniquely?)
-    1. positive overall transfer (uniquely?)
-1. Conjectured theory promising to prove consistency and robustness
+    1. positive backward transfer (uniquely)
+    1. positive strong transfer (uniquely)
+1. Proved consistency and robustness in transfer and lifelong learning
 1. Described equivalence between Decision Forests and Deep Nets
 
 
@@ -1160,7 +1125,7 @@ name:disc
 
 ---
 
-## Extension #1: Streaming 
+### Extension #1: Streaming 
 
 - Current implementation requires all data per task are batched
 - Could stream trees per sample
@@ -1169,7 +1134,7 @@ name:disc
 
 ---
 
-## Extension #2: Compression 
+### Extension #2: Compression 
 
 - Current implementation linearly grows internal representation with each new task
 - Could compress internal representation after training to achieve a fixed representation space (e.g., using coresets)
@@ -1178,7 +1143,7 @@ name:disc
 
 ---
 
-## Extension #3: Replay
+### Extension #3: Replay
 
 - Current implementation requires storing some data to achieve *backward* transfer
 - Could leverage replay to reduce dependency of increasing data storage
@@ -1186,7 +1151,7 @@ name:disc
 
 ---
 
-## Extension #4: Agent
+### Extension #4: Agent
 
 - Current implementation's action are labels and do not impact future data
 - Could integrate into larger L2 system that incorporates agent based learning
@@ -1197,7 +1162,7 @@ name:disc
 ---
  
 
-## Other possible extensions 
+### Other possible extensions 
 
 2. Allow non-discrete tasks 
 4. Support task-oblivious setting 
@@ -1218,34 +1183,20 @@ name:disc
 
 ---
 
-## Collaboration Summary 
-
-- What we have to offer
-  - Theoretical framework characterizing lifelong learning 
-  - An approach with positive forward and backward transfer 
-- Seeking from a collaborator
-  - Integration into a comprehensive LL system 
-- Other teams that could benefit:
-  - UMD 
-  - Wyoming 
-  - Duke
-
----
-
 .small[
-## Publications
+### Publications
 
 
-1. H. Helm et al. Lifelong Learning Forests, 2020
-1. R. Mehta et al. A General Theory of Learnability, 2020. 
-1. C. E. Priebe et al. Modern Machine Learning: Paritioning and Voting, 2020. 
+1. R. Mehta et al. A General Theory of the Task Learnable, 2020. 
+1. J. T. Vogelstein et al. [A general approach to progressive learning](https://arxiv.org/abs/2004.12908), arXiv, 2020
+1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), 2020. 
 1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
-1. R. Perry, et al. Manifold Forests: Closing the Gap on Neural Networks. preprint, 2019.
+1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
 1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019
 1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
 
 
-## Conferences 
+### Conferences 
 1. J.T. Vogelstein et al. A biological implementation of lifelong learning in the pursuit of artificial general intelligence.  NAISys, 2020.
 2. B. Pedigo et al.  A quantitative comparison of a complete connectome to artificial intelligence architectures. NAISys, 2020.
 ]
@@ -1537,40 +1488,10 @@ name:appendix
 ### Appendix
 
 
----
-name:extra 
-
-## Outline 
-
-
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Results](#results)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-- Appendix 1: Extra Slides
-- [Appendix 2: Scenarios](#scenarios)
-
-
-
----
-name:intro
-
-## Outline 
-
-- Introduction
-- [What is learning?](#learn)
-- [Representation Ensembling](#rep)
-- [Super tasks](#super)
-- [Results](#results)
-- [Neurobiology](#neuro)
-- [Discussion](#disc)
-- [Appendix](#appendix)
 
 ---
 
-## What are we trying to solve?
+### What are we trying to solve?
 
 1. Formally define lifelong learning
 2. Design and build machines the lifelong learn
@@ -1579,7 +1500,7 @@ name:intro
 
 ---
 
-## What is lifelong Learning?
+### What is lifelong Learning?
 
 
 <!-- A lifelong learning setting is a stream of .ye[potentially changing] tasks. -->
@@ -1595,7 +1516,7 @@ Thus, the only way to lifelong learn is by .ye[transferring knowledge across tas
 
 ---
 
-## A Simple Story
+### A Simple Story
 
 As anybody who plays a musical instrument, or a sport, understands, tasks are complex compositions of many sub-tasks.  This insight is important, because it motivates practicing sub-tasks, which, when improved, yields performance on the original (prior) task of the particular instrument or sport. 
 
@@ -1623,7 +1544,7 @@ $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 ---
 
 
-## The Transfer Learning Problem
+### The Transfer Learning Problem
 
 
 - Given a transfer setting $t = (s, P_0, P_1)$, $n_0$ side information samples, $n_1$ target samples
@@ -1636,7 +1557,7 @@ $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
  
 
 
-## CIFAR-10x10 Previous SOTA
+### CIFAR-10x10 Previous SOTA
 
 
 <img src="images/l2m_18mo/progressive_netsc.png" style="width:650px;"/>
@@ -1656,7 +1577,7 @@ Lifelong Forests accuracy is worse than .ye[C]NNs with O(10M) parameters, and be
 
 ---
 
-## What is Online Learning?
+### What is Online Learning?
 
 
 
@@ -1672,7 +1593,7 @@ $$ \mathcal{F}_{O} = \lbrace f : \mathcal{H} \times \color{yellow}{\Xi} \rightar
 
 ---
 
-## An Online Learning Task?
+### An Online Learning Task?
 
 - Given
   - a online learning setting $( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{C})$, where $\mathcal{C}$ includes that $f \in \mathcal{O}(1) \, \forall n$
@@ -1688,7 +1609,7 @@ $$f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = \sum\_{i=1}^n R\_i(f(h\_{i-1}, \xi
 
 ---
 
-## Reinforcement Learning?
+### Reinforcement Learning?
 
 
 - Let 
@@ -1721,7 +1642,7 @@ $$ f^* = \arg \min\_{f} \, \mathcal{E}(f, n) = -\mathbb{E}\left[ \sum\_{i=0}^n \
 ---
 
 
-## Background 
+### Background 
 
 3. T. M. Tomita et al. [Sparse  Projection Oblique Randomer Forests](https://arxiv.org/abs/1506.03410). arXiv, 2018.
 7. J. Browne et al. [Forest Packing: Fast, Parallel Decision Forests](https://arxiv.org/abs/1806.07300). SIAM ICDM, 2018.
@@ -1735,7 +1656,7 @@ More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 ---
  
 
-## Do brains do it?
+### Do brains do it?
 
 
 (brains obviously learn)
@@ -1747,7 +1668,7 @@ More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 ---
 
 
-## Brains partition  
+### Brains partition  
 
 - Feature space = the set of all possible inputs to a brain
 - Partition = only a subset of "nodes" respond to any given input
@@ -1766,7 +1687,7 @@ More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 ---
 
 
-## Brains vote
+### Brains vote
 
 - Vote = pattern of responses indicate which stimulus evoked response
 
@@ -1777,7 +1698,7 @@ More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 ---
  
 
-## Can Humans Backward Transfer?
+### Can Humans Backward Transfer?
 
 
 - "Knowledge and skills from a learner’s first language are used and reinforced, deepened, and expanded upon when a learner is engaged in second language literacy tasks." -- [American Council on the Teaching of Foreign Languages](https://www.actfl.org/guiding-principles/literacy-language-learning)
@@ -1787,7 +1708,7 @@ More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 ---
  
 
-## Proposed Experiments 
+### Proposed Experiments 
 
 - Behavioral Experiment
   - Source Task: Delayed Match to Sample (DMS) on colors
@@ -1808,7 +1729,7 @@ More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 ---
 
 
-## Not So Clevr
+### Not So Clevr
 
 <img src="images/not-so-clevr.png" style="width:650px" />
 
@@ -1827,7 +1748,7 @@ More info: [https://neurodata.io/sporf/](https://neurodata.io/sporf/)
 ---
 name:scenarios
 
-## Outline 
+### Outline 
 
 
 - [What is learning?](#learn)
@@ -1843,7 +1764,7 @@ name:scenarios
 
 <!-- ---
 
-## Assumptions on Nature
+### Assumptions on Nature
 
 The syllabus decided by nature can be:
 - task constant
@@ -1859,7 +1780,7 @@ The syllabus decided by nature can be:
 
 ---
 
-## Scenario Desiderata
+### Scenario Desiderata
 
 1. &ge;1 classification 
 1. &ge;1 non-vision 
@@ -1869,7 +1790,7 @@ I'll propose a few classification domains.
 
 ---
 
-## Vision Task
+### Vision Task
 
 
 
@@ -1888,7 +1809,7 @@ Why it is a good scenario:
 
 ---
 
-## Vision Task
+### Vision Task
 
 .small[
 1. What is application domain
@@ -1914,7 +1835,7 @@ Why it is a good scenario:
 ---
 
 
-## Language Task 1
+### Language Task 1
 
 
 
@@ -1936,7 +1857,7 @@ Why it is a good scenario:
 
 ---
 
-## Language Task 1
+### Language Task 1
 
 .small[
 1. What is application domain
@@ -1962,7 +1883,7 @@ Why it is a good scenario:
 ---
 
 
-## Language Task 2
+### Language Task 2
 
 .pull-left[
 - Same feature data as above
@@ -1984,7 +1905,7 @@ Why is this a good scenario:
 
     
 
-## What is Meta-Learning?
+### What is Meta-Learning?
 
 
 
@@ -2004,7 +1925,7 @@ $$ \mathcal{F} = \lbrace f_n :  (\mathcal{Z} \times \color{yellow}{\mathcal{T}})
 
 ---
 
-## Has $f$ Meta-Learned?
+### Has $f$ Meta-Learned?
 
 
 In meta-learning setting $\mathcal{S}$, given $n$  samples,  assuming $P$, 
@@ -2135,15 +2056,15 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in \mathcal{T
 
 ---
 
-## What is a Meta-Task?
+### What is a Meta-Task?
 
 <!-- TODO -->
 
 ---
 
-## What is Streaming Learning?
-## Has $f$ Streaming Learned?
-## What is a streaming task?
+### What is Streaming Learning?
+### Has $f$ Streaming Learned?
+### What is a streaming task?
 
 <!-- TODO: cumulative error -->
 
@@ -2154,7 +2075,7 @@ $$ \mathcal{E}\_t(f_n) < \, \mathcal{E}\_t(f_n^t) \quad \forall t \in \mathcal{T
 
 ---
 
-## Language Task 2
+### Language Task 2
 
 .small[
 1. What is application domain

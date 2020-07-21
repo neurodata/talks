@@ -138,12 +138,11 @@ $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
 In task $t$, given $n$ new samples,
 
-$f$ learns when its performance improves due to the data:
+$f$ learns  when its performance improves due to the data, as measured by the learning efficiency:
 
-.center[$f$ learns when $LE_n(f) = \mathbb{E}\Big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\Big] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))} > 1$.]
+.center[$f$ learns when $LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
 
-
-$R(f(\bold{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samples. 
+$\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new samples. 
 
 
 ---
@@ -153,17 +152,16 @@ $R(f(\bold{Z}_0))$ is the algorithm's performance prior to seeing $n$ new sample
 
 In .ye[task] $t$, given $n$ new .ye[samples],
 
-.ye[$f$] learns  when its .ye[performance] improves due to the data:
+.ye[$f$] learns  when its .ye[performance] improves due to the data, as measured by the learning efficiency:
 
-.center[$f$ learns when $LE_n(f) = \mathbb{E}\Big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\Big] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))} > 1$.]
+.center[$f$ learns when $LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
 
-$R(f(\bold{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samples. 
-
-
+$\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new samples. 
 
 
 ---
 
+<!-- \mathbb{E}\Big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\Big] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))}  -->
 
 
 ## What are the data?
@@ -263,8 +261,11 @@ We get to choose this, though we must respect the resource constraints defined b
   e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $ 
 - With an algorithm, the risk is
 $$ R(f(\bold{Z}_n)). $$
-- Performance is the expected ratio of risks
-$$ \mathcal{E}_n(f) :=  \mathbb{E}\big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\big]. $$
+- Expected risk, otherwise known as .ye[generalization error],
+$$ \mathcal{E}_n(f) := \mathbb{E}[R(f(\bold{Z}_n))]. $$
+
+- Performance, or learning efficiency, is the ratio of generalization errors
+$$ LE_n(f) :=  \mathbb{E}\big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\big] = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)}. $$
 <!-- quantifies risk over the distribution of possible training datasets,   -->
 <!-- $\mathcal{E} : \mathcal{F} \times \mathcal{R} \times \mathcal{P}\_{z}  \to \mathbb{R}$,   -->
  <!-- - We think of this only as a function of $f\_n \in \mathcal{F}$, for the same reason as above  -->
@@ -326,8 +327,8 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 | Query space |  $\mathcal{Q}$ |  any tweet
 | Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
 | Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A} \rbrace$  | hyperplanes
-| Algorithm Class | $\mathcal{F} = \lbrace f : \mathcal{D} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
-| Performance  | $\mathcal{E}_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | average expected loss
+| Algorithm Class | $\mathcal{F} = \lbrace f | f : \mathcal{D} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
+| Performance  | $\mathcal{LE}_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | average expected loss
 | Constraints  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathcal{O}(n)$
 
 
@@ -343,20 +344,6 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 ---
 
 
-## What is the Learning Problem?
-
-- Given
-  - a task $t$
-  - a sample size $n$
-- Find $f$ that minimizes the generalization error
-
-$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f) = \mathbb{E}[R(f(\bold{Z}_n))].$$
-
-
-
----
-
-
 ## Has $f$ Learned?
 
 
@@ -365,9 +352,9 @@ In task $t$, given $n$ new samples,
 
 $f$ learns  when its performance improves due to the data:
 
-.center[$f$ learns when $LE_n(f) = \mathbb{E}\Big[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\Big] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))} > 1$.]
+.center[$f$ learns when $LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
 
-$R(f(\bold{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
+$\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
   - priors
   - inductive bias of $\mathcal{H}$
   <!-- - estimation bias of $f$ -->
@@ -401,18 +388,16 @@ A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{
 - Given 
 <!-- TODO can't render sequence correctly -->
   - Side information sequence $\bold{W}_{n_0} = (W_i)_1^{n_0}$
-      - $W_i$ is observed in $\mathcal{W}$, and sampled from $P_W$
+      - $W_i$ is observed in $\mathcal{W}$, and sampled from $P_0$
       - Used to help learn for the learning task
-  - Learning task $t = (\mathcal{S}, P\_{n\_1})$
-      - $\mathcal{S} = (\mathcal{Q}, \mathcal{A}, \mathcal{H}, \mathcal{R}, \mathcal{Z}, \mathcal{F})$
-      - Assume a .ye[statistical model]:   $\mathcal{P}\_{n\_1} = \lbrace P := P\_{\bold{Z}^{n_1}, Q, A} \rbrace$
+  - Learning task $t = (s_1, P_1)$, $n_1$ samples
+- Define
   - .ye[Sample space]: $\mathcal{Z}^\prime = (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
-  - $\bold{W}\_{n\_0}$ and $\bold{Z}\_{n\_1}$ are iid sequences and independent of one another
-- Define a transfer learning .ye[algorithm] $f$ as the set of functions
+  - .ye[Data set space]: $\mathcal{D}^\prime = \bigcup_{n = 1}^{\infty}(\mathcal{Z}^\prime)^n$
+  - .ye[Algorithm class]: $\mathcal{F}^\prime = \lbrace f | f : \mathcal{D}^\prime \to \mathcal{H} \rbrace$
 
-$$ \mathcal{F} = \lbrace f_{n_0, n_1} : \mathcal{W}^{n\_0} \times \mathcal{Z}^{n\_1} \rightarrow \mathcal{H} \rbrace$$
-
-- Transfer setting is thus $\mathcal{S}^\prime = (\mathcal{Q}, \mathcal{A}, \mathcal{H}^\prime, \mathcal{R}, \mathcal{Z}^\prime, \mathcal{F}^\prime)$
+- Transfer setting is $s = (\mathcal{Q}, \mathcal{A}, \mathcal{H}, \mathcal{R}, \mathcal{Z}^\prime, \mathcal{F}^\prime)$
+- Transfer task is the triple $(s, P_0, P_1)$.
 
 <!-- - Identify the appropriate performance function. -->
 
@@ -424,27 +409,23 @@ $$ \mathcal{F} = \lbrace f_{n_0, n_1} : \mathcal{W}^{n\_0} \times \mathcal{Z}^{n
 ## Has $f$ Transfer Learned?
 
 
-In transfer  setting $\mathcal{S}$, given $n$  samples,  assuming $P$, 
+In transfer task $t = (s, P_0, P_1)$, given $n_0$ side information samples, and $n_1$ target samples
 
-$f$ .ye[transfer] learns  when its performance $\mathcal{E}$ improves due to the source data:
+$f$ .ye[transfer] learns  when its performance $LE_{n_0, n_1}$ improves due to the side information:
 
-.center[$f$ learns when $\mathcal{E}(f_n) < \, \mathcal{E}(f_n^1)$.]
+.center[$f$ learns when $LE\_{n\_0, n\_1} = \mathbb{E}[\frac{R(f(\bold{Z}\_{n\_1}))}{R(f(\bold{Z}\_{n\_0, n\_1}))}]$
+.]
 
-Where  $f^t$ denote the learner that only sees samples where $t_i=t$. 
-
+Where $\bold{Z}\_{n\_1}$ is the data set with just target data and $\bold{Z}\_{n\_0, n\_1}$ has the both the target data and side information
 ---
 
 
-## A Transfer Learning Task
+## The Transfer Learning Problem
 
 
-- Given
-  - a transfer learning setting $\mathcal{S}$ 
-   <!-- =  ( \mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{C} )$ -->
-  - a sample size $n$
-- Assume a true but unknown distribution $P_n \in \, \mathcal{P}_n$
+- Given a transfer setting $t = (s, P_0, P_1)$, $n_0$ side information samples, $n_1$ target samples
 - Find $f$ that minimizes generalization error
-  $$f^* = \arg \min\_{f} \, \mathcal{E}(f_n).$$
+  $$f\_{n\_0, n\_1}^* = \arg \min\_{f} \, \mathcal{E}\_{n\_0, n\_1}(f).$$
   
 
 ---

@@ -16,7 +16,7 @@
 
 
 
-### What is progressive learning?
+### Transmedia progressive learning 
 
 
 [JHU](https://www.jhu.edu/): Hayden Helm | Jayanta Dey | Ronak Mehta | Will LeVine |
@@ -55,31 +55,42 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 2. Do they use the same algorithms?
 3. Could they use the same implementations?
 2. Can we  talk about them using the same terminology?
-3. Can we characterize their abilities using the same units?
+3. Can we characterize their abilities along the same scales?
 
 --
 
 They are both about .ye[learning], so....maybe?
 
 
-
 ---
 
-## What is Learning?
+### Outline 
 
 
---
+- [Learning](#learn)
+- [Ensembling](#rep)
+- [Experiments](#exp)
+- [Theory](#theory)
+- [Brains](#neuro)
+- [Discussion](#disc)
 
-<br>
-"The acquisition of knowledge or skills through experience, study, or by being taught."
 
--- Google, 2020
 
---
+---
+name:learn
 
-"A computer .ye[program] is set to learn from an .ye[experience] E with respect to some .ye[task] T and some .ye[performance measure] P if its performance on T as measured by P .ye[improves] with experience E."
+### Outline 
 
--- Tom Mitchell, 1997
+
+- Learning
+- [Ensembling](#rep)
+- [Experiments](#exp)
+- [Theory](#theory)
+- [Brains](#neuro)
+- [Discussion](#disc)
+
+
+
 
 
 ---
@@ -87,17 +98,12 @@ They are both about .ye[learning], so....maybe?
 ### What is Learning?
 
 
-"A computer .ye[program $f$] is set to learn from an .ye[data] $\mathbf{Z}_n$ with respect to some .ye[task] $t$ and some .ye[performance measure] $R$ if its performance on $t$ as measured by P .ye[improves] with data $\mathbf{Z}_n$."
 
---
-
-.ye[$f$] learns .ye[task] $t$ from .ye[data] $\mathbf{Z}_n$ when its .ye[performance] $R$ improves due to $\mathbf{Z}_n$
+.ye[$f$] learns .ye[task] $t$ from .ye[data] $\mathbf{Z}_n$ when its .ye[performance] improves due to $\mathbf{Z}_n$, i.e., when its .ye[learning efficiency] is positive:
 
 .center[ $LE_n(f) := \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] > 1$,]
 
-where $R(f(\mathbf{Z}_0))$ is $f$'s performance prior to acquiring data $\mathbf{Z}_n$, 
-
-and we say $f$'s  learning efficiency is positive for task $t$ given data $\mathbf{Z}_n$.
+where $\mathbf{Z}_0$ is no data. 
 
 
 ---
@@ -110,13 +116,13 @@ and we say $f$'s  learning efficiency is positive for task $t$ given data $\math
 
 The data are determined by physical implementation of the system:
 
--  .ye[Measurement space]: $\mathcal{Z}$,  determined by available sensors
-  - visual, auditory, tactile, text, vectors, networks, etc.
+-  .ye[Sample space]: $\mathcal{Z}$,  determined by available sensors
+  - e.g., images, text, vectors, networks
 - .ye[Action space]: $\mathcal{A}$,  determined by available actuators
-  -  &rarr;, &larr;, &uarr;, &darr;, etc.
+  - e.g., {&rarr;, &larr;, &uarr;, &darr;, A,B}
   <!-- , {reject, fail to reject}, $\mathbb{R}$ -->
 - .ye[Query space]: $\mathcal{Q}$, determined by system's "interface"
-  - in which cluster is $z$? what is this object? etc.
+  - e.g., in which cluster is $z$? what is this object?
 
 
  Classification Example
@@ -140,10 +146,9 @@ The data are determined by physical implementation of the system:
 
 ### What are the Assumptions?
 
-Without assumptions, we can make no theoretical claims about the performance generalizations:
+The assumptions are determined by the subject matter expert, though they can be quite general:
 
-- The data, $\bold{Z}\_n = \{Z\_1,\ldots, Z\_n\}\,$ where $Z\_i \in \mathcal{Z}$ for $i \in [n]$, 
-- Each $Z\_i$ is sampled iid from some true but unknown distribution $P\_{Z} \in \,
+- The data, $\bold{Z}\_n = \{Z\_1,\ldots, Z\_n\}\ , Z\_i \in \mathcal{Z}^n$ for $i \in [n]$, is such that each $Z\_i$ is sampled from some true but unknown distribution $P\_{Z} \in \,
 \mathcal{P}$
 - A query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
 - An optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
@@ -158,7 +163,7 @@ $\mathcal{P}$ is called the .ye[statistical model].
 
 ### What is $f$?
 
-We get to choose the learning algorithm $f$:
+We get to choose this, though with limited resources defined by the setting:
 
 -  $h : \mathcal{Q} \rightarrow \mathcal{A}$,  a .ye[hypothesis] takes an action on the basis of a query
 - $\mathcal{D} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$, a .ye[data corpus]
@@ -187,7 +192,7 @@ $$ R(f(\bold{Z}_n)). $$
 - Expected risk, otherwise known as .ye[generalization error] or .ye[performance],
 $$ \mathcal{E}_n(f) := \mathbb{E}[R(f(\bold{Z}_n))]. $$
 
-- .ye[Learning efficiency] is the ratio of generalization errors
+- .ye[Learning efficiency], is the ratio of generalization errors
 $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right]. $$
 <!-- $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)}. $$ -->
 
@@ -225,7 +230,7 @@ The setting $s$ is the tuple of everything aside from the true but unknown distr
 |:--- |:--- |:--- | 
 | Query space |  $\mathcal{Q}$ |  any tweet
 | Action space |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
-| Measurement space  | $ \mathcal{Z}$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
+| Sample space  | $ \mathcal{Z}$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
 | Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
 | Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A} \rbrace$  | hyperplanes
 | Risk  | $R: \mathcal{H} \times \mathcal{P}  \to \mathbb{R}_{\geq}$  | expected loss
@@ -263,10 +268,10 @@ $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
 when its .ye[performance] improves due to $\mathbf{Z}_n$, i.e., when
 
-.center[$LE_n(f) = \mathbb{E}\big[\frac{R(f(\mathbf{Z}_n))}{R(f(\mathbf{Z}_0))}\big] > 1$.]
+.center[$LE_n(f) = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)} > 1$.]
 
 
-$R(f(\mathbf{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
+$\mathcal{E}_0(f)$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
   - priors
   - inductive bias of $\mathcal{H}$
   <!-- - estimation bias of $f$ -->
@@ -277,19 +282,40 @@ $R(f(\mathbf{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samp
 
 ---
 
+
 ### What is Transfer Learning?  
 
-- Also given .ye[side information]
-- Treat side information as another dataset, $\mathbf{Z}_{n_0}$ 
-- Define $\mathbf{Z}'\_{n\_j} = [ \mathbf{j}, \mathbf{Z}_{n_0}]$, where $\mathbf{j}$ is a $n_0$ dimensional vector of $j$'s 
-- Define $\mathbf{Z}'\_{n\_0,n\_1} = [\mathbf{Z}'\_{n\_1},  \mathbf{Z}'\_{n\_0}]$
+
+- Given 
+  - Side information  $\bold{W}_{n_0} = (W_i)_1^{n_0}$
+      - $W_i$ is observed in $\mathcal{W}$, and sampled from $P_0$
+      - Used to help learn for the learning task
+  <!-- - Learning task $t = (s, P_0,P_1)$, $n_1$ samples -->
+- Define
+  - Sample space: $\mathcal{Z}^\prime = (\mathcal{Z} \cup \mathcal{W},\lbrace 0,1 \rbrace)$
+  - Model: $\mathcal{P}^\prime =  \lbrace P' = P_{\mathbf{Z},Q,A} \otimes P_W \in \mathcal{P}'\rbrace$
+  - Data set space: $\mathcal{D}^\prime = \bigcup_{n = 1}^{\infty}(\mathcal{Z}^\prime)^n$
+  - Algorithm class: $\mathcal{F}^\prime = \lbrace  f : \mathcal{D}^\prime \to \mathcal{H} \rbrace$
+- Transfer setting is $s' = (\mathcal{Q}, \mathcal{A}, \mathcal{Z}^\prime, \mathcal{P}^\prime, \mathcal{H}, \mathcal{R}, \mathcal{F}^\prime)$
+- Transfer task: in setting $s'$ with true but unknown distribution $P'$, given  data  $\mathbf{D}\_n = \lbrace Z^\prime\_i \rbrace\_{i = 1}^{n}$, find $f$ that optimizes performance
+
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
 
 
-$f$ .ye[transfer learns] task $t$ from data $\mathbf{Z}\_{n\_0}$ when $f$'s performance improves due to $\mathbf{Z}\_{n\_0}$:
 
-.center[$LE\_{n\_0,n\_1}(f) = \mathbb{E}\left[\frac{R(f(\bold{Z}'\_{n\_1}))}{R(f(\mathbf{Z}'\_{n\_0,n\_1}))}\right] > 1$
+---
+
+
+### Has $f$ Transfer Learned?
+
+
+
+$f$ .ye[transfer learns] task $t$ from data $\mathbf{D}\_n^0 = \lbrace Z^\prime\_i \in \mathbf{}D\_n : Z^\prime\_i = (W_i, 0) \rbrace$ 
+
+when its performance improves due to $\mathbf{D}_n^0$, i.e., when
+
+.center[$LE\_{n}(f) = \mathbb{E}\left[\frac{R(f(\bold{D}\_{n\_1}))}{R(f(\bold{D}\_{n}))}\right]$
 .]
-
 
   
 
@@ -305,7 +331,7 @@ $f$ .ye[transfer learns] task $t$ from data $\mathbf{Z}\_{n\_0}$ when $f$'s perf
 - Given 
   - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
   - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $s_i$
-  - Measurement space: $\mathcal{Z}' = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
+  - Sample space: $\mathcal{Z}' = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
 - Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P' := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \color{yellow}{\times P\_{\bold{T}^n}} \rbrace$, where
   <!-- can't render correctly -->
   - $(T\_1,\ldots, T\_n) \sim P\_{\bold{T}^n}$, iid 
@@ -359,7 +385,7 @@ $$LE_n^t > 1 \ \ , t \in T$$
   - Hypothesis class $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A}\rbrace$
   - Risk class $\mathcal{R} = \lbrace R: \mathcal{H} \times \mathcal{P}\_{Q, A} \to \mathbb{R}\_{\geq 0}\rbrace$
 - Define
-  - Measurement space: $\mathcal{Z} = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,[T])$
+  - Sample space: $\mathcal{Z} = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,[T])$
   - Lifelong algorithm class: $\mathcal{F} = \lbrace ( f\_n: \mathcal{Z}^n \to \mathcal{H} \rbrace$ 
   - Assume a statistical model $\mathcal{P} = \lbrace P := P\_{Z, Q, A, T_n} \rbrace$
   - $T$ is the current task in the curriculum and $T_n$ is the next task 
@@ -448,7 +474,7 @@ We therefore have a single metric to quantify transfer.
 | :--- | :--- | :--- 
 | Query Space | $\mathcal{Q}$ | new keyboard introduced
 | Action Space | $\mathcal{A}$ | class incremental, task incremental
-| Measurement Space | $\mathcal{Z}$ | another modality
+| Sample Space | $\mathcal{Z}$ | another modality
 | Statistical Model | $\mathcal{P}$ | Gaussian to Log-Gaussian
 | Hypotheses | $\mathcal{H}$ | linear functions
 | Risk | $R$ | expected loss
@@ -1929,7 +1955,7 @@ Why is this a good scenario:
 
 - Given 
   - Environment: $t_i \in \mathcal{T}$ (potentially infinite) set of tasks 
-  - Measurement space: $\mathcal{Z} \leftarrow (\mathcal{Z},\mathcal{T})$
+  - Sample space: $\mathcal{Z} \leftarrow (\mathcal{Z},\mathcal{T})$
 - Assume a statistical model:  $\mathcal{P} = \lbrace P := P\_{Z,T} \otimes P\_{Q,A} \rbrace$
   -  $Z\_i | T\_i \sim P\_{Z|T}$, 
   - $(T\_1,\ldots, T\_n) \sim P\_T$
@@ -1964,7 +1990,7 @@ Where $\tilde{\mathcal{E}}_{T+1}$ denote the meta-generalization error, such as 
 
 - Given 
   - Environment: $t_i \in \mathcal{T}$ (potentially infinite) set of tasks 
-  - Measurement space: $\mathcal{Z} \leftarrow (\bigcup_{i \in \mathcal{T}}\mathcal{Z}_i,\mathcal{T})$
+  - Sample space: $\mathcal{Z} \leftarrow (\bigcup_{i \in \mathcal{T}}\mathcal{Z}_i,\mathcal{T})$
 - Assume a statistical model:  $\mathcal{P} = \lbrace P := P_{Z,T} \otimes P_Q \rbrace$
   -  $Z\_i | T\_i \sim P\_{Z|T}$, 
   - $(T\_1,\ldots, T\_n) \sim P\_T$

@@ -160,14 +160,14 @@ $\mathcal{P}$ is called the .ye[statistical model].
 
 We get to choose the learning algorithm $f$:
 
--  $h : \mathcal{Q} \rightarrow \mathcal{A}$,  a .ye[hypothesis] takes an action on the basis of a query
-- $\mathcal{D} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$, a .ye[data corpus]
-- $f: \mathcal{D} \to \mathcal{H}$, a learning .ye[algorithm] maps data sets from $\mathcal{Z}$ to a hypothesis $h \in \mathcal{H}$
+-  $\mathcal{H} = \lbrace h : \mathcal{Q} \rightarrow \mathcal{A} \rbrace$,  where a .ye[hypothesis] $h$ takes an action on the basis of a query
+- $\vec{\mathcal{Z}} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$, a .ye[data corpus]
+- $f: \vec{\mathcal{Z}}  \to \mathcal{H}$, a learning .ye[algorithm] maps data sets from $\mathcal{Z}$ to a hypothesis 
 
 
 Supervised machine learning example
 - $h$ is *RandomForestClassifier.predict*
-- $\mathcal{D}_n = (X_1, Y_1),  \ldots, (X_n, Y_n)$
+- $\vec{\mathcal{Z}}_n = (X_1, Y_1),  \ldots, (X_n, Y_n)$
 - $f$ is *RandomForestClassifier.fit*
 
 
@@ -190,48 +190,6 @@ $$ \mathcal{E}_n(f) := \mathbb{E}[R(f(\bold{Z}_n))]. $$
 - .ye[Learning efficiency] is the ratio of generalization errors
 $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right]. $$
 <!-- $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)}. $$ -->
-
-<!-- 
-
-
-### What are Constraints?
-
-
-| Constraint | Example | 
-| :--- | :--- 
-| interpretability | hyperplanes or sparse 
-| complexity | $\mathcal{O}(n)$
-| memory | $< 1$ gigabyte of memory for a given dataset
-| time | $< 1$ sec on a specific hardware configuration for a given dataset
-| scalability| must operate on distributed storage/compute
-| power | $< 1$ watt on a given system for a given dataset 
-| price | $< 1$ USD on a given system for a given dataset  
-| hardware | must run on iPhone X
-
--->
-
-
- 
----
-
-### What is the Setting?
-
-The setting $s$ is the tuple of everything aside from the true but unknown distribution:
-<!-- $\mathcal{S}=(\mathcal{Z}, \mathcal{A}, \mathcal{Q}, \mathcal{P}, \mathcal{H}, \mathcal{F}, \mathcal{E}, \mathcal{C})$ -->
-
-<!-- A setting is defined by a septuple $\mathcal{S} = \lbrace \mathcal{Z}, \mathcal{A}, \mathcal{L}, \mathcal{R}, \mathcal{P},  \mathcal{H},  \mathcal{F} \rbrace$ -->
-
-| Object | Notation | Example
-|:--- |:--- |:--- | 
-| Query space |  $\mathcal{Q}$ |  any tweet
-| Action space |  $\mathcal{A}$ |  {↑,↓,&larr;, &rarr;,B,A,start}
-| Measurement space  | $ \mathcal{Z}$ |  $\mathbb{R}^p \times \lbrace 0, 1 \rbrace$ |
-| Statistical model | $\mathcal{P} := \lbrace P \rbrace$ | Gaussian
-| Hypothesis Class  | $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A} \rbrace$  | hyperplanes
-| Risk  | $R: \mathcal{H} \times \mathcal{P}  \to \mathbb{R}_{\geq}$  | expected loss
-| Algorithm Class | $\mathcal{F} = \lbrace f : \mathcal{D} \to \mathcal{H} \rbrace$  | *RandomForest.fit*
-<!-- | Performance  | $LE\_n : \mathcal{F} \times \mathcal{R} \times \mathcal{P} \to \mathbb{R}$  | avg expected loss -->
-<!-- | Constraints  | $\mathcal{R}: \mathcal{P} \times \mathcal{L}  \to \mathbb{R}_+$  | $\mathcal{O}(n)$ -->
 
 
 
@@ -280,67 +238,38 @@ $R(f(\mathbf{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samp
 ### What is Transfer Learning?  
 
 - Also given .ye[side information]
-- Treat side information as another dataset, $\mathbf{Z}_{n_0}$ 
-- Define $\mathbf{Z}'\_{n\_j} = [ \mathbf{j}, \mathbf{Z}_{n_0}]$, where $\mathbf{j}$ is a $n_0$ dimensional vector of $j$'s 
-- Define $\mathbf{Z}'\_{n\_0,n\_1} = [\mathbf{Z}'\_{n\_1},  \mathbf{Z}'\_{n\_0}]$
+- Treat side information as another dataset, $\mathbf{Z}\_{n\_0}$ 
+- Define $\mathbf{Z}'\_{n\_j} = [ \mathbf{j}, \mathbf{Z}\_{n\_j}]$, where $\mathbf{j}$ is a $n_j$ dimensional vector of $j$'s 
+- Define $\mathbf{Z}'\_{\mathbf{n}} = [\mathbf{Z}'\_{n\_0},  \mathbf{Z}'\_{n\_1}]$
 
 
 $f$ .ye[transfer learns] task $t$ from data $\mathbf{Z}\_{n\_0}$ when $f$'s performance improves due to $\mathbf{Z}\_{n\_0}$:
 
-.center[$LE\_{n\_0,n\_1}(f) = \mathbb{E}\left[\frac{R(f(\bold{Z}'\_{n\_1}))}{R(f(\mathbf{Z}'\_{n\_0,n\_1}))}\right] > 1$
+.center[$LE\_{\mathbf{n}}(f) = \mathbb{E}\left[\frac{R(f(\bold{Z}'\_{n\_1}))}{R(f(\mathbf{Z}'\_{\mathbf{n}}))}\right] > 1$
 .]
-
-
   
 
 ---
 
-
-
 ### What is Multitask Learning? 
 
+- Now we have lots of tasks 
+- $\mathbf{Z}'\_{\mathbf{n}} = [\mathbf{Z}'\_{n\_0},  \mathbf{Z}'\_{n\_1}, \ldots, \mathbf{Z}'\_{n\_T}]$
+- Define learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \mathbb{E}\left[\frac{R^t(f(\mathbf{Z}'\_{n\_t}))}{R^t(f(\mathbf{Z}'\_{\mathbf{n}}))}\right]$
 
 
 
-- Given 
-  - Environment of $T < \infty$ tasks: $\color{yellow}{[T]}=\lbrace t_1, \ldots t_T \rbrace$ 
-  - A label $\color{yellow}{t_i} \in [T]$ which  indicates $i$'s setting $s_i$
-  - Measurement space: $\mathcal{Z}' = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,\color{yellow}{[T]})$
-- Assume a  statistical model:  $\mathcal{P}\_n = \lbrace P' := P\_{\bold{Z}^n, Q, A | \bold{T}^n} \color{yellow}{\times P\_{\bold{T}^n}} \rbrace$, where
-  <!-- can't render correctly -->
-  - $(T\_1,\ldots, T\_n) \sim P\_{\bold{T}^n}$, iid 
-  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
-  - $\bold{D}^n = ((T\_i,Z\_i))\_1^{n} \in \mathcal{D}'$
-- Define a multitask learning algorithm $f$ as 
-$ \mathcal{F} = \lbrace f : \mathcal{D}' \rightarrow \mathcal{H}^T \rbrace$
-- Multitask: in setting $s'$ with true but unknown distribution $P'$, given  data  $\mathbf{D}\_n$, find $f$ that optimizes performance
 
-$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
+$f$ .ye[weakly multitask] learns task $t$ from data $\mathbf{Z}'\_{\mathbf{n}}$ when one .ye[average] performance improves due to  other task's data:
 
 
-
----
-
-
-### Has $f$ Multitask Learned?
-
-
-
-$f$ .ye[weakly multitask] learns task $t$ from data $\mathbf{Z} = \mathbf{Z}_1, \mathbf{Z}_2, \ldots \mathbf{Z}_T$ 
-
-when its .ye[average] performance improves due to  other task's data, i.e., when
-
-
-$$\sum\_{t \in [T]} LE_n^t(f) P(t) > 1$$
-$$LE_n^t = \mathbb{E}\big[\frac{R^t(f(\mathbf{Z}_t))}{R^t(f(\mathbf{Z}))}\big]$$
+$$\sum\_{t \in [T]} LE_{\mathbf{n}}^t(f) P(t) > 1$$
 
 <br>
 
-$f$ .ye[strongly multitask] learns task $t$ from data $\mathbf{Z}$
+$f$ .ye[strongly multitask] learns task $t$ from data $\mathbf{Z}'\_{\mathbf{n}}$ when .ye[each] task's performance improves due to other task's data:
 
-  when .ye[each] performance improves due to other task's data:
-
-$$LE_n^t > 1 \ \ , t \in T$$
+$$LE_{\mathbf{n}}^t > 1 \ \ , t \in T$$
 
 
 

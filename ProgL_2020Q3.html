@@ -28,8 +28,8 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 ![:scale 40%](images/neurodata_blue.png)
 
 ---
+class:middle
 
-.
 
 | Biology Learning | Machine Learning |
 | :---   | :--- 
@@ -48,7 +48,7 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 
 ---
 
-## Motivating questions
+### Motivating questions
 
 
 1. Are biological and machine learning trying to do the same thing?
@@ -65,7 +65,7 @@ They are both about .ye[learning], so....maybe?
 
 ---
 
-## What is Learning?
+### What is Learning?
 
 
 --
@@ -81,23 +81,14 @@ They are both about .ye[learning], so....maybe?
 
 -- Tom Mitchell, 1997
 
-
----
-
-### What is Learning?
-
-
-"A computer .ye[program $f$] is set to learn from an .ye[data] $\mathbf{Z}_n$ with respect to some .ye[task] $t$ and some .ye[performance measure] $R$ if its performance on $t$ as measured by P .ye[improves] with data $\mathbf{Z}_n$."
-
 --
 
-.ye[$f$] learns .ye[task] $t$ from .ye[data] $\mathbf{Z}_n$ when its .ye[performance] $R$ improves due to $\mathbf{Z}_n$
+".ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ w.r.t. .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$."
 
-.center[ $LE_n(f) := \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] > 1$,]
 
-where $R(f(\mathbf{Z}_0))$ is $f$'s performance prior to acquiring data $\mathbf{Z}_n$, 
+-- jovo, 2020
 
-and we say $f$'s  learning efficiency is positive for task $t$ given data $\mathbf{Z}_n$.
+
 
 
 ---
@@ -124,10 +115,10 @@ The data are determined by physical implementation of the system:
 - $a_i \in \lbrace 0, 1 \rbrace = \mathcal{Y}$ are class labels 
 - $q_i \in \mathcal{X}=\mathbb{R}^p$ are possible feature vectors with unknown class labels 
 
+
+
 <!-- TODO we play fast and loose with whether the dataset is in \mathcal{D} vs \mathcal{Z}. i'd like to be consistent -->
-
 <!-- TODO in XOR experiments, replace purple with orange -->
-
 <!-- TODO@jovo  the supertask learning slides are too complex, i'll simplify dramatically -->
 <!-- TODO@jovo move some supertask slides to appendix -->
 <!-- TODO@jovo reorganize compositional hypothesis slides -->
@@ -135,70 +126,74 @@ The data are determined by physical implementation of the system:
 <!-- TODO@jovo 2nd what is learning slide uses old notation -->
 <!-- TODO@jovo maybe update xor/nxor figure to show forgetting instead of RF? -->
 
----
 
-
-### What are the Assumptions?
-
-Without assumptions, we can make no theoretical claims about the performance generalizations:
-
-- The data, $\bold{Z}\_n = \{Z\_1,\ldots, Z\_n\}\,$ where $Z\_i \in \mathcal{Z}$ for $i \in [n]$, 
-- Each $Z\_i$ is sampled iid from some true but unknown distribution $P\_{Z} \in \,
-\mathcal{P}$
-- A query, $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
-- An optimal action , $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
-
-Let $P\ = P\_{Z} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint distribution over samples, queries, and optimal actions.
-  
-$\mathcal{P}$ is called the .ye[statistical model].
 
 ---
- 
-
 
 ### What is $f$?
 
 We get to choose the learning algorithm $f$:
 
+- $\vec{\mathcal{Z}} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$, a .ye[data corpus] $\mathbf{Z}_n= \lbrace Z_1, Z_2, \ldots, Z_n \rbrace$
 -  $\mathcal{H} = \lbrace h : \mathcal{Q} \rightarrow \mathcal{A} \rbrace$,  where a .ye[hypothesis] $h$ takes an action on the basis of a query
-- $\vec{\mathcal{Z}} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$, a .ye[data corpus]
 - $f: \vec{\mathcal{Z}}  \to \mathcal{H}$, a learning .ye[algorithm] maps data sets from $\mathcal{Z}$ to a hypothesis 
 
 
 Supervised machine learning example
+- $\mathbf{Z}_n = (X_1, Y_1),  \ldots, (X_n, Y_n)$
 - $h$ is *RandomForestClassifier.predict*
-- $\vec{\mathcal{Z}}_n = (X_1, Y_1),  \ldots, (X_n, Y_n)$
 - $f$ is *RandomForestClassifier.fit*
 
 
 
 ---
 
+### What is Performance?
+
+- We care about future performance on unseen queries, not past performance
+- To make any out-of-data claims requires .ye[assumptions]
+  - A .ye[datum] $Z\_i$ is sampled iid from some true but unknown distribution $P\_{Z} \in \,
+\mathcal{P}$
+  - A .ye[query], $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
+  - An optimal .ye[action], $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
+- Let $P\ = P\_{Z} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint .ye[distribution] over samples, queries, and optimal actions
+- $\mathcal{P}$ is called the .ye[statistical model]
+
+
+---
 
 ### What is Performance?
 
 
 - .ye[Loss], 
-  e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a']. $
+  e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a'] $
 - .ye[Risk] 
-  e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)]. $ 
-- With an algorithm, the risk is
-$$ R(f(\bold{Z}_n)). $$
-- Expected risk, otherwise known as .ye[generalization error] or .ye[performance],
-$$ \mathcal{E}_n(f) := \mathbb{E}[R(f(\bold{Z}_n))]. $$
+  e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)] $ 
+- For an algorithm, the risk is $ R(f(\bold{Z}_n)) $
+- .ye[Performance] is defined as expected risk (or .ye[generalization error]):
+$$\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))] $$
+- Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathbb{E}[R(f(\mathbf{Z}_0))]$ 
+is a function of
+  - priors
+  - inductive bias of $\mathcal{H}$
+  - estimation bias of $f$
+  - model bias of $\mathcal{P}$
+  - pre-training
 
-- .ye[Learning efficiency] is the ratio of generalization errors
-$$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right]. $$
-<!-- $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] = \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)}. $$ -->
+
+<!-- - .ye[Learning efficiency] is the ratio of generalization errors
+$$ LE_n(f) :=  \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{\mathbb{E}[R(f(\bold{Z}_0))]}$$
+-->
+
+<!-- $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right]. $$ -->
+<!-- $$= \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)}. $$ -->
+ 
 
 
+<!-- --- -->
 
+<!-- ### What is the learning task?
 
----
-
-### What is the learning task?
-
-<!-- - $t$ is the task, $(s, P)$. -->
 - $P$ is the joint distribution, $P = P\_Z \otimes P\_{A|Q} \otimes P\_{Q} \in \mathcal{P}$ 
 - $s$ is the setting, $s = (\mathcal{Q}, \mathcal{A},\mathcal{Z},\mathcal{P},\mathcal{H},R,\mathcal{F})$. 
 
@@ -207,29 +202,26 @@ In setting $s$ with true but unknown distribution $P$, given  data $\mathbf{Z}_n
 
 find $f$ that optimizes performance
 
-$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$
+$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$ -->
 
 
 ---
 
 
-### Has $f$ Learned?
+### What is learning?
+
+.ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$,
+
+Define .ye[learning efficiency]: $$LE_n(f) := \frac{\mathbb{E}[R(f(\bold{Z}_0))]}{\mathbb{E}[R(f(\bold{Z}_n))]}$$
+
+<br>
+
+$f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
 
 
-
-.ye[$f$] learns .ye[task] $t$ from .ye[data] $\mathbf{Z}_n$ 
-
-when its .ye[performance] improves due to $\mathbf{Z}_n$, i.e., when
-
-.center[$LE_n(f) = \mathbb{E}\big[\frac{R(f(\mathbf{Z}_n))}{R(f(\mathbf{Z}_0))}\big] > 1$.]
+<!-- We say $f$'s  .ye[learning efficiency] is (log) positive for task $t$ given data $\mathbf{Z}_n$, if $LE_n(f) > 1$. -->
 
 
-$R(f(\mathbf{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samples, and therefore a function of
-  - priors
-  - inductive bias of $\mathcal{H}$
-  <!-- - estimation bias of $f$ -->
-  - model bias of $\mathcal{P}$
-  - pre-training
 
 
 
@@ -238,38 +230,42 @@ $R(f(\mathbf{Z}_0))$ is the algorithm's performance prior to seeing $n$ new samp
 ### What is Transfer Learning?  
 
 - Also given .ye[side information]
-- Treat side information as another dataset, $\mathbf{Z}\_{n\_0}$ 
-- Define $\mathbf{Z}'\_{n\_j} = [ \mathbf{j}, \mathbf{Z}\_{n\_j}]$, where $\mathbf{j}$ is a $n_j$ dimensional vector of $j$'s 
-- Define $\mathbf{Z}'\_{\mathbf{n}} = [\mathbf{Z}'\_{n\_0},  \mathbf{Z}'\_{n\_1}]$
+- Treat side information as another dataset, $\mathbf{Z}\_{n\_1}$ 
+- Redefine $\mathbf{Z}\_{j} \leftarrow [\mathbf{Z}\_{n\_j}, \mathbf{j}]$, where $\mathbf{j}$ is a $n_j$ dimensional vector of $j$'s 
+- Redefine $\mathbf{Z}\_{\mathbf{n}} \leftarrow [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}]$, where $\mathbf{n}=[n_1,n_2]$
+<!-- - Redefine $f: \vec{\mathcal{Z}}' \to \mathcal{H}$ -->
+- Learning efficiency is still $LE\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R(f(\bold{Z}\_{0}))]}{\mathbb{E}[R(f(\mathbf{Z}\_{\mathbf{n}}))]}$
 
+$f$ .ye[transfer learns] from $\mathbf{Z}\_{1}$ with respect to task $t$ when $LE\_n(f) > 1$
+<!-- $f$'s performance at $t$ improves due to $\mathbf{Z}'\_{1}$: -->
 
-$f$ .ye[transfer learns] task $t$ from data $\mathbf{Z}\_{n\_0}$ when $f$'s performance improves due to $\mathbf{Z}\_{n\_0}$:
-
-.center[$LE\_{\mathbf{n}}(f) = \mathbb{E}\left[\frac{R(f(\bold{Z}'\_{n\_1}))}{R(f(\mathbf{Z}'\_{\mathbf{n}}))}\right] > 1$
+<!-- .center[$LE\_{\mathbf{n}}(f) = \frac{\mathbb{E}[R(f(\bold{Z}'\_{\mathbf{n}}))]}{\mathbb{E}[R(f(\mathbf{Z}'\_{0}))]} > 1$ 
 .]
-  
+--> 
 
 ---
 
 ### What is Multitask Learning? 
 
-- Now we have lots of tasks 
-- $\mathbf{Z}'\_{\mathbf{n}} = [\mathbf{Z}'\_{n\_0},  \mathbf{Z}'\_{n\_1}, \ldots, \mathbf{Z}'\_{n\_T}]$
-- Define learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \mathbb{E}\left[\frac{R^t(f(\mathbf{Z}'\_{n\_t}))}{R^t(f(\mathbf{Z}'\_{\mathbf{n}}))}\right]$
+- Now we have lots of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
+- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
 
 
 
 
-$f$ .ye[weakly multitask] learns task $t$ from data $\mathbf{Z}'\_{\mathbf{n}}$ when one .ye[average] performance improves due to  other task's data:
+$f$ .ye[weakly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+performance improves due to  other task's data, on .ye[average] 
+
+.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$
+]
 
 
-$$\sum\_{t \in [T]} LE_{\mathbf{n}}^t(f) P(t) > 1$$
 
-<br>
+$f$ .ye[strongly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+performance improves due to other task's data, on .ye[each] task 
 
-$f$ .ye[strongly multitask] learns task $t$ from data $\mathbf{Z}'\_{\mathbf{n}}$ when .ye[each] task's performance improves due to other task's data:
-
-$$LE_{\mathbf{n}}^t > 1 \ \ , t \in T$$
+.center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$
+]
 
 
 
@@ -280,82 +276,104 @@ $$LE_{\mathbf{n}}^t > 1 \ \ , t \in T$$
 
 
 
+- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
+- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
 
-- Given 
-  - Environment of $T < \infty$ tasks: $[T]=\lbrace t_1, \ldots t_T \rbrace$ 
-  - Query and action spaces $\mathcal{Q}$ and $\mathcal{A}$
-  - Curriculum of tasks $C$, which is a .ye[sequence] of tasks $(T\_i)_{i = 1}^{\infty}$, with $T\_i \in T$, with possible serial dependence, as well as dependence on the query and action
-  - Hypothesis class $\mathcal{H} = \lbrace h: \mathcal{Q} \to \mathcal{A}\rbrace$
-  - Risk class $\mathcal{R} = \lbrace R: \mathcal{H} \times \mathcal{P}\_{Q, A} \to \mathbb{R}\_{\geq 0}\rbrace$
-- Define
-  - Measurement space: $\mathcal{Z} = (\bigcup_{i = 1}^{T}\mathcal{Z}_i,[T])$
-  - Lifelong algorithm class: $\mathcal{F} = \lbrace ( f\_n: \mathcal{Z}^n \to \mathcal{H} \rbrace$ 
-  - Assume a statistical model $\mathcal{P} = \lbrace P := P\_{Z, Q, A, T_n} \rbrace$
-  - $T$ is the current task in the curriculum and $T_n$ is the next task 
-  -  $Z\_i | T\_i \sim P\_{Z|T}$, iid 
-  - Lifelong setting space $\mathcal{S} = (\mathcal{Q}, \mathcal{A}, \mathcal{Z}, \mathcal{P}, \mathcal{R}, \mathcal{F} \rbrace)$
+
+
+$f$ .w[weakly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+performance improves due to  other task's data, on .ye[average] 
+
+.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$
+]
+
+
+
+$f$ .w[strongly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+performance improves due to other task's data, on .ye[each] task 
+
+.center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$
+]
+
 
 ---
-
-### What is Lifelong Learning? 
-  Given lifelong setting $s$, $n$ samples, and distribution $P$, the lifelong task is to find $f^*$ such that
-
-  $$f^* = \arg \min\_{f \in \mathcal{F}} \mathcal{E}\_n(f\_n)$$
-
-<!-- --- -->
+### What is forward/backward learning?
 
 
-### Has $f$ Lifelong Learned?
+- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{Z}\_n$ 
+- Let $\mathbf{Z}\_n^{< t} = \lbrace Z\_1, Z\_2, \ldots, Z\_{n_t}  \rbrace$
 
-
-
-Given lifelong setting $s$, distribution $P$, and $n$ samples, we say lifelong algorithm $f$ learns if 
-
-$$\mathbb{E}\left[\frac{R^t(f_n(D_n^t))}{R^t(f_n(D_n))}\right] > 1$$
-
-
-
-<!-- TODO@ali we don't mention progress learning anywhere, should we? -->
-
----
- 
-
-### Forward/Backward TE
-
-
-- Let $n\_t = \max \lbrace i \in [n] : T\_i = t \rbrace \leq n$ be the index of the last occurence of task $t$ in $D\_n$. 
-- Let $D\_n^{< t} = \lbrace (Z\_i, T\_i)\_{i = 1}^{n\_t} \rbrace $.
-
-- .ye[Forward] transfer efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{t}\_n))}{R^t(f(\mathbf{D}^{< t}\_n))} \right].  $$
-
-
+- .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
+$$    FLE\_t(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}  $$
 
 --
 
-
-
-- .ye[Backward] transfer efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+- .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
 
 
 <!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
-$$    BTE\_t(f) := \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{< t}\_n))}{R^t(f(\mathbf{D}\_n))} \right].  $$
+$$    BLE\_t(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}  $$
 $$
 
 ---
+### Learning efficiency factorizes
 
-### TE Factorizes
 
+$$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
 
-$TE\_t(f) :=$ 
-
-$$\mathbb{E}\left[{\frac{R^t(f(\mathbf{D}^t\_n))}{R^t(f(\mathbf{D}\_n))}}\right] = \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{t}\_n))}{R^t(f(\mathbf{D}^{< t}\_n))} \right] \times
-            \mathbb{E}\left[ \frac{R^t(f(\mathbf{D}^{< t}\_n))}{R^t(f(\mathbf{D}\_n))} \right] $$
+$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times
+           \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
 
 <br>
 
-
 We therefore have a single metric to quantify transfer.
+
+
+---
+### What is progressive learning? 
+
+
+$f$ .w[weakly progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+it learns both forward and backward on .ye[average] 
+
+<!-- .center[$  \left( \sum\_{t \in [T]} FLE\_{\mathbf{n}}^t(f)P(t)  > 1 \right) \times  \left( \sum\_{t \in [T]} BLE\_{\mathbf{n}}^t(f)P(t)  > 1 \right) $ 
+]
+-->
+
+.center[$ \prod\_{X \in \lbrace F, B \rbrace }  \sum\_{t \in [T]} XLE\_{\mathbf{n}}^t(f)P(t)  > 1  $
+]
+
+
+
+$f$ .w[strongly progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when it learns both forward and backward on each task
+
+.center[$ \prod\_{X \in \lbrace F, B \rbrace }  \prod\_{t \in [T]} XLE\_{\mathbf{n}}^t(f)P(t)  > 1  $
+]
+
+
+<!-- .center[$\left( FLE\_{\mathbf{n}}^t(f)  > 1 \right) \times \left( BLE\_{\mathbf{n}}^t(f)  > 1 \right)  ,  \ \  t \in [T]$
+] -->
+
+---
+### Some nuances 
+
+- Sometimes, $f$ might not know that the task has changed 
+- This framework cannot easily deal with distribution drift
+
+
+
+---
+name:rep
+
+### Outline 
+
+
+- Learning
+- [Ensembling](#rep)
+- [Experiments](#exp)
+- [Theory](#theory)
+- [Brains](#neuro)
+- [Discussion](#disc)
 
 
 

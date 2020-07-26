@@ -65,7 +65,7 @@ They are both about .ye[learning], so....maybe?
 
 ---
 
-### What is Learning?
+### What is learning?
 
 
 --
@@ -148,21 +148,21 @@ Supervised machine learning example
 
 ---
 
-### What is Performance?
+### What is performance?
 
 - We care about future performance on unseen queries, not past performance
 - To make any out-of-data claims requires .ye[assumptions]
   - A .ye[datum] $Z\_i$ is sampled iid from some true but unknown distribution $P\_{Z} \in \,
 \mathcal{P}$
-  - A .ye[query], $q \in \mathcal{Q}$ is sampled from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
-  - An optimal .ye[action], $a \in \mathcal{A}$ given $q$, is sampled from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
+  - A .ye[query], $q \in \mathcal{Q}$ is sampled iid from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
+  - An optimal .ye[action], $a \in \mathcal{A}$ given $q$, is sampled iid from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
 - Let $P\ = P\_{Z} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint .ye[distribution] over samples, queries, and optimal actions
 - $\mathcal{P}$ is called the .ye[statistical model]
 
 
 ---
 
-### What is Performance?
+### What is performance?
 
 
 - .ye[Loss], 
@@ -227,7 +227,7 @@ $f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
 
 ---
 
-### What is Transfer Learning?  
+### What is transfer learning?  
 
 - Also given .ye[side information]
 - Treat side information as another dataset, $\mathbf{Z}\_{n\_1}$ 
@@ -245,7 +245,7 @@ $f$ .ye[transfer learns] from $\mathbf{Z}\_{1}$ with respect to task $t$ when $L
 
 ---
 
-### What is Multitask Learning? 
+### What is multitask learning? 
 
 - Now we have lots of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
 - Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
@@ -269,10 +269,19 @@ performance improves due to other task's data, on .ye[each] task
 
 
 
+---
+### What is efficient learning? 
+
+- Let .ye[$c$] be the upper bound on the .ye[computational cost] of updating $h$ given a new $Z \in \mathcal{Z}$ and choosing an $a \in \mathcal{A}$.
+- Let $\mathcal{F}_e = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in poly(n,c) \rbrace$
+
+
+$f$ .ye[efficiently learns] from $\mathbf{Z}\_n$ with respect to task $t$ when $LE\_n(f) > 1$ and $f \in \mathcal{F}_e$.
+
+
 
 ---
-
-### What is Lifelong Learning? 
+### What is lifelong learning? 
 
 
 
@@ -293,6 +302,49 @@ $f$ .w[strongly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect 
 performance improves due to other task's data, on .ye[each] task 
 
 .center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$
+]
+
+
+---
+### What is lifelong cheating?
+
+- Store every sample you've ever seen 
+- Every time we are faced with a new $z$, $q$, or $t$, just update everything in batch mode 
+- Now just run your favorite multitask $f$
+- Doing so consumes $\mathcal{O}(n^2)$ resources because $ \sum_{i =1}^n i = n^2$
+
+
+
+- So, to differentiate lifelong learning from multitask learning requires a particularly efficient algorithm
+- $f$ must consume less than quadratic resources as a function of $n$
+- Let $\mathcal{F}_{< 2} = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in o(n^2,c) \rbrace$
+ 
+
+
+
+---
+### What is lifelong learning? 
+
+
+
+- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
+- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
+
+
+
+$f$ .w[weakly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+performance improves due to  other task's data, on .ye[average] 
+
+.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$ and $f \in \mathcal{F}_{< 2}$
+]
+
+
+
+$f$ .w[strongly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+performance improves due to other task's data, on .ye[each] task 
+
+.center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$ and $f \in \mathcal{F}_{< 2}$
+
 ]
 
 
@@ -334,20 +386,20 @@ We therefore have a single metric to quantify transfer.
 
 
 $f$ .w[weakly progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-it learns both forward and backward on .ye[average] 
+it learns both forward and backward on .w[average] 
 
 <!-- .center[$  \left( \sum\_{t \in [T]} FLE\_{\mathbf{n}}^t(f)P(t)  > 1 \right) \times  \left( \sum\_{t \in [T]} BLE\_{\mathbf{n}}^t(f)P(t)  > 1 \right) $ 
 ]
 -->
 
-.center[$ \prod\_{X \in \lbrace F, B \rbrace }  \sum\_{t \in [T]} XLE\_{\mathbf{n}}^t(f)P(t)  > 1  $
+.center[$ \prod\_{C \in \lbrace F, B \rbrace }  \sum\_{t \in [T]} CLE\_{\mathbf{n}}^t(f)P(t)  > 1  $ and $f \in \mathcal{F}_{< 2}$
 ]
 
 
 
 $f$ .w[strongly progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when it learns both forward and backward on each task
 
-.center[$ \prod\_{X \in \lbrace F, B \rbrace }  \prod\_{t \in [T]} XLE\_{\mathbf{n}}^t(f)P(t)  > 1  $
+.center[$ \prod\_{C \in \lbrace F, B \rbrace }  \prod\_{t \in [T]} CLE\_{\mathbf{n}}^t(f)P(t)  > 1  $ and $f \in \mathcal{F}_{< 2}$
 ]
 
 

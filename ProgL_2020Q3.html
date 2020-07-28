@@ -230,6 +230,9 @@ $f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
 ### What is transfer learning?  
 
 - Also given .ye[side information]
+  - other data 
+  - pre-trained model
+  - priors
 - Treat side information as another dataset, $\mathbf{Z}\_{n\_1}$ 
 - Redefine $\mathbf{Z}\_{j} \leftarrow [\mathbf{Z}\_{n\_j}, \mathbf{j}]$, where $\mathbf{j}$ is a $n_j$ dimensional vector of $j$'s 
 - Redefine $\mathbf{Z}\_{\mathbf{n}} \leftarrow [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}]$, where $\mathbf{n}=[n_1,n_2]$
@@ -249,23 +252,17 @@ $f$ .ye[transfer learns] from $\mathbf{Z}\_{1}$ with respect to task $t$ when $L
 
 - Now we have lots of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
 - Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-
-
-
-
-$f$ .ye[weakly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-performance improves due to  other task's data, on .ye[average] 
-
-.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$
+- Define .ye[weak] multitask learning efficiency as:
+.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
+]
+- Define .ye[strong] multitask learning efficiency as:
+.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
 ]
 
+$f$ .ye[multitask learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+$LE\_{\mathbf{n}}(f)  > 1$
 
 
-$f$ .ye[strongly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-performance improves due to other task's data, on .ye[each] task 
-
-.center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$
-]
 
 
 
@@ -432,7 +429,7 @@ name:rep
 
 ---
 
-### Lifelong Learning Taxonomy 
+###  Learning Taxonomy 
 
 
 ![:scale 100%](images/learning-taxonomy.svg)

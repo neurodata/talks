@@ -284,22 +284,15 @@ $f$ .ye[efficiently learns] from $\mathbf{Z}\_n$ with respect to task $t$ when $
 
 - Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
 - Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-
-
-
-$f$ .w[weakly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-performance improves due to  other task's data, on .ye[average] 
-
-.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$
+- Define .ye[weak] lifelong learning efficiency as:
+.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
+]
+- Define .ye[strong] lifelong learning efficiency as:
+.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
 ]
 
-
-
-$f$ .w[strongly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-performance improves due to other task's data, on .ye[each] task 
-
-.center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$
-]
+$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+$LE\_{\mathbf{n}}(f)  > 1$
 
 
 ---
@@ -313,8 +306,9 @@ performance improves due to other task's data, on .ye[each] task
 
 
 - So, to differentiate lifelong learning from multitask learning requires a particularly efficient algorithm
-- $f$ must consume less than quadratic resources as a function of $n$
-- Let $\mathcal{F}_{< 2} = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in o(n^2,c) \rbrace$
+- $f$ must consume less than quadratic resources as a function of $n$,  $f \in o(n^2,c) $
+ 
+<!-- - Let $\mathcal{F}_{< 2} = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in o(n^2,c) \rbrace$ -->
  
 
 
@@ -323,7 +317,36 @@ performance improves due to other task's data, on .ye[each] task
 ### What is lifelong learning? 
 
 
+<!-- 
 
+- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
+- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
+- Define .ye[weak] lifelong learning efficiency as:
+.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
+]
+- Define .ye[strong] lifelong learning efficiency as:
+.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$ and 
+]
+
+$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+$LE\_{\mathbf{n}}(f)  > 1$ -->
+
+
+- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
+- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
+- Define .ye[weak] lifelong learning efficiency as:
+.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
+]
+- Define .ye[strong] lifelong learning efficiency as:
+.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
+]
+
+$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+$LE\_{\mathbf{n}}(f)  > 1$ and $f \in o(n^2,c) $
+
+
+
+<!-- 
 - Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
 - Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
 
@@ -332,7 +355,7 @@ performance improves due to other task's data, on .ye[each] task
 $f$ .w[weakly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
 performance improves due to  other task's data, on .ye[average] 
 
-.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$ and $f \in \mathcal{F}_{< 2}$
+.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$ and $f \in o(n^2,c) $
 ]
 
 
@@ -342,27 +365,43 @@ performance improves due to other task's data, on .ye[each] task
 
 .center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$ and $f \in \mathcal{F}_{< 2}$
 
-]
+] -->
 
 
 ---
-### What is forward/backward learning?
+### What is forward learning?
 
 
 - Let $n\_t$ be the last occurence of task $t$ in $\mathbf{Z}\_n$ 
 - Let $\mathbf{Z}\_n^{< t} = \lbrace Z\_1, Z\_2, \ldots, Z\_{n_t}  \rbrace$
-
 - .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FLE\_t(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}  $$
+$$    FLE^t\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}  $$
 
---
+$$  \text{(weak) }   FLE^t\_{\mathbf{n}}(f) := \sum\_{t \in [T]} FLE\_{\mathbf{n}}^t(f)P(t) $$
+$$  \text{(strong) }   FLE^t\_{\mathbf{n}}(f) := \min\_{t \in [T]} FLE\_{\mathbf{n}}^t(f) $$
 
-- .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+<br>
+
+$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
+
+---
+### What is backward learning?
 
 
-<!-- The backward transfer efficiency of $ f $ for task $t$ is  -->
-$$    BLE\_t(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}  $$
-$$
+
+ .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+
+
+$$    BLE^t\_{\mathbf{n}}(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}  $$
+
+$$  \text{(weak) }   BLE^t\_{\mathbf{n}}(f) := \sum\_{t \in [T]} BLE\_{\mathbf{n}}^t(f)P(t) $$
+$$  \text{(strong) }   BLE^t\_{\mathbf{n}}(f) := \min\_{t \in [T]} BLE\_{\mathbf{n}}^t(f) $$
+
+
+<br>
+
+$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
+
 
 ---
 ### Learning efficiency factorizes
@@ -382,22 +421,14 @@ We therefore have a single metric to quantify transfer.
 ### What is progressive learning? 
 
 
-$f$ .w[weakly progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-it learns both forward and backward on .w[average] 
+$f$ weakly/strongly .ye[progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+it weakly/strongly learns both forward and backward 
 
-<!-- .center[$  \left( \sum\_{t \in [T]} FLE\_{\mathbf{n}}^t(f)P(t)  > 1 \right) \times  \left( \sum\_{t \in [T]} BLE\_{\mathbf{n}}^t(f)P(t)  > 1 \right) $ 
-]
--->
 
-.center[$ \prod\_{C \in \lbrace F, B \rbrace }  \sum\_{t \in [T]} CLE\_{\mathbf{n}}^t(f)P(t)  > 1  $ and $f \in \mathcal{F}_{< 2}$
+.center[$ \min \left(FTE\_{\mathbf{n}}(f),BTE\_{\mathbf{n}}(f) \right)    > 1  $ and $f \in o(n^2,c) $
 ]
 
 
-
-$f$ .w[strongly progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when it learns both forward and backward on each task
-
-.center[$ \prod\_{C \in \lbrace F, B \rbrace }  \prod\_{t \in [T]} CLE\_{\mathbf{n}}^t(f)P(t)  > 1  $ and $f \in \mathcal{F}_{< 2}$
-]
 
 
 <!-- .center[$\left( FLE\_{\mathbf{n}}^t(f)  > 1 \right) \times \left( BLE\_{\mathbf{n}}^t(f)  > 1 \right)  ,  \ \  t \in [T]$
@@ -407,7 +438,7 @@ $f$ .w[strongly progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with resp
 ### Some nuances 
 
 - Sometimes, $f$ might not know that the task has changed 
-- This framework cannot easily deal with distribution drift
+- This framework cannot easily deal with distribution drift, or reinforcement learning
 
 
 

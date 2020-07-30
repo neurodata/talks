@@ -134,9 +134,11 @@ The data are determined by physical implementation of the system:
 
 We get to choose the learning algorithm $f$:
 
-- $\vec{\mathcal{Z}} = \bigcup_{n = 1}^{\infty}\mathcal{Z}^n$, a .ye[data corpus] $\mathbf{Z}_n= \lbrace Z_1, Z_2, \ldots, Z_n \rbrace$
+- $\vec{\mathcal{Z}} = \bigcup_{n = 0}^{\infty}\mathcal{Z}^n$, a .ye[data corpus] $\mathbf{Z}_n= \lbrace Z_1, Z_2, \ldots, Z_n \rbrace$, and $\mathcal{Z}^0 = \emptyset$ is the empty set,
+meaning no data
 -  $\mathcal{H} = \lbrace h : \mathcal{Q} \rightarrow \mathcal{A} \rbrace$,  where a .ye[hypothesis] $h$ takes an action on the basis of a query
-- $f: \vec{\mathcal{Z}}  \to \mathcal{H}$, a learning .ye[algorithm] maps data sets from $\mathcal{Z}$ to a hypothesis 
+- $\Theta$ the parameter space, which could be priors, inductive bias of $\mathcal{H}$, estimation bias of $f$, pre-training, etc. or any combination thereof
+- $f: \vec{\mathcal{Z}} \times \Theta \to \mathcal{H}$, a learning .ye[algorithm] with parameter $\theta_0$ maps data sets from $\mathcal{Z}$ to a hypothesis 
 
 
 Supervised machine learning example
@@ -169,40 +171,11 @@ Supervised machine learning example
   e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a'] $
 - .ye[Risk] 
   e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)] $ 
-- For an algorithm, the risk is $ R(f(\bold{Z}_n)) $
+- For an algorithm, the risk is $ R(f(\bold{Z}_n, \theta_0)) $
 - .ye[Performance] is defined as expected risk (or .ye[generalization error]):
-$$\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))] $$
-- Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathbb{E}[R(f(\mathbf{Z}_0))]$ 
-is a function of
-  - priors
-  - inductive bias of $\mathcal{H}$
-  - estimation bias of $f$
-  - model bias of $\mathcal{P}$
-  - pre-training
-
-
-<!-- - .ye[Learning efficiency] is the ratio of generalization errors
-$$ LE_n(f) :=  \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{\mathbb{E}[R(f(\bold{Z}_0))]}$$
--->
-
-<!-- $$ LE_n(f) :=  \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right]. $$ -->
-<!-- $$= \frac{\mathcal{E}_n(f)}{\mathcal{E}_0(f)}. $$ -->
- 
-
-
-<!-- --- -->
-
-<!-- ### What is the learning task?
-
-- $P$ is the joint distribution, $P = P\_Z \otimes P\_{A|Q} \otimes P\_{Q} \in \mathcal{P}$ 
-- $s$ is the setting, $s = (\mathcal{Q}, \mathcal{A},\mathcal{Z},\mathcal{P},\mathcal{H},R,\mathcal{F})$. 
-
-
-In setting $s$ with true but unknown distribution $P$, given  data $\mathbf{Z}_n$   
-
-find $f$ that optimizes performance
-
-$$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$ -->
+$$\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n, \theta_0))] $$
+- Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathbb{E}[R(f(\emptyset, \theta_0))] \equiv \mathbb{E}[R(f(\theta_0))]$ 
+is a function of $\theta_0$
 
 
 ---
@@ -212,17 +185,11 @@ $$f^*\_n = \arg \min\_{f \in \mathcal{F}} \, \mathcal{E}_n(f).$$ -->
 
 .ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$,
 
-Define .ye[learning efficiency]: $$LE_n(f) := \frac{\mathbb{E}[R(f(\bold{Z}_0))]}{\mathbb{E}[R(f(\bold{Z}_n))]}$$
+Define .ye[learning efficiency]: $$LE_n(f) := \frac{\mathbb{E}[R(f(\theta_0))]}{\mathbb{E}[R(f(\bold{Z}_n, \theta_0))]}$$
 
 <br>
 
 $f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
-
-
-<!-- We say $f$'s  .ye[learning efficiency] is (log) positive for task $t$ given data $\mathbf{Z}_n$, if $LE_n(f) > 1$. -->
-
-
-
 
 
 ---
@@ -233,13 +200,11 @@ $f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
   - other data 
   - pre-trained model
   - priors
-- Treat side information as another dataset, $\mathbf{Z}\_{n\_1}$ 
-- Redefine $\mathbf{Z}\_{j} \leftarrow [\mathbf{Z}\_{n\_j}, \mathbf{j}]$, where $\mathbf{j}$ is a $n_j$ dimensional vector of $j$'s 
-- Redefine $\mathbf{Z}\_{\mathbf{n}} \leftarrow [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}]$, where $\mathbf{n}=[n_1,n_2]$
-<!-- - Redefine $f: \vec{\mathcal{Z}}' \to \mathcal{H}$ -->
-- Learning efficiency is still $LE\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R(f(\bold{Z}\_{0}))]}{\mathbb{E}[R(f(\mathbf{Z}\_{\mathbf{n}}))]}$
+- Redefine the parameter space $\Theta \leftarrow \Theta \times \vec{\mathcal{Z}}$, such that $\theta_{m} = (\theta_0, \mathbf{Z_m})$
+- Redefine the data space $\mathcal{Z}$ and all the corresponding spaces and random variables to be the side information space
+- Learning efficiency is now $LE\_{\mathbf{m, n}}(f) := \frac{\mathbb{E}[R(f(\theta\_m))]}{\mathbb{E}[R(f(\mathbf{Z_n}, \theta_m))]}$
 
-$f$ .ye[transfer learns] from $\mathbf{Z}\_{1}$ with respect to task $t$ when $LE\_n(f) > 1$
+$f$ .ye[transfer learns] from $\mathbf{Z}\_{n}$ with respect to task $t$ when $LE\_{m, n}(f) > 1$
 <!-- $f$'s performance at $t$ improves due to $\mathbf{Z}'\_{1}$: -->
 
 <!-- .center[$LE\_{\mathbf{n}}(f) = \frac{\mathbb{E}[R(f(\bold{Z}'\_{\mathbf{n}}))]}{\mathbb{E}[R(f(\mathbf{Z}'\_{0}))]} > 1$ 

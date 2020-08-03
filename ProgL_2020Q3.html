@@ -139,9 +139,12 @@ meaning no data
 -  $\mathcal{H} = \lbrace h : \mathcal{Q} \rightarrow \mathcal{A} \rbrace$,  where a .ye[hypothesis] $h$ takes an action on the basis of a query
 - $\Theta$ the parameter space, which could be priors, inductive bias of $\mathcal{H}$, estimation bias of $f$, pre-training, etc. or any combination thereof
 - $f: \vec{\mathcal{Z}} \times \Theta \to \mathcal{H}$, a learning .ye[algorithm] with parameter $\theta_0$ maps data sets from $\mathcal{Z}$ to a hypothesis 
+- For notational convenience, we will suppress the $\theta_0$, as it is always present
 
+---
 
 Supervised machine learning example
+
 - $\mathbf{Z}_n = (X_1, Y_1),  \ldots, (X_n, Y_n)$
 - $h$ is *RandomForestClassifier.predict*
 - $f$ is *RandomForestClassifier.fit*
@@ -171,11 +174,10 @@ Supervised machine learning example
   e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a'] $
 - .ye[Risk] 
   e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)] $ 
-- For an algorithm, the risk is $ R(f(\bold{Z}_n, \theta_0)) $
+- For an algorithm, the risk is $ R(f(\bold{Z}_n)) $
 - .ye[Performance] is defined as expected risk (or .ye[generalization error]):
-$$\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n, \theta_0))] $$
-- Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathbb{E}[R(f(\emptyset, \theta_0))] \equiv \mathbb{E}[R(f(\theta_0))]$ 
-is a function of $\theta_0$
+$$\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))] $$
+- Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathbb{E}[R(f(Z_0))]$, where $Z_0 = \emptyset$ is the empty set, is a function of $\theta_0$
 
 
 ---
@@ -185,7 +187,7 @@ is a function of $\theta_0$
 
 .ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$,
 
-Define .ye[learning efficiency]: $$LE_n(f) := \frac{\mathbb{E}[R(f(\theta_0))]}{\mathbb{E}[R(f(\bold{Z}_n, \theta_0))]}$$
+Define .ye[learning efficiency]: $$LE_n(f) := \frac{\mathbb{E}[R(f(Z_0))]}{\mathbb{E}[R(f(\bold{Z}_n))]}$$
 
 <br>
 
@@ -200,12 +202,14 @@ $f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
   - other data 
   - pre-trained model
   - priors
-- Redefine the parameter space $\Theta \leftarrow \Theta \times \vec{\mathcal{Z}}$, such that $\theta_{m} = (\theta_0, \mathbf{Z_m})$
-- Redefine the data space $\mathcal{Z}$ and all the corresponding spaces and random variables to be the side information space
-- Learning efficiency is now $LE\_{\mathbf{m, n}}(f) := \frac{\mathbb{E}[R(f(\theta\_m))]}{\mathbb{E}[R(f(\mathbf{Z_n}, \theta_m))]}$
+- Side information is sampled from some distribution $P_{Z_0}$
+- Task data is now sampled from a distribution $P_{Z_1}$
+- Redefine $\mathbf{Z}_n$ to be the combined data, $\mathbf{Z}_n = \lbrace (Z_i, k_i) \rbrace$, for $i \in [n]$, where $k\_i = j$ if $Z\_i$ is sampled from $P_j$
+- Let $\mathbf{Z}^j_n = \lbrace (Z_i, k_i) \in \mathbf{Z}_n: k_i = j \rbrace$, $i \in [n]$
 
-$f$ .ye[transfer learns] from $\mathbf{Z}\_{n}$ with respect to task $t$ when $LE\_{m, n}(f) > 1$
-<!-- $f$'s performance at $t$ improves due to $\mathbf{Z}'\_{1}$: -->
+- Learning efficiency is now $LE\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R(f(\mathbf{Z}_n^1))]}{\mathbb{E}[R(f(\mathbf{Z_n}))]}$
+
+$f$ .ye[transfer learns] from $\mathbf{Z}\_{n}^0$ with respect to task $t$ when $LE\_{n}(f) > 1$
 
 <!-- .center[$LE\_{\mathbf{n}}(f) = \frac{\mathbb{E}[R(f(\bold{Z}'\_{\mathbf{n}}))]}{\mathbb{E}[R(f(\mathbf{Z}'\_{0}))]} > 1$ 
 .]
@@ -215,8 +219,8 @@ $f$ .ye[transfer learns] from $\mathbf{Z}\_{n}$ with respect to task $t$ when $L
 
 ### What is multitask learning? 
 
-- Now we have lots of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
+- Now we have lots of tasks, say $T$ many, each with their own data $\mathbf{Z}_n^t$ ($t \in T$), along with some side information $\mathbf{Z}_n^0$
+- Learning efficiency for task $t$: $LE\_{n}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{n}^t))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{n}))]}$
 - Define .ye[weak] multitask learning efficiency as:
 .center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
 ]

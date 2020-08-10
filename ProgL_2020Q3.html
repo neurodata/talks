@@ -219,10 +219,11 @@ $f$ .ye[transfer learns] from $\mathbf{Z}\_{n}^0$ with respect to task $t$ when 
 
 ### What is multitask learning? 
 
-- Now we have lots of tasks, say $T$ many, each with their own data $\mathbf{Z}_n^t$ ($t \in T$), along with some side information $\mathbf{Z}_n^0$
+- Now we have lots of tasks, say $T$ many, each with their own data $\mathbf{Z}_n^t$, $t \in [T]$, along with some side information $\mathbf{Z}_n^0$
 - Learning efficiency for task $t$: $LE\_{n}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{n}^t))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{n}))]}$
+- Let $n_t = |Z_n^t|$
 - Define .ye[weak] multitask learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
+.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]}n\_t \cdot LE\_{\mathbf{n}}^t(f)$
 ]
 - Define .ye[strong] multitask learning efficiency as:
 .center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$

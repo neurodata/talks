@@ -202,8 +202,8 @@ $f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
   - other data 
   - pre-trained model
   - priors
-- Side information is sampled from some distribution $P_{Z_0}$
-- Task data is now sampled from a distribution $P_{Z_1}$
+- Side information is sampled according to some distribution $P_{Z_0}$, from $\mathcal{Z}$
+- Task data is sampled according to $P_{Z_1}$, also from $\mathcal{Z}$
 - Redefine $\mathbf{Z}_n$ to be the combined data, $\mathbf{Z}_n = \lbrace (Z_i, k_i) \rbrace$, for $i \in [n]$, where $k\_i = j$ if $Z\_i$ is sampled from $P_j$
 - Let $\mathbf{Z}^j_n = \lbrace (Z_i, k_i) \in \mathbf{Z}_n: k_i = j \rbrace$, $i \in [n]$
 

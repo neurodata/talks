@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Brainlight - Computational</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="fonts/quadon/quadon.css">
-    <link rel="stylesheet" href="fonts/gentona/gentona.css">
-    <link rel="stylesheet" href="slides_style.css">
-    <link rel="stylesheet" href="font-awesome.min.css">
-    <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
-  
-    
-  </head>
-  <body>
-    <textarea id="source">
+
+<head>
+  <title>Brainlight - Computational</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="../fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="../fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="../slides_style_i.css">
+  <script type="text/javascript" src="../assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <textarea id="source">
 
 
 
@@ -29,8 +28,8 @@ Thomas L. Athey
 
 <br><br>
 
-<img src="images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
-<img src="images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
+<img src="../images/funding/jhu_bme_blue.png" STYLE="HEIGHT:95px;"/>
+<img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/>
 
 <br> 
 
@@ -339,26 +338,47 @@ SNR = (mean(points)-mean(image))/sd(image)
 
 
 
-    </textarea>
-    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
-    <script src="remark-latest.min.js"></script>
-    <script src="assets/KaTeX/0.5.1/katex.min.js"></script>
-    <script src="assets/KaTeX/0.5.1/auto-render.min.js"></script>
-    <link rel="stylesheet" href="assets/KaTeX/0.5.1/katex.min.css">
-    <script type="text/javascript">
-      var options = {};
-      var renderMath = function() {
-        renderMathInElement(document.body);
-        // or if you want to use $...$ for math,
-        renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
-            {left: "$$", right: "$$", display: true},
-            {left: "$", right: "$", display: false},
-            {left: "\\[", right: "\\]", display: true},
-            {left: "\\(", right: "\\)", display: false},
-        ]});
-      }
-      var slideshow = remark.create(options, renderMath);
+   
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<!-- <script src="remark-latest.min.js"></script> -->
+<script src="../remark-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
 
-    </script>
-  </body>
+  var options = {};
+  var renderMath = function () {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {
+      delimiters: [ // mind the order of delimiters(!?)
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+      ]
+    });
+  }
+
+  remark.macros.scale = function (percentage) {
+    var url = this;
+    return '<img src="' + url + '" style="width: ' + percentage + '" />';
+  };
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+  var slideshow = remark.create(options, renderMath);
+
+
+</script>
+</body>
+
 </html>

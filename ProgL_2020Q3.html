@@ -402,6 +402,26 @@ it weakly/strongly learns both forward and backward
 <!-- .center[$\left( FLE\_{\mathbf{n}}^t(f)  > 1 \right) \times \left( BLE\_{\mathbf{n}}^t(f)  > 1 \right)  ,  \ \  t \in [T]$
 ] -->
 
+
+---
+
+### A taxonomy of  approaches
+
+| &rarr; | &larr;  | space   | time        | name                                     | forgets
+| :---:  | :---:   | :---:| :---:          |                                          | 
+| +      | -       | 1    | nT             | parametric (EWC,SI)                      | Yes
+| +      | +       | 1    | nT<sup>2</sup> | par. + exact replay                      | Yes
+| +      | +       | 1    | n T               | par. + fixed replay  (BI-R)           | Yes 
+| +      | 0       | T    | n T               | (ProgNN)                              | Yes
+| +      | +       | T<sup>2</sup> | n T<sup>2</sup> | Sequential Multitask Learning | Yes
+| +      | +       | T    | nT  | Parametric ProgL  (PLN)                             | Yes
+| +      | +       | n    | nT | Nonparameteric ProgL (PLF)                           | No
+
+<!-- parametric, replay, space, time, forward, backwards, examples -->
+<!-- apples to apples comparisons are only possible within a row of the table -->
+
+
+
 ---
 ### Some nuances 
 

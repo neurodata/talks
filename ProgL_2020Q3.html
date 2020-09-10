@@ -407,15 +407,16 @@ it weakly/strongly learns both forward and backward
 
 ### A taxonomy of  approaches
 
-| &rarr; | &larr;  | space   | time        | name                                     | forgets
-| :---:  | :---:   | :---:| :---:          |                                          | 
-| +      | -       | 1    | nT             | parametric (EWC,SI)                      | Yes
-| +      | +       | 1    | nT<sup>2</sup> | par. + exact replay                      | Yes
-| +      | +       | 1    | n T               | par. + fixed replay  (BI-R)           | Yes 
-| +      | 0       | T    | n T               | (ProgNN)                              | Yes
-| +      | +       | T<sup>2</sup> | n T<sup>2</sup> | Sequential Multitask Learning | Yes
-| +      | +       | T    | nT  | Parametric ProgL  (PLN)                             | Yes
-| +      | +       | n    | nT | Nonparameteric ProgL (PLF)                           | No
+| Par. | &rarr; | &larr;  | space   | time        | Examples                                     | forgets
+| :---:| :---:  | :---:   | :---:| :---:          |                                          | 
+| +    | +      | -       | 1    | n             | O-EWC, SI, TL                      | Yes
+| +    | +      | -       | T    | n             |  SI                      | Yes
+| +    | +      | -       | T    | nT+T<sup>2</sup>             | EWC                      | Yes
+| +    | +      | +       | 1    | nT<sup>a</sup>,  a &le; 2 | TL +  replay                      | Yes
+| task    | +      | 0       | T    | n T               | ProgNN                              | No
+| task    | +      | +       | T | n T<sup>2</sup> | Sequential Multitask  | No
+| task     | +      | +       | T    | nT  |  ProgL Networks                             | No
+| nonpar    | +      | +       | n    | nT |  ProgL Forests                           | No
 
 <!-- parametric, replay, space, time, forward, backwards, examples -->
 <!-- apples to apples comparisons are only possible within a row of the table -->

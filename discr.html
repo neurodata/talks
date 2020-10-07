@@ -31,125 +31,20 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 ## Outline 
 
-- [Problem Space](#prob)
-- [Defining and Quantifying Reliability](#statistics)
+- [Defining the Need for Reliability](#defn)
+- [Quantifying Reliability](#statistics)
 - [Properties of Discriminability](#props)
 - [Results](#results)
 - [Discussion](#disc)
 
 
 ---
-name:prob
+name:defn
 
 ## Outline 
 
-- Problem Space
-- [Defining and Quantifying Reliability](#statistics)
-- [Properties of Discriminability](#props)
-- [Results](#results)
-- [Discussion](#disc)
-
----
-
-## What is fMRI?
-
-- fMRI: .ye[f]unctional .ye[M]agnetic .ye[R]esonance .ye[I]maging
-  - For $t$ timepoints, measure the BOLD signal within each "piece" (voxel) of the brain
-  - Image is $4D$: $3$ spatial dimensions, $+ 1$ temporal dimension
-  - $\mathcal O(100,000)$ distinct voxels, each of which has a $T$-dimensional timecourse
---
-
-- Raw data is unideal
-  - .ye[individual]: subject moving in the scanner
-  - .ye[biology]: different shapes of brains, movement of blood is delayed, artifacts from air, presence of non-cortical tissue
-  - .ye[imaging modality]: signal attenuations due to variety of factors, image takes a few seconds, scanner model
---
-
-  - $T$ is small
---
-
-  - unknown artifacts
-
-
----
-
-### What do scientists want to learn from connectomes?
-- Neural coding: link patterns of brain .ye[activity] to past, ongoing, and future events
-  - traditional framework for neuroscience investigations
---
-
-- Connectal coding: link patterns that arise in the .ye[connectome] (i.e., connectivity profiles) to past, ongoing, and future events
-  - connectal coding presents the formal problem space scientists hope connectomes will address
----
-
-### Why isn't connectomics useful yet?
-
-- sources of variability
-  - .ye[accidental deviations]
-    - variability due to data collection: how was the data collected, and where?
-    - pre-processing: how did we go from the raw collected data to a connectome?
---
-  - .ye[systematic deviations]
-    - .ye[biological or direct experimental manipulation]: this is the variability we care about
---
-- Connectomics is expensive
-  - answer how, and how much, each facet of variability materializes in a connectome requires expansive datasets
-  - graph analysis has proven to be fundamentally challenging
----
-## How do we de-noise data?
-
-- problems due to the individual, the biology, the imaging modality, and small $T$ are critical to address
-- Processing Pipeline: takes a raw fMRI scan, and produces a "processed" .ye[derivative]
-
---
-  - Goal: reduce known artifacts
---
-
-- Each artifact represents a decision
-  - how do we best remove it?
-  - many strategies for removing each known artifact; unclear which are best, and whether/how strategies work together
-
----
-
-### What types of derivatives do we care about?
-
-- focus on derivatives that address the small $T$ problem
---
-
-- Parcellation: maps from each of the $\mathcal O(100,000)$ voxels to one of $D$ sub-regions
-  - $D \ll \mathcal O(100,000)$
-  - usually summarize known anatomical relationships (e.g. Brodmann) or functional relationships (e.g. Desikan)
---
-
-- derivatives are $D \times T$
-  - For each timepoint $t$, for each region in the parcellation $d$, take spatial mean of BOLD signal for all voxels mapping to $d$
-
----
-
-## How do we get a connectome?
-
-- .ye[Connectome]: "map" of some notion of neural "connectivity" in the brain
-  - functional connectivity: how "similar" are the time courses for two regions?
-
---
-- similar: pairwise correlation between the timecourses for each of the $D$ regions in the parcellation
-  - produces a $D \times D$ graph describing the functional connectivity
-
----
-
-## What data will we be using?
-
-- CoRR metadataset
-- $N>1,700$ individuals imaged across $26$ different datasets
-  - All individuals have anatomical MRI and fMRI scans needed to estimate a connectome
-  - Most of the data is test-retest: individuals are measured $s \geq 2$ times under a similar experimental design
----
-name:statistics
-
-## Outline 
-
-- [Problem Space](#prob)
-- Defining and Quantifying Reliability
+- Defining the Need for Reliability
+- [Quantifying Reliability](#statistics)
 - [Properties of Discriminability](#props)
 - [Results](#results)
 - [Discussion](#disc)
@@ -181,6 +76,33 @@ name:statistics
 - Quantify reproducibility directly
   - measure each sample/individual several times, and look at the outputs
   - .ye["Garbage in; garbage out"]: if the measurements do not reproduce, inference on the data can't reproduce either
+  - Fisher's "The Design of Experiments"
+---
+## Experimental Design (at present)
+- Idea: design an experiment motivated by a particular scientific question
+--
+
+- Problem: this is not what is done in practice
+  - Big datasets are expensive; large amounts of data are collected with many future uses in mind (not limited to one question)
+
+--
+  - The future questions .ye[may not even be known] when the data is acquired
+--
+
+- How can one design an experiment without knowing the question ahead of time?
+  - Proposal: design experiments on the basis of .ye[discriminability]
+---
+name:statistics
+
+## Outline 
+
+- [Defining the Need for Reliability](#defn)
+- Quantifying Reliability
+- [Properties of Discriminability](#props)
+- [Results](#results)
+- [Discussion](#disc)
+
+
 ---
 ### Statistics for Quantifying Reproducibility
 
@@ -250,8 +172,8 @@ name:props
 
 ## Outline 
 
-- [Problem Space](#prob)
-- [Defining and Quantifying Reliability](#statistics)
+- [Defining the Need for Reliability](#defn)
+- [Quantifying Reliability](#statistics)
 - Properties of Discriminability
 - [Results](#results)
 - [Discussion](#disc)
@@ -299,11 +221,18 @@ name:results
 
 ## Outline 
 
-- [Problem Space](#prob)
-- [Defining and Quantifying Reliability](#statistics)
+- [Defining the Need for Reliability](#defn)
+- [Quantifying Reliability](#statistics)
 - [Properties of Discriminability](#props)
 - Results
 - [Discussion](#disc)
+---
+## What data will we be using?
+
+- CoRR metadataset
+- $N>1,700$ individuals imaged across $26$ different datasets
+  - All individuals have anatomical MRI and fMRI scans needed to estimate a connectome
+  - Most of the data is test-retest: individuals are measured $s \geq 2$ times under a similar experimental design
 ---
 ## Analysis Procedure
 - For all $N>1,700$ individuals, process each measurement exhaustively across $192$ different pre-processing pipelines
@@ -348,9 +277,45 @@ name:disc
 - [Results](#results)
 - Discussion
 
-
 ---
-
+### Contributions
+1. Demonstrate that discriminability quantifies the contributions of systematic and accidental deviations
+2. Formalize tests for assessing and comparing discriminabilities within and between collection strategies
+3. Provide theoretical motivation for discriminability in connection with predictive accuracy
+4. Illustrate the value of discriminability for neuroscience and (not discussed) genomics data
+5. Code implementations in [python](https://github.com/neurodata/hyppo) and [R](https://github.com/neurodata/r-mgc)
+---
+### Connections to Energy Statistics
+- energy statistics provide statistics that are functions of distances between measurements, like discriminability
+- both approaches make relatively few assumptions
+- discriminability 2-sample test is a comparison of K-sample tests in the energy statistics literature
+- energy statistics tend to perform well when we have more replicates (e.g., DISCO)
+---
+### Extending Discriminability
+- use of distances allows for trivial modification for non-Euclidean measurements
+  - e.g., speech or text data may make sense with different distance functions
+- measurements that consist of multiple measurements themselves
+  - many applications will aggregate many measurements into a single "raw derivative"
+  - e.g., fMRI is an aggregation of multiple measurements made over $t$ timepoints
+  - if we only have one measurement that consists of many sub-measurements, can split the sub-measurements into multiple measurements
+  - e.g., taking a single fMRI and splitting into two fMRI with $\frac{t}{2}$ timepoints each
+---
+## Limitations
+- experimental design is not "one-size-fits-all"
+  - future scientific questions will still need to consider the question of interest
+  - e.g., an analysis of task fMRI may not want to use a pre-processing pipeline with global signal regression, but for resting-state fMRI, this may not be an issue
+- Reliability is not a pre-requisite, nor a surrogate, for practical utility
+  - categorical covariates are meaningful but not discriminable
+  - fingerprints are discriminable but not typically biological useful
+- Reliability statistics are not immune to sample characteristics
+  - confounds such as age may inflate discriminability
+---
+## Key Contributors & Links
+- People: Eric Bridgeford, Zeyi Wang, Shangsi Wang, Zhi Yang, Ting Xu, Cameron Craddock, Jayanta Dey, Greg Kiar, William Gray-Roncal, Carlo Coulantoni, Christopher Douville, Carey E. Priebe, Brian Caffo, Michael Milham, Xi-Nian Zuo
+- Places and Organizations: Consortium for Reliability and Reproducibility (CoRR), Johns Hopkins University, Shanghai Jiaotong University, Child Mind Institute, Beijing Normal University, Nanning Normal University, University of Chinese Academy of Sciences, Progressive Learning
+- [BioRxiv Manuscript](https://www.biorxiv.org/content/10.1101/802629v6)
+- Code implementations in [python](https://github.com/neurodata/hyppo) and [R](https://github.com/neurodata/r-mgc)
+---
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
   <!-- <script src="remark-latest.min.js"></script> -->

@@ -240,13 +240,13 @@ $f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE^t(\mathbf{Z}\_0
 ### What is transfer learning?  
 
 
-- Let $\mathbf{Z}^j_n = \lbrace (Z_i, S_i) \in \mathbf{Z}_n: S_i = s_j \rbrace$, $i \in [n]$
+- Let $\mathbf{Z}^t_n = \lbrace (Z_i, S_i) \in \mathbf{Z}_n: S_i = s(t) \rbrace$, $i \in [n]$, $s(t)$ is the setting of task $t$
 - Transfer learning algorithm $f$ takes in data of the form $(Z, S)$, where $Z$ is observed in $\mathcal{Z}_0\cup\mathcal{Z}_1$
 - The model is now the set $\lbrace P\_{\mathbf{Z}\_n} \otimes P\_{Q, A} \rbrace$, but $P\_{\mathbf{Z}\_n}$ is now a distribution over the new data $\mathbf{Z}\_n$, but $P\_{Q, A}$ is still a
 distribution over the queries and actions from $s\_1$
-- Learning efficiency is now $LE^{t_1}(\mathbf{Z}_n^1, \mathbf{Z}_n, f) = \frac{\mathcal{E}_f^t(\mathbf{Z}_n^1)}{\mathcal{E}_f^t(\mathbf{Z}_n)}$
+- Learning efficiency is now $LE^{t}(\mathbf{Z}_n^t, \mathbf{Z}_n, f) = \frac{\mathcal{E}_f^t(\mathbf{Z}_n^t)}{\mathcal{E}_f^t(\mathbf{Z}_n)}$
 
-$f$ .ye[transfer learns] from $\mathbf{Z}\_{n}^0$ with respect to task $t$ when $LE^t(\mathbf{Z}_n^1, \mathbf{Z}_n, f) > 1$
+$f$ .ye[transfer learns] from $\mathbf{Z}\_{n}^0$ with respect to task $t$ when $LE^t(\mathbf{Z}_n^t, \mathbf{Z}_n, f) > 1$
 ---
 
 ### What is multitask learning? 
@@ -254,8 +254,8 @@ $f$ .ye[transfer learns] from $\mathbf{Z}\_{n}^0$ with respect to task $t$ when 
 - Now we have an environment of tasks $\mathcal{T}\_m = \lbrace t_1, t_2, \cdots, t_m \rbrace$ , each with their own setting $\mathcal{S}\_m = \lbrace s_1, s_2, \cdots, s_m \rbrace$ along
 with some side information $\mathbf{Z}_n^0$
 - Make same definitions as transfer learning
-  - $\mathbf{Z}_n^j$ is data associated with task $t_j$
-- Learning efficiency for task $t_j$: $LE^{t_j}(\mathbf{Z}_n^j, \mathbf{Z}_n, f) = \frac{\mathcal{E}_f^{t_j}(\mathbf{Z}_n^j)}{\mathcal{E}_f^{t_j}(\mathbf{Z}_n)}$
+  - $\mathbf{Z}_n^t$ is data associated with task $t$
+- Learning efficiency for task $t$: $LE^{t}(\mathbf{Z}_n^t, \mathbf{Z}_n, f) = \frac{\mathcal{E}_f^{t}(\mathbf{Z}_n^t)}{\mathcal{E}_f^{t}(\mathbf{Z}_n)}$
 
 ---
 
@@ -263,13 +263,13 @@ with some side information $\mathbf{Z}_n^0$
 
 - Define .ye[weak] multitask learning efficiency as:
 
-$$ \text{WMLE}\_n(f) := \sum\_{j = 1}^{m}w_j \cdot LE^{t_j}(\mathbf{Z}_n^j, \mathbf{Z}_n, f) $$
+$$ \text{WMLE}\_n(f) := \sum\_{t \in \mathcal{T}_m}w_t \cdot LE^{t}(\mathbf{Z}_n^t, \mathbf{Z}_n, f) $$
 
-- $w_1, \cdots, w_m$ is a set of weights that form a probability distribution
+- $\lbrace w_t: t \in \mathcal{T}_m\rbrace$ is a set of weights that form a probability distribution
 
 - Define .ye[strong] multitask learning efficiency as:
 
-$$ \text{SMLE}\_n(f) := \min\_{j = 1, \cdots, m} LE^{t_j}(\mathbf{Z}_n^j, \mathbf{Z}_n, f) $$
+$$ \text{SMLE}\_n(f) := \min\_{t \in \mathcal{T}_m} LE^{t}(\mathbf{Z}_n^t, \mathbf{Z}_n, f) $$
 
 $f$ (strongly or weakly) .ye[multitask learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $\mathcal{T}_m$ if $(\text{S or W})\text{MLE}_n(f) > 1$
 
@@ -281,7 +281,7 @@ $f$ (strongly or weakly) .ye[multitask learns] from  $\mathbf{Z}\_{\mathbf{n}}$ 
 - Let $\mathcal{F}_e = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in poly(n,c) \rbrace$
 
 
-$f$ .ye[efficiently learns] from $\mathbf{Z}\_n$ with respect to task $t$ when $LE^t(\mathbf{Z}_n^1, \mathbf{Z}_n, f) > 1$ and $f \in \mathcal{F}_e$.
+$f$ .ye[efficiently learns] from $\mathbf{Z}\_n$ with respect to task $t$ when $LE^t(\mathbf{Z}_n^t, \mathbf{Z}_n, f) > 1$ and $f \in \mathcal{F}_e$.
 
 
 
@@ -289,7 +289,7 @@ $f$ .ye[efficiently learns] from $\mathbf{Z}\_n$ with respect to task $t$ when $
 ### What is lifelong learning? 
 
 - Same set up as multitask learning, except now we have a sequence of tasks $\mathcal{T}_m$, called a .ye[curriculum], rather than the set, or environment, of tasks as before
-- Same definitions and quantities (e.g. $\mathbf{Z}_n^j$, strong and weak learning, etc.)
+- Same definitions and quantities (e.g. $\mathbf{Z}_n^t$, strong and weak learning, etc.)
 
 $f$ (strongly, weakly) .ye[lifelong learns] from  $\mathbf{Z}\_{n}$ with respect to tasks $\mathcal{T}_m$  when $(\text{S or W})\text{MLE}_n(f)  > 1$ and $f \in o(n^2,c) $
 

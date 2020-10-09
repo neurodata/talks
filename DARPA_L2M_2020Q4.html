@@ -52,17 +52,19 @@ Biological agents progressively build representations to transfer both forward &
 
 ---
 
-### Phase 1 
+# Phase 1 
 
 - Metrics
 - Algorithmic insights 
 - Benchmarks
 
 ---
-class: middle
 
 ### Lifelong Learning Metrics 
 
+- Forward learning
+- Backward learning 
+- Transfer learning 
 
 ---
 
@@ -140,8 +142,7 @@ $f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
 
 $$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
 
-$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times
-           \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
+$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
 
 <br>
 
@@ -164,344 +165,79 @@ $$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} 
 ### Benchmarks 
 
 
-![:scale 100%](images/cifar-100-BTE.svg)
-![:scale 100%](images/cifar-100-FTE.svg)
+![:scale 100%](images/L2N-CIFAR-benchmarks.png)
+<!-- ![:scale 100%](images/cifar-100-FTE.svg) -->
 
 
 
 
 ---
 
-### What is learning?
+# Summer updates
 
 
---
+1. Unified theory 
+2. Complexity analysis 
+3. Additional benchmarks 
+
+
+---
+
+### Unified Theory 
+
+Recall
+
+$$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
+
+$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
 
 <br>
-"The acquisition of knowledge or skills through experience, study, or by being taught."
 
--- Google, 2020
-
---
-
-"A computer .ye[program] is set to learn from an .ye[experience] E with respect to some .ye[task] T and some .ye[performance measure] P if its performance on T as measured by P .ye[improves] with experience E."
-
--- Tom Mitchell, 1997
-
---
-
-".ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ w.r.t. .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$."
-
-
--- jovo, 2020
-
-
+Define .ye[learning efficiency]: $$LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B, f) := \frac{\mathcal{E}_f^t(\mathbf{Z}\_A)}{\mathcal{E}_f^t(\mathbf{Z}\_B)}$$
 
 
 ---
 
-<!-- \mathbb{E}\left[\frac{R(f(\bold{Z}_n))}{R(f(\bold{Z}_0))}\right] = \frac{\mathbb{E}[R(f(\bold{Z}_n))]}{R(f(\bold{Z}_0))}  -->
+
+### Special cases 
+
+Each of the previous definitions are all special cases of $LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B, f)$, for specific choices of  $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$
 
 
-### What are the data?
+- Learning: $\mathbf{Z}\_A=\mathbf{Z}\_0$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
+- Transfer learning: $\mathbf{Z}\_A=\mathbf{Z}\_n^t$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
+- Multitask learning: for each $t$, $\mathbf{Z}\_A=\mathbf{Z}\_n^t$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
+- Forward learning: $\mathbf{Z}\_A=\mathbf{Z}\_n^t$ and $\mathbf{Z}\_B=\mathbf{Z}\_n^{&lt t}$.
+- Backward learning: $\mathbf{Z}\_A=\mathbf{Z}\_n^{&lt t}$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
 
-
-The data are determined by physical implementation of the system:
-
--  .ye[Measurement space]: $\mathcal{Z}$,  determined by available sensors
-  - visual, auditory, tactile, text, vectors, networks, etc.
-- .ye[Action space]: $\mathcal{A}$,  determined by available actuators
-  -  &rarr;, &larr;, &uarr;, &darr;, etc.
-  <!-- , {reject, fail to reject}, $\mathbb{R}$ -->
-- .ye[Query space]: $\mathcal{Q}$, determined by system's "interface"
-  - in which cluster is $z$? what is this object? etc.
-
-
- Classification Example
-- $z_i = (x_i,y_i)$ where $\mathcal{X}=\mathbb{R}^p$ and $\mathcal{Y}=\lbrace 0,1\rbrace$ 
-- $a_i \in \lbrace 0, 1 \rbrace = \mathcal{Y}$ are class labels 
-- $q_i \in \mathcal{X}=\mathbb{R}^p$ are possible feature vectors with unknown class labels 
-
-
-
-<!-- TODO we play fast and loose with whether the dataset is in \mathcal{D} vs \mathcal{Z}. i'd like to be consistent -->
-<!-- TODO in XOR experiments, replace purple with orange -->
-<!-- TODO@jovo  the supertask learning slides are too complex, i'll simplify dramatically -->
-<!-- TODO@jovo move some supertask slides to appendix -->
-<!-- TODO@jovo reorganize compositional hypothesis slides -->
-<!-- TODO@jovo more about internal models, generalization, motivation, etc. -->
-<!-- TODO@jovo 2nd what is learning slide uses old notation -->
-<!-- TODO@jovo maybe update xor/nxor figure to show forgetting instead of RF? -->
-
+Conjecture: All learning metrics we care about are functions of learning efficiency for a specific $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$.
 
 
 ---
 
-### What is $f$?
+### Complexity analysis 
 
-We get to choose the learning algorithm $f$:
-
-- $\vec{\mathcal{Z}} = \bigcup_{n = 0}^{\infty}\mathcal{Z}^n$, a .ye[data corpus] $\mathbf{Z}_n= \lbrace Z_1, Z_2, \ldots, Z_n \rbrace$, and $\mathcal{Z}^0 = \emptyset$ is the empty set,
-meaning no data
--  $\mathcal{H} = \lbrace h : \mathcal{Q} \rightarrow \mathcal{A} \rbrace$,  where a .ye[hypothesis] $h$ takes an action on the basis of a query
-- $\Theta$ the parameter space, which could be priors, inductive bias of $\mathcal{H}$, estimation bias of $f$, pre-training, etc. or any combination thereof
-- $f: \vec{\mathcal{Z}} \times \Theta \to \mathcal{H}$, a learning .ye[algorithm] with parameter $\theta_0$ maps data sets from $\mathcal{Z}$ to a hypothesis 
-- For notational convenience, we will suppress the $\theta_0$, as it is always present
-
----
-
-### Supervised machine learning example
-
-- $\mathbf{Z}_n = (X_1, Y_1),  \ldots, (X_n, Y_n)$
-- $h$ is *RandomForestClassifier.predict*
-- $f$ is *RandomForestClassifier.fit*
-
-
-
----
-
-### What is performance?
-
-- We care about future performance on unseen queries, not past performance
-- To make any out-of-data claims requires .ye[assumptions]
-  - A .ye[datum] $Z\_i$ is sampled iid from some true but unknown distribution $P\_{Z} \in \,
-\mathcal{P}$
-  - A .ye[query], $q \in \mathcal{Q}$ is sampled iid from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
-  - An optimal .ye[action], $a \in \mathcal{A}$ given $q$, is sampled iid from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
-- Let $P\ = P\_{Z} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint .ye[distribution] over samples, queries, and optimal actions
-- $\mathcal{P}$ is called the .ye[statistical model]
-
-
----
-
-### What is performance?
-
-
-- .ye[Loss], 
-  e.g., 0-1 loss: $ \ell(a, a') := \mathbb{I}[a \neq a'] $
-- .ye[Risk] 
-  e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)] $ 
-- For an algorithm, the risk is $ R(f(\bold{Z}_n)) $
-- .ye[Performance] is defined as expected risk (or .ye[generalization error]):
-$$\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))] $$
-- Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathbb{E}[R(f(Z_0))]$, where $Z_0 = \emptyset$ is the empty set, is a function of $\theta_0$
-
-
-
----
-
-### What is transfer learning?  
-
-- Also given .ye[side information]
-  - other data 
-  - pre-trained model
-  - priors
-- Side information is sampled according to some distribution $P_{Z_0}$, from $\mathcal{Z}$
-- Task data is sampled according to $P_{Z_1}$, also from $\mathcal{Z}$
-- Redefine $\mathbf{Z}_n$ to be the combined data, $\mathbf{Z}_n = \lbrace (Z_i, k_i) \rbrace$, for $i \in [n]$, where $k\_i = j$ if $Z\_i$ is sampled from $P_j$
-- Let $\mathbf{Z}^j_n = \lbrace (Z_i, k_i) \in \mathbf{Z}_n: k_i = j \rbrace$, $i \in [n]$
-
-- Learning efficiency is now $LE\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R(f(\mathbf{Z}_n^1))]}{\mathbb{E}[R(f(\mathbf{Z_n}))]}$
-
-$f$ .ye[transfer learns] from $\mathbf{Z}\_{n}^0$ with respect to task $t$ when $LE\_{n}(f) > 1$
-
-<!-- .center[$LE\_{\mathbf{n}}(f) = \frac{\mathbb{E}[R(f(\bold{Z}'\_{\mathbf{n}}))]}{\mathbb{E}[R(f(\mathbf{Z}'\_{0}))]} > 1$ 
-.]
---> 
-
----
-
-### What is multitask learning? 
-
-- Now we have lots of tasks, say $T$ many, each with their own data $\mathbf{Z}_n^t$, $t \in [T]$, along with some side information $\mathbf{Z}_n^0$
-- Learning efficiency for task $t$: $LE\_{n}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{n}^t))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{n}))]}$
-- Let $n_t = |Z_n^t|$
-- Define .ye[weak] multitask learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]}n\_t \cdot LE\_{\mathbf{n}}^t(f)$
-]
-- Define .ye[strong] multitask learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
-]
-
-$f$ .ye[multitask learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-$LE\_{\mathbf{n}}(f)  > 1$
-
-
-
-
-
----
-### What is efficient learning? 
-
-- Let .ye[$c$] be the upper bound on the .ye[computational cost] of updating $h$ given a new $Z \in \mathcal{Z}$ and choosing an $a \in \mathcal{A}$.
-- Let $\mathcal{F}_e = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in poly(n,c) \rbrace$
-
-
-$f$ .ye[efficiently learns] from $\mathbf{Z}\_n$ with respect to task $t$ when $LE\_n(f) > 1$ and $f \in \mathcal{F}_e$.
-
-
-
----
-### What is lifelong learning? 
-
-
-
-- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-- Define .ye[weak] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
-]
-- Define .ye[strong] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
-]
-
-$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-$LE\_{\mathbf{n}}(f)  > 1$
 
 
 ---
 ### What is lifelong cheating?
 
 - Store every sample you've ever seen 
-- Every time we are faced with a new $z$, $q$, or $t$, just update everything in batch mode 
+- Every time we are faced with a new data, just update everything in batch mode 
 - Now just run your favorite multitask $f$
 - Doing so consumes $\mathcal{O}(n^2)$ resources because $ \sum_{i =1}^n i = n^2$
 
 
 
 - So, to differentiate lifelong learning from multitask learning requires a particularly efficient algorithm
-- $f$ must consume less than quadratic resources as a function of $n$,  $f \in o(n^2,c) $
- 
-<!-- - Let $\mathcal{F}_{< 2} = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in o(n^2,c) \rbrace$ -->
+- $f$ must consume less than quadratic resources as a function of $n$,  $f \in o(n^2)$
  
 
 
 
 ---
-### What is lifelong learning? 
 
-
-<!-- 
-
-- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-- Define .ye[weak] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
-]
-- Define .ye[strong] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$ and 
-]
-
-$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-$LE\_{\mathbf{n}}(f)  > 1$ -->
-
-
-- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-- Define .ye[weak] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
-]
-- Define .ye[strong] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
-]
-
-$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-$LE\_{\mathbf{n}}(f)  > 1$ and $f \in o(n^2,c) $
-
-
-
-<!-- 
-- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-
-
-
-$f$ .w[weakly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-performance improves due to  other task's data, on .ye[average] 
-
-.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$ and $f \in o(n^2,c) $
-]
-
-
-
-$f$ .w[strongly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-performance improves due to other task's data, on .ye[each] task 
-
-.center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$ and $f \in \mathcal{F}_{< 2}$
-
-] -->
-
-
----
-### What is forward learning?
-
-
-- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{Z}\_n$ 
-- Let $\mathbf{Z}\_n^{< t} = \lbrace Z\_1, Z\_2, \ldots, Z\_{n_t}  \rbrace$
-- .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FLE^t\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}  $$
-
-$$  \text{(weak) }   FLE^t\_{\mathbf{n}}(f) := \sum\_{t \in [T]} FLE\_{\mathbf{n}}^t(f)P(t) $$
-$$  \text{(strong) }   FLE^t\_{\mathbf{n}}(f) := \min\_{t \in [T]} FLE\_{\mathbf{n}}^t(f) $$
-
-<br>
-
-$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
-
----
-### What is backward learning?
-
-
-
- .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
-
-
-$$    BLE^t\_{\mathbf{n}}(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}  $$
-
-$$  \text{(weak) }   BLE^t\_{\mathbf{n}}(f) := \sum\_{t \in [T]} BLE\_{\mathbf{n}}^t(f)P(t) $$
-$$  \text{(strong) }   BLE^t\_{\mathbf{n}}(f) := \min\_{t \in [T]} BLE\_{\mathbf{n}}^t(f) $$
-
-
-<br>
-
-$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
-
-
----
-### Learning efficiency factorizes
-
-
-$$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
-
-$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times
-           \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
-
-<br>
-
-We therefore have a single metric to quantify transfer.
-
-
----
-### What is progressive learning? 
-
-
-$f$ weakly/strongly .ye[progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-it weakly/strongly learns both forward and backward 
-
-
-.center[$ \min \left(FTE\_{\mathbf{n}}(f),BTE\_{\mathbf{n}}(f) \right)    > 1  $ and $f \in o(n^2,c) $
-]
-
-
-
-
-<!-- .center[$\left( FLE\_{\mathbf{n}}^t(f)  > 1 \right) \times \left( BLE\_{\mathbf{n}}^t(f)  > 1 \right)  ,  \ \  t \in [T]$
-] -->
-
-
----
-
-### A taxonomy of  approaches
+### A computational taxonomy 
 
 | Par.    | &rarr; | &larr;  | space   | time         | Examples     
 | :---:   | :---:  | :---:   | :---:| :---:           |                       
@@ -514,616 +250,79 @@ it weakly/strongly learns both forward and backward
 | semipar | +      | +       | T    | nT              | ProgL Networks        
 | nonpar  | +      | +       | n    | nT              | ProgL Forests         
 
-<!-- parametric, replay, space, time, forward, backwards, examples -->
-<!-- apples to apples comparisons are only possible within a row of the table -->
 
-
-
----
-### Some nuances 
-
-- Sometimes, $f$ might not know that the task has changed 
-- This framework cannot easily deal with distribution drift, or reinforcement learning
-
-
-
----
-name:rep
-
-### Outline 
-
-
-- Learning
-- [Ensembling](#rep)
-- [Experiments](#exp)
-- [Theory](#theory)
-- [Brains](#neuro)
-- [Discussion](#disc)
-
-
+Apples to apples comparisons therefore requires conditioning on the same space & time complexity. 
 
 
 ---
 
-###  Learning Taxonomy 
+### Additional benchmarks 
 
 
-![:scale 100%](images/learning-taxonomy.svg)
-
-
- 
----
-name:rep
-
-### Outline 
-
-
-- [Learning](#learn)
-- Ensembling
-- [Experiments](#exp)
-- [Theory](#theory)
-- [Brains](#neuro)
-- [Discussion](#disc)
+![:scale 100%](images/L2N-CIFAR-benchmarks.png)
 
 
 ---
- 
 
-### Composable Hypotheses 
+# Phase 2 plans
 
-.center[ .ye[$h(\cdot) := w \circ v \circ u (\cdot) = w(v(u(\cdot)))$]]
-
-- Let $u$ be .ye[transformer] data to a new representation, 
-
-$$ u : \mathcal{Q}  \to \tilde{\mathcal{Q}}$$
-
-- Let $v$ be .ye[voter] which operate on the transformed data outputs votes (score functions, posteriors) on all possible actions 
+- Theory 
+- Algorithms
+- System group 
 
 
-$$ v : \tilde{\mathcal{Q}} \to \mathcal{V}$$
+---
 
+### Theory goal 1: finish unified theory
 
-- Let $w$ be .ye[decider] which decides which actions to take on the basis of the votes 
+- Finalize paper characterizing unified theory 
+- Write all proposed metrics in terms of this unified theory
 
+---
 
-$$ w : \mathcal{V} \to \mathcal{A}$$
+### Theory goal 2: prove consistency
+
+Prove the conditions under which ProgLearn algorithms achieve  Bayes optimal peformance. <br>
+
+Proof sketch 
+- Histograms converge to optimal under Glivenko-Cantelli theorem
+- RF & DN are essentially adaptive histogram rules
+- We can use RF/DN to learn calibrated histogram for any task 
+- Asymptotically, ensembling them cannot hurt, so transferring will either help or not have any impact
 
 
 
 ---
 
-![:scale 100%](images/single_decomposable_hypothesis.png)
+### Limitations of existing theory 
 
-<!-- TODO@ali: can we use an svg here? or a higher res png if you can't get a vector graphic? -->
-
----
- 
-
-
-### Simple Examples
-
-- Linear Discriminant Analysis (shallow)
-  - $u$: projection onto a line 
-  - $v$: fraction of points per over/under threshold
-  - $w$: maximum a posteriori class 
---
-
-
-
-- Decision Tree (deep)
- - $u$: union of polytopes
- - $v$: fraction of points per class per leaf node
- - $w$: maximum a posteriori class 
-
- 
----
-
-### Predictive Ensembling
-
-
-- Ensemble votes from multiple voters in a decider
-  $$
-  w \circ
-  \begin{bmatrix}
-    v_1 \circ u_1 \\\\
-    v_2 \circ u_2 \\\\
-    \vdots \\\\
-    v_m \circ u_m 
-  \end{bmatrix}
-  $$
-
----
-
-![:scale 100%](images/predictive_ensembling.png)
-
----
-
-
-#### Predictive Ensembling Example
-
-
-- Decision Forest 
-  - $u_b$ for $B$ trees: union of overlapping polytopes
-  - $v_b$ for $B$ trees: fraction of points per class per leaf node
-  - $w$: maximum a posteriori class averaging over trees 
-
-
----
-
-### Key Idea 
-
-- .ye[Different transformers can composed with  voters]
-- Learn many different transformers $u_t(\cdot)$'s 
-- For each $u\_t$, learn voter per task $v\_{t,t'}$'s 
-- Use the decider to weight the various options 
-- This is .ye[ensembling representations].
-
-### Notes
-
-- We learn new representation for each task. 
-- Dimensionality of internal representation grows linearly with number of tasks.
-  
-
----
-
-
-### Representational Ensembling
-
-
-- Ensemble representations from multiple transformers in a voter
-- Assume $m$ transformers and $n$ voters
-- Let $u = 
-  \begin{bmatrix}
-    u_1 \\\\
-    u_2 \\\\
-    \vdots \\\\
-    u_m 
-  \end{bmatrix}$, and 
- $
-  w \circ
-  \begin{bmatrix}
-    v_1 \circ u \\\\
-    v_2 \circ u \\\\
-    \vdots \\\\
-    v_n \circ u 
-  \end{bmatrix}
-  $
-
----
-
-![:scale 100%](images/representational_ensembling.png)
-
----
-
-#### Representational Ensembling Examples 
-
-- Uncertainty Forests 
-  - $u$: tree structures
-  - $v$: posterior estimators
-  - $w$: max 
-- Deep Nets 
-  - $u$: "backbone" (all but last layer)
-  - $v$: softmax layer
-  - $w$: max 
-
+- streaming data
+- distributional drift
+- reinforcement learning
 
 
 
 
 ---
 
+### Theory goal 3: generalize theory
 
 
-### Composable Learning
+Assume we have four streams:
 
-<br> 
+1. data 
+2. queries
+4. actions 
+3. feedback
 
-|  Scenario | Composition 
-|  :--- | :--- 
-| Single task learning | $ h(\cdot) = w \circ v \circ u (\cdot)$
-| Multiple independent task learning | $ h_t(\cdot) = w_t \circ  v_t \circ u_t (\cdot)$ 
-| Single task ensemble learning |$ h(\cdot) = w \circ \bigcup_t [ v_t \circ u_t (\cdot)] $ 
-| Multitask learning | $ h_t(\cdot) = w_t \circ  v  \circ \bigcup_t  u_t (\cdot)$
-| .ye[Multitask ensemble representation learning]  | $ h\_t(\cdot) = w\_t \circ  \bigcup\_{t'}  [v\_{t,t'}  \circ    u\_{t'} (\cdot) ] $
-
-
-
-
----
-  
-
-### Lifelong Learning Schema
-
-
-![:scale 100%](images/learning-schemas.png)
-
-
-
-- Any learner with an explicit internal representation is ok, 
-  - e.g.,  decision trees, decision forests, deep networks 
-<!-- - SVM's are not obviously -->
-
-  
-
----
- 
-
-### General Representations 
-
-- Transformers learn representations 
-- We desire representations that are sufficient for one task, and  useful for other tasks 
-- Decision trees, decision forests, and deep nets (with ReLu nodes) .ye[partition] feature space into polytopes
-
-
-![:scale 100%](images/deep-polytopes.png)
-
-
-<!-- <img src="images/deep-polytopes.png" style="width:500px;"/> -->
-
----
-
-### Partition and Vote 
-
-<!-- TODO@ali make this slide-->
-
-- Given query space $\mathcal{Q}$, say $\mathbb{R}^d$ and $n$ samples, for example $(x\_i, y\_i)_{i = 1}^{n}$, where $x_i \in \mathbb{R}^d$ and $y_i$ could be labels
-- Transfomer $u$ partitions $\mathcal{Q}$, mapping $x_i$ to its corresponding cell in the partition
-- Voter $v$ scores actions in each cell (e.g. empirical posterior distribution) given how they are populated by transformer 
-- For a given test query $x$, 
-    - $u$ maps $x$ to its cell
-    - $v$ votes on actions in this cell
-    - decider $w$ chooses action based on $v$'s votes (e.g. arg max)
-
----
-
-### Ensemble, Partition and Vote 
-
-- Get a transformer class $U$, with each $u \in U$ partitioning $\mathbb{R}^d$ differently
-- Get a voter class $V$, with each $v \in V$ voting differently on each cell in a given partition, and make it vote on every partition 
-- Decider $w$ ensembles the votes on actions from each voter to decide on an action given a test query $x$
-
----
-
-### Lifelong Learning Algorithm
-
-For each new task, 
-1. learn a new representation function, 
-2. apply it to all data from all tasks: the updated representation for everything is the composition of this new representation with existing representations.  
-4. update all decision rules using this representation.
-
-Notes:
-- This linearly increases representation capacity.
-- Without increasing representation capacity, performance on all tasks will necessarily drop to chance levels eventually as number of tasks increases.
-- Thus, fixed capacity systems can only lifelong learn insofar as they are inefficient (unnecessarily big) for individual tasks.
-
-
-
-<!-- TODO@jv: somewhere must introduce the concept of adjusting representations -->
+These streams need not be synchronous. <br>
+The goal is to minimize performance after some period of time.<br>
 
 
 
 ---
 
-### Pseudocode 
-
-- Given  $\color{magenta}{j-1}$ transformers learned from the previous $\color{magenta}{j-1}$ datasets and  a new $\color{yellow}{j^{th}}$ dataset with task label $\color{yellow}{t_j}$, do:
-- learn a new transformer using $\color{yellow}{j^{th}}$ data
-- .magenta[reverse transfer update] for each of the $\color{magenta}{j-1}$ previous tasks: 
-    1. transform a subset of the data through the $\color{yellow}{j^{th}}$ transformer
-     (this requires having stored some of the data)
-    3. learn a new voter using the $\color{yellow}{j^{th}}$ representation of data
-    4. update decision rules by appending this additional voter
-- .ye[forward transfer update] for all data associated with $\color{yellow}{j^{th}}$ task:
-  1. transform a subset of the data through the $\color{yellow}{j^{th}}$ transformer
-  2. transform through each of the $\color{magenta}{j-1}$ existing transformers 
-  3. learn a new voter for all $j$ transformers 
-  4. make decision rule by averaging over $j$ voters
-
-
-
----
-name:results 
-
-### Outline 
-
-
-- [Learning](#learn)
-- [Ensembling](#rep)
-- Experiments
-- [Theory](#theory)
-- [Brains](#neuro)
-- [Discussion](#disc)
-
-
-
----
-
-
-### A Transfer Example
-
-- .ye[XOR]
-  - Samples in the (0,0) and (1,1) quadrants are purple  
-  - samples in the (0,1) and (1,0) quadrants are green 
-- .lb[N-XOR]
-  - Samples in the (0,0) and (1,1) quadrants are green  
-  - samples in the (0,1) and (1,0) quadrants are purple 
-- Optimal decision boundaries for both problems are coordinate axes
-
-<img src="images/gaussian-xor-nxor.svg" style="width:475px" class="center"/> 
-
-
-
-
-
-
----
-
-
-### XOR vs NXOR Transfer Efficiency
-
-![:scale 100%](images/xor-te.svg)
-
-
- 
-
----
-
-### Lots of Transfer Efficiency
-
-![:scale 100%](images/lotsa-te.svg)
-
-<!-- 
-### Different # of Classes 
-
-<img src="images/spiral-all.png"  style="height:500px;"> -->
-
-
-<!-- ## Consider an  example -->
-
-
-
-
-
----
-
-### CIFAR 10x10
-
-
-
-.pull-left[
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
-- 500 training images and 100 testing images per class.
-- All images are 32x32 color images.
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
-]
-
-.pull-right[
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
-]
-
-
-<!-- 
-
-
-
-
-### Forward Transfer Efficiency
-
-- y-axis indicates .ye[forward transfer efficiency] (FTE), 
-  - which is the ratio of "single task error" to "error using past tasks"
-- each algorithm has a line
-  - if the line .ye[increases], that means it is doing "forward transfer"
-
- -->
-
-
-
----
-
-Lifelong Forests and Networks consistently demonstrate .ye[forward transfer] for every task.
-
-![:scale 100%](images/cifar-100-FTE.svg)
-
-- left: resource building 
-- right: resource recruiting
-
-<!-- 
-
-
-### Backward Transfer Efficiency
-
-- y-axis indicates .ye[backward transfer efficiency] (BTE), 
-  - which is the ratio of "single task error" to "error using future tasks"
-- each task will have a line
-  - if the line .ye[increases], that means it is doing "backward transfer" 
-
--->
-
-
----
- 
-
-Lifelong Forests and Networks .ye[uniquely exhibits backward transfer].
-
-
-![:scale 100%](images/cifar-100-BTE.svg)
-
-- left: resource building 
-- right: resource recruiting
-
----
-
-### L2F & L2N  transfer on .ye[every task]
-
-
-![:scale 60%](images/TE.svg) 
-
-
----
-
-
-
-### Language Identification
-
-
-
-- 8,194,317 sentences from wikipedia (downloaded from facebook). 
-- 156 languages
-- Trained using unsupervised FastText embedding
-- words, 2-4 char n-grams embedded into 16 dimensions
-- selected 30 languages
-- break into batches of 3 "related" languages
-
-![:scale 100%](images/30-languages.png) 
-
-
-
-
----
-
-###  Backward Transfer
-
-![:scale 60%](images/language.svg)
-
-<!-- Note RTE &gt;5 for task 4.
--->
-
-
----
-
-
-### Web-Search Categorization
-
-.pull-left[
-- Same data as above
-- labels now correspond to Microsoft Bing "dominant type"
-- 10k training 
-- 1k testing entities
-- 20 classes 
-  - each with &ge;11k samples
-- 4 classes per task
-]
-
-.pull-right[
-![:scale 100%](images/bing-dominant-types.png) 
-]
-
-
----
-
-### Backward Transfer
-
-![:scale 60%](images/web.svg)
-
-
----
-
-## Outline
-
-- [Learning](#learn)
-- [Ensembling](#rep)
-- [Experiments](#exp)
-- Theory
-- [Brains](#neuro)
-- [Discussion](#disc)
-
-
----
-
-
-### What do classifiers do?
-
-<br>
-
-learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \lbrace 0,1 \rbrace$
-1. partition feature space into "parts",
-2. compute plurality  of points in each part.
-
-
-predict: given $x$
-2. find its part, 
-3. report the plurality vote in its part.
-
-
----
-
-
-### What can regressors do?
-
-<br>
-
-learn: given $(x_i,y_i)$, for $i \in [n]$, where $y \in \mathbb{R}$
-1. partition feature space into "parts",
-2. compute average of points in each part.
-
-
-predict: given $x$
-2. find its part,
-3. report the average vote in its part.
-
-
-
-
----
-
-
-### The fundamental theorem of statistical pattern recognition
-
-
-
-If each part is:
-
-1. small enough, and 
-2. has enough points in it, 
-
-then given enough data, one can learn *perfectly, no matter what*! 
-
-
-$$\mathcal{E}\(f_n) \rightarrow \mathcal{E}^*,$$
-
-where $\mathcal{E}^*$is Bayes optimal.
-
--- Stone, 1977
-
-
-<!-- NB: the parts can be overlapping (as in kNN) or not (as in histograms) -->
-
-
-
----
-
-
-### The fundamental .ye[theorem] of transfer learning
-
-
-If each cell is:
-
-- small enough, and 
-- has enough points in it, 
-
-then given enough data, one can .ye[transfer learn] *no matter what*! 
-
-
--- jovo, 2020
-
-
-Specifically, this means:
-- as $n_0, n_1 \to \infty$, TE is at least $1$, $\mathcal{E}(f_n) \to \mathcal{E}^*$ 
-
-
----
-name:neuro 
-
-### Outline 
-
-
-- [Learning](#learn)
-- [Ensembling](#rep)
-- [Experiments](#exp)
-- [Theory](#theory)
-- Brains
-- [Discussion](#disc)
-
+# Appendix
 
 ---
 

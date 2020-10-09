@@ -16,7 +16,7 @@
 
 
 
-### Lifelong Learning: Theory and Practice
+### Lifelong Learning: <br>Theory and Practice
 
 
 PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/) <br>
@@ -34,42 +34,125 @@ Carey E. Priebe
 
 ---
 
+### Outline 
+
+- Summary slide 
+- Brief Phase 1 review 
+- Summer updates
+- Phase 2 plans
+
+
+---
+
 Biological agents progressively build representations to transfer both forward & backward
 
 
 ![:scale 110%](images/learning_schema_darpa.png)
 
+
 ---
-class:middle
 
+### Phase 1 
 
-| Biology Learning | Machine Learning |
-| :---   | :--- 
-| old | new 
-| little | big 
-| light | heavy 
-| free | expensive 
-| imprecise | precise
-| energy efficient | hog 
-| data efficient | glutton 
-| remembers | usually forgets 
-| builds models | sometimes
-| .r[extrapolates] | interpolates 
+- Metrics
+- Algorithmic insights 
+- Benchmarks
+
+---
+class: middle
+
+### Lifelong Learning Metrics 
 
 
 ---
 
-### Motivating questions
+### Task Definition
 
 
-1. Are biological and machine learning trying to do the same thing?
-2. Do they use the same algorithms? Could they? 
-2. Can we  talk about them using the same terminology?
-3. Can we characterize their abilities using the same units? 
+| Component | Notation | Examples |
+| :--- | :--- | :--- 
+| Query Space | $\mathcal{Q}$ | where's waldo?
+| Action Space | $\mathcal{A}$ | A,B, &rarr;, &larr; 
+| Measurement Space | $\mathcal{Z}$ |  8-bit images, 256 x 256
+| Statistical Model | $\mathcal{P}$ | Gaussian 
+| Hypotheses | $\mathcal{H}$ | linear functions
+| Risk | $R$ | expected loss
+| Algorithm Space | $\mathcal{F}$ | Random Forests
+| Distribution | $P$ | $\mu=0$, $\sigma=1$
+<!-- | Task Awareness | $T_i$ | {aware, oblivious, ambivalent} -->
 
---
+<!-- $2^8 \times 3 \approx 800$ ways tasks can differ.   -->
 
-They are both about .ye[learning], so....should they?
+---
+
+
+### What is learning?
+
+.ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$. 
+
+Let $\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))]$ denote .ye[performance], and $\bold{Z}_0$ corresponds to no data. 
+
+Define .ye[learning efficiency]: $$LE_n(f) := 
+\frac{\mathcal{E}_0(f)}{\mathcal{E}_n(f)}$$
+
+
+<br>
+
+$f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
+
+
+
+
+---
+### What is forward learning?
+
+
+- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{Z}\_n$ 
+- Let $\mathbf{Z}\_n^{< t} = \lbrace Z\_1, Z\_2, \ldots, Z\_{n_t}  \rbrace$
+- .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
+$$    FLE^t\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}  $$
+
+
+<br>
+
+$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) > 1$.
+
+---
+### What is backward learning?
+
+
+
+ .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+
+
+$$    BLE^t\_{\mathbf{n}}(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}  $$
+
+
+
+<br>
+
+$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
+
+
+---
+### Learning efficiency factorizes
+
+
+$$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
+
+$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times
+           \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
+
+<br>
+
+
+---
+
+### Algorithmic Insights
+
+---
+
+![:scale 100%](images/learning-schemas-simple.png)
 
 
 
@@ -189,19 +272,6 @@ meaning no data
 $$\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))] $$
 - Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathbb{E}[R(f(Z_0))]$, where $Z_0 = \emptyset$ is the empty set, is a function of $\theta_0$
 
-
----
-
-
-### What is learning?
-
-.ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$,
-
-Define .ye[learning efficiency]: $$LE_n(f) := \frac{\mathbb{E}[R(f(Z_0))]}{\mathbb{E}[R(f(\bold{Z}_n))]}$$
-
-<br>
-
-$f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
 
 
 ---
@@ -466,25 +536,6 @@ name:rep
 
 ![:scale 100%](images/learning-taxonomy.svg)
 
-
----
-
-### Ways Tasks can Differ
-
-
-| Component | Notation | Examples |
-| :--- | :--- | :--- 
-| Query Space | $\mathcal{Q}$ | new keyboard introduced
-| Action Space | $\mathcal{A}$ | class incremental, task incremental
-| Measurement Space | $\mathcal{Z}$ | another modality
-| Statistical Model | $\mathcal{P}$ | Gaussian to Log-Gaussian
-| Hypotheses | $\mathcal{H}$ | linear functions
-| Risk | $R$ | expected loss
-| Algorithm Space | $\mathcal{F}$ | SVM
-| Distribution | $P$ | mean shift
-| Task Awareness | $T_i$ | {aware, oblivious, ambivalent}
-
-$2^8 \times 3 \approx 800$ ways tasks can differ.  
 
  
 ---

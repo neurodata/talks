@@ -92,7 +92,7 @@ Biological agents progressively build representations to transfer both forward &
 
 .ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$. 
 
-Let $\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))]$ denote .ye[performance], and $\bold{Z}_0$ corresponds to no data. 
+Let $\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))]$ denote .ye[error], and $\bold{Z}_0$ corresponds to no data. 
 
 Define .ye[learning efficiency]: $$LE_n(f) := 
 \frac{\mathcal{E}_0(f)}{\mathcal{E}_n(f)}$$
@@ -345,7 +345,7 @@ Assume we have four streams:
 3. feedback
 
 These streams need not be synchronous. <br>
-The goal is to minimize performance after some period of time.<br><br>
+The goal is to minimize error after some period of time.<br><br>
 
 
 This generalizes our existing 'unified theory' to include streaming data, distributional drift, and reinforcement learning.R

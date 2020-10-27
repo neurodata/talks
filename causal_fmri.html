@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>fMRI Causality</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style_i.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <textarea id="source">
+
+
+
+<!-- TODO add slide numbers & maybe slide name -->
+
+## Batch Effects are Causal Effects
+
+
+---
+
+## Outline
+
+- [The Basics](#basics)
+- [Methodologic Considerations](#methods)
+- [Acknowledgements](#ack)
+
+---
+name:basics
+
+## Outline
+
+- The Basics
+- [Results](#results)
+- [Acknowledgements](#ack)
+---
+
+## Defining a "Batch Effect"
+
+- Batch effect: accidental source of variation across multiple experiments
+  - .ye[accidental variation]: we don't intend for it
+  - .ye[multiple experiments]: a series of experiments is being conducted numerous times (ie, in multiple places)
+
+---
+## Why are batch effects problematic?
+- Problem: failure to replicate in neuroimaging
+  - Perform experiments at a single site, do some associational inference task, report result
+  - Repeat experiment elsewhere, get a different result
+  - This problem (reproducibility crisis) plagues neuroimaging and many other fields
+---
+## Batch Effect Example
+- Hypothetical question: what are the differences in functional connectivity (FC) between young and old people, at rest?
+  - Who: young and old people
+  - What: regions with different FC
+- If I were to compare young and old people outright, I would probably see an effect
+  - Problem: I measure young and old people again, with an MR machine at a different site, and a different repetition time (TR)
+  - Do I see the same regions? Probably not, and they may not even look remotely close
+  - different TR $\Rightarrow$ different artifacts left in FC
+  - these artifacts comprise deviations related to the "batch"
+---
+### How do Causal Effects Differ from Associations/Independence?
+- an association can (nearly) always be inferred
+  - We have a response (FC) and a set of predictors (sex, age, demographic, dataset)
+  - association: after adjusting the response, directly, for predictors, do two datasets differ?
+--
+
+- a causal relationship .ye[cannot] always be inferred
+  - We have a possible effect (FC), a set of covariates (sex, age, demographic), and a potential cause (batches)
+  - to deduce causality, we .ye[must] have .ye[similar potential covariate distributions] between datasets being compared
+  - requires .ye[hypothetical reasoning], .ye[direct adjustment] of datasets being compared, and .ye[repeated observation]
+---
+name:results
+
+## Outline 
+
+- [The Basics](#basics)
+- Results
+- [Acknowledgements](#ack)
+---
+## Procedure
+- CoRR Dataset
+  - $N>1,700$ individuals imaged across $26$ different datasets
+  - All individuals have anatomical MRI and fMRI scans needed to estimate FC
+  - all datasets have associated covariates (sex, age, continent)
+- for all pairs of datasets $d_1, d_2$:
+  - Estimate independence effect by comparing FC from first dataset, to FC from second dataset, through direct adjustment;
+  - Let FC$'$ be the FC after adjustment for the covariate distribution of FC;
+  - Estimate batch effect by comparing FC$'$ from first dataset, to  FC$'$ from second dataset, causally, .ye[if such a comparison is possible];
+- key aspect: comparison is, quite often, .ye[impossible]
+---
+## Invalid Comparisons are frequent and prominent
+Figure 1 from paper
+---
+### Batch Effects and Independence Effects can be Eliminated through ComBat
+Figure 2 from paper
+---
+### ComBat preserves aggregate (dataset-level) Signal
+Forest plot before/after ComBat + Table
+---
+### ComBat is unit-preserving
+Aggregate Figure showing homophilic and homotopic ratios
+---
+name:disc
+
+## Outline
+
+- [The Basics](#basics)
+- [Methodologic Considerations](#methods)
+- Acknowledgements
+---
+# Acknowledgements
+- Key Contributors: Joshua T. Vogelstein, Brian Caffo, Mike Powell, Noam Finkelstein, Anton Alyakin, Consortium for Reliability and Reproducibility
+
+</textarea>
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <!-- <script src="remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
+
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+
+    // var slideshow = remark.create({
+    // Set the slideshow display ratio
+    // Default: '4:3'
+    // Alternatives: '16:9', ...
+    // {
+    // ratio: '16:9',
+    // });
+
+    var slideshow = remark.create(options, renderMath);
+
+
+  </script>
+</body>
+
+</html>

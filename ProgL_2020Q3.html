@@ -101,6 +101,7 @@ The data are determined by physical implementation of the system:
 
 -  .ye[Measurement space]: $\mathcal{Z}$,  determined by available sensors
   - visual, auditory, tactile, text, vectors, networks, etc.
+  - also could be priors, inductive bias of of the hypotheses, estimation bias of the algorithm, pre-training, etc. or any combination thereof
 - .ye[Action space]: $\mathcal{A}$,  determined by available actuators
   -  &rarr;, &larr;, &uarr;, &darr;, etc.
   <!-- , {reject, fail to reject}, $\mathbb{R}$ -->
@@ -135,9 +136,9 @@ We get to choose the learning algorithm $f$:
 - $\vec{\mathcal{Z}} = \bigcup_{n = 0}^{\infty}\mathcal{Z}^n$, a .ye[data corpus] $\mathbf{Z}_n= \lbrace Z_1, Z_2, \ldots, Z_n \rbrace$, and $\mathcal{Z}^0 = \emptyset$ is the empty set,
 meaning no data
 -  $\mathcal{H} = \lbrace h : \mathcal{Q} \rightarrow \mathcal{A} \rbrace$,  where a .ye[hypothesis] $h$ takes an action on the basis of a query
-- $\Theta$ the parameter space, which could be priors, inductive bias of $\mathcal{H}$, estimation bias of $f$, pre-training, etc. or any combination thereof
-- $f: \vec{\mathcal{Z}} \times \Theta \to \mathcal{H}$, a learning .ye[algorithm] with parameter $\theta_0$ maps data sets from $\mathcal{Z}$ to a hypothesis 
-- For notational convenience, we will suppress the $\theta_0$, as it is always present
+- $f: \vec{\mathcal{Z}} \times \mathcal{Z} \to \mathcal{H}$, a learning .ye[algorithm] with the first parameter being the data set and the second parameter being a
+hyperparameter/initilization for the algorithm 
+- For notational convenience, we will suppress the second parameter, as it is always present
 
 ---
 
@@ -151,15 +152,16 @@ meaning no data
 
 ---
 
-### What is performance?
+### What is the model?
 
 - We care about future performance on unseen queries, not past performance
 - To make any out-of-data claims requires .ye[assumptions]
-  - A .ye[datum] $Z\_i$ is sampled iid from some true but unknown distribution $P\_{Z} \in \,
-\mathcal{P}$
+  - .ye[data] $\mathbf{Z}\_n$ is sampled according to $P\_{\mathbf{Z}\_n}$ and observed in $\mathcal{Z}^n$
+  - $\mathcal{P}\_{Z} = (\mathcal{P}\_{\mathbf{Z}\_n})\_{n = 1}^{\infty}$ is the data model, where $\mathcal{P}\_{\mathbf{Z}\_n} = \lbrace P\_{\mathbf{Z}\_n} \rbrace$ is the family of
+  distributions that characterizes the $n$ samples
   - A .ye[query], $q \in \mathcal{Q}$ is sampled iid from some true but unknown distribution $P_Q \in \, \mathcal{P}_Q$ 
   - An optimal .ye[action], $a \in \mathcal{A}$ given $q$, is sampled iid from some true but unknown distribution $P\_{A \mid Q} \in \, \mathcal{P}_{A \mid Q}$ 
-- Let $P\ = P\_{Z} \otimes P\_{A | Q} \otimes P\_Q \in \, \mathcal{P}$ denote the joint .ye[distribution] over samples, queries, and optimal actions
+- $\mathcal{P} = \lbrace P\_{\mathbf{Z}\_n} \otimes P\_{A, Q} \rbrace$ is the task model, which is the set of joint .ye[distribution] over samples, queries, and optimal actions
 - $\mathcal{P}$ is called the .ye[statistical model]
 
 
@@ -173,65 +175,103 @@ meaning no data
 - .ye[Risk] 
   e.g., expected loss: $ R(h) :=  \ \mathbb{E}\_{Q, A}[\ell(h(Q), A)] $ 
 - For an algorithm, the risk is $ R(f(\bold{Z}_n)) $
-- .ye[Performance] is defined as expected risk (or .ye[generalization error]):
-$$\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))] $$
-- Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathbb{E}[R(f(Z_0))]$, where $Z_0 = \emptyset$ is the empty set, is a function of $\theta_0$
-
+- The .ye[generalization error] of the algorithm $f$ given the data set $\bold{Z}\_n$
+$$\mathbb{E}_P[R(f(\bold{Z}_n))]$$
 
 ---
 
+### What is the setting?
+
+
+$$s = (\mathcal{Q}, \mathcal{A}, \vec{\mathcal{Z}}, \mathcal{P}, \mathcal{H}, R, \mathcal{F})$$
+- $\mathcal{Q}$ is the query space
+- $\mathcal{A}$ is the action space
+- $\vec{\mathcal{Z}}$ is the data set space
+- $\mathcal{P}$ is the task model
+- $\mathcal{H}$ is the hypothesis space
+- $R$ is the risk function
+- $\mathcal{F}$ is the algorithm space
+
+---
+
+### What is the task?
+
+Given a setting $s$ and $n$ samples $\mathbf{Z}\_n$ drawn according to $P$, the task $t$ is to find the algorithm that minimizes the generalization error,
+$$f\_n^* = \text{argmin}\_{f \in \mathcal{F}}\mathbb{E}[R\left(f(\mathbf{Z}\_n)\right)]$$
+
+---
+
+### What is performance?
+
+- For an algorithm, the risk is $ R(f(\bold{Z}_n)) $
+- .ye[Performance] is defined as expected risk (or .ye[generalization error]) minus the optimal (Bayes) risk:
+$$\mathcal{E}_f^t(\mathbf{Z}\_A) := \mathbb{E}_P[R(f(\bold{Z}_A))] - R^* $$
+- Performance prior to acquiring data $\mathbf{Z}_n$ is $\mathcal{E}\_f^t(\mathbf{Z}\_0)$, where $\mathbf{Z}\_0 = \varnothing$ is the empty set, meaning no data 
+
+---
 
 ### What is learning?
 
 .ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$,
 
-Define .ye[learning efficiency]: $$LE_n(f) := \frac{\mathbb{E}[R(f(Z_0))]}{\mathbb{E}[R(f(\bold{Z}_n))]}$$
+Define .ye[learning efficiency]: $$LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B, f) := \frac{\mathcal{E}_f^t(\mathbf{Z}\_A)}{\mathcal{E}_f^t(\mathbf{Z}\_B)}$$
 
 <br>
 
-$f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
+This tells us whether we learn from $\mathbf{Z}\_A$ or $\mathbf{Z}\_B$.
+
+$f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE^t(\mathbf{Z}\_0, \mathbf{Z}\_n, f)  > 1$.
 
 
 ---
 
 ### What is transfer learning?  
 
-- Also given .ye[side information]
-  - other data 
-  - pre-trained model
-  - priors
-- Side information is sampled according to some distribution $P_{Z_0}$, from $\mathcal{Z}$
-- Task data is sampled according to $P_{Z_1}$, also from $\mathcal{Z}$
-- Redefine $\mathbf{Z}_n$ to be the combined data, $\mathbf{Z}_n = \lbrace (Z_i, k_i) \rbrace$, for $i \in [n]$, where $k\_i = j$ if $Z\_i$ is sampled from $P_j$
-- Let $\mathbf{Z}^j_n = \lbrace (Z_i, k_i) \in \mathbf{Z}_n: k_i = j \rbrace$, $i \in [n]$
+- Given .ye[side information] 
+  - other data, pre-trained model, priors
 
-- Learning efficiency is now $LE\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R(f(\mathbf{Z}_n^1))]}{\mathbb{E}[R(f(\mathbf{Z_n}))]}$
+- Side information is sampled according to some distribution $P_{0}$, from $\mathcal{Z}_0$
+- Task data is sampled according to $P_{1}$, also from $\mathcal{Z}_1$
+- We get data $\mathbf{Z}_n$ to be the combined data, $\mathbf{Z}_n = \lbrace (Z_i, S_i) \rbrace$, for $i \in [n]$, where $S\_i = s_j$ if $Z\_i$ is sampled according to $P_j$
+- $j = 0, 1$, and the $s_0$ can be considered as the null setting corresponding to side information where we only know about the data space
 
-$f$ .ye[transfer learns] from $\mathbf{Z}\_{n}^0$ with respect to task $t$ when $LE\_{n}(f) > 1$
+---
 
-<!-- .center[$LE\_{\mathbf{n}}(f) = \frac{\mathbb{E}[R(f(\bold{Z}'\_{\mathbf{n}}))]}{\mathbb{E}[R(f(\mathbf{Z}'\_{0}))]} > 1$ 
-.]
---> 
+### What is transfer learning?  
+
+
+- Let $\mathbf{Z}^t_n = \lbrace (Z_i, S_i) \in \mathbf{Z}_n: S_i = s(t) \rbrace$, $i \in [n]$, $s(t)$ is the setting of task $t$
+- Transfer learning algorithm $f$ takes in data of the form $(Z, S)$, where $Z$ is observed in $\mathcal{Z}_0\cup\mathcal{Z}_1$
+- The model is now the set $\lbrace P\_{\mathbf{Z}\_n} \otimes P\_{Q, A} \rbrace$, but $P\_{\mathbf{Z}\_n}$ is now a distribution over the new data $\mathbf{Z}\_n$, but $P\_{Q, A}$ is still a
+distribution over the queries and actions from $s\_1$
+- Learning efficiency is now $LE^{t}(\mathbf{Z}_n^t, \mathbf{Z}_n, f) = \frac{\mathcal{E}_f^t(\mathbf{Z}_n^t)}{\mathcal{E}_f^t(\mathbf{Z}_n)}$
+
+$f$ .ye[transfer learns] from $\mathbf{Z}\_{n}^0$ with respect to task $t$ when $LE^t(\mathbf{Z}_n^t, \mathbf{Z}_n, f) > 1$
+---
+
+### What is multitask learning? 
+
+- Now we have an environment of tasks $\mathcal{T}\_m = \lbrace t_1, t_2, \cdots, t_m \rbrace$ , each with their own setting $\mathcal{S}\_m = \lbrace s_1, s_2, \cdots, s_m \rbrace$ along
+with some side information $\mathbf{Z}_n^0$
+- Make same definitions as transfer learning
+  - $\mathbf{Z}_n^t$ is data associated with task $t$
+- Learning efficiency for task $t$: $LE^{t}(\mathbf{Z}_n^t, \mathbf{Z}_n, f) = \frac{\mathcal{E}_f^{t}(\mathbf{Z}_n^t)}{\mathcal{E}_f^{t}(\mathbf{Z}_n)}$
 
 ---
 
 ### What is multitask learning? 
 
-- Now we have lots of tasks, say $T$ many, each with their own data $\mathbf{Z}_n^t$, $t \in [T]$, along with some side information $\mathbf{Z}_n^0$
-- Learning efficiency for task $t$: $LE\_{n}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{n}^t))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{n}))]}$
-- Let $n_t = |Z_n^t|$
 - Define .ye[weak] multitask learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]}n\_t \cdot LE\_{\mathbf{n}}^t(f)$
-]
+
+$$ \text{WMLE}\_n(f) := \sum\_{t \in \mathcal{T}_m}w_t \cdot LE^{t}(\mathbf{Z}_n^t, \mathbf{Z}_n, f) $$
+
+- $\lbrace w_t: t \in \mathcal{T}_m\rbrace$ is a set of weights that form a probability distribution
+
 - Define .ye[strong] multitask learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
-]
 
-$f$ .ye[multitask learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-$LE\_{\mathbf{n}}(f)  > 1$
+$$ \text{SMLE}\_n(f) := \min\_{t \in \mathcal{T}_m} LE^{t}(\mathbf{Z}_n^t, \mathbf{Z}_n, f) $$
 
-
-
+$f$ (strongly or weakly) .ye[multitask learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $\mathcal{T}_m$ if $(\text{S or W})\text{MLE}_n(f) > 1$
 
 
 ---
@@ -241,27 +281,17 @@ $LE\_{\mathbf{n}}(f)  > 1$
 - Let $\mathcal{F}_e = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in poly(n,c) \rbrace$
 
 
-$f$ .ye[efficiently learns] from $\mathbf{Z}\_n$ with respect to task $t$ when $LE\_n(f) > 1$ and $f \in \mathcal{F}_e$.
+$f$ .ye[efficiently learns] from $\mathbf{Z}\_n$ with respect to task $t$ when $LE^t(\mathbf{Z}_n^t, \mathbf{Z}_n, f) > 1$ and $f \in \mathcal{F}_e$.
 
 
 
 ---
 ### What is lifelong learning? 
 
+- Same set up as multitask learning, except now we have a sequence of tasks $\mathcal{T}_m$, called a .ye[curriculum], rather than the set, or environment, of tasks as before
+- Same definitions and quantities (e.g. $\mathbf{Z}_n^t$, strong and weak learning, etc.)
 
-
-- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-- Define .ye[weak] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
-]
-- Define .ye[strong] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
-]
-
-$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-$LE\_{\mathbf{n}}(f)  > 1$
-
+$f$ (strongly, weakly) .ye[lifelong learns] from  $\mathbf{Z}\_{n}$ with respect to tasks $\mathcal{T}_m$  when $(\text{S or W})\text{MLE}_n(f)  > 1$ and $f \in o(n^2,c) $
 
 ---
 ### What is lifelong cheating?
@@ -276,66 +306,6 @@ $LE\_{\mathbf{n}}(f)  > 1$
 - So, to differentiate lifelong learning from multitask learning requires a particularly efficient algorithm
 - $f$ must consume less than quadratic resources as a function of $n$,  $f \in o(n^2,c) $
  
-<!-- - Let $\mathcal{F}_{< 2} = \lbrace f : \vec{\mathcal{Z}} \to \mathcal{H}$   such that  $f \in o(n^2,c) \rbrace$ -->
- 
-
-
-
----
-### What is lifelong learning? 
-
-
-<!-- 
-
-- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-- Define .ye[weak] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
-]
-- Define .ye[strong] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$ and 
-]
-
-$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-$LE\_{\mathbf{n}}(f)  > 1$ -->
-
-
-- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-- Define .ye[weak] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)$
-]
-- Define .ye[strong] lifelong learning efficiency as:
-.center[$LE\_{\mathbf{n}}(f) := \min\_{t \in [T]}   LE\_{\mathbf{n}}^t(f)$
-]
-
-$f$ .ye[lifelong learns] from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-$LE\_{\mathbf{n}}(f)  > 1$ and $f \in o(n^2,c) $
-
-
-
-<!-- 
-- Now we have a .ye[sequence] of tasks,  $\mathbf{Z}\_{\mathbf{n}} = [\mathbf{Z}\_{0},  \mathbf{Z}\_{1}, \ldots, \mathbf{Z}\_{T}]$
-- Learning efficiency for task $t$: $LE\_{\mathbf{n}}^t = \frac{\mathbb{E}[R^t(f(\mathbf{Z}\_{t}))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_{\mathbf{n}}))]}$
-
-
-
-$f$ .w[weakly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-performance improves due to  other task's data, on .ye[average] 
-
-.center[$\sum\_{t \in [T]} LE\_{\mathbf{n}}^t(f)P(t)  > 1$ and $f \in o(n^2,c) $
-]
-
-
-
-$f$ .w[strongly multitask] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
-performance improves due to other task's data, on .ye[each] task 
-
-.center[$\prod\_{t \in [T]}  LE\_{\mathbf{n}}^t(f)  > 1$ and $f \in \mathcal{F}_{< 2}$
-
-] -->
-
-
 ---
 ### What is forward learning?
 
@@ -343,14 +313,15 @@ performance improves due to other task's data, on .ye[each] task
 - Let $n\_t$ be the last occurence of task $t$ in $\mathbf{Z}\_n$ 
 - Let $\mathbf{Z}\_n^{< t} = \lbrace Z\_1, Z\_2, \ldots, Z\_{n_t}  \rbrace$
 - .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FLE^t\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}  $$
+$$FLE^t\_{\mathbf{n}}(f) := LE^t(\mathbf{Z}_n^t, \mathbf{Z}_n^{< t}, f)$$
 
-$$  \text{(weak) }   FLE^t\_{\mathbf{n}}(f) := \sum\_{t \in [T]} FLE\_{\mathbf{n}}^t(f)P(t) $$
-$$  \text{(strong) }   FLE^t\_{\mathbf{n}}(f) := \min\_{t \in [T]} FLE\_{\mathbf{n}}^t(f) $$
+$$  \text{(weak) }   \text{FLE}\_{\mathbf{n}}(f) := \sum\_{t \in \mathcal{T}\_m} w\_t \cdot \text{FLE}\_{\mathbf{n}}^t(f) $$
+
+$$  \text{(strong) }   \text{FLE}\_{\mathbf{n}}(f) := \min\_{t \in \mathcal{T}\_m} \text{FLE}\_{\mathbf{n}}^t(f) $$
 
 <br>
 
-$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
+$f$ (strongly, weakly) .ye[forward learns] if $FLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
 
 ---
 ### What is backward learning?
@@ -360,26 +331,27 @@ $f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
  .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
 
 
-$$    BLE^t\_{\mathbf{n}}(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}  $$
+$$    BLE^t\_{\mathbf{n}}(f) :=  LE^t(\mathbf{Z}_n^{< t}, \mathbf{Z}_n, f) $$
 
-$$  \text{(weak) }   BLE^t\_{\mathbf{n}}(f) := \sum\_{t \in [T]} BLE\_{\mathbf{n}}^t(f)P(t) $$
-$$  \text{(strong) }   BLE^t\_{\mathbf{n}}(f) := \min\_{t \in [T]} BLE\_{\mathbf{n}}^t(f) $$
+$$  \text{(weak) }   BLE\_{\mathbf{n}}(f) := \sum\_{t \in \mathcal{T}\_m} w\_t \cdot  BLE\_{\mathbf{n}}^t(f) $$
+
+$$  \text{(strong) }   BLE\_{\mathbf{n}}(f) := \min\_{t \in \mathcal{T}\_m} BLE\_{\mathbf{n}}^t(f) $$
 
 
 <br>
 
-$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
+$f$ (strongly, weakly) .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$ and $f \in o(n^2,c)$
 
 
 ---
 ### Learning efficiency factorizes
 
 
-$$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
+$$ LE^t(\mathbf{Z}_n^t, \mathbf{Z}_n, f) := FLE^t_n(f)  \times BLE^t_n(f) $$
+$$ LE^t(\mathbf{Z}_n^t, \mathbf{Z}_n, f) = LE^t_n(\mathbf{Z}_n^t, \mathbf{Z}_n^{< t}, f) \times LE^t_n(\mathbf{Z}_n^{< t}, \mathbf{Z}_n, f) $$
 
-$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times
-           \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
-
+$$ \frac{\mathcal{E}_f^t(\mathbf{Z}_n^t)}{\mathcal{E}_f^t(\mathbf{Z}_n)} = \frac{\mathcal{E}_f^t(\mathbf{Z}_n^t)}{\mathcal{E}_f^t(\mathbf{Z}_n^{< t})} \times
+            \frac{\mathcal{E}_f^t(\mathbf{Z}_n^{< t})}{\mathcal{E}_f^t(\mathbf{Z}_n)} $$ 
 <br>
 
 We therefore have a single metric to quantify transfer.
@@ -389,11 +361,11 @@ We therefore have a single metric to quantify transfer.
 ### What is progressive learning? 
 
 
-$f$ weakly/strongly .ye[progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $[T]$  when 
+$f$ weakly/strongly .ye[progressively] learns from  $\mathbf{Z}\_{\mathbf{n}}$ with respect to tasks $\mathcal{T}_m$  when 
 it weakly/strongly learns both forward and backward 
 
 
-.center[$ \min \left(FTE\_{\mathbf{n}}(f),BTE\_{\mathbf{n}}(f) \right)    > 1  $ and $f \in o(n^2,c) $
+.center[$ \min \left(FLE\_{\mathbf{n}}(f),BLE\_{\mathbf{n}}(f) \right)    > 1  $ and $f \in o(n^2,c) $
 ]
 
 

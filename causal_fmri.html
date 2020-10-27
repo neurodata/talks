@@ -19,97 +19,103 @@
 
 ## Batch Effects are Causal Effects
 
+Eric Bridgeford | PhD Student, Dept. Biostatistics, JHU
 
+ericwb.me
 ---
 
-## Outline
+## What does a batch effect look like?
 
-- [The Basics](#basics)
-- [Methodologic Considerations](#methods)
-- [Acknowledgements](#ack)
+- Example
+  - Data: $N$ participants, measure functional connectivity (FC)
+  - Goal: want to uncover whether there is a difference between males and females
 
----
-name:basics
-
-## Outline
-
-- The Basics
-- [Results](#results)
-- [Acknowledgements](#ack)
----
-
-## Defining a "Batch Effect"
-
-- Batch effect: accidental source of variation across multiple experiments
-  - .ye[accidental variation]: we don't intend for it
-  - .ye[multiple experiments]: a series of experiments is being conducted numerous times (ie, in multiple places)
-
----
-## Why are batch effects problematic?
-- Problem: failure to replicate in neuroimaging
-  - Perform experiments at a single site, do some associational inference task, report result
-  - Repeat experiment elsewhere, get a different result
-  - This problem (reproducibility crisis) plagues neuroimaging and many other fields
 ---
 ## Batch Effect Example
-- Hypothetical question: what are the differences in functional connectivity (FC) between young and old people, at rest?
-  - Who: young and old people
-  - What: regions with different FC
-- If I were to compare young and old people outright, I would probably see an effect
-  - Problem: I measure young and old people again, with an MR machine at a different site, and a different repetition time (TR)
-  - Do I see the same regions? Probably not, and they may not even look remotely close
-  - different TR $\Rightarrow$ different artifacts left in FC
-  - these artifacts comprise deviations related to the "batch"
+<img src="images/causal_fmri/dataset1.png" style="height: 250px"/>
 ---
-### How do Causal Effects Differ from Associations/Independence?
-- an association can (nearly) always be inferred
-  - We have a response (FC) and a set of predictors (sex, age, demographic, dataset)
-  - association: after adjusting the response, directly, for predictors, do two datasets differ?
---
+## Batch Effect Example
 
-- a causal relationship .ye[cannot] always be inferred
-  - We have a possible effect (FC), a set of covariates (sex, age, demographic), and a potential cause (batches)
-  - to deduce causality, we .ye[must] have .ye[similar potential covariate distributions] between datasets being compared
-  - requires .ye[hypothetical reasoning], .ye[direct adjustment] of datasets being compared, and .ye[repeated observation]
+
+<center><img src="images/causal_fmri/dataset1.png" style="height: 250px"/>
+  <img src="images/causal_fmri/dataset2.png" style="height: 250px"/></center>
+
 ---
-name:results
+## Batch Effect Example
 
-## Outline 
 
-- [The Basics](#basics)
-- Results
-- [Acknowledgements](#ack)
+<center><img src="images/causal_fmri/dataset1.png" style="height: 250px"/>
+<img src="images/causal_fmri/dataset2.png" style="height: 250px"/></center>
+<center><img src="images/causal_fmri/agree.png" style="height: 250px"/></center>
+
+---
+## What happened?
+- Datasets 1 and 2 differ in covariate distribution
+ 
+ 
+
+<img src="images/causal_fmri/demo.png" style="height: 300px"/>
+---
+## Batch Effect Example -- Try 2
+
+<newline> </newline>
+<center><img src="images/causal_fmri/dataset1.png" style="height: 250px"/>
+<img src="images/causal_fmri/dataset0.png" style="height: 250px"/></center>
+<center><img src="images/causal_fmri/agree13.png" style="height: 250px"/></center>
+
 ---
 ## Procedure
-- CoRR Dataset
-  - $N>1,700$ individuals imaged across $26$ different datasets
-  - All individuals have anatomical MRI and fMRI scans needed to estimate FC
+- subset of CoRR Dataset
+  - $N>1,700$ individuals imaged across $24$ different datasets
+  - Estimate FC for all individuals with AAL parcellation
   - all datasets have associated covariates (sex, age, continent)
 - for all pairs of datasets $d_1, d_2$:
-  - Estimate independence effect by comparing FC from first dataset, to FC from second dataset, through direct adjustment;
-  - Let FC$'$ be the FC after adjustment for the covariate distribution of FC;
-  - Estimate batch effect by comparing FC$'$ from first dataset, to  FC$'$ from second dataset, causally, .ye[if such a comparison is possible];
+  - Compute association of dataset with FC;
+  - Estimate causal effect of dataset with FC if such a comparison is possible;
 - key aspect: comparison is, quite often, .ye[impossible]
 ---
-## Invalid Comparisons are frequent and prominent
-Figure 1 from paper
+### Adjustment for Covariate Distribution Still yields Batch Effects
+
+- $\frac{24\cdot23}{2} = 276$ possible Comparisons
+  - $170$ pairs differ in covariate distribution
+  - $106$ pairs have similar covariate distribution
+ 
+<newline> </newline>
+<newline> </newline>
+<center><img src="images/causal_fmri/before.png" style="height: 250px"/></center>
 ---
 ### Batch Effects and Independence Effects can be Eliminated through ComBat
-Figure 2 from paper
----
-### ComBat preserves aggregate (dataset-level) Signal
-Forest plot before/after ComBat + Table
----
-### ComBat is unit-preserving
-Aggregate Figure showing homophilic and homotopic ratios
----
-name:disc
+<center><img src="images/causal_fmri/after.png" style="height: 250px"/></center>
 
-## Outline
+---
+### ComBat preserves between-individual Signal
 
-- [The Basics](#basics)
-- [Methodologic Considerations](#methods)
-- Acknowledgements
+- are we preserving signal that .ye[should] be present between individuals?
+  - Problem: site correction could "wash out" inter-individual comparisons
+
+| Signal | $\%$ Raw Data | $\%$ After ComBat |
+| :--- | :--- | :--- |
+| Sex$^\dagger$ | $\frac{19}{22}$ | $\frac{18}{22}$
+| Age | $\frac{18}{24}$ | $\frac{19}{24}$
+
+<newline> </newline>
+
+<newline> </newline>
+
+$^\dagger$: two datasets were single-sex, so a sex effect could not be estimated within-dataset
+---
+### ComBat does not disrupt within-individual signal
+
+- are we preserving basic properties of the connectome?
+
+<center><img src="images/causal_fmri/signal.png" style="height: 250px"/></center>
+
+---
+# Summary
+- provide a precise description of batch effects as a causal inference problem
+- propose a method for estimating batch effects
+- show the batch effect can be removed
+- show batch effect removal via ComBat preserves inter-individual and intra-individual signal
 ---
 # Acknowledgements
 - Key Contributors: Joshua T. Vogelstein, Brian Caffo, Mike Powell, Noam Finkelstein, Anton Alyakin, Consortium for Reliability and Reproducibility

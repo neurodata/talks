@@ -124,7 +124,7 @@ name:statistics
 | Statistic | Chief Limitation |
 | :--- | :--- |
 | ICC | univariate 
-| I2C2 | does not generalize outside Gaussian framework 
+| I2C2 | does not generalize outside Gaussian framework; estimation issues in high dimensions 
 | Finger. | overly greedy: only look at most similar measurement to the reference measurement 
 | DISCO | struggles when $s$ is small 
 ---
@@ -190,17 +190,17 @@ name:props
 ## Simulation Setup
 - Construct $3$ simple simulations where the data are describable in Gaussian (or non-Gaussian) framework
 - level of "noise" in the simulation is varied
-  <img src="images/discr/sims_sim.png" style="height: 450px"/>
+  <center><img src="images/discr/sims_sim.png" style="height: 450px"/></center>
 ---
 ## Test to determine Reliability
 - Fundamental question: are the data discriminable at all?
 
-<img src="images/discr/sims_os.png" style="height: 450px"/>
+<center><img src="images/discr/sims_os.png" style="height: 450px"/></center>
 ---
 ## Test to Compare Reliabilities
 - Fundamental question: is one dataset more discriminable than another?
 
-<img src="images/discr/sims_ts.png" style="height: 450px"/>
+<center><img src="images/discr/sims_ts.png" style="height: 450px"/></center>
 ---
 ### Connecting Discriminability to Downstream Inference
 - Fundamental question: does discriminability .ye[matter] for inference?
@@ -215,7 +215,7 @@ a strategy with a higher $D$ provably provides a higher bound on predictive accu
 ---
 ### Discriminability and Predictive Accuracy
 - as accuracy decreases, Discr. decreases proportionally
-<img src="images/discr/sims_acc.png" style="height: 450px"/>
+<center><img src="images/discr/sims_acc.png" style="height: 450px"/></center>
 ---
 name:results
 
@@ -247,12 +247,12 @@ $192 = 2 \times 2 \times 2 \times 2 \times 4 \times 3$
 - all options represent strategies experts consider useful
 ---
 ### Pre-processing has a major impact on discriminability
-<img src="images/discr/fmri_cmp.png" style="height: 420px"/>
+<center><img src="images/discr/fmri_cmp.png" style="height: 420px"/></center>
 
 - Consequence: choosing how to pre-process your data matters
 ---
 ### Marginally most discriminabile options tend to be best global options
-<img src="images/discr/individual_methods.png" style="height: 200px"/>
+<center><img src="images/discr/individual_methods.png" style="height: 200px"/></center>
 - Best pipeline marginally (FNNGCP) is second best pipeline overall, and not much worse (2-sample test, p=.14) than the best pipeline FNNNCP
 - Consequence: we may not need to always try every pre-processing strategy every time
 ---

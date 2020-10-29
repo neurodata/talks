@@ -124,7 +124,7 @@ name:statistics
 | Statistic | Chief Limitation |
 | :--- | :--- |
 | ICC | univariate 
-| I2C2 | does not generalize outside Gaussian framework 
+| I2C2 | does not generalize outside Gaussian framework; estimation issues in high dimensions 
 | Finger. | overly greedy: only look at most similar measurement to the reference measurement 
 | DISCO | struggles when $s$ is small 
 ---
@@ -190,17 +190,17 @@ name:props
 ## Simulation Setup
 - Construct $3$ simple simulations where the data are describable in Gaussian (or non-Gaussian) framework
 - level of "noise" in the simulation is varied
-  <img src="images/discr/sims_sim.png" style="height: 450px"/>
+  <center><img src="images/discr/sims_sim.png" style="height: 450px"/></center>
 ---
 ## Test to determine Reliability
 - Fundamental question: are the data discriminable at all?
 
-<img src="images/discr/sims_os.png" style="height: 450px"/>
+<center><img src="images/discr/sims_os.png" style="height: 450px"/></center>
 ---
 ## Test to Compare Reliabilities
 - Fundamental question: is one dataset more discriminable than another?
 
-<img src="images/discr/sims_ts.png" style="height: 450px"/>
+<center><img src="images/discr/sims_ts.png" style="height: 450px"/></center>
 ---
 ### Connecting Discriminability to Downstream Inference
 - Fundamental question: does discriminability .ye[matter] for inference?
@@ -215,7 +215,7 @@ a strategy with a higher $D$ provably provides a higher bound on predictive accu
 ---
 ### Discriminability and Predictive Accuracy
 - as accuracy decreases, Discr. decreases proportionally
-<img src="images/discr/sims_acc.png" style="height: 450px"/>
+<center><img src="images/discr/sims_acc.png" style="height: 450px"/></center>
 ---
 name:results
 
@@ -247,12 +247,12 @@ $192 = 2 \times 2 \times 2 \times 2 \times 4 \times 3$
 - all options represent strategies experts consider useful
 ---
 ### Pre-processing has a major impact on discriminability
-<img src="images/discr/fmri_cmp.png" style="height: 420px"/>
+<center><img src="images/discr/fmri_cmp.png" style="height: 420px"/></center>
 
 - Consequence: choosing how to pre-process your data matters
 ---
 ### Marginally most discriminabile options tend to be best global options
-<img src="images/discr/individual_methods.png" style="height: 200px"/>
+<center><img src="images/discr/individual_methods.png" style="height: 200px"/></center>
 - Best pipeline marginally (FNNGCP) is second best pipeline overall, and not much worse (2-sample test, p=.14) than the best pipeline FNNNCP
 - Consequence: we may not need to always try every pre-processing strategy every time
 ---
@@ -295,8 +295,6 @@ name:disc
 - use of distances allows for trivial modification for non-Euclidean measurements
   - e.g., speech or text data may make sense with different distance functions
 - measurements that consist of multiple measurements themselves
-  - many applications will aggregate many measurements into a single "raw derivative"
-  - e.g., fMRI is an aggregation of multiple measurements made over $t$ timepoints
   - if we only have one measurement that consists of many sub-measurements, can split the sub-measurements into multiple measurements
   - e.g., taking a single fMRI and splitting into two fMRI with $\frac{t}{2}$ timepoints each
 ---
@@ -310,10 +308,86 @@ name:disc
 - Reliability statistics are not immune to sample characteristics
   - confounds such as age may inflate discriminability
 ---
-## Key Contributors & Links
-- People: Eric Bridgeford, Zeyi Wang, Shangsi Wang, Zhi Yang, Ting Xu, Cameron Craddock, Jayanta Dey, Greg Kiar, William Gray-Roncal, Carlo Coulantoni, Christopher Douville, Carey E. Priebe, Brian Caffo, Michael Milham, Xi-Nian Zuo
-- Places and Organizations: Consortium for Reliability and Reproducibility (CoRR), Johns Hopkins University, Shanghai Jiaotong University, Child Mind Institute, Beijing Normal University, Nanning Normal University, University of Chinese Academy of Sciences, Progressive Learning, Neurodata
-- [BioRxiv Manuscript](https://www.biorxiv.org/content/10.1101/802629v6)
+## Acknowledgements
+
+<div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div>
+<div class="small-container">
+  <img src="faces/zhi.jpeg"/>
+  <div class="centered">Zhi Yang</div>
+</div>
+<div class="small-container">
+  <img src="faces/zeyi.jpeg"/>
+  <div class="centered">Zeyi Wang</div>
+</div>
+<div class="small-container">
+  <img src="faces/ting.jpeg"/>
+  <div class="centered">Ting Xu</div>
+</div>
+<div class="small-container">
+  <img src="faces/cc.jpg"/>
+  <div class="centered">Cameron Craddock</div>
+</div>
+<div class="small-container">
+  <img src="faces/jayanta.jpg"/>
+  <div class="centered">Jayanta Dey</div>
+</div>
+<div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div>
+<div class="small-container">
+  <img src="faces/wgr.jpg"/>
+  <div class="centered">William Gray-Roncal</div>
+</div>
+<div class="small-container">
+  <img src="faces/carlo.jpeg"/>
+  <div class="centered">Carlo Colantuoni</div>
+</div>
+<div class="small-container">
+  <img src="faces/cdouville.jpeg"/>
+  <div class="centered">Christopher Douville</div>
+</div>
+<div class="small-container">
+  <img src="faces/snoble.jpeg"/>
+  <div class="centered">Stephanie Noble</div>
+</div>
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+<div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+<div class="small-container">
+  <img src="faces/mm.jpg"/>
+  <div class="centered">Michael Milham</div>
+</div>
+<div class="small-container">
+  <img src="faces/xinian.jpg"/>
+  <div class="centered">Xinian Zuo</div>
+</div>
+
+<span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span> 
+</div>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+- [BioRxiv manuscript](https://www.biorxiv.org/content/10.1101/802629v6)
 - Code implementations in [python](https://github.com/neurodata/hyppo) and [R](https://github.com/neurodata/r-mgc)
 ---
 </textarea>

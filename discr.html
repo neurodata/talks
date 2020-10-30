@@ -29,78 +29,70 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 
 ---
 
-## Outline 
+### Outline 
 
-- [Defining the Need for Reliability](#defn)
-- [Quantifying Reliability](#statistics)
+- [Motivation](#defn)
+- [Quantifying Discriminability](#statistics)
 - [Properties of Discriminability](#props)
-- [Results](#results)
+- [Numerical Results](#results)
 - [Discussion](#disc)
 
 
 ---
 name:defn
 
-## Outline 
+### Outline 
 
-- Defining the Need for Reliability
-- [Quantifying Reliability](#statistics)
+- Motivation
+- [Quantifying Discriminability](#statistics)
 - [Properties of Discriminability](#props)
-- [Results](#results)
+- [Numerical Results](#results)
 - [Discussion](#disc)
 
 
 ---
 
-## What is Reproducibility?
+### What is Reproducibility?
 
 - .ye[Reproducibility]: ability to replicate, or reproduce, a conclusion
-
---
-- Closely related to repeatability
-  - under a largely identical experiment, could we produce the same result two (or more) times?
-
---
 - serves as a "first-pass" check for scientific utility
-  - "If results cannot be reproduced, they are (generally) less useful"
 - currently in a "reproducibility crisis"
-  - many articles have highlighted failures to reproduce in neuroscience and psychology
+
 ---
+
 ### How do we address the Reproducibility Crisis?
 
-- people frequently misinterpret $p$-values, so what happens if we ban them?
-  - Goal: force people to make more modest scientific claims
-  - tends to yield overstated claims, suggesting bans have the opposite of the intended effect
---
+- fix post hoc analyses (e.g., $p$-values)?
+- fix measurements (e.g., measurement reproducibility)?
 
-- Quantify reproducibility directly
-  - measure each sample/individual several times, and look at the outputs
-  - .ye["Garbage in; garbage out"]: if the measurements do not reproduce, inference on the data can't reproduce either
-  - Fisher's "The Design of Experiments"
----
-## Experimental Design (at present)
-- Idea: design an experiment motivated by a particular scientific question
---
 
-- Problem: this is not what is done in practice
-  - Big datasets are expensive; large amounts of data are collected with many future uses in mind (not limited to one question)
 
---
-  - The future questions .ye[may not even be known] when the data is acquired
---
 
-- How can one design an experiment without knowing the question ahead of time?
-  - Proposal: design experiments on the basis of .ye[discriminability]
+Proposal: design experiments to maximize .ye[inter-item discriminability], rather than simply checking reproducibility after conducting the experiment
+
+
 ---
 name:statistics
 
-## Outline 
+### Outline 
 
-- [Defining the Need for Reliability](#defn)
-- Quantifying Reliability
+- [Motivation](#defn)
+- Quantifying Discriminability
 - [Properties of Discriminability](#props)
-- [Results](#results)
+- [Numerical Results](#results)
 - [Discussion](#disc)
+
+
+---
+### What do we want of our data?
+
+If we measure a sample multiple times, then each measurement of that sample is closer to all the other measurements of that sample, as compared to  any of the measurements of other samples.
+
+
+
+![:scale 100%](images/perfect_discrim.png)
+
+
 
 
 ---
@@ -170,16 +162,16 @@ name:statistics
 ---
 name:props
 
-## Outline 
+### Outline 
 
-- [Defining the Need for Reliability](#defn)
-- [Quantifying Reliability](#statistics)
+- [Motivation](#defn)
+- [Quantifying Discriminability](#statistics)
 - Properties of Discriminability
-- [Results](#results)
+- [Numerical Results](#results)
 - [Discussion](#disc)
 
 ---
-## Population Discriminability
+### Population Discriminability
 - population discriminability $D$ is a .ye[property of the distribution] of measurements
 - A sequence of items $x_i^k$ from individuals $i=1,..., N$ measured at time $k=1,..., s$
 - $D = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}))$
@@ -187,17 +179,17 @@ name:props
 - Discr. is an .ye[unbiased estimator] of $D$
 - as we see more data, Discr. converges to $D$ (.ye[asymptotically consistent])
 ---
-## Simulation Setup
+### Simulation Setup
 - Construct $3$ simple simulations where the data are describable in Gaussian (or non-Gaussian) framework
 - level of "noise" in the simulation is varied
   <center><img src="images/discr/sims_sim.png" style="height: 450px"/></center>
 ---
-## Test to determine Reliability
+### Test to determine Reliability
 - Fundamental question: are the data discriminable at all?
 
 <center><img src="images/discr/sims_os.png" style="height: 450px"/></center>
 ---
-## Test to Compare Reliabilities
+### Test to Compare Reliabilities
 - Fundamental question: is one dataset more discriminable than another?
 
 <center><img src="images/discr/sims_ts.png" style="height: 450px"/></center>
@@ -219,22 +211,22 @@ a strategy with a higher $D$ provably provides a higher bound on predictive accu
 ---
 name:results
 
-## Outline 
+### Outline 
 
-- [Defining the Need for Reliability](#defn)
-- [Quantifying Reliability](#statistics)
+- [Motivation](#defn)
+- [Quantifying Discriminability](#statistics)
 - [Properties of Discriminability](#props)
-- Results
+- Numerical Results 
 - [Discussion](#disc)
 ---
-## What data will we be using?
+### What data will we be using?
 
 - CoRR metadataset
 - $N>1,700$ individuals imaged across $26$ different datasets
   - All individuals have anatomical MRI and fMRI scans needed to estimate a connectome
   - Most of the data is test-retest: individuals are measured $s \geq 2$ times under a similar experimental design
 ---
-## Analysis Procedure
+### Analysis Procedure
 - For all $N>1,700$ individuals, process each measurement exhaustively across $192$ different pre-processing pipelines
   1. Registration: alignment of brains (2 options: ANTs/FSL)
   2. Frequency Filtering: removing spurious fluctuations (2 options: Y/N)
@@ -269,12 +261,12 @@ $192 = 2 \times 2 \times 2 \times 2 \times 4 \times 3$
 ---
 name:disc
 
-## Outline 
+### Outline 
 
 - [Problem Space](#prob)
-- [Defining and Quantifying Reliability](#statistics)
+- [Defining and Quantifying Discriminability](#statistics)
 - [Properties of Discriminability](#props)
-- [Results](#results)
+- [Numerical Results](#results)
 - Discussion
 
 ---
@@ -298,7 +290,7 @@ name:disc
   - if we only have one measurement that consists of many sub-measurements, can split the sub-measurements into multiple measurements
   - e.g., taking a single fMRI and splitting into two fMRI with $\frac{t}{2}$ timepoints each
 ---
-## Limitations
+### Limitations
 - experimental design is not "one-size-fits-all"
   - future scientific questions will still need to consider the question of interest
   - e.g., an analysis of task fMRI may not want to use a pre-processing pipeline with global signal regression, but for resting-state fMRI, this may not be an issue
@@ -308,7 +300,7 @@ name:disc
 - Reliability statistics are not immune to sample characteristics
   - confounds such as age may inflate discriminability
 ---
-## Acknowledgements
+### Acknowledgements
 
 <div class="small-container">
   <img src="faces/ebridge.jpg"/>

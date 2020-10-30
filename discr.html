@@ -34,7 +34,7 @@ Joshua T. Vogelstein | {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu
 - [Motivation](#defn)
 - [Quantifying Discriminability](#statistics)
 - [Properties of Discriminability](#props)
-- [Numerical Results](#results)
+- [Real Data](#results)
 - [Discussion](#disc)
 
 
@@ -46,7 +46,7 @@ name:defn
 - Motivation
 - [Quantifying Discriminability](#statistics)
 - [Properties of Discriminability](#props)
-- [Numerical Results](#results)
+- [Real Data](#results)
 - [Discussion](#disc)
 
 
@@ -79,7 +79,7 @@ name:statistics
 - [Motivation](#defn)
 - Quantifying Discriminability
 - [Properties of Discriminability](#props)
-- [Numerical Results](#results)
+- [Real Data](#results)
 - [Discussion](#disc)
 
 
@@ -88,77 +88,94 @@ name:statistics
 
 If we measure a sample multiple times, then each measurement of that sample is closer to all the other measurements of that sample, as compared to  any of the measurements of other samples.
 
+![:scale 100%](images/discr/perfect_discrim.png)
 
-
-![:scale 100%](images/perfect_discrim.png)
-
-
-
+Perfect discriminability
 
 ---
-### Statistics for Quantifying Reproducibility
+### What do we want of our data?
 
-- most approaches tend to focus on the concepts of between-individual and within-individual summaries
---
+Imperfect discriminability
 
-- parametric approaches
-  - reproducibility is achieved if most of the variability is between-individuals, rather than within-individuals
-  - e.g. Intraclass Correlation Coefficient (.ye[ICC]) and Image Intraclass Correlation Coefficient (.ye[I2C2])
---
+![:scale 100%](images/discr/imperfect_discr.png)
 
-- non-parametric approaches
+---
+### What do we want of our statistic?
+
+Discriminability is the probability of a measurement from a different item being closer than a measurement from the same item. 
+
+![:scale 100%](images/discr/imperfect_discr.png)
+
+<!-- --- -->
+<!-- ### Statistics for Quantifying Reproducibility -->
+
+<!-- - most approaches tend to focus on the concepts of between-individual and within-individual summaries -->
+<!-- -- -->
+
+<!-- - parametric approaches -->
+  <!-- - reproducibility is achieved if most of the variability is between-individuals, rather than within-individuals -->
+  <!-- - e.g. Intraclass Correlation Coefficient (.ye[ICC]) and Image Intraclass Correlation Coefficient (.ye[I2C2]) --> 
+<!-- -- -->
+
+<!-- - non-parametric approaches
   - reproducibility is achieved if measurements from the same item are more similar to one another than measurements from different items
-  - e.g. Fingerprinting (.ye[Finger.]) and DISCO (.ye[Kernel])
----
-### Limitations of Existing Reproducibility Statistics
-- Data: $N$ items in $d > 1$ dimensions measured $s \geq 2$ times each
+  - e.g. Fingerprinting (.ye[Finger.]) and DISCO (.ye[Kernel]) -->
+<!-- --- -->
+<!-- ### Limitations of Existing Reproducibility Statistics -->
+<!-- - Data: $N$ items in $d > 1$ dimensions measured $s \geq 2$ times each -->
 
-| Statistic | Chief Limitation |
-| :--- | :--- |
-| ICC | univariate 
-| I2C2 | does not generalize outside Gaussian framework; estimation issues in high dimensions 
-| Finger. | overly greedy: only look at most similar measurement to the reference measurement 
-| DISCO | struggles when $s$ is small 
----
-### Discriminability Statistic: Data
-- $n$ individuals measured $s = 2$ times each, for $N = n\cdot s$ total measurements
-- generalizes to $s \geq 2$, but $s=2$ is simpler
+<!-- | Statistic | Chief Limitation | -->
+<!-- | :--- | :--- | -->
+<!-- | ICC | univariate  -->
+<!-- | I2C2 | does not generalize outside Gaussian framework; estimation issues in high dimensions  -->
+<!-- | Finger. | overly greedy: only look at most similar measurement to the reference measurement  -->
+<!-- | DISCO | struggles when $s$ is small  -->
 
-<img src="images/discr/dummy_sim_sim.png"/>
+
+<!-- --- -->
+<!-- ### Discriminability Statistic: Data -->
+<!-- - $n$ individuals measured $s = 2$ times each, for $N = n\cdot s$ total measurements -->
+<!-- - generalizes to $s \geq 2$, but $s=2$ is simpler -->
+
+<!-- <img src="images/discr/dummy_sim_sim.png"/> -->
 
 ---
 ### Discriminability Statistic: Step 1
 
 - Compute $N \times N$ pairwise distance matrix between all measurements
-- measurements are indexed first by individual identifier, and second by "measurement session"
+<!-- - measurements are indexed first by individual identifier, and second by "measurement session" -->
 
-<img src="images/discr/dummy_sim_dmtx.png"/>
+![:scale 55%](images/discr/imperfect_discr.png)
+![:scale 42%](images/discr/dummy_sim_dmtx.png)
+
+<!-- <img src="images/discr/dummy_sim_dmtx.png"/> -->
 ---
 ### Discriminability Statistic: Step 2
 
 - For each measurement, identify which measurements are from the same individual (<font color="green">green boxes</font>)
-- let $\color{green}g$ be the total number of <font color="green">green boxes</font>
+- let $\color{green}g$ be the total number of <font color="green">green boxes = 20</font>
 
 <img src="images/discr/dummy_sim_dmtx_match.png"/>
 ---
 ### Discriminability Statistic: Step 3
 - For each measurement, identify measurements from other individuals that are more similar than the measurement from the same individual (<font color="orange">orange boxes</font>)
-- let $\color{orange}f$ be the total number of <font color="orange">orange boxes</font>
+- let $\color{orange}f$ be the total number of <font color="orange">orange boxes = 84</font>
 
 <img src="images/discr/dummy_sim_dmtx_closer.png"/>
 ---
 ### Discriminability Statistic
-- Discr. = $1 - \frac{\color{orange}f}{N(N-1) - \color{green}g} = 1 - \frac{\color{orange}{84}}{20\cdot 19 - \color{green}{20}} \approx .77$
+- Discr = $1 - \frac{\color{orange}f}{N(N-1) - \color{green}g} = 1 - \frac{\color{orange}{84}}{20\cdot 19 - \color{green}{20}} \approx .77$
 
 <img src="images/discr/dummy_sim_repr.png"/>
 
-- high discriminability: same-individual measurements are more similar than across-individual measurements
+High discriminability: same-item measurements are more similar than across-item measurements
 ---
 
 ### Discriminability is Construct Valid
 <img src="images/discr/dummy_sims.png" style="height: 350px"/>
-- under the given construct (what the simulation is supposed to show), discriminability provides a sensible statistic
-  - other approaches do not
+
+<!-- - under the given construct (what the simulation is supposed to show), discriminability provides a sensible statistic -->
+  <!-- - other approaches do not -->
 ---
 name:props
 
@@ -167,47 +184,63 @@ name:props
 - [Motivation](#defn)
 - [Quantifying Discriminability](#statistics)
 - Properties of Discriminability
-- [Numerical Results](#results)
+- [Real Data](#results)
 - [Discussion](#disc)
 
 ---
-### Population Discriminability
+###  Discriminability: unbiased and consistent
 - population discriminability $D$ is a .ye[property of the distribution] of measurements
-- A sequence of items $x_i^k$ from individuals $i=1,..., N$ measured at time $k=1,..., s$
-- $D = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}))$
-  - Probability that distances from measurements of the same individual are smaller than distances from measurements of different individuals
-- Discr. is an .ye[unbiased estimator] of $D$
-- as we see more data, Discr. converges to $D$ (.ye[asymptotically consistent])
+<!-- - A sequence of items $x_i^k$ from individuals $i=1,..., N$ measured at time $k=1,..., s$ --> 
+$D = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}))$
+  <!-- - Probability that distances from measurements of the same individual are smaller than distances from measurements of different individuals -->
+- Sample Discr. is an .ye[unbiased estimator] of $D$
+- Sample Discr. converges to $D$ (.ye[asymptotically consistent])
+
 ---
+
 ### Simulation Setup
-- Construct $3$ simple simulations where the data are describable in Gaussian (or non-Gaussian) framework
-- level of "noise" in the simulation is varied
-  <center><img src="images/discr/sims_sim.png" style="height: 450px"/></center>
----
-### Test to determine Reliability
-- Fundamental question: are the data discriminable at all?
+<!-- - Construct $3$ simple simulations where the data are describable in Gaussian (or non-Gaussian) framework -->
+<!-- - level of "noise" in the simulation is varied -->
+  <!-- <center><img src="images/discr/sims_sim.png" style="height: 450px"/></center> -->
 
-<center><img src="images/discr/sims_os.png" style="height: 450px"/></center>
----
-### Test to Compare Reliabilities
-- Fundamental question: is one dataset more discriminable than another?
 
-<center><img src="images/discr/sims_ts.png" style="height: 450px"/></center>
+![:scale 70%](images/discr/sims_sim.png)
+
 ---
 ### Connecting Discriminability to Downstream Inference
-- Fundamental question: does discriminability .ye[matter] for inference?
+<!-- - Fundamental question: does discriminability .ye[matter] for inference? -->
 
-##### Assumptions
-Data follows Gaussian mixture model plus additive Gaussian noise
+<!-- ##### Assumptions -->
+<!-- Data follows Gaussian mixture model plus additive Gaussian noise -->
 
-##### Theorem 1
+#### Theorem 1
 $D$ provides a lower bound on the predictive accuracy of a subsequent classification task, and consequently
-##### Corollary 2
-a strategy with a higher $D$ provably provides a higher bound on predictive accuracy than a strategy with a lower $D$
+#### Corollary 2
+A strategy with a higher $D$ provably provides a higher bound on predictive accuracy than a strategy with a lower $D$
 ---
-### Discriminability and Predictive Accuracy
-- as accuracy decreases, Discr. decreases proportionally
-<center><img src="images/discr/sims_acc.png" style="height: 450px"/></center>
+### Discriminability and  Accuracy
+
+![:scale 70%](images/discr/sims_acc.png)
+
+<!-- <center><img src="images/discr/sims_acc.png" style="height: 450px"/></center> -->
+
+Discr. decreases proportionally with accuracy
+
+
+---
+### Are data discriminable?
+<!-- - Fundamental question: are the data discriminable at all? -->
+
+![:scale 70%](images/discr/sims_os.png)
+
+---
+
+### Is one dataset more discriminable than another?
+
+![:scale 70%](images/discr/sims_ts.png)
+
+
+
 ---
 name:results
 
@@ -216,48 +249,56 @@ name:results
 - [Motivation](#defn)
 - [Quantifying Discriminability](#statistics)
 - [Properties of Discriminability](#props)
-- Numerical Results 
+- Real Data 
 - [Discussion](#disc)
 ---
 ### What data will we be using?
 
 - CoRR metadataset
 - $N>1,700$ individuals imaged across $26$ different datasets
-  - All individuals have anatomical MRI and fMRI scans needed to estimate a connectome
-  - Most of the data is test-retest: individuals are measured $s \geq 2$ times under a similar experimental design
+  - anatomical MRI and fMRI scans for each
+  - Individuals are measured at least twice
+
+
 ---
 ### Analysis Procedure
-- For all $N>1,700$ individuals, process each measurement exhaustively across $192$ different pre-processing pipelines
-  1. Registration: alignment of brains (2 options: ANTs/FSL)
-  2. Frequency Filtering: removing spurious fluctuations (2 options: Y/N)
-  3. Scrubbing: removing timepoints where the subject moved substantially (2 options: Y/N)
-  4. Global Signal Regression: removing spatial average at each timepoint (2 options: Y/N)
-  5. Parcellation choice: making the data smaller (4 options)
-  6. Edge Weights: how do we quantify functional connectivity (3 options: Raw, Log, Pass-to-Rank)
+
+Process each  measurement using $192$ different pipelines
+  1. Brain alignment (ANTs/FSL)
+  2. Frequency filtering (Y/N)
+  3. Scrubbing (Y/N)
+  4. Global Signal Regression (Y/N)
+  5. Parcellation (4 options)
+  6. Rescaling connectomes (Raw, Log, Pass-to-Rank)
 
 $192 = 2 \times 2 \times 2 \times 2 \times 4 \times 3$ 
-- all options represent strategies experts consider useful
+
+All options represent strategies experts consider useful
+
 ---
-### Pre-processing has a major impact on discriminability
+### Pipeline impacts discriminability
 <center><img src="images/discr/fmri_cmp.png" style="height: 420px"/></center>
 
-- Consequence: choosing how to pre-process your data matters
+<!-- - Consequence: choosing how to pre-process your data matters -->
 ---
 ### Marginally most discriminabile options tend to be best global options
 <center><img src="images/discr/individual_methods.png" style="height: 200px"/></center>
 - Best pipeline marginally (FNNGCP) is second best pipeline overall, and not much worse (2-sample test, p=.14) than the best pipeline FNNNCP
-- Consequence: we may not need to always try every pre-processing strategy every time
+- We may not need to always try every pre-processing strategy every time
+
 ---
 ### Selection via Discriminability improves inference
-- For each pre-processing strategy, for each dataset, compute:
+For each pre-processing strategy, for each dataset, compute:
 1. Within-dataset Discr.
 2. Demographic effects (sex and age) within the dataset via Distance Correlation (DCorr)
-- Within a single dataset, regress demographic effect on Discr.
-- Question: does a higher discriminability tend to yield larger effects for known biological signals?
+3. Within a single dataset, regress demographic effect on Discr.
+
+Question: does a higher discriminability tend to yield larger effects for known biological signals?
 ---
 ### Selection via Discriminability improves inference
 <img src="images/discr/dependence.png" style="height: 400px"/>
-- Consequence: maximizing discriminability in general improves downstream inference
+<!-- - Consequence: maximizing discriminability in general improves downstream inference -->
+
 ---
 name:disc
 
@@ -266,38 +307,40 @@ name:disc
 - [Problem Space](#prob)
 - [Defining and Quantifying Discriminability](#statistics)
 - [Properties of Discriminability](#props)
-- [Numerical Results](#results)
+- [Real Data](#results)
 - Discussion
 
 ---
 ### Contributions
-1. Demonstrate that discriminability quantifies the contributions of systematic and accidental deviations
-2. Formalize tests for assessing and comparing discriminabilities within and between collection strategies
+1. Discriminability quantifies the contributions of systematic and accidental deviations
 3. Provide theoretical motivation for discriminability in connection with predictive accuracy
-4. Illustrate the value of discriminability for neuroscience and (not discussed) genomics data
+2. Formalize tests for assessing and comparing discriminabilities within and between collection strategies
+4. Illustrate the value of discriminability for neuroscience and  genomics (not discussed) sdata
 5. Code implementations in [python](https://github.com/neurodata/hyppo) and [R](https://github.com/neurodata/r-mgc)
----
+
+<!-- ---
 ### Connections to Energy Statistics
 - energy statistics provide statistics that are functions of distances between measurements, like discriminability
 - both approaches make relatively few assumptions
 - discriminability 2-sample test is a comparison of K-sample tests in the energy statistics literature
-- energy statistics tend to perform well when we have more replicates (e.g., DISCO)
----
-### Extending Discriminability
+- energy statistics tend to perform well when we have more replicates (e.g., DISCO) -->
+
+<!-- --- -->
+<!-- ### Extending Discriminability
 - use of distances allows for trivial modification for non-Euclidean measurements
   - e.g., speech or text data may make sense with different distance functions
 - measurements that consist of multiple measurements themselves
   - if we only have one measurement that consists of many sub-measurements, can split the sub-measurements into multiple measurements
-  - e.g., taking a single fMRI and splitting into two fMRI with $\frac{t}{2}$ timepoints each
+  - e.g., taking a single fMRI and splitting into two fMRI with $\frac{t}{2}$ timepoints each -->
 ---
 ### Limitations
 - experimental design is not "one-size-fits-all"
-  - future scientific questions will still need to consider the question of interest
-  - e.g., an analysis of task fMRI may not want to use a pre-processing pipeline with global signal regression, but for resting-state fMRI, this may not be an issue
-- Reliability is not a pre-requisite, nor a surrogate, for practical utility
+  <!-- - future scientific questions will still need to consider the question of interest -->
+  <!-- - e.g., an analysis of task fMRI may not want to use a pre-processing pipeline with global signal regression, but for resting-state fMRI, this may not be an issue -->
+- Discriminability is a pre-requisite for practical utility
   - categorical covariates are meaningful but not discriminable
   - fingerprints are discriminable but not typically biological useful
-- Reliability statistics are not immune to sample characteristics
+- These statistics are not immune to sample characteristics
   - confounds such as age may inflate discriminability
 ---
 ### Acknowledgements
@@ -381,7 +424,7 @@ name:disc
 
 - [BioRxiv manuscript](https://www.biorxiv.org/content/10.1101/802629v6)
 - Code implementations in [python](https://github.com/neurodata/hyppo) and [R](https://github.com/neurodata/r-mgc)
----
+
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
   <!-- <script src="remark-latest.min.js"></script> -->

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Learning</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style_i.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <textarea id="source">
+
+
+
+
+### Lifelong Learning: <br>Theory and Practice
+
+
+PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/) <br>
+
+Jayanta Dey, Will LeVine, Hayden Helm, Ali Geisa, Ronak Mehta,
+Carey E. Priebe 
+<!-- | Joshua T. Vogelstein <br> -->
+<!-- [Microsoft Research](https://www.microsoft.com/en-us/research/): Weiwei Yang | Jonathan Larson | Bryan Tower | Chris White -->
+
+
+
+![:scale 40%](images/neurodata_blue.png)
+
+
+
+---
+
+### Outline 
+
+- Summary slide 
+- Brief Phase 1 review 
+- Summer updates
+- Phase 2 plans
+- Other stuff
+
+---
+
+Biological agents progressively build representations to transfer both forward & backward
+
+
+![:scale 110%](images/learning_schema_darpa.png)
+
+
+---
+
+# Phase 1 
+
+- Metrics
+- Algorithmic insights 
+- Benchmarks
+
+---
+
+### Lifelong Learning Metrics 
+
+- Forward learning
+- Backward learning 
+- Transfer learning 
+
+---
+
+### Task Definition
+
+
+| Component | Notation | Examples |
+| :--- | :--- | :--- 
+| Query Space | $\mathcal{Q}$ | where's waldo?
+| Action Space | $\mathcal{A}$ | A,B, &rarr;, &larr; 
+| Measurement Space | $\mathcal{Z}$ |  8-bit images, 256 x 256
+| Statistical Model | $\mathcal{P}$ | Gaussian 
+| Hypotheses | $\mathcal{H}$ | linear functions
+| Risk | $R$ | expected loss
+| Algorithm Space | $\mathcal{F}$ | Random Forests
+| Distribution | $P$ | $\mu=0$, $\sigma=1$
+<!-- | Task Awareness | $T_i$ | {aware, oblivious, ambivalent} -->
+
+<!-- $2^8 \times 3 \approx 800$ ways tasks can differ.   -->
+
+---
+
+
+### What is learning?
+
+.ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$. 
+
+Let $\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))]$ denote .ye[error], and $\bold{Z}_0$ corresponds to no data. 
+
+Define .ye[learning efficiency]: $$LE_n(f) := 
+\frac{\mathcal{E}_0(f)}{\mathcal{E}_n(f)}$$
+
+
+<br>
+
+$f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
+ 
+
+
+
+---
+### What is forward learning?
+
+
+- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{Z}\_n$ 
+- Let $\mathbf{Z}\_n^{< t} = \lbrace Z\_1, Z\_2, \ldots, Z\_{n_t}  \rbrace$
+- .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
+$$    FLE^t\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}  $$
+
+
+<br>
+
+$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) > 1$.
+
+---
+### What is backward learning?
+
+
+
+ .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+
+
+$$    BLE^t\_{\mathbf{n}}(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}  $$
+
+
+
+<br>
+
+$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
+
+
+---
+### Learning efficiency factorizes
+
+
+$$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
+
+$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
+
+<br>
+
+
+---
+
+### Algorithmic Insights
+
+1. Backwards transformers
+2. Cross-training voters
+
+---
+
+![:scale 80%](images/learning-schemas-simple.png)
+
+
+
+---
+
+### Benchmarks 
+
+
+![:scale 100%](images/L2N-CIFAR-benchmarks.png)
+
+
+
+
+---
+
+# Summer updates
+
+
+1. Unified theory 
+2. Complexity analysis 
+3. Additional benchmarks 
+
+
+---
+
+### Unified Theory 
+
+Recall
+
+$$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
+
+$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
+
+<br>
+
+Define .ye[learning efficiency]: $$LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B, f) := \frac{\mathcal{E}_f^t(\mathbf{Z}\_A)}{\mathcal{E}_f^t(\mathbf{Z}\_B)}$$
+
+
+---
+
+
+### Special cases 
+
+Each of the previous definitions are all special cases of $LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B, f)$, for specific choices of  $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$
+
+
+- Learning: $\mathbf{Z}\_A=\mathbf{Z}\_0$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
+- Transfer learning: $\mathbf{Z}\_A=\mathbf{Z}\_n^t$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
+- Multitask learning: for each $t$, $\mathbf{Z}\_A=\mathbf{Z}\_n^t$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
+- Forward learning: $\mathbf{Z}\_A=\mathbf{Z}\_n^t$ and $\mathbf{Z}\_B=\mathbf{Z}\_n^{&lt t}$.
+- Backward learning: $\mathbf{Z}\_A=\mathbf{Z}\_n^{&lt t}$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
+
+Conjecture: All learning metrics we care about are functions of learning efficiency for a specific $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$.
+
+
+---
+
+### Complexity analysis 
+
+
+
+---
+### What is lifelong cheating?
+
+- Store every sample you've ever seen 
+- Every time we are faced with a new data, just update everything in batch mode 
+- Now just run your favorite multitask $f$
+- Doing so consumes $\mathcal{O}(n^2)$ resources because $ \sum_{i =1}^n i \approx n^2$
+
+
+
+- So, to differentiate lifelong learning from multitask learning requires a particularly efficient algorithm
+- $f$ must consume less than quadratic resources as a function of $n$,  $f \in o(n^2)$
+ 
+
+
+
+---
+
+### A computational taxonomy 
+
+| Par.    | &rarr; | &larr;  | space   | time         | Examples     
+| :---:   | :---:  | :---:   | :---:| :---:           |                       
+| par     | +      | -       | 1    | n               | O-EWC, SI, TL         
+| par     | +      | -       | T    | n               | SI                    
+| par     | +      | -       | T    | nT+T<sup>2</sup>| EWC                   
+| par     | +      | +       | 1    | nT<sup>a</sup>, a &le; 2 | TL +  replay 
+| semipar | +      | 0       | T    | n T             | ProgNN, DF-CNN                
+| semipar | +      | +       | T    | nT              | L2 Networks        
+| nonpar  | +      | +       | n    | nT              | L2 Forests         
+
+
+Apples to apples comparisons therefore requires conditioning on the same space & time complexity. 
+
+
+---
+
+### Additional benchmarks 
+
+
+![:scale 100%](images/L2N-CIFAR-benchmarks.png)
+
+---
+###Partition Mapping
+![:scale 100%](images/partition.svg)
+
+-volume of the pushed leaf = v<sub>l</sub>
+---
+### Backwards Transfer without Replay
+![:scale 100%](images/without_storing_data.png)
+
+---
+
+### Algorithm extensions 
+
+- Lifelong is about .ye[extrapolation], specifically extrapolation into new tasks 
+- Both RF and DN are poor extrapolators 
+
+---
+
+![:scale 80%](images/extrapolation1.png)
+
+
+---
+
+### Kernel Density Graphs 
+
+![:scale 100%](images/KDG_3x3.png)
+
+
+---
+
+### Kernel Density Graphs 
+
+![:scale 50%](images/RF_v_KDF.png)
+![:scale 50%](images/DN_v_KDN.png)
+
+
+Conjecture: Kernel Density Graphs will transfer better
+
+---
+
+# Phase 2 plans
+
+- Theory 
+- Algorithms
+
+
+---
+
+### Theory goal 1: finish unified theory
+
+- Finalize paper characterizing unified theory 
+- Write all proposed metrics in terms of this unified theory
+
+---
+
+### Theory goal 2: prove consistency
+
+Prove the conditions under which ProgLearn algorithms achieve  Bayes optimal peformance. <br>
+
+Proof sketch 
+- Histograms converge to optimal under Glivenko-Cantelli theorem
+- RF & DN are essentially adaptive histogram rules
+- We can use RF/DN to learn calibrated histogram for any task 
+- Asymptotically, ensembling them cannot hurt, so transferring will either help or not have any impact
+
+
+
+---
+
+### Limitations of existing theory 
+
+- streaming data
+- distributional drift
+- reinforcement learning
+
+
+
+
+---
+
+### Theory goal 3: Lifelong RL theory
+
+
+Assume we have four streams:
+
+1. data 
+2. queries
+4. actions 
+3. feedback
+
+These streams need not be synchronous. <br>
+The goal is to minimize error after some period of time.<br><br>
+
+
+This generalizes our existing 'unified theory' to include streaming data, distributional drift, and reinforcement learning.R
+
+
+
+---
+
+### Algorithm Extensions 
+
+1. Regression
+3. Task unaware 
+2. Task adaptation 
+1. Streaming & RL
+
+
+---
+
+### Algorithm goal 1: kernel density  
+
+Demonstrate KDN & KDF empirically improve
+- smoothness of posteriors
+- calibration of posteriors 
+- classification accuracy 
+- regression accuracy
+- extrapolation 
+- transfer 
+
+
+---
+
+### Algorithm goal 2: task unaware 
+
+General approach
+- use same techniques to estimate probability of task 
+- predict class given prediction of task 
+
+
+---
+
+### Algorithm goal 3: task adaptation 
+
+
+![:scale 100%](images/R-XOR.png)
+![:scale 100%](images/LDDMM_RXOR.png)
+
+
+---
+
+### Algorithm goal 4: Lifelong RL
+
+- Hoeffding trees dynamically increase size 
+- Historically only for single task 
+- We will develop them for lifelong learning 
+- New nodes/trees only born when they are useful across tasks
+
+
+---
+
+# Other stuff 
+
+---
+### Timeline
+
+![:scale 100%](images/L2M-Phase2-Ganttb.png)
+
+
+
+---
+
+### Risks and mitigations 
+
+- Risk: RL implementation make take a long time 
+- Mitigation: a basic lifelong reinforcement learning scenario simply implements our progressive learning approach in Deep Q Learning scenario, i.e., successive regression and/or clustering 
+
+---
+
+### Changes to approach 
+
+- Previously we were largely focused on forests 
+- Now, with the realizaiton that both RF & DN are adaptive histogram algorithms, we can address both with the same machinery 
+
+
+---
+
+### Working groups 
+
+- Chaired metrics working group 
+- 3 of 6 metrics were proposed by us 
+
+
+---
+
+### Collaboration with other teams 
+
+
+- Gido from Tolias: developed the replay benchmarks for comparison 
+- Angel from ANL: working to integrate with DeepHyper, and waiting for their scenario to solidfy to begin developing toward that 
+- Don from MST: potentially applying for NSF AI grant together 
+- Vova from JHU: streaming trees and pruning GMMs via coresets 
+
+
+
+
+---
+
+.small[
+### Publications
+
+
+1. R. Mehta et al. A General Theory of the Task Learnable, 2020. 
+1. J. T. Vogelstein et al. [A general approach to progressive learning](https://arxiv.org/abs/2004.12908), arXiv, 2020
+1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), 2020. 
+1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
+1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
+1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019
+1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
+1. M. Madhya, et al. PACSET (Packed serialized trees): Reducing Inference Latency for Tree ensemble Deployment. submitted, 2020
+
+
+### Conferences 
+1. J.T. Vogelstein et al. A biological implementation of lifelong learning in the pursuit of artificial general intelligence.  NAISys, 2020.
+2. B. Pedigo et al.  A quantitative comparison of a complete connectome to artificial intelligence architectures. NAISys, 2020.
+]
+
+---
+
+### Transitions 
+
+- Used this work in part of NSF ERC grant 
+- Collaborating with Microsoft Research to scale & apply 
+- Recent funding from MSR to push work towards federated causal learning
+- Code is available: https://github.com/neurodata/ProgLearn
+
+
+
+---
+ 
+
+### Acknowledgements
+
+
+
+<!-- <div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jaewon.jpg"/>
+  <div class="centered">Jaewon Chung</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/yummy.jpg"/>
+  <div class="centered">yummy</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/lion.jpg"/>
+  <div class="centered">lion</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/violet.jpg"/>
+  <div class="centered">baby girl</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/family.jpg"/>
+  <div class="centered">family</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/earth.jpg"/>
+  <div class="centered">earth</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/milkyway.jpg"/>
+  <div class="centered">milkyway</div>
+</div>
+
+
+##### JHU
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/bruce_rosen.jpg"/>
+  <div class="centered">Bruce Rosen</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/kent.jpg"/>
+  <div class="centered">Kent Kiehl</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/meghana.png"/>
+  <div class="centered">Meghana Madhya</div>
+</div>
+  
+
+<!-- <div class="small-container">
+  <img src="faces/percy.png"/>
+  <div class="centered">Percy Li</div>
+</div>
+-->
+
+<div class="small-container">
+  <img src="faces/hayden.png"/>
+  <div class="centered">Hayden Helm</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/rguo.jpg"/>
+  <div class="centered">Richard Gou</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/ronak.jpg"/>
+  <div class="centered">Ronak Mehta</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jayanta.jpg"/>
+  <div class="centered">Jayanta Dey</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/will.jpg"/>
+  <div class="centered">Will LeVine</div>
+</div>
+
+##### Microsoft Research
+
+<div class="small-container">
+  <img src="faces/chwh-180x180.jpg"/>
+  <div class="centered">Chris White</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/weiwei.jpg"/>
+  <div class="centered">Weiwei Yang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jolarso150px.png"/>
+  <div class="centered">Jonathan Larson</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/brtower-180x180.jpg"/>
+  <div class="centered">Bryan Tower</div>
+</div>
+
+
+##### DARPA L2M
+<!-- Hava, Ben, Robert, Jennifer, Ted. -->
+
+{[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io)
+<br>
+[jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)
+
+
+</div>
+<!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
+
+---
+background-image: url(images/l_and_v.jpeg)
+
+.footnote[Questions?]
+
+
+
+
+
+
+
+</textarea>
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <!-- <script src="remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
+
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+
+    // var slideshow = remark.create({
+    // Set the slideshow display ratio
+    // Default: '4:3'
+    // Alternatives: '16:9', ...
+    // {
+    // ratio: '16:9',
+    // });
+
+    var slideshow = remark.create(options, renderMath);
+
+
+  </script>
+</body>
+
+</html>

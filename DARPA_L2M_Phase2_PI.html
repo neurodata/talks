@@ -169,8 +169,9 @@ Conjecture: All learning metrics we care about are functions of learning efficie
 
 ![:scale 85%](images/L2N-CIFAR-benchmarks.svg)
 
-- Higher forward transfer over all the tasks
-- Monotonic increasing backward transfer over all the tasks on CIFAR 10x10
+- SOTA forward transfer
+- Unique backward transfer using 500 training samples (SOTA)
+- Monotonically increasing backward transfer (SOTA)
 
 
 
@@ -178,9 +179,27 @@ Conjecture: All learning metrics we care about are functions of learning efficie
 
 ### Key Limitations
 
-1. Only works for task-aware classification
-2. Not streaming
+1. Only works for task-aware (not task-unaware)
+1. Only works for classification (not regression)
+2. Only batched data (not streaming, not RL)
 3. Theorems not yet with dotted i's and crossed t's 
+
+
+
+
+---
+
+
+![:scale 100%](images/vova_slide1.jpg)
+
+
+
+
+---
+
+
+![:scale 100%](images/vova_slide2.png)
+
 
 
 ---
@@ -192,7 +211,7 @@ Conjecture: All learning metrics we care about are functions of learning efficie
 1. Best forward transfer in CIFAR 10x10
 2. Only positive backwards transfer in CIFAR 10x10 with 500 training samples
 3. Only monotonically increasing backwards transfer in CIFAR 10x10
-4. All code open source and reproducible from [proglearn.neurodata.io/](http://proglearn.neurodata.io/)
+All code open source and reproducible from [proglearn.neurodata.io/](http://proglearn.neurodata.io/)
 
 
 ---
@@ -457,7 +476,8 @@ Conjecture: All learning metrics we care about are functions of learning efficie
 </div>
 
 
-##### DARPA L2M
+##### DARPA L2M: All code open source and reproducible from [proglearn.neurodata.io/](http://proglearn.neurodata.io/)
+
 <!-- Hava, Ben, Robert, Jennifer, Ted. -->
 
 {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io)

@@ -16,7 +16,7 @@
 
 
 
-### Lifelong Learning: <br>Theory and Practice
+### Lifelong Learning: <br>Theory and Practice and Coresets
 
 
 PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/) <br>
@@ -36,12 +36,12 @@ Carey E. Priebe
 
 ### How does our LL approach work?
 
-![:scale 80%](images/learning-schemas-simple.svg)
+![:scale 75%](images/learning-schemas-simple.svg)
 
 1. We learn representations independently for each task 
-2. We ensemble the representations both forward and backward 
-3. We illustrate it on CIFAR 10x10 and Microsoft language tasks
-4. Any sequential task-aware classification task
+2. We ensemble the representations both past and future tasks 
+3. We illustrate it achieves SOTA forward & backward transfer on CIFAR 10x10 and Microsoft language tasks
+4. It can be applied to any sequential task-aware classification task
 
 ---
 
@@ -49,11 +49,12 @@ Carey E. Priebe
 
 ### Key  Innovations 
 
-1. Modernized statistical decision theoretic definition of a decision task into a .ye[learning task] 
+1. Modernized statistical decision theory to explicitly incorporate a .ye[learning task] 
 2. Introduced .ye[learning efficiency]
 3. Formalized and unified .ye[learning metrics]
 4. Identified .ye[partition & vote] equivalence of Deep Networks and Decision Forests
 5. Developed .ye[Progressive Learning Forests and Networks] 
+6. Illustrated the value of .ye[coresets] for lifelong learning (vova)
 
 ---
 
@@ -63,14 +64,14 @@ Carey E. Priebe
 
 | Component | Notation | Examples |
 | :--- | :--- | :--- 
-| Query Space | $\mathcal{Q}$ | where's waldo?
-| Action Space | $\mathcal{A}$ | A,B, &rarr;, &larr; 
+| Query Space | $\mathcal{Q}$ | is this a cat?
+| Action Space | $\mathcal{A}$ | A,B, &larr;, &rarr;,  &uarr;, &darr;
 | Measurement Space | $\mathcal{Z}$ |  8-bit images, 256 x 256
 | Statistical Model | $\mathcal{P}$ | Gaussian 
-| Hypotheses | $\mathcal{H}$ | linear functions
+| Hypotheses | $\mathcal{H}$ | linear classifiers
 | Risk | $R$ | expected loss
 | Algorithm Space | $\mathcal{F}$ | Random Forests
-| Distribution | $P$ | $\mu=0$, $\sigma=1$
+| True & Unknown Distribution | $P$ | $\mu=0$, $\sigma=1$
 ---
 
 
@@ -78,9 +79,9 @@ Carey E. Priebe
 
 .ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$. 
 
-Let $\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))]$ denote .ye[error], and $\bold{Z}_0$ corresponds to no data. 
-
-Define .ye[learning efficiency]: $$LE_n(f) := 
+- Define .ye[generalization error] $\mathcal{E}_n(f) := \mathbb{E}_P[R(f(\bold{Z}_n))]$ 
+- $\bold{Z}_0$ corresponds to no data. 
+- Define .ye[learning efficiency]: $$LE_n(f) := 
 \frac{\mathbb{E}_P[R(f(\bold{Z}_0))]}{\mathbb{E}_P[R(f(\bold{Z}_n))]} = 
 \frac{\mathcal{E}_0(f)}{\mathcal{E}_n(f)}$$
 
@@ -125,9 +126,9 @@ $f$ .ye[backward learns] if $BL_{\mathbf{n}}(f) > 1$.
 ---
 
 
-### Special cases 
+### Unification of Learning Metrics
 
-Each of the previous definitions are all special cases of $LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B, f)$, for specific choices of  $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$
+Each of the previous definitions are all special cases of $LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B; f)$, for specific choices of  $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$
 
 
 - Learning: $\mathbf{Z}\_A=\mathbf{Z}\_0$ and $\mathbf{Z}\_B=\mathbf{Z}\_n$.
@@ -145,13 +146,14 @@ Conjecture: All learning metrics we care about are functions of learning efficie
 
 ![:scale 100%](images/PolytopesFig.svg)
 
-Both learn convex polytope partitions of feature space, with affine activation functions
+- Both learn convex polytope partitions of feature space, with affine activation functions
+- We can easily swap between the two empirically and theoretically
 
 ---
 
 #### Progressive Learning Forests and Networks
 
-![:scale 110%](images/learning_schema.svg)
+![:scale 80%](images/learning-schemas-simple.svg)
 
 1. Representers can be forest, networks, etc.
 1. Seperate representers learned for each task 

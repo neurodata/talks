@@ -29,17 +29,17 @@ Carey E. Priebe
 
 
 
-![:scale 40%](images/neurodata_blue.png)
+![:scale 30%](images/neurodata_blue.png)
 
-
-
-
+<footer>
+  <p> ![:scale 18%](images/jhu.png)
+</footer>
 ---
 
 Biological agents progressively build representations to transfer both forward & backward
 
 
-![:scale 110%](images/learning_schema_darpa.png)
+![:scale 90%](images/learning_schema_darpa.png)
 
 
 
@@ -47,17 +47,19 @@ Biological agents progressively build representations to transfer both forward &
 3. We illustrate it achieves SOTA forward, and unique  backward transfer, and uniquely monotonically transfer on CIFAR 10x10
 4. It can be applied to any sequential task-aware classification task
 
-
+<footer>
+  <p> ![:scale 18%](images/jhu.png)
+</footer>
 ---
 
 ### Potential Collaborations
 ### [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
 
-![:scale 100%](images/proglearn_webpage.png)
+![:scale 90%](images/proglearn_webpage.png)
 
-
-
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 
@@ -71,6 +73,10 @@ Biological agents progressively build representations to transfer both forward &
 5. Developed .ye[Progressive Learning Forests and Networks] 
 6. Illustrated the value of .ye[coresets] for lifelong learning (vova)
 
+
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 
@@ -87,6 +93,10 @@ Biological agents progressively build representations to transfer both forward &
 | Risk | $R$ | expected loss
 | Algorithm Space | $\mathcal{F}$ | Random Forests
 | True & Unknown Distribution | $P$ | $\mu=0$, $\sigma=1$
+
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 
@@ -105,8 +115,9 @@ Biological agents progressively build representations to transfer both forward &
 
 $f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE_n(f)  > 1$.
 
-
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 ### What is forward learning?
 
@@ -121,6 +132,9 @@ $$FL^t\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{
 
 $f$ .ye[forward learns] if $FL_{\mathbf{n}}(f) > 1$.
 
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 ### What is backward learning?
 
@@ -137,7 +151,9 @@ $$    BL^t\_{\mathbf{n}}(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\
 
 $f$ .ye[backward learns] if $BL_{\mathbf{n}}(f) > 1$.
 
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 
@@ -154,7 +170,9 @@ Each of the previous definitions are all special cases of $LE^t(\mathbf{Z}\_A, \
 
 Conjecture: All learning metrics we care about are functions of learning efficiency for a specific $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$.
 
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 ### Deep Nets and Decision Forests
@@ -164,32 +182,35 @@ Conjecture: All learning metrics we care about are functions of learning efficie
 - Both learn convex polytope partitions of feature space, with affine activation functions
 - We can easily swap between the two empirically and theoretically
 
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 #### Progressive Learning Forests and Networks
 
-![:scale 80%](images/learning-schemas-simple.svg)
+![:scale 70%](images/learning-schemas-simple.svg)
 
 1. Representers can be forest, networks, etc.
 1. Seperate representers learned for each task 
 2. Voters leverage both past and future representers
 
-
-
-
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 ### Key Strength
 
-![:scale 85%](images/L2N-CIFAR-benchmarks.svg)
+![:scale 65%](images/L2N-CIFAR-benchmarks.svg)
 
 - SOTA forward transfer
 - Unique backward transfer using 500 training samples (SOTA)
 - Monotonically increasing backward transfer (SOTA)
 
-
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 ### Key Limitations
@@ -199,24 +220,26 @@ Conjecture: All learning metrics we care about are functions of learning efficie
 2. Only batched data (not streaming, not RL)
 3. Theorems not yet with dotted i's and crossed t's 
 
-
-
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 
 ![:scale 100%](images/vova_slide1.jpg)
 
 
-
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 
 ![:scale 100%](images/vova_slide2.png)
 
-
-
+<footer>
+  <p> ![:scale 20%](images/jhu.png)
+</footer>
 ---
 
 ### Acknowledgements

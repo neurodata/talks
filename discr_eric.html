@@ -452,10 +452,11 @@ $(x_{i}^k, y_i)$ $i=1, ..., n$, $k=1,...,s$, $y_i \in \{1, ..., Y\}$
 - Can the population discriminability be decomposed as a sum of the within-group discriminabilities?
 --
 
-Short answer: No
+- Short answer: No
 
 --
-Long answer: yes, but with between-group discriminabilities as well
+
+- Long answer: yes, but with some added terms
 
 ---
 
@@ -463,7 +464,7 @@ Long answer: yes, but with between-group discriminabilities as well
 
 - Let $D(y) = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i, y_j = y)$ 
 - $D(y)$ is the within-group discriminability for group $y$
-- "How discriminable are sample from group $y$?"
+- "How discriminable are samples from group $y$?"
 --
 
 - $W = \sum_{y=1}^Yw(y) D(y)$ is the component of within-group differences
@@ -473,7 +474,7 @@ Long answer: yes, but with between-group discriminabilities as well
 ### Between-Group Discriminability
 - Let $D(y, y') = P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i = y, y_j = y')$
 - $D(y, y')$ is the between-group discriminability for groups $y$ and $y'$
-- "How discriminabile are samples from group $y$ and group $y'$, and vice versa?"
+- "How discriminabile are samples from group $y$ vs group $y'$, and vice versa?"
 --
 
 - $B = \sum_{y \neq y'}w(y, y')D(y, y')$
@@ -485,9 +486,11 @@ Long answer: yes, but with between-group discriminabilities as well
 - $D = W + B$
 - Population discriminability is a weighted sum of within and between-group comparisons
 - Could look at how within-group or between-group discriminabilities factor into the population discriminability
-- e.g., proportion of discriminability accounted for by within-group differences $\frac{\omega W}{\omega W + \beta B}$
-- proportion of discriminability accounted for by between-group differences $\frac{\beta B}{\omega W + \beta B}$
-- $\omega, \beta$ would be scalar weights, because you would probably want to re-weight these expressions since there are simply a lot more terms going into $B$ than $W$
+- $\frac{\omega W}{\omega W + \beta B}$ proportion of discriminability accounted for by within-group differences
+- $\frac{\beta B}{\omega W + \beta B}$ proportion of discriminability accounted for by between-group differences
+- $\omega = \frac{1}{\sum_{ y = 1}^Y \mathbb P(y_i, y_j = y)}$
+- $\beta = \frac{1}{\sum_{y \neq y'}\mathbb P(y_i = y, y_j = y')}$
+- $\omega, \beta$ are normalizing constants (there are more terms in $B$)
 
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->

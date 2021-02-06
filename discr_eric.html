@@ -442,6 +442,53 @@ Discr. decreases proportionally with accuracy
 - These statistics are not immune to sample characteristics
   - confounds such as age may inflate discriminability
 
+---
+
+### Extension: Discriminability Decomposition
+
+#### Setting
+$(x_{i}^k, y_i)$ $i=1, ..., n$, $k=1,...,s$, $y_i \in \{1, ..., Y\}$
+- associated with each individual, I have some other categorical covariate of interest, $y_i$, taking one of $Y$ possible values
+- Can the population discriminability be decomposed as a sum of the within-group discriminabilities?
+--
+
+Short answer: No
+
+--
+Long answer: yes, but with between-group discriminabilities as well
+
+---
+
+### Within-Group Discriminability
+
+- Let $D(y) = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i, y_j = y)$ 
+- $D(y)$ is the within-group discriminability for group $y$
+- "How discriminable are sample from group $y$?"
+--
+
+- $W = \sum_{y=1}^Yw(y) D(y)$ is the component of within-group differences
+- $w(y) = \mathbb P(y_i, y_j = y)$ are the weights associated with each group
+
+---
+### Between-Group Discriminability
+- Let $D(y, y') = P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i = y, y_j = y')$
+- $D(y, y')$ is the between-group discriminability for groups $y$ and $y'$
+- "How discriminabile are samples from group $y$ and group $y'$, and vice versa?"
+--
+
+- $B = \sum_{y \neq y'}w(y, y')D(y, y')$
+- $w(y, y') = \mathbb P(y_i = y, y_j = y')$ are the weights associated with the between-group comparison
+
+---
+### Discriminability Decomposition
+
+- $D = W + B$
+- Population discriminability is a weighted sum of within and between-group comparisons
+- Could look at how within-group or between-group discriminabilities factor into the population discriminability
+- e.g., proportion of discriminability accounted for by within-group differences $\frac{\omega W}{\omega W + \beta B}$
+- proportion of discriminability accounted for by between-group differences $\frac{\beta B}{\omega W + \beta B}$
+- $\omega, \beta$ would be scalar weights, because you would probably want to re-weight these expressions since there are simply a lot more terms going into $B$ than $W$
+
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
   <!-- <script src="remark-latest.min.js"></script> -->

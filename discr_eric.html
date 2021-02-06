@@ -463,39 +463,44 @@ $(x_{i}^k, y_i)$ $i=1, ..., n$, $k=1,...,s$, $y_i \in$ \{$1, ..., Y$\}
 ### Within-Group Discriminability
 
 - Let $D(y) = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i, y_j = y)$ 
-- $D(y)$ is the within-group discriminability for group $y$
+- $D(y)$ is the group discriminability for group $y$
 - "How discriminable are samples from group $y$?"
 --
 
-- $W = \sum_{y=1}^Yw(y) D(y)$ is the component of within-group differences
-- $w(y) = \mathbb P(y_i, y_j = y)$ are the weights associated with each group
+- Note that $W = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i= y_j)$= $\frac{\mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) , y_i = y_j)}{\mathbb P(y_i = y_j)}$ by Bayes' Rule
+
+--
+
+- With $w(y) = \mathbb P(y_i, y_j = y)$ the weights and $\omega = \sum_y w(y)$, then:
+
+ $W = \frac{1}{\omega}\sum_y w(y) D(y)$ is the within-group Discriminability
 
 ---
 ### Between-Group Discriminability
 - Let $D(y, y') = P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i = y, y_j = y')$
 - $D(y, y')$ is the between-group discriminability for groups $y$ and $y'$
 - "How discriminabile are samples from group $y$ vs group $y'$, and vice versa?"
---
-
-- Aside: Clear that $D(y,y) = D(y)$
 
 --
 
-- $B = \sum_{y \neq y'}w(y, y')D(y, y')$
-- $w(y, y') = \mathbb P(y_i = y, y_j = y')$ are the weights associated with the between-group comparison
+- Note that $B = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i\neq  y_j)$= $\frac{\mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) , y_i \neq y_j)}{\mathbb P(y_i \neq y_j)}$ by Bayes' Rule
+
+--
+
+- Let $w(y, y') = \mathbb P(y_i = y, y_j = y')$ denote the between group weights 
+- With $\beta = \sum_{y\neq y'} w(y,y')$, then:
+
+$B = \frac{1}{\beta}\sum_{y \neq y'}w(y,y')D(y,y')$ is the between-group Discriminability
 
 ---
 ### Discriminability Decomposition
 
-- $D = W + B$
+- $D = \omega W + \beta B$
 - Population discriminability is a weighted sum of within and between-group comparisons
-- Could look at how within-group or between-group discriminabilities factor into the population discriminability
-- $\frac{\omega W}{D}$ ratio of within-group discriminability and total discriminability
-- $\frac{\beta B}{D}$ ratio of between-group discriminability and total discriminabillity
-- $\omega = \frac{1}{\sum_{ y = 1}^Y \mathbb P(y_i, y_j = y)}$
-- $\beta = \frac{1}{\sum_{y \neq y'}\mathbb P(y_i = y, y_j = y')}$
-- $\omega, \beta$ are normalizing constants (there are more terms in $B$ than $W$, so a direct comparison would be unfair)
-
+- Can look at how the within, or between, group discriminabilities compare
+- $\frac{W}{D}$ ratio of within-group Discriminability and pop. discriminability
+- $\frac{B}{D}$ ratio of between-group Discriminability and pop. discriminabillity
+- $\frac{W}{B}$ ratio of within-group Discriminability and between-group discriminability
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
   <!-- <script src="remark-latest.min.js"></script> -->

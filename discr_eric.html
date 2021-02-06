@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Discriminability</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style_i.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <textarea id="source">
+
+
+
+<!-- TODO add slide numbers & maybe slide name -->
+
+### Eliminating Accidental Deviations in Human Connectomics
+
+
+![:scale 40%](images/neurodata_blue.png)
+
+Eric W. Bridgeford | [ericwb.me](http://ericwb.me)
+
+---
+
+### Outline 
+
+- [Motivation](#defn)
+- [Quantifying Discriminability](#statistics)
+- [Real Data](#results)
+- [Discussion](#disc)
+
+
+---
+name:defn
+
+### Outline 
+
+- Motivation
+- [Quantifying Discriminability](#statistics)
+- [Real Data](#results)
+- [Discussion](#disc)
+
+
+---
+
+### What is Reproducibility?
+
+- .ye[Reproducibility]: ability to replicate, or reproduce, a conclusion
+- serves as a "first-pass" check for scientific utility
+- currently in a "reproducibility crisis"
+
+---
+
+### How do we address the Reproducibility Crisis?
+
+- fix post hoc analyses (e.g., $p$-values)?
+- fix measurements (e.g., measurement reproducibility)?
+
+
+
+
+Proposal: design experiments to maximize .ye[inter-item discriminability], rather than simply checking reproducibility after conducting the experiment
+
+
+---
+name:statistics
+
+### Outline 
+
+- [Motivation](#defn)
+- Quantifying Discriminability
+- [Real Data](#results)
+- [Discussion](#disc)
+
+
+---
+### What do we want of our data?
+
+If we measure a sample multiple times, then each measurement of that sample is closer to all the other measurements of that sample, as compared to  any of the measurements of other samples.
+
+![:scale 100%](images/discr/perfect_discrim.png)
+
+Perfect discriminability
+
+---
+### What do we want of our data?
+
+Imperfect discriminability
+
+![:scale 100%](images/discr/imperfect_discr.png)
+
+---
+### What do we want of our statistic?
+
+Discriminability is the probability of a measurement from the same item being closer than a measurement from a different item.
+
+![:scale 100%](images/discr/imperfect_discr.png)
+
+<!-- --- -->
+<!-- ### Statistics for Quantifying Reproducibility -->
+
+<!-- - most approaches tend to focus on the concepts of between-individual and within-individual summaries -->
+<!-- -- -->
+
+<!-- - parametric approaches -->
+  <!-- - reproducibility is achieved if most of the variability is between-individuals, rather than within-individuals -->
+  <!-- - e.g. Intraclass Correlation Coefficient (.ye[ICC]) and Image Intraclass Correlation Coefficient (.ye[I2C2]) --> 
+<!-- -- -->
+
+<!-- - non-parametric approaches
+  - reproducibility is achieved if measurements from the same item are more similar to one another than measurements from different items
+  - e.g. Fingerprinting (.ye[Finger.]) and DISCO (.ye[Kernel]) -->
+<!-- --- -->
+<!-- ### Limitations of Existing Reproducibility Statistics -->
+<!-- - Data: $N$ items in $d > 1$ dimensions measured $s \geq 2$ times each -->
+
+<!-- | Statistic | Chief Limitation | -->
+<!-- | :--- | :--- | -->
+<!-- | ICC | univariate  -->
+<!-- | I2C2 | does not generalize outside Gaussian framework; estimation issues in high dimensions  -->
+<!-- | Finger. | overly greedy: only look at most similar measurement to the reference measurement  -->
+<!-- | DISCO | struggles when $s$ is small  -->
+
+
+<!-- --- -->
+<!-- ### Discriminability Statistic: Data -->
+<!-- - $n$ individuals measured $s = 2$ times each, for $N = n\cdot s$ total measurements -->
+<!-- - generalizes to $s \geq 2$, but $s=2$ is simpler -->
+
+<!-- <img src="images/discr/dummy_sim_sim.png"/> -->
+
+---
+### Discriminability Statistic: Step 1
+
+- Compute $N \times N$ pairwise distance matrix between all measurements
+<!-- - measurements are indexed first by individual identifier, and second by "measurement session" -->
+
+![:scale 55%](images/discr/imperfect_discr.png)
+![:scale 42%](images/discr/dummy_sim_dmtx.png)
+
+<!-- <img src="images/discr/dummy_sim_dmtx.png"/> -->
+---
+### Discriminability Statistic: Step 2
+
+- For each measurement, identify which measurements are from the same individual (<font color="green">green boxes</font>)
+- let $\color{green}g$ be the total number of <font color="green">green boxes = 20</font>
+
+<img src="images/discr/dummy_sim_dmtx_match.png"/>
+---
+### Discriminability Statistic: Step 3
+- For each measurement, identify measurements from other individuals that are more similar than the measurement from the same individual (<font color="orange">orange boxes</font>)
+- let $\color{orange}f$ be the total number of <font color="orange">orange boxes = 84</font>
+
+<img src="images/discr/dummy_sim_dmtx_closer.png"/>
+---
+### Discriminability Statistic
+- Discr = $1 - \frac{\color{orange}f}{N(N-1) - \color{green}g} = 1 - \frac{\color{orange}{84}}{20\cdot 19 - \color{green}{20}} \approx .77$
+
+<img src="images/discr/dummy_sim_repr.png"/>
+
+High discriminability: same-item measurements are more similar than across-item measurements
+---
+
+### Discriminability is Construct Valid
+<img src="images/discr/dummy_sims.png" style="height: 350px"/>
+
+<!-- - under the given construct (what the simulation is supposed to show), discriminability provides a sensible statistic -->
+  <!-- - other approaches do not -->
+
+---
+name:results
+
+### Outline 
+
+- [Motivation](#defn)
+- [Quantifying Discriminability](#statistics)
+- Real Data 
+- [Discussion](#disc)
+---
+### What data will we be using?
+
+- CoRR metadataset
+- $N>1,700$ individuals imaged across $26$ different datasets
+  - anatomical MRI and fMRI scans for each
+  - Individuals are measured at least twice
+
+
+---
+### Analysis Procedure
+
+Process each  measurement using $192$ different pipelines
+  1. Brain alignment (ANTs/FSL)
+  2. Frequency filtering (Y/N)
+  3. Scrubbing (Y/N)
+  4. Global Signal Regression (Y/N)
+  5. Parcellation (4 options)
+  6. Rescaling connectomes (Raw, Log, Pass-to-Rank)
+
+$192 = 2 \times 2 \times 2 \times 2 \times 4 \times 3$ 
+
+All options represent strategies experts consider useful
+
+---
+### Pipeline impacts discriminability
+<center><img src="images/discr/fmri_cmp.png" style="height: 420px"/></center>
+
+<!-- - Consequence: choosing how to pre-process your data matters -->
+
+---
+### Marginally most discriminabile options tend to be best global options
+<center><img src="images/discr/individual_methods.png" style="height: 200px"/></center>
+- Each point is the pairwise difference holding other options fixed (e.g., FNNGCP - ANNGCP)
+- Best pipeline marginally (FNNGCP) is second best pipeline overall, and not much worse (2-sample test, p=.14) than the best pipeline FNNNCP
+- We may not need to always try every pre-processing strategy every time
+
+---
+### Selection via Discriminability improves inference
+For each pre-processing strategy, for each dataset, compute:
+1. Within-dataset Discr.
+2. Demographic effects (sex and age) within the dataset via Distance Correlation (DCorr)
+3. Within a single dataset, regress demographic effect on Discr.
+
+Question: does a higher discriminability tend to yield larger effects for known biological signals?
+---
+### Selection via Discriminability improves inference
+<img src="images/discr/dependence.png" style="height: 400px"/>
+<!-- - Consequence: maximizing discriminability in general improves downstream inference -->
+
+---
+name:disc
+
+### Outline 
+
+- [Problem Space](#prob)
+- [Defining and Quantifying Discriminability](#statistics)
+- [Real Data](#results)
+- Discussion
+
+---
+### Contributions
+1. Discriminability quantifies the contributions of systematic and accidental deviations
+3. Provide theoretical motivation for discriminability in connection with predictive accuracy
+2. Formalize tests for assessing and comparing discriminabilities within and between collection strategies
+4. Illustrate the value of discriminability for neuroscience and  genomics (not discussed) data
+5. Code implementations in [python](https://github.com/neurodata/hyppo) and [R](https://github.com/neurodata/r-mgc)
+
+<!-- ---
+### Connections to Energy Statistics
+- energy statistics provide statistics that are functions of distances between measurements, like discriminability
+- both approaches make relatively few assumptions
+- discriminability 2-sample test is a comparison of K-sample tests in the energy statistics literature
+- energy statistics tend to perform well when we have more replicates (e.g., DISCO) -->
+
+<!-- --- -->
+<!-- ### Extending Discriminability
+- use of distances allows for trivial modification for non-Euclidean measurements
+  - e.g., speech or text data may make sense with different distance functions
+- measurements that consist of multiple measurements themselves
+  - if we only have one measurement that consists of many sub-measurements, can split the sub-measurements into multiple measurements
+  - e.g., taking a single fMRI and splitting into two fMRI with $\frac{t}{2}$ timepoints each -->
+---
+### Acknowledgements
+
+<div class="small-container">
+  <img src="faces/jovo.png"/>
+  <div class="centered">Josh Vogelstein</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div>
+<div class="small-container">
+  <img src="faces/zhi.jpeg"/>
+  <div class="centered">Zhi Yang</div>
+</div>
+<div class="small-container">
+  <img src="faces/zeyi.jpeg"/>
+  <div class="centered">Zeyi Wang</div>
+</div>
+<div class="small-container">
+  <img src="faces/ting.jpeg"/>
+  <div class="centered">Ting Xu</div>
+</div>
+<div class="small-container">
+  <img src="faces/cc.jpg"/>
+  <div class="centered">Cameron Craddock</div>
+</div>
+<div class="small-container">
+  <img src="faces/jayanta.jpg"/>
+  <div class="centered">Jayanta Dey</div>
+</div>
+<div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div>
+<div class="small-container">
+  <img src="faces/wgr.jpg"/>
+  <div class="centered">William Gray-Roncal</div>
+</div>
+<div class="small-container">
+  <img src="faces/carlo.jpeg"/>
+  <div class="centered">Carlo Colantuoni</div>
+</div>
+<div class="small-container">
+  <img src="faces/cdouville.jpeg"/>
+  <div class="centered">Christopher Douville</div>
+</div>
+<div class="small-container">
+  <img src="faces/snoble.jpeg"/>
+  <div class="centered">Stephanie Noble</div>
+</div>
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+<div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+<div class="small-container">
+  <img src="faces/mm.jpg"/>
+  <div class="centered">Michael Milham</div>
+</div>
+<div class="small-container">
+  <img src="faces/xinian.jpg"/>
+  <div class="centered">Xinian Zuo</div>
+</div>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+- [BioRxiv manuscript](https://www.biorxiv.org/content/10.1101/802629v6)
+- Code implementations in [python](https://github.com/neurodata/hyppo) and [R](https://github.com/neurodata/r-mgc)
+
+---
+
+###  Population Discriminability
+- population discriminability $D$ is a .ye[property of the distribution] of measurements
+<!-- - A sequence of items $x_i^k$ from individuals $i=1,..., N$ measured at time $k=1,..., s$ --> 
+$D = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}))$
+- Probability of within-individual measurements being more similar than between-individual measurements
+
+---
+### Discriminability: unbiased and consistent
+- Sample Discr. $= $fraction of times $\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''})$
+- $i, j = 1, ..., n$ and $i \neq j$ for $n$ individuals
+- $k, k', k'' = 1, ..., s$ and $k \neq k'$ for $s$ sessions
+  <!-- - Probability that distances from measurements of the same individual are smaller than distances from measurements of different individuals -->
+- Sample Discr. is an .ye[unbiased estimator] of $D$
+- Sample Discr. converges to $D$ (.ye[asymptotically consistent] in $n$)
+
+---
+### Connecting Discriminability to Downstream Inference
+<!-- - Fundamental question: does discriminability .ye[matter] for inference? -->
+
+<!-- ##### Assumptions -->
+<!-- Data follows Gaussian mixture model plus additive Gaussian noise -->
+
+#### Assumption: Multivariate Additive Noise Setting
+
+- $y_i \sim Bern(\pi)\;i.i.d.$,
+- $\theta_i \sim \mathcal N(\mu(y_i), \Sigma_t)\;ind.$,
+- (the individual means have a center which depends on the class)
+--
+
+- $\epsilon_{i}^k \sim \mathcal N(c, \Sigma_e)\;i.i.d.$ and $ind.$ of $\theta_i$,
+- $x_{i}^k = \theta_i + \epsilon_i^k$.
+- (the measurements $x_i^k$ are normally dispersed about the individual means)
+
+---
+### Connecting Discriminability to Downstream Inference
+Suppose $(x_i^k, y_i)$ follow the Multivar. Additive Noise Setting, where $i=1, ..., n$ and $k=1,...,s$.
+#### Theorem 1
+There exists an increasing function of $D$, $f(D)$, which provides a lower bound on the predictive accuracy of a subsequent classification task
+- $f(D) \leq A$, where $A$ is the Bayes Accuracy of the classification task
+
+#### Consequence
+- $D \uparrow \Rightarrow f(D) \uparrow$
+
+---
+
+#### Corollary 2
+A strategy with a higher $D$ provably provides a higher bound on predictive accuracy than a strategy with a lower $D$
+
+#### Consequence
+
+Suppose $D_1 < D_2$, then since $f$ is increasing, $f(D_1) < f(D_2)$
+
+#### Implication
+
+We should use strategies with higher discriminability, as the worst-case for subsequent inference is better than a generic strategy with a lower discriminability
+
+---
+
+### Simulation Setup
+<!-- - Construct $3$ simple simulations where the data are describable in Gaussian (or non-Gaussian) framework -->
+<!-- - level of "noise" in the simulation is varied -->
+  <!-- <center><img src="images/discr/sims_sim.png" style="height: 450px"/></center> -->
+
+
+![:scale 70%](images/discr/sims_sim.png)
+
+---
+### Discriminability and  Accuracy
+
+![:scale 70%](images/discr/sims_acc.png)
+
+<!-- <center><img src="images/discr/sims_acc.png" style="height: 450px"/></center> -->
+
+Discr. decreases proportionally with accuracy
+
+
+---
+### Are data discriminable?
+<!-- - Fundamental question: are the data discriminable at all? -->
+
+![:scale 70%](images/discr/sims_os.png)
+
+---
+
+### Is one dataset more discriminable than another?
+
+![:scale 70%](images/discr/sims_ts.png)
+---
+### Limitations
+- experimental design is not "one-size-fits-all"
+  <!-- - future scientific questions will still need to consider the question of interest -->
+  <!-- - e.g., an analysis of task fMRI may not want to use a pre-processing pipeline with global signal regression, but for resting-state fMRI, this may not be an issue -->
+- Discriminability is not sufficient for practical utility
+  - categorical covariates are meaningful but not discriminable
+  - fingerprints are discriminable but not typically biological useful
+- These statistics are not immune to sample characteristics
+  - confounds such as age may inflate discriminability
+
+</textarea>
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <!-- <script src="remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
+
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+
+    // var slideshow = remark.create({
+    // Set the slideshow display ratio
+    // Default: '4:3'
+    // Alternatives: '16:9', ...
+    // {
+    // ratio: '16:9',
+    // });
+
+    var slideshow = remark.create(options, renderMath);
+
+
+  </script>
+</body>
+
+</html>

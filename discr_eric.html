@@ -503,7 +503,9 @@ name:other
 #### Distance Components (Kernel)
 - "non-parametric ANOVA"
 - total dispersion is the sum of between and within-sample dispersions ($B$ and $W$)
+
 - $DISCO = \frac{\frac{B}{n - 1}}{\frac{W}{n\cdot s - n}}$
+
 - "pseudo F" statistic
 ---
 name:limitations
@@ -549,13 +551,6 @@ name:extension
 $(x_{i}^k, y_i)$ $i=1, ..., n$, $k=1,...,s$, $y_i \in$ \{$1, ..., Y$\}
 - associated with each individual, I have some other categorical covariate of interest, $y_i$, taking one of $Y$ possible values
 - Can the population discriminability be decomposed as a sum of the within-group discriminabilities?
---
-
-- Short answer: No
-
---
-
-- Long answer: yes, but with some added terms
 
 ---
 
@@ -602,7 +597,7 @@ $B = \frac{1}{\beta}\sum_{y \neq y'}b(y,y')D(y,y')$ is the between-group Discrim
 - $\frac{B}{D}$ ratio of between-group Discriminability and pop. discriminabillity
 - are certain groups more discriminable than others?
 - are certain between-group discriminabilities greater than others?
-- "ANOVA or DISCO-esque" but with probability statements
+- "ANOVA-esque" or DISCO-esque"
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
   <!-- <script src="remark-latest.min.js"></script> -->

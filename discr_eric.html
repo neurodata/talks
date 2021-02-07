@@ -344,6 +344,25 @@ name:disc
 
 ---
 
+### Extra Topics
+
+- [Theory](#theory)
+- [Other Reproducibility Statistics](#other)
+- [Limitations](#limitations)
+- [Extension: Discriminability Decomposition](#extension)
+
+---
+name:theory
+
+### Extra Topics
+
+- Theory
+- [Other Reproducibility Statistics](#other)
+- [Limitations](#limitations)
+- [Extension: Discriminability Decomposition](#extension)
+
+---
+
 ###  Population Discriminability
 - population discriminability $D$ is a .ye[property of the distribution] of measurements
 <!-- - A sequence of items $x_i^k$ from individuals $i=1,..., N$ measured at time $k=1,..., s$ --> 
@@ -432,6 +451,52 @@ Discr. decreases proportionally with accuracy
 
 ![:scale 70%](images/discr/sims_ts.png)
 ---
+name:other
+
+### Extra Topics
+
+- [Theory](#theory)
+- Other Reproducibility Statistics
+- [Limitations](#limitations)
+- [Extension: Discriminability Decomposition](#extension)
+
+---
+
+#### Intraclass Correlation Coefficient (ICC)
+
+- can be thought of as looking at the "relative size" of the within-group vs between-group variance
+- $y_i^k = \mu + \mu_i + \epsilon_i^k$ 
+- let $\mu_i \sim \mathcal N(0, \sigma_b^2)$, and $\epsilon_i^k \sim \mathcal N(0, \sigma_e^2)$
+- $ICC = \frac{\sigma_b^2}{\sigma_e^2 + \sigma_b^2}$
+- $ICC \uparrow \Rightarrow $ between-group variance exceeds within-group variance proportionally
+---
+#### Intraclass Image Correlation Coefficient (I2C2)
+- simplest "multivariate extension" of ICC
+- $y_i^k = \mu + \mu_i + \epsilon_i^k$
+- let $\mu \sim \mathcal N(0, \Sigma_b)$ and $\epsilon_i^k \sim \mathcal N(0, \Sigma_e)$
+- $I2C2 = \frac{tr(\Sigma_b)}{tr(\Sigma_b) + tr(\Sigma_e)}$
+- "ratio of total variability accounted for between groups"
+---
+#### Fingerprinting Index (Finger.)
+- "greedy discriminability"
+- $Finger. = \mathbb P(\delta(x_i^1, x_i^2) < \delta(x_i^1, x_j^2) \;\forall\; i \neq j)$
+- $\forall\; i \neq j$: this property must occur for every measurement in the second session
+---
+#### Distance Components (Kernel)
+- "non-parametric ANOVA"
+- "pseudo F" statistic: positive support
+---
+name:limitations
+
+### Extra Topics
+
+- [Theory](#theory)
+- [Other Reproducibility Statistics](#other)
+- Limitations
+- [Extension: Discriminability Decomposition](#extension)
+
+---
+
 ### Limitations
 - experimental design is not "one-size-fits-all"
   <!-- - future scientific questions will still need to consider the question of interest -->
@@ -441,6 +506,16 @@ Discr. decreases proportionally with accuracy
   - fingerprints are discriminable but not typically biological useful
 - These statistics are not immune to sample characteristics
   - confounds such as age may inflate discriminability
+
+---
+name:extension
+
+### Extra Topics
+
+- [Theory](#theory)
+- [Other Reproducibility Statistics](#other)
+- [Limitations](#limitations)
+- Extension: Discriminability Decomposition
 
 ---
 
@@ -480,7 +555,7 @@ $(x_{i}^k, y_i)$ $i=1, ..., n$, $k=1,...,s$, $y_i \in$ \{$1, ..., Y$\}
 ### Between-Group Discriminability
 - Let $D(y, y') = P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i = y, y_j = y')$
 - $D(y, y')$ is the between-group discriminability for groups $y$ and $y'$
-- "How discriminabile are samples from group $y$ vs group $y'$, and vice versa?"
+- "How discriminable are samples from group $y$ vs group $y'$, and vice versa?"
 
 --
 
@@ -488,10 +563,10 @@ $(x_{i}^k, y_i)$ $i=1, ..., n$, $k=1,...,s$, $y_i \in$ \{$1, ..., Y$\}
 
 --
 
-- Let $w(y, y') = \mathbb P(y_i = y, y_j = y')$ denote the between group weights 
+- Let $b(y, y') = \mathbb P(y_i = y, y_j = y')$ denote the between group weights 
 - With $\beta = \sum_{y\neq y'} w(y,y')$, then:
 
-$B = \frac{1}{\beta}\sum_{y \neq y'}w(y,y')D(y,y')$ is the between-group Discriminability
+$B = \frac{1}{\beta}\sum_{y \neq y'}b(y,y')D(y,y')$ is the between-group Discriminability
 
 ---
 ### Discriminability Decomposition
@@ -501,7 +576,8 @@ $B = \frac{1}{\beta}\sum_{y \neq y'}w(y,y')D(y,y')$ is the between-group Discrim
 - Can look at how the within, or between, group discriminabilities compare
 - $\frac{W}{D}$ ratio of within-group Discriminability and pop. discriminability
 - $\frac{B}{D}$ ratio of between-group Discriminability and pop. discriminabillity
-- $\frac{W}{B}$ ratio of within-group Discriminability and between-group discriminability
+- are certain groups more discriminable than others?
+- are certain between-group discriminabilities greater than others?
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
   <!-- <script src="remark-latest.min.js"></script> -->

@@ -464,18 +464,23 @@ name:other
 
 #### Intraclass Correlation Coefficient (ICC)
 
-- can be thought of as looking at the "relative size" of the within-group vs between-group variance
+- can be thought of as looking at the "relative size" of the within-group vs total variance
 - $y_i^k = \mu + \mu_i + \epsilon_i^k$ 
 - let $\mu_i \sim \mathcal N(0, \sigma_b^2)$, and $\epsilon_i^k \sim \mathcal N(0, \sigma_e^2)$
 - $ICC = \frac{\sigma_b^2}{\sigma_e^2 + \sigma_b^2}$
-- $ICC \uparrow \Rightarrow $ between-group variance exceeds within-group variance proportionally
+- $ICC \uparrow \Rightarrow $ between-group variance "contains" most of the total variance
+- negative ICC? mean squared error-based estimator
 ---
-#### Intraclass Image Correlation Coefficient (I2C2)
+#### Image Intraclass Correlation Coefficient (I2C2)
 - simplest "multivariate extension" of ICC
 - $y_i^k = \mu + \mu_i + \epsilon_i^k$
 - let $\mu \sim \mathcal N(0, \Sigma_b)$ and $\epsilon_i^k \sim \mathcal N(0, \Sigma_e)$
+- Wilk's $\Lambda = \frac{\det(\Sigma_b)}{\det(\Sigma_b) + \det(\Sigma_e)}$
+
 - $I2C2 = \frac{tr(\Sigma_b)}{tr(\Sigma_b) + tr(\Sigma_e)}$
+
 - "ratio of total variability accounted for between groups"
+- Why I2C2 over Wilk's $\Lambda$? Ease-of-use for high-dimensional data
 ---
 #### Fingerprinting Index (Finger.)
 - "greedy discriminability"
@@ -484,7 +489,9 @@ name:other
 ---
 #### Distance Components (Kernel)
 - "non-parametric ANOVA"
-- "pseudo F" statistic: positive support
+- total dispersion is the sum of between and within-sample dispersions ($B$ and $W$)
+- $DISCO = \frac{\frac{B}{n - 1}}{\frac{W}{n\cdot s - n}}$
+- "pseudo F" statistic
 ---
 name:limitations
 

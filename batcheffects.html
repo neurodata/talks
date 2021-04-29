@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Causal Batch Effects</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style_i.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <textarea id="source">
+
+
+
+<!-- TODO add slide numbers & maybe slide name -->
+
+### Batch Effects are Causal Effects
+
+
+![:scale 40%](images/neurodata_blue.png)
+
+Eric W. Bridgeford | [ericwb.me](http://ericwb.me)
+
+---
+name:talk
+
+### Outline 
+
+- [Motivation](#defn)
+- [Quantifying Batch Effects](#statistics)
+- [Real Data](#results)
+- [Discussion](#disc)
+
+---
+name:defn
+
+### Outline
+
+- Motivation
+- [Quantifying Batch Effects](#statistics)
+- [Real Data](#results)
+- [Discussion](#disc)
+
+---
+
+### Modern Neuroimaging Data is Expansive
+
+- Neuroimaging data is big and costly
+
+- Ability to Perform Inference $\propto$ -(Number of Features)
+
+- aim: unprecedented sample diversity (demographically) and sizes (more data)
+
+--
+
+- generalizability
+
+--
+
+- Expansive mega-studies (study comprised of studies) collected around the world
+
+
+---
+
+### Batch Effects Make Data Aggregation Complex
+
+- Data does not look the same when it is collected in different places
+  - Batch Effect: the impact of the data collection procedure (measurement device, measurement protocol, season, etc.) on the data collected
+
+- The very existence of mega-studies implies an understanding of how to adjust for batch effects
+---
+
+---
+
+### Batch Effects are Confounded by Demographic Effects
+
+- Actual (biological) sources of variability tend to make batch effects difficult to estimate
+- Demographic Effects: impact on the data of scientifically "interesting" characteristics of the object under study
+
+---
+
+### How do we address Batch Effects?
+
+- Skip to correction (e.g., SVA, ComBat, etc.)?
+- Focus on estimation?
+
+Proposal: leverage techniques from .ye[causal inference] to yield strategies which are both theoretically and empirically sensible for batch effect analyses
+
+---
+name:statistics
+
+### Outline 
+
+- [Motivation](#defn)
+- Quantifying Batch Effects
+- [Real Data](#results)
+- [Discussion](#disc)
+
+---
+### What if we just compare the measurements directly from batches?
+
+![:scale 100%](images/batch_effects/CoRR DAG - Ideal.png)
+
+---
+
+### Why can't we do this?
+
+![:scale 100%](images/batch_effects/CoRR DAG - Simple.png)
+
+---
+
+### What does a typical Observational Neuroimaging Study Look Like?
+
+![:scale 100%](images/batch_effects/CoRR DAG - Transposed.png)
+
+---
+
+### How to Estimate a Batch Effect Properly
+
+1. Make assumptions about the unestimable arrows, and ignore the missing confounders entirely
+2. Use the "crossover property"
+
+
+![:scale 100%](images/batch_effects/CoRR DAG - Crossover.png)
+
+---
+
+### Effect Estimation Approaches
+
+- Goal: estimate whether a batch effect exists between a pair of studies
+1. Associational: 2x observational studies, use dcorr
+2. Conditional: 2x observational studies, use partial dcorr
+3. .ye[Adjusted]: 2x observational studies, balance on covariates (IPT + matching), followed by partial dcorr
+4. .ye[Crossover]: 2x crossed-over studies, use dcorr
+
+--
+
+- Crossover $>$ Adjusted $\gg$ Conditional $>$ Associational
+---
+
+### Effect Correction Approaches
+
+1. Z-Score: for each connectome feature, z-scoe within a site.
+2. ComBat across all studies.
+3. Causal ComBat across appropriate studies.
+
+---
+name:results
+
+### Outline 
+
+- [Motivation](#defn)
+- [Quantifying Batch Effects](#statistics)
+- Real Data 
+- [Discussion](#disc)
+
+---
+
+## CoRR Mega-Study
+
+![:scale 100%](images/batch_effects/demographic.png)
+
+---
+
+## Estimating Batch Effects
+
+Procedure
+1. For a pair of studies $(k, l)$:
+   - Estimate an associational effect.
+   - Estimate a conditional effect.
+   - If possible, estimate an adjusted effect.
+   - If possible, estimate a crossover effect.
+
+Report p-value of estimated effects.
+
+---
+### Causal Effects Are Often Unestimable
+
+![:scale 80%](images/batch_effects/effect.png)
+
+---
+
+## Removing Batch Effects
+
+Procedure
+
+1. For each feature of the connectome measurements, z-score within a single site.
+2. Perform ComBat across all CoRR studies.
+3. Perform Causal ComBat, on the American Clique.
+---
+
+### Batch Effect Correction Tends to Remove Inter-Site Variability
+
+![:scale 80%](images/batch_effects/avg_conn_corr.png)
+
+---
+
+### ComBat Tends to Remove Biological Variability
+
+![:scale 100%](images/batch_effects/combat_bad.png)
+
+---
+name:disc
+
+### Outline 
+
+- [Motivation](#defn)
+- [Quantifying Batch Effects](#statistics)
+- [Real Data](#results)
+- Discussion
+
+---
+### Contributions
+1. Define batch effects as a problem in causal inference
+2. Illustrate existing analyses of batch effects in neuroimaging amount to associational or conditional effects, and inadequately account for confounding
+3. Show how batch effects can be estimated and tested on multivariate, non-euclidean batches using energy statistics
+4. Provide an approach for batch effect correction that pays attention to confounding biases in the data
+5. Highlight useful properties of the measurements that may (or may not) be preserved by different batch effect correction approaches (not shown here)
+
+---
+### Acknowledgements
+
+<div class="small-container">
+  <img src="faces/jovo.png"/>
+  <div class="centered">Josh Vogelstein</div>
+</div>
+<div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div>
+<div class="small-container">
+  <img src="faces/powell.jpg"/>
+  <div class="centered">Mike Powell</div>
+</div>
+<div class="small-container">
+  <img src="faces/blank.png"/>
+  <div class="centered">Anton Alyakin</div>
+</div>
+<div class="small-container">
+  <img src="faces/mm.jpg"/>
+  <div class="centered">Michael Milham</div>
+</div>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+- [Code](github.com/neurodata/batch_effects)
+
+
+
+</textarea>
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <!-- <script src="remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
+
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+
+    // var slideshow = remark.create({
+    // Set the slideshow display ratio
+    // Default: '4:3'
+    // Alternatives: '16:9', ...
+    // {
+    // ratio: '16:9',
+    // });
+
+    var slideshow = remark.create(options, renderMath);
+
+
+  </script>
+</body>
+
+</html>

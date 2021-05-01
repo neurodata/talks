@@ -46,43 +46,43 @@ name:defn
 
 ---
 
-### Modern Neuroimaging Data is Expansive
+### Modern neuroimaging data is expansive
 
 - Neuroimaging data is big and costly
 
-- Ability to Perform Inference $\propto$ -(Number of Features)
-
-- aim: unprecedented sample diversity (demographically) and sizes (more data)
-
---
-
-- generalizability
-
---
-
 - Expansive mega-studies (study comprised of studies) collected around the world
 
+  - unprecedented sample diversity (demographically) and sizes (more data)
+
+  - generalizability
+
+--
+
+
 
 ---
 
-### Batch Effects Make Data Aggregation Complex
+### Sources of variability are not well understood
 
-- Data does not look the same when it is collected in different places
-  - Batch Effect: the impact of the data collection procedure (measurement device, measurement protocol, season, etc.) on the data collected
+- Batch Effect: the impact of the data collection procedure (measurement device, measurement protocol, season, etc.) on the data collected
 
-- The very existence of mega-studies implies an understanding of how to adjust for batch effects
----
-
----
-
-### Batch Effects are Confounded by Demographic Effects
-
-- Actual (biological) sources of variability tend to make batch effects difficult to estimate
 - Demographic Effects: impact on the data of scientifically "interesting" characteristics of the object under study
 
+- Site Effect = Demographic Effects + Batch effects
+
 ---
 
-### How do we address Batch Effects?
+### Batch effects are confounded with demographic effects
+
+- difficult to parse site effects into the components due to batch
+
+- We want to <span style="color:red">mitigate batch effects</span> while .ye[preserving demographic effects]
+
+- Approaches which properly isolate the batch effect while deconfounding the demographic effect are limited
+
+---
+
+### How do we address batch effects?
 
 - Skip to correction (e.g., SVA, ComBat, etc.)?
 - Focus on estimation?
@@ -100,109 +100,258 @@ name:statistics
 - [Discussion](#disc)
 
 ---
-### What if we just compare the measurements directly from batches?
 
-![:scale 100%](images/batch_effects/CoRR DAG - Ideal.png)
+### General Notation
 
----
-
-### Why can't we do this?
-
-![:scale 100%](images/batch_effects/CoRR DAG - Simple.png)
-
----
-
-### What does a typical Observational Neuroimaging Study Look Like?
-
-![:scale 100%](images/batch_effects/CoRR DAG - Transposed.png)
+| Symbol | Interpretation |
+| --- | --- |
+| $Y$ | random variable |
+| $y$ | realization of random variable $Y$ |
+| $f(y)$ | density/mass of $Y$ evaluated at $y$ |
+| $f(y|x)$ | conditional density/mass of $Y$ at $y$, conditional on $X = x$ |
 
 ---
+ 
+### Specific Notation
 
-### How to Estimate a Batch Effect Properly
+| Symbol | Interpretation |
+| --- | --- |
+| $Y$ | outcome measurement (observed) |
+| $T$ | exposure (batch) |
+| $X$ | covariates (known) |
+| $Z$ | covariates (unknown) |
 
-1. Make assumptions about the unestimable arrows, and ignore the missing confounders entirely
-2. Use the "crossover property"
-
-
-![:scale 100%](images/batch_effects/CoRR DAG - Crossover.png)
-
----
-
-### Effect Estimation Approaches
-
-- Goal: estimate whether a batch effect exists between a pair of studies
-1. Associational: 2x observational studies, use dcorr
-2. Conditional: 2x observational studies, use partial dcorr
-3. .ye[Adjusted]: 2x observational studies, balance on covariates (IPT + matching), followed by partial dcorr
-4. .ye[Crossover]: 2x crossed-over studies, use dcorr
+- $f(y | t, x, z)$: the true outcome model, for any covariates $(x,z)$
 
 --
 
-- Crossover $>$ Adjusted $\gg$ Conditional $>$ Associational
----
-
-### Effect Correction Approaches
-
-1. Z-Score: for each connectome feature, z-scoe within a site.
-2. ComBat across all studies.
-3. Causal ComBat across appropriate studies.
+  - we .ye[cannot] estimate this without assumptions, due to unknown covariates $Z$
 
 ---
+
+### Causal Batch Effect
+
+- $f_{x,z}(y|t)$: the true outcome, averaged over observed .ye[and] unobserved covariates
+
+$$\forall t \in [K]: \;\;\;\; f_{x,z}(y|t) = \int f(y|t,x,z) f(x,z) \;d(x,z)$$
+
+- Causal Effects are .ye[functions] of the set $\\{f_{x,z}(y|t)\\}_t$
+
+- Causal Batch Effect:
+
+$$f\_{x,z}(y|t) \neq f\_{x,z}(y|t')$$
+
+---
+
+#### Causality is "easier" if we know everything .ye[impactful]
+
+
+<img src="images/batch_effects/CoRRSimple.png" STYLE="HEIGHT:400px;"/>
+- conditioning on observed covariates sufficient to establish causality
+
+---
+
+### Causality and fear of the unknown(s)
+
+<img src="images/batch_effects/CoRRProblem.png" STYLE="HEIGHT:400px;"/>
+
+- assumptions (potentially .ye[completely unreasonable]) needed to proceed
+
+---
+
+### Typical neuroimaging covariates are much more complicated
+<img src="images/batch_effects/CoRR_dag.png" STYLE="WIDTH:700px;"/>
+
+---
+
+### Confounding is the enemy
+
+<img src="images/batch_effects/CoRR_soln.png" STYLE="HEIGHT:400px;"/>
+
+- If we can address the confounding, we can obtain unbiased causal estimates
+---
+
+### Associational Effect
+
+- Observe $\left(y_i, t\right)$ for all $i \in [n]$
+
+$$f(y|t) \neq f(y|t')$$
+
+- $f(y|t)$: density of outcome, conditional on batch
+
+--
+
+- Causal if observed and unobserved covariates ($X$ and $Z$) are non-confounding
+
+- If batches differ on demographics, not causal
+
+---
+
+### Conditional Effect
+
+- Observe $\left(y, t, x_i\right)$ for all $i \in [n]$
+
+$$f(y|t,x) \neq f(y|t',x)$$
+
+- $f(y|t,x)$: density of outcome, conditional on batch and covariates
+
+--
+
+- Causal if .ye[strong ignorability] holds
+1. Exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
+2. Covariate distributions overlap (propensity overlap)
+
+---
+
+### Adjusted Effect
+
+- Observe $\left(y_i, t, x_i\right)$ for all $i \in [n]$
+- Adjust samples such that the propensities are equal, yielding adjusted conditional distributions $\tilde f(y|t,x)$ and $\tilde f(y|t',x)$
+- Solves the issue of covariate overlap from the conditional effect
+
+$$\tilde f(y|t,x) \neq \tilde f(y|t',x)$$
+
+--
+
+- Still requires exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
+
+---
+
+### Causal Crossover Effect
+
+- Observe $\left(y_i^{(t)}, t, x_i^{(t)}\right)$ for all $t \in [K], i \in [n]$
+$$f\left(y^{(t)}\big|t,x^{(t)}\right) \neq f\left(y^{(t)}\big|t',x^{(t')}\right)$$
+
+- $f\left(y^{(t)}\big|t,x^{(t)}\right)$: density of outcome at exposure $t$, conditional on exposure $t$ and covariates at $t$
+
+--
+
+- Traits are constant to individuals, and therefore perfectly balanced across both groups
+
+--
+
+- States may be different, as they may be functions of location and time
+  - Causal if no unobserved confounding states
+
+---
+
+
+### Crossover design removes .ye[most] confounding
+<img src="images/batch_effects/CoRR_cross_dag.png" STYLE="WIDTH:700px;"/>
+
+---
+
+### Limitations of Existing Approaches for Site Effect Removal
+
+- existing techniques ignore the .ye[strong ignorability criterion]
+1. Exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
+2. Covariate distributions overlap (propensity overlap)
+- ComBat, Conditional ComBat, Z-Scoring, etc. may remove demographic signal
+
+---
+
+### Causal ComBat
+
+Given $K$ datasets:
+--
+
+1. Identify smallest dataset, $k'$, as the exposure
+
+--
+2. Match individuals from unexposed datasets $k\neq k'$ to the exposure individuals
+
+--
+3. Discard individuals from exposed dataset who do not have matches across all unexposed datasets
+
+--
+4. Discard individuals from unexposed datasets who are not matched to retained exposed individuals
+
+--
+5. Perform Conditional ComBat on retained exposed and unexposed individuals
+
+--
+
+- Causal if exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
+
+---
+
 name:results
 
-### Outline 
+### Outline
 
 - [Motivation](#defn)
 - [Quantifying Batch Effects](#statistics)
-- Real Data 
+- Real Data
 - [Discussion](#disc)
 
 ---
 
-## CoRR Mega-Study
+### CoRR mega-study
 
-![:scale 100%](images/batch_effects/demographic.png)
+<img src="images/batch_effects/demo.png" STYLE="WIDTH:700px;"/>
 
----
-
-## Estimating Batch Effects
-
-Procedure
-1. For a pair of studies $(k, l)$:
-   - Estimate an associational effect.
-   - Estimate a conditional effect.
-   - If possible, estimate an adjusted effect.
-   - If possible, estimate a crossover effect.
-
-Report p-value of estimated effects.
-
----
-### Causal Effects Are Often Unestimable
-
-![:scale 80%](images/batch_effects/effect.png)
 
 ---
 
-## Removing Batch Effects
+### Connectomes from CoRR mega-study
 
-Procedure
+<img src="images/batch_effects/conn.png" STYLE="WIDTH:700px;"/>
 
-1. For each feature of the connectome measurements, z-score within a single site.
-2. Perform ComBat across all CoRR studies.
-3. Perform Causal ComBat, on the American Clique.
----
+- disparity across young/old, male/female
 
-### Batch Effect Correction Tends to Remove Inter-Site Variability
-
-![:scale 80%](images/batch_effects/avg_conn_corr.png)
+- homotopic effect
 
 ---
 
-### ComBat Tends to Remove Biological Variability
+### Associational and conditional effects always exist
 
-![:scale 100%](images/batch_effects/combat_bad.png)
+<img src="images/batch_effects/asscond.png" STYLE="HEIGHT:500px;"/>
 
 ---
+
+### Causal effects only sometimes estimable
+
+<img src="images/batch_effects/caus.png" STYLE="HEIGHT:500px;"/>
+
+---
+
+### Site correction removes site variability
+
+<img src="images/batch_effects/sitecorr.png" STYLE="WIDTH:700px;"/>
+
+---
+
+### ComBat removes biological heterogeneity
+
+<img src="images/batch_effects/combtbad.png" STYLE="WIDTH:700px;"/>
+
+---
+
+### Causal ComBat leaves some batch variability
+
+<img src="images/batch_effects/causalcombtbad.png" STYLE="WIDTH:700px;"/>
+
+---
+
+### Control numerical experiments
+
+- examine whether known desirable effects present .ye[before] site correction are present after site correction
+- If not, we have .ye[reduced] signal in the data
+
+---
+
+### Site correction preserves within-batch biological heterogeneity
+
+<img src="images/batch_effects/demo_preserve.png" STYLE="WIDTH:700px;"/>
+
+---
+
+### Z-scoring removes topological features of connectomes
+
+<img src="images/batch_effects/zscorebad.png" STYLE="WIDTH:700px;"/>
+
+---
+
 name:disc
 
 ### Outline 
@@ -214,11 +363,20 @@ name:disc
 
 ---
 ### Contributions
+
 1. Define batch effects as a problem in causal inference
+
+--
 2. Illustrate existing analyses of batch effects in neuroimaging amount to associational or conditional effects, and inadequately account for confounding
-3. Show how batch effects can be estimated and tested on multivariate, non-euclidean batches using energy statistics
+
+--
+3. Show how batch effects can be estimated and tested on multivariate, non-euclidean batches using kernel methods
+
+--
 4. Provide an approach for batch effect correction that pays attention to confounding biases in the data
-5. Highlight useful properties of the measurements that may (or may not) be preserved by different batch effect correction approaches (not shown here)
+
+--
+5. Highlight useful properties of the measurements that may (or may not) be preserved by different batch effect correction approaches
 
 ---
 ### Acknowledgements
@@ -258,10 +416,10 @@ name:disc
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
   <!-- <script src="remark-latest.min.js"></script> -->
-  <script src="remark-latest.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.3/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.3/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.3/katex.min.css">
   <script type="text/javascript">
 
     var options = {};

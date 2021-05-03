@@ -185,6 +185,7 @@ $$f\_{x,z}(y|t) \neq f\_{x,z}(y|t')$$
 - $f(y|t)$: distribution of outcome, conditional on batch
 
 $$f(y|t) \neq f(y|t')$$
+- estimated with $\texttt{dcorr}$
 
 
 --
@@ -200,6 +201,7 @@ $$f(y|t) \neq f(y|t')$$
 - $f(y|t,x)$: distribution of outcome, conditional on batch and observed covariates
 
 $$f(y|t,x) \neq f(y|t',x)$$
+- estimated with conditional $\texttt{dcorr}$
 
 
 --
@@ -218,6 +220,7 @@ Causal if .ye[strong ignorability] holds
 - Solves the issue of covariate overlap from the conditional effect
 
 $$\tilde f(y|t,x) \neq \tilde f(y|t',x)$$
+- estimated with matched conditional $\texttt{dcorr}$
 
 --
 
@@ -231,6 +234,7 @@ $$\tilde f(y|t,x) \neq \tilde f(y|t',x)$$
 - $f\left(y^{(t)}\big|t,x^{(t)}\right)$: distribution of outcome at exposure $t$, conditional on exposure $t$ and covariates at $t$
 $$f\left(y^{(t)}\big|t,x^{(t)}\right) \neq f\left(y^{(t')}\big|t',x^{(t')}\right)$$
 
+- estimated with $\texttt{dcorr}$
 
 --
 

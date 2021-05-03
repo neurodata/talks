@@ -10,6 +10,14 @@
   <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
 </head>
 
+<style>
+.column:first-of-type {float:left}
+.column:last-of-type {float:right}
+
+.split-60 .column:first-of-type {width: 60%}
+.split-60 {column-gap:40px}
+.split-60 .column:last-of-type {width: 38%}
+</style>
 <body>
   <textarea id="source">
 
@@ -37,7 +45,8 @@ name:talk
 ### Outline 
 
 - [Motivation](#defn)
-- [Quantifying Batch Effects](#statistics)
+- [Estimating Batch Effects](#statistics)
+- [Removing Batch Effects](#remove)
 - [Real Data](#results)
 - [Discussion](#disc)
 
@@ -47,7 +56,8 @@ name:defn
 ### Outline
 
 - Motivation
-- [Quantifying Batch Effects](#statistics)
+- [Estimating Batch Effects](#statistics)
+- [Removing Batch Effects](#remove)
 - [Real Data](#results)
 - [Discussion](#disc)
 
@@ -97,7 +107,8 @@ name:statistics
 ### Outline 
 
 - [Motivation](#defn)
-- Quantifying Batch Effects
+- Estimating Batch Effects
+- [Removing Batch Effects](#remove)
 - [Real Data](#results)
 - [Discussion](#disc)
 
@@ -236,6 +247,17 @@ $$f\left(y^{(t)}\big|t,x^{(t)}\right) \neq f\left(y^{(t')}\big|t',x^{(t')}\right
 <img src="images/batch_effects/CoRR_cross_dag.png" STYLE="WIDTH:700px;"/>
 
 ---
+name:remove
+
+### Outline 
+
+- [Motivation](#defn)
+- [Estimating Batch Effects](#statistics)
+- Removing Batch Effects
+- [Real Data](#results)
+- [Discussion](#disc)
+
+---
 
 ### Limitations of Existing Approaches for Site Effect Removal
 
@@ -279,7 +301,8 @@ name:results
 ### Outline
 
 - [Motivation](#defn)
-- [Quantifying Batch Effects](#statistics)
+- [Estimating Batch Effects](#statistics)
+- [Removing Batch Effects](#remove)
 - Real Data
 - [Discussion](#disc)
 
@@ -300,16 +323,30 @@ name:results
 - homotopic effect
 
 ---
+class: split-60
 
 ### Associational & conditional effects always exist
 
+
+
+.column[
 <img src="images/batch_effects/asscond.png" STYLE="HEIGHT:500px;"/>
+]
+.column[
+- Unclear whether effect detected is due to a batch effect or a demographic effect
+]
 
 ---
-
+class: split-60
 ### Causal effects only sometimes estimable (due to overlap)
 
+.column[
 <img src="images/batch_effects/caus.png" STYLE="HEIGHT:500px;"/>
+]
+.column[
+- most datasets cannot even be run with matched partial dcorr
+- we .ye[cannot determine] for most effects whether the effect is due to batch or demographic
+]
 
 ---
 
@@ -321,14 +358,24 @@ name:results
 
 ### ComBat removes biological heterogeneity
 
-<img src="images/batch_effects/combtbad.png" STYLE="WIDTH:700px;"/>
+- ComBat removes all heterogeneity (biological + batch) between pairs of studies
+- NYU2: male + females
+- Utah 1: only females
+- difference between average conditional connectomes within vs. between study
+
+<img src="images/batch_effects/cocmbtbad.png" STYLE="WIDTH:700px;"/>
+
+- Causal ComBat cannot run on this pair of datasets
 
 ---
 
 ### Causal ComBat leaves some batch variability
 
-- $\big\|NYU2 - IBATRT \big\|$
+- difference between average connectome of NYU2 study and IBATRT study
+
 <img src="images/batch_effects/causalcombtbad.png" STYLE="WIDTH:700px;"/>
+
+- Causal ComBat increased unconditional batch heterogeneity
 
 <!-- 
 
@@ -358,7 +405,8 @@ name:disc
 ### Outline 
 
 - [Motivation](#defn)
-- [Quantifying Batch Effects](#statistics)
+- [Estimating Batch Effects](#statistics)
+- [Removing Batch Effects](#remove)
 - [Real Data](#results)
 - Discussion
 

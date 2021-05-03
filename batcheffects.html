@@ -20,16 +20,16 @@
 ### Batch Effects are Causal Effects
 
 
-![:scale 40%](images/neurodata_blue.png)
+![:scale 50%](images/neurodata_blue.png)
 
-Joshua T. Vogelstein
+Joshua T. Vogelstein | {BME, Neuro, CS, AMS, Biostats, ECE, IDEAS, ICM, CIS, KNDI}
 <br>
 [jovo@jhu.edu](mailto:jovo at jhu dot edu)
-| <http://brainx.io/L2F>
-<br><br><br>
-<img src="images/logo_jhu.png" STYLE="HEIGHT:100px;"/>
+| <https://neurodata.io/talks/batcheffects.html>
+<!-- <br><br><br> -->
+<!-- <img src="images/logo_jhu.png" STYLE="HEIGHT:50px;"/> -->
 
-]
+
 
 ---
 name:talk
@@ -53,15 +53,12 @@ name:defn
 
 ---
 
-### Modern neuroimaging data is expansive
+### Modern neuroimaging data 
 
 - Neuroimaging data is big and costly
-
-- Expansive mega-studies (study comprised of studies) collected around the world
-
-  - unprecedented sample diversity (demographically) and sizes (more data)
-
-  - generalizability
+- Expansive mega-studies collected globally
+- Unprecedented sample diversity (demographically) and sizes 
+  <!-- - generalizability -->
 
 --
 
@@ -79,20 +76,18 @@ name:defn
 
 ---
 
-### Batch effects are confounded with demographic effects
+### Batch effects are confounded by demographic effects
 
-- difficult to parse site effects into the components due to batch
-
+- Difficult to parse site effects into the components due to batch
 - We want to <span style="color:red">mitigate batch effects</span> while .ye[preserving demographic effects]
-
-- Approaches which properly isolate the batch effect while deconfounding the demographic effect are limited
+- Approaches which properly isolate the batch effect while deconfound the demographic effect are lacking
 
 ---
 
 ### How do we address batch effects?
 
 - Skip to correction (e.g., SVA, ComBat, etc.)?
-- Focus on estimation?
+- Focus on estimation with linear models?
 
 Proposal: leverage techniques from .ye[causal inference] to yield strategies which are both theoretically and empirically sensible for batch effect analyses
 
@@ -114,8 +109,8 @@ name:statistics
 | --- | --- |
 | $Y$ | random variable |
 | $y$ | realization of random variable $Y$ |
-| $f(y)$ | density of $Y$ evaluated at $y$ |
-| $f(y\vert x)$ | density of $Y$ at $y$, conditional on $X$ at $x$ |
+| $f(y)$ | distribution of $Y$ evaluated at $y$ |
+| $f(y\vert x)$ | distribution of $Y$ at $y$, conditional on $X$ at $x$ |
 
 ---
  
@@ -125,25 +120,20 @@ name:statistics
 | --- | --- |
 | $Y$ | outcome measurement (observed) |
 | $T$ | exposure (batch) |
-| $X$ | covariates (known) |
-| $Z$ | covariates (unknown) |
+| $X$ | covariates (observed) |
+| $Z$ | covariates (unobserved) |
 
-- $f(y | t, x, z)$: the true outcome model, for any covariates $(x,z)$
-
---
-
-  - we .ye[cannot] estimate this without assumptions, due to unknown covariates $Z$
+<!-- - $f(y | t, x, z)$: the true outcome model, for any covariates $(x,z)$ -->
+  <!-- - we .ye[cannot] estimate this without assumptions, due to unobserved covariates $Z$ -->
 
 ---
 
 ### Causal Batch Effect
 
-- $f_{x,z}(y|t)$: the true outcome, averaged over observed .ye[and] unobserved covariates
+- $f_{x,z}(y|t)$: the true outcome, conditioned on the exposure, averaged over observed .ye[and] unobserved covariates
 
 $$\forall t \in [K]: \;\;\;\; f_{x,z}(y|t) = \int f(y|t,x,z) f(x,z) \;d(x,z)$$
-
 - Causal Effects are .ye[functions] of the set $\\{f_{x,z}(y|t)\\}_t$
-
 - Causal Batch Effect:
 
 $$f\_{x,z}(y|t) \neq f\_{x,z}(y|t')$$
@@ -180,31 +170,30 @@ $$f\_{x,z}(y|t) \neq f\_{x,z}(y|t')$$
 
 ### Associational Effect
 
-- Observe $\left(y_i, t\right)$ for all $i \in [n]$
+- Observe $\left(y_i, t_i\right)$ for all $i \in [n]$
+- $f(y|t)$: distribution of outcome, conditional on batch
 
 $$f(y|t) \neq f(y|t')$$
 
-- $f(y|t)$: density of outcome, conditional on batch
 
 --
 
 - Causal if observed and unobserved covariates ($X$ and $Z$) are non-confounding
-
-- If batches differ on demographics, not causal
+- If batches differ on demographics, for example, then not causal
 
 ---
 
 ### Conditional Effect
 
-- Observe $\left(y, t, x_i\right)$ for all $i \in [n]$
+- Observe $\left(y_i, t_i, x_i\right)$ for all $i \in [n]$
+- $f(y|t,x)$: distribution of outcome, conditional on batch and observed covariates
 
 $$f(y|t,x) \neq f(y|t',x)$$
 
-- $f(y|t,x)$: density of outcome, conditional on batch and covariates
 
 --
 
-- Causal if .ye[strong ignorability] holds
+Causal if .ye[strong ignorability] holds
 1. Exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
 2. Covariate distributions overlap (propensity overlap)
 
@@ -212,8 +201,9 @@ $$f(y|t,x) \neq f(y|t',x)$$
 
 ### Adjusted Effect
 
-- Observe $\left(y_i, t, x_i\right)$ for all $i \in [n]$
-- Adjust samples such that the propensities are equal, yielding adjusted conditional distributions $\tilde f(y|t,x)$ and $\tilde f(y|t',x)$
+- Observe $\left(y_i, t_i, x_i\right)$ for all $i \in [n]$
+- Adjust samples such that the propensities are equal, yielding adjusted conditional distributions $\tilde f(y|t,x)$ 
+<!-- and $\tilde f(y|t',x)$ -->
 - Solves the issue of covariate overlap from the conditional effect
 
 $$\tilde f(y|t,x) \neq \tilde f(y|t',x)$$
@@ -227,18 +217,17 @@ $$\tilde f(y|t,x) \neq \tilde f(y|t',x)$$
 ### Causal Crossover Effect
 
 - Observe $\left(y_i^{(t)}, t, x_i^{(t)}\right)$ for all $t \in [K], i \in [n]$
-$$f\left(y^{(t)}\big|t,x^{(t)}\right) \neq f\left(y^{(t)}\big|t',x^{(t')}\right)$$
+- $f\left(y^{(t)}\big|t,x^{(t)}\right)$: distribution of outcome at exposure $t$, conditional on exposure $t$ and covariates at $t$
+$$f\left(y^{(t)}\big|t,x^{(t)}\right) \neq f\left(y^{(t')}\big|t',x^{(t')}\right)$$
 
-- $f\left(y^{(t)}\big|t,x^{(t)}\right)$: density of outcome at exposure $t$, conditional on exposure $t$ and covariates at $t$
 
 --
 
 - Traits are constant to individuals, and therefore perfectly balanced across both groups
-
 --
 
-- States may be different, as they may be functions of location and time
-  - Causal if no unobserved confounding states
+- States may be different, as they are functions of location & time
+- Causal if no unobserved confounding states
 
 ---
 
@@ -250,10 +239,13 @@ $$f\left(y^{(t)}\big|t,x^{(t)}\right) \neq f\left(y^{(t)}\big|t',x^{(t')}\right)
 
 ### Limitations of Existing Approaches for Site Effect Removal
 
-- existing techniques ignore the .ye[strong ignorability criterion]
-1. Exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
-2. Covariate distributions overlap (propensity overlap)
+- Existing techniques ignore the .ye[strong ignorability criterion], and therefore, do not provide valid causal estimands under reasonable assumptions
 - ComBat, Conditional ComBat, Z-Scoring, etc. may remove demographic signal
+
+<!-- :
+1. Exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
+2. Covariate distributions overlap (propensity overlap) -->
+
 
 ---
 
@@ -278,7 +270,7 @@ Given $K$ datasets:
 
 --
 
-- Causal if exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
+Causal if exposure $T$ independent of the outcome $Y$, conditional on covariates $X$ and $Z$
 
 ---
 
@@ -305,18 +297,17 @@ name:results
 <img src="images/batch_effects/conn.png" STYLE="WIDTH:700px;"/>
 
 - disparity across young/old, male/female
-
 - homotopic effect
 
 ---
 
-### Associational and conditional effects always exist
+### Associational & conditional effects always exist
 
 <img src="images/batch_effects/asscond.png" STYLE="HEIGHT:500px;"/>
 
 ---
 
-### Causal effects only sometimes estimable
+### Causal effects only sometimes estimable (due to overlap)
 
 <img src="images/batch_effects/caus.png" STYLE="HEIGHT:500px;"/>
 
@@ -339,12 +330,14 @@ name:results
 - $\big\|NYU2 - IBATRT \big\|$
 <img src="images/batch_effects/causalcombtbad.png" STYLE="WIDTH:700px;"/>
 
----
+<!-- 
+
 
 ### Control numerical experiments
 
 - examine whether known desirable effects present .ye[before] site correction are present after site correction
-- If not, we have .ye[reduced] signal in the data
+- If not, we have .ye[reduced] signal in the data 
+-->
 
 ---
 

@@ -561,11 +561,11 @@ $(x_{i}^k, y_i)$ $i=1, ..., n$, $k=1,...,s$, $y_i \in$ \{$1, ..., Y$\}
 - "How discriminable are samples from group $y$?"
 --
 
-- Note that $W = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i= y_j)$= $\frac{\mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) , y_i = y_j)}{\mathbb P(y_i = y_j)}$ by Bayes' Rule
+- Note that $W = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i= y_j)$= $\frac{\mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) , y_i = y_j)}{\mathbb P(y_i = y_j)}$ by def conditional probability
 
 --
 
-- Let $w(y) = \mathbb P(y_i, y_j = y)$ denote the within-group weights 
+- Let $w(y) = \mathbb P(y_i=y_j = y)$ denote the within-group weights 
 - With $\omega = \sum_y w(y)$, then:
 
  $W = \frac{1}{\omega}\sum_y w(y) D(y)$ is the within-group Discriminability
@@ -578,12 +578,12 @@ $(x_{i}^k, y_i)$ $i=1, ..., n$, $k=1,...,s$, $y_i \in$ \{$1, ..., Y$\}
 
 --
 
-- Note that $B = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i\neq  y_j)$= $\frac{\mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) , y_i \neq y_j)}{\mathbb P(y_i \neq y_j)}$ by Bayes' Rule
+- Note that $B = \mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) | y_i\neq  y_j)$= $\frac{\mathbb P(\delta(x_i^k, x_i^{k'}) < \delta(x_i^k, x_j^{k''}) , y_i \neq y_j)}{\mathbb P(y_i \neq y_j)}$ by def conditional probability
 
 --
 
 - Let $b(y, y') = \mathbb P(y_i = y, y_j = y')$ denote the between group weights 
-- With $\beta = \sum_{y\neq y'} w(y,y')$, then:
+- With $\beta = \sum_{y\neq y'} b(y,y')$, then:
 
 $B = \frac{1}{\beta}\sum_{y \neq y'}b(y,y')D(y,y')$ is the between-group Discriminability
 

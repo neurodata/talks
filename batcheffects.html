@@ -220,7 +220,7 @@ Causal if .ye[strong ignorability] holds
 - Solves the issue of covariate overlap from the conditional effect
 
 $$\tilde f(y|t,x) \neq \tilde f(y|t',x)$$
-- estimated with matched conditional $\texttt{dcorr}$
+- estimated with .ye[matched] conditional $\texttt{dcorr}$
 
 --
 
@@ -354,7 +354,7 @@ class: split-60
 
 ---
 
-### Site correction removes site variability
+#### Combat removes across site variability, preserves within site variability
 
 <img src="images/batch_effects/sitecorr.png" STYLE="WIDTH:700px;"/>
 
@@ -363,23 +363,23 @@ class: split-60
 ### ComBat removes biological heterogeneity
 
 - ComBat removes all heterogeneity (biological + batch) between pairs of studies
-- NYU2: male + females
-- Utah 1: only females
 - difference between average conditional connectomes within vs. between study
+- Causal ComBat cannot run on this pair of datasets
 
 <img src="images/batch_effects/cocmbtbad.png" STYLE="WIDTH:700px;"/>
 
-- Causal ComBat cannot run on this pair of datasets
+NYU2: male + females | Utah 1: only females
+
 
 ---
 
 ### Causal ComBat leaves some batch variability
 
 - difference between average connectome of NYU2 study and IBATRT study
+- Causal ComBat increased unconditional batch heterogeneity
 
 <img src="images/batch_effects/causalcombtbad.png" STYLE="WIDTH:700px;"/>
 
-- Causal ComBat increased unconditional batch heterogeneity
 
 <!-- 
 

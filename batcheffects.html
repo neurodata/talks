@@ -30,9 +30,8 @@
 
 ![:scale 50%](images/neurodata_blue.png)
 
-Joshua T. Vogelstein | {BME, Neuro, CS, AMS, Biostats, ECE, IDEAS, ICM, CIS, KNDI}
-<br>
-[jovo@jhu.edu](mailto:jovo at jhu dot edu)
+Eric W. Bridgeford &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | {Biostatistics, BME, CIS}<br>
+[ericwb95@gmail.com](mailto:ericwb95 at gmail dot com)
 | <https://neurodata.io/talks/batcheffects.html>
 <!-- <br><br><br> -->
 <!-- <img src="images/logo_jhu.png" STYLE="HEIGHT:50px;"/> -->
@@ -129,19 +128,19 @@ name:statistics
 
 | Symbol | Interpretation |
 | --- | --- |
-| $Y$ | outcome measurement (observed) |
+| $Y$ | outcome measurement (measured) |
 | $T$ | exposure (batch) |
-| $X$ | covariates (observed) |
-| $Z$ | covariates (unobserved) |
+| $X$ | covariates (measured) |
+| $Z$ | covariates (unmeasured) |
 
 <!-- - $f(y | t, x, z)$: the true outcome model, for any covariates $(x,z)$ -->
-  <!-- - we .ye[cannot] estimate this without assumptions, due to unobserved covariates $Z$ -->
+  <!-- - we .ye[cannot] estimate this without assumptions, due to unmeasured covariates $Z$ -->
 
 ---
 
 ### Causal Batch Effect
 
-- $f_{x,z}(y|t)$: the true outcome, conditioned on the exposure, averaged over observed .ye[and] unobserved covariates
+- $f_{x,z}(y|t)$: the true outcome, conditioned on the exposure, averaged over measured .ye[and] unmeasured covariates
 
 $$\forall t \in [K]: \;\;\;\; f_{x,z}(y|t) = \int f(y|t,x,z) f(x,z) \;d(x,z)$$
 - Causal Effects are .ye[functions] of the set $\\{f_{x,z}(y|t)\\}_t$
@@ -155,7 +154,7 @@ $$f\_{x,z}(y|t) \neq f\_{x,z}(y|t')$$
 
 
 <img src="images/batch_effects/CoRRSimple.png" STYLE="HEIGHT:400px;"/>
-- conditioning on observed covariates sufficient to establish causality
+- conditioning on measured/"observed" covariates sufficient to establish causality
 
 ---
 
@@ -190,7 +189,7 @@ $$f(y|t) \neq f(y|t')$$
 
 --
 
-- Causal if observed and unobserved covariates ($X$ and $Z$) are non-confounding
+- Causal if measured and unmeasured covariates ($X$ and $Z$) are non-confounding
 - If batches differ on demographics, for example, then not causal
 
 ---
@@ -198,7 +197,7 @@ $$f(y|t) \neq f(y|t')$$
 ### Conditional Effect
 
 - Observe $\left(y_i, t_i, x_i\right)$ for all $i \in [n]$
-- $f(y|t,x)$: distribution of outcome, conditional on batch and observed covariates
+- $f(y|t,x)$: distribution of outcome, conditional on batch and measured covariates
 
 $$f(y|t,x) \neq f(y|t',x)$$
 - estimated with conditional $\texttt{dcorr}$
@@ -238,11 +237,11 @@ $$f\left(y^{(t)}\big|t,x^{(t)}\right) \neq f\left(y^{(t')}\big|t',x^{(t')}\right
 
 --
 
-- Traits are constant to individuals, and therefore perfectly balanced across both groups
+- Traits/histories are constant to individuals, and therefore perfectly balanced across both groups
 --
 
 - States may be different, as they are functions of location & time
-- Causal if no unobserved confounding states
+- Causal if no unmeasured confounding states
 
 ---
 
@@ -354,60 +353,87 @@ class: split-60
 
 ---
 
-#### Combat removes across site variability, preserves within site variability
+### Does matching actually improve covariate overlap?
 
-<img src="images/batch_effects/sitecorr.png" STYLE="WIDTH:700px;"/>
+- The goal of the matching procedure for Causal DCorr/ComBat is to produce .ye[subsets] of datasets which are demographically .ye[similar]
+- Does it actually do the job?
+- How to quantify: "AUC" of two distributions
 
----
-
-### ComBat removes biological heterogeneity
-
-- ComBat removes all heterogeneity (biological + batch) between pairs of studies
-- difference between average conditional connectomes within vs. between study
-- Causal ComBat cannot run on this pair of datasets
-
-<img src="images/batch_effects/cocmbtbad.png" STYLE="WIDTH:700px;"/>
-
-NYU2: male + females | Utah 1: only females
-
+<img src="images/batch_effects/overlap.jpeg" STYLE="HEIGHT:300px;"/>
 
 ---
 
-<!-- ### Causal ComBat leaves some batch variability
+### Estimating covariate overlap
 
-- difference between average connectome of NYU2 study and IBATRT study
-- Causal ComBat increased unconditional batch heterogeneity
-
-<img src="images/batch_effects/causalcombtbad.png" STYLE="WIDTH:700px;"/>
-
--->
-
-<!-- 
-
-
-### Control numerical experiments
-
-- examine whether known desirable effects present .ye[before] site correction are present after site correction
-- If not, we have .ye[reduced] signal in the data 
--->
+- let $\mathcal D$ represent the triplet of possible (continent, sex, age) pairings across the datasets
+- $f(c,s,a|k)$ is the .ye[demographic distribution] for dataset $k$
+- an estimate of the .ye[covariate overlap] between datasets $k$ and $l$ is:
+$$\text{overlap}\_{k, l} = \int_{(c, s, a) \in \mathcal D} \min\left(\hat f(c, s, a | k), \hat f(c,s,a| l)\right)\text{d}(c,s,a)$$
 
 ---
 
-<!-- ### Site correction preserves within-batch biological heterogeneity
+<img src="images/batch_effects/before_matching.png" STYLE="HEIGHT:250px;"/>
 
-<img src="images/batch_effects/demo_preserve.png" STYLE="WIDTH:700px;"/>
 
---- -->
-
-### Z-scoring removes topological features of connectomes
-
-<img src="images/batch_effects/zscorebad.png" STYLE="WIDTH:700px;"/>
+<img src="images/batch_effects/after_matching.png" STYLE="HEIGHT:250px;"/>
 
 ---
 
-### Significant Edges
+### Does using causality actually give us a different answer?
 
-<img src="images/batch_effects/sig_edges.png" STYLE="WIDTH:700px;"/>
+- If we use Causal ComBat instead of Conditional ComBat, do we actually end up with different answers for statistical inference?
+- for each edge of the connectome, investigate whether there is a sex effect (conditional on age) across individuals
+- If leveraging causality is irrelevant, we would expect similar statistical inference for the chosen task
+
+---
+
+### Restricting to the American Clique
+
+- Causal ComBat can only be performed on the American Clique, the matched subset of individuals with similar demographic variables from $5$ of the CoRR datasets
+- If we subset the Conditional ComBat corrected connectomes to the same individuals, do we obtain the same answer?
+
+| Raw&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   | ComBat&nbsp;&nbsp; | Cond. ComBat | Causal ComBat |
+| --- | --- | --- | --- |
+<img src="images/batch_effects/american_clique.png" STYLE="HEIGHT:160px;"/>
+<img src="images/batch_effects/legend.png" STYLE="HEIGHT:160px;"/>
+
+--
+
+- Not quite... many more significant edges for Causal ComBat
+
+---
+
+
+### What if we don't subset at .ye[all]?
+
+- Since we had to "throw away" data to use Causal ComBat, what if we hadn't thrown away data  at all?
+- Note: Causal ComBat cannot be run on all of the data (due to lack of covariate overlap)
+
+<img src="images/batch_effects/all_data_sigedge.png" STYLE="HEIGHT:160px;"/>
+<img src="images/batch_effects/legend.png" STYLE="HEIGHT:160px;"/>
+
+--
+
+- There are more significant edges, but are they the .ye[same] significant edges?
+---
+
+### Causal ComBat produces disparate statistical inference
+
+- for each batch effect removal strategy, identify the top $n$ edges (by effect size), and compare to the top $n$ edges produced by Causal ComBat
+- DICE of $1$: top edges are in perfect agreement, DICE of $0$: edges have no overlap
+
+<img src="images/batch_effects/dice_n.png" STYLE="HEIGHT:230px;"/>
+<img src="images/batch_effects/dice_100.png" STYLE="HEIGHT:230px;"/>
+
+---
+
+### Causal ComBat produces disparate statistical inference
+
+- Internal vs. external validity conflict
+
+--
+
+- "We exchange a (potentially) fake 10 dollar bill for a real 5 dollar bill"
 
 ---
 
@@ -436,7 +462,7 @@ name:disc
 4. Provide an approach for batch effect correction that pays attention to confounding biases in the data
 
 --
-5. Highlight useful properties of the measurements that may (or may not) be preserved by different batch effect correction approaches
+5. Showed that Causal ComBat produces different statistical inference from competing techniques, potentially drawing questions about statistical validity in neuroimaging
 
 ---
 ### Acknowledgements

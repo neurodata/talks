@@ -28,48 +28,6 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 ![:scale 40%](images/neurodata_blue.png)
 
 ---
-
-### What is learning?
-
-
---
-
-<br>
-"The acquisition of knowledge or skills through experience, study, or by being taught."
-
--- Google, 2020
-
---
-
-"A computer .ye[program] is set to learn from an .ye[experience] E with respect to some .ye[task] T and some .ye[performance measure] P if its performance on T as measured by P .ye[improves] with experience E."
-
--- Tom Mitchell, 1997
-
---
-
-".ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ w.r.t. .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$."
-
-
--- jovo, 2020
-
-
----
-
-### Learning Task Definition
-
-
-| Component | Notation | Examples |
-| :--- | :--- | :--- 
-| Query Space | $\mathcal{Q}$ | is this a cat?
-| Action Space | $\mathcal{A}$ | A,B, &larr;, &rarr;,  &uarr;, &darr;
-| Measurement Space | $\mathcal{Z}$ |  8-bit images, 256 x 256
-| Statistical Model | $\mathcal{P}$ | Gaussian 
-| Hypotheses | $\mathcal{H}$ | linear classifiers
-| Risk | $R$ | expected loss
-| Algorithm Space | $\mathcal{F}$ | Random Forests
-| True & Unknown Distribution | $P$ | $\mu=0$, $\sigma=1$
-
----
 ### What is the task?
 
 Given a setting $s$ and $n$ samples $\mathbf{Z}\_n$ drawn according to $P$, the task $t$ is to find the algorithm that minimizes the generalization error,
@@ -158,23 +116,6 @@ $$ w : \mathcal{V} \to \mathcal{A}$$
 ### Learning Schemas
 
 ![:scale 100%](images/learning_schema.png)
-
----
-
-### A taxonomy of  approaches
-
-| Par.    | &rarr; | &larr;  | space   | time         | Examples     
-| :---:   | :---:  | :---:   | :---:| :---:           |   
-| par     | +      | -       | T    | nT              | EWC                     
-| par     | +      | -       | 1    | n               | O-EWC, SI, LwF                                         
-| par     | +      | +       | n    | nT              | Total Replay 
-| semipar | +      | 0       | T<sup>2</sup>   | n T  | ProgNN               
-| semipar | +      | +       | T    | n T<sup>2</sup> | Sequential Multitask  
-| semipar | +      | +       | T + n| n              | Omnidirectional Networks        
-| nonpar  | +      | +       | n    | n              | Omnidirectional Forests         
-
-<!-- parametric, replay, space, time, forward, backwards, examples -->
-<!-- apples to apples comparisons are only possible within a row of the table -->
 
 ---
 ### Simulation study

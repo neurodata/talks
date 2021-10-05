@@ -26,57 +26,26 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 
 
 ![:scale 40%](images/neurodata_blue.png)
-
 ---
-### What is the task?
-
-Given a setting $s$ and $n$ samples $\mathbf{Z}\_n$ drawn according to $P$, the task $t$ is to find the algorithm that minimizes the generalization error,
-$$f\_n^* = \text{argmin}\_{f \in \mathcal{F}}\mathbb{E}[R\left(f(\mathbf{Z}\_n)\right)]$$
-
----
-
-### What is learning?
-
-.ye[$f$] learns from .ye[data] $\mathbf{Z}_n$ with respect to .ye[task] $t$  when its .ye[performance] at $t$ improves due to $\mathbf{Z}_n$,
-
-Define .ye[learning efficiency]: $$LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B, f) := \frac{\mathcal{E}_f^t(\mathbf{Z}\_A)}{\mathcal{E}_f^t(\mathbf{Z}\_B)}$$
-
-<br>
-
-This tells us whether we learn from $\mathbf{Z}\_A$ or $\mathbf{Z}\_B$.
-
-$f$ learns from $\mathbf{Z}_n$ with respect to task $t$ when $LE^t(\mathbf{Z}\_0, \mathbf{Z}\_n, f)  > 1$.
-
----
-### What is forward learning?
-
-
-- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{Z}\_n$ 
-- Let $\mathbf{Z}\_n^{< t} = \lbrace Z\_1, Z\_2, \ldots, Z\_{n_t}  \rbrace$
-
-.ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$FL^t\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} =\frac{\mathcal{E}\_{Z\_n^t}(f)}{\mathcal{E}\_{Z\_n^{< t}}(f)}.$$
-
-<br>
-
-$f$ .ye[forward learns] if $FL_{\mathbf{n}}(f) > 1$.
-
----
-### What is backward learning?
-
-
-
- .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
-
-
-$$    BL^t\_{\mathbf{n}}(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =\frac{\mathcal{E}\_{Z\_n^{< t}}(f)}{\mathcal{E}\_{Z\_n}(f)}.  $$
-
-
-
-<br>
-
-$f$ .ye[backward learns] if $BL_{\mathbf{n}}(f) > 1$.
-
+### Lifelong Learning
+- Aim : Improve on 
+<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
+  <li style="margin-left:2em">past tasks</li>
+  <li style="margin-left:2em">current tasks</li>
+  <li style="margin-left:2em">future or yet unseen tasks</li>
+</ol>
+- Constraints :
+<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
+  <li style="margin-left:2em">capacity</li>
+  <li style="margin-left:2em">space</li>
+  <li style="margin-left:2em">computational time</li>
+  <li style="margin-left:2em">power (?)</li>
+</ol>
+- Components :
+<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
+  <li style="margin-left:2em">.ye[Forward Transfer]: past tasks improve future tasks </li>
+  <li style="margin-left:2em">.ye[Backward Transfer]: future tasks improve past tasks</li>
+</ol>
 ---
  
 ### Composable Hypotheses 

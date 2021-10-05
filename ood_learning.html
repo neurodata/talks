@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>GTL</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style_i.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+
+<textarea id="source">
+
+
+
+
+### Towards a theory of out-of-distribution learning
+
+
+Ali | Ronak | Jovo | CEP | Hayden | Jayanta
+
+
+
+![:scale 40%](images/neurodata_blue.png)
+
+
+---
+
+### Background and Motivation
+
+- Why do we need a theory paper?
+- Classical machine learning is: You are given data, the goal is to train a system for the task at hand.
+- The task could be things like image classification (cat or dog) or clustering, and you train a neural network to do the classification for you.
+- A lot of theory has been done on this sort of learning (see VC and Valiant).
+
+---
+
+### Background and Motivation
+
+- There are many other machine learning paradigms that haven't been theoretically formalized well yet.
+- In the past it didn't matter because we couldn't even do classical machine learning that well.
+- GPUs changed all that and now we want to do things like transfer learning, multitask learning, lifelong learning, etc...
+
+---
+
+### Learning
+
+- This can get pretty philosophical and complicated, so let's not go there. We use a practical definition instead.
+- A learner learns with respect to a task from data if the learner's performance on the task improves because of the data.
+- In English, if we are doing image classification (the task), and our network classifies better (performance) after training it on the data, then the network has learned.
+
+---
+
+### Performance 
+
+- Performance is just the risk. In a familiar scenario like linear regression, it is simply expected squared loss,
+
+$$ \mathbb{E}\_{P_{X, Y}}[\left(h(X) - Y\right)^2] $$
+
+
+- $ X $ is the query, the pattern/feature, the image to be classified, the thing to which assign a label.
+- $ Y $ is the action, the label, cat or dog, the actual cluster assigned to the pattern.
+- $ h $ is the hypothesis, a function which when given a query, outputs its guess for the corresponding correct action.
+- $ P_{X, Y} $ is a distribution over queries and actions.
+
+---
+
+### Performance 
+
+- Performance then, in its general form is,
+
+$$ R\_{P_{X, Y}}(h) $$
+
+---
+
+
+### Data
+
+- This can be query-action pairs (i.e. $ (X, Y) $ pairs), or if we have a Gaussian $\mathcal{N}(\mu, 1)$ whose mean we want to estimate, the data can just be $n$ observations from the
+distribution.
+
+---
+
+### Performance with Data
+
+- Some function of the expected risk, or generalization error
+
+$$ \mathbb{E}\_{P_{X, Y, \mathbf{S}}}[R(\hat{h})] $$
+
+- $ \mathbf{S} $ is the data set.
+- $ \hat{h} $ is the hypothesis estimated using the data.
+- From where do we $ \hat{h} $?
+
+---
+
+### Learner
+- The learner $ f $ is what produces $ \hat{h} $.
+- The learner takes in the data set $ \mathbf{S} $ to output an estimated hypothesis. 
+$$ f(\mathbf{S}) = \hat{h} $$
+
+- The performance then is really some function of 
+$$ \mathbb{E}\_{P_{X, Y, \mathbf{S}}}[R\left(f(\mathbf{S})\right)] $$
+
+---
+
+### Task
+
+- After we have specified all the previous stuff (queries, actions, data, etc.), then the task is to minimize the generalization error
+
+$$ 
+  \text{min } \qquad \mathbb{E}\_{P_{X, Y, \mathbf{S}}}[R\left(f(\mathbf{S})\right)] 
+$$
+
+$$
+   \text{such that } \qquad f \in \mathcal{F} 
+$$
+
+- $ \mathcal{F} $ is the space of learners (we could have computational complexity constraints on the learners used for example)
+
+---
+
+### Improving Performance
+- Recall our definition of learning, "A learner learns with respect to a task from data if the learner's performance on the task improves because of the data."
+- The final piece is improving performance because of the data. We introduce learning efficiency to measure this,
+
+$$ \text{LE}_f^t(\mathbf{S}_0, \mathbf{S}) = \frac{\mathcal{E}_f^t(\mathbf{S}_0)}{\mathcal{E}_f^t(\mathbf{S})} $$
+
+- $ \mathbf{S}_0 = \varnothing $ is the empty data set, meaning no data.
+- If $ \text{LE} > 1 $, then performance has improved because of the data $ \mathbf{S} $.
+
+---
+
+### Generalized Task
+- A task is the object of study in classical machine learning.
+- There we are given a data set $\mathbf{S}$ and a task $t$.
+- The break we make with this framework is that we now allow for multiple data sets, and multiple tasks.
+- A super task then is when we have multiple data sets $ \lbrace \mathbf{S}^1, ... , \mathbf{S}^m \rbrace $ and multiple tasks $ \lbrace t_1, ..., t_n \rbrace $, $m \geq n$.
+- Note we can have empty data sets.
+- Multitask learning, transfer learning, etc. can now be framed as generalized tasks.
+
+---
+
+### Transfer Learning
+- In transfer learning, we have a single task and multiple data sets.
+- With transfer learning, we want to measure if the out-of-task data has helped our performance more than just using the task data.
+- We use learning efficiency to measure this,
+$$ \text{LE}_f^t(\mathbf{S}^1, \mathbf{S}) = \frac{\mathcal{E}_f^t(\mathbf{S}^1)}{\mathcal{E}_f^t(\mathbf{S})} $$
+- $ \mathbf{S}^1 $ is the task data.
+- $ \mathbf{S} $ is all of the data (i.e. we put together all of the data sets).
+- We have transfer learned if $ \text{LE}_f^t > 1 $.
+
+---
+
+### Multitask Learning
+- In multitask learning, we have multiple tasks and multiple data sets.
+- With multitask learning, we want want to measure how much we have transfer learned for each task, 
+$$ \text{LE}_f^t(\mathbf{S}^t, \mathbf{S}) = \frac{\mathcal{E}_f^t(\mathbf{S}^t)}{\mathcal{E}_f^t(\mathbf{S})} $$
+- $ \mathbf{S}^t $ is the task $t$ data.
+- $ \mathbf{S} $ is all of the data.
+- We have transfer learned for that task if $ \text{LE}_f^t > 1 $.
+- We have multitask learned if some weighted average of the learning efficiencies $\text{LE}_f^{t_1}, ..., \text{LE}^{t_n}$ is greater than $1$.
+
+---
+
+### Continual Learning
+- Continual learning is very akin to multitask learning
+- The primary difference with multitask learning is that it is done sequentially in time.
+- This leads us to explicitly require computational complexity constraints on the hypothesis and learner spaces. Namely, we require $ o(n) $ space and/or $ o(n^2) $ time as upperbounds for
+the complexity.
+- The other aspect to continual learning is that everything is streaming: data, queries, actions, error, and tasks. Hence anything about the task the learner is faced with can change over
+time (without the learner necessarily knowing that a change has occurred).
+
+---
+
+### Quantifying Continual Learning
+
+With continual learning, we want to incorporate the time-dependent, streaming nature of the problem in our performance metrics. Given a task $ t $, let $ \mathbf{S}^{&lt; t} $ be the set of
+data points up to and including the last data point from task $ t $.
+
+We define forward transfer to be
+$$ \text{LE}_f^t(\mathbf{S}^t, \mathbf{S}^{&lt; t}) = \frac{\mathcal{E}_f^t(\mathbf{S}^t)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t})} $$
+
+And we define backward transfer to be
+$$ \text{LE}_f^t(\mathbf{S}^{&lt; t}, \mathbf{S}) = \frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t})}{\mathcal{E}_f^t(\mathbf{S})} $$
+
+Where $ \mathbf{S} $ is all of the data and $ \mathbf{S}^t $ is the task $ t $ data.
+
+---
+
+### Other definitions of learning for OOD scenarios
+
+- We used learning efficiency as the basis metric with which to measure performance and trasnfer in the various OOD scenarios.
+- There are many other ways as well to measure transfer and performance.
+- Analogous to traditional learning, we will introduce and examine here the two notions of weak OOD learning and strong OOD learning.
+
+---
+
+### Weak OOD
+
+Assume we have some model of distributions $ \mathcal{P} $ and source distribution $ P $. Loosely, we say $ \mathcal{P} $ is weakly OOD learnable with target data of size $ n $ if given
+enough source data, we can perform better than base performance (i.e. with just target data) with arbitrarily high probability.
+
+---
+
+### Strong OOD
+
+Assume we have some model of distributions $ \mathcal{P} $ and source distribution $ P $. We say $ \mathcal{P} $ is strongly OOD learnable with target data of size $ n $ if given
+enough source data, we can perform arbitrarily well (i.e. arbitrarily close to the Bayes risk) with arbitrarily high probability.
+
+---
+
+### Theoretical Results
+
+- Strong OOD learning implies weak OOD learning
+- Weak OOD meta-learning does not imply strong OOD meta-learning (meaning we cannot boost)
+- Weak OOD learning implies positive transfer (meaning learning efficiency is greater than $ 1 $ ), but not vice versa
+
+
+</textarea>
+
+<script src="remark-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  const options = {};
+  const renderMath = function () {
+    renderMathInElement(document.body);
+
+    renderMathInElement(document.body, {
+      delimiters: [ 
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+      ]
+    });
+  }
+
+  remark.macros.scale = function (percentage) {
+    const url = this;
+    return '<img src="' + url + '" style="width: ' + percentage + '" />';
+  };
+
+  const slideshow = remark.create(options, renderMath);
+
+
+</script>
+</body>
+
+</html>

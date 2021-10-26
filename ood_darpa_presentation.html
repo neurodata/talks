@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GTL</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="fonts/quadon/quadon.css" />
+    <link rel="stylesheet" href="fonts/gentona/gentona.css" />
+    <link rel="stylesheet" href="slides_style.css" />
+    <script
+      type="text/javascript"
+      src="assets/plotly/plotly-latest.min.js"
+    ></script>
+  </head>
+
+  <body>
+    <textarea id="source">
+
+
+
+
+### Taxonomy of Learning Paradigms
+
+<img style="width: 100%" src="assets/learning-schematics.png"></img>
+
+<img style="width: 100%" src="assets/learning-table.png"></img>
+
+---
+
+### New Measures for Learning Efficacy
+
+
+Learning Efficiency
+- $\mathcal{E}_f(\mathbf{S})$ is error of hypothesis outputted by $f$ trained on
+dataset $\mathbf{S}$.
+$$ LE_f(\mathbf{S}^A, \mathbf{S}^B) = \frac{\mathcal{E}_f(\mathbf{S}^A)}{\mathcal{E}_f(\mathbf{S}^B)} $$
+
+Weak OOD Learning
+
+- $\mathbf{S}_{m, n}$ amalgamated dataset. $m$ out-of-task data points, and $n$
+target task data points.
+- $ f(\mathbf{S}\_{m, n}) = \hat{h}_{m, n} $ is hypothesis obtained from
+amalgamated dataset.  
+- $ f(\mathbf{S}\_{n}) = \hat{h}_{n}$ is hypothesis obtained
+from just target data. 
+
+$$ P\_{\mathbf{S}\_{m, n}}[R\_{X, Y}(\hat{h}\_{m, n}) &lt; R\_{XY}(\hat{h}\_{n}) - \varepsilon ] \geq
+1 - \delta $$
+
+---
+
+### New Measures for Learning Efficacy
+
+We weakly OOD learn if above true for all $\delta > 0$, $m \geq M$, $n \geq N$,
+all distributions $P_{\mathbf{S}_n, X, Y}$, for some $\varepsilon > 0$ and
+algorithm $f$.
+
+Strong OOD Learning
+- $R^*$ is Bayes optimal risk.
+
+$$ P\_{\mathbf{S}\_{m, n}}[R\_{X, Y}(\hat{h}\_{m, n}) &lt; R^* + \varepsilon ] \geq
+1 - \delta $$
+
+We strongly OOD learn if above true for all $\varepsilon, \delta > 0$, $m \geq M$, $n \geq N$,
+all distributions $P_{\mathbf{S}_n, X, Y}$, for some algorithm $f$.
+
+---
+
+### Theoretical Results
+
+- Weak OOD learning does not imply strong OOD learning.
+- Weak OOD learning implies transfer learning (learning efficiency &gt; $1$,
+meaning we do better with out-of-task data).
+
+
+</textarea
+    >
+
+    <script src="remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"
+    />
+    <script type="text/javascript">
+      const options = {};
+      const renderMath = function () {
+        renderMathInElement(document.body);
+
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\[', right: '\\]', display: true },
+            { left: '\\(', right: '\\)', display: false },
+          ],
+        });
+      };
+
+      remark.macros.scale = function (percentage) {
+        const url = this;
+        return '<img src="' + url + '" style="width: ' + percentage + '" />';
+      };
+
+      const slideshow = remark.create(options, renderMath);
+    </script>
+  </body>
+</html>

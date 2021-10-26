@@ -16,7 +16,7 @@
 
 
 
-### Omnidirectional Lifelong Learning via Representer Ensembling
+### Lifelong Learning: Theory and Practice
 
 
 [JHU](https://www.jhu.edu/): Jayanta Dey | Ali Geisa | Hayden Helm  | Ronak Mehta | Will LeVine |
@@ -28,9 +28,172 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 ![:scale 40%](images/neurodata_blue.png)
 ---
 
----
+### Outline
+
+- Background
+- Theoretically motivate lifelong learning metrics
+- Properly situation lifelong learning within hierarchy of learning paradigms
+- Explain ensembling representations
+- Discuss algorithmic results
 
 ---
+class: middle 
+# .center[Background]
+
+
+---
+
+### What is learning (Valiant)?
+
+![:scale 100%](images/weak-learning.png)
+
+basically, doing better than chance with enough data 
+
+
+![:scale 100%](images/strong-learning.png)
+
+basically, doing arbitrarily well with enough data 
+
+.ye[weak learning theorem states that if a problem is weakly learnable, then it is also strongly learnable]
+
+---
+
+### Limitations of this formal definition
+
+
+- there is only 1 task 
+- requires large sample sizes for theory to be relevant 
+- all data are from the same fixed distribution 
+
+---
+
+
+### What is learning (Mitchell)?
+
+
+A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. 
+
+-- Tom Mitchell,  1997
+
+- Pro's
+  - multiple tasks 
+  - uncouples experience (data) with tasks
+  - explicit mention of improving due to data 
+  - implicitly requires transfer 
+- Con's 
+  - not formalized
+
+
+---
+class: middle 
+# .center[Jovo Framework]
+
+
+
+---
+
+##### In-Distribution vs Out-of-Distribution Learning 
+
+
+![:scale 100%](images/learning-schematics.png)
+
+the key difference is evaluation distribution is uncoupled from data distributions
+
+---
+
+### Formalizing OOD Learnability
+
+
+![:scale 100%](images/weak-ood-learnability.png)
+
+basically, using non-task data to improve performance at all 
+
+
+![:scale 100%](images/strong-ood-learnability.png)
+
+basically, using non-task data to perform arbitrarily well
+
+
+---
+
+### Quantifying learning
+
+The above two definitions enable one to assess .ye[whether] an agent $f$ has learned, but not .ye[how much] it learned.
+
+![:scale 100%](images/learning-efficiency.png)
+
+basically, using non-task data to improve performance over what it could achieve using only task data
+
+
+---
+
+### Weak OOD Learner Theorem
+
+Theorem 1: With *only* out-of-distribution data, there exists some problems that are weakly, but not strongly, learnable. 
+
+- This implies that OOD learning is different *in kind* from in-distribution learning.
+- Lifelong learning is a special case of OOD learning 
+
+---
+
+### Transfer Learning Theorem 
+
+Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning efficiency > 1).  That is, if one can weakly learn, one can also transfer learn, but not necessarily vice versa.
+
+
+- This implies that transfer learnability is a fundamental property of learning problems
+- In other words, inability to transfer is equivalent to inability to learn at all. 
+
+
+---
+
+
+### Learning Efficiency Applications
+
+Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, \mathbf{S}^B)$, for specific choices of  $\mathbf{S}^A$ and $\mathbf{S}^B$
+
+
+- Learning: $\mathbf{S}^A=\mathbf{S}\_0$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Transfer learning: $\mathbf{S}^A=\mathbf{S}^1$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Multitask learning: for each $t$, $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Forward learning: $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}^{&lt t}$.
+- Backward learning: $\mathbf{S}^A=\mathbf{S}^{&lt t}$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+
+
+---
+
+### Lifelong Learning $\subsetneq$ OOD learning 
+
+![:scale 65%](images/nested-learning-schematic.png)
+
+---
+
+### Biological learning is on top
+
+![:scale 100%](images/learning-table.png)
+
+---
+
+### Discussion 
+
+- unified definition and quantification of learning 
+- presented hierarchy of learning paradigms 
+- limitations of current framework: in biology, there are no tasks
+
+---
+
+### Transition Opportunities 
+
+### [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
+
+![:scale 80%](images/proglearn_webpage.png)
+
+- code continues to improve (no time to discuss here)
+- ensembling representations (rather than decision rules) continues to be a promising path to solving OOD (including lifelong) and eventually biological learning 
+
+
+---
+
 ### Learning Schemas
 
 ![:scale 100%](images/learning_schema_new.png)

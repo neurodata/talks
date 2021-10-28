@@ -35,12 +35,6 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 - Properly situation lifelong learning within hierarchy of learning paradigms
 - Explain ensembling representations
 - Discuss algorithmic results
-
----
-class: middle 
-# .center[Background]
-
-
 ---
 
 ### What is learning (Valiant)?
@@ -83,15 +77,8 @@ A computer program is said to learn from experience E with respect to some class
 - Con's 
   - not formalized
 
-
 ---
-class: middle 
-# .center[Jovo Framework]
-
-
-
----
-
+### Jovo Framework
 ##### In-Distribution vs Out-of-Distribution Learning 
 
 
@@ -165,43 +152,11 @@ Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, 
 ### Lifelong Learning $\subsetneq$ OOD learning 
 
 ![:scale 65%](images/nested-learning-schematic.png)
-
----
-
-### Biological learning is on top
-
-![:scale 100%](images/learning-table.png)
-
----
-
-### Discussion 
-
-- unified definition and quantification of learning 
-- presented hierarchy of learning paradigms 
-- limitations of current framework: in biology, there are no tasks
-
----
-
-### Transition Opportunities 
-
-### [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
-
-![:scale 80%](images/proglearn_webpage.png)
-
-- code continues to improve (no time to discuss here)
-- ensembling representations (rather than decision rules) continues to be a promising path to solving OOD (including lifelong) and eventually biological learning 
-
-
 ---
 
 ### Learning Schemas
 
 ![:scale 100%](images/learning_schema_new.png)
-
----
-### Omnidirectional Algorithms can Transfer Between XOR and XNOR 
-
-![:scale 100%](images/xor_xnor_exp.png)
 ---
 ### CIFAR 10x10
 
@@ -225,22 +180,13 @@ Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, 
 ---
 ### Omnidirectional Algorithms Uniquely Show Backward Transfer for Each CIFAR 10x10 Task
 ![:scale 115%](images/cifar_exp_bte.png)
-
 ---
-### Spoken Digit dataset
-.pull-left[
-- *Spoken Digit* contains recording from 6 different speakers. 
-- Each digit has 50 recordings (3000 total recordings).
-- For each recording spectrogram was extracted using using Hanning windows of duration 16 ms with an overlap of 4 ms.
--  The spectrograms were resized down to 28×28. 
-]
-.pull-right[
-<img src="images/spectrogram.png" style="position:absolute; left:500px; width:400px;"/>
-]
----
-### Omnidirectional Algorithms on Spoken Digit Task
 
-![:scale 105%](images/spoken_digit.png)
+### Discussion 
+
+- unified definition and quantification of learning 
+- presented hierarchy of learning paradigms 
+- limitations of current framework: in biology, there are no tasks
 
 ---
 ### Acknowledgements
@@ -517,6 +463,44 @@ background-image: url(images/l_and_v.jpeg)
 
 .footnote[Questions?]
 
+---
+class: middle 
+# .center[Appendix]
+
+
+
+---
+### Biological learning is on top
+
+![:scale 100%](images/learning-table.png)
+---
+### Omnidirectional Algorithms can Transfer Between XOR and XNOR 
+
+![:scale 100%](images/xor_xnor_exp.png)
+---
+### Spoken Digit dataset
+.pull-left[
+- *Spoken Digit* contains recording from 6 different speakers. 
+- Each digit has 50 recordings (3000 total recordings).
+- For each recording spectrogram was extracted using using Hanning windows of duration 16 ms with an overlap of 4 ms.
+-  The spectrograms were resized down to 28×28. 
+]
+.pull-right[
+<img src="images/spectrogram.png" style="position:absolute; left:500px; width:400px;"/>
+]
+---
+### Omnidirectional Algorithms on Spoken Digit Task
+
+![:scale 105%](images/spoken_digit.png)
+---
+### Transition Opportunities 
+
+### [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
+
+![:scale 80%](images/proglearn_webpage.png)
+
+- code continues to improve (no time to discuss here)
+- ensembling representations (rather than decision rules) continues to be a promising path to solving OOD (including lifelong) and eventually biological learning 
 
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
@@ -553,10 +537,10 @@ background-image: url(images/l_and_v.jpeg)
     // {
     // ratio: '16:9',
     // });
-
+    
     var slideshow = remark.create(options, renderMath);
 
-
+  
   </script>
 </body>
 

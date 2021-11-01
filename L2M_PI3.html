@@ -92,93 +92,6 @@ SGs: SRI, ARGONE, HRL
     height= "65">
 </div>
 <br>
-### What is learning (Valiant)?
-
-![:scale 100%](images/weak-learning.png)
-
-basically, doing better than chance with enough data 
-
-
-![:scale 100%](images/strong-learning.png)
-
-basically, doing arbitrarily well with enough data 
-
-.ye[weak learning theorem states that if a problem is weakly learnable, then it is also strongly learnable]
-
----
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
-### Limitations of this formal definition
-
-
-- there is only 1 task 
-- requires large sample sizes for theory to be relevant 
-- all data are from the same fixed distribution 
-
----
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
-
-### What is learning (Mitchell)?
-
-
-A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. 
-
--- Tom Mitchell,  1997
-
-- Pro's
-  - multiple tasks 
-  - uncouples experience (data) with tasks
-  - explicit mention of improving due to data 
-  - implicitly requires transfer 
-- Con's 
-  - not formalized
-
----
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
 ### Jovo Framework
 ##### In-Distribution vs Out-of-Distribution Learning 
 
@@ -260,6 +173,35 @@ basically, using non-task data to improve performance over what it could achieve
     height= "65">
 </div>
 <br>
+### Learning Efficiency Applications
+
+Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, \mathbf{S}^B)$, for specific choices of  $\mathbf{S}^A$ and $\mathbf{S}^B$
+
+
+- Learning: $\mathbf{S}^A=\mathbf{S}\_0$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Transfer learning: $\mathbf{S}^A=\mathbf{S}^1$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Multitask learning: for each $t$, $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Forward learning: $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}^{&lt t}$.
+- Backward learning: $\mathbf{S}^A=\mathbf{S}^{&lt t}$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+
+
+---
+<div>
+  <img src=
+  "images/darpa_logo.png" 
+    alt="jhu logo" 
+    align="left"
+    width = "100"
+    height= "50">
+
+<img src=
+  "images/jhu.png" 
+    alt="jhu logo" 
+    align="right"
+    width = "140"
+    height= "65">
+</div>
+<br>
 ### Weak OOD Learner Theorem
 
 Theorem 1: With *only* out-of-distribution data, there exists some problems that are weakly, but not strongly, learnable. 
@@ -293,55 +235,6 @@ Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning e
 - In other words, inability to transfer is equivalent to inability to learn at all. 
 
 
----
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
-### Learning Efficiency Applications
-
-Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, \mathbf{S}^B)$, for specific choices of  $\mathbf{S}^A$ and $\mathbf{S}^B$
-
-
-- Learning: $\mathbf{S}^A=\mathbf{S}\_0$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Transfer learning: $\mathbf{S}^A=\mathbf{S}^1$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Multitask learning: for each $t$, $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Forward learning: $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}^{&lt t}$.
-- Backward learning: $\mathbf{S}^A=\mathbf{S}^{&lt t}$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-
-
----
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
-### Lifelong Learning $\subsetneq$ OOD learning 
-
-![:scale 55%](images/nested-learning-schematic.png)
 ---
 <div>
   <img src=

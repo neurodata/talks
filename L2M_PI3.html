@@ -46,29 +46,13 @@ SGs: SRI, ARGONE, HRL
 ![:scale 35%](images/neurodata_blue.png)
 </center>
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
 ### Summary
 ##### Research Question
 - Approach lifelong learning problem both theoretically and practically
 
 ##### Approach
-- Introduce learning framework for theoretical analysis of lifelong learning
-- Introduce ensembling representations
+- Introduced learning framework for theoretical analysis of lifelong learning
+- Introduced ensembling representations
 
 ##### Accomplishments
 - Properly situated lifelong learning within hierarchy of learning paradigms
@@ -76,23 +60,7 @@ SGs: SRI, ARGONE, HRL
 
 
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
-### Jovo Framework
+### Result 1: Jovo Framework
 ##### In-Distribution vs Out-of-Distribution Learning 
 
 
@@ -101,22 +69,6 @@ SGs: SRI, ARGONE, HRL
 the key difference is evaluation distribution is uncoupled from data distributions
 
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
 ### Formalizing OOD Learnability
 
 
@@ -131,23 +83,7 @@ basically, using non-task data to perform arbitrarily well
 
 
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
-### Quantifying learning
+### Result 2:  Quantifying learning
 
 The above two definitions enable one to assess .ye[whether] an agent $f$ has learned, but not .ye[how much] it learned.
 
@@ -157,22 +93,6 @@ basically, using non-task data to improve performance over what it could achieve
 
 
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
 ### Learning Efficiency Applications
 
 Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, \mathbf{S}^B)$, for specific choices of  $\mathbf{S}^A$ and $\mathbf{S}^B$
@@ -186,22 +106,6 @@ Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, 
 
 
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
 ### Weak OOD Learner Theorem
 
 Theorem 1: With *only* out-of-distribution data, there exists some problems that are weakly, but not strongly, learnable. 
@@ -210,22 +114,6 @@ Theorem 1: With *only* out-of-distribution data, there exists some problems that
 - Lifelong learning is a special case of OOD learning 
 
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
 ### Transfer Learning Theorem 
 
 Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning efficiency > 1).  That is, if one can weakly learn, one can also transfer learn, but not necessarily vice versa.
@@ -236,120 +124,46 @@ Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning e
 
 
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
-### Learning Schemas
+### Result 3: Ensembling of Representers Shows Synergistic Learning
 
 ![:scale 100%](images/learning_schema_new.png)
+<center>
+  Learning Schemas
+</center>
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-
-<br>
-### CIFAR 10x10
-
-
-
-.pull-left[
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
-- 500 training images and 100 testing images per class.
-- All images are 32x32 color images.
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
-]
-
-.pull-right[
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
-]
-
----
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
 ### Omnidirectional Algorithms Show Forward Transfer for the CIFAR 10x10 Tasks
+- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
+- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
 ![:scale 115%](images/cifar_exp_fte.png)
 
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
 ### Omnidirectional Algorithms Uniquely Show Backward Transfer for Each CIFAR 10x10 Task
 ![:scale 115%](images/cifar_exp_bte.png)
 ---
-<div>
-  <img src=
-  "images/darpa_logo.png" 
-    alt="jhu logo" 
-    align="left"
-    width = "100"
-    height= "50">
-
-<img src=
-  "images/jhu.png" 
-    alt="jhu logo" 
-    align="right"
-    width = "140"
-    height= "65">
-</div>
-<br>
-### Discussion 
+### Future Directions/ Transitions
 
 - unified definition and quantification of learning 
 - presented hierarchy of learning paradigms 
 - limitations of current framework: in biology, there are no tasks
 
+---
+<br>
+<br>
+<br>
+<img src=
+  "images/vova1.png" 
+    alt="vova 1" 
+    width = "2000"
+    height= "400">
+---
+<br>
+<br>
+<br>
+<img src=
+  "images/vova2.png" 
+    alt="vova 2" 
+    width = "2000"
+    height= "400">
 ---
 ### Acknowledgements
 

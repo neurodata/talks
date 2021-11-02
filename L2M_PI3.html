@@ -47,54 +47,43 @@ SGs: SRI, ARGONE, HRL
 </center>
 ---
 ### Summary
-.blue[Research Question :] Approach lifelong learning problem both theoretically and practically
+.ye[Research Question:] Why is LL difficult, and how can we design algorithms/datasets to solve it?
 
-.blue[Approach :]
-- Introduced learning framework for theoretical analysis of lifelong learning
+.ye[Approach:]
+- Introduced out-of-distribution (OOD) learning theory framework for theoretical analysis of lifelong learning
 - Introduced ensembling representations
 
-.blue[Accomplishments :]
-- Properly situated lifelong learning within hierarchy of learning paradigms
-- Achieved consistent positive forward and backward transfer in practice
+.ye[Accomplishments:]
+- Proved various OOD weak learner theorems
+- Achieved consistent positive forward and backward transfer (synergistic learning) in practice
 
-.blue[Key Take-Away :] Ensembling of representers is a promising approach to effectively solve lifelong learning problem
+.ye[Key Take-Away:] LL is fundamentally harder than classical ML, and ensembling representations can synergistically learn
+
 ---
-### Result 1: Jovo Framework
-##### In-Distribution vs Out-of-Distribution Learning 
+### Result 1: OOD Learning Theory
 
+We uncouple the evaluation distribution from training data distributions
 
 ![:scale 100%](images/learning-schematics.png)
 
-the key difference is evaluation distribution is uncoupled from data distributions
-
----
-### Formalizing OOD Learnability
-
-
-![:scale 100%](images/weak-ood-learnability.png)
-
-basically, using non-task data to improve performance at all 
-
-
-![:scale 100%](images/strong-ood-learnability.png)
-
-basically, using non-task data to perform arbitrarily well
 
 
 ---
-### Result 2:  Quantifying learning
+### Putting LL within OOD Framework
 
-The above two definitions enable one to assess .ye[whether] an agent $f$ has learned, but not .ye[how much] it learned.
+
+![:scale 100%](images/learning-table.png)
+
+
+
+---
+### Defining / Quantifying Learning in OOD Learning Theory 
+
+<!-- The above two definitions enable one to assess .ye[whether] an agent $f$ has learned, but not .ye[how much] it learned. -->
 
 ![:scale 100%](images/learning-efficiency.png)
 
-basically, using non-task data to improve performance over what it could achieve using only task data
-
-
----
-### Learning Efficiency Applications
-
-Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, \mathbf{S}^B)$, for specific choices of  $\mathbf{S}^A$ and $\mathbf{S}^B$
+Using non-task data to improve performance over what it could achieve using only task data
 
 
 - Learning: $\mathbf{S}^A=\mathbf{S}\_0$ and $\mathbf{S}^B=\mathbf{S}\_n$.
@@ -104,16 +93,48 @@ Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, 
 - Backward learning: $\mathbf{S}^A=\mathbf{S}^{&lt t}$ and $\mathbf{S}^B=\mathbf{S}\_n$.
 
 
+
+<!-- Each of the previous definitions are all special cases of $LE^t_f(\mathbf{S}^A, \mathbf{S}^B)$, for specific choices of  $\mathbf{S}^A$ and $\mathbf{S}^B$ -->
+
+
+
+
 ---
-### Weak OOD Learner Theorem
+### Result 2:  Proving novel properties of OOD learning
+
+<!-- ![:scale 100%](images/weak-ood-learnability.png)
+
+basically, using non-task data to improve performance at all 
+
+
+![:scale 100%](images/strong-ood-learnability.png)
+
+basically, using non-task data to perform arbitrarily well -->
+
+
+<!-- --- -->
+<!-- ### Weak OOD Learner Theorem -->
+
+Classical theory:
+- Weak learning: can do better than chance on some task with sufficient data 
+- Strong learning: can do arbitrarily close to optimal on some task with sufficient data
+- Weak Learner Theorem: if a problem is weakly learnable, it is also strongly learnable 
+
+OOD learning theory
+- Training distribution is uncoupled from evaluation distribution
+
+---
+### More data is inadequate for LL 
 
 Theorem 1: With *only* out-of-distribution data, there exists some problems that are weakly, but not strongly, learnable. 
 
 - This implies that OOD learning is different *in kind* from in-distribution learning.
 - Lifelong learning is a special case of OOD learning 
+- Getting .ye[more] data is *not* guaranteed to improve performance arbitrarily in LL, we need .ye[better] data
+
 
 ---
-### Transfer Learning Theorem 
+### Learning efficiency is a fundamental notion of learning 
 
 Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning efficiency > 1).  That is, if one can weakly learn, one can also transfer learn, but not necessarily vice versa.
 
@@ -123,36 +144,44 @@ Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning e
 
 
 ---
-### Result 3: Ensembling of Representers Shows Synergistic Learning
+### Result 3: Ensembling representations achieves synergistic learning
 
 ![:scale 100%](images/learning_schema_new.png)
-<center>
-  Learning Schemas
-</center>
----
-### Omnidirectional Algorithms Show Forward Transfer for the CIFAR 10x10 Tasks
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
-![:scale 115%](images/cifar_exp_fte.png)
 
 ---
-### Omnidirectional Algorithms Uniquely Show Backward Transfer for Each CIFAR 10x10 Task
-![:scale 115%](images/cifar_exp_bte.png)
+### Omnidirectional Algorithms Show Forward Transfer 
+
+CIFAR 10x10
+
+<!-- - *CIFAR 100* is a popular image classification dataset with 100 classes of images.  -->
+<!-- - CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class. -->
+
+![:scale 100%](images/cifar_exp_fte.png)
+
+---
+### Omnidirectional Algorithms Uniquely Show Backward Transfer for Each Task
+![:scale 100%](images/cifar_exp_bte.png)
+
 ---
 ### Future Directions/ Transitions
 
 - omnidirctional algorithm code continues to improve [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
 - streaming forest for streaming lifelong learning setup [https://sdtf.neurodata.io](https://sdtf.neurodata.io)
 ![:scale 80%](images/streaming_forest.png)
+
 ---
-- kernel density graph for well calibrated posteriors [https://github.com/neurodata/kdg](https://github.com/neurodata/kdg)
-<br>
-<br>
-<br>
+### Kernel Density Networks/Forests generate well calibrated posteriors 
+
+- [https://github.com/neurodata/kdg](https://github.com/neurodata/kdg)
+-  KDG on Guassian XOR simulation data
+
 ![:scale 100%](images/kdn_kdf.png)
-<center>
-  KDG on Guassian XOR simulation data
-</center>
+
+--- 
+### Deep Networks are the worst model of the mind  
+
+
+  
 ---
 <br>
 <br>

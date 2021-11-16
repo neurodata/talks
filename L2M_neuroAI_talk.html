@@ -29,8 +29,36 @@ Carey E. Priebe
 </center>
 ---
 ### Motivation
+.ye[Research Question:] Why is LL difficult, and how can we design algorithms/datasets to solve it?
+
+.ye[Approach:]
+- Introduced out-of-distribution (OOD) learning theory framework for theoretical analysis of lifelong learning
+- Introduced ensembling representations
+
+.ye[Accomplishments:]
+- Proved various OOD weak learner theorems
+- Achieved consistent positive forward and backward transfer (synergistic learning) in practice
+
+.ye[Key Take-Away:] LL is fundamentally harder than classical ML, and ensembling representations can synergistically learn
 
 ---
+### What is learning (Mitchell)?
+
+
+A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. 
+
+-- Tom Mitchell,  1997
+
+- Pro's
+  - multiple tasks 
+  - uncouples experience (data) with tasks
+  - explicit mention of improving due to data 
+  - implicitly requires transfer 
+- Con's 
+  - not formalized
+
+---
+
 ### Defining/Quantifying Learning & Forgetting
 
 <!-- The above two definitions enable one to assess .ye[whether] an agent $f$ has learned, but not .ye[how much] it learned. -->

@@ -195,6 +195,48 @@ We uncouple the evaluation distribution from training data distributions
 
 ---
 
+### Generalized Task
+- In classical ML, given one data set $\mathbf{S}$ and task $t$.
+- Generalized task in OOD framework is multiple data sets $ \lbrace \mathbf{S}^1, ... , \mathbf{S}^m \rbrace $ and multiple tasks $ \lbrace t_1, ..., t_n \rbrace $, $m \geq n$.
+- Multitask learning, transfer learning, etc. are generalized tasks.
+
+---
+
+### Transfer Learning
+- One task and multiple data sets.
+- Measure if OOD data helped performance over just task data
+$$ \text{LE}_f^t(\mathbf{S}^1, \mathbf{S}) = \frac{\mathcal{E}_f^t(\mathbf{S}^1)}{\mathcal{E}_f^t(\mathbf{S})} $$
+- $ \mathbf{S}^1 $ is the task data.
+- $ \mathbf{S} $ is all of the data 
+- Transfer learned if $ \text{LE}_f^t > 1 $.
+
+---
+
+### Multitask Learning
+- Multiple tasks and multiple data sets.
+- Measure transfer learning for each task, 
+$$ \text{LE}_f^t(\mathbf{S}^t, \mathbf{S}) = \frac{\mathcal{E}_f^t(\mathbf{S}^t)}{\mathcal{E}_f^t(\mathbf{S})} $$
+- $ \mathbf{S}^t $ is the task $t$ data.
+- $ \mathbf{S} $ is all of the data.
+- Transfer learned for the task if $ \text{LE}_f^t > 1 $.
+- Multitask learned if weighted average of learning efficiencies $\text{LE}_f^{t_1}, ..., \text{LE}^{t_n}$ is greater than $1$.
+
+---
+
+### Lifelong Learning
+- Similar to multitask learning
+- Difference is that it is done sequentially in time.
+- Require computational complexity constraints on hypothesis and learner spaces, $ o(n) $ space and/or $ o(n^2) $ time as upperbounds.
+- Everything is streaming: data, queries, actions, error, and tasks. Anything about task can change over time.
+
+---
+
+### Quantifying Lifelong Learning
+
+Use forward and backward learning metrics
+
+---
+
 ### Putting LL within OOD Framework
 
 

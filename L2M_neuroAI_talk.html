@@ -42,6 +42,7 @@ Carey E. Priebe
 .ye[Key Take-Away:] LL is fundamentally harder than classical ML, and ensembling representations can synergistically learn
 
 ---
+
 ### What is learning (Mitchell)?
 
 
@@ -58,22 +59,6 @@ A computer program is said to learn from experience E with respect to some class
   - not formalized
 
 ---
-### OOD Learning Theory
-
-We uncouple the evaluation distribution from training data distributions
-
-![:scale 100%](images/learning-schematics.png)
-
----
-
-### Putting LL within OOD Framework
-
-
-![:scale 100%](images/learning-table.png)
-
-
----
-
 
 ### Defining/Quantifying Learning & Forgetting
 
@@ -83,60 +68,8 @@ We uncouple the evaluation distribution from training data distributions
 
 Using non-task data to improve performance over what it could achieve using only task data
 
+Key is measuring improvement in performance rather than raw accuracy
 
----
-### What is forward learning?
-
-
-- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{Z}\_n$ 
-- Let $\mathbf{Z}\_n^{< t} = \lbrace Z\_1, Z\_2, \ldots, Z\_{n_t}  \rbrace$
-- .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FLE^t\_{\mathbf{n}}(f) := \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}  $$
-
-
-<br>
-
-$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) > 1$.
-
----
-### What is backward learning?
-
-
-
- .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
-
-
-$$    BLE^t\_{\mathbf{n}}(f) :=  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}  $$
-
-
-
-<br>
-
-$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
-
-
----
-### Learning efficiency factorizes
-
-
-$$LE\_t(f) := FLE\_t(f)  \times BLE\_t(f) $$
-
-$$\frac{\mathbb{E}[R^t(f(\mathbf{Z}^t\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]} =  \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]} \times \frac{\mathbb{E}[R^t(f(\mathbf{Z}^{< t}\_n))]}{\mathbb{E}[R^t(f(\mathbf{Z}\_n))]}$$
-
-<br>
-
----
-### Special cases 
-
-Each of the previous definitions are all special cases of $LE^t(\mathbf{Z}\_A, \mathbf{Z}\_B, f)$, for specific choices of  $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$
-
-- Learning: $\mathbf{S}^A=\mathbf{S}\_0$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Transfer learning: $\mathbf{S}^A=\mathbf{S}^1$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Multitask learning: for each $t$, $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Forward learning: $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}^{&lt t}$.
-- Backward learning: $\mathbf{S}^A=\mathbf{S}^{&lt t}$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-
-Conjecture: All learning metrics we care about are functions of learning efficiency for a specific $\mathbf{Z}\_A$ and $\mathbf{Z}\_B$.
 
 ---
 ### Our approach: ensembling representations
@@ -210,23 +143,50 @@ CIFAR 10x10
 ---
 ### Theory
 
+---
+
+### OOD Learning Theory
+
+We uncouple the evaluation distribution from training data distributions
+
+![:scale 100%](images/learning-schematics.png)
+
+---
+
+### Putting LL within OOD Framework
+
+
+![:scale 100%](images/learning-table.png)
 
 
 ---
-### Result 2:  Proving novel properties of OOD learning
+### Special cases 
 
-<!-- ![:scale 100%](images/weak-ood-learnability.png)
+Each of the previous definitions are all special cases of $LE^t(\mathbf{S}^A, \mathbf{S}^B, f)$, for specific choices of  $\mathbf{S}^A$ and $\mathbf{S}^B$
+
+- Learning: $\mathbf{S}^A=\mathbf{S}\_0$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Transfer learning: $\mathbf{S}^A=\mathbf{S}^1$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Multitask learning: for each $t$, $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+- Forward learning: $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}^{&lt t}$.
+- Backward learning: $\mathbf{S}^A=\mathbf{S}^{&lt t}$ and $\mathbf{S}^B=\mathbf{S}\_n$.
+
+Conjecture: All learning metrics we care about are functions of learning efficiency for a specific $\mathbf{S}^A$ and $\mathbf{S}^B$.
+
+---
+### Proving novel properties of OOD learning
+
+![:scale 100%](images/weak-ood-learnability.png)
 
 basically, using non-task data to improve performance at all 
 
 
 ![:scale 100%](images/strong-ood-learnability.png)
 
-basically, using non-task data to perform arbitrarily well -->
+basically, using non-task data to perform arbitrarily well 
 
+---
 
-<!-- --- -->
-<!-- ### Weak OOD Learner Theorem -->
+### Weak OOD Learner Theorem 
 
 Classical theory:
 - Weak learning: can do better than chance on some task with sufficient data 
@@ -237,6 +197,7 @@ OOD learning theory
 - Training distribution is uncoupled from evaluation distribution
 
 ---
+
 ### More data is inadequate for LL 
 
 Theorem 1: With *only* out-of-distribution data, there exists some problems that are weakly, but not strongly, learnable. 

@@ -72,6 +72,48 @@ Key is measuring improvement in performance rather than raw accuracy
 
 
 ---
+### What is forward learning?
+
+
+- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{S}\_n$ 
+- Let $\mathbf{S}\_n^{&lt; t} = \lbrace S\_1, S\_2, \ldots, S\_{n_t}  \rbrace$
+- .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
+$$    FLE^t\_{\mathbf{n}}(f) := \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}  $$
+
+
+<br>
+
+$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) &gt; 1$.
+
+---
+### What is backward learning?
+
+
+
+.ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+
+
+$$    BLE^t\_{\mathbf{n}}(f) :=  \frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)}  $$
+
+
+
+<br>
+
+$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
+
+
+---
+### Learning efficiency factorizes
+
+
+$$LE^t\_{\mathbf{n}}(f) := FLE^t\_{\mathbf{n}}(f)  \times BLE^t\_{\mathbf{n}}(f) $$
+
+$$ \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)} = \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)} \times 
+\frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)}  $$
+
+<br>
+
+---
 ### Our approach: ensembling representations
 
 ![:scale 100%](images/learning_schema_new.png)

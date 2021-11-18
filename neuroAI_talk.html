@@ -203,10 +203,26 @@ CIFAR 10x10
 ### Theory
 
 - Classical ML theory is great for classical ML
-- This framework is very inadequate for OOD scenarios
+- Inadequate for OOD scenarios
+
+---
+
+### Why Inadqeuate?
+
 - In classical ML, only have one data set and one task
-- In OOD scenarios, we have multiple data sets and multiple tasks
-- Need a new framework
+- We assume training distribution and evaluation distribution are the same
+- In OOD scenarios, training and evaluation are different
+- In transfer learning, we have multiple data sets
+- In multitask learning, we have multiple tasks as well
+- Classical theory doesn't encompass these scenarios
+
+---
+
+### Why Need A New Framework?
+
+- Most real problems are OOD
+- OOD problems more complex, need better metrics for comparing algorithms (accuracy is inadequate)
+- Confused literature (continual vs lifelong, which metrics to use, etc)
 
 ---
 
@@ -327,7 +343,7 @@ Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning e
 ### What have we accomplished?
 
 - Showed inadequacy of classical ML framework for OOD learning
-- Created a new framework adequate for OOD learning
+- Created a new unifying framework adequate for describing OOD learning
 - Proved theorems and results in this new framework
 
 ---

@@ -18,45 +18,303 @@
   <textarea id="source">
 
 
-###Lifelong Learning: Theory and Practice
-
-PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/)<br>
-Jayanta Dey, Ali Geisa, Hayden Helm, Ronak Mehta, Will LeVine,
-Carey E. Priebe
+###Lifelong Learning and Beyond
+<br>
 
 <center>
 ![:scale 45%](images/neurodata_blue.png)
 </center>
----
-### Motivation
-.ye[Research Question:] Why is LL difficult, and how can we design algorithms/datasets to solve it?
 
-.ye[Approach:]
-- Introduced out-of-distribution (OOD) learning theory framework for theoretical analysis of lifelong learning
-- Introduced ensembling representations
+Joshua T. Vogelstein ([jovo@jhu.edu](mailto:jovo@jhu.edu)) | 
+<!-- Jayanta Dey, Ali Geisa, Hayden Helm, Ronak Mehta, Will LeVine, -->
+<!-- Carey E. Priebe<br> -->
+[Johns Hopkins University](https://www.jhu.edu/)
 
-.ye[Accomplishments:]
-- Achieved consistent positive forward and backward transfer (synergistic learning) in practice
-- Proved various OOD weak learner theorems
 
-.ye[Key Take-Away:] LL is fundamentally harder than classical ML, and ensembling representations can synergistically learn
 
 ---
 
-### What is learning (Mitchell)?
+### What is lifelong learning?
+
+- What is .ye[learning]?
+- What is .ye[lifelong learning]?
+- What is .ye[beyond]?
+
+---
+class:middle
+
+# What is learning?
 
 
-A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. 
+---
 
--- Tom Mitchell,  1997
+### What is learning (informally)?
 
-- Pro's
-  - multiple tasks 
-  - uncouples experience (data) with tasks
-  - explicit mention of improving due to data 
-  - implicitly requires transfer 
-- Con's 
-  - not formalized
+
+--
+
+<br>
+"The acquisition of knowledge or skills through experience, study, or by being taught."
+
+-- Google, 2020
+
+--
+
+"A computer .ye[program] is set to learn from an .ye[experience] E with respect to some .ye[task] T and some .ye[performance measure] P if its performance on T as measured by P .ye[improves] with experience E."
+
+-- Tom Mitchell, 1997
+
+--
+
+".ye[$f$] learns from .ye[data] $\mathbf{D}_n$ w.r.t. .ye[tasks] $s$  when its .ye[performance] at $s$ improves due to $\mathbf{D}_n$."
+
+
+-- jovo, 2020
+
+
+
+---
+
+### What is learning (formally)?
+
+
+
+<img src="images/Vapnik71b.png" style="width:400px;"/>
+<img src="images/Valiant84.png" style="width:400px;"/>
+<img src="images/Mitchell97a.png" style="width:400px;"/>
+
+
+---
+
+### Impedance mismatch between informal and formal
+
+
+- Informal 
+  - intuitively pleasing
+  - not formalized / operationalized 
+- Formal 
+  - formalized / operationalized 
+  - makes very strong implicit assumptions that are never appropriate
+  - only considers one task and one dataset 
+  - training and testing distributions assumed to be the same 
+
+  
+---
+
+### Our Goal
+
+We desire a formal learning theory framework that:
+1. formalizes our intuitive understanding of what is learning 
+2. includes  many different kinds of learning scenarios 
+3. enables rich theory to provide insight 
+4.  guides practice to improve  current AI/ML 
+
+
+
+---
+
+### Out-Of-Distribution Learning Theory
+
+- We formalize OOD learning theory
+- The key insight is decoupling the training data distribution from the test data distribution 
+
+<!-- the evaluation distribution from training data distributions-->
+
+<!-- ![:scale 100%](images/learning-schematics.png) --> 
+
+---
+### Classical ML Task Setup 
+
+- X: observations
+- Y: actions/labels 
+- S: setting (fixed in classical ML)
+- t: indexes samples
+
+![:scale 75%](images/classical-task-setup.png)
+
+---
+### Classical ML Task
+
+Minimize error (subject to constraints)
+
+![:scale 100%](images/classical-task-goal.png)
+
+---
+### OOD Task
+
+
+Minimize OOD error (subject to constraints)
+
+![:scale 100%](images/ood-task-goal.png)
+
+Note: 
+- S is assumed to be sampled from some distribution over settings 
+- train and test distributions are not necessarily the same
+- this makes $#*% harder
+
+---
+### OK, What is Learning Now?
+
+We introduce .ye[learning efficiency]:
+
+- $ \mathbf{D}^\emptyset $ is the knowledge prior to acquiring data.
+- $ \mathbf{D}^1 $ is some training data
+- $f$ is the learner 
+$$ \text{LE}_f^s(\mathbf{D}^\emptyset, \mathbf{D}^1) = \frac{\mathcal{E}_f^s(\mathbf{D}^\emptyset)}{\mathcal{E}_f^s(\mathbf{D}^{\mathbf{D}^1})} $$
+
+<br>
+- $f$ learned wrt task $s$ from data $\mathbf{D}^1$ if $ \text{LE} > 1 $, or $\log \text{LE} > 0$.  
+
+---
+
+### Revisiting our goals
+
+We desire a formal learning theory framework that:
+- [X] formalizes our intuitive understanding of what is learning 
+- [ ] includes  many different kinds of learning scenarios 
+- [ ] enables rich theory to provide insight 
+- [ ]  guides practice to improve  current AI/ML 
+
+
+
+---
+
+### Transfer Learning
+- One task and multiple data sets.
+  - $ \mathbf{D}^1 $ is the task data.
+  - $ \mathbf{D} $ is all of the data 
+- Measure if OOD data helped performance over just task data
+$$ \text{LE}_f^s(\mathbf{D}^1, \mathbf{D}) = \frac{\mathcal{E}_f^s(\mathbf{D}^1)}{\mathcal{E}_f^s(\mathbf{D})} $$
+
+<br>
+$f$ transfer learned wrt task $s$ using $\mathbf{D} \backslash \mathbf{D}^1$ if $\log \text{LE}_f^s > 0 $.
+
+
+---
+
+### Multitask Learning
+- Multiple tasks and multiple data sets.
+  - $ \mathbf{D}^s$ is the data for task $s$.
+  - $ \mathbf{D} $ is all of the data.
+- Measure transfer learning for each task, 
+$$ \text{LE}_f^s(\mathbf{D}^s, \mathbf{D}) = \frac{\mathcal{E}_f^s(\mathbf{D}^s)}{\mathcal{E}_f^s(\mathbf{D})} $$
+- $f$ transfer learned for  task  $s$ if $ \log \text{LE}_f^s > 0 $.
+- $f$ multitask learned if weighted average of log learning efficiencies is positive.
+- multitask learning is just transfer learning across multiple tasks
+
+
+
+---
+
+### Lifelong Learning
+- Similar to multitask learning
+- Sequential rather than batch
+- Require computational complexity constraints on hypothesis and learner spaces, $ o(n) $ space and/or $ o(n^2) $ time as upperbounds.
+- Everything is streaming: data, queries, actions, error, and tasks. Anything about task can change over time.
+
+
+---
+### Special cases 
+
+Each of the previous definitions are all special cases of $LE^s(\mathbf{D}^A, \mathbf{D}^B, f)$, for specific choices of  $\mathbf{D}^A$ and $\mathbf{D}^B$
+
+- Learning: $\mathbf{D}^A=\mathbf{D}\_0$ and $\mathbf{D}^B=\mathbf{D}\_n$.
+- Transfer learning: $\mathbf{D}^A=\mathbf{D}^1$ and $\mathbf{D}^B=\mathbf{D}\_n$.
+- Multitask learning: for each $t$, $\mathbf{D}^A=\mathbf{D}^s$ and $\mathbf{D}^B=\mathbf{D}\_n$.
+- Forward learning: $\mathbf{D}^A=\mathbf{D}^s$ and $\mathbf{D}^B=\mathbf{D}^{&lt t}$.
+- Backward learning: $\mathbf{D}^A=\mathbf{D}^{&lt t}$ and $\mathbf{D}^B=\mathbf{D}\_n$.
+
+Conjecture: All learning metrics we care about are functions of learning efficiency for a specific $\mathbf{D}^A$ and $\mathbf{D}^B$.
+
+
+---
+
+### Many different  learning scenarios 
+
+
+![:scale 100%](images/learning-table.png)
+
+
+---
+
+### Revisiting our goals
+
+We desire a formal learning theory framework that:
+- [X] formalizes our intuitive understanding of what is learning 
+- [X] includes  many different kinds of learning scenarios 
+- [ ] enables rich theory to provide insight 
+- [ ]  guides practice to improve  current AI/ML 
+
+
+---
+### Proving novel properties of OOD learning
+
+![:scale 100%](images/weak-ood-learnability.png)
+
+basically, using non-task data to improve performance at all 
+
+
+![:scale 100%](images/strong-ood-learnability.png)
+
+basically, using non-task data to perform arbitrarily well 
+
+---
+
+### Weak OOD Learner Theorem 
+
+Classical theory:
+- Weak learning: can do better than chance on some task with sufficient data 
+- Strong learning: can do arbitrarily close to optimal on some task with sufficient data
+- Weak Learner Theorem: if a problem is weakly learnable, it is also strongly learnable 
+
+OOD learning theory
+- Training distribution is uncoupled from evaluation distribution
+
+---
+
+### More data is inadequate for LL 
+
+Theorem 1: With *only* out-of-distribution data, there exists some problems that are weakly, but not strongly, learnable. 
+
+- This implies that OOD learning is different *in kind* from in-distribution learning.
+- Lifelong learning is a special case of OOD learning 
+- Getting .ye[more] data is *not* guaranteed to improve performance arbitrarily in LL, we need .ye[better] data
+
+
+---
+### Learning efficiency is a fundamental notion of learning 
+
+Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning efficiency > 1).  That is, if one can weakly learn, one can also transfer learn, but not necessarily vice versa.
+
+
+- This implies that transfer learnability is a fundamental property of learning problems
+- In other words, inability to transfer is equivalent to inability to learn at all. 
+
+---
+### What have we accomplished?
+
+- Showed inadequacy of classical ML framework for OOD learning
+- Created a new unifying framework adequate for describing OOD learning
+- Proved theorems and results in this new framework
+
+
+---
+
+### Revisiting our goals
+
+We desire a formal learning theory framework that:
+- [X] formalizes our intuitive understanding of what is learning 
+- [X] includes  many different kinds of learning scenarios 
+- [X] enables rich theory to provide insight 
+- [ ]  guides practice to improve  current AI/ML 
+
+
+
+---
+class:middle 
+
+# What is lifelong learning?
+
 
 ---
 
@@ -75,10 +333,10 @@ Key is measuring improvement in performance rather than raw accuracy
 ### What is forward learning?
 
 
-- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{S}\_n$ 
-- Let $\mathbf{S}\_n^{&lt; t} = \lbrace S\_1, S\_2, \ldots, S\_{n_t}  \rbrace$
+- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{D}\_n$ 
+- Let $\mathbf{D}\_n^{&lt; t} = \lbrace S\_1, S\_2, \ldots, S\_{n_t}  \rbrace$
 - .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FLE^t\_{\mathbf{n}}(f) := \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}  $$
+$$    FLE^s\_{\mathbf{n}}(f) := \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}  $$
 
 
 <br>
@@ -93,7 +351,7 @@ $f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) &gt; 1$.
 .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
 
 
-$$    BLE^t\_{\mathbf{n}}(f) :=  \frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)}  $$
+$$    BLE^s\_{\mathbf{n}}(f) :=  \frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
 
 
 
@@ -106,10 +364,10 @@ $f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
 ### Learning efficiency factorizes
 
 
-$$LE^t\_{\mathbf{n}}(f) := FLE^t\_{\mathbf{n}}(f)  \times BLE^t\_{\mathbf{n}}(f) $$
+$$LE^s\_{\mathbf{n}}(f) := FLE^s\_{\mathbf{n}}(f)  \times BLE^s\_{\mathbf{n}}(f) $$
 
-$$ \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)} = \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)} \times 
-\frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)}  $$
+$$ \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)} = \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)} \times 
+\frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
 
 <br>
 ---
@@ -126,7 +384,7 @@ And the struggle to not forget continues...
 A lifelong learning agent should improve on 
 <ol style="list-style-type: lower-alpha; padding-bottom: 0;">
   <li style="margin-left:2em">past tasks , i.e., $BLE_{\mathbf{n}}(f) &gt; 1$</li>
-  <li style="margin-left:2em">current tasks, i.e., $LE^t_{\mathbf{n}}(f) &gt; 1$ </li>
+  <li style="margin-left:2em">current tasks, i.e., $LE^s_{\mathbf{n}}(f) &gt; 1$ </li>
   <li style="margin-left:2em">future or yet unseen tasks, i.e., $FLE_{\mathbf{n}}(f) &gt; 1$</li>
 </ol>
 
@@ -199,152 +457,17 @@ CIFAR 10x10
 ### Omnidirectional Algorithms Uniquely Show Backward Transfer for Each Task
 ![:scale 100%](images/cifar_exp_bte.png)
 
----
-### Theory
-
-- Classical ML theory is great for classical ML
-- Inadequate for OOD scenarios
 
 ---
 
-### Why Inadqeuate?
+### Revisiting our goals
 
-- In classical ML, only have one data set and one task
-- We assume training distribution and evaluation distribution are the same
-- In OOD scenarios, training and evaluation are different
-- In transfer learning, we have multiple data sets
-- In multitask learning, we have multiple tasks as well
-- Classical theory doesn't encompass these scenarios
+We desire a formal learning theory framework that:
+- [X] formalizes our intuitive understanding of what is learning 
+- [X] includes  many different kinds of learning scenarios 
+- [X] enables rich theory to provide insight 
+- [X]  guides practice to improve  current AI/ML 
 
----
-
-### Why Need A New Framework?
-
-- Most real problems are OOD
-- OOD problems more complex, need better metrics for comparing algorithms (accuracy is inadequate)
-- Confused literature (continual vs lifelong, which metrics to use, etc)
-
----
-
-### OOD Learning Theory
-
-We uncouple the evaluation distribution from training data distributions
-
-![:scale 100%](images/learning-schematics.png)
-
----
-
-### Generalized Task
-- In classical ML, given one data set $\mathbf{S}$ and task $t$.
-- Generalized task in OOD framework is multiple data sets $ \lbrace \mathbf{S}^1, ... , \mathbf{S}^m \rbrace $ and multiple tasks $ \lbrace t_1, ..., t_n \rbrace $, $m \geq n$.
-- Multitask learning, transfer learning, etc. are generalized tasks.
-
----
-
-### Transfer Learning
-- One task and multiple data sets.
-- Measure if OOD data helped performance over just task data
-$$ \text{LE}_f^t(\mathbf{S}^1, \mathbf{S}) = \frac{\mathcal{E}_f^t(\mathbf{S}^1)}{\mathcal{E}_f^t(\mathbf{S})} $$
-- $ \mathbf{S}^1 $ is the task data.
-- $ \mathbf{S} $ is all of the data 
-- Transfer learned if $ \text{LE}_f^t > 1 $.
-
----
-
-### Multitask Learning
-- Multiple tasks and multiple data sets.
-- Measure transfer learning for each task, 
-$$ \text{LE}_f^t(\mathbf{S}^t, \mathbf{S}) = \frac{\mathcal{E}_f^t(\mathbf{S}^t)}{\mathcal{E}_f^t(\mathbf{S})} $$
-- $ \mathbf{S}^t $ is the task $t$ data.
-- $ \mathbf{S} $ is all of the data.
-- Transfer learned for the task if $ \text{LE}_f^t > 1 $.
-- Multitask learned if weighted average of learning efficiencies $\text{LE}_f^{t_1}, ..., \text{LE}^{t_n}$ is greater than $1$.
-
----
-
-### Lifelong Learning
-- Similar to multitask learning
-- Difference is that it is done sequentially in time.
-- Require computational complexity constraints on hypothesis and learner spaces, $ o(n) $ space and/or $ o(n^2) $ time as upperbounds.
-- Everything is streaming: data, queries, actions, error, and tasks. Anything about task can change over time.
-
----
-
-### Quantifying Lifelong Learning
-
-Use forward and backward learning metrics
-
----
-
-### Putting LL within OOD Framework
-
-
-![:scale 100%](images/learning-table.png)
-
-
----
-### Special cases 
-
-Each of the previous definitions are all special cases of $LE^t(\mathbf{S}^A, \mathbf{S}^B, f)$, for specific choices of  $\mathbf{S}^A$ and $\mathbf{S}^B$
-
-- Learning: $\mathbf{S}^A=\mathbf{S}\_0$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Transfer learning: $\mathbf{S}^A=\mathbf{S}^1$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Multitask learning: for each $t$, $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-- Forward learning: $\mathbf{S}^A=\mathbf{S}^t$ and $\mathbf{S}^B=\mathbf{S}^{&lt t}$.
-- Backward learning: $\mathbf{S}^A=\mathbf{S}^{&lt t}$ and $\mathbf{S}^B=\mathbf{S}\_n$.
-
-Conjecture: All learning metrics we care about are functions of learning efficiency for a specific $\mathbf{S}^A$ and $\mathbf{S}^B$.
-
----
-### Proving novel properties of OOD learning
-
-![:scale 100%](images/weak-ood-learnability.png)
-
-basically, using non-task data to improve performance at all 
-
-
-![:scale 100%](images/strong-ood-learnability.png)
-
-basically, using non-task data to perform arbitrarily well 
-
----
-
-### Weak OOD Learner Theorem 
-
-Classical theory:
-- Weak learning: can do better than chance on some task with sufficient data 
-- Strong learning: can do arbitrarily close to optimal on some task with sufficient data
-- Weak Learner Theorem: if a problem is weakly learnable, it is also strongly learnable 
-
-OOD learning theory
-- Training distribution is uncoupled from evaluation distribution
-
----
-
-### More data is inadequate for LL 
-
-Theorem 1: With *only* out-of-distribution data, there exists some problems that are weakly, but not strongly, learnable. 
-
-- This implies that OOD learning is different *in kind* from in-distribution learning.
-- Lifelong learning is a special case of OOD learning 
-- Getting .ye[more] data is *not* guaranteed to improve performance arbitrarily in LL, we need .ye[better] data
-
-
----
-### Learning efficiency is a fundamental notion of learning 
-
-Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning efficiency > 1).  That is, if one can weakly learn, one can also transfer learn, but not necessarily vice versa.
-
-
-- This implies that transfer learnability is a fundamental property of learning problems
-- In other words, inability to transfer is equivalent to inability to learn at all. 
-
----
-### What have we accomplished?
-
-- Showed inadequacy of classical ML framework for OOD learning
-- Created a new unifying framework adequate for describing OOD learning
-- Proved theorems and results in this new framework
 
 ---
 ### Future Directions/ Transitions

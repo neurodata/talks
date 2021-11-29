@@ -200,9 +200,19 @@ $$ \text{LE}_f^s(\mathbf{D}^s, \mathbf{D}) = \frac{\mathcal{E}_f^s(\mathbf{D}^s)
 ### Lifelong Learning
 - Similar to multitask learning
 - Sequential rather than batch
-- Require computational complexity constraints on hypothesis and learner spaces, $ o(n) $ space and/or $ o(n^2) $ time as upperbounds.
-- Everything is streaming: data, queries, actions, error, and tasks. Anything about task can change over time.
+- Everything is streaming: data, queries, actions, error, and tasks. 
+- Anything about task can change over time.
 
+
+---
+### What is lifelong cheating?
+
+- Store every sample you've ever seen 
+- Every time we are faced with a new data, just update everything in batch mode 
+- Now just run your favorite multitask $f$
+- Doing so naively consumes  $ o(n) $ space and/or $ o(n^2) $ time.
+- Differentiating lifelong  from multitask learning requires efficient algorithms
+<!-- - $f$ must consume less than quadratic resources as a function of $n$,  $f \in o(n^2)$ -->
 
 
 
@@ -248,7 +258,7 @@ $f$ .ye[backward learns] if $\log \text{LE}^s_f > 0$.
 $$ \frac{\mathcal{E}_f^s(\mathbf{D}^{s})}{\mathcal{E}_f^s(\mathbf{D}\_n)} = \frac{\mathcal{E}_f^s(\mathbf{D}^{s})}{\mathcal{E}_f^s(\mathbf{D}^{&lt; s})} \times 
 \frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; s})}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
 
-<br>
+
 
 
 ---
@@ -348,56 +358,38 @@ We desire a formal learning theory framework that:
 
 
 ---
-### Lifelong learning is hard: catastrophic forgetting 
+### Lifelong learning is hard: <br>Catastrophic interference/forgetting 
 ![:scale 100%](images/catastrophic.png)
 ---
 ### 30 years later... 
-![:scale 100%](images/synaptic_intelligence.png)
+
+
+<img src="images/rock20/masse1.png" style="width:500px;"/>
+<img src="images/rock20/flesch1.png" style="width:500px;"/>
+<img src="images/rock20/kirkpatrick1.png" style="width:500px;"/>
+<img src="images/synaptic_intelligence.png" style="width:500px;"/>
 
 <br>
 And the struggle to not forget continues...
 ---
 ### Our claim
-A lifelong learning agent should improve on 
-<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
-  <li style="margin-left:2em">past tasks , i.e., $BLE_{\mathbf{n}}(f) &gt; 1$</li>
-  <li style="margin-left:2em">current tasks, i.e., $LE^s_{\mathbf{n}}(f) &gt; 1$ </li>
-  <li style="margin-left:2em">future or yet unseen tasks, i.e., $FLE_{\mathbf{n}}(f) &gt; 1$</li>
-</ol>
+
+Previous works set the bar too low. 
+
+A lifelong learning agent should achieve 
+- $+$ forward transfer: $\log \text{LE}_f^s(\mathbf{D}^{s}, \mathbf{D}^{&lt; s}) > 0$ for each task
+- $+$ backward transfer: $\log \text{LE}_f^s(\mathbf{D}^{&lt; s}, \mathbf{D}_n)  > 0$ for each task
+
+
 
 ---
-### Our approach: ensembling representations
+### Our approach: <br>ensembling representations
 
-![:scale 100%](images/learning_schema_new.png)
----
-### What is lifelong cheating?
-
-- Store every sample you've ever seen 
-- Every time we are faced with a new data, just update everything in batch mode 
-- Now just run your favorite multitask $f$
-- Doing so consumes $\mathcal{O}(n^2)$ resources because $ \sum_{i =1}^n i \approx n^2$
+![:scale 100%](images/learning_schema.svg)
 
 
-
-- So, to differentiate lifelong learning from multitask learning requires a particularly efficient algorithm
-- $f$ must consume less than quadratic resources as a function of $n$,  $f \in o(n^2)$
  
 
-
-
----
-
-### A computational taxonomy 
-
-| Par.    | &rarr; | &larr;  | capacity | space   | time         | Examples     
-| :---:   | :---:  | :---:   | :---:| :---:       | :---:        |                       
-| par     | -      | -       | 1    | T           | nT           | EWC        
-| par     | -      | -       | 1    | 1           | n            | O-EWC, SI, LwF                   
-| par     | +      | -       | 1    | n           | nT           | Total Replay                   
-| semipar | +      | 0       | T    | T<sup>2     | nT           | ProgNN 
-| semipar | +      | -       | T    | T           | n            | DF-CNN                
-| semipar | +      | +       | T    | T + n       | n            | ODIN        
-| nonpar  | +      | +       | n    | n           | n            | ODIF        
 
 
 ---
@@ -421,9 +413,9 @@ A lifelong learning agent should improve on
 <img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
 ]
 ---
-### Omnidirectional Algorithms Show Forward Transfer 
+### Omnidirectional Algorithms<br>$+$ Forward Transfer 
 
-CIFAR 10x10
+<!-- CIFAR 10x10 -->
 
 <!-- - *CIFAR 100* is a popular image classification dataset with 100 classes of images.  -->
 <!-- - CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class. -->
@@ -431,7 +423,9 @@ CIFAR 10x10
 ![:scale 100%](images/cifar_exp_fte.png)
 
 ---
-### Omnidirectional Algorithms Uniquely Show Backward Transfer for Each Task
+### Omnidirectional Algorithms:<br>Uniquely $+$ Backward Transfer
+
+<!-- Uniquely Show Backward Transfer for Each Task -->
 ![:scale 100%](images/cifar_exp_bte.png)
 
 
@@ -468,6 +462,24 @@ We desire a formal learning theory framework that:
     alt="jong" 
     width = "700"
     height= "250">  
+
+---
+
+### Publications
+    
+    
+1. A. Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021. 
+1. J. T. Vogelstein et al. [Omnidirectional Transfer for Quasilinear Lifelong Learning](https://arxiv.org/abs/2004.12908), arXiv, 2021.
+1. Xu, Haoyin, et al. [Streaming Decision Trees and Forests](https://arxiv.org/abs/2110.08483), arXiv, 2021.
+1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), bioRxiv, 2020. 
+1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
+1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
+1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019.
+1. M. Madhya, et al. [BLOCKSET: Reducing Inference Latency for Tree Ensemble Deployment](https://dl.acm.org/doi/10.1145/3447548.3467368). KDD '21.
+1. M. Madhya, et al. [Geodesic Forests](https://dl.acm.org/doi/10.1145/3394486.3403094). KDD '20.
+    
+    
+
 ---
 ### Acknowledgements
 
@@ -528,6 +540,11 @@ We desire a formal learning theory framework that:
   <div class="centered">Carey Priebe</div>
 </div>
 
+<div class="small-container">
+  <img src="faces/alig.jpg"/>
+  <div class="centered">Ali</div>
+</div>
+
 <!-- <div class="small-container">
   <img src="faces/randal.jpg"/>
   <div class="centered">Randal Burns</div>
@@ -573,10 +590,10 @@ We desire a formal learning theory framework that:
   <div class="centered">Drishti Mannan</div>
 </div> -->
 
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/jesse.jpg"/>
   <div class="centered">Jesse Patsolic</div>
-</div>
+</div> -->
 
 <!-- <div class="small-container">
   <img src="faces/falk_ben.jpg"/>
@@ -747,33 +764,24 @@ background-image: url(images/l_and_v.jpeg)
 class: middle 
 # .center[Appendix]
 
----
 
-.small[
-### Publications
-
-
-1. A. Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021. 
-1. J. T. Vogelstein et al. [Omnidirectional Transfer for Quasilinear Lifelong Learning](https://arxiv.org/abs/2004.12908), arXiv, 2021.
-1. Xu, Haoyin, et al. [Streaming Decision Trees and Forests](https://arxiv.org/abs/2110.08483), arXiv, 2021.
-1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), 2020. 
-1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
-1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
-1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019.
-1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
-1. M. Madhya, et al. [PACSET (Packed Serialized Trees): Reducing Inference Latency for Tree Ensemble Deployment](https://arxiv.org/abs/2011.05383). arXiv, 2020.
-
-
-### Conferences 
-1. J.T. Vogelstein et al. A biological implementation of lifelong learning in the pursuit of artificial general intelligence.  NAISys, 2020.
-2. B. Pedigo et al.  A quantitative comparison of a complete connectome to artificial intelligence architectures. NAISys, 2020.
-]
 
 
 ---
-### Biological learning is on top
 
-![:scale 100%](images/learning-table.png)
+### A computational taxonomy 
+
+| Par.    | &rarr; | &larr;  | capacity | space   | time         | Examples     
+| :---:   | :---:  | :---:   | :---:| :---:       | :---:        |                       
+| par     | -      | -       | 1    | T           | nT           | EWC        
+| par     | -      | -       | 1    | 1           | n            | O-EWC, SI, LwF                   
+| par     | +      | -       | 1    | n           | nT           | Total Replay                   
+| semipar | +      | 0       | T    | T<sup>2     | nT           | ProgNN 
+| semipar | +      | -       | T    | T           | n            | DF-CNN                
+| semipar | +      | +       | T    | T + n       | n            | ODIN        
+| nonpar  | +      | +       | n    | n           | n            | ODIF        
+
+
 ---
 ### Spoken Digit dataset
 .pull-left[

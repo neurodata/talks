@@ -16,7 +16,7 @@
 
 
 
-### Lifelong Learning: <br>Theory and Practice
+### Lifelong Learning: <br>Theory and Context 
 
 
 PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/) <br>
@@ -71,7 +71,7 @@ basically, doing arbitrarily well with enough data
 - there is only 1 task 
 - requires large sample sizes for theory to be relevant 
 - all data are from the same fixed distribution 
-
+-  evaluation is with respect to the data distribution
 
 
 
@@ -107,7 +107,9 @@ class: middle
 
 ![:scale 100%](images/learning-schematics.png)
 
-the key difference is evaluation distribution is uncoupled from data distributions
+- the key differences
+  - evaluation distribution is uncoupled from data distributions
+  - multiple datasets & distributions
 
 ---
 
@@ -141,8 +143,10 @@ basically, using non-task data to improve performance over what it could achieve
 
 Theorem 1: With *only* out-of-distribution data, there exists some problems that are weakly, but not strongly, learnable. 
 
-- This implies that OOD learning is different *in kind* from in-distribution learning.
-- Lifelong learning is a special case of OOD learning 
+
+
+This implies that OOD learning is different *in kind* (and .ye[harder]) from in-distribution learning.
+<!-- - Lifelong learning is a special case of OOD learning.  -->
 
 ---
 
@@ -154,6 +158,8 @@ Theorem 2: Weak OOD learnability implies transfer learnability (i.e., learning e
 - This implies that transfer learnability is a fundamental property of learning problems
 - In other words, inability to transfer is equivalent to inability to learn at all. 
 
+
+If one cannot transfer, one cannot learn in any meaningful sense. 
 
 ---
 

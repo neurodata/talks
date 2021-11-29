@@ -16,7 +16,7 @@
 
 
 
-### Omnidirectional Lifelong Learning via Representer Ensembling
+### Omnidirectional Lifelong Learning via Ensembling Representations
 
 
 [JHU](https://www.jhu.edu/): Jayanta Dey | Ali Geisa | Hayden Helm  | Ronak Mehta | Will LeVine |
@@ -26,33 +26,31 @@ Carey E. Priebe | Joshua T. Vogelstein <br>
 
 
 ![:scale 40%](images/neurodata_blue.png)
----
-### Lifelong Learning
-- Goal : Improve on 
-<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
-  <li style="margin-left:2em">past tasks</li>
-  <li style="margin-left:2em">current tasks</li>
-  <li style="margin-left:2em">future or yet unseen tasks</li>
-</ol>
 
 ---
-### Motivation
-- Challenges with the Current Approaches:
-<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
-  <li style="margin-left:2em">Can improve performance on the future tasks</li>
-  <li style="margin-left:2em">Struggles to maintain performance on the past tasks</li>
-  <li style="margin-left:2em">Suffers from catastrophic forgetting</li>
-  <li style="margin-left:2em">Has worse space, capacity and time complexity</li>
-</ol>
 
-- Our Claim :
-<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
-  <li style="margin-left:2em"> Only algorithm to show transfer in .ye[both directions]- past to future and future to past tasks </li>
-  <li style="margin-left:2em">Has .ye[quasilinear] space and time complexity</li>
-  <li style="margin-left:2em">Shows .ye[synergistic learning] on CIFAR 100 dataset</li>
-</ol>
+
+### Different Learning Paradigms
+
+- biological learning: continually use new data to improve performance on both .ye[past] and potential .ye[future] tasks
+- (classical) machine learning: .ye[tabula rasa], forget old tasks with new data 
+
+
 ---
-### Learning Schemas
+
+### Existing strategies 
+
+- Given new data, either
+  - forward transfer: improve performance on .ye[future tasks] given current data 
+  - avoid catastrophic forgetting: do not .ye[forget past] tasks
+- These goals are .ye[inadequate]
+- We desire .ye[synergistic learning]: transfer both forward and backward 
+
+
+---
+
+### Our approach: Ensembling Representations 
+
 
 ![:scale 100%](images/learning_schema_new.png)
 

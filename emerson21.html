@@ -5,7 +5,7 @@
   
   
 <head>
-  <title>Biomedical Data Science</title>
+  <title>Emerson '21</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="fonts/quadon/quadon.css">
   <link rel="stylesheet" href="fonts/gentona/gentona.css">
@@ -18,17 +18,23 @@
   <textarea id="source">
 
 
-name:opening
-
 ### Biomedical Data Science: <br>Data science gone sideways
+<br>
 
+<center>
+![:scale 45%](images/neurodata_blue.png)
+</center>
 
-
-<img src="images/neurodata_blue.png"  style="width: 55%;"/>
-
-  
 Joshua T. Vogelstein ([jovo@jhu.edu](mailto:jovo@jhu.edu)) | 
+<!-- Jayanta Dey, Ali Geisa, Hayden Helm, Ronak Mehta, Will LeVine, -->
+<!-- Carey E. Priebe<br> -->
 [Johns Hopkins University](https://www.jhu.edu/)
+
+---
+
+class:middle 
+
+# Big Data Science
 
 
 
@@ -39,480 +45,409 @@ a field that develops and uses computational statistics to extracts knowledge fr
 
 
 ---
-### How do we do data science today?
+### What is 'Big Data'
 
+- Billions of records/samples/rows 
+- Hundreds of features 
+- Consider Amazon ledger
 
-- Find a dataset with a billion rows (records)
-- Each has a small amount of information per record 
-- Build huge ML systems to process the data 
-- Spend 10M+ on computing to train a deep net
-- Burn a ton of fossil fuels 
-- Get racist chatbots, etc.  
+![:scale 25%](images/tall_skinny.png)
 
---
+"Tall & Skinny"
 
-Key developments in last decade: bigger datasets and computers
+--- 
+### What are the big data challenges?
 
-
----
-### Biomedical Data Science Definition <br>(according to wikipedia)
-
-<br><br><br><br><br>
-(crickets)
-
----
-### How do we do biomedical data science
-
-
-- Find a dataset with a 10-100 rows (records)
-- Each has a huge amount of information per record 
-- Build a database 
-- Humans manually curate/search/etc.
-
---
-
-Key developments in last decade: biomedical data goes digital
-
-
-
----
-### Data science by the numbers
-
-<br>
-
-| investment in | DS | 
-| --- | --- | 
-| # people | ~3M | 
-| # papers on google scholar | ~1,000K |
-| # people on google scholar | 1,000+ | 
-| # dollars invested / yr | 10B+  | 
-| # MSE programs | 100+ | 
-
----
-### Can we leverage all that energy?
-
---
-
-
-No.
-
-
---
-
-Well, not all of that energy. 
-
-Biomedical data science is .ye[fundamentally] different.
-
-
----
-
-### Biomedical data science vs. <br>data science 
-
-| investment in | DS | BDS|  
-| --- | --- | --- | 
-| # samples/rows/records | ~1B | ~100 | 
-| # features | ~100 | ~1B |
-| # people | ~3M | 10K? |
-| # papers on google scholar | ~1,000K | ~100K
-| # people on google scholar | 1,000+ | < 100 | 
-| # dollars invested / yr | 10B+  | < 1B |
-| # MSE programs | 100+ | < 10 |
-
-
-Note: it is harder, and we invest less in it.
-
----
-### Why is biomedical data science harder?
-
-1. Volume: billions of features, hundreds of samples
-2. Variety: data are multifarious, including structured and unstructured data, text, images, etc.
-3. Velocity: data can streaming (e.g., ER)
-4. Veracity: data are noisy (sensors are broken, crappy, etc.)
-5. Variability: comes from different sources and always changing in various ways
-6. priVate: often we cannot legally/ethically share data
-
-These are the .ye[6 V's] of big data
-
----
-### What can we do?
-
-1. Formal framework for biomedical data science
-2. Theory to guide experimental & algorithmic design 
-3. Algorithms with provable guarantees and empirical success
-4. New experiments driven by application of algorithms to data 
+- Basically an infinite amount of data 
+- Need compute systems that can store/process it
+- Existing ML framework theory is perfect for this 
 
 
 ---
 ### Formal Classical ML Framework 
 
-- Assumptions:
-  - all data sourced from same distribution 
-  - that distribution is fixed 
-- Theorems:
-  - All we need is more data, and we will eventually do 'perfect'
-- Implications:
-  - Just keep getting more data and building bigger systems
-- Failure mode:
-  - Assumptions are a poor characterization of real world data 
+- Let $X_i$ be a feature vector (e.g., a cancer genome for subject $i$)
+- Let $Y_i$ be a class label (e.g., pancreatic cancer)
+- Given $n$ samples of training data, $(X_i, Y_i)$
+- Assumption 1:  training data sampled from some fixed true but unknown distribution
+- Given a new test sample, $(X,Y)$
+- Assumption 2: test data are sampled from the exact same distribution
+- Find an algorithm that predicts the new $Y$ accurately with a huge amount of data
 
 ---
-### Updated JoVo Framework 
+### Classical ML Theory 
 
-- Assumptions:
-  - data are sourced from multiple distributions 
-  - those distributions are dynamic
-- Theorems:
-  - More data is .ye[inadequate]
-- Implications:
-  - Need to be smarter about which data to collect
-- Failure mode:
-  - Need people thinking about better data and incorporating more domain knowledge
+- Under the above two assumptions 
+- If we get an infinite amount of data 
+- Then we have algorithms that will perform optimally
+
+.ye[Implication: just keep getting more and more data, and build bigger machines]
+
+- And that works great for many 'web-scale' problems
+- $>$10B USD invested annually
 
 
 ---
-### General Principles
+### What are the problems 
 
+--
+- Anti-democratic 
 
-1. Keep it Simple Stupid (KISS)
-2. [Look at it](https://www.youtube.com/watch?v=EF8GhC-T_Mo)
+--
+- Anti-environment 
 
+--
+- Racist chatbots 
 
----
-### What "system tools" are required?
+--
+- Biomedical data
 
-1. Manage: create, read, edit, delete (crud)
-2. Visualize: charts, tables, infographics, sculptures 
-3. Wrangle: outliers, imputation, deconvolution
-3. Summarize: point estimation,  quantization, object  localization
-4. Generalize: hypothesis test, model, simulate, 
-5. Predict: classify, regress, forecast
-5. Control: reinforcement learning, experimental design
 
 
 ---
-### Manage 
 
-Data management systems enable users to create, read, edit, and delete "records".
+class:middle 
 
-- little data: store on local hard drive in file system 
-- big data:  too large to store on local hard drive (eg, Dropbox), and/or  too complex to keep track of everything (eg, Google Photos)
-
-
-Tools include various kinds of databases: 
-- relational database 
-- NoSQL database - stores JSON files lacking schema
-- Spatial database - stores 2D+ images for fast access
+# Biomedical Data Science
 
 
 ---
-#### Example: NeuroData Cloud
+### Biomedical Data Science Definition <br>(according to wikipedia)
 
+--
 
-<img src="images/bossDB.png" STYLE="width:100%;"/>
-
-
-- 200+ teravoxels
-- 100+ public & private datasets
-- 30+ collaborators 
-- All 3D+ data (no ephys, etc.)
-
-
-.footnote[https://neurodata.io/ndcloud/]
-
-
----
-### Visualize 
-
-Data visualization systems generate charts and tables to highlight/illustrate insightful perspectives on the data.
-
-- little data: preview, ImageJ 
-- big data: graphics libraries with applies
-
-Tools include:
-- WebGL
-- D3.js
-
----
-#### Example: NeuroGlancer 
-
-<img src="images/AT_rorb.png"  style="position:absolute; left:0px; top:0px; width: 100%;"/>
-
-.footnote[https://github.com/neurodata/neuroglancer]
-
-
----
-### Wrangle 
-
-Data wrangling (as defined by me) consists of any operation one applies to the data that maintains its representation, such as outlier detection, missing value imputation, and deconvolution
-
-
-- little data: matlab/python/R scripts 
-- big data: distributed pipelines 
-
-Scientific workflow management tools include:
-
-- Galaxy
-- NiPype
-- Luigi
-
-
----
-#### Example: NDReg 
-
-
-<img src="images/ndreg.png"  style="width: 100%;"/>
-
-- Large deformation diffeomorphic metric mapping (LDDMM)
-- Fully automatic (no landmarks)
-- Modalities: iDisco, CLARITY, MRI, histology, etc.,
-- Species: human, rat, mouse, zebrafish...
-
-.footnote[https://neurodata.io/ndreg/]
+<br><br><br><br><br>
+(crickets)
 
 
 
 
 
 ---
-### Summarize 
+### What is 'Biomedical Data'
 
-Data summaries include point estimates, confidence intervals, clusters, principle components analysis, etc. There are two qualitatively different kinds of summaries:
-   1. "maintain representation", eg, mean
-   2. map into new representation, eg, image --> graph or  name 
+- Billions of features 
+- Hundreds of samples/subjects/patients 
+- Consider CancerSEEK
 
-Examples: 
-  1. the average height of the sample was 8'
-  2. the tree is in the upper left quadrant 
+![:scale 45%](images/short_fat.png)
+![:scale 45%](images/CancerSEEK.png)
 
-
----
-#### Example: COBALT   
-
-
-<img src="images/clarity_cells.png"  style="position:absolute; left:0px; top:0px; height: 100%;"/>
-
-.footnote[https://github.com/neurodata/cobalt]
-
-
----
-### Generalize 
-
-The goal of data collection is often not merely to characterize the sample, but rather, infer properties of a "population". Requires assumptions about 
-
-- sample data 
-- measurement bias and variance
-- estimators
-
-Generalization tools include:
-- hypothesis testing
-- modeling 
-- simulation
-
-Example: the average African-American female is 8' tall (under Gaussian model of heights)
-
-
-
----
-<!-- #### Example: MGC -->
-
-
-<img src="images/FigHDPower.png"  style="width: 100%;"/>
-
-
-.footnote[https://neurodata.io/mgc]
-
-
----
-### Predict
-
-Prediction can be thought of as a special case of generalization, and is often associated with "machine learning".  Three general kinds of prediction:
-
-- classify: X is of type A
-- regress: given X, Y is expected to be 6
-- forecase: X is expected to be 6 tomorrow
-
-Example tools:
-- sklearn
-- tensorflow 
-
-
-
----
-### Example: RerF
-
-<img src="images/rerf_perf.png"  style="width: 100%;"/>
-
-- generalization of random forests 
-- significantly improve over best machine learning algs on >100 benchmark problems
-
-
-.footnote[https://neurodata.io/rerf/]
-
-
-
-
----
-### Control 
-
-Data control is about choosing which measurements to make, and includes:
-
-- classical control theory: dynamic modeling, kalman, etc.
-- reinforcement learning: training actors with trials 
-- design of experiments: case-control study, randomized control trial, active learning, etc.
-
-
-Example tools:
-
-- Google's Dopamine 
-- OpenAI Gym 
-
----
-### We got nuthin'
-
-
-
+"Short & Fat"
 
 
 
 ---
 
-### Next Vistas:  Modeling meets Representation Learning 
+ 
+### What is the main challenge?
 
-
-<img src="images/not-so-clevr.png"  style="width: 100%;"/>
+Existing ML (1) framework, (2) theory, and (3) algorithms are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data problems
 
 
 
 ---
 
+### What will we do?
 
-### References
 
-1. Vogelstein et al. *Nature Methods* (2018) [[manage]](https://rdcu.be/banSS)
-2. Kutten et al. *MICCAI* (2018) [[wrangle]](https://link.springer.com/chapter/10.1007%2F978-3-319-66182-7_32)
-3. Vogelstein et al. *eLife* (2019) [[generalize]](https://elifesciences.org/articles/41690)
-4. Tomita et al. *arXiv* (2015) [[predict]](https://arxiv.org/abs/1506.03410)
 
+1. Devise formal framework for biomedical data science
+2. Develop theory to guide experimental & algorithmic design 
+3. Design algorithms with provable guarantees
+4. Demonstrate success in real world data experiments
+
+
+---
+class: middle 
+
+# Devise Framework
+
+---
+### Formal Biomedical ML Framework 
+
+- Let $X_i$ be a feature vector (e.g., a cancer genome for subject $i$)
+- Let $Y_i$ be a class label (e.g., pancreatic cancer)
+- Given $n$ samples of training data, $(X_i, Y_i)$
+- Assumption 1:  training data sampled from some fixed true but unknown distribution
+- Given a new test sample, $(X,Y)$
+- Assumption 2: test data are sampled from the exact same distribution
+- Find an algorithm that predicts the new $Y$ accurately with a .ye[tiny] amount of data
+
+---
+### How is that even possible?
+
+- Transfer information from subject matter experts
+- Transfer information from other related datasets 
+
+
+---
+
+### Learning Efficiency 
+
+Let 
+- $f$ be some learning algorithm  
+- $\mathcal{E}_f$ be some error metric we care about 
+- $D_0$ be some dataset (could be anything)
+- $D_1$ be another dataset (could be anything else)
+- Learning efficiency is the ratio of errors 
+
+
+$$LE\_f(D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
+
+
+- If $f$ is able to transfer information from $D_0$ to reduce error, 
+- then $f$ learned from $D_0$
+
+.footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
+]
+
+---
+
+### Transfer is the key 
+
+
+- Efficient .ye[transfer] is the key to biomedical data science success
+- Literature has .ye[never] evaluated algorithms on this basis, only on whether they perform slightly better.
+- Learning efficiency emerges from a more .ye[general theoretical framework] we have introduced which is better suited for real-world biomedical data science challenges
+
+--
+
+
+.r[Take home message 1: biomedical data field should invest more energy in developing algorithms that transfer effectively, as compared to just get better performance with more data.] 
+
+---
+class: middle 
+
+# Develop Theory 
+
+---
+
+### Classical ML Theory 
+
+- Weak learning: $f$ can do better than chance on some task with sufficient data 
+- Strong learning: $f$ can do arbitrarily close to optimal on some task with sufficient data
+- Weak learner theorem: if a problem is weakly learnable, it is also strongly learnable 
+- Implications: if $f$ is doing better than chance, get more data to improve performance
+
+But this does not deal at all with the need to transfer...
+
+---
+
+### Out-of-Distribution Learning Theory 
+
+- Let $X_i$ be a feature vector (e.g., a cancer genome for subject $i$)
+- Let $Y_i$ be a class label (e.g., pancreatic cancer)
+- Given $n$ samples of training data, $(X_i, Y_i)$
+- Assumption 1:  training data sampled from some fixed true but unknown distribution
+- Given a new test sample, $(X,Y)$
+- Assumption 2: test data are sampled from a .ye[different] distribution
+- Find an algorithm that predicts the new $Y$ accurately
+- This is called OOD learning
+
+.footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
+]
+---
+
+### OOD Learning Theory 
+
+- Weak learning: $f$ can do better using $D_0$ and $D_1$ than using $D_1$ alone
+- Strong learning: $f$ can do arbitrarily close to optimal on some task with sufficient data
+- Weak OOD learner theorem: if a problem is weakly learnable, it is .ye[not necessarily] strongly learnable 
+- Implications: if $f$ is doing better than chance, getting more data is .ye[not] guaranteed to improve performance
+
+--
+
+.r[Take home message 2:  For biomedical data, more data is inadequate, better data is required.]
+
+---
+class: middle 
+
+# Design Algorithms 
+
+---
+
+### Algorithm Schemata
+
+![:scale 105%](images/learning_schema_v2.png)
+
+1. Single learners: SVM, decision tree, deep nets 
+2. Ensembling decisions: random forest, gradient boosting tree, network ensembles (win all challenges and deployed in practice)
+3. Ensembling representations: new idea
+
+
+---
+
+### Ensembling representations
+
+- Modern ML algorithms learn rich internal representations
+- Averaging the output throws out lots of useful information 
+- Ensembling the internal representations enables cross-pollinating 
+
+---
+
+
+## CIFAR 10x10
+
+
+
+.pull-left[
+- CIFAR 100 is an image classification dataset with 100 classes. 
+- CIFAR 10x10 breaks the 1 task into 10 tasks, each with 10-classes.
+- We train a separate internal representation for each task 
+- We ensemble the internal representations across tasks to make a prediction for each task
+- We evaluate performance sequentially
+]
+
+.pull-right[
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
+]
+---
+### Ensembling Representations<br>Positive Forward Transfer 
+
+
+![:scale 100%](images/cifar_exp_fte.png)
+
+.footnote[Vogelstein et al. [Ensembling Representations for Synergistic Lifelong Learning with Quasilinear Complexity](https://arxiv.org/abs/2004.12908), arXiv, 2020.]
+
+
+---
+### Ensembling Representations<br>Positive Backward Transfer
+
+![:scale 100%](images/cifar_exp_bte.png)
+
+.r[Take home message 3: ensembling representations achieves a performance that is qualitatively, not merely quantitatively, different.]
+
+---
+class: middle 
+
+# Demonstrate success
+
+  
+---
+
+### What are the real-world biomedical data problems?
+
+1. Volume: short & fat instead of tall & skinny
+2. Variety: multifarious, including structured and unstructured data, text, images, etc.
+3. Velocity: dynamic (eg, COVID), streaming (eg, ER)
+4. Veracity: noisy (sensors are broken, crappy, etc.)
+5. Variability: disparate sensors, hospitals, sources 
+6. priVate: often we cannot legally/ethically share data
+
+These are the .ye[6 V's] of biomedical data
+
+
+---
+
+### A concrete example: COVID-19 
+
+1. Volume: early on, very little data available 
+2. Variety: data includes historical health information, procedures, diagnosis, etc. 
+3. Velocity: standards of care were changing rapidly 
+4. Veracity: data manually labeled, no codes established, lots of missing data 
+5. Variability: data came from multiple disparate sources 
+6. priVacy: we could not legally/ethically share across datasets
+
+---
+
+### Background: 2018 
+
+![:scale 100%](images/Staedtke18.png)
+![:scale 100%](images/Staedtke18_Fig6a.png)
+
+---
+
+### Background: 2020
+
+- Jan: COVID hits the world
+- Feb: Evidence grows that cytokine release syndrome is associated with death 
+- Mar: Dad realizes treatment plan may already be available 
+- alpha-blockers are cheap, generic, orally administered, globally available, with very low side-effects 
+- April-June: Jovo tries to get a large enough dataset, and fails 
+- July: designs new methods based on above framework
+
+
+---
+
+### Our strategy
+
+- Learn a separate causal model on multiple small dataset 
+- Adjust for time-varying practices, missing data, etc.
+- Rather than sharing data, share internal representations 
+- Now we have federated nonlinear causal models that respect patient privacy 
+
+
+---
+
+### Alpha-Blocker Study 
+
+![:scale 100%](images/federated_causal.png)
+
+- Ensembling decisions  yields an impossible result 
+- Ensembling representations improves location and scale estimates 
+- This motivated 2 ongoing COVID-19 trials using alpha-blockers 
+
+.r[Take home message 4: These ideas solve life-threatening real-world data problems that classical methods fail on.]
+
+
+---
+class: middle 
+
+# Discussion
+
+
+---
+### Summary 
+
+
+- Biomedical data has unique challenges unmet by other approaches
+- We leverage biomedical expertise with statistical insight to:
+    1. devise framework for biomedical data science 
+    2. develop theory to guide experiments & algorithms 
+    3. design algorithms with provable guarantees 
+    4. demonstrate success in real world data problems 
+- Every biomedical data science could benefit from this kind of approach 
+
+---
+
+### Theory & Methods Publications
+    
+1. A Geisa, et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021. 
+1. JT Vogelstein, et al. [Ensembling Representations for Synergistic Lifelong Learning with Quasilinear Complexity](https://arxiv.org/abs/2004.12908), arXiv, 2020.
+1. X, Haoyin, et al. [Streaming Decision Trees and Forests](https://arxiv.org/abs/2110.08483), arXiv, 2021.
+1. CE Priebe, et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), bioRxiv, 2020. 
+1. R Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
+1. R Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
+1. C Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019.
+1. M Madhya, et al. [BLOCKSET: Reducing Inference Latency for Tree Ensemble Deployment](https://dl.acm.org/doi/10.1145/3447548.3467368). KDD '21.
+<!-- 1. M Madhya, et al. [Geodesic Forests](https://dl.acm.org/doi/10.1145/3394486.3403094). KDD '20. -->
+1. R Xiong, et al. [Federated Causal Inference in Heterogeneous Observational Data](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3888599). SSRN, 2021. 
+
+
+---
+
+### Real-World Data Publications
+
+.small[
+1. J Cohen, et al. [Detection and localization of surgically resectable cancers with a multi-analyte blood test](https://www.science.org/doi/10.1126/science.aar3247). Science, 218.
+2. M Powell, et al. [Ten Rules for Conducting Retrospective Pharmacoepidemiological Analyses: Example COVID-19 Study](https://www.frontiersin.org/articles/10.3389/fphar.2021.700776/full), Frontiers in Pharmacology, 2021.
+3. A Koenecke, et al. [Alpha-1 adrenergic receptor antagonists to prevent hyperinflammation and death from lower respiratory tract infection](https://elifesciences.org/articles/61700), Elife, 2021.
+4. L Rose, et al. [The association between Alpha-1 adrenergic receptor antagonists and in-hospital mortality from COVID-19](https://www.frontiersin.org/articles/10.3389/fmed.2021.637647/full), Frontiers in Medicine, 2021.
+5. MF Konig, et al. [Preventing cytokine storm syndrome in COVID-19 using alpha-1 adrenergic receptor antagonists](https://www.jci.org/articles/view/139642). The Journal of Clinical Investigation, (7)130:3345-3347, 2020.
+6. MA Haendel, et al. [The National COVID Cohort Collaborative (N3C): Rationale, design, infrastructure, and deployment](https://academic.oup.com/jamia/article/28/3/427/5893482), Journal of the American Medical Informatics Association, 2020.
+7. S Li, et al. [COVID-19 outcomes among hospitalized men with or without exposure to alpha-1-adrenergic receptor blocking agents](https://www.medrxiv.org/content/10.1101/2021.04.08.21255148v1.full), medRxiv, 2021.
+8. T Zuzul, et al. [Dynamic Silos: Increased Modularity in Intra-organizational Communication Networks during the Covid-19 Pandemic](https://arxiv.org/abs/2104.00641), arXiv, 2021.
+]
 
 ---
 ### Acknowledgements
 
 
-<div class="small-container">
-  <img src="faces/cep.png"/>
-  <div class="centered">Carey Priebe</div>
-</div>
 
-<div class="small-container">
-  <img src="faces/randal.jpg"/>
-  <div class="centered">Randal Burns</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/mim.jpg"/>
-  <div class="centered">Michael Miller</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/dtward.jpg"/>
-  <div class="centered">Daniel Tward</div>
-</div>
-
-
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/ebridge.jpg"/>
   <div class="centered">Eric Bridgeford</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/vikram.jpg"/>
-  <div class="centered">Vikram Chandrashekhar</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/drishti.jpg"/>
-  <div class="centered">Drishti Mannan</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/jesse.jpg"/>
-  <div class="centered">Jesse Patsolic</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/falk_ben.jpg"/>
-  <div class="centered">Benjamin Falk</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/kwame.jpg"/>
-  <div class="centered">Kwame Kutten</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/perlman.jpg"/>
-  <div class="centered">Eric Perlman</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/loftus.jpg"/>
-  <div class="centered">Alex Loftus</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/bcaffo.jpg"/>
-  <div class="centered">Brian Caffo</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/minh.jpg"/>
-  <div class="centered">Minh Tang</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/avanti.jpg"/>
-  <div class="centered">Avanti Athreya</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/vince.jpg"/>
-  <div class="centered">Vince Lyzinski</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/dpmcsuss.jpg"/>
-  <div class="centered">Daniel Sussman</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/youngser.jpg"/>
-  <div class="centered">Youngser Park</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/cshen.jpg"/>
-  <div class="centered">Cencheng Shen</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/shangsi.jpg"/>
-  <div class="centered">Shangsi Wang</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/tyler.jpg"/>
-  <div class="centered">Tyler Tomita</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/james.jpg"/>
-  <div class="centered">James Brown</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/disa.jpg"/>
-  <div class="centered">Disa Mhembere</div>
 </div>
 
 <div class="small-container">
@@ -523,39 +458,317 @@ Example tools:
 <div class="small-container">
   <img src="faces/jaewon.jpg"/>
   <div class="centered">Jaewon Chung</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/yummy.jpg"/>
+  <div class="centered">yummy</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/lion.jpg"/>
+  <div class="centered">lion</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/violet.jpg"/>
+  <div class="centered">baby girl</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/family.jpg"/>
+  <div class="centered">family</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/earth.jpg"/>
+  <div class="centered">earth</div>
 </div>
 
 
 <div class="small-container">
+  <img src="faces/milkyway.jpg"/>
+  <div class="centered">milkyway</div>
+</div>
+
+
+##### JHU
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/alig.jpg"/>
+  <div class="centered">Ali Geisa</div>
+</div>
+
+
+
+<!-- <div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/bruce_rosen.jpg"/>
+  <div class="centered">Bruce Rosen</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/kent.jpg"/>
+  <div class="centered">Kent Kiehl</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div> -->
+
+<!-- <div class="small-container">
   <img src="faces/gkiar.jpg"/>
   <div class="centered">Greg Kiar</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div> -->
+
+<div class="small-container">
+  <img src="https://raw.githubusercontent.com/neurodata/neurodata.io/deploy/source/images/people/mike-powell.jpg"/>
+  <div class="centered">Mike Powell</div>
+</div>
+
+
+
+<div class="small-container">
+  <img src="faces/meghana.png"/>
+  <div class="centered">Meghana Madhya</div>
+</div>
+  
+
+<!-- <div class="small-container">
+  <img src="faces/percy.png"/>
+  <div class="centered">Percy Li</div>
+</div>
+-->
+
+<!-- <div class="small-container">
+  <img src="faces/hayden.png"/>
+  <div class="centered">Hayden Helm</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/rguo.jpg"/>
+  <div class="centered">Richard Gou</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/ronak.jpg"/>
+  <div class="centered">Ronak Mehta</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jayanta.jpg"/>
+  <div class="centered">Jayanta Dey</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/will.jpg"/>
+  <div class="centered">Will LeVine</div>
+</div>
+
+##### Microsoft Research
+
+<div class="small-container">
+  <img src="faces/chwh-180x180.jpg"/>
+  <div class="centered">Chris White</div>
 </div>
 
 
 <div class="small-container">
-  <img src="faces/jeremias.png"/>
-  <div class="centered">Jeremias Sulam</div>
-</div><span style="font-size:200%; color:red;">&hearts;, &#129409;, &#128106;, &#127758;, &#127756;</span>
+  <img src="faces/weiwei.jpg"/>
+  <div class="centered">Weiwei Yang</div>
+</div>
 
-<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
-<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
-<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
-<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
-<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
-<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+<div class="small-container">
+  <img src="faces/jolarso150px.png"/>
+  <div class="centered">Jonathan Larson</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/brtower-180x180.jpg"/>
+  <div class="centered">Bryan Tower</div>
+</div>
+
+
+##### Funding: DARPA L2M, NSF {CAREER, AI Institute Planning, NeuroNex}
+<!-- Hava, Ben, Robert, Jennifer, Ted. -->
+
+{[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io)
+<br>
+[jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)
+
+
+</div>
+<!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
 
 ---
-class:center
+background-image: url(images/kids_2021nov.PNG)
 
-<img src="images/lion_cartoon2.jpg" style="position:absolute; top:0px; left:0px; height:100%;"/>
+.footnote[Questions?]
 
 
-    </textarea>
-    <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
-    <script src="remark-latest.min.js"></script>
-    <script type="text/javascript">
-      var options = {};
-      var slideshow = remark.create(options)
-    </script>
-  </body>
+</textarea>
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <!-- <script src="remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
+
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+
+    // var slideshow = remark.create({
+    // Set the slideshow display ratio
+    // Default: '4:3'
+    // Alternatives: '16:9', ...
+    // {
+    // ratio: '16:9',
+    // });
+    
+    var slideshow = remark.create(options, renderMath);
+
+  
+  </script>
+</body>
+
 </html>

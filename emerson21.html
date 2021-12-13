@@ -18,7 +18,7 @@
   <textarea id="source">
 
 
-### Biomedical Data Science: <br>Data science gone sideways
+### Biomedical Data Science: <br>Big Data science gone sideways
 <br>
 
 <center>
@@ -41,7 +41,7 @@ class:middle
 ---
 ### Data Science Definition <br>(paraphrasing wikipedia)
 
-a field that develops and uses computational statistics to extracts knowledge from data, and applies that knowledge across a broad range of applications.
+a field that develops and uses computational statistics to extracts knowledge from (big) data, and applies that knowledge across a broad range of applications.
 
 
 ---
@@ -142,7 +142,12 @@ class:middle
  
 ### What is the main challenge?
 
-Existing ML (1) framework, (2) theory, and (3) algorithms are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data problems
+Existing ML 
+1. framework 
+2. theory 
+3. algorithms 
+
+are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data problems
 
 
 
@@ -188,16 +193,16 @@ class: middle
 Let 
 - $f$ be some learning algorithm  
 - $\mathcal{E}_f$ be some error metric we care about 
-- $D_0$ be some dataset (could be anything)
-- $D_1$ be another dataset (could be anything else)
+- $D_0$ be some dataset (eg, pancreatic cancer data)
+- $D_1$ be another dataset (all other cancer data)
 - Learning efficiency is the ratio of errors 
 
 
 $$LE\_f(D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
 
 
-- If $f$ is able to transfer information from $D_0$ to reduce error, 
-- then $f$ learned from $D_0$
+- If $f$ is able to transfer information from $D_1$ to reduce error, 
+- then $f$ learned from $D_1$
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]

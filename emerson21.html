@@ -18,7 +18,7 @@
   <textarea id="source">
 
 
-### Biomedical Data Science: <br>Big Data science gone sideways
+### Biomedical Data Science: <br>Big Data Science Gone Sideways
 <br>
 
 <center>
@@ -41,11 +41,11 @@ class:middle
 ---
 ### Data Science Definition <br>(paraphrasing wikipedia)
 
-a field that develops and uses computational statistics to extracts knowledge from (big) data, and applies that knowledge across a broad range of applications.
+a field that develops and uses computational statistics to extract knowledge from (big) data, and applies that knowledge across a broad range of applications
 
 
 ---
-### What is 'Big Data'
+### What is 'Big Data'?
 
 - Billions of records/samples/rows 
 - Hundreds of features 
@@ -69,10 +69,10 @@ a field that develops and uses computational statistics to extracts knowledge fr
 - Let $X_i$ be a feature vector (e.g., a cancer genome for subject $i$)
 - Let $Y_i$ be a class label (e.g., pancreatic cancer)
 - Given $n$ samples of training data, $(X_i, Y_i)$
-- Assumption 1:  training data sampled from some fixed true but unknown distribution
+- Assumption 1:  training data sampled from some distribution
 - Given a new test sample, $(X,Y)$
-- Assumption 2: test data are sampled from the exact same distribution
-- Find an algorithm that predicts the new $Y$ accurately with a huge amount of data
+- Assumption 2: test data are sampled from the same distribution
+- Find an algorithm that predicts $Y$ accurately with a huge amount of data
 
 ---
 ### Classical ML Theory 
@@ -88,7 +88,7 @@ a field that develops and uses computational statistics to extracts knowledge fr
 
 
 ---
-### What are the problems 
+### What are the problems? 
 
 --
 - Anti-democratic 
@@ -124,7 +124,7 @@ class:middle
 
 
 ---
-### What is 'Biomedical Data'
+### What is 'Biomedical Data'?
 
 - Billions of features 
 - Hundreds of samples/subjects/patients 
@@ -174,10 +174,11 @@ class: middle
 - Let $X_i$ be a feature vector (e.g., a cancer genome for subject $i$)
 - Let $Y_i$ be a class label (e.g., pancreatic cancer)
 - Given $n$ samples of training data, $(X_i, Y_i)$
-- Assumption 1:  training data sampled from some fixed true but unknown distribution
+- Assumption 1:  training data sampled from some distribution
 - Given a new test sample, $(X,Y)$
-- Assumption 2: test data are sampled from the exact same distribution
-- Find an algorithm that predicts the new $Y$ accurately with a .ye[tiny] amount of data
+- Assumption 2: test data are sampled from the same distribution
+- Find an algorithm that predicts $Y$ accurately with a <del>huge</del>
+.ye[tiny] amount of data
 
 ---
 ### How is that even possible?
@@ -212,14 +213,14 @@ $$LE\_f(D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
 ### Transfer is the key 
 
 
-- Efficient .ye[transfer] is the key to biomedical data science success
+- Efficient .ye[transfer] is the key to biomedical data science success.
 - Literature has .ye[never] evaluated algorithms on this basis, only on whether they perform slightly better.
-- Learning efficiency emerges from a more .ye[general theoretical framework] we have introduced which is better suited for real-world biomedical data science challenges
+- Learning efficiency emerges from a more .ye[general theoretical framework] we have introduced, which is better suited for real-world biomedical data science challenges.
 
 --
 
 
-.r[Take home message 1: biomedical data field should invest more energy in developing algorithms that transfer effectively, as compared to just get better performance with more data.] 
+.r[Take home message 1: The biomedical data field should invest more energy in developing algorithms that transfer effectively, as opposed to just getting better performance with more data.] 
 
 ---
 class: middle 
@@ -241,14 +242,14 @@ But this does not deal at all with the need to transfer...
 
 ### Out-of-Distribution Learning Theory 
 
+
 - Let $X_i$ be a feature vector (e.g., a cancer genome for subject $i$)
 - Let $Y_i$ be a class label (e.g., pancreatic cancer)
 - Given $n$ samples of training data, $(X_i, Y_i)$
-- Assumption 1:  training data sampled from some fixed true but unknown distribution
+- Assumption 1:  training data sampled from some distribution
 - Given a new test sample, $(X,Y)$
-- Assumption 2: test data are sampled from a .ye[different] distribution
-- Find an algorithm that predicts the new $Y$ accurately
-- This is called OOD learning
+- Assumption 2: test data are sampled from the <del>same</del> .ye[different] distribution
+- Find an algorithm that predicts $Y$ accurately
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]
@@ -256,14 +257,14 @@ But this does not deal at all with the need to transfer...
 
 ### OOD Learning Theory 
 
-- Weak learning: $f$ can do better using $D_0$ and $D_1$ than using $D_1$ alone
+- Weak learning: $f$ can do better using $D_0$ and $D_1$ than using $D_0$ alone
 - Strong learning: $f$ can do arbitrarily close to optimal on some task with sufficient data
 - Weak OOD learner theorem: if a problem is weakly learnable, it is .ye[not necessarily] strongly learnable 
 - Implications: if $f$ is doing better than chance, getting more data is .ye[not] guaranteed to improve performance
 
 --
 
-.r[Take home message 2:  For biomedical data, more data is inadequate, better data is required.]
+.r[Take home message 2:  For biomedical data, more data is inadequate; better data is required.]
 
 ---
 class: middle 
@@ -281,13 +282,6 @@ class: middle
 3. Ensembling representations: new idea
 
 
----
-
-### Ensembling representations
-
-- Modern ML algorithms learn rich internal representations
-- Averaging the output throws out lots of useful information 
-- Ensembling the internal representations enables cross-pollinating 
 
 ---
 
@@ -298,10 +292,10 @@ class: middle
 
 .pull-left[
 - CIFAR 100 is an image classification dataset with 100 classes. 
-- CIFAR 10x10 breaks the 1 task into 10 tasks, each with 10-classes.
-- We train a separate internal representation for each task 
-- We ensemble the internal representations across tasks to make a prediction for each task
-- We evaluate performance sequentially
+- CIFAR 10x10 breaks the 1 task into 10 tasks, each with 10 classes.
+- We train a separate internal representation for each task. 
+- We ensemble the internal representations across tasks to make a prediction for each task.
+- We evaluate performance sequentially.
 ]
 
 .pull-right[
@@ -321,38 +315,30 @@ class: middle
 
 ![:scale 100%](images/cifar_exp_bte.png)
 
-.r[Take home message 3: ensembling representations achieves a performance that is qualitatively, not merely quantitatively, different.]
+.r[Take home message 3: Ensembling representations achieves a performance that is qualitatively, not merely quantitatively, different.]
 
 ---
 class: middle 
 
-# Demonstrate success
+# Demonstrate Success
 
-  
----
-
-### What are the real-world biomedical data problems?
-
-1. Volume: short & fat instead of tall & skinny
-2. Variety: multifarious, including structured and unstructured data, text, images, etc.
-3. Velocity: dynamic (eg, COVID), streaming (eg, ER)
-4. Veracity: noisy (sensors are broken, crappy, etc.)
-5. Variability: disparate sensors, hospitals, sources 
-6. priVate: often we cannot legally/ethically share data
-
-These are the .ye[6 V's] of biomedical data
 
 
 ---
 
-### A concrete example: COVID-19 
+### What are the real-world  problems?
 
-1. Volume: early on, very little data available 
-2. Variety: data includes historical health information, procedures, diagnosis, etc. 
+A Concrete Example: COVID-19 
+
+1. Volume: short & fat instead of tall & skinny, with minimal data availability early on
+2. Variety: data includes historical health information, procedures, diagnoses, etc. 
 3. Velocity: standards of care were changing rapidly 
 4. Veracity: data manually labeled, no codes established, lots of missing data 
 5. Variability: data came from multiple disparate sources 
 6. priVacy: we could not legally/ethically share across datasets
+
+These are the .ye[6 Vs] of biomedical data
+
 
 ---
 
@@ -368,19 +354,28 @@ These are the .ye[6 V's] of biomedical data
 - Jan: COVID hits the world
 - Feb: Evidence grows that cytokine release syndrome is associated with death 
 - Mar: Dad realizes treatment plan may already be available 
-- alpha-blockers are cheap, generic, orally administered, globally available, with very low side-effects 
-- April-June: Jovo tries to get a large enough dataset, and fails 
-- July: designs new methods based on above framework
+- alpha blockers are cheap, generic, orally administered, globally available, with very low side-effects 
+- April-June: Jovo tries to get a large enough dataset and fails 
+- July: designs new methods based on our new framework
 
 
 ---
 
-### Our strategy
+### Our Strategy
 
-- Learn a separate causal model on multiple small dataset 
-- Adjust for time-varying practices, missing data, etc.
-- Rather than sharing data, share internal representations 
-- Now we have federated nonlinear causal models that respect patient privacy 
+- Transfer from subject matter experts, by identifying relevant: 
+    - procedures, 
+    - diagnoses, 
+    - drugs, 
+    - timelines, 
+    - etc. 
+- Transfer from other data:  
+  - Learn a separate causal model on multiple small datasets.
+<!-- - Variety, Velocity, Veracity, Variability: Adjust for time-varying practices, missing data, noisy labels, etc. -->
+  - Rather than sharing data, share internal representations. 
+
+Now we have federated nonlinear causal models that respect patient privacy. 
+
 
 
 ---
@@ -389,11 +384,11 @@ These are the .ye[6 V's] of biomedical data
 
 ![:scale 100%](images/federated_causal.png)
 
-- Ensembling decisions  yields an impossible result 
-- Ensembling representations improves location and scale estimates 
-- This motivated 2 ongoing COVID-19 trials using alpha-blockers 
+- Ensembling decisions yields an impossible result. 
+- Ensembling representations improves location and scale estimates. 
+- This motivated two ongoing COVID-19 trials using alpha blockers. 
 
-.r[Take home message 4: These ideas solve life-threatening real-world data problems that classical methods fail on.]
+.r[Take home message 4: These ideas solve life-threatening, real-world data problems for which classical methods fail.]
 
 
 ---
@@ -406,13 +401,13 @@ class: middle
 ### Summary 
 
 
-- Biomedical data has unique challenges unmet by other approaches
+- Biomedical data has unique challenges unmet by other approaches.
 - We leverage biomedical expertise with statistical insight to:
     1. devise framework for biomedical data science 
     2. develop theory to guide experiments & algorithms 
     3. design algorithms with provable guarantees 
-    4. demonstrate success in real world data problems 
-- Every biomedical data science could benefit from this kind of approach 
+- We successfully applied these ideas to real-world data addressing each of the 6 V's of biomedical data 
+- Every biomedical data science application could benefit from this kind of approach 
 
 ---
 

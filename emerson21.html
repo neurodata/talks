@@ -47,15 +47,18 @@ a field that develops and uses computational statistics to extract knowledge fro
 ---
 ### What is 'Big Data'?
 
-- Billions of records/samples/rows 
-- Hundreds of features 
 - Consider Amazon ledger
+- Billions of records/samples/rows/transactions 
+- Hundreds of features (user, time, price, location, payment, etc...)
 
-![:scale 25%](images/tall_skinny.png)
+![:scale 20%](images/tall_skinny.png)
 
 "Tall & Skinny"
 
---- 
+
+---
+
+
 ### What are the big data challenges?
 
 - Basically an infinite amount of data 
@@ -85,7 +88,7 @@ a field that develops and uses computational statistics to extract knowledge fro
 
 - And that works great for many 'web-scale' problems
 - $>$10B USD invested annually
-
+- ~3M data scientists
 
 ---
 ### What are the problems? 
@@ -121,14 +124,38 @@ class:middle
 
 
 
+---
 
+### Scale of biomedical data science 
+
+--
+- \# of people would benefit from better biomedical data science? 
+--
+
+  - ~10,000,000,000
+--
+
+- \# of times has somebody typed "biomedical data science"
+--
+
+  - ~100,000
+--
+
+- \# of "biomedical data scientists" are there?
+--
+
+  - ~100
+--
+
+
+.ye[Implications: Biomedical data science is the most important non-discipline in the world.]
 
 ---
 ### What is 'Biomedical Data'?
 
-- Billions of features 
-- Hundreds of samples/subjects/patients 
 - Consider CancerSEEK
+- Billions of features (base pairs)
+- Hundreds of samples/subjects/patients 
 
 ![:scale 45%](images/short_fat.png)
 ![:scale 45%](images/CancerSEEK.png)
@@ -214,8 +241,9 @@ $$LE\_f(D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
 
 
 - Efficient .ye[transfer] is the key to biomedical data science success.
-- Literature has .ye[never] evaluated algorithms on this basis, only on whether they perform slightly better.
-- Learning efficiency emerges from a more .ye[general theoretical framework] we have introduced, which is better suited for real-world biomedical data science challenges.
+- Literature has .ye[never] evaluated algorithms on this basis
+  - fixated on accuracy
+- Learning efficiency emerges from a  .ye[general theoretical framework] we have introduced, which is better suited for real-world biomedical data science challenges.
 
 --
 

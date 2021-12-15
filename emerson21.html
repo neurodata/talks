@@ -299,11 +299,19 @@ But this does not deal at all with the need to transfer...
 
 - Let $X_i$ be a feature vector (e.g., a cancer genome for subject $i$)
 - Let $Y_i$ be a class label (e.g., pancreatic cancer)
-- Given $n$ samples of training data, $(X_i, Y_i)$
+- Given $n$ samples of training .r[$D_{care}$] data, .r[$(X_i, Y_i)$]
 - Assumption 1:  training data sampled from some distribution
-- Given a new test sample, $(X,Y)$
-- Assumption 2: test data are sampled from the <del>same</del> .ye[different] distribution
-- Find an algorithm that predicts $Y$ accurately
+- Given a new .lb[test] sample, .lb[$(X,Y)$]
+- Assumption 2: .lb[test] data are sampled from the same distribution
+- Given a $m$ other samples .green[$D_{other}$], .green[$(X_j,Y_j)$]
+- Assumption 3: <em style="color:red">$D\_{care}$</em>
+and 
+<em style="color:#00cc44">$D\_{other}$</em>
+are sampled from the <del>same</del> .ye[different] distributions
+- Find an algorithm that predicts .lb[$Y$] accurately leveraging both <em style="color:red">$D\_{care}$</em>
+and 
+<em style="color:#00cc44">$D\_{other}$</em>
+.
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]

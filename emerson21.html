@@ -167,7 +167,7 @@ class:middle
 ![:scale 45%](images/short_fat.png)
 ![:scale 45%](images/CancerSEEK.png)
 
-"Short & Fat"
+"Short & Fat" (we will call this .r[$D_{care}$])
 
 
 
@@ -176,12 +176,23 @@ class:middle
  
 ### What is the main challenge?
 
+.pull-left[
+![:scale 100%](images/Alices_Restaurant.jpeg)
+<!-- Alice's restaurant theorem! -->
+]
+
+
+
+.pull-right[
 Existing ML 
 1. framework 
 2. theory 
 3. algorithms 
 
 are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data science problems
+
+]
+
 
 
 
@@ -229,15 +240,19 @@ Transfer information from
 Let 
 - $f$ be some learning algorithm  (eg, deep net)
 - .ye[$\mathcal{E}_f$] be some .ye[error metric] we care about (eg, squared error) 
-- .r[$D_0$] be some .r[target] dataset (eg, pancreatic cancer data)
-- .green[$D_1$] be a .green[source] dataset (eg, all other cancer data)
+- .r[$D_{care}$] be some dataset we .r[care] about (eg, pancreatic cancer)
+- .green[$D_{other}$] be an .green[other] dataset (eg, all other cancer data)
 
 
-$$LE\_f( D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
+<img src="images/LE.png" style="position:absolute; left:150px; width:620px;"/>
+
+<br><br><br>
+<!-- ![:scale 80%](images/LE.png) -->
+<!-- $$LE\_f( D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$ -->
 
 
-- If $f$ is able to transfer information from .green[$D_1$] to reduce .ye[error], 
-  - then $f$ learned from .green[$D_1$]
+- If $f$ is able to transfer information from .green[$D_{other}$] to reduce .ye[error], 
+  - then $f$ learned from .green[$D_{other}$]
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]
@@ -294,8 +309,14 @@ But this does not deal at all with the need to transfer...
 
 ### OOD Learning Theory 
 
-- Weak learning: $f$ can do better using $D_0$ and $D_1$ than using $D_0$ alone
-- Strong learning: $f$ can do arbitrarily close to optimal with sufficiently large $D_1$
+- Weak learning: $f$ can do better using 
+<em style="color:red">$D\_{care}$</em>
+ and 
+ <em style="color:#00cc44">$D\_{other}$</em>
+than using 
+ <em style="color:red">$D\_{care}$</em>
+alone
+- Strong learning: $f$ can do arbitrarily close to optimal with sufficiently large .green[$D_{other}$]
 - Weak OOD learner theorem: if a problem is weakly learnable, it is .ye[not necessarily] strongly learnable 
 - Implications: if $f$ is doing better than chance, getting more data is .ye[not] guaranteed to improve performance
 
@@ -346,14 +367,15 @@ C. Ensembling representations: new idea
 ### Ensembling Representations<br>Positive Forward Transfer 
 
 
-![:scale 80%](images/slide_fte.png)
+![:scale 49%](images/slide_fte.png)
+![:scale 49%](images/slide_bte.png)
 
 
 
----
-### Ensembling Representations<br>Positive Backward Transfer
+<!-- --- -->
+<!-- ### Ensembling Representations<br>Positive Backward Transfer -->
 
-![:scale 80%](images/slide_bte.png)
+<!-- ![:scale 80%](images/slide_bte.png) -->
 
 
 .r[Take home message 3: For biomedical data science 
@@ -374,10 +396,10 @@ class: middle
 
 A Concrete Example: COVID-19 
 
-1. Volume: short & fat instead of tall & skinny, with minimal data availability early on
-2. Variety: data includes historical health information, procedures, diagnoses, etc. 
+1. Volume: multiple short & fat datasets, instead of 1 tall & skinny
+2. Variety: data includes historical diagnoses, procedures, etc. 
 3. Velocity: standards of care were changing rapidly 
-4. Veracity: data manually labeled, no codes established, lots of missing data 
+4. Veracity: data manually labeled, no codes, missing data, etc. 
 5. Variability: data came from multiple disparate sources 
 6. priVacy: we could not legally/ethically share across datasets
 
@@ -399,8 +421,9 @@ These are the .ye[6 Vs] of biomedical data
 - Feb: Evidence grows that cytokine release syndrome is associated with death 
 - Mar: Dad realizes treatment plan may already be available 
 - alpha blockers are cheap, generic, orally administered, globally available, with very low side-effects 
-- April-June: Jovo tries to get a large enough dataset and fails 
-- July: designs new methods based on our new framework
+- April-June: Jovo tries to get a large enough .r[$D_{care}$] and fails 
+- July: Jovo finds multiple "short & fat" .r[$D_{care}$] datasets 
+- Aug: Jovo++ designs new methods to combine these datasets based on our  framework
 
 
 ---
@@ -466,13 +489,16 @@ class: middle
 - Many cancers afflict a small number of people
 - All cancer (and any other biomedical data science application) could benefit from this kind of approach 
 - Our work is imminently commercializable 
+  - Lots of consulting 
+  - Multiple start-ups
+  - Google and Microsoft deploy our algorithms already
 
 ---
 ### Existing funding challenges 
 
 - NIH does not grok data science 
 - NSF will not fund medicine 
-- DARPA does not care about diseases that don't kill soldiers 
+- DARPA does not care about ailments that don't kill soldiers 
 - Foundations are our only hope 
 - This work is expensive (the data are still big, just 'gone sideways')
 
@@ -544,7 +570,7 @@ class: middle
 </div>
 
 <div class="small-container">
-  <img src="images/family2.jpg"/>
+  <img src="images/family3.png"/>
   <div class="centered">family</div>
 </div>
 

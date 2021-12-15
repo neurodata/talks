@@ -81,8 +81,8 @@ a field that develops and uses computational statistics to extract knowledge fro
 ### Classical ML Theory 
 
 - Under the above two assumptions 
-- If we get an infinite amount of data 
-- Then we have algorithms that will perform optimally
+- if we get an infinite amount of data  
+  - then we have algorithms that will perform optimally
 
 .ye[Implication: just keep getting more and more data, and build bigger machines]
 
@@ -230,7 +230,7 @@ $$LE\_f(D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
 
 
 - If $f$ is able to transfer information from $D_1$ to reduce error, 
-- then $f$ learned from $D_1$
+  - then $f$ learned from $D_1$
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]
@@ -248,7 +248,7 @@ $$LE\_f(D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
 --
 
 
-.r[Take home message 1: The biomedical data field should invest more energy in developing algorithms that transfer effectively, as opposed to just getting better performance with more data.] 
+.r[Take home message 1: The biomedical data science field should invest more energy in developing algorithms that transfer effectively, as opposed to just getting better performance with more data.] 
 
 ---
 class: middle 
@@ -259,8 +259,8 @@ class: middle
 
 ### Classical ML Theory 
 
-- Weak learning: $f$ can do better than chance on some task with sufficient data 
-- Strong learning: $f$ can do arbitrarily close to optimal on some task with sufficient data
+- Weak learning: $f$ can do better than chance  with sufficient data 
+- Strong learning: $f$ can do arbitrarily close to optimal with sufficient data
 - Weak learner theorem: if a problem is weakly learnable, it is also strongly learnable 
 - Implications: if $f$ is doing better than chance, get more data to improve performance
 
@@ -286,13 +286,13 @@ But this does not deal at all with the need to transfer...
 ### OOD Learning Theory 
 
 - Weak learning: $f$ can do better using $D_0$ and $D_1$ than using $D_0$ alone
-- Strong learning: $f$ can do arbitrarily close to optimal on some task with sufficient data
+- Strong learning: $f$ can do arbitrarily close to optimal with sufficiently large $D_1$
 - Weak OOD learner theorem: if a problem is weakly learnable, it is .ye[not necessarily] strongly learnable 
 - Implications: if $f$ is doing better than chance, getting more data is .ye[not] guaranteed to improve performance
 
 --
 
-.r[Take home message 2:  For biomedical data, more data is inadequate; better data is required.]
+.r[Take home message 2:  For biomedical data, more data is inadequate; we require algorithms that can transfer information from complementary datasets.]
 
 ---
 class: middle 
@@ -303,11 +303,11 @@ class: middle
 
 ### Algorithm Schemata
 
-![:scale 105%](images/learning_schema_new.png)
+![:scale 100%](images/learning_schema_new.png)
 
-1. Single learners: SVM, decision tree, deep nets 
-2. Ensembling decisions: random forest, gradient boosting tree, network ensembles (win all challenges and deployed in practice)
-3. Ensembling representations: new idea
+A. Single learners: SVM, decision tree, deep nets <br>
+B. Ensembling decisions: random forest, gradient boosting tree, network ensembles (win all challenges and deployed in practice) <br>
+C. Ensembling representations: new idea
 
 
 
@@ -318,17 +318,16 @@ class: middle
 
 
 
-.pull-left[
-- CIFAR 100 is an image classification dataset with 100 classes. 
-- CIFAR 10x10 breaks the 1 task into 10 tasks, each with 10 classes.
+- CIFAR 100 is an image dataset with 100 categories of images. 
+- We create 10 tasks, each with 10 categories of images. 
 - We train a separate internal representation for each task. 
-- We ensemble the internal representations across tasks to make a prediction for each task.
+- We ensemble the internal representations across tasks.
 - We evaluate performance sequentially.
-]
 
-.pull-right[
-<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:450px; width:400px;"/>
-]
+
+<!-- ![:scale 50%](images/l2m_18mo/cifar-10.png) -->
+<img src="images/l2m_18mo/cifar-10.png" style="position:absolute; left:150px; width:420px;"/>
+
 ---
 ### Ensembling Representations<br>Positive Forward Transfer 
 

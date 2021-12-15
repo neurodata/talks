@@ -248,7 +248,9 @@ $$LE\_f(D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
 --
 
 
-.r[Take home message 1: The biomedical data science field should invest more energy in developing algorithms that transfer effectively, as opposed to just getting better performance with more data.] 
+.r[Take home message 1: For biomedical data science 
+- algorithms that simply improve with more data are inadequate;
+- we require algorithms that transfer information more efficiently.] 
 
 ---
 class: middle 
@@ -292,7 +294,11 @@ But this does not deal at all with the need to transfer...
 
 --
 
-.r[Take home message 2:  For biomedical data, more data is inadequate; we require algorithms that can transfer information from complementary datasets.]
+
+.r[Take home message 2: For biomedical data science 
+- more data are inadequate;
+- we require more informative data + algorithms that transfer information more efficiently.] 
+
 
 ---
 class: middle 
@@ -342,7 +348,11 @@ C. Ensembling representations: new idea
 
 ![:scale 80%](images/slide_bte.png)
 
-.r[Take home message 3: Ensembling representations achieves a performance that is qualitatively, not merely quantitatively, different.]
+
+.r[Take home message 3: For biomedical data science 
+- prior state of the art algorithms algorithms fail to transfer; 
+- ensembling representations uniquely achieves both forward and backward transfer.] 
+
 
 ---
 class: middle 
@@ -409,13 +419,17 @@ Now we have federated nonlinear causal models that respect patient privacy.
 
 ### Alpha-Blocker Study 
 
-![:scale 100%](images/federated_causal.png)
+![:scale 50%](images/MS_Optum_Federated_Emerson.png)
 
-- Ensembling decisions yields an impossible result. 
-- Ensembling representations improves location and scale estimates. 
+<!-- - Ensembling decisions yields an impossible result.  -->
+
+
+- Ensembling representations improves estimated effect size. 
 - This motivated two ongoing COVID-19 trials using alpha blockers. 
+- This treatment will also work on COVID-22, MERS-24, flu, etc. 
 
-.r[Take home message 4: These ideas solve life-threatening, real-world data problems for which classical methods fail.]
+.r[Take home message 4: These ideas solve life-threatening, real-world data problems.]  
+<!-- for which classical methods fail.] -->
 
 
 ---
@@ -428,13 +442,32 @@ class: middle
 ### Summary 
 
 
-- Biomedical data has unique challenges unmet by other approaches.
+- Biomedical data science is wide open
+  - it impacts literally everyone 
+  - it is not an established field 
+  - it has unique challenges unmet by other approaches.
 - We leverage biomedical expertise with statistical insight to:
     1. devise framework for biomedical data science 
     2. develop theory to guide experiments & algorithms 
     3. design algorithms with provable guarantees 
-- We successfully applied these ideas to real-world data addressing each of the 6 V's of biomedical data 
-- Every biomedical data science application could benefit from this kind of approach 
+- We successfully applied these ideas to real-world COVID data addressing each of the 6 V's of biomedical data 
+
+---
+### Future Implications 
+
+- Our application shows methods are nimble 
+- Many cancers afflict a small number of people
+- All cancer (and any other biomedical data science application) could benefit from this kind of approach 
+- Our work is imminently commercializable 
+
+---
+### Existing funding challenges 
+
+- NIH does not grok data science 
+- NSF will not fund medicine 
+- DARPA does not care about diseases that don't kill soldiers 
+- Foundations are our only hope 
+- This work is expensive (the data are still big, just 'gone sideways')
 
 ---
 

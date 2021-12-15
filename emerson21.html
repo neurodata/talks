@@ -98,7 +98,7 @@ a field that develops and uses computational statistics to extract knowledge fro
 - ~3M data scientists
 
 ---
-### What are the problems? 
+### What are the issues? 
 
 --
 - Anti-democratic 
@@ -142,7 +142,7 @@ class:middle
   - ~10,000,000,000
 --
 
-- \# of times has somebody typed "biomedical data science"
+- \# of webpages with "biomedical data science"?
 --
 
   - ~100,000
@@ -155,7 +155,7 @@ class:middle
 --
 
 
-.ye[Implications: Biomedical data science is the most important non-discipline in the world.]
+.ye[Implications: Biomedical data science is the most important non-discipline in the world, imho.]
 
 ---
 ### What is 'Biomedical Data'?
@@ -189,7 +189,7 @@ Existing ML
 2. theory 
 3. algorithms 
 
-are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data science problems
+are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data science problems.
 
 ]
 
@@ -247,12 +247,11 @@ Let
 <img src="images/LE.png" style="position:absolute; left:150px; width:620px;"/>
 
 <br><br><br>
-<!-- ![:scale 80%](images/LE.png) -->
 <!-- $$LE\_f( D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$ -->
 
 
-- If $f$ is able to transfer information from .green[$D_{other}$] to reduce .ye[error], 
-  - then $f$ learned from .green[$D_{other}$]
+- If $f$ is able to reduce .ye[error] via .green[$D_{other}$], 
+  - then $f$ learned from .green[$D_{other}$] (aka, $f$ transferred)
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]
@@ -265,12 +264,15 @@ Let
 - Efficient .ye[transfer] is the key to biomedical data science success.
 - Literature has .ye[never] evaluated algorithms on this basis
   - fixated on accuracy
-- Learning efficiency emerges from a  .ye[general theoretical framework] we have introduced, which is better suited for real-world biomedical data science challenges.
+- In real world biomedical data science challenges (eg, cancer datasets), .r[$D_{care}$] is small
+
+
+Learning efficiency emerges from a  .ye[general theoretical framework] we have introduced, which is better suited for real-world biomedical data science challenges.
 
 --
 
 
-.r[Take home message 1: For biomedical data science 
+.r[Take home message 1: For biomedical data science<br> 
 - algorithms that simply improve with more data are inadequate;
 - we require algorithms that transfer information more efficiently.] 
 
@@ -297,11 +299,19 @@ But this does not deal at all with the need to transfer...
 
 - Let $X_i$ be a feature vector (e.g., a cancer genome for subject $i$)
 - Let $Y_i$ be a class label (e.g., pancreatic cancer)
-- Given $n$ samples of training data, $(X_i, Y_i)$
+- Given $n$ samples of training .r[$D_{care}$] data, .r[$(X_i, Y_i)$]
 - Assumption 1:  training data sampled from some distribution
-- Given a new test sample, $(X,Y)$
-- Assumption 2: test data are sampled from the <del>same</del> .ye[different] distribution
-- Find an algorithm that predicts $Y$ accurately
+- Given a new .lb[test] sample, .lb[$(X,Y)$]
+- Assumption 2: .lb[test] data are sampled from the same distribution
+- Given a $m$ other samples .green[$D_{other}$], .green[$(X_j,Y_j)$]
+- Assumption 3: <em style="color:red">$D\_{care}$</em>
+and 
+<em style="color:#00cc44">$D\_{other}$</em>
+are sampled from the <del>same</del> .ye[different] distributions
+- Find an algorithm that predicts .lb[$Y$] accurately leveraging both <em style="color:red">$D\_{care}$</em>
+and 
+<em style="color:#00cc44">$D\_{other}$</em>
+.
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]

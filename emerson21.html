@@ -98,7 +98,7 @@ a field that develops and uses computational statistics to extract knowledge fro
 - ~3M data scientists
 
 ---
-### What are the problems? 
+### What are the issues? 
 
 --
 - Anti-democratic 
@@ -142,7 +142,7 @@ class:middle
   - ~10,000,000,000
 --
 
-- \# of times has somebody typed "biomedical data science"
+- \# of webpages with "biomedical data science"?
 --
 
   - ~100,000
@@ -155,7 +155,7 @@ class:middle
 --
 
 
-.ye[Implications: Biomedical data science is the most important non-discipline in the world.]
+.ye[Implications: Biomedical data science is the most important non-discipline in the world, imho.]
 
 ---
 ### What is 'Biomedical Data'?
@@ -189,7 +189,7 @@ Existing ML
 2. theory 
 3. algorithms 
 
-are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data science problems
+are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data science problems.
 
 ]
 
@@ -251,8 +251,8 @@ Let
 <!-- $$LE\_f( D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$ -->
 
 
-- If $f$ is able to transfer information from .green[$D_{other}$] to reduce .ye[error], 
-  - then $f$ learned from .green[$D_{other}$]
+- If $f$ is able to reduce .ye[error] via .green[$D_{other}$], 
+  - then $f$ learned from .green[$D_{other}$] (aka, $f$ transferred)
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]
@@ -265,12 +265,15 @@ Let
 - Efficient .ye[transfer] is the key to biomedical data science success.
 - Literature has .ye[never] evaluated algorithms on this basis
   - fixated on accuracy
-- Learning efficiency emerges from a  .ye[general theoretical framework] we have introduced, which is better suited for real-world biomedical data science challenges.
+- In real world biomedical data science challenges (eg, cancer datasets), .r[$D_{care}$] is small
+
+
+Learning efficiency emerges from a  .ye[general theoretical framework] we have introduced, which is better suited for real-world biomedical data science challenges.
 
 --
 
 
-.r[Take home message 1: For biomedical data science 
+.r[Take home message 1: For biomedical data science<br> 
 - algorithms that simply improve with more data are inadequate;
 - we require algorithms that transfer information more efficiently.] 
 

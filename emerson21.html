@@ -41,7 +41,7 @@ Joshua T. Vogelstein, PhD ([jovo@jhu.edu](mailto:jovo@jhu.edu),
 
 class:middle 
 
-# Big Data Science
+# (Big) Data Science
 
 
 
@@ -55,8 +55,8 @@ a field that develops and uses computational statistics to extract knowledge fro
 ### What is 'Big Data'?
 
 - Consider Amazon ledger
-- Billions of records/samples/rows/transactions 
-- Hundreds of features (user, time, price, location, payment, etc...)
+- Billions of records/samples/rows (eg, transactions) 
+- Hundreds of features (eg, user, time, $, location, payment, etc...)
 
 ![:scale 20%](images/tall_skinny.png)
 
@@ -161,8 +161,8 @@ class:middle
 ### What is 'Biomedical Data'?
 
 - Consider CancerSEEK
-- Billions of features (base pairs)
-- Hundreds of samples/subjects/patients 
+- Billions of features (eg, base pairs)
+- Hundreds of samples/subjects (eg, patients) 
 
 ![:scale 45%](images/short_fat.png)
 ![:scale 45%](images/CancerSEEK.png)
@@ -181,7 +181,7 @@ Existing ML
 2. theory 
 3. algorithms 
 
-are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data problems
+are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappropriate and inadequate] for many real world biomedical data science problems
 
 
 
@@ -192,9 +192,9 @@ are designed for tall & skinny  (web-scale) data, and are therefore  .ye[inappro
 
 
 1. Devise formal framework for biomedical data science
-2. Develop theory to guide experimental & algorithmic design 
+2. Develop theory to guide algorithmic & experimental design 
 3. Design algorithms with provable guarantees
-4. Demonstrate success in real world data experiments
+4. Demonstrate success in real world biomedical data experiments
 
 
 ---
@@ -217,8 +217,9 @@ class: middle
 ---
 ### How is that even possible?
 
-- Transfer information from subject matter experts
-- Transfer information from other related datasets 
+Transfer information from 
+- subject matter experts
+- other related datasets 
 
 
 ---
@@ -226,18 +227,17 @@ class: middle
 ### Learning Efficiency 
 
 Let 
-- $f$ be some learning algorithm  
-- $\mathcal{E}_f$ be some error metric we care about 
-- $D_0$ be some dataset (eg, pancreatic cancer data)
-- $D_1$ be another dataset (all other cancer data)
-- Learning efficiency is the ratio of errors 
+- $f$ be some learning algorithm  (eg, deep net)
+- .ye[$\mathcal{E}_f$] be some .ye[error metric] we care about (eg, squared error) 
+- .r[$D_0$] be some .r[target] dataset (eg, pancreatic cancer data)
+- .green[$D_1$] be a .green[source] dataset (eg, all other cancer data)
 
 
-$$LE\_f(D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
+$$LE\_f( D\_0,D\_1)= \frac{ \mathcal{E}_f(D_0) }{ \mathcal{E}_f(D_0 \cup D_1)}$$
 
 
-- If $f$ is able to transfer information from $D_1$ to reduce error, 
-  - then $f$ learned from $D_1$
+- If $f$ is able to transfer information from .green[$D_1$] to reduce .ye[error], 
+  - then $f$ learned from .green[$D_1$]
 
 .footnote[Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 ]
@@ -316,12 +316,13 @@ class: middle
 
 ### Algorithm Schemata
 
-![:scale 100%](images/learning_schema_new.png)
+![:scale 90%](images/learning_schema_new.png)
 
 A. Single learners: SVM, decision tree, deep nets <br>
 B. Ensembling decisions: random forest, gradient boosting tree, network ensembles (win all challenges and deployed in practice) <br>
 C. Ensembling representations: new idea
 
+.footnote[Vogelstein et al. [Ensembling Representations for Synergistic Lifelong Learning with Quasilinear Complexity](https://arxiv.org/abs/2004.12908), arXiv, 2020.]
 
 
 ---
@@ -347,7 +348,6 @@ C. Ensembling representations: new idea
 
 ![:scale 80%](images/slide_fte.png)
 
-.footnote[Vogelstein et al. [Ensembling Representations for Synergistic Lifelong Learning with Quasilinear Complexity](https://arxiv.org/abs/2004.12908), arXiv, 2020.]
 
 
 ---
@@ -540,11 +540,11 @@ class: middle
 
 <div class="small-container">
   <img src="faces/violet.jpg"/>
-  <div class="centered">baby girl</div>
+  <div class="centered">.black[owl]</div>
 </div>
 
 <div class="small-container">
-  <img src="faces/family.jpg"/>
+  <img src="images/family2.jpg"/>
   <div class="centered">family</div>
 </div>
 

@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5, h6 {
   /* margin-left: 10px; */
   color: #84c6ff;
   text-align: left;
-  /*text-shadow: 2px 2px gray; /*#ff0000;*/*/
+  /*text-shadow: 2px 2px gray; /*#ff0000;*/
 }
 
 
@@ -276,6 +276,8 @@ th {
 }
 
 .remark-slide-content {
+  width: 1em;
+  height: 1em;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;

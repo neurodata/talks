@@ -13,13 +13,13 @@ h1, h2, h3, h4, h5, h6 {
   /*text-shadow: 2px 2px gray; /*#ff0000;*/
 }
 
-.remark-slide-scaler {
+/* .remark-slide-scaler {
   left: 0vw !important;
   width: 100% !important;
-  /* top: 5vh !important; */
-  /* height: 90vh !important; */
+  top: 5vh !important;
+  height: 100% !important;
   transform: scale(1) !important;
-}
+} */
 
 .remark-slide-content {
   font-size: 1.5em;

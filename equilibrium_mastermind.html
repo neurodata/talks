@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="fonts/quadon/quadon.css">
   <link rel="stylesheet" href="fonts/gentona/gentona.css">
   <link rel="stylesheet" href="slides_style_i.css">
-  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  <!-- <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+  <script type="text/javascript" src="fullsize.js"></script> -->
 
 </head>
 
@@ -27,7 +28,7 @@
 
 
 
-
+<center>
 Joshua T. Vogelstein, PhD (<img src="assets/img/email-logo.png" align='top' width=25> [jovo@jhu.edu](mailto:jovo@jhu.edu), 
 <!-- <img src="images/Twitter_Logo_Blue.svg"/> -->
 <img src="assets/img/twitter-logo.png" align='top' width=25><a href="https://twitter.com/neuro_data" >@neuro_data</a>) <br>
@@ -172,14 +173,13 @@ This logic also applies to this argument itself.
 
 
 
-<img src="images/kids_2021nov.png" style="position:absolute; top:240px; height:400px; left:380px;  "/>
+<img src="images/kids_2021nov.png" class="center-jms"/>
 
 
 
 
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
-  <!-- <script src="remark-latest.min.js"></script> -->
   <script src="remark-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
@@ -202,7 +202,7 @@ This logic also applies to this argument itself.
 
     remark.macros.scale = function (percentage) {
       var url = this;
-      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+      return '<img src="' + url + '" style="width: ' + '35%' + '" />';
     };
 
     // var slideshow = remark.create({
@@ -213,9 +213,10 @@ This logic also applies to this argument itself.
     // ratio: '16:9',
     // });
     
+
+    // var slideshow = remark.create({ratio: '16:9'}, options, renderMath);
     var slideshow = remark.create(options, renderMath);
 
-  
   </script>
 </body>
 

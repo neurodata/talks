@@ -34,42 +34,25 @@ Joshua T. Vogelstein ([jovo@jhu.edu](mailto:jovo@jhu.edu)) |
 
 ---
 
-class:middle
-
-# What is learning?
-
-
----
-"The acquisition of knowledge or skills through experience, study, or by being taught."
-
--- Google, 2020
-
---
-
-"A computer .ye[program] is set to learn from an .ye[experience] E with respect to some .ye[task] T and some .ye[performance measure] P if its performance on T as measured by P .ye[improves] with experience E."
-
--- Tom Mitchell, 1997
-
---
-
-".ye[$f$] learns from .ye[data] $\mathbf{D}_n$ w.r.t. .ye[tasks] $s$  when its .ye[performance] at $s$ improves due to $\mathbf{D}_n$."
-
-
--- jovo, 2020
----
-
-### Many different  learning scenarios 
-
-
-![:scale 100%](images/learning-table.png)
-
----
-
-### Lifelong Learning
+### What is Lifelong Learning
 - Similar to multitask learning
 - Sequential rather than batch
 - Require computational complexity constraints on hypothesis and learner spaces, $ o(n) $ space and/or $ o(n^2) $ time as upperbounds.
 - Everything is streaming: data, queries, actions, error, and tasks. Anything about task can change over time.
+---
+
+### Lifelong Learning in Biology: Honey Bees Transfer Learn
+
+
+<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:250px; width:80%; "/>
+
+--
+<br><br><br><br><br><br><br><br><br><br><br>
+- honey bees can also transfer to different sensory modality (smell)
+- honeybees do not forget how to do the first task
+- this is called "forward transfer"
+- bees learn the concept of "sameness"
+
 ---
 ### Lifelong learning is hard: catastrophic forgetting 
 ![:scale 100%](images/catastrophic.png)
@@ -171,7 +154,6 @@ A lifelong learning agent should improve on
 ---
 ### Synergistic Algorithms Show Forward Transfer 
 
-CIFAR 10x10
 
 <!-- - *CIFAR 100* is a popular image classification dataset with 100 classes of images.  -->
 <!-- - CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class. -->
@@ -182,27 +164,6 @@ CIFAR 10x10
 ### Synergistic Algorithms Uniquely Show Backward Transfer for Each Task
 ![:scale 100%](images/cifar_exp_bte.png)
 
----
-### Future Directions/ Transitions
-
-- synergistic algorithm code continues to improve [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
-- streaming forest for streaming lifelong learning setup [https://sdtf.neurodata.io](https://sdtf.neurodata.io)
-![:scale 80%](images/streaming_forest.png)
-
----
-### Deep Networks are the worst model of the mind  
-
-<img src=
-  "images/nn_rf_jong.gif" 
-    alt="jong" 
-    width = "1400"
-    height= "460">  
----
-### Kernel Density Polytope generates well calibrated posteriors 
-<center>
-![:scale 45%](images/simulations_kdp.png)
-</center>
-<br>
 ---
 ### Acknowledgements
 

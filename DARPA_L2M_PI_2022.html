@@ -85,10 +85,10 @@ Key is measuring improvement in performance rather than raw accuracy
 ### What is forward learning?
 
 
-- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{D}\_n$
-- Let $\mathbf{D}\_n^{&lt; t} = \lbrace S\_1, S\_2, \ldots, S\_{n_t}  \rbrace$
+- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{S}\_n$
+- Let $\mathbf{S}\_n^{&lt; t} = \lbrace S\_1, S\_2, \ldots, S\_{n_t}  \rbrace$
 - .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FLE^s\_{\mathbf{n}}(f) := \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}  $$
+$$    FLE^t\_{\mathbf{n}}(f) := LE_f^t(\mathbf{S}_n^t, \mathbf{S}_n^{&lt; t}) = \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}  $$
 
 
 <br>
@@ -104,7 +104,7 @@ $f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) &gt; 1$.
 .ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$
 
 
-$$    BLE^s\_{\mathbf{n}}(f) :=  \frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
+$$    BLE^t\_{\mathbf{n}}(f) :=  LE_f^t(\mathbf{S}_n^{&lt; t}, \mathbf{S}_n) = \frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)}  $$
 
 
 
@@ -117,10 +117,10 @@ $f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
 ### Learning efficiency factorizes
 
 
-$$LE^s\_{\mathbf{n}}(f) := FLE^s\_{\mathbf{n}}(f)  \times BLE^s\_{\mathbf{n}}(f) $$
+$$LE^t\_{\mathbf{n}}(f) := FLE^t\_{\mathbf{n}}(f)  \times BLE^t\_{\mathbf{n}}(f) $$
 
-$$ \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)} = \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)} \times
-\frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
+$$ \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)} = \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)} \times
+\frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)}  $$
 
 <br>
 ---

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+
+
+  
+  
+<head>
+  <title>Learning</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style_i.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+
+</head>
+
+<body>
+  <textarea id="source">
+
+
+##Lifelong Learning: challenges and practice
+<br>
+
+PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/) <br>
+Co-PI: Vova Braverman, [JHU](https://www.jhu.edu/) <br>
+
+Jayanta Dey,Ali Geisa, Will LeVine, Hayden Helm, Ronak Mehta,
+Carey E. Priebe 
+<!-- | Joshua T. Vogelstein <br> -->
+<!-- [Microsoft Research](https://www.microsoft.com/en-us/research/): Weiwei Yang | Jonathan Larson | Bryan Tower | Chris White -->
+
+
+![:scale 30%](images/neurodata_blue.png)
+
+<footer>
+  <p> ![:scale 18%](images/jhu.png)
+</footer>
+
+
+---
+
+### What is Lifelong Learning
+- Similar to multitask learning
+- Sequential rather than batch
+- Require computational complexity constraints on hypothesis and learner spaces, $ o(n) $ space and/or $ o(n^2) $ time as upperbounds.
+- Everything is streaming: data, queries, actions, error, and tasks. Anything about task can change over time.
+---
+
+### Lifelong Learning in Biology: Honey Bees Transfer Learn
+
+
+<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:250px; width:80%; "/>
+
+--
+<br><br><br><br><br><br><br><br><br><br><br>
+- honey bees can also transfer to different sensory modality (smell)
+- honeybees do not forget how to do the first task
+- this is called "forward transfer"
+- bees learn the concept of "sameness"
+
+---
+### Lifelong learning is hard: catastrophic forgetting 
+![:scale 100%](images/catastrophic.png)
+---
+### 30 years later... 
+![:scale 100%](images/synaptic_intelligence.png)
+
+<br>
+And the struggle to not forget continues...
+---
+
+### Defining/Quantifying Learning & Forgetting
+
+<!-- The above two definitions enable one to assess .ye[whether] an agent $f$ has learned, but not .ye[how much] it learned. -->
+
+![:scale 100%](images/learning-efficiency.png)
+
+Using non-task data to improve performance over what it could achieve using only task data
+
+Key is measuring improvement in performance rather than raw accuracy
+
+
+---
+### What is forward learning?
+
+
+- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{D}\_n$ 
+- Let $\mathbf{D}\_n^{&lt; t} = \lbrace S\_1, S\_2, \ldots, S\_{n_t}  \rbrace$
+- .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
+$$    FLE^s\_{\mathbf{n}}(f) := \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}  $$
+
+
+<br>
+
+$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) &gt; 1$.
+
+---
+
+### What is backward learning?
+
+
+
+.ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+
+
+$$    BLE^s\_{\mathbf{n}}(f) :=  \frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
+
+
+
+<br>
+
+$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
+
+
+---
+### Learning efficiency factorizes
+
+
+$$LE^s\_{\mathbf{n}}(f) := FLE^s\_{\mathbf{n}}(f)  \times BLE^s\_{\mathbf{n}}(f) $$
+
+$$ \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)} = \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)} \times 
+\frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
+
+<br>
+---
+### Our claim
+A lifelong learning agent should improve on 
+<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
+  <li style="margin-left:2em">past tasks , i.e., $BLE_{\mathbf{n}}(f) &gt; 1$</li>
+  <li style="margin-left:2em">current tasks, i.e., $LE^s_{\mathbf{n}}(f) &gt; 1$ </li>
+  <li style="margin-left:2em">future or yet unseen tasks, i.e., $FLE_{\mathbf{n}}(f) &gt; 1$</li>
+</ol>
+
+---
+### Our approach: ensembling representations
+
+![:scale 100%](images/learning_schema_new.png)
+
+---
+### Synergistic Algorithms can Transfer Between XOR and XNOR 
+
+![:scale 80%](images/xor_xnor_exp.png)
+---
+
+## CIFAR 10x10
+
+
+
+.pull-left[
+- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
+- 500 training images and 100 testing images per class.
+- All images are 32x32 color images.
+- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
+]
+
+.pull-right[
+<img src="images/l2m_18mo/cifar-10.png" style="left:450px; width:400px;"/>
+]
+---
+### Synergistic Algorithms Show Forward Transfer 
+
+
+<!-- - *CIFAR 100* is a popular image classification dataset with 100 classes of images.  -->
+<!-- - CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class. -->
+
+![:scale 100%](images/cifar_exp_fte.png)
+
+---
+### Synergistic Algorithms Uniquely Show Backward Transfer for Each Task
+![:scale 100%](images/cifar_exp_bte.png)
+---
+### Future Directions/ Transitions
+
+- synergistic algorithm code continues to improve [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
+- streaming forest for streaming lifelong learning setup [https://sdtf.neurodata.io](https://sdtf.neurodata.io)
+![:scale 80%](images/streaming_forest.png)
+
+---
+### Deep Networks are the worst model of the mind  
+
+<img src=
+  "images/nn_rf_jong.gif" 
+    alt="jong" 
+    width = "1400"
+    height= "460">  
+---
+### Kernel Density Polytope generates well calibrated posteriors 
+![:scale 45%](images/simulations_kdp.png)
+<br>
+---
+### Acknowledgements
+
+
+
+<!-- <div class="small-container">
+  <img src="faces/ebridge.jpg"/>
+  <div class="centered">Eric Bridgeford</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben Pedigo</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jaewon.jpg"/>
+  <div class="centered">Jaewon Chung</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/yummy.jpg"/>
+  <div class="centered">yummy</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/lion.jpg"/>
+  <div class="centered">lion</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/violet.jpg"/>
+  <div class="centered">baby girl</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/family.jpg"/>
+  <div class="centered">family</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/earth.jpg"/>
+  <div class="centered">earth</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/milkyway.jpg"/>
+  <div class="centered">milkyway</div>
+</div>
+
+
+##### JHU
+
+<div class="small-container">
+  <img src="faces/cep.png"/>
+  <div class="centered">Carey Priebe</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/randal.jpg"/>
+  <div class="centered">Randal Burns</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/cshen.jpg"/>
+  <div class="centered">Cencheng Shen</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/bruce_rosen.jpg"/>
+  <div class="centered">Bruce Rosen</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/kent.jpg"/>
+  <div class="centered">Kent Kiehl</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/mim.jpg"/>
+  <div class="centered">Michael Miller</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/dtward.jpg"/>
+  <div class="centered">Daniel Tward</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/vikram.jpg"/>
+  <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/drishti.jpg"/>
+  <div class="centered">Drishti Mannan</div>
+</div> -->
+
+<div class="small-container">
+  <img src="faces/jesse.jpg"/>
+  <div class="centered">Jesse Patsolic</div>
+</div>
+
+<!-- <div class="small-container">
+  <img src="faces/falk_ben.jpg"/>
+  <div class="centered">Benjamin Falk</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/kwame.jpg"/>
+  <div class="centered">Kwame Kutten</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/perlman.jpg"/>
+  <div class="centered">Eric Perlman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex Loftus</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/bcaffo.jpg"/>
+  <div class="centered">Brian Caffo</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/minh.jpg"/>
+  <div class="centered">Minh Tang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/avanti.jpg"/>
+  <div class="centered">Avanti Athreya</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/vince.jpg"/>
+  <div class="centered">Vince Lyzinski</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/dpmcsuss.jpg"/>
+  <div class="centered">Daniel Sussman</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/youngser.jpg"/>
+  <div class="centered">Youngser Park</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/shangsi.jpg"/>
+  <div class="centered">Shangsi Wang</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/tyler.jpg"/>
+  <div class="centered">Tyler Tomita</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/james.jpg"/>
+  <div class="centered">James Brown</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/disa.jpg"/>
+  <div class="centered">Disa Mhembere</div>
+</div> -->
+
+<!-- <div class="small-container">
+  <img src="faces/gkiar.jpg"/>
+  <div class="centered">Greg Kiar</div>
+</div> -->
+
+
+<!-- <div class="small-container">
+  <img src="faces/jeremias.png"/>
+  <div class="centered">Jeremias Sulam</div>
+</div> -->
+
+
+<div class="small-container">
+  <img src="faces/meghana.png"/>
+  <div class="centered">Meghana Madhya</div>
+</div>
+  
+
+<!-- <div class="small-container">
+  <img src="faces/percy.png"/>
+  <div class="centered">Percy Li</div>
+</div>
+-->
+
+<div class="small-container">
+  <img src="faces/hayden.png"/>
+  <div class="centered">Hayden Helm</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/rguo.jpg"/>
+  <div class="centered">Richard Gou</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/ronak.jpg"/>
+  <div class="centered">Ronak Mehta</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jayanta.jpg"/>
+  <div class="centered">Jayanta Dey</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/will.jpg"/>
+  <div class="centered">Will LeVine</div>
+</div>
+
+##### Microsoft Research
+
+<div class="small-container">
+  <img src="faces/chwh-180x180.jpg"/>
+  <div class="centered">Chris White</div>
+</div>
+
+
+<div class="small-container">
+  <img src="faces/weiwei.jpg"/>
+  <div class="centered">Weiwei Yang</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/jolarso150px.png"/>
+  <div class="centered">Jonathan Larson</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/brtower-180x180.jpg"/>
+  <div class="centered">Bryan Tower</div>
+</div>
+
+
+##### DARPA L2M
+<!-- Hava, Ben, Robert, Jennifer, Ted. -->
+
+{[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io)
+<br>
+[jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)
+
+
+</div>
+<!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
+<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
+
+---
+background-image: url(images/l_and_v.jpeg)
+
+.footnote[Questions?]
+
+---
+class: middle 
+# .center[Appendix]
+
+---
+
+.small[
+### Publications
+
+
+1. A. Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021. 
+1. J. T. Vogelstein et al. [Representation Ensembling for Synergistic Lifelong Learning with Quasilinear Complexity](https://arxiv.org/abs/2004.12908), arXiv, 2022.
+1. H. Xu et al. [Simplest Streaming Trees](https://arxiv.org/abs/2110.08483), arXiv, 2022.
+1. J. Dey et al. [Out-of-distribution and in-distribution posterior calibration using Kernel Density Polytopes](https://arxiv.org/abs/2201.13001), arXiv, 2022.
+1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), 2020. 
+1. R. Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
+1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
+1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019.
+1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
+1. M. Madhya, et al. [PACSET (Packed Serialized Trees): Reducing Inference Latency for Tree Ensemble Deployment](https://arxiv.org/abs/2011.05383). arXiv, 2020.
+
+
+### Conferences 
+1. J. T. Vogelstein et al. A biological implementation of lifelong learning in the pursuit of artificial general intelligence.  NAISys, 2020.
+2. B. Pedigo et al.  A quantitative comparison of a complete connectome to artificial intelligence architectures. NAISys, 2020.
+]
+
+
+---
+### Biological learning is on top
+
+![:scale 100%](images/learning-table.png)
+---
+### Spoken Digit dataset
+.pull-left[
+- *Spoken Digit* contains recording from 6 different speakers. 
+- Each digit has 50 recordings (3000 total recordings).
+- For each recording spectrogram was extracted using using Hanning windows of duration 16 ms with an overlap of 4 ms.
+-  The spectrograms were resized down to 28×28. 
+]
+.pull-right[
+<img src="images/spectrogram.png" style="position:absolute; left:500px; width:400px;"/>
+]
+---
+### Synergistic Algorithms on Spoken Digit Task
+
+![:scale 105%](images/spoken_digit.png)
+
+</textarea>
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <!-- <script src="remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
+
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+
+    // var slideshow = remark.create({
+    // Set the slideshow display ratio
+    // Default: '4:3'
+    // Alternatives: '16:9', ...
+    // {
+    // ratio: '16:9',
+    // });
+    
+    var slideshow = remark.create(options, renderMath);
+
+  
+  </script>
+</body>
+
+</html>

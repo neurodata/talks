@@ -2,8 +2,8 @@
 <html>
 
 
-  
-  
+
+
 <head>
   <title>Learning</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -25,7 +25,7 @@ PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/) <br>
 Co-PI: Vova Braverman, [JHU](https://www.jhu.edu/) <br>
 
 Jayanta Dey,Ali Geisa, Will LeVine, Hayden Helm, Ronak Mehta,
-Carey E. Priebe 
+Carey E. Priebe
 <!-- | Joshua T. Vogelstein <br> -->
 <!-- [Microsoft Research](https://www.microsoft.com/en-us/research/): Weiwei Yang | Jonathan Larson | Bryan Tower | Chris White -->
 
@@ -59,10 +59,10 @@ Carey E. Priebe
 - bees learn the concept of "sameness"
 
 ---
-### Lifelong learning is hard: catastrophic forgetting 
+### Lifelong learning is hard: catastrophic forgetting
 ![:scale 100%](images/catastrophic.png)
 ---
-### 30 years later... 
+### 30 years later...
 ![:scale 100%](images/synaptic_intelligence.png)
 
 <br>
@@ -84,7 +84,7 @@ Key is measuring improvement in performance rather than raw accuracy
 ### What is forward learning?
 
 
-- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{D}\_n$ 
+- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{D}\_n$
 - Let $\mathbf{D}\_n^{&lt; t} = \lbrace S\_1, S\_2, \ldots, S\_{n_t}  \rbrace$
 - .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
 $$    FLE^s\_{\mathbf{n}}(f) := \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}  $$
@@ -100,7 +100,7 @@ $f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) &gt; 1$.
 
 
 
-.ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$ 
+.ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$
 
 
 $$    BLE^s\_{\mathbf{n}}(f) :=  \frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
@@ -118,13 +118,13 @@ $f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
 
 $$LE^s\_{\mathbf{n}}(f) := FLE^s\_{\mathbf{n}}(f)  \times BLE^s\_{\mathbf{n}}(f) $$
 
-$$ \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)} = \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)} \times 
+$$ \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)} = \frac{\mathcal{E}_f^s(\mathbf{D}^{t}\_n)}{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)} \times
 \frac{\mathcal{E}_f^s(\mathbf{D}^{&lt; t}\_n)}{\mathcal{E}_f^s(\mathbf{D}\_n)}  $$
 
 <br>
 ---
 ### Our claim
-A lifelong learning agent should improve on 
+A lifelong learning agent should improve on
 <ol style="list-style-type: lower-alpha; padding-bottom: 0;">
   <li style="margin-left:2em">past tasks , i.e., $BLE_{\mathbf{n}}(f) &gt; 1$</li>
   <li style="margin-left:2em">current tasks, i.e., $LE^s_{\mathbf{n}}(f) &gt; 1$ </li>
@@ -137,7 +137,7 @@ A lifelong learning agent should improve on
 ![:scale 100%](images/learning_schema_new.png)
 
 ---
-### Synergistic Algorithms can Transfer Between XOR and XNOR 
+### Synergistic Algorithms can Transfer Between XOR and XNOR
 
 ![:scale 80%](images/xor_xnor_exp.png)
 ---
@@ -147,7 +147,7 @@ A lifelong learning agent should improve on
 
 
 .pull-left[
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images. 
+- *CIFAR 100* is a popular image classification dataset with 100 classes of images.
 - 500 training images and 100 testing images per class.
 - All images are 32x32 color images.
 - CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
@@ -157,7 +157,7 @@ A lifelong learning agent should improve on
 <img src="images/l2m_18mo/cifar-10.png" style="left:450px; width:400px;"/>
 ]
 ---
-### Synergistic Algorithms Show Forward Transfer 
+### Synergistic Algorithms Show Forward Transfer
 
 
 <!-- - *CIFAR 100* is a popular image classification dataset with 100 classes of images.  -->
@@ -168,6 +168,7 @@ A lifelong learning agent should improve on
 ---
 ### Synergistic Algorithms Uniquely Show Backward Transfer for Each Task
 ![:scale 100%](images/cifar_exp_bte.png)
+
 ---
 ### Future Directions/ Transitions
 
@@ -176,15 +177,19 @@ A lifelong learning agent should improve on
 ![:scale 80%](images/streaming_forest.png)
 
 ---
-### Deep Networks are the worst model of the mind  
+### Preliminary Results on Streaming Lifelong Learning
+![:scale 80%](images/stream_synf.png)
+
+---
+### Deep Networks are the worst model of the mind
 
 <img src=
-  "images/nn_rf_jong.gif" 
-    alt="jong" 
+  "images/nn_rf_jong.gif"
+    alt="jong"
     width = "1400"
-    height= "460">  
+    height= "460">
 ---
-### Kernel Density Polytope generates well calibrated posteriors 
+### Kernel Density Polytope generates well calibrated posteriors
 ![:scale 45%](images/simulations_kdp.png)
 <br>
 ---
@@ -383,7 +388,7 @@ A lifelong learning agent should improve on
   <img src="faces/meghana.png"/>
   <div class="centered">Meghana Madhya</div>
 </div>
-  
+
 
 <!-- <div class="small-container">
   <img src="faces/percy.png"/>
@@ -415,6 +420,11 @@ A lifelong learning agent should improve on
 <div class="small-container">
   <img src="faces/will.jpg"/>
   <div class="centered">Will LeVine</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/hao.jpg"/>
+  <div class="centered">Haoyin Xu</div>
 </div>
 
 ##### Microsoft Research
@@ -463,7 +473,7 @@ background-image: url(images/l_and_v.jpeg)
 .footnote[Questions?]
 
 ---
-class: middle 
+class: middle
 # .center[Appendix]
 
 ---
@@ -472,11 +482,11 @@ class: middle
 ### Publications
 
 
-1. A. Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021. 
+1. A. Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
 1. J. T. Vogelstein et al. [Representation Ensembling for Synergistic Lifelong Learning with Quasilinear Complexity](https://arxiv.org/abs/2004.12908), arXiv, 2022.
 1. H. Xu et al. [Simplest Streaming Trees](https://arxiv.org/abs/2110.08483), arXiv, 2022.
 1. J. Dey et al. [Out-of-distribution and in-distribution posterior calibration using Kernel Density Polytopes](https://arxiv.org/abs/2201.13001), arXiv, 2022.
-1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), 2020. 
+1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), 2020.
 1. R. Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
 1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
 1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019.
@@ -484,7 +494,7 @@ class: middle
 1. M. Madhya, et al. [PACSET (Packed Serialized Trees): Reducing Inference Latency for Tree Ensemble Deployment](https://arxiv.org/abs/2011.05383). arXiv, 2020.
 
 
-### Conferences 
+### Conferences
 1. J. T. Vogelstein et al. A biological implementation of lifelong learning in the pursuit of artificial general intelligence.  NAISys, 2020.
 2. B. Pedigo et al.  A quantitative comparison of a complete connectome to artificial intelligence architectures. NAISys, 2020.
 ]
@@ -497,10 +507,10 @@ class: middle
 ---
 ### Spoken Digit dataset
 .pull-left[
-- *Spoken Digit* contains recording from 6 different speakers. 
+- *Spoken Digit* contains recording from 6 different speakers.
 - Each digit has 50 recordings (3000 total recordings).
 - For each recording spectrogram was extracted using using Hanning windows of duration 16 ms with an overlap of 4 ms.
--  The spectrograms were resized down to 28×28. 
+-  The spectrograms were resized down to 28×28.
 ]
 .pull-right[
 <img src="images/spectrogram.png" style="position:absolute; left:500px; width:400px;"/>
@@ -545,10 +555,10 @@ class: middle
     // {
     // ratio: '16:9',
     // });
-    
+
     var slideshow = remark.create(options, renderMath);
 
-  
+
   </script>
 </body>
 

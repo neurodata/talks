@@ -30,10 +30,11 @@ Carey E. Priebe
 <!-- [Microsoft Research](https://www.microsoft.com/en-us/research/): Weiwei Yang | Jonathan Larson | Bryan Tower | Chris White -->
 
 
-![:scale 30%](images/neurodata_blue.png)
-
+<!-- ![:scale 5%](images/neurodata_blue.png) -->
+<img src="images/neurodata_blue.png" width="20%">
 <footer>
-  <p> ![:scale 18%](images/jhu.png)
+  <img src="images/jhu.png" width="20%">
+  <!-- <p> ![:scale 18%](images/jhu.png) -->
 </footer>
 
 
@@ -60,10 +61,10 @@ Carey E. Priebe
 
 ---
 ### Lifelong learning is hard: catastrophic forgetting
-![:scale 100%](images/catastrophic.png)
+![](images/catastrophic.png)
 ---
 ### 30 years later...
-![:scale 100%](images/synaptic_intelligence.png)
+![](images/synaptic_intelligence.png)
 
 <br>
 And the struggle to not forget continues...
@@ -73,7 +74,7 @@ And the struggle to not forget continues...
 
 <!-- The above two definitions enable one to assess .ye[whether] an agent $f$ has learned, but not .ye[how much] it learned. -->
 
-![:scale 100%](images/learning-efficiency.png)
+![](images/learning-efficiency.png)
 
 Using non-task data to improve performance over what it could achieve using only task data
 
@@ -134,12 +135,13 @@ A lifelong learning agent should improve on
 ---
 ### Our approach: ensembling representations
 
-![:scale 100%](images/learning_schema_new.png)
+<img src="images/learning_schema_new.png" width="80%">
 
 ---
 ### Synergistic Algorithms can Transfer Between XOR and XNOR
 
-![:scale 60%](images/xor_xnor_exp.png)
+<img src="images/xor_xnor_exp.png" width="60%">
+<!-- ![](images/xor_xnor_exp.png) -->
 ---
 
 ## CIFAR 10x10
@@ -163,22 +165,24 @@ A lifelong learning agent should improve on
 <!-- - *CIFAR 100* is a popular image classification dataset with 100 classes of images.  -->
 <!-- - CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class. -->
 
-![:scale 100%](images/cifar_exp_fte.png)
+<img src="images/cifar_exp_fte.png" width="80%">
 
 ---
 ### Synergistic Algorithms Uniquely Show Backward Transfer for Each Task
-![:scale 100%](images/cifar_exp_bte.png)
+<img src="images/cifar_exp_bte.png" width="80%">
 
 ---
 ### Future Directions/ Transitions
 
 - synergistic algorithm code continues to improve [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
 - streaming forest for streaming lifelong learning setup [https://sdtf.neurodata.io](https://sdtf.neurodata.io)
-![:scale 80%](images/streaming_forest.png)
+
+<!-- ![:scale 100%](images/streaming_forest.png) -->
+<img src="images/streaming_forest.png">
 
 ---
 ### Preliminary Results on Streaming Lifelong Learning
-![:scale 80%](images/stream_synf.png)
+<img src="images/stream_synf.png" width="80%">
 
 ---
 ### Deep Networks are the worst model of the mind
@@ -508,7 +512,8 @@ class: middle
 ---
 ### Biological learning is on top
 
-![:scale 100%](images/learning-table.png)
+<img src="images/learning-table.png" width="80%">
+
 ---
 ### Spoken Digit dataset
 .pull-left[
@@ -518,12 +523,12 @@ class: middle
 -  The spectrograms were resized down to 28×28.
 ]
 .pull-right[
-<img src="images/spectrogram.png" style="position:absolute; left:500px; width:400px;"/>
+<img src="images/spectrogram.png" style="left:500px; width:400px;"/>
 ]
 ---
 ### Synergistic Algorithms on Spoken Digit Task
-
-![:scale 105%](images/spoken_digit.png)
+<img src="images/spoken_digit.png" width="80%">
+<!-- ![:scale 105%]() -->
 
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
@@ -548,10 +553,10 @@ class: middle
       });
     }
 
-    remark.macros.scale = function (percentage) {
-      var url = this;
-      return '<img src="' + url + '" style="width: ' + percentage + '" />';
-    };
+    // remark.macros.scale = function (percentage) {
+    //   var url = this;
+    //   return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    // };
 
     // var slideshow = remark.create({
     // Set the slideshow display ratio

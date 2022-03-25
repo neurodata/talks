@@ -46,7 +46,7 @@ Carey E. Priebe
 
 ---
 
-## Formalizing in-distribution Learning
+## Formalizing Learning
 
 - Assume  $(X\_i,Y\_i) \sim^{iid} P, \quad  i \in [n]$ 
 - Let $f((X_i,Y_i)^n) \rightarrow h_n$  
@@ -70,8 +70,8 @@ $$Pr[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 - No. 
 - In lifelong learning, the samples are not all from the same distribution. 
 - Consider the simplest possible generalization:
-- We have 2 datasets from two different distributions
-- We want to know whether we learn about one from the other (or vice versa)
+    - we have 2 datasets from two different distributions
+- We want to know whether we learn about one from the other
 - This is called '.ye[out of distribution]' learning 
 - Lifelong learning is a special (sequential) case
 
@@ -84,13 +84,13 @@ $$Pr[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 - Let $f((X\_i,Y\_i)^{n+m}) \rightarrow h\_{n,m}$  
 - a learner  .ye[weakly] learns about $P$ from $Q$  if  $\, \exists M$ s.t. $\forall m > M$
 
-$$Pr[ R(h\_{n,m}) < R\_n ] \geq 1 - \delta$$
+$$Pr[ R(h\_{n,m}) < R(h\_n) ] \geq 1 - \delta$$
 
 - a learner .ye[strongly] learns about $P$ from $Q$ if $\, \exists M$ s.t. $\forall m > M$
 
 $$Pr[ R(h\_{n,m}) - R^* <  \epsilon ] \geq 1 - \delta$$
 
-- strong OOD learner thm: if $f$ weakly learns, it does not necessarily strongly learn*
+- strong OOD learner thm: if $f$ weakly learns, it does not necessarily strongly learn
 - implications: more data does not necessarily help!
 
 .footnote[.small[Geisa, et al., Towards a theory of out-of-distribution learning. 2021]]
@@ -101,8 +101,8 @@ $$Pr[ R(h\_{n,m}) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 - Let $S = (X\_i,Y\_i) \sim^{iid} P, \, \forall i \in [n]$
 - Let $S'  = (X\_i,Y\_i) \sim^{iid} Q, \, \forall i \in ${$n+1,\ldots, n+m$} 
-- Let $\mathcal{E}^t_f(S)$ be the expected risk for task $t$ of learner $f$ using data $S$ 
-- Let .ye[Learning Efficiency] be defined*:
+- Let $\mathcal{E}^t_f(S)$ := expected risk for task $t$ of learner $f$ using data $S$ 
+- Let .ye[Learning Efficiency] be defined:
 
 $$LE^t_f(S,S') = \frac{ \mathcal{E}^t_f(S)}{\mathcal{E}^t_f(S')}$$
 
@@ -118,9 +118,10 @@ $$LE^t_f(S,S') = \frac{ \mathcal{E}^t_f(S)}{\mathcal{E}^t_f(S')}$$
 
 ### Fundamental Question of OOD Learning 
 
-- Assume  $(X\_i,Y\_i) \sim^{iid} P, \quad  i \in [n]$ 
-- Assume  $(X\_i,Y\_i) \sim^{iid} Q, \quad  i \in ${$n+1, \ldots, n+m$} 
-- Assume the $n$ samples from $P$ and the $m$ samples from $Q$ are independent of each other 
+- Assume  $S = (X\_i,Y\_i) \sim^{iid} P, \quad  i \in [n]$ 
+- Assume  $T = (X\_i,Y\_i) \sim^{iid} Q, \quad  i \in ${$n+1, \ldots, n+m$} 
+- Assume $S \perp T$ 
+ <!-- the $n$ samples from $P$ and the $m$ samples from $Q$ are independent of each other  -->
 - What are the conditions on $P, Q, n, m$ such that $f$ can learn about $P$ from $Q$ (i.e., achieve $\log LE > 0$)?
 
 
@@ -153,7 +154,7 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 
 ## Not just in simulated data 
 
-- CIFAR 10x10 
+- CIFAR 10
 - Task 1: Bird vs. Cat 
 - Task 2: Deer vs. Dog
 

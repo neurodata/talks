@@ -9,7 +9,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="fonts/quadon/quadon.css">
   <link rel="stylesheet" href="fonts/gentona/gentona.css">
-  <link rel="stylesheet" href="slides_style_i.css">
+  <link rel="stylesheet" href="slides_style_v2.css">
   <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
 
 </head>
@@ -18,7 +18,7 @@
   <textarea id="source">
 
 
-##Lifelong Learning: What is it anyway?
+# Lifelong Learning:<br>What is it anyway?
 <br>
 
 PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/) <br>
@@ -40,8 +40,8 @@ Carey E. Priebe
 
 ---
 
-<img src="images/L2M_hava.png" width="100%">
-<!-- ![:scale 40%](images/L2M_hava.png) -->
+<img src="images/L2M_hava.png" width="700">
+<!-- ![:scale 200%](images/L2M_hava.png) -->
 
 
 ---
@@ -65,7 +65,7 @@ $$Pr[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 ---
 
-# So learning is solved?
+## So learning is solved?
 
 - No. 
 - In lifelong learning, the samples are not all from the same distribution. 
@@ -93,7 +93,7 @@ $$Pr[ R(h\_{n,m}) - R^* <  \epsilon ] \geq 1 - \delta$$
 - strong OOD learner thm: if $f$ weakly learns, it does not necessarily strongly learn*
 - implications: more data does not necessarily help!
 
-.footnote[Geisa, et al., Towards a theory of out-of-distribution learning. 2021]
+.footnote[.small[Geisa, et al., Towards a theory of out-of-distribution learning. 2021]]
 
 ---
 
@@ -106,18 +106,17 @@ $$Pr[ R(h\_{n,m}) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 $$LE^t_f(S,S') = \frac{ \mathcal{E}^t_f(S)}{\mathcal{E}^t_f(S')}$$
 
-<br>
 
 - $f$ .ye[learns] about $P$ from $Q$ whenever $\log LE^t_f(S,S') >0$
 - $f$ .ye[forgets] about $P$ from $Q$ whenever $\log LE^t_f(S,S') < 0$
 - .ye[catastrophic forgetting]: $LE \ll 0$
 - forward transfer,  backward transfer, performance relative to STE, etc. are special cases
 
-.footnote[Vogelstein, et al. Representation Ensembling for Synergistic Lifelong Learning with Quasilinear Complexity, 2020]
+.footnote[.small[Vogelstein, et al. arxiv, 2020]]
 
 ---
 
-### The fundamental question of OOD learning 
+### Fundamental Question of OOD Learning 
 
 - Assume  $(X\_i,Y\_i) \sim^{iid} P, \quad  i \in [n]$ 
 - Assume  $(X\_i,Y\_i) \sim^{iid} Q, \quad  i \in ${$n+1, \ldots, n+m$} 
@@ -134,7 +133,7 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 - $P$ is two gaussians
 - $Q$ is two gaussians shifted by $\Delta$
 
-<img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true" width="100%">
+<img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true" width="500">
 
 <!-- ![:scale 100%](https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true) -->
 
@@ -148,7 +147,7 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 - implications: just because a little OOD data helps, does not mean that more will help!
 
 
-.footnote[de Silva, et al. Non-monotonic Out-of-Distribution Risk, in prep]
+.footnote[.small[de Silva, et al. Non-monotonic Out-of-Distribution Risk, in prep]]
 
 ---
 
@@ -203,9 +202,7 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019.
 1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
 1. M. Madhya, et al. [PACSET (Packed Serialized Trees): Reducing Inference Latency for Tree Ensemble Deployment](https://arxiv.org/abs/2011.05383). arXiv, 2020.
-
-
-### Conferences
+<!-- ### Conferences -->
 1. J. T. Vogelstein et al. A biological implementation of lifelong learning in the pursuit of artificial general intelligence.  NAISys, 2020.
 2. B. Pedigo et al.  A quantitative comparison of a complete connectome to artificial intelligence architectures. NAISys, 2020.
 3. L. Haoran, et al. [Lifelong Learning with Sketched Structural Regularization](https://arxiv.org/abs/2104.08604). ACML, 2021.
@@ -215,7 +212,7 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 
 
 ---
-### Acknowledgements
+#### Acknowledgements
 
 
 
@@ -474,7 +471,7 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
   <div class="centered">Jingfeng Wu</div>
 </div>
 
-##### HRL
+##### HRL & Microsoft Research
 <div class="small-container">
   <img src="faces/vova_lab/Soheil.PNG"/>
   <div class="centered">Soheil Kolouri</div>
@@ -485,7 +482,7 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
   <div class="centered">Praveen K. Pilly</div>
 </div>
 
-##### Microsoft Research
+<!-- ##### Microsoft Research -->
 
 <div class="small-container">
   <img src="faces/chwh-180x180.jpg"/>
@@ -512,9 +509,9 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 ##### DARPA L2M
 <!-- Hava, Ben, Robert, Jennifer, Ted. -->
 
-{[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io)
-<br>
-[jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data)
+<!-- {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io) -->
+<!-- <br> -->
+<!-- [jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data) -->
 
 
 </div>

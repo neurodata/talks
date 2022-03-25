@@ -18,13 +18,13 @@
   <textarea id="source">
 
 
-##Lifelong Learning: challenges and practice
+##Lifelong Learning: What is it anyway?
 <br>
 
 PI: Joshua T. Vogelstein, [JHU](https://www.jhu.edu/) <br>
 Co-PI: Vova Braverman, [JHU](https://www.jhu.edu/) <br>
 
-Jayanta Dey, Ali Geisa, Will LeVine, Hayden Helm, Ronak Mehta, Haoran Li, Aditya Krishnan,  Jingfeng Wu,
+Jayanta Dey, Ali Geisa, Will LeVine, Hayden Helm, Ronak Mehta, Haoran Li, Aditya Krishnan, Rahul Ramesh, Pratik Chaudhari, Ashwin De Silva,   Jingfeng Wu,
 Carey E. Priebe
 <!-- | Joshua T. Vogelstein <br> -->
 <!-- [Microsoft Research](https://www.microsoft.com/en-us/research/): Weiwei Yang | Jonathan Larson | Bryan Tower | Chris White -->
@@ -40,162 +40,137 @@ Carey E. Priebe
 
 ---
 
-### What is Lifelong Learning
-- Similar to multitask learning
-- Sequential rather than batch
-- Require computational complexity constraints on hypothesis and learner spaces, $ o(n) $ space and/or $ o(n^2) $ time as upperbounds.
-- Everything is streaming: data, queries, actions, error, and tasks. Anything about task can change over time.
----
-
-### Lifelong Learning in Biology: Honey Bees Transfer Learn
-
-
-<img src="images/rock20/honeybee1.jpg" style="position:absolute; top:250px; width:80%; "/>
-
---
-<br><br><br><br><br><br><br><br><br><br><br>
-- honey bees can also transfer to different sensory modality (smell)
-- honeybees do not forget how to do the first task
-- this is called "forward transfer"
-- bees learn the concept of "sameness"
-
----
-### Lifelong learning is hard: catastrophic forgetting
-![](images/catastrophic.png)
----
-### 30 years later...
-![](images/synaptic_intelligence.png)
-
-<br>
-And the struggle to not forget continues...
----
-
-### Defining/Quantifying Learning & Forgetting
-
-<!-- The above two definitions enable one to assess .ye[whether] an agent $f$ has learned, but not .ye[how much] it learned. -->
-
-![](images/learning-efficiency.png)
-
-Using non-task data to improve performance over what it could achieve using only task data
-
-Key is measuring improvement in performance rather than raw accuracy
+<img src="images/L2M_hava.png" width="100%">
+<!-- ![:scale 40%](images/L2M_hava.png) -->
 
 
 ---
-### What is forward learning?
 
+## Formalizing in-distribution Learning
 
-- Let $n\_t$ be the last occurence of task $t$ in $\mathbf{S}\_n$
-- Let $\mathbf{S}\_n^{&lt; t} = \lbrace S\_1, S\_2, \ldots, S\_{n_t}  \rbrace$
-- .ye[Forward] learning efficiency is the improvement on task $t$ resulting from all data .ye[preceding] task $t$
-$$    FLE^t\_{\mathbf{n}}(f) := LE_f^t(\mathbf{S}_n^t, \mathbf{S}_n^{&lt; t}) = \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}  $$
+- Assume  $(X\_i,Y\_i) \sim^{iid} P, \quad  i \in [n]$ 
+- Let $f((X_i,Y_i)^n) \rightarrow h_n$  
+- Let R (risk) be expected loss
+- Let $\delta, \epsilon > 0$
+- a learner  .ye[weakly] learns if $\, \exists N$ s.t. $\forall n > N$
 
+$$Pr[ R(h\_n) < R\_{chance} ] \geq 1 - \delta$$
 
-<br>
+- a learner .ye[strongly] learns if $\, \exists N$ s.t. $\forall n > N$
 
-$f$ .ye[forward learns] if $FLE_{\mathbf{n}}(f) &gt; 1$.
+$$Pr[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
+
+- strong learner thm: if $f$ weakly learns, it also strongly learns
+- implication: if your AI is doing ok, just get more data!
 
 ---
 
-### What is backward learning?
+# So learning is solved?
 
+- No. 
+- In lifelong learning, the samples are not all from the same distribution. 
+- Consider the simplest possible generalization:
+- We have 2 datasets from two different distributions
+- We want to know whether we learn about one from the other (or vice versa)
+- This is called '.ye[out of distribution]' learning 
+- Lifelong learning is a special (sequential) case
 
+---
 
-.ye[Backward] learning efficiency  is the improvement on task $t$ resulting from all data .ye[after] task $t$
+## Formalizing OOD Learning 
 
+- Assume  $(X\_i,Y\_i) \sim^{iid} P, \quad  i \in [n]$ 
+- Assume  $(X\_i,Y\_i) \sim^{iid} Q, \quad  i \in ${$n+1, \ldots, n+m$} 
+- Let $f((X\_i,Y\_i)^{n+m}) \rightarrow h\_{n,m}$  
+- a learner  .ye[weakly] learns about $P$ from $Q$  if  $\, \exists M$ s.t. $\forall m > M$
 
-$$    BLE^t\_{\mathbf{n}}(f) :=  LE_f^t(\mathbf{S}_n^{&lt; t}, \mathbf{S}_n) = \frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)}  $$
+$$Pr[ R(h\_{n,m}) < R\_n ] \geq 1 - \delta$$
 
+- a learner .ye[strongly] learns about $P$ from $Q$ if $\, \exists M$ s.t. $\forall m > M$
 
+$$Pr[ R(h\_{n,m}) - R^* <  \epsilon ] \geq 1 - \delta$$
+
+- strong OOD learner thm: if $f$ weakly learns, it does not necessarily strongly learn*
+- implications: more data does not necessarily help!
+
+.footnote[Geisa, et al., Towards a theory of out-of-distribution learning. 2021]
+
+---
+
+### A generalized definition of learning 
+
+- Let $S = (X\_i,Y\_i) \sim^{iid} P, \, \forall i \in [n]$
+- Let $S'  = (X\_i,Y\_i) \sim^{iid} Q, \, \forall i \in ${$n+1,\ldots, n+m$} 
+- Let $\mathcal{E}^t_f(S)$ be the expected risk for task $t$ of learner $f$ using data $S$ 
+- Let .ye[Learning Efficiency] be defined*:
+
+$$LE^t_f(S,S') = \frac{ \mathcal{E}^t_f(S)}{\mathcal{E}^t_f(S')}$$
 
 <br>
 
-$f$ .ye[backward learns] if $BLE_{\mathbf{n}}(f) > 1$.
+- $f$ .ye[learns] about $P$ from $Q$ whenever $\log LE^t_f(S,S') >0$
+- $f$ .ye[forgets] about $P$ from $Q$ whenever $\log LE^t_f(S,S') < 0$
+- .ye[catastrophic forgetting]: $LE \ll 0$
+- forward transfer,  backward transfer, performance relative to STE, etc. are special cases
+
+.footnote[Vogelstein, et al. Representation Ensembling for Synergistic Lifelong Learning with Quasilinear Complexity, 2020]
+
+---
+
+### The fundamental question of OOD learning 
+
+- Assume  $(X\_i,Y\_i) \sim^{iid} P, \quad  i \in [n]$ 
+- Assume  $(X\_i,Y\_i) \sim^{iid} Q, \quad  i \in ${$n+1, \ldots, n+m$} 
+- Assume the $n$ samples from $P$ and the $m$ samples from $Q$ are independent of each other 
+- What are the conditions on $P, Q, n, m$ such that $f$ can learn about $P$ from $Q$ (i.e., achieve $\log LE > 0$)?
+
+
+We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, then data from $Q$ makes $f$ learn about (rather than forget about) $P$
+
+---
+
+## The simplest example 
+
+- $P$ is two gaussians
+- $Q$ is two gaussians shifted by $\Delta$
+
+<img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true" width="100%">
+
+<!-- ![:scale 100%](https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true) -->
+
+---
+
+## A terrible thing 
+
+<img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gaussian_task_analytical_plot.svg?raw=true" width="100%">
+
+- Sometimes, for a fixed $\Delta$, error is non-monotonic wrt $m$
+- implications: just because a little OOD data helps, does not mean that more will help!
+
+
+.footnote[de Silva, et al. Non-monotonic Out-of-Distribution Risk, in prep]
+
+---
+
+## Not just in simulated data 
+
+- CIFAR 10x10 
+- Task 1: Bird vs. Cat 
+- Task 2: Deer vs. Dog
+
+<img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/bridcat_deerdog.svg?raw=true" width="100%">
 
 
 ---
-### Learning efficiency factorizes
+
+## Summary so far 
+
+- OOD learning is different in kind from in-distribution learning 
+- More data is not necessarily adequate to get arbitrary performance
+- More data can actually hurt 
+- Time to think carefully about how much data of different kinds to use, rather than throwing everything in a bucket
 
 
-$$LE^t\_{\mathbf{n}}(f) := FLE^t\_{\mathbf{n}}(f)  \times BLE^t\_{\mathbf{n}}(f) $$
-
-$$ \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)} = \frac{\mathcal{E}_f^t(\mathbf{S}^{t}\_n)}{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)} \times
-\frac{\mathcal{E}_f^t(\mathbf{S}^{&lt; t}\_n)}{\mathcal{E}_f^t(\mathbf{S}\_n)}  $$
-
-<br>
----
-### Our claim
-A lifelong learning agent should improve on
-<ol style="list-style-type: lower-alpha; padding-bottom: 0;">
-  <li style="margin-left:2em">past tasks , i.e., $BLE_{\mathbf{n}}(f) &gt; 1$</li>
-  <li style="margin-left:2em">current tasks, i.e., $LE^s_{\mathbf{n}}(f) &gt; 1$ </li>
-  <li style="margin-left:2em">future or yet unseen tasks, i.e., $FLE_{\mathbf{n}}(f) &gt; 1$</li>
-</ol>
-
----
-### Our approach: ensembling representations
-
-<img src="images/learning_schema_new.png" width="80%">
-
----
-### Synergistic Algorithms can Transfer Between XOR and XNOR
-
-<img src="images/xor_xnor_exp.png" width="60%">
-<!-- ![](images/xor_xnor_exp.png) -->
----
-
-## CIFAR 10x10
-
-
-
-.pull-left[
-- *CIFAR 100* is a popular image classification dataset with 100 classes of images.
-- 500 training images and 100 testing images per class.
-- All images are 32x32 color images.
-- CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class.
-]
-
-.pull-right[
-<img src="images/l2m_18mo/cifar-10.png" style="left:450px; width:400px;"/>
-]
----
-### Synergistic Algorithms Show Forward Transfer
-
-
-<!-- - *CIFAR 100* is a popular image classification dataset with 100 classes of images.  -->
-<!-- - CIFAR 10x10 breaks the 100-class task problem into 10 tasks, each with 10-class. -->
-
-<img src="images/cifar_exp_fte.png" width="80%">
-
----
-### Synergistic Algorithms Uniquely Show Backward Transfer for Each Task
-<img src="images/cifar_exp_bte.png" width="80%">
-
----
-### Future Directions/ Transitions
-
-- synergistic algorithm code continues to improve [http://proglearn.neurodata.io/](http://proglearn.neurodata.io/)
-- streaming forest for streaming lifelong learning setup [https://sdtf.neurodata.io](https://sdtf.neurodata.io)
-
-<!-- ![:scale 100%](images/streaming_forest.png) -->
-<img src="images/streaming_forest.png">
-
----
-### Preliminary Results on Streaming Lifelong Learning
-<img src="images/stream_synf.png" width="80%">
-
----
-### Deep Networks are the worst model of the mind
-
-<img src=
-  "images/nn_rf_jong.gif"
-    alt="jong"
-    width = "1400"
-    height= "460">
----
-### Kernel Density Polytope generates well calibrated posteriors
-![:scale 45%](images/simulations_kdp.png)
-<br>
 ---
 
 ### 
@@ -210,6 +185,34 @@ A lifelong learning agent should improve on
 ### 
 
 <img src="images/S3.png" width="100%">
+
+
+---
+
+.small[
+### Publications
+
+
+1. A. Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
+1. J. T. Vogelstein et al. [Representation Ensembling for Synergistic Lifelong Learning with Quasilinear Complexity](https://arxiv.org/abs/2004.12908), arXiv, 2022.
+1. H. Xu et al. [Simplest Streaming Trees](https://arxiv.org/abs/2110.08483), arXiv, 2022.
+1. J. Dey et al. [Out-of-distribution and in-distribution posterior calibration using Kernel Density Polytopes](https://arxiv.org/abs/2201.13001), arXiv, 2022.
+1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), 2020.
+1. R. Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
+1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
+1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019.
+1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
+1. M. Madhya, et al. [PACSET (Packed Serialized Trees): Reducing Inference Latency for Tree Ensemble Deployment](https://arxiv.org/abs/2011.05383). arXiv, 2020.
+
+
+### Conferences
+1. J. T. Vogelstein et al. A biological implementation of lifelong learning in the pursuit of artificial general intelligence.  NAISys, 2020.
+2. B. Pedigo et al.  A quantitative comparison of a complete connectome to artificial intelligence architectures. NAISys, 2020.
+3. L. Haoran, et al. [Lifelong Learning with Sketched Structural Regularization](https://arxiv.org/abs/2104.08604). ACML, 2021.
+
+]
+
+
 
 ---
 ### Acknowledgements
@@ -530,31 +533,6 @@ background-image: url(images/l_and_v.jpeg)
 ---
 class: middle
 # .center[Appendix]
-
----
-
-.small[
-### Publications
-
-
-1. A. Geisa et al. [Towards a theory of out-of-distribution learning](https://arxiv.org/abs/2109.14501), arXiv, 2021.
-1. J. T. Vogelstein et al. [Representation Ensembling for Synergistic Lifelong Learning with Quasilinear Complexity](https://arxiv.org/abs/2004.12908), arXiv, 2022.
-1. H. Xu et al. [Simplest Streaming Trees](https://arxiv.org/abs/2110.08483), arXiv, 2022.
-1. J. Dey et al. [Out-of-distribution and in-distribution posterior calibration using Kernel Density Polytopes](https://arxiv.org/abs/2201.13001), arXiv, 2022.
-1. C. E. Priebe et al. [Modern Machine Learning: Partition and Vote](https://doi.org/10.1101/2020.04.29.068460), 2020.
-1. R. Guo, et al. [Estimating Information-Theoretic Quantities with Uncertainty Forests](https://arxiv.org/abs/1907.00325). arXiv, 2019.
-1. R. Perry, et al. [Manifold Forests: Closing the Gap on Neural Networks](https://openreview.net/forum?id=B1xewR4KvH). arXiv, 2019.
-1. C. Shen and J. T. Vogelstein. [Decision Forests Induce Characteristic Kernels](https://arxiv.org/abs/1812.00029). arXiv, 2019.
-1. M. Madhya, et al. [Geodesic Learning via Unsupervised Decision Forests](https://arxiv.org/abs/1907.02844). arXiv, 2019.
-1. M. Madhya, et al. [PACSET (Packed Serialized Trees): Reducing Inference Latency for Tree Ensemble Deployment](https://arxiv.org/abs/2011.05383). arXiv, 2020.
-
-
-### Conferences
-1. J. T. Vogelstein et al. A biological implementation of lifelong learning in the pursuit of artificial general intelligence.  NAISys, 2020.
-2. B. Pedigo et al.  A quantitative comparison of a complete connectome to artificial intelligence architectures. NAISys, 2020.
-3. L. Haoran, et al. [Lifelong Learning with Sketched Structural Regularization](https://arxiv.org/abs/2104.08604). ACML, 2021.
-
-]
 
 
 ---

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DRN Sert Connectivity</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column2 {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        .column3 {
+        float: left;
+        width: 31%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class:inverse 
+
+### Connectivity Subtypes of Serotonergic Neurons in Dorsal Raphe Nucleus
+    
+Thomas L. Athey 
+
+
+<br><br>
+
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;"/>
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+<br> 
+
+.foot[w: <http://neurodata.io/talks/??.html>]
+
+
+---
+class:inverse 
+
+### Wright Lab @ Weil Cornell
+
+
+<div class="small-container">
+    <img src="../../faces/matt_wright.jpeg"/>
+    <div class="centered">Matt Wright</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/marija_pavlovic.jpeg"/>
+    <div class="centered">Marija Pavlovic</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/therese_larson.jpeg"/>
+    <div class="centered">Therese Larson</div>
+</div>
+
+<br>
+<br>
+
+### Neurodata @ JHU
+
+<div class="small-container">
+    <img src="../../faces/vikram.jpg"/>
+    <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+---
+class:inverse 
+
+### Outputs (Axon Projections)
+
+- Resolution: $1.83 \mu m \times 1.83 \mu m \times 2 \mu m$ 
+
+<img src="images/output.png" STYLE="width:75%;" class="center"/>
+
+
+
+---
+class:inverse 
+
+### Image Segmentation Problem
+
+<b>Image Domain</b>
+
+$$Y=\lbrace y_i \rbrace, Y \subset \mathbb{Z}^3$$
+
+<b>Image</b>
+
+$$I \in \mathcal{I}_c(Y): Y \rightarrow \mathbb{R}^c $$
+
+$c=3$: Antibody, Endogeneous, Background.
+
+<b>Problem</b>
+
+$$\mathcal{I}_3(Y) \rightarrow P(Y)$$
+
+where $P(Y) = \lbrace p: Y \rightarrow [0,1]\rbrace$
+
+---
+class:inverse 
+
+### Image Segmentation Approach
+
+<b>Image Features</b>: intensity, difference of Gaussian, eigenvalues of Hessian 
+
+$$\phi : \; \mathcal{I}_3(Y) \rightarrow \mathcal{I}_d(Y) $$
+
+- <a href="https://mathworld.wolfram.com/Shift-InvariantOperator.html">Shift Invariant </a>
+- <a href="https://en.wikipedia.org/wiki/Nonlocal_operator"> Local Operator</a>
+
+<b>Posterior Estimate</b>: random forest
+
+$$\hat{p}: \; \mathbb{R}^d \rightarrow [0,1]$$
+
+<b>Complete Transformation</b>
+
+$$(\hat{p} \circ \phi(I))(\cdot) : \; Y \rightarrow [0,1]$$
+
+
+
+---
+class:inverse 
+
+### Training and Validation Datasets
+
+Sparse annotations of subvolumes  (Friedmann et. al., 2020).
+<img src="images/ilastik.png" STYLE="float:right;width:300px;" class="center"/>
+- 100x100x100 voxels per subvolume
+
+- Partial annotations on 3 slices
+
+
+| Sample ID  | # Training Subvolumes | # Validation Subvolumes 
+|:---     |:---       |:--- |
+| 3       |  32  |  21
+| 4       |  5  |  10   
+
+
+---
+class:inverse 
+### Validation Performance
+
+<div class="row">
+    <div class="column2">
+    <img src="images/brain3.jpg" alt="Snow" style="width:100%">
+    </div>
+    <div class="column2">
+    <img src="images/brain4.jpg" alt="Forest" style="width:100%">
+    </div>
+</div>
+
+<a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=c2BcwGAmR-KuAg">Full Results Example</a>
+
+---
+class:inverse 
+### Comparison to <a href="https://connectivity.brain-map.org/projection/experiment/480074702?imageId=480075280&initImage=TWO_PHOTON&x=17028&y=11704&z=3">Allen Experiment</a>
+
+<img src="images/comparison.jpg" STYLE="width:100%;" class="center"/>
+
+
+---
+class:inverse 
+### Analysis
+
+<img src="images/output_data.jpg" STYLE="height:100%;" class="center"/>
+
+---
+class:inverse 
+
+### Inputs (Retrograde Cell Bodies)
+
+- Resolution: $1.83 \mu m \times 1.83 \mu m \times 2 \mu m$ 
+
+<img src="images/input.png" STYLE="width:75%;" class="center"/>
+
+---
+class:inverse 
+
+### Object Detection
+
+<b>Posterior Estimate</b>:
+
+$$(\hat{p} \circ \phi(I))(\cdot) : \; Y \rightarrow [0,1]$$
+
+<b>Connected Components</b>
+
+Collect components greater than a given size. 
+<img src="images/cc.png" STYLE="width:95%;" class="center"/>
+
+---
+class:inverse 
+
+### Training and Validation Datasets
+
+Sparse annotations of subvolumes  (Friedmann et. al., 2020).
+<img src="images/ilastik_soma.png" STYLE="float:right;width:300px;" class="center"/>
+- 48x48x48 voxels per subvolume
+
+- Partial annotations on 3 slices
+
+
+| Sample ID  | # Training Subvolumes | # Validation Subvolumes 
+|:---     |:---       |:--- |
+| 8557       |  59  |  21
+| 8555       |  10  |  10  
+| 8555       |  10  |  10  
+
+---
+class:inverse 
+### Validation Performance
+
+<div class="row">
+    <div class="column3">
+    <img src="images/brain8557.png" alt="Snow" style="width:100%">
+    </div>
+    <div class="column3">
+    <img src="images/brain8555.png" alt="Forest" style="width:100%">
+    </div>
+    <div class="column3">
+    <img src="images/brain8607.png" alt="Forest" style="width:100%">
+    </div>
+</div>
+<a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=tJTgPO4uXJ4puQ">Full Results Example</a>
+
+---
+class:inverse 
+### Analysis
+
+<img src="images/soma_raw.jpg" STYLE="height:100%;" class="center"/>
+
+---
+class:inverse 
+### Class Differences
+
+<img src="images/soma_diff.jpg" STYLE="height:100%;" class="center"/>
+
+---
+class:inverse 
+### Relative Differences
+
+<img src="images/soma_reldiff.jpg" STYLE="height:100%;" class="center"/>
+
+---
+class:inverse 
+### Brain Space Slice 1
+
+<img src="images/somas1.png" STYLE="height:100%;" class="center"/>
+
+---
+class:inverse 
+### Brain Space Slice 2
+
+<img src="images/somas2.png" STYLE="height:100%;" class="center"/>
+
+---
+class:inverse 
+### Brain Space Slice 3
+
+<img src="images/somas3.png" STYLE="height:100%;" class="center"/>
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

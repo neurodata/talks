@@ -9,15 +9,9 @@
     <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
     <style>
         /* Three image containers (use 25% for four, and 50% for two, etc) */
-        .column2 {
+        .column {
         float: left;
         width: 48%;
-        padding: 5px;
-        }
-
-        .column3 {
-        float: left;
-        width: 31%;
         padding: 5px;
         }
 
@@ -94,45 +88,23 @@ class:inverse
 ---
 class:inverse 
 
-### Image Segmentation Problem
+### Image Segmentaton
 
 <b>Image Domain</b>
 
 $$Y=\lbrace y_i \rbrace, Y \subset \mathbb{Z}^3$$
 
-<b>Image</b>
+<b>Image</b>: antibody fluorescence, endogeneous fluorescence, background
 
-$$I \in \mathcal{I}_c(Y): Y \rightarrow \mathbb{R}^c $$
+$$I = \lbrace I_{y_i}, y_i \in Y  \rbrace$$
 
-$c=3$: Antibody, Endogeneous, Background.
+<b>Local Image Features</b>: intensity, difference of Gaussian, eigenvalues of Hessian 
 
-<b>Problem</b>
-
-$$\mathcal{I}_3(Y) \rightarrow P(Y)$$
-
-where $P(Y) = \lbrace p: Y \rightarrow [0,1]\rbrace$
-
----
-class:inverse 
-
-### Image Segmentation Approach
-
-<b>Image Features</b>: intensity, difference of Gaussian, eigenvalues of Hessian 
-
-$$\phi : \; \mathcal{I}_3(Y) \rightarrow \mathcal{I}_d(Y) $$
-
-- <a href="https://mathworld.wolfram.com/Shift-InvariantOperator.html">Shift Invariant </a>
-- <a href="https://en.wikipedia.org/wiki/Nonlocal_operator"> Local Operator</a>
+$$\phi_I : Y \rightarrow \Phi \subset \mathbb{R}^d$$
 
 <b>Posterior Estimate</b>: random forest
 
-$$\hat{p}: \; \mathbb{R}^d \rightarrow [0,1]$$
-
-<b>Complete Transformation</b>
-
-$$(\hat{p} \circ \phi(I))(\cdot) : \; Y \rightarrow [0,1]$$
-
-
+$$\hat{p}: \Phi \rightarrow [0,1]$$
 
 ---
 class:inverse 
@@ -146,7 +118,7 @@ Sparse annotations of subvolumes  (Friedmann et. al., 2020).
 - Partial annotations on 3 slices
 
 
-| Sample ID  | # Training Subvolumes | # Validation Subvolumes 
+| Sample  | # Training Subvolumes | # Validation Subvolumes 
 |:---     |:---       |:--- |
 | 3       |  32  |  21
 | 4       |  5  |  10   
@@ -157,10 +129,10 @@ class:inverse
 ### Validation Performance
 
 <div class="row">
-    <div class="column2">
+    <div class="column">
     <img src="images/brain3.jpg" alt="Snow" style="width:100%">
     </div>
-    <div class="column2">
+    <div class="column">
     <img src="images/brain4.jpg" alt="Forest" style="width:100%">
     </div>
 </div>
@@ -178,101 +150,13 @@ class:inverse
 class:inverse 
 ### Analysis
 
-<img src="images/output_data.jpg" STYLE="height:100%;" class="center"/>
-
----
-class:inverse 
-
-### Inputs (Retrograde Cell Bodies)
-
-- Resolution: $1.83 \mu m \times 1.83 \mu m \times 2 \mu m$ 
-
-<img src="images/input.png" STYLE="width:75%;" class="center"/>
-
----
-class:inverse 
-
-### Object Detection
-
-<b>Posterior Estimate</b>:
-
-$$(\hat{p} \circ \phi(I))(\cdot) : \; Y \rightarrow [0,1]$$
-
-<b>Connected Components</b>
-
-Collect components greater than a given size. 
-<img src="images/cc.png" STYLE="width:95%;" class="center"/>
-
----
-class:inverse 
-
-### Training and Validation Datasets
-
-Sparse annotations of subvolumes  (Friedmann et. al., 2020).
-<img src="images/ilastik_soma.png" STYLE="float:right;width:300px;" class="center"/>
-- 48x48x48 voxels per subvolume
-
-- Partial annotations on 3 slices
+<img src="images/output_data.jpg" STYLE="width:100%;" class="center"/>
 
 
-| Sample ID  | # Training Subvolumes | # Validation Subvolumes 
-|:---     |:---       |:--- |
-| 8557       |  59  |  21
-| 8555       |  10  |  10  
-| 8555       |  10  |  10  
 
----
-class:inverse 
-### Validation Performance
 
-<div class="row">
-    <div class="column3">
-    <img src="images/brain8557.png" alt="Snow" style="width:100%">
-    </div>
-    <div class="column3">
-    <img src="images/brain8555.png" alt="Forest" style="width:100%">
-    </div>
-    <div class="column3">
-    <img src="images/brain8607.png" alt="Forest" style="width:100%">
-    </div>
-</div>
-<a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=tJTgPO4uXJ4puQ">Full Results Example</a>
 
----
-class:inverse 
-### Analysis
 
-<img src="images/soma_raw.jpg" STYLE="height:100%;" class="center"/>
-
----
-class:inverse 
-### Class Differences
-
-<img src="images/soma_diff.jpg" STYLE="height:100%;" class="center"/>
-
----
-class:inverse 
-### Relative Differences
-
-<img src="images/soma_reldiff.jpg" STYLE="height:100%;" class="center"/>
-
----
-class:inverse 
-### Brain Space Slice 1
-
-<img src="images/somas1.png" STYLE="height:100%;" class="center"/>
-
----
-class:inverse 
-### Brain Space Slice 2
-
-<img src="images/somas2.png" STYLE="height:100%;" class="center"/>
-
----
-class:inverse 
-### Brain Space Slice 3
-
-<img src="images/somas3.png" STYLE="height:100%;" class="center"/>
 
 
 </textarea>

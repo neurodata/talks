@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shape Group</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class:inverse 
+
+### Shape Analysis Group Meeting
+    
+Thomas L. Athey 
+
+April 24, 2022
+
+
+<br><br>
+
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;"/>
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+<br> 
+
+
+
+---
+class:inverse 
+
+### Accessible technologies for high-throughput, whole-brain reconstructions of molecularly characterized mammalian neurons
+
+<br>
+
+<div class="small-container">
+    <img src="../../faces/mim.jpg"/>
+    <div class="centered">Michael Miller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/jovo.png"/>
+    <div class="centered">Joshua Vogelstein</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/uli.jpg"/>
+    <div class="centered">Ulrich Mueller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/dtward.jpg"/>
+    <div class="centered">Daniel Tward</div>
+</div>
+
+---
+class:inverse 
+
+### Goal
+
+
+<img src="images/biccn.png" STYLE="width:100%;" class="center"/>
+
+
+---
+class:inverse 
+
+### Data
+
+
+
+<img src="images/data.png" STYLE="width:100%;" class="center"/>
+
+---
+class:inverse 
+
+### Image Registration
+
+$$
+\min_{v:\dot \phi_t = v_v(\phi_t)} \left( \int_0^1 ||v_t||_V^2 dt + ||I_0 \circ \phi^{-1} - I_1||^2 \right)
+$$
+
+<font size="-1">Beg, Miller, Trouve, Younes, 2005. </font>
+
+$I_1$: previous slide 
+
+$I_0$: Allen Reference Atlas 
+
+
+
+<div class="row">
+    <div class="column">
+        <img src="images/atlas_im.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column">
+        <img src="images/atlas_parc.png" STYLE="width:100%;" class="center"/>
+    </div>
+</div>
+
+
+
+---
+class:inverse 
+
+### Neuron Reconstruction
+
+
+<img src="images/axons.png" STYLE="width:100%;" class="center"/>
+
+---
+class:inverse 
+
+### All
+
+
+<img src="images/BOTH copy.jpg" STYLE="width:100%;" class="center"/>
+
+---
+class:inverse 
+
+### Task 1) Neuron Mapping
+
+
+$$
+c: [0,L] \rightarrow \mathbb{R}^3
+$$
+
+
+$$
+\phi: \mathbb{R}^3 \rightarrow \mathbb{R}^3
+$$
+
+My goal, numerical algorithms for: 
+
+$$\phi \circ c: [0,L] \rightarrow \mathbb{R}^3$$
+
+<img src="images/comp2.jpg" STYLE="width:50%;" class="center"/>
+
+---
+class:inverse 
+
+### Task 2) Comparing Morphology (Neuro)
+
+
+<div class="row">
+    <div class="column">
+        *
+        <img src="images/winnubst2.png" alt="Snow" style="width:100%">
+        <img src="images/wiinnubst2a.png" alt="Snow" style="width:100%">
+        **
+        <img src="images/nature1.png" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+        *
+        <img src="images/winnubst1.png" alt="Snow" style="width:100%">
+        **
+        <img src="images/nature2.png" alt="Snow" style="width:100%">
+
+        <font size="-1">* Winnubst et. al., 2019, <i>Cell</i>. ** BICCN, 2021, <i>Nature</i>. </font>
+    </div>
+</div>
+
+---
+class:inverse 
+
+### Task 2) Comparing Morphology (Shape Analysis)
+
+<br>
+<div class="row">
+    <div class="column">
+        <img src="images/eqdesc.png" alt="Snow" style="width:100%">
+        <img src="images/eq1.png" alt="Snow" style="width:100%">
+        <img src="images/eq2.png" alt="Snow" style="width:100%">
+        <img src="images/eq3.png" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+        <img src="images/geodesic.png" alt="Snow" style="width:100%">
+        <font size="-1">Guo, Srivastava, 2020, <i>CVPR</i>. </font>
+    </div>
+</div>
+
+<!-- intrinsic first order? -->
+
+---
+class:inverse 
+
+### Task 2) Comments
+
+- Neurons have three important subgraphs: soma, dendrites, axons
+- Position in brain in coordinates matters
+- No second order metrics (I think)
+
+<div class="row">
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+</div>
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

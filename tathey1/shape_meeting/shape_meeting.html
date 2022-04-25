@@ -89,6 +89,20 @@ class:inverse
 
 <img src="images/data.png" STYLE="width:100%;" class="center"/>
 
+---
+class:inverse 
+
+### Image Registration
+
+$$
+\min_{v:\dot \phi_t = v_v(\phi_t)} \left( \int_0^1 ||v_t||_V^2 dt + ||I_0 \circ \phi^{-1} - I_1||^2 \right)
+$$
+
+$I_1$: previous slide 
+
+$I_0$: Allen Reference Atlas 
+
+<img src="images/allen.png" STYLE="width:100%;" class="center"/>
 
 ---
 class:inverse 
@@ -101,32 +115,92 @@ class:inverse
 ---
 class:inverse 
 
-### Image Registration
-
-
-
----
-class:inverse 
-
 ### All
 
 
----
-class:inverse 
-
-### Neuron Mapping
-
-
+<img src="images/BOTH copy.jpg" STYLE="width:100%;" class="center"/>
 
 ---
 class:inverse 
 
-### Comparing Morphology
+### Task 1) Neuron Mapping
 
 
+$$
+c: [0,L] \rightarrow \mathbb{R}^3
+$$
 
 
+$$
+\phi: \mathbb{R}^3 \rightarrow \mathbb{R}^3
+$$
 
+My goal, numerical algorithms for: 
+
+$$\phi \circ c: [0,L] \rightarrow \mathbb{R}^3$$
+
+<img src="images/comp2.jpg" STYLE="width:50%;" class="center"/>
+
+---
+class:inverse 
+
+### Task 2) Comparing Morphology (Neuro)
+
+
+<div class="row">
+    <div class="column">
+        *
+        <img src="images/winnubst2.png" alt="Snow" style="width:100%">
+        <img src="images/wiinnubst2a.png" alt="Snow" style="width:100%">
+        **
+        <img src="images/nature1.png" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+        *
+        <img src="images/winnubst1.png" alt="Snow" style="width:100%">
+        **
+        <img src="images/nature2.png" alt="Snow" style="width:100%">
+
+        <font size="-1">* Winnubst et. al., 2019, <i>Cell</i>. ** BICCN, 2021, <i>Nature</i>. </font>
+    </div>
+</div>
+
+---
+class:inverse 
+
+### Task 2) Comparing Morphology (Shape Analysis)
+
+<br>
+<div class="row">
+    <div class="column">
+        <img src="images/eqdesc.png" alt="Snow" style="width:100%">
+        <img src="images/eq1.png" alt="Snow" style="width:100%">
+        <img src="images/eq2.png" alt="Snow" style="width:100%">
+        <img src="images/eq3.png" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+        <img src="images/geodesic.png" alt="Snow" style="width:100%">
+        <font size="-1">Guo, Srivastava, 2020, <i>CVPR</i>. </font>
+    </div>
+</div>
+
+<!-- intrinsic first order? -->
+
+---
+class:inverse 
+
+### Task 2) Comments
+
+- Neurons have three important subgraphs: soma, dendrites, axons
+- Position in brain in coordinates matters
+- No second order metrics (I think)
+
+<div class="row">
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+</div>
 
 
 </textarea>

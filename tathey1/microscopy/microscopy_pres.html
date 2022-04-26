@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Athey Microscopy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column2 {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        .column3 {
+        float: left;
+        width: 31%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class:inverse 
+
+### Modern Optical Microscopy: Theory and Practice
+### Final Presentation
+    
+Thomas L. Athey 
+
+April 28, 2022
+
+
+<br><br>
+
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;"/>
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+<br> 
+
+
+---
+class:inverse 
+
+### Two Photon Excitation Theory
+
+<div class="row">
+    <div class="column2">
+        <img src="images/mayer.jpg" alt="Snow" style="width:45%">
+    </div>
+    <div class="column2">
+        “It appears that a nonzero probability exists that ... two photons whose frequency-sum equals the excitation frequency of the atom co-act to excite the atom.”
+
+        <br>
+        Maria G&#246;ppert-Mayer, 1930 Dissertation.
+    </div>
+</div>
+
+
+<img src="images/2p.png" STYLE="width:75%;" class="center"/>
+
+
+<!-- Maria Goeppert Mayer doctoral thesis in germany on two photon absorptioon - "assistant" at JHU due to anti-nepotism, unpaid at Columbia -->
+
+
+<footer, style="font-size: 12px">
+    https://www.photometrics.com/learn/physics-and-biophysics/two-photon
+</footer>
+---
+class:inverse 
+
+### Practical Benefits of Two Photon Excitation
+
+<div class="row">
+    <div class="column2">
+        <img src="images/scanner.png" alt="Snow" style="width:75%">
+    </div>
+    <div class="column2">
+        <img src="images/photobleach.png" alt="Snow" style="width:68%">
+    </div>
+</div>
+- Optical Sectioning
+<br>
+- Less photobleaching
+<br>
+- Penetration Depth
+
+
+
+<footer, style="font-size: 12px">
+    Denk et. al., 1990, <i>Science</i>; Papagiakoumou et. al., 2020, <i>Nature Methods</i>.
+</footer>
+---
+class:inverse 
+
+### Serial Two Photon Tomography
+
+<img src="images/STP.png" STYLE="width:100%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Osten et. al., 2012, <i>Nature Methods</i>.
+</footer>
+
+---
+class:inverse 
+
+### STP for Neuron Tracing
+
+<img src="images/data.png" STYLE="width:75%;" class="center"/>
+<font size="-1">$$\downarrow$$ </font>
+<img src="images/axons.png" STYLE="width:75%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Winnubst et. al., 2019, <i>Cell</i>.
+</footer>
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

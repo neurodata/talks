@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Thesis Proposal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column2 {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        .column3 {
+        float: left;
+        width: 31%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+### The Frenet Frame of Neuronal Processes
+####  Tools for Reconstruction and Analysis 
+    
+Thomas L. Athey
+
+Thesis Proposal
+
+May 6, 2022
+
+<br> 
+
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;" />
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+
+---
+### What we've done 
+
+- Fit splines to neuron traces and study curvature/torsion across axonal arbors.<sup>1</sup>
+- Develop method to string together neuron fragments and validate on partial axons from MouseLight data.<sup>2</sup>
+
+### What I propose we do
+
+- 
+
+
+<footer, style="font-size: 12px">
+    (1) Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
+    <br>
+    (2) Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i> Commun Biol </i>.
+</footer>
+---
+
+### Aim 1: Develop a semi-automatic neuron reconstruction algorithm that incorporates curvature and torsion priors
+
+Viterbrain overview
+---
+
+### Sub-Aim 1a: Scale the algorithm to sub-micron resolution, whole-brain images
+
+
+---
+
+### Sub-Aim 1b: Sub-Aim 1b. Apply method to reconstruct Layer 2/3 cortical neurons to investigate the effects of Drebrin and Yap on neuron morphology
+---
+
+### Aim 2: Develop method to compose diffeomorphisms derived from image registration with 3D neuronal curves
+
+---
+
+### Sub-Aim 2a. Characterize the effect of discrete sampling on mapped morphologies
+
+
+---
+
+### Sub-Aim 2b. Compute the effects of diffeomorphic image registrations on the Frenet frame of neuronal curves
+
+---
+
+### Acknowledgements
+
+<div class="row">
+    <div class="column2">
+        <img src="../../images/neurodata_blue.png" STYLE="width:50%;" class="left"/>
+    </div>
+    <div class="column2">
+        <img src="../../images/cis.png" STYLE="width:50%;" class="right"/>
+    </div>
+</div>
+
+
+
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

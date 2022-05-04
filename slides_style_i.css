@@ -28,6 +28,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #FFFFFF; /* main font color */
   background-repeat: no-repeat;
   background-size: cover;
+  /* background-size: contain; */
+  background-position: center;
 }
 
 hi {
@@ -290,13 +292,6 @@ th {
   opacity: 0; /* default: 0.5 */
 }
 
-.remark-slide-content {
-  width: 1em;
-  height: 1em;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 /*code.has-jax {
   font: inherit;
   font-size: 100%;

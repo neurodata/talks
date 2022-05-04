@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Athey Microscopy</title>
+    <title>Thesis Proposal</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
     <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
@@ -35,96 +35,79 @@
 
 
 
-### Serial Two Photon Tomography
-##### Modern Optical Microscopy: Theory and Practice - Final Presentation
+### The Frenet Frame of Neuronal Processes
+####  Tools for Reconstruction and Analysis 
     
-Thomas L. Athey 
+Thomas L. Athey
 
-April 28, 2022
+Thesis Proposal
 
-
-<br>
-
-<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;"/>
-<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+May 6, 2022
 
 <br> 
 
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;" />
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+
+---
+### What we've done 
+
+- Fit splines to neuron traces and study curvature/torsion across axonal arbors.<sup>1</sup>
+- Develop method to string together neuron fragments and validate on partial axons from MouseLight data.<sup>2</sup>
+
+### What I propose we do
+
+- 
+
+
+<footer, style="font-size: 12px">
+    (1) Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
+    <br>
+    (2) Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i> Commun Biol </i>.
+</footer>
+---
+
+### Aim 1: Develop a semi-automatic neuron reconstruction algorithm that incorporates curvature and torsion priors
+
+Viterbrain overview
+---
+
+### Sub-Aim 1a: Scale the algorithm to sub-micron resolution, whole-brain images
+
 
 ---
 
+### Sub-Aim 1b: Sub-Aim 1b. Apply method to reconstruct Layer 2/3 cortical neurons to investigate the effects of Drebrin and Yap on neuron morphology
+---
 
-### Two Photon Excitation Theory
+### Aim 2: Develop method to compose diffeomorphisms derived from image registration with 3D neuronal curves
+
+---
+
+### Sub-Aim 2a. Characterize the effect of discrete sampling on mapped morphologies
+
+
+---
+
+### Sub-Aim 2b. Compute the effects of diffeomorphic image registrations on the Frenet frame of neuronal curves
+
+---
+
+### Acknowledgements
 
 <div class="row">
     <div class="column2">
-        <img src="images/mayer.jpg" alt="Snow" style="width:45%">
+        <img src="../../images/neurodata_blue.png" STYLE="width:50%;" class="left"/>
     </div>
     <div class="column2">
-        “It appears that a nonzero probability exists that ... two photons whose frequency-sum equals the excitation frequency of the atom co-act to excite the atom.”
-
-        <br>
-        Maria G&#246;ppert-Mayer, 1930 Dissertation.
+        <img src="../../images/cis.png" STYLE="width:50%;" class="right"/>
     </div>
 </div>
 
 
-<img src="images/2p.png" STYLE="width:75%;" class="center"/>
 
 
-<!-- Maria Goeppert Mayer doctoral thesis in germany on two photon absorptioon - "assistant" at JHU due to anti-nepotism, unpaid at Columbia -->
-
-
-<footer, style="font-size: 12px">
-    https://www.photometrics.com/learn/physics-and-biophysics/two-photon
-</footer>
-
-
-
----
-
-### Practical Benefits of Two Photon Excitation
-
-<div class="row">
-    <div class="column2">
-        <img src="images/scanner.png" alt="Snow" style="width:75%">
-    </div>
-    <div class="column2">
-        <img src="images/photobleach.png" alt="Snow" style="width:68%">
-    </div>
-</div>
-
-- Optical Sectioning
-<br>
-- Less photobleaching
-<br>
-- Penetration Depth
-
-<footer, style="font-size: 12px">
-    Denk et. al., 1990, <i>Science</i>; Papagiakoumou et. al., 2020, <i>Nature Methods</i>.
-</footer>
-
----
-
-### Serial Two Photon Tomography
-
-<img src="images/STP2.png" STYLE="width:90%;" class="center"/>
-
-<footer, style="font-size: 12px">
-    Ragan et. al., 2012, <i>Nature Methods</i>.
-</footer>
-
----
-
-### STP for Neuron Tracing
-
-<img src="images/data.png" STYLE="width:75%;" class="center"/>
-<font size="-1">$$\downarrow$$ </font>
-<img src="images/axons.png" STYLE="width:75%;" class="center"/>
-
-<footer, style="font-size: 12px">
-    Winnubst et. al., 2019, <i>Cell</i>. <a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=8-5GRP20jgKZAQ">link</a>
-</footer>
 
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->

@@ -110,10 +110,12 @@ May 6, 2022
 
 ### ViterBrain Overview cont.
 
-<img src="images/fig2_algorithm2.jpg" STYLE="width:100%;" />
+<img src="images/fig2_algorithm2.png" STYLE="width:100%;" />
 
 ---
-new prior
+### Improve Prior Distribution
+<img src="images/priors.png" STYLE="width:100%;" />
+<img src="images/dist2.png" STYLE="width:75%;" class="center"/>
 
 ---
 
@@ -121,7 +123,11 @@ new prior
 
 
 ---
-whole brain pic
+### Current Scale
+
+- 0.35 x 0.35 x 100 cubic microns
+
+<img src="images/panels.png" STYLE="width:100%;" />
 ---
 
 ## Sub-Aim 1b: Apply method to reconstruct Layer 2/3 cortical neurons to investigate the effects of Drebrin and Yap on neuron morphology
@@ -183,7 +189,7 @@ $$
 <img src="images/all_annot.jpg" STYLE="width:100%;" />
 
 ---
-### Neuron Mapping 
+### Mapping Neurons to Atlas Space 
 
 
 $$
@@ -221,8 +227,6 @@ $$c_\phi = \phi \circ c: [0,L] \rightarrow \mathbb{R}^3$$
     (2) Winnubst et al. (2019) Reconstruction of 1,000 Projection Neurons Reveals New Cell Types and Organization of Long-Range Connectivity in the Mouse Brain. <i>Cell</i>.
 </footer>
 
----
-Nyquist sampling
 
 ---
 
@@ -254,15 +258,34 @@ Nyquist sampling
 
 ## Sub-Aim 2b. Compute the effects of diffeomorphic image registrations on the Frenet frame of neuronal curves
 ---
-### Derivatives of $c_\phi$
+### B-Splines 
 
-$c_\phi : [0,L] \rightarrow \mathbb{R}^3$
+- Defined by a degree $p$ and a non-decreasing knot sequence $\lbrace \xi_i \rbrace_1^{n+p+1}$.
+- Span spaces of piecewise polynomials.<sup>1</sup>
+- Good local approximators for Sobolev functions.<sup>1</sup>
+- Fast algorithms that minimize derivative discontinuities with for a given interpolation error. <sup>2</sup>
 
-$c_F'(t)=(F \circ c)'(t) = DF(c(t))\cdot c'(t)$
+Question: For $\phi$ derived from LDDMM, does $c \in \mathbb{S}^\xi_p$ imply $\phi \circ c \in \mathbb{S}^{\omicron}_q$? 
 
-$c_F''(t) = D^2F(t)\cdot c'(t) + DF(c(t))\cdot c''(t)$*
+- If so (or if not?): transform knot coordinates, and their derivatives 
 
-$c_F'''(t)=D^3F(t)\cdot c'(t) + 2 D^2F(t)\cdot c''(t) + DF(c(t))\cdot c'''(t)$*
+<footer, style="font-size: 12px">
+    (1) Kunoth et. al. (2017) Splines and PDEs: From Approximation Theory to Numerical Linear Algebra. <i> Springer </i> 
+    <br>
+    (2) Dierckx (1982) Algorithms for smoothing data with periodic and parametric splines. <i> Comp. Graph. and Im. Proc. </i>
+</footer>
+
+---
+
+### Derivatives of $\phi \circ c$
+
+$c_\phi=\phi \circ c : [0,L] \rightarrow \mathbb{R}^3$
+
+$c_\phi'(t)=(F \circ c)'(t) = DF(c(t))\cdot c'(t)$
+
+$c_\phi''(t) = D^2F(t)\cdot c'(t) + DF(c(t))\cdot c''(t)$*
+
+$c_\phi'''(t)=D^3F(t)\cdot c'(t) + 2 D^2F(t)\cdot c''(t) + DF(c(t))\cdot c'''(t)$*
 
 Implement numerically and validate on real neurons.
 
@@ -270,10 +293,7 @@ Implement numerically and validate on real neurons.
     * $D^2 F$ and $D^3 F$ defined in Supplement
 </footer>
 
----
-Spline representation descriptoion and benefits 
-Transformation of spline is not spline 
-How to do it
+
 ---
 ### FIRM Software Standards
 

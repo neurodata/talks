@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Heritability</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="fonts/quadon/quadon.css">
+  <link rel="stylesheet" href="fonts/gentona/gentona.css">
+  <link rel="stylesheet" href="slides_style_i.css">
+  <script type="text/javascript" src="assets/plotly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <textarea id="source">
+
+
+
+### Heritablity of Human Structural Connectomes
+
+
+![:scale 40%](images/neurodata_blue.png)
+
+Jaewon Chung
+
+---
+
+### What is Heritability?
+
+- .ye[Heritability]: phenotypic variations due to genetic variations
+- understand effects of genes (+environment) on brain circuitry
+- understand neurologic diseases
+
+Question: Are the connectivity patterns in human brains heritable?
+
+---
+### What is a graph?
+(aka networks or connectomes)
+
+- Vertex = a region of interest
+- Edges = connectivity measure between a pair of vertices
+- Diffusion MRI = # of estimated neuronal fibers
+
+![:scale 75%](images/herit/graph.png)
+
+---
+### What data will we be using?
+
+- Human Connectome Project dataset
+- Identical twins (monozygotic), fraternal twins (dizygotic), siblings
+  - $N\approx 1200$ individuals recruited
+- Most have diffusion and functional MRI
+
+---
+### Overview
+
+<center>![:scale 110%](images/herit/outline.png)
+</center>
+
+---
+### Hypothesis testing: distance correlation (DCorr)
+- Tests whether $X$ and $Y$ are independent.
+- Key idea: measures correlation between distance matrices $D^X$ and $D^Y$
+  - $D_{ij}^X = \delta_X(x_i, x_j), D_ij^Y = \delta_Y(y_i, y_j)$
+
+<br><br>
+Are differences in pairs of connectomes indepedent of genetics?
+- Need to compute $D^X$ and $D^Y$
+
+---
+### Distance between graphs: Step 1
+- Compute adj. spectral embedding (ASE) on graphs $G, H$
+  - Embeddings = latent positions
+  - ASE$(G) = \hat{X}$, ASE$(H) = \hat{Y}$
+    - $\hat{X}, \hat{Y}\in\mathbb{R}^{N\times d}$
+
+<center>
+![:scale 80%](images/herit/ase.png)
+</center>
+
+---
+### Distance between graphs: Step 2
+- Distance = Frobenius norm of difference in latent positions
+  - $\delta_X(G, H) = ||\hat{X}R - \hat{Y}||_F$
+
+<center>![:scale 80%](images/herit/compute_distance.png)</center>
+
+High distance: pair of graphs are less similar (or more dissimilar)
+
+---
+### What is genetic distance?
+- Encode via labels
+  - $\delta_Y(y_i, y_j) = 0$ if monozygotic (or self)
+  - $\delta_Y(y_i, y_j) = 1$ if dizygotic/sibling
+  - $\delta_Y(y_i, y_j) = 2$ if unrelated
+
+<center>![:scale 35%](images/herit/genetic_distance.png)</center>
+
+
+---
+
+### Are the connectome and genetics distances independent?
+
+
+<center>![:scale 110%](images/herit/pvalues.png)</center>
+
+--
+
+<br><br>
+<center>No</center>
+---
+class: middle
+
+
+.center[questions?]
+---
+### Acknowledgements
+
+<div class="small-container">
+  <img src="faces/jovo.png"/>
+  <div class="centered">Josh Vogelstein</div>
+</div>
+<div class="small-container">
+  <img src="faces/cep.png" />
+  <div class="centered">Carey Priebe</div>
+</div>
+<div class="small-container">
+  <img src="faces/ebridge.jpg" />
+  <div class="centered">Eric</div>
+</div>
+<div class="small-container">
+  <img src="faces/jesus.jpg"/>
+  <div class="centered">Jesus</div>
+</div>
+<div class="small-container">
+  <img src="faces/jayanta.jpg"/>
+  <div class="centered">Jayanta</div>
+</div>
+<div class="small-container">
+  <img src="faces/pedigo.jpg"/>
+  <div class="centered">Ben</div>
+</div>
+<div class="small-container">
+  <img src="faces/loftus.jpg"/>
+  <div class="centered">Alex</div>
+</div>
+<div class="small-container">
+  <img src="faces/ross.jpg"/>
+  <div class="centered">Ross</div>
+</div>
+
+<img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/>
+<img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/>
+<img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/>
+
+
+</textarea>
+  <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+  <!-- <script src="remark-latest.min.js"></script> -->
+  <script src="remark-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script type="text/javascript">
+
+    var options = {};
+    var renderMath = function () {
+      renderMathInElement(document.body);
+      // or if you want to use $...$ for math,
+      renderMathInElement(document.body, {
+        delimiters: [ // mind the order of delimiters(!?)
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+        ]
+      });
+    }
+
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+
+    // var slideshow = remark.create({
+    // Set the slideshow display ratio
+    // Default: '4:3'
+    // Alternatives: '16:9', ...
+    // {
+    // ratio: '16:9',
+    // });
+
+    var slideshow = remark.create(options, renderMath);
+
+
+  </script>
+</body>
+
+</html>

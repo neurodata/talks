@@ -49,12 +49,19 @@ May 6, 2022
 <img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;" />
 <!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
 
+---
+### The Problem
 
+- A comprehensive, cell-level atlas of neurons in the mammalian brain could revolutionize how we understand brain function and brain disorders.
+- Neuron morphology, or shape, dictates connectivity and is a critical component to the brain-wide atlasing effort.
+- Two key computational problems associated with this effort are:
+    - Neuron tracing
+    - Mapping neurons to common coordinate systems
 ---
 ### What we've done 
 
 - Fit splines to neuron traces and study curvature/torsion across axonal arbors.<sup>1</sup>
-- Develop method to string together neuron fragments and validate on partial axons from MouseLight data.<sup>2</sup>
+- Develop HMM based reconstruction method and validated on partial axons from MouseLight data.<sup>2</sup>
 
 ### What I propose we do
 
@@ -191,15 +198,25 @@ $$
 ---
 ### Mapping Neurons to Atlas Space 
 
+<div class="row">
+    <div class="column2">
+        $$
+        c: [0,L] \rightarrow \mathbb{R}^3
+        $$
+        $$
+        \phi: \mathbb{R}^3 \rightarrow \mathbb{R}^3
+        $$
+    </div>
+    <div class="column2">
+        <img src="images/pcurve1.gif" STYLE="width:100%;" class="center"/>
+    </div>
+</div>
 
-$$
-c: [0,L] \rightarrow \mathbb{R}^3
-$$
 
 
-$$
-\phi: \mathbb{R}^3 \rightarrow \mathbb{R}^3
-$$
+
+
+
 
 We have data:
 
@@ -218,8 +235,8 @@ $$c_\phi = \phi \circ c: [0,L] \rightarrow \mathbb{R}^3$$
 ### How to Map Sequences of Points?
 
 <img src="images/comp2.jpg" STYLE="width:50%;" class="center"/>
-- ...a single displacement vector field which was used to align reconstructed neurons to the CCF.<sup>1</sup>
-- ...our reconstructed neurons were mapped onto ABA reference brain by calculated affine and non-rigid transformation accordingly.<sup>2</sup>
+- "...a single displacement vector field which was used to align reconstructed neurons to the CCF."<sup>1</sup>
+- "...our reconstructed neurons were mapped onto ABA reference brain by calculated affine and non-rigid transformation accordingly."<sup>2</sup>
 
 <footer, style="font-size: 12px">
     (1) Gao et. al. (2021) Single-neuron projectome of mouse prefrontal cortex. <i> Nat. Neuro. </i> 
@@ -263,7 +280,7 @@ $$c_\phi = \phi \circ c: [0,L] \rightarrow \mathbb{R}^3$$
 - Defined by a degree $p$ and a non-decreasing knot sequence $\lbrace \xi_i \rbrace_1^{n+p+1}$.
 - Span spaces of piecewise polynomials.<sup>1</sup>
 - Good local approximators for Sobolev functions.<sup>1</sup>
-- Fast algorithms that minimize derivative discontinuities with for a given interpolation error. <sup>2</sup>
+- Fast algorithms exist that minimize derivative discontinuities for a given interpolation error. <sup>2</sup>
 
 Question: For $\phi$ derived from LDDMM, does $c \in \mathbb{S}^\xi_p$ imply $\phi \circ c \in \mathbb{S}^{\omicron}_q$? 
 
@@ -324,6 +341,10 @@ Open-source Python package: <a href="http://brainlit.neurodata.io/">brainlit</a>
         <img src="../../images/cis.png" STYLE="width:50%;" class="right"/>
     </div>
 </div>
+
+---
+
+# Feedback
 
 ---
 ## Supplement

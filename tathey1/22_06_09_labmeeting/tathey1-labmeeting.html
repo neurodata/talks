@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Neuron Sampling</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column2 {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        .column3 {
+        float: left;
+        width: 31%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class:inverse 
+
+### Sampling Guidelines for Projection Neuron Tracing
+    
+Thomas L. Athey 
+
+
+<br><br>
+
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;"/>
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+<br> 
+
+<!-- .foot[w: <http://neurodata.io/talks/??.html>] -->
+
+
+---
+class:inverse 
+### Problem
+
+
+There are no quantitatively based guidelines on how to trace neurons.
+
+---
+class:inverse 
+### Approach: Shannon Sampling Theorem
+
+$$ x(t) = \int_{-\infty}^{\infty} X(f) e^{2 \pi i f t}dt$$
+
+Bandlimited $X(f)=0 \; \forall \; \vert f \vert> W$:
+
+$$ x(t) = \int_{-W}^{W} X(f) e^{2 \pi i f t}dt$$
+
+Sample at $-n/2W$:
+
+$$x(-n/2W) = \int_{-W}^{W} X(f) e^{-2 \pi i f \frac{n}{2W}}dt$$
+
+So, samples in time domain are Fourier coefficients of $X$
+
+<footer, style="font-size: 12px">
+    Shannon, 1949
+</footer>
+
+---
+class:inverse 
+### Notation
+
+Neuronal curve
+
+$$ c: [0,L] \rightarrow \mathbb{R}^3 $$
+
+Three coordinate functions:
+
+$$c: s \mapsto [c_1(s), c_2(s), c_3(s)]^T$$
+
+Cosines - Orthonormal basis of even $L^2([-L,L])$ functions
+
+$$\psi_0(s)=1,\;\psi_k(s)= \sqrt2 \cos(\frac{k\pi}{L}s)$$
+
+$\hat{f}^K =\sum_{k=0}^K \langle \psi_k, f \rangle \psi_k$.
+
+$$\lim_{K\rightarrow \infty} \hat{f}^K = f$$
+
+<footer, style="font-size: 12px">
+    Chung et. al., 2010
+</footer>
+
+---
+class:inverse 
+### Least Squares Example 1
+
+
+<img src="images/neuron1.png" STYLE="width:60%;" class="center"/>
+
+
+---
+class:inverse 
+### Least Squares Example 2
+
+
+<img src="images/neuron2.png" STYLE="width:70%;" class="center"/>
+
+
+---
+class:inverse 
+### Least Squares Example 3
+
+
+<img src="images/neuron3.png" STYLE="width:80%;" class="center"/>
+
+
+---
+class:inverse 
+### Goodness of Fit
+
+<img src="images/errorvsfreq.png" STYLE="width:75%;" class="center"/>
+
+---
+class:inverse 
+### Approximate Bandwidth
+
+- 99% of neuron segments achieve submicron error at bandwidth $1/16 \; \mu m^{-1}$
+
+<img src="images/periods.png" STYLE="width:100%;" class="center"/>
+
+- Conclusion: Sample every ~32 microns
+
+---
+class:inverse 
+### Future Work: Random Sampling
+
+- Random sampling intervals (e.g. additive exponential), reduces aliasing.
+
+<img src="images/random_additive.png" STYLE="width:50%;" class="center"/>
+
+
+<footer, style="font-size: 12px">
+    Bland and Tarczynski, 1997 <br>
+    Shapiro and Silverman, 1960
+</footer>
+
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

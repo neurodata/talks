@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shape Group</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class:inverse 
+
+### Shape Analysis Group Meeting
+    
+Thomas L. Athey 
+
+October 3, 2022
+
+
+<br><br>
+
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;"/>
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+<br> 
+
+
+
+---
+class:inverse 
+
+### Accessible technologies for high-throughput, whole-brain reconstructions of molecularly characterized mammalian neurons
+
+<br>
+
+<div class="small-container">
+    <img src="../../faces/mim.jpg"/>
+    <div class="centered">Michael Miller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/jovo.png"/>
+    <div class="centered">Joshua Vogelstein</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/uli.jpg"/>
+    <div class="centered">Ulrich Mueller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/dtward.jpg"/>
+    <div class="centered">Daniel Tward</div>
+</div>
+
+---
+class:inverse 
+
+### Goal: Catalog Neuron Types
+
+
+<img src="images/biccn.png" STYLE="width:100%;" class="center"/>
+
+
+---
+class:inverse 
+
+### Data: Whole Brain Images with Some Fluoresecent Neurons
+
+
+
+<img src="images/data.png" STYLE="width:100%;" class="center"/>
+---
+class:inverse 
+
+### Neurons Are Traced for Analysis
+
+
+<img src="images/axons.png" STYLE="width:100%;" class="center"/>
+
+Digital traces are a collection of knots (points) with connections.
+
+---
+class:inverse 
+
+### Registration Brings Many Brain Samples Together
+
+$$
+\min_{v:\dot \phi_t = v_t(\phi_t)} \left( \int_0^1 ||v_t||_V^2 dt + ||I_0 \circ \phi^{-1} - I_1||^2 \right)
+$$
+
+<font size="-1">Beg, Miller, Trouv&eacute;, Younes, 2005. </font>
+
+$I_1$: previous slide $I_0$: Allen Reference Atlas 
+
+
+
+<div class="row">
+    <div class="column">
+        <img src="images/atlas_im.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column">
+        <img src="images/atlas_parc.png" STYLE="width:100%;" class="center"/>
+    </div>
+</div>
+
+<a href="https://cloudreg.neurodata.io/">CloudReg:  Chandrashekhar et. al., 2021.</a>
+
+
+---
+class:inverse 
+
+### How to Map Neuron Traces to Atlas Space?
+
+
+$$
+c: [0,L] \rightarrow \mathbb{R}^3
+$$
+
+
+$$
+\phi: \mathbb{R}^3 \rightarrow \mathbb{R}^3
+$$
+
+My goal, numerical algorithms for: 
+
+$$\phi \circ c: [0,L] \rightarrow \mathbb{R}^3$$
+
+<img src="images/1a.png" STYLE="width:50%;" class="center"/>
+<img src="images/1b.png" STYLE="width:50%;" class="center"/>
+
+---
+class:inverse 
+
+### Action of Diffeomorphism on Discretized Neuron Traced
+
+
+<img src="images/action.png" STYLE="width:75%;" class="center"/>
+
+- Identity does not change curve
+- Composition acts successively
+
+"k'th order discrete mapping"
+
+---
+class:inverse 
+
+### Advantage 1 of Higher Order Mapping
+
+Asymptotic error at knots (Taylor's Theorem)
+---
+class:inverse 
+
+### Advantage 2 of Higher Order Mapping
+
+##### Error Bounds
+
+From FTC:
+<img src="images/bound1.png" STYLE="width:75%;" class="center"/>
+FTC again:
+<img src="images/bound2.png" STYLE="width:75%;" class="center"/>
+
+---
+class:inverse 
+
+### Simulated Piecewise Linear Curves
+
+
+<img src="images/toy1.png" STYLE="width:75%;" class="center"/>
+<img src="images/toy2.png" STYLE="width:75%;" class="center"/>
+
+---
+class:inverse 
+
+### Simulated Sampled Curves
+
+
+<img src="images/ds1.png" STYLE="width:75%;" class="center"/>
+<img src="images/ds2.png" STYLE="width:75%;" class="center"/>
+
+---
+class:inverse 
+
+### Real Data 
+
+<img src="images/mapping-fig-300dpi.jpg" STYLE="width:85%;" class="center"/>
+
+---
+class:inverse 
+
+### First Order Mapping Hurts Here
+
+<img src="images/neuron-nods.png" STYLE="width:100%;" class="center"/>
+---
+class:inverse 
+
+### But It Helps When Traces are Downsampled
+
+<img src="images/neuron-ds.png" STYLE="width:100%;" class="center"/>
+
+---
+class:inverse 
+
+### Possible Explanation
+
+Scale of Neuron Trace Segments << Scale of Registration Nonlinearity
+
+<img src="images/mapping-panel.jpg" STYLE="width:30%;" class="center"/>
+
+But derivatives retain information about missing points when downsampled.
+
+---
+class:inverse 
+
+### Thank you!!
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

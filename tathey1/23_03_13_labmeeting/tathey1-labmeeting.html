@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Neuron Mapping</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column2 {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        .column3 {
+        float: left;
+        width: 31%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class:inverse 
+
+### Preserving Derivative Information while Transforming Neuronal Curves
+    
+Thomas L. Athey 
+
+
+<br><br>
+
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;"/>
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+<br> 
+
+<!-- .foot[w: <http://neurodata.io/talks/??.html>] -->
+
+
+---
+class:inverse 
+
+### Acknowledgements
+
+<br>
+
+<div class="small-container">
+    <img src="../../faces/mim.jpg"/>
+    <div class="centered">Michael Miller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/jovo.png"/>
+    <div class="centered">Joshua Vogelstein</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/laurent.jpeg"/>
+    <div class="centered">Laurent Younes</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/dtward.jpg"/>
+    <div class="centered">Daniel Tward</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/uli.jpg"/>
+    <div class="centered">Ulrich Mueller</div>
+</div>
+
+
+---
+class:inverse 
+### Context
+
+Thousands of neurons are being mapped to common coordinate spaces.
+
+<img src="images/neuron_map.png" STYLE="width:80%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Winnubst et. al., 2019, BICCN, 2021
+</footer>
+
+---
+class:inverse 
+### Some Notation
+
+<img src="images/targ-atlas.png" STYLE="width:50%;" class="center"/>
+
+Registration Transformation $\phi: \; \mathbb{R}^3 \rightarrow \mathbb{R}^3$
+$$ \phi: \text{Position in target space} \mapsto \text{Position in atlas space}$$
+
+Curve $c: [0,L] \rightarrow \mathbb{R}^3$
+$$\lbrace x_i=c(t_i): t_1<...<t_n \rbrace$$
+
+Zeroth Order Mapping
+
+$$\phi \cdot \lbrace x_i \rbrace_i \triangleq \lbrace \phi(x_i) \rbrace_i$$
+
+---
+class:inverse 
+### Problem
+
+
+<img src="images/summary.jpg" STYLE="width:100%;" class="center"/>
+
+Neglecting the action of a nonlinear mapping on a curve's derivatives can introduce errors, especially if the control points are far from another.
+---
+class:inverse 
+### Higher Order Action
+
+Jet space of order $k$, $\mathcal{J}^k$ concatenates a space with it's tangent bundles (up to order $k$), e.g. $(c(t'), \dot c(t')) \in \mathcal{J}^1$.
+
+Statement. The following defines a group action, that we call the $k$'th order mapping.
+
+$$\phi \cdot \lbrace (c(t_i),...c^{(k)}(t_i) ) \rbrace_i \triangleq \lbrace (g(t_i),...g^{(k)}(t_i) ) \rbrace_i$$
+where $g=\phi \circ c$
+
+Now we know how to transform derivatives.
+
+---
+class:inverse 
+### Zeroth Order Error Bound 1
+
+
+<img src="images/bd0-1.png" STYLE="width:100%;" class="center"/>
+
+
+---
+class:inverse 
+### Zeroth Order Error Bound 2
+
+
+<img src="images/bd0-2.png" STYLE="width:100%;" class="center"/>
+
+
+---
+class:inverse 
+### Comparable Error Bounds
+
+<img src="images/bd1.png" STYLE="width:85%;" class="center"/>
+
+---
+class:inverse 
+### Simulated Data
+
+<img src="images/synthetic.jpg" STYLE="width:75%;" class="center"/>
+
+
+---
+class:inverse 
+### Real Data
+
+<img src="images/real-data.jpg" STYLE="width:75%;" class="center"/>
+---
+class:inverse 
+### Real Data
+
+<img src="images/real-neuron.jpg" STYLE="width:75%;" class="center"/>
+
+---
+class:inverse 
+### No problem, Unless Curves are Downsampled
+
+<img src="images/scatter.png" STYLE="width:100%;" class="center"/>
+
+
+
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

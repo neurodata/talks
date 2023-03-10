@@ -94,6 +94,11 @@ Thousands of neurons are being mapped to common coordinate spaces.
 
 ---
 class:inverse 
+### Neuron Traces are Piecewise Linear Curves
+<img src="images/mouselight.jpeg" alt="Snow" style="width:100%">
+
+---
+class:inverse 
 ### Some Notation
 
 <img src="images/targ-atlas.png" STYLE="width:50%;" class="center"/>
@@ -101,7 +106,7 @@ class:inverse
 Registration Transformation $\phi: \; \mathbb{R}^3 \rightarrow \mathbb{R}^3$
 $$ \phi: \text{Position in target space} \mapsto \text{Position in atlas space}$$
 
-Curve $c: [0,L] \rightarrow \mathbb{R}^3$
+Curve $c: [0,L] \rightarrow \mathbb{R}^3$ with discrete sampling:
 $$\lbrace x_i=c(t_i): t_1<...<t_n \rbrace$$
 
 Zeroth Order Mapping
@@ -120,11 +125,11 @@ Neglecting the action of a nonlinear mapping on a curve's derivatives can introd
 class:inverse 
 ### Higher Order Action
 
-Jet space of order $k$, $\mathcal{J}^k$ concatenates a space with it's tangent bundles (up to order $k$), e.g. $(c(t'), \dot c(t')) \in \mathcal{J}^1$.
+Jet space of order $k$, $J^k$ concatenates a space with it's tangent bundles (up to order $k$), e.g. $(t', c(t'), \dot c(t')) \in J^1$.
 
 Statement. The following defines a group action, that we call the $k$'th order mapping.
 
-$$\phi \cdot \lbrace (c(t_i),...c^{(k)}(t_i) ) \rbrace_i \triangleq \lbrace (g(t_i),...g^{(k)}(t_i) ) \rbrace_i$$
+$$\phi \cdot \lbrace (t_i,c(t_i),\dot c(t_i),...c^{(k)}(t_i) ) \rbrace_i \triangleq \lbrace (t_i,g(t_i),\dot g(t_i)...g^{(k)}(t_i) ) \rbrace_i$$
 where $g=\phi \circ c$
 
 Now we know how to transform derivatives.
@@ -171,12 +176,19 @@ class:inverse
 
 ---
 class:inverse 
-### No problem, Unless Curves are Downsampled
+### Difference in Error between Zeroth and First Order
 
 <img src="images/scatter.png" STYLE="width:100%;" class="center"/>
 
 
+---
+class:inverse 
+### Discussion
 
+- Under our example, zeroth order mapping error is bounded by $\sim 0.011L+0.022$ for line segment of length $L$.
+
+- e.g. $L=10 \mu m \rightarrow 0.13 \mu m$, $L=1 mm \rightarrow 11 \mu m$.
+- These are likely inconsequential errors, likely due to different scales of trace sampling ($\sim 10 \mu m$), and registration ($\sim 100 \mu m$).
 
 
 </textarea>

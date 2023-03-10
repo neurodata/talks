@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shape Metrics</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class:inverse 
+
+### Shape Metrics for Neuron Morphology
+    
+
+
+---
+class:inverse 
+
+### Goal: Catalog Neuron Types
+
+
+<img src="images/biccn.png" STYLE="width:100%;" class="center"/>
+
+---
+class:inverse 
+
+### Current Morphological Analysis
+
+
+<div class="row">
+    <div class="column">
+        *
+        <img src="images/winnubst2.png" alt="Snow" style="width:100%">
+        <img src="images/wiinnubst2a.png" alt="Snow" style="width:100%">
+        **
+        <img src="images/nature1.png" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+        *
+        <img src="images/winnubst1.png" alt="Snow" style="width:100%">
+        **
+        <img src="images/nature2.png" alt="Snow" style="width:100%">
+
+        <font size="-1">* Winnubst et. al., 2019, <i>Cell</i>. ** BICCN, 2021, <i>Nature</i>. </font>
+    </div>
+</div>
+
+---
+class:inverse 
+
+### nblast "Metric"
+
+
+<img src="images/nblast.jpg" STYLE="width:70%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Costa et. al., 2016
+</footer>
+---
+class:inverse 
+
+### [SWC](http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html) Data Format
+
+
+<img src="images/swc-table.png" STYLE="width:60%;" class="center"/>
+<img src="images/swc.png" STYLE="width:40%;" class="center"/>
+
+---
+class:inverse 
+
+### Available Data 
+
+[Neuromorpho.org](https://neuromorpho.org/) - 200k+ public traces
+<img src="images/neuromorpho.png" STYLE="width:80%;" class="center"/>
+
+
+<div class="row">
+  <div class="column">
+    Recent axon traces from MouseLight project
+      <img src="images/mouselight.jpeg" alt="Snow" style="width:100%">
+  </div>
+  <div class="column">
+    New Data from Kolodkin Lab
+      <img src="images/sriram.png" alt="Snow" style="width:100%">
+
+      </div>
+</div>
+
+---
+class:inverse 
+
+### Some Statistics on MouseLight Data 
+
+- Brain 1: 180 traces, Brain 2: 50 traces
+
+<div class="row">
+  <div class="column">
+    Number of Knots in a Neuron Trace
+    <img src="images/num-pts.jpg" alt="Snow" style="width:100%">
+  </div>
+  <div class="column">
+    Number of Branches in a Neuron Trace
+    <img src="images/num-branches.jpg" alt="Snow" style="width:100%">
+  </div>
+
+
+<div class="row">
+  <div class="column">
+    <img src="images/neuron-simple.png" alt="Snow" style="width:75%">
+  </div>
+  <div class="column">
+    <img src="images/neuron-complex.png" alt="Snow" style="width:75%">
+  </div>
+</div>
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

@@ -63,20 +63,20 @@ class:inverse
     <div class="centered">Michael Miller</div>
 </div>
 <div class="small-container">
-    <img src="../../faces/jovo.png"/>
-    <div class="centered">Joshua Vogelstein</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/laurent.jpeg"/>
-    <div class="centered">Laurent Younes</div>
+    <img src="../../faces/uli.jpg"/>
+    <div class="centered">Ulrich Mueller</div>
 </div>
 <div class="small-container">
     <img src="../../faces/dtward.jpg"/>
     <div class="centered">Daniel Tward</div>
 </div>
 <div class="small-container">
-    <img src="../../faces/uli.jpg"/>
-    <div class="centered">Ulrich Mueller</div>
+    <img src="../../faces/jovo.png"/>
+    <div class="centered">Joshua Vogelstein</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/laurent.jpeg"/>
+    <div class="centered">Laurent Younes</div>
 </div>
 
 
@@ -132,7 +132,7 @@ Statement. The following defines a group action, that we call the $k$'th order m
 $$\phi \cdot \lbrace (t_i,c(t_i),\dot c(t_i),...c^{(k)}(t_i) ) \rbrace_i \triangleq \lbrace (t_i,g(t_i),\dot g(t_i)...g^{(k)}(t_i) ) \rbrace_i$$
 where $g=\phi \circ c$
 
-Now we know how to transform derivatives.
+We can interpolate the transformed derivatives with Hermite splines.
 
 ---
 class:inverse 
@@ -189,7 +189,12 @@ class:inverse
 
 - e.g. $L=10 \mu m \rightarrow 0.13 \mu m$, $L=1 mm \rightarrow 11 \mu m$.
 - These are likely inconsequential errors, likely due to different scales of trace sampling ($\sim 10 \mu m$), and registration ($\sim 100 \mu m$).
+- However, at higher registration resolutions, or with more extreme tissue deformations, these discrepencies may be amplified.
+- Our analysis provides tools to evaluate whether neuron mapping with conventional methods introduces numerical error.
 
+---
+class:inverse 
+### Thank you!
 
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->

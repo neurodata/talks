@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BrainLine</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../../fonts/quadon/quadon.css">
+    <link rel="stylesheet" href="../../fonts/gentona/gentona.css">
+    <link rel="stylesheet" href="../../slides_style.css">
+    <script type="text/javascript" src="../../assets/plotly/plotly-latest.min.js"></script>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column2 {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        }
+
+        .column3 {
+        float: left;
+        width: 31%;
+        padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class:inverse 
+
+### BrainLine: An Open Pipeline for Connectivity Analysis of Whole-Brain Fluorescence Volumes
+    
+NeuroNex 2 Workshop
+
+May 23, 2023
+
+Thomas L. Athey 
+
+
+<img src="../../images/funding/jhu_bme_white.png" STYLE="width:100%;"/>
+<!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
+
+<br> 
+
+<!-- .foot[w: <http://neurodata.io/talks/??.html>] -->
+
+
+---
+class:inverse 
+### Mesoscale Connectivity
+
+
+<img src="images/motivation/projects.png" STYLE="width:90%;" class="center"/>
+<img src="images/motivation/connect.png" STYLE="width:80%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Mitra (2014), Oh et. al. (2014), Allen Connectivity Atlas, BICCN (2021), Foxley et. al. (2021)
+</footer>
+
+---
+class:inverse 
+### Substantial Variability within Image Datasets
+
+<img src="images/diversity.png" STYLE="width:100%;" class="center"/>
+
+
+---
+class:inverse 
+### Heterogeneous Training with Ilastik
+
+
+<div class="row">
+    <div class="column2">
+        <img src="images/axon-av.png" alt="Snow" style="width:100%">
+    </div>
+    <div class="column2">
+        <img src="images/soma-av.png" alt="Snow" style="width:100%">
+    </div>
+</div>
+
+---
+class:inverse 
+### BrainLine: Density-Based Connectivity Analysis of Whole-Brain Fluorescence Volumes
+
+
+<img src="images/pipeline.png" STYLE="width:100%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Athey et. al., bioRxiv (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
+</footer>
+---
+class:inverse 
+### Demo
+
+
+<img src="images/pipeline-demo.png" STYLE="width:100%;" class="center"/>
+
+
+---
+class:inverse 
+### Thank you!
+
+
+### Wright Lab @ Weil Cornell
+
+
+<div class="small-container">
+    <img src="../../faces/matt_wright.jpeg"/>
+    <div class="centered">Matt Wright</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/marija_pavlovic.jpeg"/>
+    <div class="centered">Marija Pavlovic</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/gil_stolarski.jpg"/>
+    <div class="centered">Gil Stolarski</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/therese_larson.jpeg"/>
+    <div class="centered">Therese Larson</div>
+</div>
+
+<br>
+<br>
+
+### Neurodata @ JHU
+<div class="small-container">
+    <img src="../../faces/jovo.png"/>
+    <div class="centered">Joshua Vogelstein</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/vikram.jpg"/>
+    <div class="centered">Vikram Chandrashekhar</div>
+</div>
+
+
+</textarea>
+<!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->
+<script src="../../remark-latest.min.js"></script>
+<!-- <script src="remark-latest.min169.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<script type="text/javascript">
+
+  var options = {};
+  var renderMath = function() {
+    renderMathInElement(document.body);
+    // or if you want to use $...$ for math,
+    renderMathInElement(document.body, {delimiters: [ // mind the order of delimiters(!?)
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false},
+    ]});
+  }
+
+  var slideshow = remark.create(options, renderMath);
+
+  // var slideshow = remark.create({
+  // Set the slideshow display ratio
+  // Default: '4:3'
+  // Alternatives: '16:9', ...
+  // {
+  // ratio: '16:9',
+  // });
+
+</script>
+</body>
+</html>

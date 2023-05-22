@@ -21,6 +21,18 @@
         padding: 5px;
         }
 
+        .column4 {
+        float: left;
+        width: 24%;
+        padding: 1px;
+        }
+
+        .column6 {
+        float: left;
+        width: 16%;
+        padding: 1px;
+        }
+
         /* Clear floats after image containers */
         .row::after {
         content: "";
@@ -66,6 +78,10 @@ class:inverse
     <div class="centered">Marija Pavlovic</div>
 </div>
 <div class="small-container">
+    <img src="../../faces/gil_stolarski.jpg"/>
+    <div class="centered">Gil Stolarski</div>
+</div>
+<div class="small-container">
     <img src="../../faces/therese_larson.jpeg"/>
     <div class="centered">Therese Larson</div>
 </div>
@@ -74,7 +90,10 @@ class:inverse
 <br>
 
 ### Neurodata @ JHU
-
+<div class="small-container">
+    <img src="../../faces/jovo.png"/>
+    <div class="centered">Joshua Vogelstein</div>
+</div>
 <div class="small-container">
     <img src="../../faces/vikram.jpg"/>
     <div class="centered">Vikram Chandrashekhar</div>
@@ -177,10 +196,13 @@ Sparse annotations of subvolumes  (Friedmann et. al., 2020).
 
 | Sample ID  | # Training Subvolumes | # Validation Subvolumes 
 |:---     |:---       |:--- |
-| 3       |  32  |  21
-| 4       |  10  |  10   
-| 8613       |  ?  |  10
-| 8604       |  0  |  10   
+| 3       |  32  |  ..
+| 4       |  5  |  ..   
+| 8649       |  5  |  29  
+| 8650       |  0  |  10  
+| 8590       |  0  |  14  
+| 8589       |  0  |  10 
+| 8613       |  0  |  10  
 
 
 ---
@@ -207,9 +229,120 @@ class:inverse
 
 ---
 class:inverse 
+### Empirical Observations
+
+
+<div class="row">
+    <div class="column2">
+        Tph2 Gad2
+    <img src="images/visual/proj-gad2.png" alt="Snow" style="width:100%">
+    </div>
+    <div class="column2">
+        Tph2 Vglut3
+        <img src="images/visual/proj-vglut3.png" alt="Snow" style="width:100%">
+    </div>
+</div>
+---
+class:inverse 
 ### Analysis
 
-<img src="images/output_data.jpg" STYLE="height:100%;" class="center"/>
+<img src="images/axon_coarse.png" STYLE="height:100%;" class="center"/>
+
+---
+class:inverse 
+### Analysis
+
+<img src="images/axon_fine.png" STYLE="height:100%;" class="center"/>
+
+---
+class:inverse 
+### 8613, 8589, 8788 vs. 8650
+
+<img src="images/axon_coarse_partial.jpg" STYLE="height:100%;" class="center"/>
+
+
+---
+class:inverse 
+### Brain Space Hemispheres (Sum, normalized to [0,1])
+
+<div class="row">
+    <div class="column3">
+        <img src="images/atlas/output/output_atlas_hemi_1.png" alt="Snow" style="width:50%">
+        <img src="images/atlas/output/output_atlas_hemi_4.png" alt="Snow" style="width:70%">
+    </div>
+    <div class="column3">
+        <img src="images/atlas/output/output_atlas_hemi_2.png" alt="Snow" style="width:50%">
+        <img src="images/atlas/output/output_atlas_hemi_5.png" alt="Snow" style="width:70%">
+    </div>
+    <div class="column3">
+        <img src="images/atlas/output/output_atlas_hemi_3.png" alt="Snow" style="width:70%">
+        <img src="images/atlas/output/output_atlas_hemi_6.png" alt="Snow" style="width:70%">
+        <img src="images/atlas/output/legend.png" alt="Snow" style="width:22%">
+    </div>
+</div>
+
+---
+class:inverse 
+### Brain Space Hemispheres
+
+<div class="row">
+    <div class="column3">
+        <img src="images/atlas/output/output_atlas_hemi_7.png" alt="Snow" style="width:75%">
+        <img src="images/atlas/output/output_atlas_hemi_10.png" alt="Snow" style="width:75%">
+    </div>
+    <div class="column3">
+        <img src="images/atlas/output/output_atlas_hemi_8.png" alt="Snow" style="width:75%">
+        <img src="images/atlas/output/output_atlas_hemi_11.png" alt="Snow" style="width:75%">
+    </div>
+    <div class="column3">
+        <img src="images/atlas/output/output_atlas_hemi_9.png" alt="Snow" style="width:75%">
+        <img src="images/atlas/output/output_atlas_hemi_12.png" alt="Snow" style="width:75%">
+        <img src="images/atlas/output/legend.png" alt="Snow" style="width:22%">
+
+    </div>
+</div>
+
+---
+class:inverse 
+### 8613, 8589, 8788 vs. 8650
+
+<div class="row">
+    <div class="column3">
+        <img src="images/atlas/output/partial/200.png" alt="Snow" style="width:70%">
+        <img src="images/atlas/output/partial/800.png" alt="Snow" style="width:70%">
+    </div>
+    <div class="column3">
+        <img src="images/atlas/output/partial/400.png" alt="Snow" style="width:70%">
+        <img src="images/atlas/output/partial/1000.png" alt="Snow" style="width:70%">
+    </div>
+    <div class="column3">
+        <img src="images/atlas/output/partial/600.png" alt="Snow" style="width:70%">
+        <img src="images/atlas/output/partial/1200.png" alt="Snow" style="width:70%">
+        <img src="images/atlas/output/legend.png" alt="Snow" style="width:22%">
+    </div>
+</div>
+
+
+---
+class:inverse 
+### 3D Plots - tph2 gad2
+
+<img src="images/atlas/output/3d-gad.png" STYLE="width:75%;" class="center"/>
+---
+class:inverse 
+### 3D Plots - tph2 gad2, thresholded component size
+
+<img src="images/atlas/output/3d-gad-10.png" STYLE="width:75%;" class="center"/>
+---
+class:inverse 
+### 3D Plots - tph2 vglut3
+
+<img src="images/atlas/output/3d-vglut.png" STYLE="width:75%;" class="center"/>
+---
+class:inverse 
+### 3D Plots - tph2 vglut3, thresholded component size
+
+<img src="images/atlas/output/3d-vglut-200.png" STYLE="width:75%;" class="center"/>
 
 ---
 class:inverse 
@@ -282,48 +415,117 @@ class:inverse
 <img src="images/perform_allsoma.png" alt="Snow" style="width:100%">
 <a href="https://viz.neurodata.io/?json_url=https://json.neurodata.io/v1?NGStateID=tJTgPO4uXJ4puQ">Full Results Example</a>
 
+---
+class:inverse 
+### Empirical Observations
+
+
+<div class="row">
+    <div class="column2">
+        Vgat <br>
+    <img src="images/visual/rabies-vgat1.png" alt="Snow" style="width:75%">
+    <img src="images/visual/rabies-vgat2.png" alt="Snow" style="width:75%">
+    </div>
+    <div class="column2">
+        <img src="images/visual/rabies-vgat-drn.png" alt="Snow" style="width:100%">
+    </div>
+</div>
 
 ---
 class:inverse 
-### Analysis
+### Empirical Observations
 
-<img src="images/soma_raw.png" STYLE="width:100%;" class="center"/>
+
+<div class="row">
+    <div class="column2">
+        Tph2 Gad2 <br>
+    <img src="images/visual/rabies-gad21.png" alt="Snow" style="width:65%">
+    <img src="images/visual/rabies-gad22.png" alt="Snow" style="width:65%">
+    </div>
+    <div class="column2">
+        Tph2 Vglut3 <br>
+        <img src="images/visual/rabies-vglut.png" alt="Snow" style="width:60%">
+        <img src="images/visual/rabies-vglut2.png" alt="Snow" style="width:60%">
+    </div>
+</div>
+---
+class:inverse 
+### Mann-Whitney Test with Benjamini-Yekutieli Correction
+
+<img src="images/soma_coarse_mw_by.png" STYLE="width:100%;" class="center"/>
 
 ---
 class:inverse 
-### Class Differences
+### Mann-Whitney Test with Benjamini-Yekutieli Correction (Scatter Plot)
+
+<img src="images/soma_coarse_mw_by_scatter.png" STYLE="width:100%;" class="center"/>
+
+---
+class:inverse 
+### T-test with Benjamini-Yekutieli Correction
+
+<img src="images/soma_coarse_ttest_by.png" STYLE="width:100%;" class="center"/>
+
+---
+class:inverse 
+### Subregions
+
+<img src="images/soma_fine.png" STYLE="width:100%;" class="center"/>
+
+---
+class:inverse 
+### Brain Space Hemispheres
+
+<div class="row">
+    <div class="column2">
+        <img src="images/atlas/input/input_atlas_hemi_1.png" alt="Snow" style="width:80%">
+        <img src="images/atlas/input/input_atlas_hemi_3.png" alt="Snow" style="width:80%">
+    </div>
+    <div class="column2">
+        <img src="images/atlas/input/input_atlas_hemi_2.png" alt="Snow" style="width:80%">
+        <img src="images/atlas/input/input_atlas_hemi_4.png" alt="Snow" style="width:80%">
+    </div>
+</div>
+
+---
+class:inverse 
+### Brain Space Hemispheres
+
+<div class="row">
+    <div class="column2">
+        <img src="images/atlas/input/input_atlas_hemi_5.png" alt="Snow" style="width:80%">
+        <img src="images/atlas/input/input_atlas_hemi_7.png" alt="Snow" style="width:80%">
+    </div>
+    <div class="column2">
+        <img src="images/atlas/input/input_atlas_hemi_6.png" alt="Snow" style="width:80%">
+        <img src="images/atlas/input/input_atlas_hemi_8.png" alt="Snow" style="width:80%">
+    </div>
+</div>
+
+---
+class:inverse 
+### Brain Space Hemispheres
+
+<div class="row">
+    <div class="column2">
+        <img src="images/atlas/input/input_atlas_hemi_9.png" alt="Snow" style="width:80%">
+        <img src="images/atlas/input/input_atlas_hemi_11.png" alt="Snow" style="width:80%">
+    </div>
+    <div class="column2">
+        <img src="images/atlas/input/input_atlas_hemi_10.png" alt="Snow" style="width:80%">
+        <img src="images/atlas/input/input_atlas_hemi_12.png" alt="Snow" style="width:80%">
+    </div>
+</div>
 
 
 ---
 class:inverse 
-### Relative Differences
+### 3D View
 
 
----
-class:inverse 
-### Brain Space Slice 1
+<img src="images/atlas/input/soma_3d.png" STYLE="width:70%;" class="center"/>
 
-<img src="images/somas1.png" STYLE="width:70%;" class="center"/>
-
-<img src="images/legend.png" STYLE="width:10%;" class="center"/>
-
----
-class:inverse 
-### Brain Space Slice 2
-
-<img src="images/somas2.png" STYLE="width:70%;" class="center"/>
-
-<img src="images/legend.png" STYLE="width:10%;" class="center"/>
-
----
-class:inverse 
-### Brain Space Slice 3
-
-<img src="images/somas3.png" STYLE="width:70%;" class="center"/>
-
-
-<img src="images/legend.png" STYLE="width:10%;" class="center"/>
-
+tph2 vglut3: blue, tph2 gad2: red, gad2 vgat: green
 
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->

@@ -35,7 +35,7 @@
 
 
 
-### Extracting Mesoscale Neuron Morphology from Images
+### Extracting Mesoscale Neuron Anatomy from Whole-Brain Images
     
 Thomas L. Athey
 
@@ -49,16 +49,38 @@ June 12, 2023
 <!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
 
 ---
+### Mesoscale Neuon Anatomy
+
+<div class="row">
+    <div class="column2">
+        <img src="images/meso.png" STYLE="width:90%;" />
+    </div>
+    <div class="column2">
+        <img src="images/meso-ex.png" STYLE="width:100%;" />
+    </div>
+</div>
+
+<footer, style="font-size: 12px">
+    Mitra, 2014; Oh et al., 2014
+</footer>
+
+---
 ### The Problem
 
-- A comprehensive, cell-level atlas of neurons in the mammalian brain could revolutionize how we understand brain function and brain disorders.
-- Neuron morphology, or shape, dictates connectivity and is a critical component to the brain-wide atlasing effort.
-- New fluorescence imaging technology has the resolution to capture individual neurons and the scope to cover complete mammalian brains.
-- Two key computational problems associated with cataloging mesoscale morphology are:
+- A cell-level atlas of the mammalian brain could revolutionize how we understand brain function and brain disorders.
+- Two key computational steps associated with cataloging mesoscale morphology are:
     - Neuron segmentation and tracing
     - Mapping neurons to common coordinate systems
 
-<img src="images/biccn.png" STYLE="width:30%;" class="center"/>
+<div class="row">
+    <div class="column2">
+        <img src="images/trace.jpg" STYLE="width:60%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/reg-data.jpg" STYLE="width:57%;"/>
+    </div>
+</div>
+
 ---
 ### What we've done 
 
@@ -117,9 +139,33 @@ June 12, 2023
 
 ---
 
+
+### 3) Mapping Discretized Neuronal Curves with Diffeomorphisms
+
+
+
+<div class="row">
+    <div class="column2">
+        <img src="images/comp2.jpg" STYLE="width:100%;"/>
+    </div>
+    <div class="column2">
+        Existing Methods:
+        $$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=\lbrace (t_i, \phi(c(t_i)))  \rbrace_i$$
+        Extended Methods:
+        $$\phi \cdot \lbrace (t_i, c(t_i), c'(t_i),...,c^{(k)}(t_i))  \rbrace_i$$ 
+        $$=\lbrace (t_i, \phi(c(t_i)), \frac{d}{dt}\phi(c(t_i)),...,\frac{d^k}{dt^k}\phi(c(t_i)))  \rbrace_i$$
+    </div>
+</div>
+
+
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
+</footer>
+---
+
 ### 2) Apply ViterBrain to Whole-Brain Images
 
-
+<img src="images/sriram-ngcells.png" STYLE="width:100%;" class="center"/>
 <footer, style="font-size: 12px">
     Ongoing collaboration with Sriram Sudarsanam of Kolodkin Lab.
 </footer>

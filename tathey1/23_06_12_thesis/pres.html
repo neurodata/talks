@@ -84,47 +84,76 @@ June 12, 2023
 ---
 ### What we've done 
 
-- Fit splines to neuron traces and study curvature/torsion across axonal arbors.<sup>1</sup>
-- Develop HMM based reconstruction method and validated on partial axons from MouseLight data.<sup>2</sup>
+- Developed an open pipeline for density based connectivity analysis.<sup>1</sup>
+- Developed and validated HMM based neuron tracing method.<sup>2</sup>
 - Investigated the distortion introduced in transforming discretized neuron traces.<sup>3</sup>
-- Developed an open pipeline for density based connectivity analysis.<sup>4</sup>
-- Applied the tools to whole-brain fluorescence images to help answer biological questions.
+- Fit splines to neuron traces and study curvature/torsion across axonal arbors.<sup>4</sup>
 
-
+<br><br><br>
 <footer, style="font-size: 12px">
-    (1) Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
+    (1) Athey et al. (2023) BrainLine: An Open Pipeline for Connectivity Analysis of Heterogeneous Whole-Brain Fluorescence Volumes. <i>In Prep</i>.
     <br>
     (2) Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
     <br>
     (3) Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
     <br>
-    (4) Athey et al. (2023) BrainLine: An Open Pipeline for Connectivity Analysis of Heterogeneous Whole-Brain Fluorescence Volumes. <i>In Prep</i>.
-</footer>
-
----
-
-## .center[1) Comparing Curvature and Torsion across Axonal Arbors]
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<footer, style="font-size: 12px">
-    Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
+    (4) Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
 </footer>
 ---
 
-### 1) Compare Curvature and Torsion across Axonal Arbors 
-
-<img src="images/spline-branches.jpeg" STYLE="width:90%;" class="center"/>
-
----
-
-### 1) Compare Curvature and Torsion across Axonal Arbors 
-
-<img src="images/spline-diffs.jpeg" STYLE="width:80%;" class="center"/>
+## .center[1) Pipeline for Density Based Connectivity Analysis]
+<br><br><br><br><br><br><br><br><br><br><br><br>
 
 <footer, style="font-size: 12px">
-    Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
+    Athey et al. (2023) BrainLine: An Open Pipeline for Connectivity Analysis of Heterogeneous Whole-Brain Fluorescence Volumes. <i>Submitted</i>.
+</footer>
+
+---
+
+### 1) Pipeline for Region Based Connectivity Analysis
+
+<img src="images/projects.png" STYLE="width:80%;" class="center"/>
+<img src="images/connect.png" STYLE="width:70%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Mitra (2014), Oh et. al. (2014), Allen Connectivity Atlas, BICCN (2021), Foxley et. al. (2021)
+</footer>
+
+
+---
+
+### 1) Pipeline for Region Based Connectivity Analysis
+
+<img src="images/pipeline.png" STYLE="width:100%;" class="center"/>
+
+Applied to genetic subtypes of serotonergic neurons in the DRN.
+<br><br><br><br><br>
+<footer, style="font-size: 12px">
+    Athey et. al., bioRxiv (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
 </footer>
 ---
 
+### Axon Projections
+
+<img src="images/800-a.png" STYLE="width:100%;" class="center"/>
+---
+
+### Presynaptic Cell Bodies
+<img src="images/800-d.png" STYLE="width:100%;" class="center"/>
+---
+
+### Region Analysis
+
+<div class="row">
+    <div class="column2">
+        <img src="images/axon.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/soma.png" STYLE="width:98%;" class="center"/>
+    </div>
+</div>
+
+---
 ## .center[2) Hidden Markov Model-based Neuron Tracing]
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
 
@@ -144,9 +173,18 @@ June 12, 2023
 <img src="images/viterbrain-examples.jpg" STYLE="width:100%;" />
 ---
 
+### Linear Fragment Assumption
+<img src="images/frags.png" STYLE="width:75%;" class="center"/>
+
+<img src="images/costs-heatmap.png" STYLE="width:50%;" class="center"/>
+---
+
 ### 2) Apply ViterBrain to Whole-Brain Images
 
-<img src="images/sriram-ngcells.png" STYLE="width:100%;" class="center"/>
+<video width="100%" height="70%" controls>
+    <source src="videos/tracing.mov">
+</video>
+
 <footer, style="font-size: 12px">
     Ongoing collaboration with Sriram Sudarsanam of Kolodkin Lab.
 </footer>
@@ -154,7 +192,7 @@ June 12, 2023
 
 ### 2) Apply ViterBrain to Whole-Brain Images
 
-
+<img src="images/sriram-ngcells.png" STYLE="width:100%;" class="center"/>
 <footer, style="font-size: 12px">
     Ongoing collaboration with Sriram Sudarsanam of Kolodkin Lab.
 </footer>
@@ -191,7 +229,9 @@ $$\phi \cdot \lbrace (t_i, c(t_i), c'(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace 
 $$...,\frac{d^k}{dt^k}\phi \circ c(t_i))  \rbrace_i$$
 
 
-
+<footer, style="font-size: 12px">
+    Fedorov (2013), Qu et al. (2022)
+</footer>
 ---
 
 ### 3) Mapping Discretized Neuronal Curves with Diffeomorphisms
@@ -236,84 +276,52 @@ where bounds are tight.
 ---
 
 ### 3) Synthetic Diffeomorphisms?
+$$\phi=exp_{I_d}(v), v \sim \mathcal{N}(0, \sigma^2)$$
 
-<img src="images/map-synth-transform.png" STYLE="width:70%;" class="center"/>
+<img src="images/map-synth-transform.png" STYLE="width:60%;" class="center"/>
 
 ---
 
 ### 3) Synthetic Diffeomorphisms?
 <img src="images/map-synth-scatter.png" STYLE="width:100%;"/>
 <img src="images/map-synth-bar.png" STYLE="width:100%;"/>
----
-
-## .center[4) Pipeline for Density Based Connectivity Analysis]
-<br><br><br><br><br><br><br><br><br><br><br><br>
-
-<footer, style="font-size: 12px">
-    Athey et al. (2023) BrainLine: An Open Pipeline for Connectivity Analysis of Heterogeneous Whole-Brain Fluorescence Volumes. <i>Submitted</i>.
-</footer>
-
 
 ---
 
-### 4) Pipeline for Region Based Connectivity Analysis
-
-<img src="images/projects.png" STYLE="width:80%;" class="center"/>
-<img src="images/connect.png" STYLE="width:70%;" class="center"/>
-
+## .center[4) Comparing Curvature and Torsion across Axonal Arbors]
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <footer, style="font-size: 12px">
-    Mitra (2014), Oh et. al. (2014), Allen Connectivity Atlas, BICCN (2021), Foxley et. al. (2021)
-</footer>
-
----
-
-### 4) Pipeline for Region Based Connectivity Analysis
-
-<img src="images/pipeline.png" STYLE="width:100%;" class="center"/>
-<br><br><br><br><br><br>
-<footer, style="font-size: 12px">
-    Athey et. al., bioRxiv (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
+    Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
 </footer>
 ---
 
-### Axon Projections
+### 4) Compare Curvature and Torsion across Axonal Arbors 
 
-<img src="images/800-a.png" STYLE="width:100%;" class="center"/>
----
-
-### Presynaptic Cell Bodies
-<img src="images/800-d.png" STYLE="width:100%;" class="center"/>
----
-
-### Region Analysis
-
-<div class="row">
-    <div class="column2">
-        <img src="images/axon.png" STYLE="width:100%;" class="center"/>
-    </div>
-    <div class="column2">
-        <img src="images/soma.png" STYLE="width:100%;" class="center"/>
-    </div>
-</div>
-
+<img src="images/spline-branches.jpeg" STYLE="width:90%;" class="center"/>
 
 ---
-### FIRM Software Standards
 
-Open-source Python package: <a href="http://brainlit.neurodata.io/">brainlit</a>
+### 4) Compare Curvature and Torsion across Axonal Arbors 
 
-- <b>Findable</b>
-- <b>Installable</b>
-- <b>Runnable</b>
-- <b>Modifiable</b>
+<img src="images/spline-diffs.jpeg" STYLE="width:80%;" class="center"/>
 
 <footer, style="font-size: 12px">
-    Vogelstein (2018). The firm guiding principles for scientific software development and stewardship
+    Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
 </footer>
 ---
+
 ### TODO
 
+#### Research
+- Get Neuron Mapping published (Nature Communications).
+- Get BrainLine published (News Item in Neuroinformatics).
+- Process ten more Sert labeled whole-brain images (Wright collaboration).
+- Trace ten more Layer 4/5 neurons in >1 whole-brain image (Sudarsanam collaboration).
+- Make <a href="http://brainlit.neurodata.io/">brainlit</a> package FIRM (Vogelstein, 2018).
 
+#### Other
+- Apply for F32 grant.
+- Complete Phase III of Teaching Academy.
 
 ---
 

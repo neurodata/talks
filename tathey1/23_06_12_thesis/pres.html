@@ -49,7 +49,7 @@ June 12, 2023
 <!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
 
 ---
-### Mesoscale Neuon Anatomy
+### Mesoscale Neuron Anatomy
 
 <div class="row">
     <div class="column2">
@@ -84,7 +84,7 @@ June 12, 2023
 ---
 ### What we've done 
 
-- Developed an open pipeline for density based connectivity analysis.<sup>1</sup>
+- Developed an open pipeline for region-based connectivity analysis.<sup>1</sup>
 - Developed and validated HMM based neuron tracing method.<sup>2</sup>
 - Investigated the distortion introduced in transforming discretized neuron traces.<sup>3</sup>
 - Fit splines to neuron traces and study curvature/torsion across axonal arbors.<sup>4</sup>
@@ -166,6 +166,9 @@ Applied to genetic subtypes of serotonergic neurons in the DRN.
 
 <img src="images/fig2_algorithm.jpg" STYLE="width:100%;" />
 
+<footer, style="font-size: 12px">
+    Geman and Jedynak (1996), Longair et al. (2011), Xiao and Peng (2013), Radojevic and Meijering (2017), Xiao and Peng (2013)
+</footer>
 ---
 
 ### 2) ViterBrain: HMM-based Neuron Tracing
@@ -289,7 +292,7 @@ $$\phi=exp_{I_d}(v), v \sim \mathcal{N}(0, \sigma^2)$$
 ---
 
 ## .center[4) Comparing Curvature and Torsion across Axonal Arbors]
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 <footer, style="font-size: 12px">
     Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
 </footer>
@@ -305,9 +308,6 @@ $$\phi=exp_{I_d}(v), v \sim \mathcal{N}(0, \sigma^2)$$
 
 <img src="images/spline-diffs.jpeg" STYLE="width:80%;" class="center"/>
 
-<footer, style="font-size: 12px">
-    Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
-</footer>
 ---
 
 ### TODO
@@ -400,9 +400,29 @@ $$\phi=exp_{I_d}(v), v \sim \mathcal{N}(0, \sigma^2)$$
 # Feedback
 
 ---
-## Supplement
+# .center[Supplement]
 
+---
+### BrainLine Predictor
 
+<div class="row">
+    <div class="column2">
+        <img src="images/axon-val.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/soma-val.png" STYLE="width:100%;" class="center"/>
+    </div>
+</div>
+
+---
+
+### Viterbrain Model
+
+$$\max f(s[1:n]|I[1:n])=\max \prod_i \alpha_1(I_i) p(s_i|s[i-1])p(s_1,I_1)$$
+<br>
+$$ p(s_i|s[i-1])=c_d d(s_i,s[i-1])+c_k \kappa(s_i,s[i-1])$$
+<br>
+$\alpha_1:$ distribution of image intensity on foreground.
 
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->

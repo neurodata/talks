@@ -451,6 +451,60 @@ AAV at DR expressing Flp-dependent GFP
 
 
 ---
+
+### Image Segmentation Problem
+
+<b>Image Domain</b>
+
+$$Y=\lbrace y_i \rbrace, Y \subset \mathbb{Z}^3$$
+
+<b>Image</b>
+
+$$I \in \mathcal{I}_c(Y): Y \rightarrow \mathbb{R}^c $$
+
+$c=3$: Antibody, Endogeneous, Background.
+
+<b>Problem</b>
+
+$$\mathcal{I}_3(Y) \rightarrow P(Y)$$
+
+where $P(Y) = \lbrace p: Y \rightarrow [0,1]\rbrace$
+
+---
+
+### Image Segmentation Approach
+
+<b>Image Features</b>: intensity, difference of Gaussian, eigenvalues of Hessian 
+
+$$\phi : \; \mathcal{I}_3(Y) \rightarrow \mathcal{I}_d(Y) $$
+
+- <a href="https://mathworld.wolfram.com/Shift-InvariantOperator.html">Shift Invariant </a>
+- <a href="https://en.wikipedia.org/wiki/Nonlocal_operator"> Local Operator</a>
+
+<b>Posterior Estimate</b>: random forest
+
+$$\hat{p}: \; \mathbb{R}^d \rightarrow [0,1]$$
+
+<b>Complete Transformation</b>
+
+$$(\hat{p} \circ \phi(I))(\cdot) : \; Y \rightarrow [0,1]$$
+
+
+---
+
+### Object Detection
+
+<b>Posterior Estimate</b>:
+
+$$(\hat{p} \circ \phi(I))(\cdot) : \; Y \rightarrow [0,1]$$
+
+<b>Connected Components</b>
+
+Collect components greater than a given size. 
+<img src="images/cc.png" STYLE="width:95%;" class="center"/>
+
+
+---
 ### BrainLine Predictor
 
 <div class="row">
@@ -461,6 +515,22 @@ AAV at DR expressing Flp-dependent GFP
         <img src="images/soma-val.png" STYLE="width:100%;" class="center"/>
     </div>
 </div>
+
+---
+
+### Hemispheres
+
+
+<img src="images/hemi-corrs.png" STYLE="width:95%;" class="center"/>
+
+---
+
+### Global Test
+- Group 1 distribution across regions: $\lbrace p_i \rbrace$ with mean $\bar p$
+- Group 2 distribution across regions: $\lbrace q_i \rbrace$ with mean $\bar q$
+$$d(\bar p, \bar q)=D(\bar p||\bar q)+D(\bar q||\bar p)$$
+
+<img src="images/axon-perms.png" STYLE="width:95%;" class="center"/>
 
 ---
 

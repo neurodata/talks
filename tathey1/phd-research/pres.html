@@ -33,6 +33,18 @@
         padding: 5px;
         }
 
+        .column3-10 {
+        float: left;
+        width: 28%;
+        padding: 5px;
+        }
+
+        .column7-10 {
+        float: left;
+        width: 68%;
+        padding: 5px;
+        }
+
         /* Clear floats after image containers */
         .row::after {
         content: "";
@@ -51,9 +63,9 @@
     
 Thomas L. Athey
 
-Lab Meeting
+Laboratories for Computational Neuroimaging Weekly Meeting
 
-July 17, 2023
+September 20, 2023
 
 <br> 
 
@@ -74,7 +86,7 @@ July 17, 2023
         <img src="images/scales/arrow.png" STYLE="width:30%;" class="center"/>
 
         <footer, style="font-size: 12px">
-            Sporns et al., 2005 <br> Mori et al., 2016 <br> Turner et al., 2022 <br> Oh et al., 2014
+            Sporns et al., 2005 <br> Mori et al., 2016 <br> Oh et al., 2014 <br> Turner et al., 2022
         </footer>
     </div>
 </div>
@@ -84,15 +96,30 @@ July 17, 2023
 
 <div class="row">
     <div class="column2">
-        <img src="images/meso-connect.png" STYLE="width:80%;" />
+        <img src="images/meso.png" STYLE="width:95%;" class="center"/>
     </div>
     <div class="column2">
-        <img src="images/meso.png" STYLE="width:100%;" />
     </div>
 </div>
 
 <footer, style="font-size: 12px">
-    Peng et al., 2021; Mitra, 2014
+    Mitra, 2014
+</footer>
+
+---
+### Mesoscale Neuron Anatomy
+
+<div class="row">
+    <div class="column2">
+        <img src="images/meso.png" STYLE="width:95%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/meso-connect.png" STYLE="width:75%;" />
+    </div>
+</div>
+
+<footer, style="font-size: 12px">
+    Mitra, 2014; Peng et al., 2021
 </footer>
 
 ---
@@ -128,15 +155,42 @@ July 17, 2023
     Winnubst et al. (2019)
 </footer>
 
+
+---
+
+### Voxel-Based Tracing Does Not Scale
+
+<img src="images/vox-trace.png" STYLE="width:100%;" class="center"/>
+
+Whole-brain fluorescent images have $10^{11}$ to $10^{13}$ voxels
+
+<footer, style="font-size: 12px">
+    Geman and Jedynak (1996), Longair et al. (2011), Xiao and Peng (2013), Radojevic and Meijering (2017)
+</footer>
+
+
+---
+
+### Acccurate Segmentations Do Not Produce Accurate Morphologies
+
+<img src="images/seg-trace.jpg" STYLE="width:100%;" class="center"/>
+
+
 ---
 
 ### Fragment-Based Tracing
 
-<img src="images/fragments.png" STYLE="width:55%;" class="center"/>
 
-<footer, style="font-size: 12px">
-    Geman and Jedynak (1996), Longair et al. (2011), Xiao and Peng (2013), Radojevic and Meijering (2017), Xiao and Peng (2013), Athey et al. (2022)
-</footer>
+<div class="row">
+    <div class="column3-10">
+        <img src="images/fig2_algorithm-state.jpg" STYLE="width:70%;" class="center"/>
+        <img src="images/fig2_algorithm-link.jpg" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column7-10">
+        <img src="images/fragments.png" STYLE="width:95%;" class="center"/>
+    </div>
+</div>
+
 
 ---
 
@@ -166,27 +220,24 @@ July 17, 2023
 <img src="images/viterbrain-acc.png" STYLE="width:100%;" class="center"/>
 
 <footer, style="font-size: 12px">
-    Athey et al. (2022)
+    Athey et al. (2022), Xiao and Peng (2013), Zhou et al. (2021), Radojevic and Meijering (2021), Wang et al. (2011)
 </footer>
 
 
 ---
 
-### Assisted Tracing Environment
+### Assisted Tracing on Whole-Cortex Images
 
 <video width="100%" height="70%" controls>
-    <source src="videos/tracing.mov">
+    <source src="videos/tracing2.mp4">
 </video>
 
-<footer, style="font-size: 12px">
-    Ongoing collaboration with Sriram Sudarsanam of Kolodkin Lab.
-</footer>
 
 ---
 
-### ViterBrain on Whole-Brain Images
+### Hippo Pathway Disruption in Development of Layer 2/3 S1 Neurons
 
-<img src="images/sriram-ngcells.png" STYLE="width:100%;" class="center"/>
+<img src="images/sriram-ngcells2.png" STYLE="width:100%;" class="center"/>
 <footer, style="font-size: 12px">
     Ongoing collaboration with Sriram Sudarsanam of Kolodkin Lab.
 </footer>
@@ -199,7 +250,7 @@ July 17, 2023
 <img src="images/mapping/mapping.png" STYLE="width:100%;" class="center"/>
 
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
 </footer>
 
 ---
@@ -225,31 +276,43 @@ July 17, 2023
 
 ---
 
+### Error Bound for Zeroth Order Mapping
+<br>
+<br>
+<br>
+<br>
+<b>Proposition (informal): </b> <br> <br>
+Error $\leq \max_t \vert D \phi(c(t)) - I \vert \vert t^i-t^{i-1} \vert + \vert \phi(c(t)) - c(t) \vert$ 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
+</footer>
+---
+
 ### Generalized Method
 
 $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i),...,\frac{d^k}{dt^k}\phi \circ c(t_i))  \rbrace_i$$
 
 <img src="images/map-toy.jpg" STYLE="width:60%;" class="center"/>
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
 </footer>
 
----
-
-### Error Bounds
-
-<img src="images/zero-prop.png" STYLE="width:100%;" class="center"/>
-
-<footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
-</footer>
 ---
 
 ### Mapping Real Neuron Traces
 
 <img src="images/mapping/combined.png" STYLE="width:100%;" class="center"/>
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
 </footer>
 ---
 
@@ -257,27 +320,49 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
 
 <img src="images/mapping/boxplots.png" STYLE="width:100%;" class="center"/>
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
 </footer>
 
 ---
 
 ## .center[Single Neurons]
 ### .center[Analysis]
-<img src="images/frenet.png" STYLE="width:30%;" class="center"/>
+<img src="images/frenet.gif" STYLE="width:40%;" class="center"/>
+
+---
+
+### Frenet-Serret Formulas
+
+<div class="row">
+    <div class="column2">
+        <img src="images/frenet.png" STYLE="width:70%;" class="center"/>
+    </div>
+    <div class="column2">
+        <br>
+        <img src="images/frenet-formulas.png" STYLE="width:70%;" class="center"/>
+        <br>
+    </div>
+</div>
+$$\kappa = \vert T' \vert$$ 
+$$\tau = -N \cdot B'$$
 
 ---
 
 ### Decomposing Neurons into Branches
 
-<img src="images/spline-branches.jpeg" STYLE="width:90%;" class="center"/>
+<img src="images/spline-branches.jpeg" STYLE="width:100%;" class="center"/>
+
 
 ---
 
-### Curvature and Torsion of Neuron Branches
+### Diffferent Branch Classes Have Different Curvature and Torsion
 
-<img src="images/spline-diffs.jpeg" STYLE="width:80%;" class="center"/>
 
+<img src="images/spline-diffs.jpeg" STYLE="width:78%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Athey et al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i>Front. in Neuroinform</i>.
+</footer>
 
 ---
 
@@ -294,15 +379,43 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
 
 ---
 
+### Variable Artifacts and Channel Signal
+
+
+
+<div class="row">
+    <div class="column2">
+        <img src="images/lsm-artifacts/artifacts.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/lsm-artifacts/channels.png" STYLE="width:100%;" class="center"/>
+    </div>
+</div>
+
+---
+
 ### BrainLine: Pipeline for Region Based Connectivity Analysis
 
-<img src="images/pipeline.png" STYLE="width:100%;" class="center"/>
+<img src="images/lsm-artifacts/pipeline.png" STYLE="width:100%;" class="center"/>
 
 
 <br><br><br><br><br>
 <footer, style="font-size: 12px">
     Athey et. al. (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
 </footer>
+
+---
+
+### BrainLine: Pipeline for Region Based Connectivity Analysis
+
+<img src="images/lsm-artifacts/pipeline-2.png" STYLE="width:100%;" class="center"/>
+
+
+<br><br><br>
+<footer, style="font-size: 12px">
+    Athey et. al. (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
+</footer>
+
 
 ---
 
@@ -314,23 +427,19 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
 
 ### Axon Projections
 
-<img src="images/800-a.png" STYLE="width:100%;" class="center"/>
+<img src="images/axon.png" STYLE="width:100%;" class="center"/>
 ---
 
 ### Presynaptic Cell Bodies
-<img src="images/800-d.png" STYLE="width:100%;" class="center"/>
+<img src="images/soma.png" STYLE="width:100%;" class="center"/>
+
 ---
 
-### Region Analysis
+### Open Source Software
+<img src="images/website.png" STYLE="width:50%;" class="center"/>
+<img src="images/pypi.png" STYLE="width:80%;" class="center"/>
 
-<div class="row">
-    <div class="column2">
-        <img src="images/axon-coarse.png" STYLE="width:80%;" class="center"/>
-    </div>
-    <div class="column2">
-        <img src="images/soma-coarse.png" STYLE="width:80%;" class="center"/>
-    </div>
-</div>
+
 
 ---
 
@@ -405,11 +514,27 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
     <div class="centered"></div>
 </div>
 ---
-
-# Feedback
+# .center[Supplement]
 
 ---
-# .center[Supplement]
+
+### Viterbrain Model
+
+$$\max f(s[1:n]|I[1:n])=\max \prod_i \alpha_1(I_i) p(s_i|s[i-1])p(s_1,I_1)$$
+<br>
+$$ p(s_i|s[i-1])=c_d d(s_i,s[i-1])+c_k \kappa(s_i,s[i-1])$$
+<br>
+$\alpha_1:$ distribution of image intensity on foreground.
+
+---
+
+### Error Bounds
+
+<img src="images/zero-prop.png" STYLE="width:100%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
+</footer>
 
 ---
 ### Labeling Projections
@@ -541,13 +666,16 @@ $$d(\bar p, \bar q)=D(\bar p||\bar q)+D(\bar q||\bar p)$$
 
 ---
 
-### Viterbrain Model
+### Presynaptic Cell Bodies
+<img src="images/soma-fine.png" STYLE="width:50%;" class="center"/>
 
-$$\max f(s[1:n]|I[1:n])=\max \prod_i \alpha_1(I_i) p(s_i|s[i-1])p(s_1,I_1)$$
-<br>
-$$ p(s_i|s[i-1])=c_d d(s_i,s[i-1])+c_k \kappa(s_i,s[i-1])$$
-<br>
-$\alpha_1:$ distribution of image intensity on foreground.
+
+---
+
+### Presynaptic Cell Bodies
+<img src="images/axon-fine.png" STYLE="width:50%;" class="center"/>
+
+
 
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->

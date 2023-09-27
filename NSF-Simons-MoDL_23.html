@@ -211,12 +211,80 @@ Learning evolved because it improves future performance in a partially predictab
 
 ---
 
+## Consider the following sequence of tasks
+
+<img src="images/task-seq.png" width="1400">
+
+---
+
+## Online SGD & FTL Fail
+
+<img src="images/online_seq1.png" width="1400">
+
+--
+
+- Online Meta & Continual would do better, but never get to zero error 
+- Because none of these frameworks *prospect*
+
+
+---
+
+## Can we formalize the notion of prospection?
+
+Let 
+- $\mathcal{H}$ is a set of feasible hypotheses
+- $t \in \mathcal{T}$ indexes time 
+- $P :=$ { $P\_t$ }$\_{t \geq 0}$ be a sequence of distributions
+- $D\_{t'} =$ { $z\_t$ }$\_{t < t'}$ be a dataset drawn from $P$ such that $z\_t \sim P\_t$,
+- $\mathcal{D}$ be the set of all possible datasets 
+
+A learner $L: \mathcal{D} \times \mathcal{T} \mapsto \mathcal{H}$, so <br>
+$L(D\_{t'}, t) = \hat{h}\_t^{t'}$, where  $\hat{h}\_t^{t'}$ is the hypothesis at time $t > t'$ trained on data up until time $t'$
+
+Let
+- $\ell_t : \mathcal{H} \times \mathcal{Z} \mapsto \mathbb{R}$ is a time-varying loss function.
+- Risk at time $t$ be the expected loss, $  R\_t(L(D\_{t'},t)) = \mathbb{E}\_{z \sim P\_t}\left[ \ell\_t (L(D\_{t'},t) , z) \right]= \mathbb{E}\_{z \sim P\_t} [ \ell\_t ( \hat{h}^{t'}\_t , z) ]$.
+
+Colloquially, we desire that the expected risk approaches Bayes risk with high probability as $t$ grows
 
 
 
+---
 
 
+<img src="images/strong_PL.png" width="1400">
 
+
+Key differences with Strong PAC Learning:
+- we care about risk integrated over the future 
+- this requires *prospecting* about (1) what the future will be like, and (2) how we will act in the future
+
+
+---
+
+
+<img src="images/weak_PL.png" width="1400">
+
+where $L\_{ERM} : \mathcal{D} \mapsto \mathcal{H}$ be the ERM learner, so $\bar{h}\_0^{t'} =  L\_{ERM}(D\_{t'})$.
+
+Key additional differences with Weak PAC Learning:
+- we compare to an ERM learner, meaning it does not include time 
+
+
+---
+
+## Continuum Hypothesis of Learning Hypotheses 
+
+- Let $P$ is a sequence of distributions, 
+- Let $\mathcal{H}$ is the set of all possible relevant hypotheses.
+
+We conjecture that there are multiple classes of learning difficulty
+
+1. P is PAC Learnable 
+2. P is weakly prospectively learnable
+3. P is strongly prospectively learnable (for some, but not all,  $\epsilon$)
+4. P is uniformly prospectively learnable (that is, for all $\epsilon$)
+5. P is not prospectively learnable
 
 ---
 
@@ -244,7 +312,7 @@ Learning evolved because it improves future performance in a partially predictab
 
 
 ---
-#### Acknowledgements
+#### Acknowledgements: NSF Simons MoDL
 
 
 
@@ -262,7 +330,7 @@ Learning evolved because it improves future performance in a partially predictab
   <img src="faces/jaewon.jpg"/>
   <div class="centered">Jaewon Chung</div>
 </div> -->
-
+<!-- 
 
 <div class="small-container">
   <img src="faces/yummy.jpg"/>
@@ -299,18 +367,19 @@ Learning evolved because it improves future performance in a partially predictab
   <img src="faces/milkyway.jpg"/>
   <div class="centered">milkyway</div>
 </div>
+ -->
 
-
-##### JHU
+<!-- ##### JHU
 
 <div class="small-container">
   <img src="faces/cep.png"/>
   <div class="centered">Carey Priebe</div>
-</div>
+</div> -->
 
 
+<!-- <img src="images/dino_yummies.jpg" width="500"> -->
 
-<img src="images/neurodata2023.jpg" width="500">
+<img src="images/neurodata2023.jpg" width="1400">
 
 <!-- <div class="small-container">
   <img src="faces/vova_lab/Vova.JPG"/>
@@ -547,7 +616,7 @@ Learning evolved because it improves future performance in a partially predictab
 </div> -->
 
 
-##### NSF Simons MoDL
+<!-- ##### NSF Simons MoDL -->
 <!-- Hava, Ben, Robert, Jennifer, Ted. -->
 
 <!-- {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io) -->
@@ -564,7 +633,9 @@ Learning evolved because it improves future performance in a partially predictab
 <!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
 
 ---
-background-image: url(images/l_and_v.jpeg)
+background-image: url(images/dino_yummies.jpg)
+
+# .black[Questions?]
 
 .footnote[Questions?]
 

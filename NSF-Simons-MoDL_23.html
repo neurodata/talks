@@ -5,7 +5,7 @@
 
 
 <head>
-  <title>NSF-Simons MoDL</title>
+  <title>NSF SIMONS MODL</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="fonts/quadon/quadon.css">
   <link rel="stylesheet" href="fonts/gentona/gentona.css">
@@ -19,10 +19,10 @@
   <textarea id="source">
 
 
-## Trials and tribulations of relaxing IID: <br>From OOD to Prospective Learning
+# Beyond IID:<br>Out of Distribution & <br>Prospective Learning
 <br>
 
-PI: Joshua T. Vogelstein <br>
+Joshua T. Vogelstein <br>
 <!-- , [JHU](https://www.jhu.edu/) <br> -->
 <!-- Co-PI: Vova Braverman, [JHU](https://www.jhu.edu/) <br> -->
 
@@ -36,25 +36,34 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari, Carey E. Priebe, Timothy Versty
 
 ---
 
+### Outline 
+
+- Out of Distribution (OoD) Learning 
+- Prospective Learning
+
+---
+
+## What is learning?
+
+<img src="images/glivenko-cantelli-33.png" width="1000">
+<img src="images/GV2.png" width="1000">
 
 
-## Classical PAC Learning
+---
 
-- Assume  $(X\_i,Y\_i) \sim^{iid} F, \quad  i \in [n]$
-- $\mathcal{H} =$ { $h : \mathcal{X} \to \mathcal{Y}$ } 
-- Let $f((X_i,Y_i)^n) \rightarrow \hat{h}_n$  
-- Let $R$ (risk) be expected loss
+## A more modern definition
+
+- Assume  $(X\_i,Y\_i) \sim^{iid} F, \quad  i \in [n]$ 
+- Let $L((X_i,Y_i)^n) \rightarrow h_n$  
+- Let $R$ denote risk, eg,  expected loss
+- Let $R^*$ be Bayes optimal risk
 - Let $\delta, \epsilon > 0$
-- a learner  .ye[weakly] learns if $\, \exists N$ s.t. $\forall n > N$ and $\forall \delta>0$
 
-$$\mathbb{P}[ R(\hat{h}\_n) < R\_{0} ] \geq 1 - \delta$$
+- $L$ learns iff $\, \exists N$ s.t. $\forall n > N$
 
-- a learner .ye[strongly] learns if $\, \exists N$ s.t. $\forall n > N$ and $\forall \epsilon, \delta>0$
+$$\mathbb{P}[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
-$$\mathbb{P}[ R(\hat{h}\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
-
-
-- strong learner thm: if $f$ weakly learns, it also strongly learns
+- GC thm: error gets smaller as $n$ increases
 - implication: if your AI is doing ok, just get more data!
 
 ---
@@ -65,98 +74,92 @@ $$\mathbb{P}[ R(\hat{h}\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 ---
 
-## OOD PAC Learning 
+## What is OoD Learning? 
 
-- Assume  $(X\_i,Y\_i) \sim^{iid} F', \quad  i \in [n]$ 
-- Let $f((X\_i,Y\_i)^{n}) \rightarrow \hat{h}\_{n}$  
-- Assume  $(X,Y) \sim F, $ 
-- Let R (risk) be expected loss .ye[with respect to $F$]
+- Assume  $(X\_i,Y\_i) \sim^{iid} F, \quad  i \in [n]$ 
+- Let $L((X_i,Y_i)^n) \rightarrow h_n$  
+- Let $R$ denote risk, eg,  expected loss wrt $F' \neq F$
+- Let $R^*$ be Bayes optimal risk wrt $F' \neq F$
+- Let $\delta, \epsilon > 0$
+
+- $L$ OoD learns from $F$ about $F'$ iff $\, \exists N$ s.t. $\forall n > N$
+
+$$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 
-- a learner  .ye[weakly] learns if $\, \exists N$ s.t. $\forall n > N$ and $\forall \delta>0$
+- Question: does more data from $F$ help?
 
-$$\mathbb{P}\_{F'}[ R\_F(\hat{h}\_n) < R\_{0} ] \geq 1 - \delta$$
-
-- a learner .ye[strongly] learns if $\, \exists N$ s.t. $\forall n > N$ and $\forall \epsilon, \delta>0$
-
-$$\mathbb{P}[ R(\hat{h}\_n) - R\_F^* <  \epsilon ] \geq 1 - \delta$$
-
-- strong OOD learner thm: if $f$ weakly learns, it does not necessarily strongly learn
-- implications: more data does not necessarily help!
-
-.footnote[.small[Geisa, et al., Towards a theory of out-of-distribution learning. 2021]]
+.footnote[.small[De Silva, et al., The Value of OoD Data. ICML, 2023]]
 
 ---
 
-### A generalized definition of learning 
+## Let's take a poll 
 
-- Let $S = (X\_i,Y\_i) \sim^{iid} P, \, \forall i \in [n]$
-- Let $S'  = (X\_i,Y\_i) \sim^{iid} Q, \, \forall i \in ${$n+1,\ldots, n+m$} 
-- Let $\mathcal{E}^t_f(S)$ := expected risk for task $t$ of learner $f$ using data $S$ 
-- Let .ye[Learning Efficiency] be defined:
-
-$$LE^t_f(S,S') = \frac{ \mathcal{E}^t_f(S)}{\mathcal{E}^t_f(S')}$$
+Let $E=\mathbb{E}\_F[ R(h\_n) - R^*]$ be generalization error on $F'$ with training data from $F$
 
 
-- $f$ .ye[learns] about $P$ from $Q$ whenever $\log LE^t_f(S,S') >0$
-- $f$ .ye[forgets] about $P$ from $Q$ whenever $\log LE^t_f(S,S') < 0$
-- .ye[catastrophic forgetting]: $LE \ll 0$
-- forward transfer,  backward transfer, performance relative to STE, etc. are special cases
 
-.footnote[.small[Vogelstein, et al. arxiv, 2020]]
+Who thinks more data from $F$ 
+
+--
+
+
+1. reduces E 
+--
+
+2. increases E 
+--
+
+3. depends on the relationship between $F$ and $F'$
+
 
 ---
 
-### Fundamental Question of OOD Learning 
+## Let's see: the simplest example 
 
-- Assume  $S = (X\_i,Y\_i) \sim^{iid} P, \quad  i \in [n]$ 
-- Assume  $T = (X\_i,Y\_i) \sim^{iid} Q, \quad  i \in ${$n+1, \ldots, n+m$} 
-- Assume $S \perp T$ 
- <!-- the $n$ samples from $P$ and the $m$ samples from $Q$ are independent of each other  -->
-- What are the conditions on $P, Q, n, m$ such that $f$ can learn about $P$ from $Q$ (i.e., achieve $\log LE > 0$)?
+- $F$ is two gaussians
+- $F'$ is two gaussians shifted by $\Delta$
 
+<!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true" width="700"> -->
+<img src="images/ood-1-summary-plot-a.png" width="500">
 
-We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, then data from $Q$ makes $f$ learn about (rather than forget about) $P$
-
----
-
-## The simplest example 
-
-- $P$ is two gaussians
-- $Q$ is two gaussians shifted by $\Delta$
-
-<img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true" width="700">
 
 <!-- ![:scale 100%](https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true) -->
 
 ---
 
-## A terrible thing 
+## More data from $F$ can first improve, <br>and then degrade E 
 
-<img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gaussian_task_analytical_plot.svg?raw=true" width="1000">
+<!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gaussian_task_analytical_plot.svg?raw=true" width="1000"> -->
 
-- Sometimes, for a fixed $\Delta$, error is non-monotonic wrt $m$
-- implications: just because a little OOD data helps, does not mean that more will help!
+<img src="images/ood-1-summary-plot-b.png" width="500">
 
 
-.footnote[.small[de Silva, et al. Non-monotonic Out-of-Distribution Risk, in prep]]
+- For a fixed $\Delta$, error can be non-monotonic wrt OoD sample size $m$
+- implications: just because a little OoD data helps, does not mean that more won't hurt!
+
+
+.footnote[.small[De Silva, et al., The Value of OoD Data. ICML, 2023]]
 
 ---
 
-## Not just in simulated data 
+## A Bias/Variance Explanation
 
-- CIFAR 10
-- Task 1: Bird vs. Cat 
-- Task 2: Deer vs. Dog
+<img src="images/2-bias-var-breakdown-plot.png" width="1000">
 
-<img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/bridcat_deerdog.svg?raw=true" width="1000">
+
+---
+
+## Some synthetic image data examples 
+
+<img src="images/9-simdata-plot.png" width="1400">
 
 
 ---
 
 ## Summary so far 
 
-- OOD learning is different in kind from in-distribution learning 
+- OoD learning is different in kind from in-distribution learning 
 - More data is not necessarily adequate to get arbitrary performance
 - More data can actually hurt 
 - Time to think carefully about how much data of different kinds to use, and how to combine datasets, rather than throwing everything in a bucket
@@ -164,18 +167,55 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 
 ---
 
-### 
+## What about time?
 
-<img src="images/S1.png" width="1200">
+- $L$ OoD learns from $F$ about $F'$ iff $\, \exists N$ s.t. $\forall n > N$
+
+$$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
+
+Does not include time.
+
+Let's revisit learning frameworks
+
 ---
-### 
 
-<img src="images/S2.png" width="1200">
+## Learning Frameworks 
+
+
+- "Classical" PAC Learning: best case scenario,  $F\_{future} = F\_{past}$ 
+- Online Learning: worst case scenario: future F could be adversarial 
+
+In both cases, the "best" thing to do is whatever would have worked best in the past.
+
 
 ---
-### 
 
-<img src="images/S3.png" width="1200">
+## Fancy Learning Frameworks 
+
+- OoD PAC Learning: $F\_{future} \neq F\_{past}$ 
+- Online meta-learning: $F\_{future} \sim iid G$ 
+- Continual learning: $F\_{future} \sim iid G$, with bias towards previously sampled F's 
+
+In all these cases, still no ability to predict $F\_{future}$ at all.
+
+But what about when one can predict future F's somewhat?
+
+
+---
+
+
+<img src="images/seligman13.png" width="1400">
+
+
+Learning evolved because it improves future performance in a partially predictable dynamic world
+
+---
+
+
+
+
+
+
 
 
 ---
@@ -235,8 +275,13 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 </div>
 
 <div class="small-container">
-  <img src="faces/violet.jpg"/>
-  <div class="centered">baby girl</div>
+  <img src="faces/owl.png"/>
+  <div class="centered">owl</div>
+</div>
+
+<div class="small-container">
+  <img src="faces/braven_hawk.png"/>
+  <div class="centered">braven hawk</div>
 </div>
 
 <div class="small-container">
@@ -263,10 +308,14 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
   <div class="centered">Carey Priebe</div>
 </div>
 
-<div class="small-container">
+
+
+<img src="images/neurodata2023.jpg" width="500">
+
+<!-- <div class="small-container">
   <img src="faces/vova_lab/Vova.JPG"/>
   <div class="centered">Vova Braverman</div>
-</div>
+</div> -->
 
 <!-- <div class="small-container">
   <img src="faces/randal.jpg"/>
@@ -313,10 +362,10 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
   <div class="centered">Drishti Mannan</div>
 </div> -->
 
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/jesse.jpg"/>
   <div class="centered">Jesse Patsolic</div>
-</div>
+</div> -->
 
 <!-- <div class="small-container">
   <img src="faces/falk_ben.jpg"/>
@@ -400,10 +449,10 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 </div> -->
 
 
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/meghana.png"/>
   <div class="centered">Meghana Madhya</div>
-</div>
+</div> -->
 
 
 <!-- <div class="small-container">
@@ -412,12 +461,12 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 </div>
 -->
 
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/hayden.png"/>
   <div class="centered">Hayden Helm</div>
-</div>
+</div> -->
 
-
+<!-- 
 <div class="small-container">
   <img src="faces/rguo.jpg"/>
   <div class="centered">Richard Gou</div>
@@ -461,9 +510,9 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 <div class="small-container">
   <img src="faces/vova_lab/Jingfeng.jpg"/>
   <div class="centered">Jingfeng Wu</div>
-</div>
+</div> -->
 
-##### HRL & Microsoft Research
+<!-- ##### HRL & Microsoft Research
 <div class="small-container">
   <img src="faces/vova_lab/Soheil.PNG"/>
   <div class="centered">Soheil Kolouri</div>
@@ -472,11 +521,11 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 <div class="small-container">
   <img src="faces/vova_lab/Praveen.JPG"/>
   <div class="centered">Praveen K. Pilly</div>
-</div>
+</div> -->
 
 <!-- ##### Microsoft Research -->
 
-<div class="small-container">
+<!-- <div class="small-container">
   <img src="faces/chwh-180x180.jpg"/>
   <div class="centered">Chris White</div>
 </div>
@@ -495,10 +544,10 @@ We hope that for a given $P, Q, n$, there exists an $M$ such that if $m > M$, th
 <div class="small-container">
   <img src="faces/brtower-180x180.jpg"/>
   <div class="centered">Bryan Tower</div>
-</div>
+</div> -->
 
 
-##### DARPA L2M
+##### NSF Simons MoDL
 <!-- Hava, Ben, Robert, Jennifer, Ted. -->
 
 <!-- {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io) -->
@@ -523,27 +572,6 @@ background-image: url(images/l_and_v.jpeg)
 class: middle
 # .center[Appendix]
 
-
----
-### Biological learning is on top
-
-<img src="images/learning-table.png" width="1000">
-
----
-### Spoken Digit dataset
-.pull-left[
-- *Spoken Digit* contains recording from 6 different speakers.
-- Each digit has 50 recordings (3000 total recordings).
-- For each recording spectrogram was extracted using using Hanning windows of duration 16 ms with an overlap of 4 ms.
--  The spectrograms were resized down to 28×28.
-]
-.pull-right[
-<img src="images/spectrogram.png" style="left:500px; width:400px;"/>
-]
----
-### Synergistic Algorithms on Spoken Digit Task
-<img src="images/spoken_digit.png" width="1000">
-<!-- ![:scale 105%]() -->
 
 </textarea>
   <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->

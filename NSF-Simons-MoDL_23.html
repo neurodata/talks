@@ -231,6 +231,45 @@ Learning evolved because it improves future performance in a partially predictab
 
 ## Can we formalize the notion of prospection?
 
+Let 
+- $\mathcal{H}$ is a set of feasible hypotheses
+- $t \in \mathcal{T}$ indexes time 
+- $P :=$ { $P\_t$ }$\_{t \geq 0}$ be a sequence of distributions
+- $D\_{t'} =$ { $z\_t$ }$\_{t < t'}$ be a dataset drawn from $P$ such that $z\_t \sim P\_t$,
+- $\mathcal{D}$ be the set of all possible datasets 
+
+A learner $L: \mathcal{D} \times \mathcal{T} \mapsto \mathcal{H}$, so <br>
+$L(D\_{t'}, t) = \hat{h}\_t^{t'}$, where  $\hat{h}\_t^{t'}$ is the hypothesis at time $t > t'$ trained on data up until time $t'$
+
+Let
+- $\ell_t : \mathcal{H} \times \mathcal{Z} \mapsto \mathbb{R}$ is a time-varying loss function.
+- Risk at time $t$ be the expected loss, $  R\_t(L(D\_{t'},t)) = \mathbb{E}\_{z \sim P\_t}\left[ \ell\_t (L(D\_{t'},t) , z) \right]= \mathbb{E}\_{z \sim P\_t} [ \ell\_t ( \hat{h}^{t'}\_t , z) ]$.
+
+Colloquially, we desire that the expected risk approaches Bayes risk with high probability as $t$ grows
+
+
+
+---
+
+
+<img src="images/strong_PL.png" width="1400">
+
+
+Key differences with Strong PAC Learning:
+- we care about risk integrated over the future 
+- this requires *prospecting* about (1) what the future will be like, and (2) how we will act in the future
+
+
+---
+
+
+<img src="images/weak_PL.png" width="1400">
+
+where $L\_{ERM} : \mathcal{D} \mapsto \mathcal{H}$ be the ERM learner, so $\bar{h}\_0^{t'} =  L\_{ERM}(D\_{t'})$.
+
+Key additional differences with Weak PAC Learning:
+- we compare to an ERM learner, meaning it does not include time 
+
 
 ---
 

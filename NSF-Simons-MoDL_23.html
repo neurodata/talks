@@ -5,7 +5,7 @@
 
 
 <head>
-  <title>NSF SIMONS MODL</title>
+  <title>IID++</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="fonts/quadon/quadon.css">
   <link rel="stylesheet" href="fonts/gentona/gentona.css">
@@ -19,8 +19,7 @@
   <textarea id="source">
 
 
-# Beyond IID:<br>Out of Distribution & <br>Prospective Learning
-<br>
+#### Surprise! IID++<br>Out of Distribution & <br>Prospective Learning
 
 Joshua T. Vogelstein <br>
 <!-- , [JHU](https://www.jhu.edu/) <br> -->
@@ -31,83 +30,119 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari, <br>Carey E. Priebe, Timothy Ve
 <!-- [Microsoft Research](https://www.microsoft.com/en-us/research/): Weiwei Yang | Jonathan Larson | Bryan Tower | Chris White -->
 
 
-<img src="images/neurodata_blue.png" width="40%" style="vertical-align: top; " >
+<img src="images/neurodata_blue.png" width="20%" style="vertical-align: top; " >
 <!-- <img src="images/jhu.png" width="8%" style="vertical-align: top"> -->
 
 ---
 
-### Outline 
+#### Outline 
 
+- Classical Learning
 - Out of Distribution (OoD) Learning 
 - Prospective Learning
 
 ---
 
-## What is learning?
+#### What is learning?
 
-<img src="images/glivenko-cantelli-33.png" width="1000">
-<img src="images/GV2.png" width="1000">
+<img src="images/glivenko-cantelli-33.png" width="640">
+<img src="images/GV2.png" width="640">
 
 
 ---
 
-## A more modern definition
+#### A more modern definition
 
-- Assume  $(X\_i,Y\_i) \sim^{iid} F, \quad  i \in [n]$ 
-- Let $L((X_i,Y_i)^n) \rightarrow h_n$  
+- Assume  $Z\_i \sim^{iid} F, \quad  i \in [n]$ 
+- Let $L((Z_i)^n) \rightarrow h_n$  
 - Let $R$ denote risk, eg,  expected loss
 - Let $R^*$ be Bayes optimal risk
-- Let $\delta, \epsilon > 0$
 
-- $L$ learns iff $\, \exists N$ s.t. $\forall n > N$
+- $L$ learns iff $\, \exists N$ s.t. $\forall n > N$ 
+<!-- & $\delta, \epsilon > 0$ -->
 
 $$\mathbb{P}[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
-- GC thm: error gets smaller as $n$ increases
-- implication: if your AI is doing ok, just get more data!
+- GC thm: for any $F$, $\exists L$ s.t. error &searr;  as $n$ &nearr;
+- implication: more data is better!
 
 ---
 
-## So learning is solved?
+#### So learning is solved?
 
 - No. 
 
+
 ---
 
-## What is OoD Learning? 
+#### What's the problem 
 
-- Assume  $(X\_i,Y\_i) \sim^{iid} F, \quad  i \in [n]$ 
-- Let $L((X_i,Y_i)^n) \rightarrow h_n$  
-- Let $R$ denote risk, eg,  expected loss wrt $F' \neq F$
-- Let $R^*$ be Bayes optimal risk wrt $F' \neq F$
-- Let $\delta, \epsilon > 0$
+<img src="images/Hand2006.png" width="640">
 
-- $L$ OoD learns from $F$ about $F'$ iff $\, \exists N$ s.t. $\forall n > N$
+Future (validation) data is sampled from a different distribution
 
-$$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
+---
+
+#### Real world failures
 
 
-- Question: does more data from $F$ help?
+<img src="images/google_flu_trends.jpg" width="640">
+
+Can't model real world phenomema very well
+
+---
+
+#### Natural Intelligence failures
+
+
+<img src="images/ScienceVogelstein23.png" width="640">
+
+Can't replicate the intelligence of even the simplest organisms
+
+
+---
+
+## The Value of Out of Distribution Data
+
 
 .footnote[.small[De Silva, et al., The Value of OoD Data. ICML, 2023]]
 
 ---
 
-## Let's take a poll 
+#### What is OoD Learning? 
 
-Let $E=\mathbb{E}\_F[ R(h\_n) - R^*]$ be generalization error on $F'$ with training data from $F$
+- Assume source/OoD $Z\_i \sim^{iid} F, \quad  i \in [m]$ 
+- Assume target $Z\_i \sim^{iid} F', \quad m < i \leq n+m$
+- Let $L((Z\_i)^{n+m}) \rightarrow h\_{n+m}$  
+- Let $R$ denote risk, eg,  expected loss wrt $F'$
+- Let $R^*$ be Bayes optimal risk wrt $F'$
+
+- $L$ OoD learns from $F$ about $F'$ if 
+
+$$\mathbb{P}[ R(h\_{n+m}) - R^* <  \epsilon ] \geq 1 - \delta$$
+
+
+- Question: does more data from $F$ help?
+
+
+---
+
+#### Let's take a poll 
+
+- Let $E=\mathbb{E}[ R(h\_{n+m}) - R^*]$ be generalization error on $F'$
+- Expectation wrt $n$ samples from $F$ and  $m$ samples from $F'$
 
 
 
-Who thinks more data from $F$ 
+Who thinks as $m$ increases, for fixed $n$, E 
 
 --
 
 
-1. reduces E 
+1. decreases 
 --
 
-2. increases E 
+2. increases 
 --
 
 3. depends on the relationship between $F$ and $F'$
@@ -115,89 +150,98 @@ Who thinks more data from $F$
 
 ---
 
-## Let's see: the simplest example 
+#### Let's see: the simplest example 
 
 - $F$ is two gaussians
 - $F'$ is two gaussians shifted by $\Delta$
 
 <!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true" width="700"> -->
-<img src="images/ood-1-summary-plot-a.png" width="500">
+<img src="images/ood-1-summary-plot-a.png" width="300">
 
 
 <!-- ![:scale 100%](https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true) -->
 
 ---
 
-## More data from $F$ can first improve, <br>and then degrade E 
+#### E is non-monotonic in $m$!
 
-<!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gaussian_task_analytical_plot.svg?raw=true" width="1000"> -->
+<!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gaussian_task_analytical_plot.svg?raw=true" width="640"> -->
 
-<img src="images/ood-1-summary-plot-b.png" width="500">
+<img src="images/ood-1-summary-plot-b.png" height="300">
 
 
 - For a fixed $\Delta$, error can be non-monotonic wrt OoD sample size $m$
-- implications: just because a little OoD data helps, does not mean that more won't hurt!
-
-
-.footnote[.small[De Silva, et al., The Value of OoD Data. ICML, 2023]]
-
----
-
-## A Bias/Variance Explanation
-
-<img src="images/2-bias-var-breakdown-plot.png" width="1000">
+- implications: more pre-training can hurt!
 
 
 ---
 
-## Some synthetic image data examples 
+#### A Bias/Variance Explanation
 
-<img src="images/9-simdata-plot.png" width="1400">
+<img src="images/2-bias-var-breakdown-plot.png" width="500">
 
 
 ---
 
-## Summary so far 
+#### Synthetic image data examples 
+
+<img src="images/9-simdata-plot.png" width="640">
+
+---
+
+#### Trying to break it
+
+<img src="images/11-effect-of-hyp-aug-pt.png" width="640">
+
+
+---
+
+#### Summary so far 
 
 - OoD learning is different in kind from in-distribution learning 
-- More data is not necessarily adequate to get arbitrary performance
-- More data can actually hurt 
-- Time to think carefully about how much data of different kinds to use, and how to combine datasets, rather than throwing everything in a bucket
+- More OoD data does not necessarily help or hurt, it depends on sample sizes and distributions. 
+- Time to think more carefully about how much data of different kinds to use
 
 
 ---
 
-## What about time?
+#### What about time?
 
-- $L$ OoD learns from $F$ about $F'$ iff $\, \exists N$ s.t. $\forall n > N$
+- $L$ OoD learns from $F$ about $F'$ if
 
-$$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
+$$\mathbb{P}[ R(h\_{n+m}) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 Does not include time.
 
-Let's revisit learning frameworks
+Let's revisit learning frameworks, and see what is missing
+
+
+---
+
+## Prospective Learning: Principled Extrapolation to the Future
+
 
 .footnote[.small[De Silva, et al., Prospective Learning: Principled Extrapolation to the Future. CoLLAs, 2023]]
 
 
 ---
 
-## Learning Frameworks 
+#### Learning Frameworks 
 
 
 - "Classical" PAC Learning: best case scenario,  $F\_{future} = F\_{past}$ 
-- Online Learning: worst case scenario: future F could be adversarial 
+- Online Learning: worst case scenario, <br> $F\_{future}$ could be adversarial 
 
 In both cases, the "best" thing to do is whatever would have worked best in the past.
 
 
 ---
 
-## Fancy Learning Frameworks 
+#### Fancy Learning Frameworks 
 
 - OoD PAC Learning: $F\_{future} \neq F\_{past}$ 
-- Online meta-learning: $F\_{future} \sim iid G$ 
-- Continual learning: $F\_{future} \sim iid G$, with bias towards previously sampled F's 
+- Online meta-learning: $F\_{future} \sim^{iid} G$ 
+- Continual learning: $F\_{future} \sim^{iid} G$, with bias towards previously sampled F's 
 
 In all these cases, still no ability to predict $F\_{future}$ at all.
 
@@ -207,22 +251,38 @@ But what about when one can predict future F's somewhat?
 ---
 
 
-<img src="images/seligman13.png" width="1400">
+<img src="images/seligman13.png" width="640">
 
 
 Learning evolved because it improves future performance in a partially predictable dynamic world
 
----
-
-## Consider the following sequence of tasks
-
-<img src="images/task-seq.png" width="1400">
 
 ---
 
-## Online SGD & FTL Fail
+#### Consider...
 
-<img src="images/online_seq1.png" width="1400">
+Moving to Berkeley vs Boston 
+
+- I imagine challenges I'll face in B-town, and how I'll overcome them
+- Choose the one that minimizes expected loss integrated over my life
+- But I only make this choice once
+
+
+---
+
+#### Consider the following sequence 
+
+<img src="images/task-seq.png" width="640">
+
+--
+
+Has anyone ever run an experiment?
+
+---
+
+#### Online SGD & FTL Fail
+
+<img src="images/online_seq1.png" width="640">
 
 --
 
@@ -232,41 +292,52 @@ Learning evolved because it improves future performance in a partially predictab
 
 ---
 
-## Can we formalize the notion of prospection?
+#### Formalizing prospection
 
-Let 
+ 
 - $\mathcal{H}$ is a set of feasible hypotheses
 - $t \in \mathcal{T}$ indexes time 
 - $P :=$ { $P\_t$ }$\_{t \geq 0}$ be a sequence of distributions
 - $D\_{t'} =$ { $z\_t$ }$\_{t < t'}$ be a dataset drawn from $P$ such that $z\_t \sim P\_t$,
 - $\mathcal{D}$ be the set of all possible datasets 
 
-A learner $L: \mathcal{D} \times \mathcal{T} \mapsto \mathcal{H}$, so <br>
+
+A prospective learner $L: \mathcal{D} \times \mathcal{T} \mapsto \mathcal{H}$, so <br>
 $L(D\_{t'}, t) = \hat{h}\_t^{t'}$, where  $\hat{h}\_t^{t'}$ is the hypothesis at time $t > t'$ trained on data up until time $t'$
 
-Let
-- $\ell_t : \mathcal{H} \times \mathcal{Z} \mapsto \mathbb{R}$ is a time-varying loss function.
-- Risk at time $t$ be the expected loss, $  R\_t(L(D\_{t'},t)) = \mathbb{E}\_{z \sim P\_t}\left[ \ell\_t (L(D\_{t'},t) , z) \right]= \mathbb{E}\_{z \sim P\_t} [ \ell\_t ( \hat{h}^{t'}\_t , z) ]$.
-
-Colloquially, we desire that the expected risk approaches Bayes risk with high probability as $t$ grows
 
 
 
 ---
 
+#### Formalizing prospection
 
-<img src="images/strong_PL.png" width="1400">
+- $\ell_t : \mathcal{H} \times \mathcal{Z} \mapsto \mathbb{R}$ is a time-varying loss function.
+- Risk at time $t$ be the expected loss, $  R\_t(L(D\_{t'},t)) = \mathbb{E}\_{z \sim P\_t}\left[ \ell\_t (L(D\_{t'},t) , z) \right]$
+
+<!-- = \mathbb{E}\_{z \sim P\_t} [ \ell\_t ( \hat{h}^{t'}\_t , z) ]$. -->
+
+Colloquially, we desire that the expected risk decreases as $t$ increases
+
+
+---
+
+#### Strong Prospective Learnability
+
+
+<img src="images/strong_PL.png" width="640">
 
 
 Key differences with Strong PAC Learning:
 - we care about risk integrated over the future 
-- this requires *prospecting* about (1) what the future will be like, and (2) how we will act in the future
+- this requires prospecting about (1) what the future will be like, and (2) what we will be like
 
 
 ---
 
+#### Weak Prospective Learnability
 
-<img src="images/weak_PL.png" width="1400">
+<img src="images/weak_PL.png" width="640">
 
 where $L\_{ERM} : \mathcal{D} \mapsto \mathcal{H}$ be the ERM learner, so $\bar{h}\_0^{t'} =  L\_{ERM}(D\_{t'})$.
 
@@ -276,7 +347,7 @@ Key additional differences with Weak PAC Learning:
 
 ---
 
-## Continuum Hypothesis of Learning Hypotheses 
+#### Continuum Hypothesis of Learning Hypotheses 
 
 - Let $P$ is a sequence of distributions, 
 - Let $\mathcal{H}$ is the set of all possible relevant hypotheses.
@@ -285,19 +356,20 @@ We conjecture that there are multiple classes of learning difficulty
 
 1. P is PAC Learnable 
 2. P is weakly prospectively learnable (ie, we can do better than ERM)
-3. P is strongly prospectively learnable (for some, but not all,  $\epsilon$)
-4. P is uniformly prospectively learnable (that is, for all $\epsilon$)
+3. P is strongly prospectively learnable (for some  $\epsilon$)
+4. P is uniformly prospectively learnable (for all  $\epsilon$)
 5. P is not prospectively learnable
 
 
 ---
 
-## Did we re-invent the wheel?
+#### Did we re-invent the wheel?
 
 How is reinforcement learning different from this?
 
-- RL theory assumes POMDP on dynamics, we have not
-- Vanilla RL focuses on a single task, we do not
+- We directly build on statistical decision theory
+- RL theory assumes POMDP on dynamics, not PL
+- Vanilla RL focuses on a single task, not PL
 - RL focuses on inference problem, learning the parameters is a necessary sub-task, PL focuses on the learning problem 
 - RL algorithms require many trials, we care about zero-shot learning
 
@@ -305,7 +377,7 @@ How is reinforcement learning different from this?
 
 ---
 
-## Publications
+#### Publications
 
 
 1. De Silva et al. [The Value of Out-of-Distribution Data](https://arxiv.org/abs/2109.14501), ICML, 2023.
@@ -314,336 +386,24 @@ How is reinforcement learning different from this?
 
 
 ---
-#### Acknowledgements: NSF Simons MoDL
+##### Acknowledgements
 
 
+<img src="images/neurodata2023.jpg" width="640">
 
-<!-- <div class="small-container">
-  <img src="faces/ebridge.jpg"/>
-  <div class="centered">Eric Bridgeford</div>
-</div>
 
-<div class="small-container">
-  <img src="faces/pedigo.jpg"/>
-  <div class="centered">Ben Pedigo</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/jaewon.jpg"/>
-  <div class="centered">Jaewon Chung</div>
-</div> -->
-<!-- 
-
-<div class="small-container">
-  <img src="faces/yummy.jpg"/>
-  <div class="centered">yummy</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/lion.jpg"/>
-  <div class="centered">lion</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/owl.png"/>
-  <div class="centered">owl</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/braven_hawk.png"/>
-  <div class="centered">braven hawk</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/family.jpg"/>
-  <div class="centered">family</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/earth.jpg"/>
-  <div class="centered">earth</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/milkyway.jpg"/>
-  <div class="centered">milkyway</div>
-</div>
- -->
-
-<!-- ##### JHU
-
-<div class="small-container">
-  <img src="faces/cep.png"/>
-  <div class="centered">Carey Priebe</div>
-</div> -->
-
-
-<!-- <img src="images/dino_yummies.jpg" width="500"> -->
-
-<img src="images/neurodata2023.jpg" width="1400">
-
-<!-- <div class="small-container">
-  <img src="faces/vova_lab/Vova.JPG"/>
-  <div class="centered">Vova Braverman</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/randal.jpg"/>
-  <div class="centered">Randal Burns</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/cshen.jpg"/>
-  <div class="centered">Cencheng Shen</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/bruce_rosen.jpg"/>
-  <div class="centered">Bruce Rosen</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/kent.jpg"/>
-  <div class="centered">Kent Kiehl</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/mim.jpg"/>
-  <div class="centered">Michael Miller</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/dtward.jpg"/>
-  <div class="centered">Daniel Tward</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/vikram.jpg"/>
-  <div class="centered">Vikram Chandrashekhar</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/drishti.jpg"/>
-  <div class="centered">Drishti Mannan</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/jesse.jpg"/>
-  <div class="centered">Jesse Patsolic</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/falk_ben.jpg"/>
-  <div class="centered">Benjamin Falk</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/kwame.jpg"/>
-  <div class="centered">Kwame Kutten</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/perlman.jpg"/>
-  <div class="centered">Eric Perlman</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/loftus.jpg"/>
-  <div class="centered">Alex Loftus</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/bcaffo.jpg"/>
-  <div class="centered">Brian Caffo</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/minh.jpg"/>
-  <div class="centered">Minh Tang</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/avanti.jpg"/>
-  <div class="centered">Avanti Athreya</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/vince.jpg"/>
-  <div class="centered">Vince Lyzinski</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/dpmcsuss.jpg"/>
-  <div class="centered">Daniel Sussman</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/youngser.jpg"/>
-  <div class="centered">Youngser Park</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/shangsi.jpg"/>
-  <div class="centered">Shangsi Wang</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/tyler.jpg"/>
-  <div class="centered">Tyler Tomita</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/james.jpg"/>
-  <div class="centered">James Brown</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/disa.jpg"/>
-  <div class="centered">Disa Mhembere</div>
-</div> -->
-
-<!-- <div class="small-container">
-  <img src="faces/gkiar.jpg"/>
-  <div class="centered">Greg Kiar</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/jeremias.png"/>
-  <div class="centered">Jeremias Sulam</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/meghana.png"/>
-  <div class="centered">Meghana Madhya</div>
-</div> -->
-
-
-<!-- <div class="small-container">
-  <img src="faces/percy.png"/>
-  <div class="centered">Percy Li</div>
-</div>
--->
-
-<!-- <div class="small-container">
-  <img src="faces/hayden.png"/>
-  <div class="centered">Hayden Helm</div>
-</div> -->
-
-<!-- 
-<div class="small-container">
-  <img src="faces/rguo.jpg"/>
-  <div class="centered">Richard Gou</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/ronak.jpg"/>
-  <div class="centered">Ronak Mehta</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/jayanta.jpg"/>
-  <div class="centered">Jayanta Dey</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/will.jpg"/>
-  <div class="centered">Will LeVine</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/hao.jpg"/>
-  <div class="centered">Haoyin Xu</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/nhahn.jpg"/>
-  <div class="centered">Nick Hahn</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/vova_lab/Haoran.JPG"/>
-  <div class="centered">Haoran Li</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/vova_lab/Aditya.jpeg"/>
-  <div class="centered">Aditya Krishnan</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/vova_lab/Jingfeng.jpg"/>
-  <div class="centered">Jingfeng Wu</div>
-</div> -->
-
-<!-- ##### HRL & Microsoft Research
-<div class="small-container">
-  <img src="faces/vova_lab/Soheil.PNG"/>
-  <div class="centered">Soheil Kolouri</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/vova_lab/Praveen.JPG"/>
-  <div class="centered">Praveen K. Pilly</div>
-</div> -->
-
-<!-- ##### Microsoft Research -->
-
-<!-- <div class="small-container">
-  <img src="faces/chwh-180x180.jpg"/>
-  <div class="centered">Chris White</div>
-</div>
-
-
-<div class="small-container">
-  <img src="faces/weiwei.jpg"/>
-  <div class="centered">Weiwei Yang</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/jolarso150px.png"/>
-  <div class="centered">Jonathan Larson</div>
-</div>
-
-<div class="small-container">
-  <img src="faces/brtower-180x180.jpg"/>
-  <div class="centered">Bryan Tower</div>
-</div> -->
-
-
-<!-- ##### NSF Simons MoDL -->
-<!-- Hava, Ben, Robert, Jennifer, Ted. -->
-
-<!-- {[BME](https://www.bme.jhu.edu/),[CIS](http://cis.jhu.edu/), [ICM](https://icm.jhu.edu/), [KNDI](http://kavlijhu.org/)}@[JHU](https://www.jhu.edu/) | [neurodata](https://neurodata.io) -->
-<!-- <br> -->
-<!-- [jovo&#0064;jhu.edu](mailto:j1c@jhu.edu) | <http://neurodata.io/talks> | [@neuro_data](https://twitter.com/neuro_data) -->
-
-
-</div>
-<!-- <img src="images/funding/nsf_fpo.png" STYLE="HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/nih_fpo.png" STYLE="HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/darpa_fpo.png" STYLE=" HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/iarpa_fpo.jpg" STYLE="HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/KAVLI.jpg" STYLE="HEIGHT:95px;"/> -->
-<!-- <img src="images/funding/schmidt.jpg" STYLE="HEIGHT:95px;"/> -->
+.small[NSF Simons MoDL, ONR N00014-22-1-2255, and NSF CCF 2212519]
 
 ---
-background-image: url(images/dino_yummies.jpg)
 
-# .black[Questions?]
 
-.footnote[Questions?]
+##### Questions?
 
----
-class: middle
-# .center[Appendix]
+
+
+<img src="images/dino_yummies.jpg" width="640">
+
+
 
 
 </textarea>

@@ -19,7 +19,7 @@
   <textarea id="source">
 
 
-### Beyond IID:<br>Out of Distribution & <br>Prospective Learning
+#### Beyond IID:<br>Out of Distribution & <br>Prospective Learning
 <br>
 
 Joshua T. Vogelstein <br>
@@ -38,6 +38,7 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari, <br>Carey E. Priebe, Timothy Ve
 
 #### Outline 
 
+- Introduction
 - Out of Distribution (OoD) Learning 
 - Prospective Learning
 
@@ -58,7 +59,8 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari, <br>Carey E. Priebe, Timothy Ve
 - Let $R$ denote risk, eg,  expected loss
 - Let $R^*$ be Bayes optimal risk
 
-- $L$ learns iff $\, \exists N$ s.t. $\forall n > N$ and $\exists \delta, \epsilon > 0$
+- $L$ learns iff $\, \exists N$ s.t. $\forall n > N$ 
+<!-- & $\delta, \epsilon > 0$ -->
 
 $$\mathbb{P}[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
@@ -72,6 +74,38 @@ $$\mathbb{P}[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 - No. 
 
 
+---
+
+#### What's the problem 
+
+<img src="images/Hand2006.png" width="640">
+
+Future (validation) data is sampled from a different distribution
+
+---
+
+#### Real world failures
+
+
+<img src="images/google_flu_trends.jpg" width="640">
+
+Can't model real world phenomema very well
+
+---
+
+#### Natural Intelligence failures
+
+
+<img src="images/ScienceVogelstein23.png" width="640">
+
+Can't replicate the intelligence of even the simplest organisms
+
+
+---
+
+## The Value of Out of Distribution Data
+
+
 .footnote[.small[De Silva, et al., The Value of OoD Data. ICML, 2023]]
 
 ---
@@ -83,7 +117,7 @@ $$\mathbb{P}[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 - Let $R$ denote risk, eg,  expected loss wrt $F' \neq F$
 - Let $R^*$ be Bayes optimal risk wrt $F' \neq F$
 
-- $L$ OoD learns from $F$ about $F'$ iff $\, \exists N$ s.t. $\forall n > N$ & $\exists \delta, \epsilon > 0$
+- $L$ OoD learns from $F$ about $F'$ iff $\, \exists N$ s.t. $\forall n > N$ & $\delta, \epsilon > 0$
 
 $$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
@@ -130,7 +164,7 @@ Who thinks more data from $F$
 
 #### E is non-monotonic in $m$!
 
-<!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gaussian_task_analytical_plot.svg?raw=true" width="1000"> -->
+<!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gaussian_task_analytical_plot.svg?raw=true" width="640"> -->
 
 <img src="images/ood-1-summary-plot-b.png" height="300">
 
@@ -174,7 +208,13 @@ $$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 Does not include time.
 
-Let's revisit learning frameworks
+Let's revisit learning frameworks, and see what is missing
+
+
+---
+
+## Prospective Learning: Principled Extrapolation to the Future
+
 
 .footnote[.small[De Silva, et al., Prospective Learning: Principled Extrapolation to the Future. CoLLAs, 2023]]
 
@@ -185,7 +225,7 @@ Let's revisit learning frameworks
 
 
 - "Classical" PAC Learning: best case scenario,  $F\_{future} = F\_{past}$ 
-- Online Learning: worst case scenario: future F could be adversarial 
+- Online Learning: worst case scenario: $F\_{future}$ could be adversarial 
 
 In both cases, the "best" thing to do is whatever would have worked best in the past.
 
@@ -239,6 +279,7 @@ Learning evolved because it improves future performance in a partially predictab
 - $P :=$ { $P\_t$ }$\_{t \geq 0}$ be a sequence of distributions
 - $D\_{t'} =$ { $z\_t$ }$\_{t < t'}$ be a dataset drawn from $P$ such that $z\_t \sim P\_t$,
 - $\mathcal{D}$ be the set of all possible datasets 
+
 
 A learner $L: \mathcal{D} \times \mathcal{T} \mapsto \mathcal{H}$, so <br>
 $L(D\_{t'}, t) = \hat{h}\_t^{t'}$, where  $\hat{h}\_t^{t'}$ is the hypothesis at time $t > t'$ trained on data up until time $t'$
@@ -294,8 +335,8 @@ We conjecture that there are multiple classes of learning difficulty
 
 1. P is PAC Learnable 
 2. P is weakly prospectively learnable (ie, we can do better than ERM)
-3. P is strongly prospectively learnable (  $\exists \epsilon$)
-4. P is uniformly prospectively learnable ( $\forall \epsilon$)
+3. P is strongly prospectively learnable (for some  $\epsilon$)
+4. P is uniformly prospectively learnable (for all  $\epsilon$)
 5. P is not prospectively learnable
 
 
@@ -305,8 +346,9 @@ We conjecture that there are multiple classes of learning difficulty
 
 How is reinforcement learning different from this?
 
-- RL theory assumes POMDP on dynamics, not PL
-- Vanilla RL focuses on a single task, not PL
+- We directly build on statistical decision theory
+- RL theory assumes POMDP on dynamics, we have not
+- Vanilla RL focuses on a single task, we do not
 - RL focuses on inference problem, learning the parameters is a necessary sub-task, PL focuses on the learning problem 
 - RL algorithms require many trials, we care about zero-shot learning
 
@@ -324,8 +366,6 @@ How is reinforcement learning different from this?
 
 ---
 ##### Acknowledgements: 
-
-
 
 
 <img src="images/neurodata2023.jpg" width="640">

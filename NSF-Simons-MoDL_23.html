@@ -54,8 +54,8 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari, <br>Carey E. Priebe, Timothy Ve
 
 #### A more modern definition
 
-- Assume  $(X\_i,Y\_i) \sim^{iid} F, \quad  i \in [n]$ 
-- Let $L((X_i,Y_i)^n) \rightarrow h_n$  
+- Assume  $Z\_i \sim^{iid} F, \quad  i \in [n]$ 
+- Let $L((Z_i)^n) \rightarrow h_n$  
 - Let $R$ denote risk, eg,  expected loss
 - Let $R^*$ be Bayes optimal risk
 
@@ -64,8 +64,8 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari, <br>Carey E. Priebe, Timothy Ve
 
 $$\mathbb{P}[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
-- GC thm: error gets smaller as $n$ increases
-- implication: if your AI is doing ok, just get more data!
+- GC thm: for any $F$, $\exists L$ s.t. error gets smaller as $n$ increases
+- implication: more data is better
 
 ---
 
@@ -112,14 +112,15 @@ Can't replicate the intelligence of even the simplest organisms
 
 #### What is OoD Learning? 
 
-- Assume  $(X\_i,Y\_i) \sim^{iid} F, \quad  i \in [n]$ 
-- Let $L((X_i,Y_i)^n) \rightarrow h_n$  
-- Let $R$ denote risk, eg,  expected loss wrt $F' \neq F$
-- Let $R^*$ be Bayes optimal risk wrt $F' \neq F$
+- Assume source/OoD $Z\_i \sim^{iid} F, \quad  i \in [m]$ 
+- Assume target $Z\_i \sim^{iid} F' \neq F, \quad m < i \leq n+m$
+- Let $L((Z\_i)^{n+m}) \rightarrow h\_{n+m}$  
+- Let $R$ denote risk, eg,  expected loss wrt $F'$
+- Let $R^*$ be Bayes optimal risk wrt $F'$
 
-- $L$ OoD learns from $F$ about $F'$ iff $\, \exists N$ s.t. $\forall n > N$ & $\delta, \epsilon > 0$
+- $L$ OoD learns from $F$ about $F'$ if 
 
-$$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
+$$\mathbb{P}[ R(h\_{n+m}) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 
 - Question: does more data from $F$ help?
@@ -129,19 +130,20 @@ $$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 #### Let's take a poll 
 
-Let $E=\mathbb{E}\_F[ R(h\_n) - R^*]$ be generalization error on $F'$ with training data from $F$
+- Let $E=\mathbb{E}[ R(h\_{n+m}) - R^*]$ be generalization error on $F'$
+- Expectation wrt $n$ samples from $F$ and  $m$ samples from $F'$
 
 
 
-Who thinks more data from $F$ 
+Who thinks as $m$ increases, for fixed $n$, E 
 
 --
 
 
-1. reduces E 
+1. decreases 
 --
 
-2. increases E 
+2. increases 
 --
 
 3. depends on the relationship between $F$ and $F'$
@@ -170,8 +172,7 @@ Who thinks more data from $F$
 
 
 - For a fixed $\Delta$, error can be non-monotonic wrt OoD sample size $m$
-- implications: just because a little OoD data helps, does not mean that more won't hurt!
-
+- implications: more pre-training can hurt!
 
 
 ---
@@ -193,18 +194,17 @@ Who thinks more data from $F$
 #### Summary so far 
 
 - OoD learning is different in kind from in-distribution learning 
-- More data is not necessarily adequate to get arbitrary performance
-- More data can actually hurt 
-- Time to think carefully about how much data of different kinds to use, and how to combine datasets, rather than throwing everything in a bucket
+- More OoD data does not necessarily help or hurt, it depends. 
+- Time to think more carefully about how much data of different kinds to use
 
 
 ---
 
 #### What about time?
 
-- $L$ OoD learns from $F$ about $F'$ iff $\, \exists N$ s.t. $\forall n > N$
+- $L$ OoD learns from $F$ about $F'$ if
 
-$$\mathbb{P}\_F[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
+$$\mathbb{P}[ R(h\_{n+m}) - R^* <  \epsilon ] \geq 1 - \delta$$
 
 Does not include time.
 
@@ -281,7 +281,7 @@ Learning evolved because it improves future performance in a partially predictab
 - $\mathcal{D}$ be the set of all possible datasets 
 
 
-A learner $L: \mathcal{D} \times \mathcal{T} \mapsto \mathcal{H}$, so <br>
+A prospective learner $L: \mathcal{D} \times \mathcal{T} \mapsto \mathcal{H}$, so <br>
 $L(D\_{t'}, t) = \hat{h}\_t^{t'}$, where  $\hat{h}\_t^{t'}$ is the hypothesis at time $t > t'$ trained on data up until time $t'$
 
 
@@ -311,6 +311,15 @@ Key differences with Strong PAC Learning:
 - we care about risk integrated over the future 
 - this requires prospecting about (1) what the future will be like, and (2) how we will act in the future
 
+---
+
+#### Consider...
+
+Moving to Berkeley vs Boston 
+
+- I imagine challenges I'll face in B, and how I'll overcome them
+- Choose the one that minimizes expected loss integrated over my life
+- But I only make this choice once
 
 ---
 
@@ -347,8 +356,8 @@ We conjecture that there are multiple classes of learning difficulty
 How is reinforcement learning different from this?
 
 - We directly build on statistical decision theory
-- RL theory assumes POMDP on dynamics, we have not
-- Vanilla RL focuses on a single task, we do not
+- RL theory assumes POMDP on dynamics, not PL
+- Vanilla RL focuses on a single task, not PL
 - RL focuses on inference problem, learning the parameters is a necessary sub-task, PL focuses on the learning problem 
 - RL algorithms require many trials, we care about zero-shot learning
 
@@ -365,7 +374,7 @@ How is reinforcement learning different from this?
 
 
 ---
-##### Acknowledgements: 
+##### Acknowledgements
 
 
 <img src="images/neurodata2023.jpg" width="640">
@@ -376,7 +385,7 @@ How is reinforcement learning different from this?
 ---
 
 
-##### Questions
+##### Questions?
 
 
 

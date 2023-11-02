@@ -63,9 +63,9 @@
     
 Thomas L. Athey
 
-Laboratories for Computational Neuroimaging Weekly Meeting
+Seung Lab Weekly Meeting
 
-September 20, 2023
+November 3, 2023
 
 <br> 
 
@@ -251,7 +251,7 @@ Whole-brain fluorescent images have $10^{11}$ to $10^{13}$ voxels
 <img src="images/mapping/mapping.png" STYLE="width:100%;" class="center"/>
 
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
 
 ---
@@ -294,7 +294,7 @@ Error $\leq \max_t \vert D \phi(c(t)) - I \vert \vert t^i-t^{i-1} \vert + \vert 
 <br>
 <br>
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
 ---
 
@@ -304,7 +304,7 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
 
 <img src="images/map-toy.jpg" STYLE="width:60%;" class="center"/>
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
 
 ---
@@ -313,7 +313,7 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
 
 <img src="images/mapping/combined.png" STYLE="width:100%;" class="center"/>
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
 ---
 
@@ -321,7 +321,7 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
 
 <img src="images/mapping/boxplots.png" STYLE="width:100%;" class="center"/>
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
 
 ---
@@ -428,44 +428,44 @@ $$\tau = -N \cdot B'$$
 
 ### Axon Projections
 
-<img src="images/axon2.png" STYLE="width:100%;" class="center"/>
+<img src="images/axon.png" STYLE="width:100%;" class="center"/>
 ---
 
 ### Presynaptic Cell Bodies
 <img src="images/soma2.png" STYLE="width:100%;" class="center"/>
 
+---
+
+### Research Ideas in Microscale Connectomics
+
+- Active learning for predicting connections between supervoxels
+<img src="images/supervoxels.png" STYLE="width:100%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Dorkenwald et. al. (2022)
+</footer>
 
 ---
 
-### Papers I'm Currently Inspired By
+### Research Ideas in Microscale Connectomics
 
-- Mi et al. (2020) Learning Guided Electron Microscopy with Active Acquisition. 
-    - Idea: Rapid Image Segmentation on Image Pyramids.
-
-<img src="images/active-acq.jpg" STYLE="width:50%;" class="center"/>
-
----
-
-### Papers I'm Currently Inspired By
-
-- Mi et al. (2020) Learning Guided Electron Microscopy with Active Acquisition.
-- Yang et al. (2017) Quicksilver: Fast predictive image registration – A deep learning approach.
-    - Modification: Learning 2D to 3D image registration by predicting bounding boxes.
-
-<img src="images/deep-shoot.jpg" STYLE="width:75%;" class="center"/>
+- Active learning for predicting connections between supervoxels
+- Predicting synapse location from skeletonized morphology
 
 
+<div class="row">
+    <div class="column2">
+        <img src="images/synapses.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/lsm-morpho.png" STYLE="width:85%;" class="center"/>
+    </div>
+</div>
 
----
+<footer, style="font-size: 12px">
+    Dorkenwald et. al. (2023)
+</footer>
 
-### Papers I'm Currently Inspired By
-
-- Mi et al. (2020) Learning Guided Electron Microscopy with Active Acquisition.
-- Yang et al. (2017) Quicksilver: Fast predictive image registration – A deep learning approach.
-- Tward and Miller (2017) On the Complexity of Human Neuroanatomy at the Millimeter Morphome Scale: Developing Codes and Characterizing Entropy Indexed to Spatial Scale.
-    - Extension: Mutual information of anatomy and disease state or anatomy from other modality.
-
-<img src="images/entropy-shape.jpeg" STYLE="width:50%;" class="center"/>
 
 ---
 
@@ -567,7 +567,7 @@ $\alpha_1:$ distribution of image intensity on foreground.
 <img src="images/zero-prop.png" STYLE="width:100%;" class="center"/>
 
 <footer, style="font-size: 12px">
-    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>arXiv</i>.
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
 
 ---
@@ -709,6 +709,38 @@ $$d(\bar p, \bar q)=D(\bar p||\bar q)+D(\bar q||\bar p)$$
 ### Presynaptic Cell Bodies
 <img src="images/axon-fine.png" STYLE="width:50%;" class="center"/>
 
+
+---
+
+### Papers I'm Currently Inspired By
+
+- Mi et al. (2020) Learning Guided Electron Microscopy with Active Acquisition. 
+    - Idea: Rapid Image Segmentation on Image Pyramids.
+
+<img src="images/active-acq.jpg" STYLE="width:50%;" class="center"/>
+
+---
+
+### Papers I'm Currently Inspired By
+
+- Mi et al. (2020) Learning Guided Electron Microscopy with Active Acquisition.
+- Yang et al. (2017) Quicksilver: Fast predictive image registration – A deep learning approach.
+    - Modification: Learning 2D to 3D image registration by predicting bounding boxes.
+
+<img src="images/deep-shoot.jpg" STYLE="width:75%;" class="center"/>
+
+
+
+---
+
+### Papers I'm Currently Inspired By
+
+- Mi et al. (2020) Learning Guided Electron Microscopy with Active Acquisition.
+- Yang et al. (2017) Quicksilver: Fast predictive image registration – A deep learning approach.
+- Tward and Miller (2017) On the Complexity of Human Neuroanatomy at the Millimeter Morphome Scale: Developing Codes and Characterizing Entropy Indexed to Spatial Scale.
+    - Extension: Mutual information of anatomy and disease state or anatomy from other modality.
+
+<img src="images/entropy-shape.jpeg" STYLE="width:50%;" class="center"/>
 
 
 </textarea>

@@ -63,15 +63,94 @@
     
 Thomas L. Athey
 
-Seung Lab Weekly Meeting
+Thesis Defense
 
-November 3, 2023
+November 28, 2023
 
 <br> 
 
 <img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:100%;" />
 <!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
 
+---
+
+### Acknowledgements
+
+#### Thesis Committee
+<div class="small-container">
+    <img src="../../faces/mim.jpg"/>
+    <div class="centered">Michael Miller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/jovo.png"/>
+    <div class="centered">Joshua Vogelstein</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/laurent.jpeg"/>
+    <div class="centered">Laurent Younes</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/kolodkin.jpg"/>
+    <div class="centered">Alex Kolodkin</div>
+</div>
+
+#### Collaborators
+<div class="small-container">
+    <img src="../../faces/uli.jpg"/>
+    <div class="centered">Ulrich Mueller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/dtward.jpg"/>
+    <div class="centered">Daniel Tward</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/sriram.jpg"/>
+    <div class="centered">Sriram Sudarsanam</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/jacopo.jpeg"/>
+    <div class="centered">Jacopo Teneggi</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/vikram.jpg"/>
+    <div class="centered">Vikram Chandrashekhar</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/matt_wright.jpeg"/>
+    <div class="centered">Matthew Wright</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/marija_pavlovic.jpeg"/>
+    <div class="centered">Marija Pavlovic</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/gil_stolarski.jpg"/>
+    <div class="centered">Gilad Stolarski</div>
+</div>
+
+
+
+#### Funding
+
+<div class="small-container">
+    <img src="../../images/icm_logo.jpeg"/>
+    <div class="centered"></div>
+</div>
+<div class="small-container">
+    <img src="../../images/funding/nih_fpo.png"/>
+    <div class="centered"></div>
+</div>
+<div class="small-container">
+    <img src="../../images/funding/nsf_fpo.png"/>
+    <div class="centered"></div>
+</div>
+---
+
+<img src="images/faces/collage-1.png" STYLE="width:100%;" class="center"/>
+
+---
+
+<img src="images/faces/collage-2.png" STYLE="width:100%;" class="center"/>
 
 ---
 ### Mesoscale Neuron Anatomy
@@ -97,7 +176,7 @@ November 3, 2023
 
 <div class="row">
     <div class="column2">
-        <img src="images/meso.png" STYLE="width:95%;" class="center"/>
+        <img src="images/meso-1.png" STYLE="width:95%;" class="center"/>
     </div>
     <div class="column2">
     </div>
@@ -112,10 +191,28 @@ November 3, 2023
 
 <div class="row">
     <div class="column2">
-        <img src="images/meso.png" STYLE="width:95%;" class="center"/>
+        <img src="images/meso-2.png" STYLE="width:95%;" class="center"/>
     </div>
     <div class="column2">
-        <img src="images/meso-connect.png" STYLE="width:75%;" />
+    </div>
+</div>
+
+<footer, style="font-size: 12px">
+    Mitra, 2014
+</footer>
+
+---
+### Mesoscale Neuron Anatomy
+
+<div class="row">
+    <div class="column2">
+        <img src="images/meso-2.png" STYLE="width:95%;" class="center"/>
+    </div>
+    <div class="column2">
+        <font size="-1">Connectivity Maps</font> <br>
+        <img src="images/meso-connect-1.png" STYLE="width:65%;" /> <br>
+        <font size="-1">Neuron Reconstructions</font>
+        <img src="images/meso-connect-2.png" STYLE="width:75%;" />
     </div>
 </div>
 
@@ -253,23 +350,81 @@ Whole-brain fluorescent images have $10^{11}$ to $10^{13}$ voxels
 <footer, style="font-size: 12px">
     Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
+---
+### Mapping Discretized Neuronal Curves with Diffeomorphisms
+
+
+<b>Zeroth Order Mapping</b> (status quo):
+<br>
+$c:\mathbb{R}\rightarrow \mathbb{R}^3$ sampled at $\lbrace t_i  \rbrace_i$
+$$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
+
+
+Same curves before mapping:
+
+<div class="row">
+    <div class="column2">
+        <img src="images/mapping/map1-init.jpg" STYLE="width:90%;"/>
+        $\phi,\color{red}{c(t)}$ 
+    </div>
+    <div class="column2">
+        <img src="images/mapping/map2-init.jpg" STYLE="width:90%;"/>
+    </div>
+</div>
+
+
+<footer, style="font-size: 12px">
+    Fedorov (2013), Qu et al. (2022)
+</footer>
 
 ---
 ### Mapping Discretized Neuronal Curves with Diffeomorphisms
 
 
+<b>Zeroth Order Mapping</b> (status quo):
+<br>
+$c:\mathbb{R}\rightarrow \mathbb{R}^3$ sampled at $\lbrace t_i  \rbrace_i$
+$$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
+
+Different curves after mapping:
+
 <div class="row">
     <div class="column2">
-        Existing Method:
-        <br>
-        $c:\mathbb{R}\rightarrow \mathbb{R}^3$ sampled at $\lbrace t_i  \rbrace_i$
-        $$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=$$
-        $$\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
+        <img src="images/mapping/map1.gif" STYLE="width:90%;"/>
+        $\phi,\color{red}{c(t)}$ 
     </div>
     <div class="column2">
-        <img src="images/comp2.jpg" STYLE="width:100%;"/>
+         <img src="images/mapping/map2.gif" STYLE="width:90%;"/>
     </div>
 </div>
+
+
+<footer, style="font-size: 12px">
+    Fedorov (2013), Qu et al. (2022)
+</footer>
+
+---
+### Mapping Discretized Neuronal Curves with Diffeomorphisms
+
+
+<b>Zeroth Order Mapping</b> (status quo):
+<br>
+$c:\mathbb{R}\rightarrow \mathbb{R}^3$ sampled at $\lbrace t_i  \rbrace_i$
+$$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
+
+
+Different curves after mapping:
+
+<div class="row">
+    <div class="column2">
+        <img src="images/mapping/map1-final.jpg" STYLE="width:90%;"/>
+        $\phi,\color{red}{c(t)}$ 
+    </div>
+    <div class="column2">
+        <img src="images/mapping/map2-final.jpg" STYLE="width:90%;"/>
+    </div>
+</div>
+
 
 <footer, style="font-size: 12px">
     Fedorov (2013), Qu et al. (2022)
@@ -296,19 +451,94 @@ Error $\leq \max_t \vert D \phi(c(t)) - I \vert \vert t^i-t^{i-1} \vert + \vert 
 <footer, style="font-size: 12px">
     Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
+
 ---
 
-### Generalized Method
+### Zeroth Order Method
 
-$$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i),...,\frac{d^k}{dt^k}\phi \circ c(t_i))  \rbrace_i$$
+$$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
 
-<img src="images/map-toy.jpg" STYLE="width:60%;" class="center"/>
+<img src="images/mapping/map-ex-1.jpg" STYLE="width:80%;" class="center"/>
 <footer, style="font-size: 12px">
     Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
 </footer>
 
 ---
 
+### Zeroth Order Method
+
+$$\phi \cdot \lbrace (t_i, \color{blue}{c(t_i)})  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
+
+<img src="images/mapping/map-ex-2.jpg" STYLE="width:80%;" class="center"/>
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
+</footer>
+
+---
+
+### Zeroth Order Method
+
+$$\phi \cdot \lbrace (t_i, \color{blue}{c(t_i)})  \rbrace_i=\lbrace (t_i, \color{blue}{\phi \circ c(t_i)})  \rbrace_i$$
+
+<img src="images/mapping/map-ex-3.jpg" STYLE="width:80%;" class="center"/>
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
+</footer>
+
+---
+
+### Zeroth Order Method
+
+$$\phi \cdot \lbrace (t_i, \color{blue}{c(t_i)})  \rbrace_i=\lbrace (t_i, \color{blue}{\phi \circ c(t_i)})  \rbrace_i$$
+
+<img src="images/mapping/map-ex-4.jpg" STYLE="width:80%;" class="center"/>
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
+</footer>
+
+---
+
+### First Order Method
+
+$$\phi \cdot \lbrace (t_i, \color{green}{c(t_i)},\color{green}{c'(t_i)})  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i),\frac{d}{dt}\phi \circ c(t_i))  \rbrace_i$$
+
+<img src="images/mapping/map-ex-5.jpg" STYLE="width:80%;" class="center"/>
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
+</footer>
+
+---
+
+### First Order Method
+
+$$\phi \cdot \lbrace (t_i, \color{green}{c(t_i)},\color{green}{c'(t_i)})  \rbrace_i=\lbrace (t_i, \color{green}{\phi \circ c(t_i)},\color{green}{\frac{d}{dt}\phi \circ c(t_i)})  \rbrace_i$$
+
+<img src="images/mapping/map-ex-6.jpg" STYLE="width:80%;" class="center"/>
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
+</footer>
+
+---
+
+### First Order Method
+
+$$\phi \cdot \lbrace (t_i, \color{green}{c(t_i)},\color{green}{c'(t_i)})  \rbrace_i=\lbrace (t_i, \color{green}{\phi \circ c(t_i)},\color{green}{\frac{d}{dt}\phi \circ c(t_i)})  \rbrace_i$$
+
+<img src="images/mapping/map-ex-7.jpg" STYLE="width:80%;" class="center"/>
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
+</footer>
+---
+
+
+### Generalized Method
+
+$$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i),...,\frac{d^k}{dt^k}\phi \circ c(t_i))  \rbrace_i$$
+
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Press</i>.
+</footer>
+---
 ### Mapping Real Neuron Traces
 
 <img src="images/mapping/combined.png" STYLE="width:100%;" class="center"/>
@@ -353,10 +583,20 @@ $$\tau = -N \cdot B'$$
 
 <img src="images/spline-branches.jpeg" STYLE="width:100%;" class="center"/>
 
+---
+
+### Different Branch Classes Have Different Curvature and Torsion
+
+
+<img src="images/neuron-heat.png" STYLE="width:100%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Athey et al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i>Front. in Neuroinform</i>.
+</footer>
 
 ---
 
-### Diffferent Branch Classes Have Different Curvature and Torsion
+### Different Branch Classes Have Different Curvature and Torsion
 
 
 <img src="images/spline-diffs.jpeg" STYLE="width:78%;" class="center"/>
@@ -405,17 +645,6 @@ $$\tau = -N \cdot B'$$
     Athey et. al. (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
 </footer>
 
----
-
-### BrainLine: Pipeline for Region Based Connectivity Analysis
-
-<img src="images/lsm-artifacts/pipeline-2.png" STYLE="width:100%;" class="center"/>
-
-
-<br><br><br>
-<footer, style="font-size: 12px">
-    Athey et. al. (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
-</footer>
 
 
 ---
@@ -434,38 +663,6 @@ $$\tau = -N \cdot B'$$
 ### Presynaptic Cell Bodies
 <img src="images/soma2.png" STYLE="width:100%;" class="center"/>
 
----
-
-### Research Ideas in Microscale Connectomics
-
-- Active learning for predicting connections between supervoxels
-<img src="images/supervoxels.png" STYLE="width:100%;" class="center"/>
-
-<footer, style="font-size: 12px">
-    Dorkenwald et. al. (2022)
-</footer>
-
----
-
-### Research Ideas in Microscale Connectomics
-
-- Active learning for predicting connections between supervoxels
-- Predicting synapse location from skeletonized morphology
-
-
-<div class="row">
-    <div class="column2">
-        <img src="images/synapses.png" STYLE="width:100%;" class="center"/>
-    </div>
-    <div class="column2">
-        <img src="images/lsm-morpho.png" STYLE="width:85%;" class="center"/>
-    </div>
-</div>
-
-<footer, style="font-size: 12px">
-    Dorkenwald et. al. (2023)
-</footer>
-
 
 ---
 
@@ -473,80 +670,27 @@ $$\tau = -N \cdot B'$$
 <img src="images/website.png" STYLE="width:50%;" class="center"/>
 <img src="images/pypi.png" STYLE="width:80%;" class="center"/>
 
-
-
 ---
 
-### Thank You!
+## Next Step
 
-#### Thesis Committee
-<div class="small-container">
-    <img src="../../faces/mim.jpg"/>
-    <div class="centered">Michael Miller</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/jovo.png"/>
-    <div class="centered">Joshua Vogelstein</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/laurent.jpeg"/>
-    <div class="centered">Laurent Younes</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/kolodkin.jpg"/>
-    <div class="centered">Alex Kolodkin</div>
-</div>
+<br><br>
+<img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:70%;" class="center"/>
 
-#### Collaborators
-<div class="small-container">
-    <img src="../../faces/uli.jpg"/>
-    <div class="centered">Ulrich Mueller</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/dtward.jpg"/>
-    <div class="centered">Daniel Tward</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/sriram.jpg"/>
-    <div class="centered">Sriram Sudarsanam</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/jacopo.jpeg"/>
-    <div class="centered">Jacopo Teneggi</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/vikram.jpg"/>
-    <div class="centered">Vikram Chandrashekhar</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/matt_wright.jpeg"/>
-    <div class="centered">Matthew Wright</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/marija_pavlovic.jpeg"/>
-    <div class="centered">Marija Pavlovic</div>
-</div>
-<div class="small-container">
-    <img src="../../faces/gil_stolarski.jpg"/>
-    <div class="centered">Gilad Stolarski</div>
-</div>
+$$\downarrow$$
 
-
-
-#### Funding
-
-<div class="small-container">
-    <img src="../../images/icm_logo.jpeg"/>
-    <div class="centered"></div>
+<div class="row">
+    <div class="column2">
+        <img src="images/MIT.png" STYLE="width:60%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/novo-nordisk.png" STYLE="width:60%;" class="center"/>
+    </div>
 </div>
-<div class="small-container">
-    <img src="../../images/funding/nih_fpo.png"/>
-    <div class="centered"></div>
-</div>
-<div class="small-container">
-    <img src="../../images/funding/nsf_fpo.png"/>
-    <div class="centered"></div>
-</div>
+---
+
+# .center[Thank You!]
+
 ---
 # .center[Supplement]
 
@@ -681,6 +825,17 @@ Collect components greater than a given size.
         <img src="images/soma-val.png" STYLE="width:100%;" class="center"/>
     </div>
 </div>
+---
+
+### BrainLine: Pipeline for Region Based Connectivity Analysis
+
+<img src="images/lsm-artifacts/pipeline-2.png" STYLE="width:100%;" class="center"/>
+
+
+<br><br><br>
+<footer, style="font-size: 12px">
+    Athey et. al. (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
+</footer>
 
 ---
 
@@ -708,6 +863,40 @@ $$d(\bar p, \bar q)=D(\bar p||\bar q)+D(\bar q||\bar p)$$
 
 ### Presynaptic Cell Bodies
 <img src="images/axon-fine.png" STYLE="width:50%;" class="center"/>
+
+
+
+---
+
+### Research Ideas in Microscale Connectomics
+
+- Active learning for predicting connections between supervoxels
+<img src="images/supervoxels.png" STYLE="width:100%;" class="center"/>
+
+<footer, style="font-size: 12px">
+    Dorkenwald et. al. (2022)
+</footer>
+
+---
+
+### Research Ideas in Microscale Connectomics
+
+- Active learning for predicting connections between supervoxels
+- Predicting synapse location from skeletonized morphology
+
+
+<div class="row">
+    <div class="column2">
+        <img src="images/synapses.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/lsm-morpho.png" STYLE="width:85%;" class="center"/>
+    </div>
+</div>
+
+<footer, style="font-size: 12px">
+    Dorkenwald et. al. (2023)
+</footer>
 
 
 ---

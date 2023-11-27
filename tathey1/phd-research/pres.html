@@ -21,6 +21,12 @@
         padding: 5px;
         }
 
+        .column1-10 {
+        float: left;
+        width: 8%;
+        padding: 5px;
+        }
+
         .column2-10 {
         float: left;
         width: 18%;
@@ -42,6 +48,12 @@
         .column7-10 {
         float: left;
         width: 68%;
+        padding: 5px;
+        }
+
+        .column6-10 {
+        float: left;
+        width: 58%;
         padding: 5px;
         }
 
@@ -76,7 +88,11 @@ November 28, 2023
 
 ### Acknowledgements
 
-#### Thesis Committee
+##### Thesis Committee
+<div class="small-container">
+    <img src="../../faces/kolodkin.jpg"/>
+    <div class="centered">Alex Kolodkin</div>
+</div>
 <div class="small-container">
     <img src="../../faces/mim.jpg"/>
     <div class="centered">Michael Miller</div>
@@ -89,12 +105,8 @@ November 28, 2023
     <img src="../../faces/laurent.jpeg"/>
     <div class="centered">Laurent Younes</div>
 </div>
-<div class="small-container">
-    <img src="../../faces/kolodkin.jpg"/>
-    <div class="centered">Alex Kolodkin</div>
-</div>
 
-#### Collaborators
+##### Collaborators
 <div class="small-container">
     <img src="../../faces/uli.jpg"/>
     <div class="centered">Ulrich Mueller</div>
@@ -102,6 +114,10 @@ November 28, 2023
 <div class="small-container">
     <img src="../../faces/dtward.jpg"/>
     <div class="centered">Daniel Tward</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/jeremias.png"/>
+    <div class="centered">Jeremias Sulam</div>
 </div>
 <div class="small-container">
     <img src="../../faces/sriram.jpg"/>
@@ -130,7 +146,7 @@ November 28, 2023
 
 
 
-#### Funding
+##### Funding
 
 <div class="small-container">
     <img src="../../images/icm_logo.jpeg"/>
@@ -151,6 +167,10 @@ November 28, 2023
 ---
 
 <img src="images/faces/collage-2.png" STYLE="width:100%;" class="center"/>
+---
+
+<img src="images/brainbow-obama/brainbow.svg" STYLE="width:100%;" class="center"/>
+
 
 ---
 ### Mesoscale Neuron Anatomy
@@ -172,52 +192,21 @@ November 28, 2023
 </div>
 
 ---
-### Mesoscale Neuron Anatomy
+### Mesoscale Neuron Anatomy Data
 
 <div class="row">
-    <div class="column2">
-        <img src="images/meso-1.png" STYLE="width:95%;" class="center"/>
-    </div>
-    <div class="column2">
-    </div>
-</div>
-
-<footer, style="font-size: 12px">
-    Mitra, 2014
-</footer>
-
----
-### Mesoscale Neuron Anatomy
-
-<div class="row">
-    <div class="column2">
-        <img src="images/meso-2.png" STYLE="width:95%;" class="center"/>
-    </div>
-    <div class="column2">
-    </div>
-</div>
-
-<footer, style="font-size: 12px">
-    Mitra, 2014
-</footer>
-
----
-### Mesoscale Neuron Anatomy
-
-<div class="row">
-    <div class="column2">
-        <img src="images/meso-2.png" STYLE="width:95%;" class="center"/>
-    </div>
     <div class="column2">
         <font size="-1">Connectivity Maps</font> <br>
-        <img src="images/meso-connect-1.png" STYLE="width:65%;" /> <br>
+        <img src="images/mesoscale/meso-connect-1.png" STYLE="width:100%;" /> <br>
+    </div>
+    <div class="column2">
         <font size="-1">Neuron Reconstructions</font>
-        <img src="images/meso-connect-2.png" STYLE="width:75%;" />
+        <img src="images/mesoscale/meso-connect-2.png" STYLE="width:100%;" />
     </div>
 </div>
 
 <footer, style="font-size: 12px">
-    Mitra, 2014; Peng et al., 2021
+    Peng et al., 2021
 </footer>
 
 ---
@@ -238,8 +227,21 @@ November 28, 2023
 
 ## .center[Single Neurons]
 ### .center[Tracing]
-<br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
+<div class="row">
+    <div class="column6-10">
+        <img src="images/data.png" STYLE="width:100%;"/>
+    </div>
+    <div class="column1-10">
+        $$\rightarrow$$
+    </div>
+    <div class="column3-10">
+        <img src="images/neuron-trace.jpg" STYLE="width:100%;" class="center"/>
+    </div>
+</div>
+
+<br><br>
 <footer, style="font-size: 12px">
     Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
 </footer>
@@ -454,7 +456,7 @@ Error $\leq \max_t \vert D \phi(c(t)) - I \vert \vert t^i-t^{i-1} \vert + \vert 
 
 ---
 
-### Zeroth Order Method
+### Zeroth Order Method (status quo)
 
 $$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
 
@@ -465,7 +467,7 @@ $$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i))  
 
 ---
 
-### Zeroth Order Method
+### Zeroth Order Method (status quo)
 
 $$\phi \cdot \lbrace (t_i, \color{blue}{c(t_i)})  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
 
@@ -476,7 +478,7 @@ $$\phi \cdot \lbrace (t_i, \color{blue}{c(t_i)})  \rbrace_i=\lbrace (t_i, \phi \
 
 ---
 
-### Zeroth Order Method
+### Zeroth Order Method (status quo)
 
 $$\phi \cdot \lbrace (t_i, \color{blue}{c(t_i)})  \rbrace_i=\lbrace (t_i, \color{blue}{\phi \circ c(t_i)})  \rbrace_i$$
 
@@ -487,7 +489,7 @@ $$\phi \cdot \lbrace (t_i, \color{blue}{c(t_i)})  \rbrace_i=\lbrace (t_i, \color
 
 ---
 
-### Zeroth Order Method
+### Zeroth Order Method (status quo)
 
 $$\phi \cdot \lbrace (t_i, \color{blue}{c(t_i)})  \rbrace_i=\lbrace (t_i, \color{blue}{\phi \circ c(t_i)})  \rbrace_i$$
 
@@ -558,7 +560,7 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
 
 ## .center[Single Neurons]
 ### .center[Analysis]
-<img src="images/frenet.gif" STYLE="width:40%;" class="center"/>
+<img src="images/frenet.png" STYLE="width:40%;" class="center"/>
 
 ---
 
@@ -566,7 +568,7 @@ $$\phi \cdot \lbrace (t_i, c(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \ph
 
 <div class="row">
     <div class="column2">
-        <img src="images/frenet.png" STYLE="width:70%;" class="center"/>
+        <img src="images/frenet.gif" STYLE="width:70%;" class="center"/>
     </div>
     <div class="column2">
         <br>
@@ -655,12 +657,12 @@ $$\tau = -N \cdot B'$$
 
 ---
 
-### Axon Projections
+### Different neuron types have different ouput connections
 
 <img src="images/axon.png" STYLE="width:100%;" class="center"/>
 ---
 
-### Presynaptic Cell Bodies
+### Differences in input connections TBD
 <img src="images/soma2.png" STYLE="width:100%;" class="center"/>
 
 
@@ -674,19 +676,12 @@ $$\tau = -N \cdot B'$$
 
 ## Next Step
 
-<br><br>
+<br>
 <img src="../../images/funding/jhu_bme_blue.jpg" STYLE="width:70%;" class="center"/>
 
 $$\downarrow$$
 
-<div class="row">
-    <div class="column2">
-        <img src="images/MIT.png" STYLE="width:60%;" class="center"/>
-    </div>
-    <div class="column2">
-        <img src="images/novo-nordisk.png" STYLE="width:60%;" class="center"/>
-    </div>
-</div>
+<img src="images/next-step/next.svg" STYLE="width:100%;" class="center"/>
 ---
 
 # .center[Thank You!]

@@ -35,7 +35,7 @@
 
 
 
-### Extracting Mesoscale Neuron Morphology from Images
+### Extracting Mesoscale Neuron Anatomy from Whole-Brain Images
     
 Thomas L. Athey
 
@@ -49,330 +49,498 @@ June 12, 2023
 <!-- <img src="../images/funding/KNDI.png" STYLE="HEIGHT:95px;"/> -->
 
 ---
+### Mesoscale Neuron Anatomy
+
+<div class="row">
+    <div class="column2">
+        <img src="images/meso.png" STYLE="width:90%;" />
+    </div>
+    <div class="column2">
+        <img src="images/meso-ex.png" STYLE="width:100%;" />
+    </div>
+</div>
+
+<footer, style="font-size: 12px">
+    Mitra, 2014; Oh et al., 2014
+</footer>
+
+---
 ### The Problem
 
-- A comprehensive, cell-level atlas of neurons in the mammalian brain could revolutionize how we understand brain function and brain disorders.
-- Neuron morphology, or shape, dictates connectivity and is a critical component to the brain-wide atlasing effort.
-- New fluorescence imaging technology has the resolution to capture individual neurons and the scope to cover complete mammalian brains.
-- Two key computational problems associated with cataloging mesoscale morphology are:
+- A cell-level atlas of the mammalian brain could revolutionize how we understand brain function and brain disorders.
+- Two key computational steps associated with cataloging mesoscale morphology are:
     - Neuron segmentation and tracing
     - Mapping neurons to common coordinate systems
 
-<img src="images/biccn.png" STYLE="width:30%;" class="center"/>
+<div class="row">
+    <div class="column2">
+        <img src="images/trace.jpg" STYLE="width:60%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/reg-data.jpg" STYLE="width:57%;"/>
+    </div>
+</div>
+
 ---
 ### What we've done 
 
-- Fit splines to neuron traces and study curvature/torsion across axonal arbors.<sup>1</sup>
-- Develop HMM based reconstruction method and validated on partial axons from MouseLight data.<sup>2</sup>
+- Developed an open pipeline for region-based connectivity analysis.<sup>1</sup>
+- Developed and validated HMM based neuron tracing method.<sup>2</sup>
 - Investigated the distortion introduced in transforming discretized neuron traces.<sup>3</sup>
-- Developed an open pipeline for density based connectivity analysis.<sup>4</sup>
-- Applied the tools to whole-brain fluorescence images to help answer biological questions.
+- Fit splines to neuron traces and study curvature/torsion across axonal arbors.<sup>4</sup>
 
-
+<br><br><br>
 <footer, style="font-size: 12px">
-    (1) Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
+    (1) Athey et al. (2023) BrainLine: An Open Pipeline for Connectivity Analysis of Heterogeneous Whole-Brain Fluorescence Volumes. <i>In Prep</i>.
     <br>
     (2) Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
     <br>
     (3) Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
     <br>
-    (4) Athey et al. (2023) BrainLine: An Open Pipeline for Connectivity Analysis of Heterogeneous Whole-Brain Fluorescence Volumes. <i>In Prep</i>.
+    (4) Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
+</footer>
+---
+
+## .center[1) Pipeline for Region-Based Connectivity Analysis]
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+<footer, style="font-size: 12px">
+    Athey et al. (2023) BrainLine: An Open Pipeline for Connectivity Analysis of Heterogeneous Whole-Brain Fluorescence Volumes. <i>Submitted</i>.
 </footer>
 
 ---
 
-### 1) Compare Curvature and Torsion across Axonal Arbors 
+### 1) Pipeline for Region Based Connectivity Analysis
 
-<img src="images/spline-branches.jpeg" STYLE="width:90%;" class="center"/>
+<img src="images/projects.png" STYLE="width:80%;" class="center"/>
+<img src="images/connect.png" STYLE="width:70%;" class="center"/>
 
 <footer, style="font-size: 12px">
-    Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
+    Mitra (2014), Oh et. al. (2014), Allen Connectivity Atlas, BICCN (2021), Foxley et. al. (2021)
+</footer>
+
+
+---
+
+### 1) Pipeline for Region Based Connectivity Analysis
+
+<img src="images/pipeline.png" STYLE="width:100%;" class="center"/>
+
+Applied to genetic subtypes of serotonergic neurons in the DRN.
+<br><br><br><br><br>
+<footer, style="font-size: 12px">
+    Athey et. al., bioRxiv (2023), Berg et. al. (2019), Chandrashekhar et. al. (2021), Claudi et. al. (2020)
 </footer>
 ---
 
-### 1) Compare Curvature and Torsion across Axonal Arbors 
+### Axon Projections
 
-<img src="images/spline-diffs.jpeg" STYLE="width:80%;" class="center"/>
+<img src="images/800-a.png" STYLE="width:100%;" class="center"/>
+---
+
+### Presynaptic Cell Bodies
+<img src="images/800-d.png" STYLE="width:100%;" class="center"/>
+---
+
+### Region Analysis
+
+<div class="row">
+    <div class="column2">
+        <img src="images/axon.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/soma.png" STYLE="width:98%;" class="center"/>
+    </div>
+</div>
+
+---
+## .center[2) Hidden Markov Model-based Neuron Tracing]
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <footer, style="font-size: 12px">
-    Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i> 
+    Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
 </footer>
 ---
 
 ### 2) ViterBrain: HMM-based Neuron Tracing
 
 <img src="images/fig2_algorithm.jpg" STYLE="width:100%;" />
-<footer, style="font-size: 12px">
-    Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
-</footer>
 
+<footer, style="font-size: 12px">
+    Geman and Jedynak (1996), Longair et al. (2011), Xiao and Peng (2013), Radojevic and Meijering (2017), Xiao and Peng (2013)
+</footer>
 ---
 
 ### 2) ViterBrain: HMM-based Neuron Tracing
 
 <img src="images/viterbrain-examples.jpg" STYLE="width:100%;" />
-<footer, style="font-size: 12px">
-    Athey et al. (2022) Hidden Markov modeling for maximum probability neuron reconstruction. <i>Commun Biol</i>.
-</footer>
+---
 
+### Linear Fragment Assumption
+<img src="images/frags.png" STYLE="width:75%;" class="center"/>
+
+<img src="images/costs-heatmap.png" STYLE="width:50%;" class="center"/>
 ---
 
 ### 2) Apply ViterBrain to Whole-Brain Images
 
+<video width="100%" height="70%" controls>
+    <source src="videos/tracing.mov">
+</video>
 
 <footer, style="font-size: 12px">
     Ongoing collaboration with Sriram Sudarsanam of Kolodkin Lab.
 </footer>
 ---
-### Improve Prior Distribution
-<img src="images/priors.png" STYLE="width:100%;" />
-<img src="images/dist2.png" STYLE="width:75%;" class="center"/>
 
----
+### 2) Apply ViterBrain to Whole-Brain Images
 
-## Sub-Aim 1a: Scale the algorithm to sub-micron resolution, whole-brain images
-
-
----
-### Current Scale
-
-- 0.35 x 0.35 x 100 cubic microns
-
-<img src="images/panels.png" STYLE="width:100%;" />
----
-
-## Sub-Aim 1b: Apply method to reconstruct Layer 2/3 cortical neurons to investigate the effects of Drebrin and Yap on neuron morphology
----
-### Reconstructing Mutant Neurons
-
-
-<div class="row">
-    <div class="column2">
-        Drebrin<sup>1</sup>
-        <img src="images/drebrin.png" STYLE="width:100%;"/>
-        Images and traces acquired by Kolodkin lab.
-    </div>
-    <div class="column2">
-        Yap <br>
-        - Yap has been shown to influence dendritic morphology of Purkinje cells,<sup>2</sup> but its role in the morphology of cortical neurons has never been studied.
-        - Images and traces to be acquired by Kolodkin lab.
-    </div>
-</div>
-
+<img src="images/sriram-ngcells.png" STYLE="width:100%;" class="center"/>
 <footer, style="font-size: 12px">
-    (1) Dorskind (2021). Laminar-specific innervation by layer II/III neuronos in the somatosensory cortex. <i> PhD thesis </i>.
-    <br>
-    (2) Rojek et. al. (2019). Amot and yap1 regulate neuronal dendritic tree complexity and locomotor coordination in mice. <i> PLoS Bio. </i>.
-</footer>
-
----
-## Aim 2: Develop method to compose diffeomorphisms derived from image registration with 3D neuronal curves
-
----
-### Image Registration
-
-$$
-\min_{v:\dot \phi_t = v_t(\phi_t)} \left( \int_0^1 ||v_t||_V^2 dt + ||I_0 \circ \phi^{-1} - I_1||^2 \right)
-$$
-
-<font size="-1">Beg, Miller, Trouv&eacute;, Younes, 2005. </font>
-
-
-
-<div class="row">
-    <div class="column2">
-        $I_0$ - Allen Reference Atlas
-        <img src="images/atlas_im.png" STYLE="width:75%;" class="center"/>
-        <img src="images/atlas_parc.png" STYLE="width:75%;" class="center"/>
-    </div>
-    <div class="column2">
-        $I_1$ - Serial 2-photon tomography
-        <img src="images/data.png" STYLE="width:90%;" class="center"/>
-        <img src="images/axons.png" STYLE="width:85%;" class="center"/>
-    </div>
-</div>
-
-<a href="https://cloudreg.neurodata.io/">CloudReg:  Chandrashekhar et. al., 2021.</a>
-
----
-### Target Space
-
-<img src="images/all_annot.jpg" STYLE="width:100%;" />
-
----
-### Mapping Neurons to Atlas Space 
-
-<div class="row">
-    <div class="column2">
-        $$
-        c: [0,L] \rightarrow \mathbb{R}^3
-        $$
-        $$
-        \phi: \mathbb{R}^3 \rightarrow \mathbb{R}^3
-        $$
-    </div>
-    <div class="column2">
-        <img src="images/pcurve1.gif" STYLE="width:100%;" class="center"/>
-    </div>
-</div>
-
-
-
-
-
-
-
-We have data:
-
-$$\lbrace (t_1, c(t_1)),(t_2, c(t_2)),...,(t_n, c(t_n))  \rbrace$$
-
-We need numerical algorithms for: 
-
-$$c_\phi = \phi \circ c: [0,L] \rightarrow \mathbb{R}^3$$
-
-
----
-
-## Sub-Aim 2a. Characterize the effect of discrete sampling on mapped morphologies
-
----
-### How to Map Sequences of Points?
-
-<img src="images/comp2.jpg" STYLE="width:50%;" class="center"/>
-- "...a single displacement vector field which was used to align reconstructed neurons to the CCF."<sup>1</sup>
-- "...our reconstructed neurons were mapped onto ABA reference brain by calculated affine and non-rigid transformation accordingly."<sup>2</sup>
-
-<footer, style="font-size: 12px">
-    (1) Gao et. al. (2021) Single-neuron projectome of mouse prefrontal cortex. <i> Nat. Neuro. </i> 
-    <br>
-    (2) Winnubst et al. (2019) Reconstruction of 1,000 Projection Neurons Reveals New Cell Types and Organization of Long-Range Connectivity in the Mouse Brain. <i>Cell</i>.
-</footer>
-
-
----
-
-### Mapped Single Path from Thalamocortical Neuron
-
-<div class="row">
-    <div class="column2">
-        <img src="images/tc.png" STYLE="width:75%;" class="left">
-    </div>
-    <div class="column2">
-        <img src="images/atlas_parc.png" STYLE="width:100%;" class="center"/>
-    </div>
-</div>
-
-<div class="row">
-    <div class="column2">
-        - Original sampling (right) <br>
-        - 5 micron sampling <br>
-        - Discrete Frechet distance between transformations: 2.5 microns <br>
-    </div>
-    <div class="column2">
-        <img src="images/sampling.png" STYLE="width:100%;" class="center"/>
-    </div>
-</div>
-
-
-
----
-
-## Sub-Aim 2b. Compute the effects of diffeomorphic image registrations on the Frenet frame of neuronal curves
----
-### B-Splines 
-
-- Defined by a degree $p$ and a non-decreasing knot sequence $\lbrace \xi_i \rbrace_1^{n+p+1}$.
-- Span spaces of piecewise polynomials.<sup>1</sup>
-- Good local approximators for Sobolev functions.<sup>1</sup>
-- Fast algorithms exist that minimize derivative discontinuities for a given interpolation error. <sup>2</sup>
-
-Question: For $\phi$ derived from LDDMM, does $c \in \mathbb{S}^\xi_p$ imply $\phi \circ c \in \mathbb{S}^{\omicron}_q$? 
-
-- If so (or if not?): transform knot coordinates, and their derivatives 
-
-<footer, style="font-size: 12px">
-    (1) Kunoth et. al. (2017) Splines and PDEs: From Approximation Theory to Numerical Linear Algebra. <i> Springer </i> 
-    <br>
-    (2) Dierckx (1982) Algorithms for smoothing data with periodic and parametric splines. <i> Comp. Graph. and Im. Proc. </i>
+    Ongoing collaboration with Sriram Sudarsanam of Kolodkin Lab.
 </footer>
 
 ---
 
-### Derivatives of $\phi \circ c$
-
-$c_\phi=\phi \circ c : [0,L] \rightarrow \mathbb{R}^3$
-
-$c_\phi'(t)=(F \circ c)'(t) = DF(c(t))\cdot c'(t)$
-
-$c_\phi''(t) = D^2F(t)\cdot c'(t) + DF(c(t))\cdot c''(t)$*
-
-$c_\phi'''(t)=D^3F(t)\cdot c'(t) + 2 D^2F(t)\cdot c''(t) + DF(c(t))\cdot c'''(t)$*
-
-Implement numerically and validate on real neurons.
+## .center[3) Mapping Discretized Neuronal Curves with Diffeomorphisms]
+<br><br><br><br><br><br><br><br><br><br><br>
 
 <footer, style="font-size: 12px">
-    * $D^2 F$ and $D^3 F$ defined in Supplement
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
 </footer>
+
+---
+
+
+### 3) Mapping Discretized Neuronal Curves with Diffeomorphisms
+
+<div class="row">
+    <div class="column2">
+        Existing Method:
+        <br>
+        $c:\mathbb{R}\rightarrow \mathbb{R}^3$ sampled at $\lbrace t_i  \rbrace_i$
+        $$\phi \cdot \lbrace (t_i, c(t_i))  \rbrace_i=$$
+        $$\lbrace (t_i, \phi \circ c(t_i))  \rbrace_i$$
+    </div>
+    <div class="column2">
+        <img src="images/comp2.jpg" STYLE="width:100%;"/>
+    </div>
+</div>
+
+Generalized Method:
+$$\phi \cdot \lbrace (t_i, c(t_i), c'(t_i),...,c^{(k)}(t_i))  \rbrace_i=\lbrace (t_i, \phi \circ c(t_i), \frac{d}{dt}\phi \circ c(t_i),$$
+$$...,\frac{d^k}{dt^k}\phi \circ c(t_i))  \rbrace_i$$
+
+
+<footer, style="font-size: 12px">
+    Fedorov (2013), Qu et al. (2022)
+</footer>
+---
+
+### 3) Mapping Discretized Neuronal Curves with Diffeomorphisms
+
+<img src="images/map-toy.jpg" STYLE="width:70%;" class="center"/>
+<footer, style="font-size: 12px">
+    Athey et al. (2023) Preserving Derivative Information while Transforming Neuronal Curves. <i>In Review</i>.
+</footer>
+---
+
+### 3) Mapping Discretized Neuronal Curves with Diffeomorphisms
+
+<img src="images/zero-prop.png" STYLE="width:100%;" class="center"/>
+---
+
+### 3) Mapping Discretized Neuronal Curves with Diffeomorphisms
+
+
+Also, for $f=\phi \circ c$ and $g_0,g_1$ zeroth and first order mappings
+$$Error(g_0) \leq |\partial_t^4 f |O(\delta^4)+|\partial_t^3 f |O(\delta^3)+|\partial_t^2 f |O(\delta^2)$$
+$$Error(g_1) \leq |\partial_t^4 f |O(\delta^4)$$
+
+where bounds are tight.
 
 
 ---
-### FIRM Software Standards
 
-Open-source Python package: <a href="http://brainlit.neurodata.io/">brainlit</a>
+### 3) Not Much Practical Improvement
 
-- <b>Findable</b>
-- <b>Installable</b>
-- <b>Runnable</b>
-- <b>Modifiable</b>
+<div class="row">
+    <div class="column2">
+        Image Registration Transformation Has Small Non-affine Component
+        <img src="images/map-grid.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/map-real-crop1.jpg" STYLE="width:70%;" class="center"/>
+        <img src="images/map-real-crop2.jpg" STYLE="width:70%;" class="center"/>
+    </div>
+</div>
 
+
+---
+
+### 3) Synthetic Diffeomorphisms?
+$$\phi=exp_{I_d}(v), v \sim \mathcal{N}(0, \sigma^2)$$
+
+<img src="images/map-synth-transform.png" STYLE="width:52%;" class="center"/>
 <footer, style="font-size: 12px">
-    Vogelstein (2018). The firm guiding principles for scientific software development and stewardship
+    Tward and Miller (2017).
 </footer>
 ---
+
+### 3) Synthetic Diffeomorphisms?
+<img src="images/map-synth-scatter.png" STYLE="width:100%;"/>
+<img src="images/map-synth-bar.png" STYLE="width:100%;"/>
+
+---
+
+## .center[4) Comparing Curvature and Torsion across Axonal Arbors]
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<footer, style="font-size: 12px">
+    Athey et. al. (2021) Fitting Splines to Axonal Arbors Quantifies Relationship Between Branch Order and Geometry. <i> Front. Neuroinform. </i>
+</footer>
+---
+
+### 4) Compare Curvature and Torsion across Axonal Arbors 
+
+<img src="images/spline-branches.jpeg" STYLE="width:90%;" class="center"/>
+
+---
+
+### 4) Compare Curvature and Torsion across Axonal Arbors 
+
+<img src="images/spline-diffs.jpeg" STYLE="width:80%;" class="center"/>
+
+---
+
 ### TODO
 
-<img src="images/timeline2.png" STYLE="width:75%;" class="center"/>
+#### Research
+- Get Neuron Mapping published (Nature Communications).
+- Get BrainLine published (News Item in Neuroinformatics).
+- Process ten more Sert labeled whole-brain images (Wright collaboration).
+- Use assisted tracing on ten Layer 2/3 neurons in >1 whole-brain image (Sudarsanam collaboration).
+- Make <a href="http://brainlit.neurodata.io/">brainlit</a> package FIRM (Vogelstein, 2018).
+
+#### Other
+- Apply for F32 grant.
+- Complete Phase III of Teaching Academy.
 
 ---
 
-### Acknowledgements
+### Thank You!
 
-<br>
-
-<div class="row">
-    <div class="column3">
-        <img src="../../images/neurodata_blue.png" STYLE="width:75%;" class="left"/>
-    </div>
-    <div class="column3">
-        <img src="../../images/cis.png" STYLE="width:75%;" class="right"/>
-    </div>
-    <div class="column3">
-        <img src="../../images/icm_logo.jpeg" STYLE="width:75%;" class="right"/>
-    </div>
+#### Thesis Committee
+<div class="small-container">
+    <img src="../../faces/mim.jpg"/>
+    <div class="centered">Michael Miller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/jovo.png"/>
+    <div class="centered">Joshua Vogelstein</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/laurent.jpeg"/>
+    <div class="centered">Laurent Younes</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/kolodkin.jpg"/>
+    <div class="centered">Alex Kolodkin</div>
 </div>
 
-<img src="../../images/funding/nih_fpo.png" STYLE="width:30%;" class="left"/>
+#### Collaborators
+<div class="small-container">
+    <img src="../../faces/uli.jpg"/>
+    <div class="centered">Ulrich Mueller</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/dtward.jpg"/>
+    <div class="centered">Daniel Tward</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/sriram.jpg"/>
+    <div class="centered">Sriram Sudarsanam</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/jacopo.jpeg"/>
+    <div class="centered">Jacopo Teneggi</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/vikram.jpg"/>
+    <div class="centered">Vikram Chandrashekhar</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/matt_wright.jpeg"/>
+    <div class="centered">Matthew Wright</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/marija_pavlovic.jpeg"/>
+    <div class="centered">Marija Pavlovic</div>
+</div>
+<div class="small-container">
+    <img src="../../faces/gil_stolarski.jpg"/>
+    <div class="centered">Gilad Stolarski</div>
+</div>
 
+
+
+#### Funding
+
+<div class="small-container">
+    <img src="../../images/icm_logo.jpeg"/>
+    <div class="centered"></div>
+</div>
+<div class="small-container">
+    <img src="../../images/funding/nih_fpo.png"/>
+    <div class="centered"></div>
+</div>
+<div class="small-container">
+    <img src="../../images/funding/nsf_fpo.png"/>
+    <div class="centered"></div>
+</div>
 ---
 
 # Feedback
 
 ---
-## Supplement
+# .center[Supplement]
+
 ---
-### Derivatives of $c_\phi$
+### Labeling Projections
 
-$D^2F$ is the $3 \times 3$ matrix whose entry at $i,j$ is given by $\langle \nabla \frac{\partial f_i}{\partial x_j}(c(t)), c'(t) \rangle$ where $x_j$ is the $j^{th}$ coordinate of $\mathbb{R}^3$, and $\langle \cdot, \cdot \rangle$ is the standard Euclidean inner product.
+<div class="row">
+    <div class="column2">
+    <img src="images/mouse_dna.png" alt="Mouse DNA" style="width:50%">
+    </div>
+    <div class="column2">
+    <img src="images/virus.png" alt="Virus" style="width:100%">
+    </div>
+</div>
 
+Transgenic mice: Sert cells express Cre recombinase <br>
+$\downarrow$ <br>
+AAV at projection site expressing Cre-dependent Flp recombinase <br>
+$\downarrow$ <br>
+AAV at DR expressing Flp-dependent GFP
+
+---
+### Labeling Inputs
+
+<div class="row">
+    <div class="column2">
+    <img src="images/rabies.png" alt="Rabies" style="width:100%">
+    </div>
+    <div class="column2">
+    Transgenic mice: Sert cells express Cre recombinase <br>
+    $\downarrow$ <br>
+    Cre-dependent helper virus guides rabies virus <br>
+    $\downarrow$ <br>
+    Retrograde transport of rabies virus labels presynaptic cells
+    </div>
+</div>
+<footer, style="font-size: 12px">
+    Wall et al. (2010).
+</footer>
+
+---
+### Genetic Subtypes
+
+- TPH2 - Gene for rate limiting enzyme in 5-HT (Serotonin) synthesis.
+- GAD2 - One of two genes for glutamate decarboxylase, rate-limiting enzyme in converting glutamate to GABA.
+- VGAT - Vesicular GABA transporter which transports GABA into synaptic vesicles before release.
+- VGLUT3 - Vesicular glutamate transporter 3 which transports glutamate into synaptic vesicles before release.
+
+
+---
+
+### Image Segmentation Problem
+
+<b>Image Domain</b>
+
+$$Y=\lbrace y_i \rbrace, Y \subset \mathbb{Z}^3$$
+
+<b>Image</b>
+
+$$I \in \mathcal{I}_c(Y): Y \rightarrow \mathbb{R}^c $$
+
+$c=3$: Antibody, Endogeneous, Background.
+
+<b>Problem</b>
+
+$$\mathcal{I}_3(Y) \rightarrow P(Y)$$
+
+where $P(Y) = \lbrace p: Y \rightarrow [0,1]\rbrace$
+
+---
+
+### Image Segmentation Approach
+
+<b>Image Features</b>: intensity, difference of Gaussian, eigenvalues of Hessian 
+
+$$\phi : \; \mathcal{I}_3(Y) \rightarrow \mathcal{I}_d(Y) $$
+
+- <a href="https://mathworld.wolfram.com/Shift-InvariantOperator.html">Shift Invariant </a>
+- <a href="https://en.wikipedia.org/wiki/Nonlocal_operator"> Local Operator</a>
+
+<b>Posterior Estimate</b>: random forest
+
+$$\hat{p}: \; \mathbb{R}^d \rightarrow [0,1]$$
+
+<b>Complete Transformation</b>
+
+$$(\hat{p} \circ \phi(I))(\cdot) : \; Y \rightarrow [0,1]$$
+
+
+---
+
+### Object Detection
+
+<b>Posterior Estimate</b>:
+
+$$(\hat{p} \circ \phi(I))(\cdot) : \; Y \rightarrow [0,1]$$
+
+<b>Connected Components</b>
+
+Collect components greater than a given size. 
+<img src="images/cc.png" STYLE="width:95%;" class="center"/>
+
+
+---
+### BrainLine Predictor
+
+<div class="row">
+    <div class="column2">
+        <img src="images/axon-val.png" STYLE="width:100%;" class="center"/>
+    </div>
+    <div class="column2">
+        <img src="images/soma-val.png" STYLE="width:100%;" class="center"/>
+    </div>
+</div>
+
+---
+
+### Hemispheres
+
+
+<img src="images/hemi-corrs.png" STYLE="width:95%;" class="center"/>
+
+---
+
+### Global Test
+- Group 1 distribution across regions: $\lbrace p_i \rbrace$ with mean $\bar p$
+- Group 2 distribution across regions: $\lbrace q_i \rbrace$ with mean $\bar q$
+$$d(\bar p, \bar q)=D(\bar p||\bar q)+D(\bar q||\bar p)$$
+
+<img src="images/axon-perms.png" STYLE="width:95%;" class="center"/>
+
+---
+
+### Viterbrain Model
+
+$$\max f(s[1:n]|I[1:n])=\max \prod_i \alpha_1(I_i) p(s_i|s[i-1])p(s_1,I_1)$$
 <br>
+$$ p(s_i|s[i-1])=c_d d(s_i,s[i-1])+c_k \kappa(s_i,s[i-1])$$
 <br>
-
-$D^3F$ is the $3 \times 3$ matrix whose entry at $i,j$ is given by
-
-$D^3F(c(t))_{i,j} = \langle A (c(t)) \cdot c'(t), c'(t) \rangle + \langle \nabla \frac{\partial f_i}{\partial x_j}(c(t)), c''(t) \rangle$
-
-with $A=H_{\frac{\partial f_i}{\partial x_j}}$, the Hessian matrix of the function $\frac{\partial f_i}{\partial x_j}$.
-
+$\alpha_1:$ distribution of image intensity on foreground.
 
 </textarea>
 <!-- <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script> -->

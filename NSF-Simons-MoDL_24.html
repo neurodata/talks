@@ -19,13 +19,13 @@
   <textarea id="source">
 
 
-#### Surprise! IID++<br>Out of Distribution & <br>Prospective Learning
+#### Probably approximately correct in the future<br> "Prospective Learning"
 
+<br><br>
 Joshua T. Vogelstein <br>
 <!-- , [JHU](https://www.jhu.edu/) <br> -->
 <!-- Co-PI: Vova Braverman, [JHU](https://www.jhu.edu/) <br> -->
-
-Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari, <br>Carey E. Priebe, Timothy Verstynen, Konrad Kording, <br>The Future Learning Collective
+Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
 <!-- | Joshua T. Vogelstein <br> -->
 <!-- [Microsoft Research](https://www.microsoft.com/en-us/research/): Weiwei Yang | Jonathan Larson | Bryan Tower | Chris White -->
 
@@ -37,40 +37,7 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari, <br>Carey E. Priebe, Timothy Ve
 
 #### Outline 
 
-- Classical Learning
-- Out of Distribution (OoD) Learning 
-- Prospective Learning
 
----
-
-#### What is learning?
-
-<img src="images/glivenko-cantelli-33.png" width="640">
-<img src="images/GV2.png" width="640">
-
-
----
-
-#### A more modern definition
-
-- Assume  $Z\_i \sim^{iid} F, \quad  i \in [n]$ 
-- Let $L((Z_i)^n) \rightarrow h_n$  
-- Let $R$ denote risk, eg,  expected loss
-- Let $R^*$ be Bayes optimal risk
-
-- $L$ learns iff $\, \exists N$ s.t. $\forall n > N$ 
-<!-- & $\delta, \epsilon > 0$ -->
-
-$$\mathbb{P}[ R(h\_n) - R^* <  \epsilon ] \geq 1 - \delta$$
-
-- GC thm: for any $F$, $\exists L$ s.t. error &searr;  as $n$ &nearr;
-- implication: more data is better!
-
----
-
-#### So learning is solved?
-
-- No. 
 
 
 ---
@@ -98,122 +65,6 @@ Can't model real world phenomema very well
 <img src="images/ScienceVogelstein23.png" width="640">
 
 Can't replicate the intelligence of even the simplest organisms
-
-
----
-
-## The Value of Out of Distribution Data
-
-
-.footnote[.small[De Silva, et al., The Value of OoD Data. ICML, 2023]]
-
----
-
-#### What is OoD Learning? 
-
-- Assume source/OoD $Z\_i \sim^{iid} F, \quad  i \in [m]$ 
-- Assume target $Z\_i \sim^{iid} F', \quad m < i \leq n+m$
-- Let $L((Z\_i)^{n+m}) \rightarrow h\_{n+m}$  
-- Let $R$ denote risk, eg,  expected loss wrt $F'$
-- Let $R^*$ be Bayes optimal risk wrt $F'$
-
-- $L$ OoD learns from $F$ about $F'$ if 
-
-$$\mathbb{P}[ R(h\_{n+m}) - R^* <  \epsilon ] \geq 1 - \delta$$
-
-
-- Question: does more data from $F$ help?
-
-
----
-
-#### Let's take a poll 
-
-- Let $E=\mathbb{E}[ R(h\_{n+m}) - R^*]$ be generalization error on $F'$
-- Expectation wrt $n$ samples from $F$ and  $m$ samples from $F'$
-
-
-
-Who thinks as $m$ increases, for fixed $n$, E 
-
---
-
-
-1. decreases 
---
-
-2. increases 
---
-
-3. depends on the relationship between $F$ and $F'$
-
-
----
-
-#### Let's see: the simplest example 
-
-- $F$ is two gaussians
-- $F'$ is two gaussians shifted by $\Delta$
-
-<!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true" width="700"> -->
-<img src="images/ood-1-summary-plot-a.png" width="300">
-
-
-<!-- ![:scale 100%](https://github.com/neurodata/ood-tl/blob/main/reports/figures/gausstask_fig.png?raw=true) -->
-
----
-
-#### E is non-monotonic in $m$!
-
-<!-- <img src="https://github.com/neurodata/ood-tl/blob/main/reports/figures/gaussian_task_analytical_plot.svg?raw=true" width="640"> -->
-
-<img src="images/ood-1-summary-plot-b.png" height="300">
-
-
-- For a fixed $\Delta$, error can be non-monotonic wrt OoD sample size $m$
-- implications: more pre-training can hurt!
-
-
----
-
-#### A Bias/Variance Explanation
-
-<img src="images/2-bias-var-breakdown-plot.png" width="500">
-
-
----
-
-#### Synthetic image data examples 
-
-<img src="images/9-simdata-plot.png" width="640">
-
----
-
-#### Trying to break it
-
-<img src="images/11-effect-of-hyp-aug-pt.png" width="640">
-
-
----
-
-#### Summary so far 
-
-- OoD learning is different in kind from in-distribution learning 
-- More OoD data does not necessarily help or hurt, it depends on sample sizes and distributions. 
-- Time to think more carefully about how much data of different kinds to use
-
-
----
-
-#### What about time?
-
-- $L$ OoD learns from $F$ about $F'$ if
-
-$$\mathbb{P}[ R(h\_{n+m}) - R^* <  \epsilon ] \geq 1 - \delta$$
-
-Does not include time.
-
-Let's revisit learning frameworks, and see what is missing
 
 
 ---

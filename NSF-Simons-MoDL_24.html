@@ -5,7 +5,7 @@
 
 
 <head>
-  <title>IID++</title>
+  <title>PL</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="fonts/quadon/quadon.css">
   <link rel="stylesheet" href="fonts/gentona/gentona.css">
@@ -42,81 +42,88 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
 
 ---
 
-#### What's the problem 
+#### Probably Almost Correct Learning 
 
-<img src="images/Hand2006.png" width="640">
+--
 
-Future (validation) data is sampled from a different distribution
+- Nearly 100 years old
 
----
+--
 
-#### Real world failures
+- Work horse of modern AI revolution
 
+--
 
-<img src="images/google_flu_trends.jpg" width="640">
+- Yet, the assumptions (IID) are wrong and dumb
 
-Can't model real world phenomema very well
-
----
-
-#### Natural Intelligence failures
-
-
-<img src="images/ScienceVogelstein23.png" width="640">
-
-Can't replicate the intelligence of even the simplest organisms
 
 
 ---
 
-## Prospective Learning: Principled Extrapolation to the Future
+#### What the &*#*@ is learning?
 
+- Learning is an evolved property
+- It enabled organisms to make better decisions about how to act *in the future* based on the past 
+- This works because the future was (at least) partially predictable
+- What we call "learning" in AI is a formal model of a natural phenomenon
+- But, it is not actually "learning" as observed in the world
 
-.footnote[.small[De Silva, et al., Prospective Learning: Principled Extrapolation to the Future. CoLLAs, 2023]]
+---
+
+#### Can we do any better?
+
+- We start from a different assumption
+  - Data model: random process, not  random variable 
+  - Goal model:  dynamic objective, not  fixed objective
+- This more complicated model reduces bias and adds variance
+- Let's formalize it 
+
+---
+
+#### Data model 
+
+- $z_t = (x_t, y_t) \in \mathcal{X} \times \mathcal{Y}$
+- $z = (z\_t)\_{t \in \mathbb{N}}$ is a realization of a stochastic process $Z = (Z\_t)\_{t \in \mathbb{N}}$
+- let $z\_{\leq t}$ denote the past and $z\_{>t}$ denote the future
 
 
 ---
 
-#### Learning Frameworks 
+#### Hypothesis class 
 
-
-- "Classical" PAC Learning: best case scenario,  $F\_{future} = F\_{past}$ 
-- Online Learning: worst case scenario, <br> $F\_{future}$ could be adversarial 
-
-In both cases, the "best" thing to do is whatever would have worked best in the past.
-
-
----
-
-#### Fancy Learning Frameworks 
-
-- OoD PAC Learning: $F\_{future} \neq F\_{past}$ 
-- Online meta-learning: $F\_{future} \sim^{iid} G$ 
-- Continual learning: $F\_{future} \sim^{iid} G$, with bias towards previously sampled F's 
-
-In all these cases, still no ability to predict $F\_{future}$ at all.
-
-But what about when one can predict future F's somewhat?
+- a hypothesis sequence $h=(h\_t)\_{t \in \mathbb{N}}$
+- $h\_t \in \mathcal{Y}^{\mathcal{X}}$ 
+- $h \in \mathcal{H} \subset (\mathcal{Y}^{\mathcal{X}})^{\mathbb{N}}$ 
 
 
 ---
 
+#### Learner 
 
-<img src="images/seligman13.png" width="640">
-
-
-Learning evolved because it improves future performance in a partially predictable dynamic world
+- Map from data history to hypothesis sequence:
+$$z_{\leq t} \mapsto h$$ 
 
 
 ---
 
-#### Consider...
+#### Prospective loss, Risk, and expected Risk
 
-Moving to Berkeley vs Boston 
+- Prospective loss: 
+$$
+    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_s(X\_s), Y\_s)
+$$
 
-- I imagine challenges I'll face in B-town, and how I'll overcome them
-- Choose the one that minimizes expected loss integrated over my life
-- But I only make this choice once
+where $\ell: \mathbb{N} \times  \mathcal{Y} \times \mathcal{Y} \mapsto [0,1]$ is a bounded loss function that is monotonically decaying in time.
+
+- Prospective risk at time $t$ is, for example, expected prospective loss
+
+$$R\_t(h)
+= \mathbb{E} [\bar \ell(h,Z) \mid z\_{\leq  t}] = \int \bar \ell(h,Z) \mathrm{d}{\mathbb{P}\_{Z \mid z\_{\leq t}}},$$
+
+- Expected prospective risk at time $t$ integrates out the history
+
+$$\mathbb{E} [R\_t(h)] = \int R\_t(h) \mathrm{d}{\mathbb{P}\_{Z\_{\leq t}}}$$
+
 
 
 ---

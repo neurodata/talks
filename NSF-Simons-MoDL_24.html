@@ -19,7 +19,7 @@
   <textarea id="source">
 
 
-#### Probably approximately correct in the future<br> "Prospective Learning"
+#### Probably approximately correct in the future:<br> "Prospective Learning"
 
 <br><br>
 Joshua T. Vogelstein <br>
@@ -37,7 +37,16 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
 
 #### Outline 
 
+- Motivation 
+- Formalization
+- Theorization
+- Experimentation 
+- Deliberation
 
+
+---
+
+# .center[Motivation]
 
 
 ---
@@ -65,7 +74,15 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
 - Learning is an evolved property
 - It enabled organisms to make better decisions about how to act *in the future* based on the past 
 - This works because the future was (at least) partially predictable
+- Biology evolved many different learning algorithms for different contexts
+
+
+--
+
 - What we call "learning" in AI is a formal model of a natural phenomenon
+- And, there are many complimentary formal definitions, eg
+    - PAC learning
+    - Reinforcement learning
 - But, it is not actually "learning" as observed in the world
 
 ---
@@ -76,7 +93,49 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
   - Data model: random process, not  random variable 
   - Goal model:  dynamic objective, not  fixed objective
 - This more complicated model reduces bias and adds variance
-- Let's formalize it 
+- Let's see some examples 
+    - In each, $Z$ is a Bernoulli process
+
+
+---
+
+#### The classic
+
+$Z_t$ is IID 
+
+<img src="images/Zt_IID.png" width="640">
+
+---
+
+#### The  switcher
+
+$Z_t$ is independent, but not identical  
+
+<img src="images/Zt_s2.png" width="640">
+
+
+---
+
+#### The data dependent switcher
+
+$Z_t$ neither independent nor identically distributed  
+
+<img src="images/Zt_s3.png" width="640">
+
+
+---
+
+#### The decision dependent switcher
+
+$Z_t$ depends on past data and decisions  
+
+<img src="images/Zt_s4.png" width="640">
+
+
+---
+
+# .center[Formalization]
+
 
 ---
 
@@ -140,11 +199,11 @@ A Bayes optimal learner selects a  Bayes optimal hypothesis sequence at every ti
 
 ---
 
-#### Components of a Prospective Learning problem 
+#### Components  Prospective Learning  
 
 - Data: $z = (z\_t)\_{t \in \mathbb{N}}$ is a realization of a stochastic process $Z = (Z\_t)\_{t \in \mathbb{N}}$ 
 
-- Hypothesis sequence $h=(h\_t)\_{t \in \mathbb{N}} \in \mathcal{H} \subset (\mathcal{Y}^{\mathcal{X}})^{\mathbb{N}}$, where  $h\_t \in \mathcal{Y}^{\mathcal{X}}$ 
+- Hypothesis sequence: $h=(h\_t)\_{t \in \mathbb{N}} \in \mathcal{H} \subset (\mathcal{Y}^{\mathcal{X}})^{\mathbb{N}}$, where  $h\_t \in \mathcal{Y}^{\mathcal{X}}$ 
   
 - Learner: $z_{\leq t} \mapsto h$
 
@@ -163,118 +222,108 @@ $\mathbb{E} [R\_t(h)] = \int R\_t(h) \mathrm{d}{\mathbb{P}\_{Z\_{\leq t}}}$
 
 
 
----
-
-#### Consider the following sequence 
-
-<img src="images/task-seq.png" width="640">
-
---
-
-Has anyone ever run an experiment?
-
----
-
-#### Online SGD & FTL Fail
-
-<img src="images/online_seq1.png" width="640">
-
---
-
-- Online Meta & Continual would do better, but never get to zero error 
-- Because none of these frameworks *prospect*
-
-
----
-
-#### Formalizing prospection
-
- 
-- $\mathcal{H}$ is a set of feasible hypotheses
-- $t \in \mathcal{T}$ indexes time 
-- $P :=$ { $P\_t$ }$\_{t \geq 0}$ be a sequence of distributions
-- $D\_{t'} =$ { $z\_t$ }$\_{t < t'}$ be a dataset drawn from $P$ such that $z\_t \sim P\_t$,
-- $\mathcal{D}$ be the set of all possible datasets 
-
-
-A prospective learner $L: \mathcal{D} \times \mathcal{T} \mapsto \mathcal{H}$, so <br>
-$L(D\_{t'}, t) = \hat{h}\_t^{t'}$, where  $\hat{h}\_t^{t'}$ is the hypothesis at time $t > t'$ trained on data up until time $t'$
-
-
-
-
----
-
-#### Formalizing prospection
-
-- $\ell_t : \mathcal{H} \times \mathcal{Z} \mapsto \mathbb{R}$ is a time-varying loss function.
-- Risk at time $t$ be the expected loss, $  R\_t(L(D\_{t'},t)) = \mathbb{E}\_{z \sim P\_t}\left[ \ell\_t (L(D\_{t'},t) , z) \right]$
-
-<!-- = \mathbb{E}\_{z \sim P\_t} [ \ell\_t ( \hat{h}^{t'}\_t , z) ]$. -->
-
-Colloquially, we desire that the expected risk decreases as $t$ increases
-
 
 ---
 
 #### Strong Prospective Learnability
 
 
-<img src="images/strong_PL.png" width="640">
+<img src="images/strong_PL2.png" width="640">
 
 
 Key differences with Strong PAC Learning:
-- we care about risk integrated over the future 
-- this requires prospecting about (1) what the future will be like, and (2) what we will be like
+- Risk is integrated over the future 
+- Requires prospecting about (1) what the future will be like, and (2) what we will be like
 
 
 ---
 
 #### Weak Prospective Learnability
 
-<img src="images/weak_PL.png" width="640">
+<img src="images/weak_PL2.png" width="640">
 
-where $L\_{ERM} : \mathcal{D} \mapsto \mathcal{H}$ be the ERM learner, so $\bar{h}\_0^{t'} =  L\_{ERM}(D\_{t'})$.
+<!-- where $L\_{ERM} : \mathcal{D} \mapsto \mathcal{H}$ be the ERM learner, so $\bar{h}\_0^{t'} =  L\_{ERM}(D\_{t'})$. -->
 
-Key additional differences with Weak PAC Learning:
-- we compare to an ERM learner, meaning it does not include time 
-
-
----
-
-#### Continuum Hypothesis of Learning Hypotheses 
-
-- Let $P$ is a sequence of distributions, 
-- Let $\mathcal{H}$ is the set of all possible relevant hypotheses.
-
-We conjecture that there are multiple classes of learning difficulty
-
-1. P is PAC Learnable 
-2. P is weakly prospectively learnable (ie, we can do better than ERM)
-3. P is strongly prospectively learnable (for some  $\epsilon$)
-4. P is uniformly prospectively learnable (for all  $\epsilon$)
-5. P is not prospectively learnable
+<!-- Key additional differences with Weak PAC Learning: -->
+<!-- - we compare to an ERM learner, meaning it does not include time  -->
 
 
 ---
 
-#### Did we re-invent the wheel?
-
-How is reinforcement learning different from this?
-
-- We directly build on statistical decision theory
-- RL theory assumes POMDP on dynamics, not PL
-- Vanilla RL focuses on a single task, not PL
-- RL focuses on inference problem, learning the parameters is a necessary sub-task, PL focuses on the learning problem 
-- RL algorithms require many trials, we care about zero-shot learning
+# .center[Theorization]
 
 
 ---
 
-#### Zooming out
+#### Time-Aware ERM 
 
-- How do we design truly intelligent systems?
-- How do we solve the AI alignment issue?
+
+---
+
+#### Time-Aware ERM is a strong prospective learner 
+
+
+---
+
+#### There exists processes $Z$ for which time aware ERM strongly prospectively learns  
+
+
+---
+
+# .center[Experimentation]
+
+
+---
+
+#### Reversal Learning 
+
+
+---
+
+#### Algorithms 
+
+- Time-agnostic MLP, CNN 
+- Continual learner (fine-tuning)
+- Time aware MLP, CNN, Transformer
+- Oracle 
+
+---
+
+#### the switcher 
+
+
+
+---
+
+#### the data dependent switcher 
+
+
+
+---
+
+# .center[Deliberation]
+
+
+---
+
+#### Isn't this just....
+
+
+- time-series modeling / forecasting?
+- online learning?
+- continual/lifelong learning?
+- online meta-learning?
+- reinforcement learning?
+- use a transformer for everything?
+
+---
+
+#### What's next? 
+
+- Proving which kinds of stochastic processes are strongly/weakly prospectively learnable
+- Developing algorithms that provably strongly/weakly prospectively learnable
+- Implementing scalable algorithms
+- Deploying algorithms in real-world applications 
 
 
 ---
@@ -283,7 +332,8 @@ How is reinforcement learning different from this?
 
 
 1. De Silva et al. [The Value of Out-of-Distribution Data](https://arxiv.org/abs/2109.14501), ICML, 2023.
-1. De Silva et al. [Prospective Learning: Princpled Extrapolation to the Future](https://arxiv.org/abs/2004.12908), CoLLAs, 2023.
+1. De Silva et al. [Prospective Learning: Principled Extrapolation to the Future](https://arxiv.org/abs/2004.12908), CoLLAs, 2023.
+1. De Silva et al. Prospective Learning: Learning for a Dynamic Future, [preprint available upon request](mailto:joshuav@gmail.com).
 
 
 

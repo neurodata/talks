@@ -113,7 +113,7 @@ $$
     \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_s(X\_s), Y\_s)
 $$
 
-where $\ell: \mathbb{N} \times  \mathcal{Y} \times \mathcal{Y} \mapsto [0,1]$ is a bounded loss function that is monotonically decaying in time.
+where $\ell: \mathbb{N} \times  \mathcal{Y} \times \mathcal{Y} \mapsto [0,1]$ is a bounded, monotonically decaying (in time) loss function.
 
 - Prospective risk at time $t$ is, for example, expected prospective loss
 
@@ -123,6 +123,43 @@ $$R\_t(h)
 - Expected prospective risk at time $t$ integrates out the history
 
 $$\mathbb{E} [R\_t(h)] = \int R\_t(h) \mathrm{d}{\mathbb{P}\_{Z\_{\leq t}}}$$
+
+
+---
+
+#### Prospective Bayes risk
+
+A hypothesis sequence that achieves the minimal possible prospective risk, given the past, as a Bayes optimal hypothesis:
+
+$$
+    R\_t^* = \inf\_{h\in \sigma(Z\_{\leq t})}  R\_t(h)
+$$
+
+A Bayes optimal learner selects a  Bayes optimal hypothesis sequence at every time $t$.
+
+
+---
+
+#### Components of a Prospective Learning problem 
+
+- Data: $z = (z\_t)\_{t \in \mathbb{N}}$ is a realization of a stochastic process $Z = (Z\_t)\_{t \in \mathbb{N}}$ 
+
+- Hypothesis sequence $h=(h\_t)\_{t \in \mathbb{N}} \in \mathcal{H} \subset (\mathcal{Y}^{\mathcal{X}})^{\mathbb{N}}$, where  $h\_t \in \mathcal{Y}^{\mathcal{X}}$ 
+  
+- Learner: $z_{\leq t} \mapsto h$
+
+- Prospective loss:
+$
+    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_s(X\_s), Y\_s)
+$
+
+
+- Prospective risk: 
+$R\_t(h)
+= \mathbb{E} [\bar \ell(h,Z) \mid z\_{\leq  t}] = \int \bar \ell(h,Z) \mathrm{d}{\mathbb{P}\_{Z \mid z\_{\leq t}}},$
+
+- Expected prospective risk:
+$\mathbb{E} [R\_t(h)] = \int R\_t(h) \mathrm{d}{\mathbb{P}\_{Z\_{\leq t}}}$
 
 
 

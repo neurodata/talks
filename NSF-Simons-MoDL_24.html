@@ -49,49 +49,66 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
 # .center[Motivation]
 
 
----
-
-#### Probably Almost Correct Learning 
-
---
-
-- Nearly 100 years old
-
---
-
-- Work horse of modern AI revolution
-
---
-
-- Yet, the assumptions (IID) are wrong and dumb
-
-
 
 ---
 
 #### What the &*#*@ is learning?
 
-- Learning is an evolved property
-- It enabled organisms to make better decisions about how to act *in the future* based on the past 
-- This works because the future was (at least) partially predictable
-- Biology evolved many different learning algorithms for different contexts
-
-
 --
 
+- Learning is an evolved property
+
+--
+- It enabled organisms to make better decisions (on average, in their niche),  about how to act *in the future* based on the past 
+
+--
+- This works because the future was (at least) partially predictable
+
+--
+- Biology evolved many different learning algorithms for different contexts
+  - behavioral learning
+  - associational learning
+  - reinforcement learning 
+  - sensorimotor learning
+  - imitation learning 
+
+
+
+---
+
+#### How do we *model* learning?
+  
 - What we call "learning" in AI is a formal model of a natural phenomenon
-- And, there are many complimentary formal definitions, eg
+- And, there are many complimentary formal definitions, e.g.,
     - PAC learning
+    - Online Learning
     - Reinforcement learning
-- But, it is not actually "learning" as observed in the world
+- But, it is not actually "learning" as observed in the world, it is a model 
+- George Box: "all models are wrong, some are useful"
+
+---
+
+#### Probably Almost Correct Learning 
+
+--
+- Nearly 100 years old model
+
+--
+- Work horse of modern AI revolution (useful)
+
+--
+- Yet, the assumptions (IID) are wrong (and dumb)
+
+
+
 
 ---
 
 #### Can we do any better?
 
 - We start from a different assumption
-  - Data model: random process, not  random variable 
-  - Goal model:  dynamic objective, not  fixed objective
+  - Data: random process, not  random variable 
+  - Goal:  dynamic objective, not  fixed objective
 - This more complicated model reduces bias and adds variance
 - Let's see some examples 
     - In each, $Z$ is a Bernoulli process
@@ -134,6 +151,18 @@ $Z_t$ depends on past data and decisions
 
 ---
 
+#### Focus 
+
+The remainder of this talk will focus on the case where:
+
+- $Z\_t \sim F\_t$, 
+- where $Z\_t \perp  Z\_{t'}$ and 
+- $F\_t \neq F\_{t'}$ for some $t \neq t'$
+
+
+
+---
+
 # .center[Formalization]
 
 
@@ -150,8 +179,9 @@ $Z_t$ depends on past data and decisions
 
 #### Hypothesis class 
 
-- a hypothesis sequence $h=(h\_t)\_{t \in \mathbb{N}}$
-- $h\_t \in \mathcal{Y}^{\mathcal{X}}$ 
+- hypothesis sequence $h=(h\_t)\_{t \in \mathbb{N}}$
+- $h\_t \in \mathcal{Y}^{\mathcal{X}} \subset \mathcal{H}_t$
+- $\mathcal{H} := \mathcal{H}\_1  \subseteq  \mathcal{H}\_2 \subseteq  \mathcal{H}\_3 \cdots$
 - $h \in \mathcal{H} \subset (\mathcal{Y}^{\mathcal{X}})^{\mathbb{N}}$ 
 
 
@@ -159,8 +189,8 @@ $Z_t$ depends on past data and decisions
 
 #### Learner 
 
-- Map from data history to hypothesis sequence:
-$$z_{\leq t} \mapsto h$$ 
+- Map from  history to hypothesis sequence:
+$$L: z_{\leq t} \mapsto h$$ 
 
 
 ---
@@ -169,7 +199,7 @@ $$z_{\leq t} \mapsto h$$
 
 - Prospective loss: 
 $$
-    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_s(X\_s), Y\_s)
+    \bar \ell\(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_{s} (X\_{s}), Y\_{s})
 $$
 
 where $\ell: \mathbb{N} \times  \mathcal{Y} \times \mathcal{Y} \mapsto [0,1]$ is a bounded, monotonically decaying (in time) loss function.
@@ -205,11 +235,11 @@ A Bayes optimal learner selects a  Bayes optimal hypothesis sequence at every ti
 
 - Hypothesis sequence: $h=(h\_t)\_{t \in \mathbb{N}} \in \mathcal{H} \subset (\mathcal{Y}^{\mathcal{X}})^{\mathbb{N}}$, where  $h\_t \in \mathcal{Y}^{\mathcal{X}}$ 
   
-- Learner: $z_{\leq t} \mapsto h$
+- Learner: $L: z_{\leq t} \mapsto h$
 
 - Prospective loss:
 $
-    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_s(X\_s), Y\_s)
+    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}   \sum\_{s=1}^{\tau} \ell (s, h\_{s} (X\_{s}), Y\_{s})
 $
 
 
@@ -228,7 +258,24 @@ $\mathbb{E} [R\_t(h)] = \int R\_t(h) \mathrm{d}{\mathbb{P}\_{Z\_{\leq t}}}$
 #### Strong Prospective Learnability
 
 
-<img src="images/strong_PL2.png" width="640">
+<!-- <img src="images/strong_PL2.png" width="640"> -->
+
+A family of stochastic processes is strongly prospectively learnable, <br> 
+if for any stochastic process $Z$ from this family, <br>
+there exists a learner that outputs a sequence of hypotheses $h$, and a finite $t'$ <br>
+such that for any $t > t'$, $\epsilon > 0$ and $\delta > 0$,
+
+
+<!-- A family of stochastic processes $\mathcal{Z}$ is strongly prospectively learnable, <br> -->
+<!-- if  there exists a learner $L$ and a finite time $t'$ where, <br> -->
+<!-- for every stochastic process $Z \in \mathcal{Z}$, <br> -->
+<!-- $L$ outputs a sequence of hypotheses $h$, <br> -->
+<!-- such that for any $t > t'$ and $\epsilon, \delta > 0$, -->
+
+$$
+    \mathbb{P} [R_t(h) - R^*_t < \epsilon] \geq 1 - \delta.
+$$
+
 
 
 Key differences with Strong PAC Learning:
@@ -240,7 +287,25 @@ Key differences with Strong PAC Learning:
 
 #### Weak Prospective Learnability
 
-<img src="images/weak_PL2.png" width="640">
+<!-- <img src="images/weak_PL2.png" width="640"> -->
+
+<!-- A family of stochastic processes $\mathcal{Z}$ is weakly prospectively learnable, <br>
+if there exists a learner $L$, a finite time $t'$, and  an $\epsilon > 0$ where, <br>
+for every stochastic process $Z \in \mathcal{Z}$,   <br>
+$L$ outputs a sequence of hypotheses $h$, <br>
+such that for any $t > t'$ and $\delta > 0$,  -->
+
+A family of stochastic processes is weakly prospectively learnable, <br>
+if for any stochastic process $Z$ from this family, <br>
+there exists an $\epsilon > 0$, a learner that outputs a sequence of hypotheses $h$, and a finite $t'$ 
+<br>such that for any $t>t'$ and $\delta > 0$, 
+
+
+$$
+    \mathbb{P} [R^0_t - R_t(h) > \epsilon] \geq 1-\delta.
+$$
+
+where $R^0_t$ is the risk of the learner that always outputs $h:=\mathbb{E}[Y]$. 
 
 <!-- where $L\_{ERM} : \mathcal{D} \mapsto \mathcal{H}$ be the ERM learner, so $\bar{h}\_0^{t'} =  L\_{ERM}(D\_{t'})$. -->
 
@@ -255,17 +320,55 @@ Key differences with Strong PAC Learning:
 
 ---
 
-#### Time-Aware ERM 
+#### Empirical Prospective Risk Minimization 
+
+- Time agnostic EPRM (informally):
+
+$$ z\_{\leq t} \rightarrow \hat{h}  =  (\hat{h}\_{\emptyset}, \hat{h}\_{\emptyset}, \hat{h}\_{\emptyset},\cdots)$$ 
+
+--
+
+- Time aware EPRM (informally):
+
+$$ z\_{\leq t} \rightarrow \hat{h}  =  (\hat{h}\_1, \hat{h}\_2, \hat{h}\_3,\cdots)$$ 
+
+where $\hat{h}\_t \in \mathcal{H}\_t$ for all $t$, and $\mathcal{H}\_{t'} \subseteq \mathcal{H}\_t$ for all $t' < t$
 
 
 ---
 
-#### Time-Aware ERM is a strong prospective learner 
+#### Theorem 1 (informal) 
 
+Time-Agnostic EPRM is a Weak PL
+
+<img src="images/time-agnostic-erm-2.png" width="640">
 
 ---
 
-#### There exists processes $Z$ for which time aware ERM strongly prospectively learns  
+#### Theorem 1 (informal) 
+
+Time-Agnostic EPRM is a Weak PL
+
+<img src="images/time-agnostic-erm-2.png" width="640">
+
+Implication: We cannot build Prospective Learners using the toolkit of PAC learning
+
+---
+
+#### Theorem 2 (informal): 
+
+Time-Aware EPRM is a strong prospective learner, if 
+
+1. Consistency: Bayes risk can be well approximated asymptotically by an element of $\mathcal{H}$ 
+2. Uniform Concentration: a subsequence of losses is asymptotically equal to prospective loss
+
+
+
+---
+#### Examples 
+
+ 1. Periodic process 
+ 2. HMMs
 
 
 ---
@@ -288,7 +391,7 @@ Key differences with Strong PAC Learning:
 
 - Time-agnostic MLP, CNN 
 - Continual learner (fine-tuning)
-- Time aware MLP, CNN, Transformer
+- Time aware MLP, CNN, Auto-Regressive Transformer
 - Oracle 
 
 ---
@@ -302,7 +405,13 @@ Key differences with Strong PAC Learning:
 
 #### the data dependent switcher 
 
-<img src="images/ddswitcher.png" width="640">
+<img src="images/pl_cases3_fig.png" width="640">
+
+---
+
+#### the data and decision dependent switcher 
+
+<img src="images/pl_cases4_fig.png" width="640">
 
 
 ---

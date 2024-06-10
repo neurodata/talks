@@ -49,28 +49,22 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
 # .center[Motivation]
 
 
----
-
-#### Probably Almost Correct Learning 
-
---
-- Nearly 100 years old
-
---
-- Work horse of modern AI revolution
-
---
-- Yet, the assumptions (IID) are wrong and dumb
-
-
 
 ---
 
 #### What the &*#*@ is learning?
 
+--
+
 - Learning is an evolved property
-- It enabled organisms to make better decisions about how to act *in the future* based on the past 
+
+--
+- It enabled organisms to make better decisions (on average, in their niche),  about how to act *in the future* based on the past 
+
+--
 - This works because the future was (at least) partially predictable
+
+--
 - Biology evolved many different learning algorithms for different contexts
   - behavioral learning
   - associational learning
@@ -82,14 +76,31 @@ Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
 
 ---
 
-#### What the &*#*@ is learning?
+#### How do we *model* learning?
   
 - What we call "learning" in AI is a formal model of a natural phenomenon
 - And, there are many complimentary formal definitions, e.g.,
     - PAC learning
     - Online Learning
     - Reinforcement learning
-- But, it is not actually "learning" as observed in the world
+- But, it is not actually "learning" as observed in the world, it is a model 
+- George Box: "all models are wrong, some are useful"
+
+---
+
+#### Probably Almost Correct Learning 
+
+--
+- Nearly 100 years old model
+
+--
+- Work horse of modern AI revolution (useful)
+
+--
+- Yet, the assumptions (IID) are wrong (and dumb)
+
+
+
 
 ---
 
@@ -156,7 +167,7 @@ $Z_t$ depends on past data and decisions
 
 #### Hypothesis class 
 
-- a hypothesis sequence $h=(h\_t)\_{t \in \mathbb{N}}$
+- hypothesis sequence $h=(h\_t)\_{t \in \mathbb{N}}$
 - $h\_t \in \mathcal{Y}^{\mathcal{X}} \subset \mathcal{H}_t$
 - $\mathcal{H} := \mathcal{H}\_1  \subseteq  \mathcal{H}\_2 \subseteq  \mathcal{H}\_3 \cdots$
 - $h \in \mathcal{H} \subset (\mathcal{Y}^{\mathcal{X}})^{\mathbb{N}}$ 
@@ -176,7 +187,7 @@ $$L: z_{\leq t} \mapsto h$$
 
 - Prospective loss: 
 $$
-    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_s(X\_s), Y\_s)
+    \bar \ell\(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_{s} (X\_{s}), Y\_{s})
 $$
 
 where $\ell: \mathbb{N} \times  \mathcal{Y} \times \mathcal{Y} \mapsto [0,1]$ is a bounded, monotonically decaying (in time) loss function.
@@ -216,7 +227,7 @@ A Bayes optimal learner selects a  Bayes optimal hypothesis sequence at every ti
 
 - Prospective loss:
 $
-    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}    \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_s(X\_s), Y\_s)
+    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}   \sum\_{s=1}^{\tau} \ell (s, h\_{s} (X\_{s}), Y\_{s})
 $
 
 
@@ -308,6 +319,9 @@ $$ z\_{\leq t} \rightarrow \hat{h}  =  (\hat{h}\_{\emptyset}, \hat{h}\_{\emptyse
 - Time aware EPRM (informally):
 
 $$ z\_{\leq t} \rightarrow \hat{h}  =  (\hat{h}\_1, \hat{h}\_2, \hat{h}\_3,\cdots)$$ 
+
+where $\hat{h}\_t \in \mathcal{H}\_t$ for all $t$, and $\mathcal{H}\_{t'} \subseteq \mathcal{H}\_t$ for all $t' < t$
+
 
 ---
 

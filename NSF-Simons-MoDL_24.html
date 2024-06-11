@@ -25,7 +25,7 @@
 Joshua T. Vogelstein <br>
 <!-- , [JHU](https://www.jhu.edu/) <br> -->
 <!-- Co-PI: Vova Braverman, [JHU](https://www.jhu.edu/) <br> -->
-Ashwin de Silva, Rahul Ramesh, Pratik Chaudhari
+Ashwin de Silva, Rahul Ramesh, Rubing Yang, Pratik Chaudhari
 <!-- | Joshua T. Vogelstein <br> -->
 <!-- [Microsoft Research](https://www.microsoft.com/en-us/research/): Weiwei Yang | Jonathan Larson | Bryan Tower | Chris White -->
 
@@ -240,7 +240,7 @@ A Bayes optimal learner selects a  Bayes optimal hypothesis sequence at every ti
 
 - Prospective loss:
 $
-    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}   \sum\_{s=1}^{\tau} \ell (s, h\_{s} (X\_{s}), Y\_{s})
+    \bar \ell(h, Z) =     \limsup\_{\tau \to \infty}  \frac{1}{\tau} \sum\_{s=1}^{\tau} \ell (s, h\_{s} (X\_{s}), Y\_{s})
 $
 
 
@@ -323,13 +323,13 @@ where $R^0_t$ is the risk of the learner that always outputs $h:=\mathbb{E}[Y]$.
 
 #### Empirical Prospective Risk Minimization 
 
-- Time agnostic EPRM (informally):
+- Time agnostic EPRM (informal):
 
 $$ z\_{\leq t} \rightarrow \hat{h}  =  (\hat{h}\_{\emptyset}, \hat{h}\_{\emptyset}, \hat{h}\_{\emptyset},\cdots)$$ 
 
 --
 
-- Time aware EPRM (informally):
+- Time aware EPRM (informal):
 
 $$ z\_{\leq t} \rightarrow \hat{h}  =  (\hat{h}\_1, \hat{h}\_2, \hat{h}\_3,\cdots)$$ 
 
@@ -338,17 +338,28 @@ where $\hat{h}\_t \in \mathcal{H}\_t$ for all $t$, and $\mathcal{H}\_{t'} \subse
 
 ---
 
-#### Theorem 1 (informal) 
+#### Empirical Prospective Risk Minimization
 
-Time-Agnostic EPRM is does Weak, but not Strong, PL
+<img src="images/time-agnostic-erm.png" width="640">
 
-<img src="images/time-agnostic-erm-2.png" width="640">
 
 ---
 
-#### Theorem 1 (informal) 
+#### Theorem 1 
 
-Time-Agnostic EPRM is does Weak, but not Strong, PL
+There exist stochastic processes for which time-agnostic ERM is not a weak prospective learner.
+There also exist stochastic processes for which time-agnostic ERM is a weak prospective learner but not a strong one.
+
+<img src="images/time-agnostic-erm-2.png" width="640">
+
+
+---
+
+#### Theorem 1 
+
+There exist stochastic processes for which time-agnostic ERM is not a weak prospective learner.
+There also exist stochastic processes for which time-agnostic ERM is a weak prospective learner but not a strong one.
+
 
 <img src="images/time-agnostic-erm-2.png" width="640">
 
@@ -363,7 +374,11 @@ Time-Aware EPRM is a strong prospective learner, if
 1. Consistency: Bayes risk can be well approximated asymptotically by an element of $\mathcal{H}$ 
 2. Uniform Concentration: a subsequence of losses is asymptotically equal to prospective loss
 
+---
 
+#### Theorem 2
+
+<img src="images/PL_thm2.png" width="640">
 
 ---
 #### Examples 
